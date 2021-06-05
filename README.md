@@ -2,7 +2,7 @@
 A community managed simple to use weapon base for S&amp;Box
 
 ## Goal
-During the lifetime of garrysmod many weapon bases consisting of poor quality were created it would be a shame to see the same in S&box. The goal is to offer an easy to use yet very configurable weapon base maintained by the community for the community.
+During the lifetime of garrysmod many weapon bases consisting of poor quality were created, and it would be a shame to see the same in S&box. The goal is to offer an easy to use yet very configurable weapon base maintained by the community for the community.
 
 ## Features
 
