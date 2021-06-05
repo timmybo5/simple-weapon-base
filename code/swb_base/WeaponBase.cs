@@ -321,7 +321,7 @@ namespace SWB_Base
 			Host.AssertClient();
 
 			//Log.Info( "[DEBUG] Multiplayer Error: " + clipInfo.ToString() + " -  " + clipInfo.MuzzleFlashParticle + " - " + EffectEntity.ToString() );
-			Log.Info( "[DEBUG] Multiplayer Error: " + clipInfo.ToString() );
+			//Log.Info( "[DEBUG] Multiplayer Error: " + clipInfo.ToString() );
 
 			if ( !string.IsNullOrEmpty( clipInfo.MuzzleFlashParticle ) )
 				Particles.Create( clipInfo.MuzzleFlashParticle, EffectEntity, "muzzle" );
