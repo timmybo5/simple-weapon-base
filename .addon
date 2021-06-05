@@ -1,0 +1,19 @@
+{
+	"name": "simple-weapon-base",
+	"sharedassets": "*.*",
+		
+    "depends": 
+    [
+      "base",
+	  "citizen",
+	  "rust"
+    ],
+
+	"gamemodes":
+	[
+		{
+			"name": "simple-weapon-base",
+			"title": "Simple Weapon Base"
+		}
+	]
+}

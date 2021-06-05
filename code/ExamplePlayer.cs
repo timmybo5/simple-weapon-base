@@ -26,6 +26,5 @@ partial class ExamplePlayer : PlayerBase
 		GiveAmmo( AmmoType.Shotgun, 60 );
 
 		SupressPickupNotices = false;
-
 	}
 }

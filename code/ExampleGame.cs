@@ -1,6 +1,6 @@
 ﻿using Sandbox;
 
-[Library( "gamemode_name" )]
+[Library("simple-weapon-base")]
 public partial class ExampleGame : Sandbox.Game
 {
 	public ExampleGame()
