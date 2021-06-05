@@ -1,7 +1,0 @@
-## Ignore S&Box specific files
-
-# Uncompiled models/sounds/textures
-*.vanmgrph
-*.vmdl
-*.vmat
-*.sound
