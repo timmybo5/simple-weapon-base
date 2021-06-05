@@ -1,0 +1,23 @@
+﻿crosshair {
+    position: absolute;
+    transform: translateX( -50% ) translateY( -0% );
+    mix-blend-mode: lighten;
+    width: 1px;
+    height: 1px;
+
+    .element {
+        position: absolute;
+    }
+
+
+    .el0 {
+        background-color: #ff0;
+        border-radius: 1000px;
+        width: 6px;
+        height: 6px;
+    }
+}
+
+.crosshairVisible {
+    display: none;
+}

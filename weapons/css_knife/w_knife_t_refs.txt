@@ -1,0 +1,4 @@
+importfilelist
+{
+	"file"	"w_knife_t_is_unused.vmt"
+}

@@ -1,0 +1,124 @@
+﻿inventorybar
+{
+	position: absolute;
+	left: 200px;
+	top: 80px;
+	font-family: Roboto;
+	opacity: 0;
+	transition: all 0.2s ease-out;
+
+
+	&.active
+	{
+		top: 100px;
+		transition: all 0.1s ease-out;
+		opacity: 1;
+	}
+}
+
+inventorycolumn
+{
+	margin-right: 5px;
+	mix-blend-mode: lighten;
+	color: #fc0;
+	flex-direction: column;
+	align-items: flex-start; // align to the left, don't stretch
+
+	.slot-number
+	{
+		background-color: #fa02;
+		padding: 22px 15px 0px 10px;
+		font-size: 20px;
+		font-weight: bolder;
+		width: 40px;
+		height: 40px;
+	}
+
+	inventoryicon
+	{
+		opacity: 1;
+		padding: 25px 15px 10px 2px;
+		width: 40px;
+		height: 40px;
+		overflow: hidden;
+		transition: all 0.1s ease-out;
+
+		.icon
+		{
+			opacity: 0;
+		}
+	}
+
+	opacity: 0.4;
+
+	&.active
+	{
+		opacity: 1;
+
+		inventoryicon
+		{
+			transition: all 0.1s ease-out;
+			opacity: 0.2;
+			display: flex;
+			width: 200px;
+			height: 90px;
+
+			.icon
+			{
+				opacity: 1;
+			}
+
+			&.active
+			{
+				opacity: 1;
+			}
+		}
+	}
+}
+
+inventoryicon
+{
+	margin-top: 5px;
+	mix-blend-mode: lighten;
+	color: #fc0;
+	background-color: #fa04;
+	font-size: 40px;
+	font-weight: lighter;
+	padding: 10px;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+
+	.icon
+	{
+		width: 150px;
+		height: 150px;
+		background-size: 100%;
+		background-image-tint: #fa0;
+		position: absolute;
+	}
+
+	&.active
+	{
+		opacity: 1;
+
+		.icon
+		{
+			// filter: drop-shadow additive glow
+			opacity: 1;
+		}
+	}
+
+	&.empty
+	{
+		opacity: 0.5;
+		background-color: #c004;
+		color: #f002;
+
+		.icon
+		{
+			background-color: #f50;
+		}
+	}
+}
+

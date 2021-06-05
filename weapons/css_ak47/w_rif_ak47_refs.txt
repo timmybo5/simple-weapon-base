@@ -1,0 +1,4 @@
+importfilelist
+{
+	"file"	"w_rif_ak47_is_unused.vmt"
+}

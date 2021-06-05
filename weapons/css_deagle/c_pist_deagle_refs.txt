@@ -1,0 +1,4 @@
+importfilelist
+{
+	"file"	"deagle_skin1_is_unused.vmt"
+}

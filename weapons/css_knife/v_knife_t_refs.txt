@@ -1,0 +1,5 @@
+importfilelist
+{
+	"file"	"knife_t_is_unused.vmt"
+	"file"	"v_hands_is_unused.vmt"
+}
