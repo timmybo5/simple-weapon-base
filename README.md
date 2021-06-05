@@ -43,7 +43,7 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 * In multiplayer world models are positioned weird for others (possible engine bug)
 * Multiplayer has an object null reference error
   * WeaponBase.cs, Line 326: `if ( !string.IsNullOrEmpty( clipInfo.MuzzleFlashParticle ) )`
-  * Could be cause by incorrect networking of clipInfo
+  * Could be caused by incorrect networking of clipInfo
 
 ## Deatchmatch Elements
 For now some deathmatch dependencies are included as the base uses the inventory and hud elements from the deathmatch gamemode.
