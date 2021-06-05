@@ -53,8 +53,9 @@ If you want to test out the base just drag and drop simple-weapon-base-master in
 
 ## Usage
 Using the base into your own gamemode can be done by:
-1. Implementing the PlayerBase class into your player class `partial class MyPlayer : PlayerBase`
-2. If you want the HUD you'll need to initialize it in your game constructor 
+1. Implementing the PlayerBase class into your player class `partial class MyPlayer : PlayerBase` 
+   and calling the PlayerBase constructor on your player constructor `public MyPlayer() : base() {}` 
+3. If you want the HUD you'll need to initialize it in your game constructor 
 ```
 public Game()
 {
