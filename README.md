@@ -7,6 +7,11 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 ## Installing
 If you want to test out the base just drag and drop simple-weapon-base-master into your addons folder.
 
+## Usage
+Using the base into your own gamemode can be done by:
+1. Implementing the PlayerBase class into your player class `partial class MyPlayer : PlayerBase`
+2. If you want the HUD you'll need to initialize it in your game constructor `if ( IsServer ) { new DeathmatchHud(); }`
+
 ## Features
 
 ### Various
