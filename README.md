@@ -4,14 +4,6 @@ A community managed simple to use weapon base for S&amp;Box
 ## Goal
 During the lifetime of garrysmod many weapon bases consisting of poor quality were created. The goal is to offer an easy to use yet very configurable weapon base maintained by the community for the community.
 
-## Installing
-If you want to test out the base just drag and drop simple-weapon-base-master into your addons folder.
-
-## Usage
-Using the base into your own gamemode can be done by:
-1. Implementing the PlayerBase class into your player class `partial class MyPlayer : PlayerBase`
-2. If you want the HUD you'll need to initialize it in your game constructor `if ( IsServer ) { new DeathmatchHud(); }`
-
 ## Features
 
 ### Various
@@ -55,3 +47,21 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 
 ## Deatchmatch Elements
 For now some deathmatch dependencies are included as the base uses the inventory and hud elements from the deathmatch gamemode.
+
+## Installing
+If you want to test out the base just drag and drop simple-weapon-base-master into your addons folder.
+
+## Usage
+Using the base into your own gamemode can be done by:
+1. Implementing the PlayerBase class into your player class `partial class MyPlayer : PlayerBase`
+2. If you want the HUD you'll need to initialize it in your game constructor 
+```
+public Game()
+{
+  if ( IsServer )
+    {
+      new DeathmatchHud()
+    }
+  }
+}
+```
