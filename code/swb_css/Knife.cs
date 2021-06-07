@@ -25,7 +25,7 @@ namespace SWB_CSS
 		public override string StabSound => "css_knife.stab";
 		public override string MissSound => "css_knife.slash";
 		public override string HitWorldSound => "css_knife.hitwall";
-		public override float SwingSpeed => 0.8f;
+		public override float SwingSpeed => 0.6f;
 		public override float StabSpeed => 1.29f;
 		public override float SwingDamage => 25f;
 		public override float StabDamage => 100f;

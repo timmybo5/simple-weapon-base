@@ -42,7 +42,7 @@ namespace SWB_CSS
 					Rotation = 0.5f
 				},
 
-				//DryFireSound = "rust_pistol.dryfire",
+				DryFireSound = "swb_pistol.empty",
 				ShootSound = "css_deagle.fire",
 
 				BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",

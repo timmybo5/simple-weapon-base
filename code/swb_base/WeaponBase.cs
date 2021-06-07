@@ -255,7 +255,7 @@ namespace SWB_Base
 
 			if ( !TakeAmmo( 1 ) )
 			{
-				DryFire( clipInfo );
+				DryFire( clipInfo.DryFireSound );
 				return;
 			}
 
@@ -263,7 +263,7 @@ namespace SWB_Base
 			(Owner as AnimEntity).SetAnimBool( "b_attack", true );
 
 			// Tell the clients to play the shoot effects
-			ShootEffects( clipInfo );
+			ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim, clipInfo.ScreenShake );
 
 			if ( clipInfo.ShootSound != null )
 				PlaySound( clipInfo.ShootSound );
@@ -316,28 +316,27 @@ namespace SWB_Base
 		}
 
 		[ClientRpc]
-		protected virtual void ShootEffects( ClipInfo clipInfo )
+		protected virtual void ShootEffects( string muzzleFlashParticle, string bulletEjectParticle, string shootAnim, ScreenShake screenShake )
 		{
 			Host.AssertClient();
 
 			//Log.Info( "[DEBUG] Multiplayer Error: " + clipInfo.ToString() + " -  " + clipInfo.MuzzleFlashParticle + " - " + EffectEntity.ToString() );
 			//Log.Info( "[DEBUG] Multiplayer Error: " + clipInfo.ToString() );
 
-			if ( !string.IsNullOrEmpty( clipInfo.MuzzleFlashParticle ) )
-				Particles.Create( clipInfo.MuzzleFlashParticle, EffectEntity, "muzzle" );
+			if ( !string.IsNullOrEmpty( muzzleFlashParticle ) )
+				Particles.Create( muzzleFlashParticle, EffectEntity, "muzzle" );
 
-			if ( !string.IsNullOrEmpty( clipInfo.BulletEjectParticle ) )
-				Particles.Create( clipInfo.BulletEjectParticle, EffectEntity, "ejection_point" );
+			if ( !string.IsNullOrEmpty( bulletEjectParticle ) )
+				Particles.Create( bulletEjectParticle, EffectEntity, "ejection_point" );
 
 			if ( IsLocalPawn )
 			{
-				var screenShake = clipInfo.ScreenShake;
 				new Sandbox.ScreenShake.Perlin( screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation );
 			}
 
 			// Weapon anim
-			if ( clipInfo.ShootAnim != null )
-				ViewModelEntity?.SetAnimBool( clipInfo.ShootAnim, true );
+			if ( !string.IsNullOrEmpty(shootAnim) )
+				ViewModelEntity?.SetAnimBool( shootAnim, true );
 
 			CrosshairPanel?.OnEvent( "fire" );
 		}
@@ -390,10 +389,10 @@ namespace SWB_Base
 		}
 
 		[ClientRpc]
-		public virtual void DryFire( ClipInfo clipInfo )
+		public virtual void DryFire( string dryFireSound )
 		{
-			if ( !string.IsNullOrEmpty( clipInfo.DryFireSound ) )
-				PlaySound( clipInfo.DryFireSound );
+			if ( !string.IsNullOrEmpty( dryFireSound ) )
+				PlaySound( dryFireSound );
 		}
 
 		public override void CreateViewModel()
