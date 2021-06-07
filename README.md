@@ -34,7 +34,6 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 * Framerate independent animations
 * Jumping animation
 * Looking animation
-* Empty clip sound
 * Sniper base
 * Entity base (e.g. shooting arrows)
 
