@@ -1,10 +1,5 @@
 ﻿using Sandbox;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SWB_Base
 {
@@ -59,7 +54,6 @@ namespace SWB_Base
 			posOffset -= camSetup.Rotation.Right * 10;
 			Position += posOffset;
 		}
-
 
 		// Walking animations
 		private void AddWalkingAnimations( ref CameraSetup camSetup )
