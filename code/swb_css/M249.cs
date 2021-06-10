@@ -4,7 +4,7 @@ using SWB_Base;
 namespace SWB_CSS
 {
 	[Library( "swb_css_m249", Title = "M249 PARA" )]
-	partial class M249 : WeaponBase
+	public partial class M249 : WeaponBase
 	{
 		public override int Bucket => 4;
 		public override HoldType HoldType => HoldType.Rifle;

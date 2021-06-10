@@ -4,7 +4,7 @@ using SWB_Base;
 namespace SWB_CSS
 {
 	[Library( "swb_css_knife", Title = "Knife" )]
-	partial class Knife : WeaponBaseMelee
+	public partial class Knife : WeaponBaseMelee
 	{
 		public override int Bucket => 0;
 		public override HoldType HoldType => HoldType.Pistol;

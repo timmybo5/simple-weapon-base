@@ -17,7 +17,7 @@ public class Vitals : Panel
 		var player = Local.Pawn;
 		if ( player == null ) return;
 
-		Health.Text = $"{player.Health:n0}";
+		Health.Text = $"{player.Health.CeilToInt()}";
 		Health.SetClass( "danger", player.Health < 40.0f );
 	}
 }
