@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace SWB_CSS
 {
 	[Library( "swb_css_m4a1", Title = "M4A1" )]
-	public partial class M4A1 : WeaponBase
+	public class M4A1 : WeaponBase
 	{
 		public override int Bucket => 3;
 		public override HoldType HoldType => HoldType.Rifle;

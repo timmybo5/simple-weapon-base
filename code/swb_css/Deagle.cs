@@ -4,7 +4,7 @@ using SWB_Base;
 namespace SWB_CSS
 {
 	[Library( "swb_css_deagle", Title = "Desert Eagle" )]
-	public partial class Deagle : WeaponBase
+	public class Deagle : WeaponBase
 	{
 		public override int Bucket => 1;
 		public override HoldType HoldType => HoldType.Pistol;

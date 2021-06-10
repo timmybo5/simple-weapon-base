@@ -4,7 +4,7 @@ using SWB_Base;
 namespace SWB_CSS
 {
 	[Library( "swb_css_super90", Title = "M3 Super 90" )]
-	public partial class Super90 : WeaponBaseShotty
+	public class Super90 : WeaponBaseShotty
 	{
 		public override int Bucket => 2;
 		public override HoldType HoldType => HoldType.Shotgun;

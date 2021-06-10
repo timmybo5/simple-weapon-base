@@ -4,7 +4,7 @@ using SWB_Base;
 namespace SWB_CSS
 {
 	[Library( "swb_css_ak47", Title = "AK-47" )]
-	public partial class AK47 : WeaponBase
+	public class AK47 : WeaponBase
 	{
 		public override int Bucket => 3;
 		public override HoldType HoldType => HoldType.Rifle;

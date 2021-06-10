@@ -5,7 +5,6 @@ namespace SWB_Base
 {
 	class ViewModelBase : BaseViewModel
 	{
-
 		private WeaponBase weapon;
 
 		private Vector3 lerpZoomPos;
@@ -103,8 +102,10 @@ namespace SWB_Base
 		private void LerpToPosition( Angles angles, Vector3 pos, ref Angles lerpTargAngle, ref Vector3 lerpTargPos, ref CameraSetup camSetup )
 		{
 			// Angles
-			lerpTargAngle = Angles.Lerp( lerpTargAngle, angles, 0.1f );
+			lerpTargAngle = MathZ.FILerp( lerpTargAngle, angles, 10f );
 			var targAngles = Rotation.Angles() + lerpTargAngle;
+
+			//Log.Info( targAngles.ToString() );
 
 			//Rotation rotation = Rotation;
 			//rotation += Rotation.FromAxis( Rotation.Right, 10);
@@ -113,11 +114,10 @@ namespace SWB_Base
 			//rotation += Rotation.FromAxis( camSetup.Rotation.Forward, lerpTargAngle.roll );
 			//Rotation = rotation;
 			//ViewOffset = new Vector3( 10, 0, 100 );
-
 			Rotation = Rotation.From( targAngles );
 
 			// Position
-			lerpTargPos = lerpTargPos.LerpTo( pos, 0.1f );
+			lerpTargPos = MathZ.FILerp( lerpTargPos, pos, 10f );
 
 			var right = camSetup.Rotation.Right;
 			var up = camSetup.Rotation.Up;
@@ -160,7 +160,7 @@ namespace SWB_Base
 				LerpToPosition( weapon.ZoomAnimData.Angle, weapon.ZoomAnimData.Pos, ref lerpZoomAngle, ref lerpZoomPos, ref camSetup );
 
 				// FOV
-				lerpZoomFOV = MathX.LerpTo( lerpZoomFOV, weapon.ZoomFOV, 0.1f );
+				lerpZoomFOV = MathZ.FILerp( lerpZoomFOV, weapon.ZoomFOV, 10f );
 				FieldOfView = lerpZoomFOV;
 
 				// Freeze viewmodel (temp solution)
@@ -173,7 +173,7 @@ namespace SWB_Base
 				LerpToPosition( Angles.Zero, Vector3.Zero, ref lerpZoomAngle, ref lerpZoomPos, ref camSetup );
 
 				// FOV (restore)
-				lerpZoomFOV = MathX.LerpTo( lerpZoomFOV, weapon.FOV, 0.1f );
+				lerpZoomFOV = MathZ.FILerp( lerpZoomFOV, weapon.FOV, 10f );
 				FieldOfView = lerpZoomFOV;
 
 			} else
@@ -184,11 +184,6 @@ namespace SWB_Base
 					lerpZoomPos = Vector3.Zero;
 					lerpZoomAngle = Angles.Zero;
 					lerpZoomFOV = weapon.FOV;
-
-					// UnFreeze viewmodel (temp solution)
-					//if ( !string.IsNullOrEmpty( weapon.FreezeViewModelOnZoom ) )
-						//SetAnimBool( weapon.FreezeViewModelOnZoom, false );
-
 				}
 			}
 
