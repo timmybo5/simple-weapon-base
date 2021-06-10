@@ -18,25 +18,26 @@ namespace SWB_Base
 		Shotgun = 3
 	}
 
-	public partial class WeaponBase : Sandbox.BaseWeapon
+	public partial class WeaponBase : BaseCarriable
 	{
 		public virtual int Bucket => 1;
 		public virtual int BucketWeight => 100;
 		public virtual bool DrawCrosshair => true;
 		public virtual bool DropWeaponOnDeath => true;
-		// Some weapons have looping idle animations -> force spam another animation to "freeze" it
-		public virtual string FreezeViewModelOnZoom => null;
+		public virtual string FreezeViewModelOnZoom => null; // Some weapons have looping idle animations -> force spam another animation to "freeze" it
 		public virtual int FOV => 65;
 		public virtual int ZoomFOV => 65;
-		// Set to -1 to disable tucking
-		public virtual float TuckRange => 30;
+		public virtual float TuckRange => 30; // Set to -1 to disable tucking
 		public virtual HoldType HoldType => HoldType.Pistol;
 		public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
 		public virtual string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl";
 		public virtual float WalkAnimationSpeedMod => 1;
+		public virtual bool DualWield => false;
 
 		public List<AnimatedAction> AnimatedActions { get; set; }
+
 		public AngPos ZoomAnimData { get; set; }
+
 		public AngPos RunAnimData { get; set; }
 
 		[Net]
@@ -44,6 +45,12 @@ namespace SWB_Base
 
 		[Net]
 		public ClipInfo Secondary { get; set; } = null;
+
+		[Net, Predicted]
+		public TimeSince TimeSincePrimaryAttack { get; set; }
+
+		[Net, Predicted]
+		public TimeSince TimeSinceSecondaryAttack { get; set; }
 
 		[Net, Predicted]
 		public TimeSince TimeSinceReload { get; set; }
@@ -66,6 +73,11 @@ namespace SWB_Base
 		public PickupTrigger PickupTrigger { get; protected set; }
 
 		private bool doRecoil = false;
+
+		private BaseViewModel dualWieldViewModel;
+		private bool isDualWieldConverted = false;
+		private bool dualWieldLeftFire = false;
+		private bool dualWieldShouldReload = false;
 
 		public int AvailableAmmo()
 		{
@@ -95,11 +107,42 @@ namespace SWB_Base
 				}
 			}
 
+			// Dualwield setup
+			if ( DualWield )
+			{
+				if ( !isDualWieldConverted )
+				{
+					isDualWieldConverted = true;
+					Primary.Ammo *= 2;
+					Primary.ClipSize *= 2;
+					Primary.RPM = (int)(Primary.RPM * 1.25);
+					ZoomAnimData = null;
+					RunAnimData = null;
+				}
+				
+				if ( IsLocalPawn )
+					dualWieldViewModel?.SetAnimBool( "deploy", true );
+			}
+		}
+
+
+
+		public override void ActiveEnd( Entity ent, bool dropped )
+		{
+			base.ActiveEnd( ent, dropped );
+
+			if ( DualWield && dualWieldViewModel != null )
+			{
+				dualWieldViewModel.Delete();
+			}
 		}
 
 		public override void Spawn()
 		{
 			base.Spawn();
+
+			CollisionGroup = CollisionGroup.Weapon;
+			SetInteractsAs( CollisionLayer.Debris );
 
 			SetModel( WorldModelPath );
 
@@ -108,7 +151,7 @@ namespace SWB_Base
 			PickupTrigger.Position = Position;
 		}
 
-		public override void Reload()
+		public virtual void Reload()
 		{
 			if ( IsReloading || IsAnimating )
 				return;
@@ -134,7 +177,6 @@ namespace SWB_Base
 
 		public virtual float GetTuckDist()
 		{
-
 			if ( TuckRange == -1 )
 				return -1;
 
@@ -142,7 +184,6 @@ namespace SWB_Base
 			if ( player == null ) return -1;
 
 			var pos = player.EyePos;
-			var rot = player.Rotation;
 			var forward = Owner.EyeRot.Forward;
 			var trace = Trace.Ray( pos, pos + forward * TuckRange )
 				.Ignore( this )
@@ -158,6 +199,35 @@ namespace SWB_Base
 		public bool ShouldTuck( float dist = -1 )
 		{
 			return dist != -1 || GetTuckDist() != -1;
+		}
+
+		// BaseSimulate
+		public void BaseSimulate( Client player )
+		{
+			if ( player.Input.Down( InputButton.Reload ) )
+			{
+				Reload();
+			}
+
+			// Reload could have deleted us
+			if ( !this.IsValid() )
+				return;
+
+			if ( CanPrimaryAttack() )
+			{
+				TimeSincePrimaryAttack = 0;
+				AttackPrimary();
+			}
+
+			// AttackPrimary could have deleted us
+			if ( !player.IsValid() )
+				return;
+
+			if ( CanSecondaryAttack() )
+			{
+				TimeSinceSecondaryAttack = 0;
+				AttackSecondary();
+			}
 		}
 
 		// Shared
@@ -176,9 +246,9 @@ namespace SWB_Base
 				}
 			}
 
-			IsRunning = owner.Input.Down( InputButton.Run ) && Owner.Velocity.Length >= 300;
+			IsRunning = owner.Input.Down( InputButton.Run ) && RunAnimData != null && Owner.Velocity.Length >= 300;
 
-			if ( Secondary == null && !(this is WeaponBaseMelee) )
+			if ( Secondary == null && ZoomAnimData != null && !(this is WeaponBaseMelee) )
 				IsZooming = owner.Input.Down( InputButton.Attack2 ) && !IsRunning && !IsReloading;
 
 			if ( TimeSinceDeployed < 0.6f )
@@ -186,7 +256,7 @@ namespace SWB_Base
 
 			if ( !IsReloading )
 			{
-				base.Simulate( owner );
+				BaseSimulate( owner );
 			}
 
 			if ( IsReloading && TimeSinceReload > Primary.ReloadTime )
@@ -198,6 +268,16 @@ namespace SWB_Base
 		public virtual void OnReloadFinish()
 		{
 			IsReloading = false;
+
+			// Dual wield
+			if ( DualWield && !dualWieldShouldReload )
+			{
+				dualWieldShouldReload = true;
+				Reload();
+				return;
+			}
+
+			dualWieldShouldReload = false;
 
 			if ( Primary.InfiniteAmmo == InfiniteAmmoType.reserve )
 			{
@@ -218,8 +298,10 @@ namespace SWB_Base
 		[ClientRpc]
 		public virtual void StartReloadEffects()
 		{
+			var reloadingViewModel = DualWield && dualWieldShouldReload ? dualWieldViewModel : ViewModelEntity;
+
 			if ( Primary.ReloadAnim != null )
-				ViewModelEntity?.SetAnimBool( Primary.ReloadAnim, true );
+				reloadingViewModel?.SetAnimBool( Primary.ReloadAnim, true );
 
 			// TODO - player third person model reload
 		}
@@ -233,12 +315,12 @@ namespace SWB_Base
 			return lastAttackTime > (60f / clipInfo.RPM);
 		}
 
-		public override bool CanPrimaryAttack()
+		public virtual bool CanPrimaryAttack()
 		{
 			return CanAttack( Primary, TimeSincePrimaryAttack, InputButton.Attack1 );
 		}
 
-		public override bool CanSecondaryAttack()
+		public virtual bool CanSecondaryAttack()
 		{
 			return CanAttack( Secondary, TimeSinceSecondaryAttack, InputButton.Attack2 );
 		}
@@ -288,20 +370,24 @@ namespace SWB_Base
 			doRecoil = true;
 		}
 
-		public override void AttackPrimary()
+		public virtual void AttackPrimary()
 		{
+			// Dual wield
+			if ( DualWield )
+			{
+				dualWieldLeftFire = !dualWieldLeftFire;
+			}
+
 			Attack( Primary );
 		}
 
-		public override void AttackSecondary()
+		public virtual void AttackSecondary()
 		{ 
 			if (Secondary != null)
 			{
 				Attack( Secondary );
 				return;
 			}
-
-			// Extra functionality
 		}
 
 		public override void BuildInput( InputBuilder input )
@@ -309,7 +395,6 @@ namespace SWB_Base
 			if ( doRecoil )
 			{
 				doRecoil = false;
-				// Less recoil when zooming
 				var recoilAngles = new Angles( IsZooming ? -Primary.Recoil*0.4f : -Primary.Recoil, 0, 0 );
 				input.ViewAngles += recoilAngles;
 			}
@@ -320,25 +405,55 @@ namespace SWB_Base
 		{
 			Host.AssertClient();
 
-			//Log.Info( "[DEBUG] Multiplayer Error: " + clipInfo.ToString() + " -  " + clipInfo.MuzzleFlashParticle + " - " + EffectEntity.ToString() );
-			//Log.Info( "[DEBUG] Multiplayer Error: " + clipInfo.ToString() );
+			var animatingViewModel = DualWield && dualWieldLeftFire ? dualWieldViewModel : ViewModelEntity;
+			ModelEntity firingViewModel = animatingViewModel;
+
+			// We don't want to change the world effect origin if we or others can see it
+			if ( ( IsLocalPawn && GetClientOwner().Camera is ThirdPersonCamera ) || !IsLocalPawn)
+			{
+				firingViewModel = EffectEntity;
+			}
 
 			if ( !string.IsNullOrEmpty( muzzleFlashParticle ) )
-				Particles.Create( muzzleFlashParticle, EffectEntity, "muzzle" );
+				Particles.Create( muzzleFlashParticle, firingViewModel, "muzzle" );
 
 			if ( !string.IsNullOrEmpty( bulletEjectParticle ) )
-				Particles.Create( bulletEjectParticle, EffectEntity, "ejection_point" );
-
+				Particles.Create( bulletEjectParticle, firingViewModel, "ejection_point" );
+			
 			if ( IsLocalPawn )
 			{
 				new Sandbox.ScreenShake.Perlin( screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation );
 			}
 
-			// Weapon anim
 			if ( !string.IsNullOrEmpty(shootAnim) )
-				ViewModelEntity?.SetAnimBool( shootAnim, true );
+			{
+				animatingViewModel?.SetAnimBool( shootAnim, true );
+			}
 
 			CrosshairPanel?.OnEvent( "fire" );
+		}
+
+		/// <summary>
+		/// Does a trace from start to end, does bullet impact effects. Coded as an IEnumerable so you can return multiple
+		/// hits, like if you're going through layers or ricocet'ing or something.
+		/// </summary>
+		public virtual IEnumerable<TraceResult> TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
+		{
+			bool InWater = Physics.TestPointContents( start, CollisionLayer.Water );
+
+			var tr = Trace.Ray( start, end )
+					.UseHitboxes()
+					.HitLayer( CollisionLayer.Water, !InWater )
+					.Ignore( Owner )
+					.Ignore( this )
+					.Size( radius )
+					.Run();
+
+			yield return tr;
+
+			//
+			// Another trace, bullet going through thin material, penetrating water surface?
+			//
 		}
 
 		/// Shoot a single bullet
@@ -350,10 +465,8 @@ namespace SWB_Base
 			forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
 			forward = forward.Normal;
 			
-			//
 			// ShootBullet is coded in a way where we can have bullets pass through shit
 			// or bounce off shit, in which case it'll return multiple results
-			//
 			foreach ( var tr in TraceBullet( Owner.EyePos, Owner.EyePos + forward * 5000, bulletSize ) )
 			{
 				tr.Surface.DoBulletImpact( tr );
@@ -361,9 +474,7 @@ namespace SWB_Base
 				if ( !IsServer ) continue;
 				if ( !tr.Entity.IsValid() ) continue;
 
-				//
 				// We turn predictiuon off for this, so any exploding effects don't get culled etc
-				//
 				using ( Prediction.Off() )
 				{
 					var damageInfo = DamageInfo.FromBullet( tr.EndPos, forward * 100 * force, damage )
@@ -403,10 +514,19 @@ namespace SWB_Base
 				return;
 
 			ViewModelEntity = new ViewModelBase(this);
-			//ViewModelEntity.Position = Position; // --> Does not seem to do anything
+			ViewModelEntity.Position = Position; // --> Does not seem to do anything
 			ViewModelEntity.Owner = Owner;
 			ViewModelEntity.EnableViewmodelRendering = true;
 			ViewModelEntity.SetModel( ViewModelPath );
+
+			if ( DualWield )
+			{
+				dualWieldViewModel = new ViewModelBase( this, true );
+				dualWieldViewModel.Owner = Owner;
+				dualWieldViewModel.EnableViewmodelRendering = true;
+				dualWieldViewModel.SetModel( ViewModelPath );
+			}
+
 		}
 
 		public override void CreateHudElements()

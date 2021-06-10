@@ -23,12 +23,14 @@ namespace SWB_Base
 
 		private float walkBob = 0;
 		private float tuckDist = -1;
+		private bool isDualWieldVM = true;
 
 		private bool liveEditing = false;
 
-		public ViewModelBase( WeaponBase weapon )
+		public ViewModelBase( WeaponBase weapon, bool isDualWieldVM = false )
 		{
 			this.weapon = weapon;
+			this.isDualWieldVM = isDualWieldVM;
 		}
 
 		public override void PostCameraSetup( ref CameraSetup camSetup )
@@ -38,10 +40,26 @@ namespace SWB_Base
 			FieldOfView = weapon.FOV;
 			tuckDist = weapon.GetTuckDist();
 
+			if (isDualWieldVM)
+			{
+				FlipViewModel( ref camSetup );
+			}
+
 			AddWalkingAnimations( ref camSetup );
 			AddIdleAnimations( ref camSetup );
 			AddActionAnimations( ref camSetup );
 		}
+
+		private void FlipViewModel( ref CameraSetup camSetup )
+		{
+			// Waiting for https://github.com/Facepunch/sbox-issues/issues/324
+
+			// Temp solution: 
+			var posOffset = Vector3.Zero;
+			posOffset -= camSetup.Rotation.Right * 10;
+			Position += posOffset;
+		}
+
 
 		// Walking animations
 		private void AddWalkingAnimations( ref CameraSetup camSetup )
