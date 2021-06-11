@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using System;
+using System.Numerics;
 
 namespace SWB_Base
 {
@@ -7,18 +8,29 @@ namespace SWB_Base
 	{
 		private WeaponBase weapon;
 
+		private Vector3 lerpMovementPos;
+		private Angles lerpMovementAngle;
+		private Vector3 lerpSwayPos;
+		private Rotation lerpSwayRotation;
 		private Vector3 lerpZoomPos;
 		private Angles lerpZoomAngle;
 		private Vector3 lerpRunPos;
 		private Angles lerpRunAngle;
 		private Vector3 lerpTuckPos;
 		private Angles lerpTuckAngle;
+
 		private float lerpZoomFOV;
 
 		private float walkBob = 0;
 		private float tuckDist = -1;
-		private bool isDualWieldVM = true;
 
+		private int maxSideSway = 2;
+		private int maxJumpSway = 4;
+		private int maxMoveSway = 5;
+		private int maxTiltSway = 5;
+
+		private bool isInJump = false;
+		private bool isDualWieldVM = true;
 		private bool liveEditing = false;
 
 		public ViewModelBase( WeaponBase weapon, bool isDualWieldVM = false )
@@ -30,6 +42,8 @@ namespace SWB_Base
 		public override void PostCameraSetup( ref CameraSetup camSetup )
 		{
 			base.PostCameraSetup( ref camSetup );
+
+			if ( weapon.IsDormant ) return;
 			
 			FieldOfView = weapon.FOV;
 			tuckDist = weapon.GetTuckDist();
@@ -39,8 +53,10 @@ namespace SWB_Base
 				FlipViewModel( ref camSetup );
 			}
 
-			AddWalkingAnimations( ref camSetup );
 			AddIdleAnimations( ref camSetup );
+			AddViewbobAnimations( ref camSetup );
+			AddMovementAnimations( ref camSetup );
+			AddWeaponSwayAnimations( ref camSetup );
 			AddActionAnimations( ref camSetup );
 		}
 
@@ -54,8 +70,25 @@ namespace SWB_Base
 			Position += posOffset;
 		}
 
-		// Walking animations
-		private void AddWalkingAnimations( ref CameraSetup camSetup )
+		// Idle animations
+		private void AddIdleAnimations( ref CameraSetup camSetup )
+		{
+			if ( liveEditing ) return;
+			if ( weapon.IsZooming && !weapon.ShouldTuck( tuckDist ) ) return;
+
+			// Idle animation
+			var left = camSetup.Rotation.Left;
+			var up = camSetup.Rotation.Up;
+			var realTime = RealTime.Now;
+			var sideSwingMod = -0.1f;
+			var upSwingMod = 0.1f;
+
+			Position += up * MathF.Sin( realTime ) * sideSwingMod;
+			Position += left * MathF.Sin( realTime * upSwingMod ) * -0.5f;
+		}
+
+		// Viewbob animations
+		private void AddViewbobAnimations( ref CameraSetup camSetup )
 		{
 			var speed = Owner.Velocity.Length.LerpInverse( 0, 320 );
 			speed = speed * weapon.WalkAnimationSpeedMod;
@@ -82,21 +115,51 @@ namespace SWB_Base
 			Position += left * MathF.Sin( walkBob * upSwingMod ) * speed * -0.5f;
 		}
 
-		// Idle animations
-		private void AddIdleAnimations( ref CameraSetup camSetup )
+		// Movement animations
+		private void AddMovementAnimations( ref CameraSetup camSetup )
 		{
-			if ( liveEditing ) return;
-			if ( weapon.IsZooming && !weapon.ShouldTuck( tuckDist ) ) return;
+			// Angles
+			// var xSpeed = Math.Clamp( Owner.Velocity.x * 0.1f, -maxSideSway, maxSideSway ); // Is not predicted yet so looks weird
+			var zSpeed = Math.Clamp(Owner.Velocity.z*0.1f, -maxJumpSway, maxJumpSway);
+			var movAngle = new Angles( zSpeed, 0, 0 );
 
-			// Idle animation
-			var left = camSetup.Rotation.Left;
+			lerpMovementAngle = MathZ.FILerp( lerpMovementAngle, movAngle, 10f * weapon.WalkAnimationSpeedMod );
+			Rotation *= Rotation.From( lerpMovementAngle );
+
+			// Pos
 			var up = camSetup.Rotation.Up;
-			var realTime = RealTime.Now;
-			var sideSwingMod = -0.1f;
-			var upSwingMod = 0.1f;
+			var targPos = Vector3.Zero;
+			targPos -= up * zSpeed * 0.1f;
 
-			Position += up * MathF.Sin( realTime ) * sideSwingMod;
-			Position += left * MathF.Sin( realTime * upSwingMod ) * -0.5f;
+			lerpMovementPos = MathZ.FILerp( lerpMovementPos, targPos, 10f * weapon.WalkAnimationSpeedMod );
+			Position += lerpMovementPos;
+		}
+
+		// Sway animations
+		private void AddWeaponSwayAnimations( ref CameraSetup camSetup )
+		{
+			var swayAmountMod = 1f;
+
+			if ( weapon.IsZooming )
+				swayAmountMod = 0.25f;
+
+			// Move sway
+			var right = camSetup.Rotation.Right;
+			var up = camSetup.Rotation.Up;
+			var targPos = Vector3.Zero;
+			targPos -= right * Math.Clamp( Mouse.Delta.x * swayAmountMod * 0.5f, -maxMoveSway, maxMoveSway );
+			targPos += up * Math.Clamp( Mouse.Delta.y * swayAmountMod * 0.5f, -maxMoveSway, maxMoveSway );
+			
+			lerpSwayPos = MathZ.FILerp( lerpSwayPos, targPos, 10f * weapon.WalkAnimationSpeedMod );
+			Position += lerpSwayPos;
+
+			// Tilt sway
+			var tiltX = Math.Clamp( Mouse.Delta.x * swayAmountMod * 1, -maxTiltSway, maxTiltSway );
+			var tiltY = Math.Clamp( Mouse.Delta.y * swayAmountMod * 2, -maxTiltSway, maxTiltSway );
+			var targRotation = Rotation.From( tiltY, -tiltX, tiltX );
+
+			lerpSwayRotation = Rotation.Slerp( lerpSwayRotation, targRotation, RealTime.Delta * 10f * weapon.WalkAnimationSpeedMod );
+			Rotation *= lerpSwayRotation;
 		}
 
 		private void LerpToPosition( Angles angles, Vector3 pos, ref Angles lerpTargAngle, ref Vector3 lerpTargPos, ref CameraSetup camSetup )
@@ -105,15 +168,6 @@ namespace SWB_Base
 			lerpTargAngle = MathZ.FILerp( lerpTargAngle, angles, 10f );
 			var targAngles = Rotation.Angles() + lerpTargAngle;
 
-			//Log.Info( targAngles.ToString() );
-
-			//Rotation rotation = Rotation;
-			//rotation += Rotation.FromAxis( Rotation.Right, 10);
-			//Rotation.
-			//rotation += Rotation.FromAxis( Rotation.Up, 0 );
-			//rotation += Rotation.FromAxis( camSetup.Rotation.Forward, lerpTargAngle.roll );
-			//Rotation = rotation;
-			//ViewOffset = new Vector3( 10, 0, 100 );
 			Rotation = Rotation.From( targAngles );
 
 			// Position
@@ -131,12 +185,13 @@ namespace SWB_Base
 			Position += posOffset;
 		}
 
+		// Action animations
 		private void AddActionAnimations( ref CameraSetup camSetup )
 		{
 
 			if ( weapon.ShouldTuck(tuckDist) && weapon.RunAnimData != null )
 			{
-				var animationCompletion = Math.Min(1, ((weapon.TuckRange-tuckDist) / weapon.TuckRange)+0.5f);
+				var animationCompletion = Math.Min(1, ( (weapon.TuckRange-tuckDist) / weapon.TuckRange ) + 0.5f );
 				LerpToPosition( weapon.RunAnimData.Angle * animationCompletion, weapon.RunAnimData.Pos * animationCompletion, ref lerpTuckAngle , ref lerpTuckPos, ref camSetup );
 
 				// Prevent other animations while tucking

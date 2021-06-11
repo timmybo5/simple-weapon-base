@@ -72,7 +72,7 @@ namespace SWB_Base
 		// BaseSimulate
 		public void BaseSimulate( Client player )
 		{
-			if ( player.Input.Down( InputButton.Reload ) )
+			if ( Input.Down( InputButton.Reload ) )
 			{
 				Reload();
 			}
@@ -114,10 +114,10 @@ namespace SWB_Base
 				}
 			}
 
-			IsRunning = owner.Input.Down( InputButton.Run ) && RunAnimData != null && Owner.Velocity.Length >= 300;
+			IsRunning = Input.Down( InputButton.Run ) && RunAnimData != null && Owner.Velocity.Length >= 300;
 
 			if ( Secondary == null && ZoomAnimData != null && !(this is WeaponBaseMelee) )
-				IsZooming = owner.Input.Down( InputButton.Attack2 ) && !IsRunning && !IsReloading;
+				IsZooming = Input.Down( InputButton.Attack2 ) && !IsRunning && !IsReloading;
 
 			if ( TimeSinceDeployed < 0.6f )
 				return;
@@ -200,6 +200,17 @@ namespace SWB_Base
 
 		public override void BuildInput( InputBuilder input )
 		{
+			// Mouse sensitivity
+			if ( IsZooming )
+			{
+				/*
+				input.AnalogLook.pitch *= 0.005f;
+				input.AnalogLook.yaw *= 0;
+				input.ViewAngles += input.AnalogLook;
+				*/
+			}
+
+			// Recoil
 			if ( doRecoil )
 			{
 				doRecoil = false;

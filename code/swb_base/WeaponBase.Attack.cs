@@ -32,7 +32,7 @@ namespace SWB_Base
 		{
 			if ( IsRunning || ShouldTuck() ) return;
 
-			if ( clipInfo.FiringType == FiringType.semi && !Owner.Input.Pressed( InputButton.Attack1 ) )
+			if ( clipInfo.FiringType == FiringType.semi && !Input.Pressed( InputButton.Attack1 ) )
 				return;
 
 			TimeSincePrimaryAttack = 0;

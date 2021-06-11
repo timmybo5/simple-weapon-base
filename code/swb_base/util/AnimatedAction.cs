@@ -56,7 +56,7 @@ namespace SWB_Base
 			// Check if animated keys are down
 			for ( int i = 0; i < ActionButtons.Count; i++ )
 			{
-				if ( !owner.Input.Down( ActionButtons[i] ) )
+				if ( !Input.Down( ActionButtons[i] ) )
 					return false;
 
 				// Reload will fuck with animations, IsReload is still false here
