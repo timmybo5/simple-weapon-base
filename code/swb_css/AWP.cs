@@ -3,7 +3,7 @@ using SWB_Base;
 
 namespace SWB_CSS
 {
-	[Library( "swb_css_awp", Title = "AK-47" )]
+	[Library( "swb_css_awp", Title = "AWP" )]
 	public class AWP : WeaponBaseSniper
 	{
 		public override int Bucket => 5;
