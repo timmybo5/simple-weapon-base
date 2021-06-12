@@ -46,7 +46,6 @@ namespace SWB_Base
 			if ( weapon.IsDormant ) return;
 			
 			FieldOfView = weapon.FOV;
-
 			tuckDist = weapon.GetTuckDist();
 
 			if (isDualWieldVM)
@@ -57,8 +56,7 @@ namespace SWB_Base
 			AddIdleAnimations( ref camSetup );
 			AddViewbobAnimations( ref camSetup );
 			AddMovementAnimations( ref camSetup );
-			if ( weapon.TimeSinceDeployed > 1)
-				AddWeaponSwayAnimations( ref camSetup );
+			AddWeaponSwayAnimations( ref camSetup );
 			AddActionAnimations( ref camSetup );
 		}
 

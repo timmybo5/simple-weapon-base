@@ -16,25 +16,6 @@ namespace SWB_Base
 		private bool switchBackToThirdP = false;
 		private float lerpZoomAmount = 0;
 
-		/* TODO : 
-		 * Switch to first person when zooming and switch back if needed
-		 * reduce mouse sensitivity while zooming ZoomSensitivity = 20 (on weapon base)
-		 * 
-		/*
-		public override bool CanSecondaryAttack()
-		{
-			if ( IsAnimating ) return false;
-			if ( !Owner.IsValid() || !Input.Down( InputButton.Attack2 ) ) return false;
-
-			return true;
-		}
-
-		public override void AttackSecondary()
-		{
-			Log.Info("ran");
-		}
-		*/
-
 		public override void ActiveStart( Entity ent )
 		{
 			base.ActiveStart( ent );
