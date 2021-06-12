@@ -46,6 +46,7 @@ namespace SWB_Base
 			if ( weapon.IsDormant ) return;
 			
 			FieldOfView = weapon.FOV;
+
 			tuckDist = weapon.GetTuckDist();
 
 			if (isDualWieldVM)
@@ -56,7 +57,8 @@ namespace SWB_Base
 			AddIdleAnimations( ref camSetup );
 			AddViewbobAnimations( ref camSetup );
 			AddMovementAnimations( ref camSetup );
-			AddWeaponSwayAnimations( ref camSetup );
+			if ( weapon.TimeSinceDeployed > 1)
+				AddWeaponSwayAnimations( ref camSetup );
 			AddActionAnimations( ref camSetup );
 		}
 
@@ -149,7 +151,7 @@ namespace SWB_Base
 			var targPos = Vector3.Zero;
 			targPos -= right * Math.Clamp( Mouse.Delta.x * swayAmountMod * 0.5f, -maxMoveSway, maxMoveSway );
 			targPos += up * Math.Clamp( Mouse.Delta.y * swayAmountMod * 0.5f, -maxMoveSway, maxMoveSway );
-			
+
 			lerpSwayPos = MathZ.FILerp( lerpSwayPos, targPos, 10f * weapon.WalkAnimationSpeedMod );
 			Position += lerpSwayPos;
 
@@ -157,6 +159,9 @@ namespace SWB_Base
 			var tiltX = Math.Clamp( Mouse.Delta.x * swayAmountMod * 1, -maxTiltSway, maxTiltSway );
 			var tiltY = Math.Clamp( Mouse.Delta.y * swayAmountMod * 2, -maxTiltSway, maxTiltSway );
 			var targRotation = Rotation.From( tiltY, -tiltX, tiltX );
+
+			if ( lerpSwayRotation.w == 0)
+				lerpSwayRotation.w = 1;
 
 			lerpSwayRotation = Rotation.Slerp( lerpSwayRotation, targRotation, RealTime.Delta * 10f * weapon.WalkAnimationSpeedMod );
 			Rotation *= lerpSwayRotation;
@@ -243,7 +248,7 @@ namespace SWB_Base
 			}
 
 			// DEBUG (set true to do live edits)
-			//liveEditing = false;
+			// liveEditing = true;
 
 			if ( weapon.IsRunning && weapon.RunAnimData != null || liveEditing )
 			{
@@ -252,9 +257,9 @@ namespace SWB_Base
 
 				if ( liveEditing )
 				{
-					//FieldOfView = weapon.ZoomFOV;
-					testAngles = new Angles( 0f, 0f, 0f );
-					testPos = new Vector3( 0f, 0f, 0f );
+					FieldOfView = weapon.ZoomFOV;
+					testAngles = new Angles( 0f, 0.5f, 0f );
+					testPos = new Vector3( -5.5f, -2f, 4f );
 				}
 
 				LerpToPosition( testAngles, testPos, ref lerpRunAngle, ref lerpRunPos, ref camSetup );

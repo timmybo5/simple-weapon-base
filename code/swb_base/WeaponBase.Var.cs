@@ -25,6 +25,7 @@ namespace SWB_Base
 		public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
 		public virtual string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl";
 		public virtual float WalkAnimationSpeedMod => 1;
+		public virtual float AimSensitivity => 0.85f;
 		public virtual bool DualWield => false;
 
 		// Properties

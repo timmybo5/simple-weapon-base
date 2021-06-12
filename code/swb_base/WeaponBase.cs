@@ -203,11 +203,7 @@ namespace SWB_Base
 			// Mouse sensitivity
 			if ( IsZooming )
 			{
-				/*
-				input.AnalogLook.pitch *= 0.005f;
-				input.AnalogLook.yaw *= 0;
-				input.ViewAngles += input.AnalogLook;
-				*/
+				input.ViewAngles = MathZ.FILerp(input.OriginalViewAngles, input.ViewAngles, AimSensitivity*90 );
 			}
 
 			// Recoil

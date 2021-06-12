@@ -1,8 +1,6 @@
 ﻿
 using Sandbox;
 using Sandbox.UI;
-using Sandbox.UI.Construct;
-using System;
 
 namespace SWB_Base
 {
@@ -37,10 +35,7 @@ namespace SWB_Base
 			if ( player == null ) return;
 
 			var weapon = player.ActiveChild as WeaponBase;
-
-			if ( weapon != null )
-				this.SetClass( "crosshairVisible", weapon.IsZooming );
-
+			SetClass( "hideCrosshair", weapon != null ? weapon.IsZooming : true );
 		}
 
 		public override void OnEvent( string eventName )
