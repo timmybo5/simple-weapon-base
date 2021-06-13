@@ -1,6 +1,8 @@
 ﻿
 using Sandbox;
 using Sandbox.UI;
+using SWB_Base;
+using System;
 
 public partial class KillFeed : Sandbox.UI.KillFeed
 {
@@ -19,6 +21,23 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 
 		e.Left.Text = left;
 		e.Left.SetClass( "me", lsteamid == (Local.SteamId) );
+
+		try
+		{
+			// Temp solution ( get reference to kill weapon icon )
+			if ( method.StartsWith("swb_") )
+			{
+				var killWeapon = Library.Create<WeaponBase>( method ); // throws error when not found
+
+				if ( !string.IsNullOrEmpty( killWeapon.Icon ) )
+				{
+					var panelBackground = new PanelBackground();
+					panelBackground.Texture = Texture.Load( killWeapon.Icon );
+					e.Icon.Style.Background = panelBackground;
+				}
+			}
+		}
+		catch ( Exception exception ) {}	
 
 		e.Right.Text = right;
 		e.Right.SetClass( "me", rsteamid == (Local.SteamId) );

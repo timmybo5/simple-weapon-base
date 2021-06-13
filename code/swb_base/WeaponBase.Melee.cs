@@ -8,22 +8,22 @@ namespace SWB_Base
 {
 	public partial class WeaponBaseMelee : WeaponBase
 	{
-		public virtual string SwingAnimationHit => "";
-		public virtual string SwingAnimationMiss => "";
-		public virtual string StabAnimationHit => "";
-		public virtual string StabAnimationMiss => "";
-		public virtual string SwingSound => "";
-		public virtual string StabSound => "";
-		public virtual string MissSound => "";
-		public virtual string HitWorldSound => "";
-		public virtual float SwingSpeed => 1f;
-		public virtual float StabSpeed => 1f;
-		public virtual float SwingDamage => 50;
-		public virtual float StabDamage => 100;
-		public virtual float SwingForce => 25f;
-		public virtual float StabForce => 50f;
-		public virtual float DamageDistance => 25f;
-		public virtual float ImpactSize => 10f;
+		public virtual string SwingAnimationHit => ""; // Animation to play for the primary attack
+		public virtual string SwingAnimationMiss => ""; // Animation to play when missing the primary attack
+		public virtual string StabAnimationHit => ""; // Animation to play for the secondary attack
+		public virtual string StabAnimationMiss => ""; // Animation to play when missing the secondary attack
+		public virtual string SwingSound => ""; // Sound to play for the primary attack
+		public virtual string StabSound => ""; // Sound to play for the secondary attack
+		public virtual string MissSound => ""; // Sound to play when missing an attack
+		public virtual string HitWorldSound => ""; // Sound to play when hitting the world
+		public virtual float SwingSpeed => 1f; // Primary attack speed ( lower is faster )
+		public virtual float StabSpeed => 1f; // Secondary attack speed ( lower is faster )
+		public virtual float SwingDamage => 50; // Primary attack damage
+		public virtual float StabDamage => 100; // Secondary attack damage
+		public virtual float SwingForce => 25f; // Primary attack force
+		public virtual float StabForce => 50f; // Secondary attack force
+		public virtual float DamageDistance => 25f; // Attack range
+		public virtual float ImpactSize => 10f; // Attack impact size
 
 		public override void Reload() { }
 

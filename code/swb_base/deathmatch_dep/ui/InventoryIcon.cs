@@ -8,13 +8,13 @@ using SWB_Base;
 class InventoryIcon : Panel
 {
 	public WeaponBase Weapon;
-	public Panel Icon;
+	public Image Icon;
 
 	public InventoryIcon( WeaponBase weapon )
 	{
 		Weapon = weapon;
-		Icon = Add.Panel( "icon" );
-		AddClass( weapon.ClassInfo.Name );
+		AddChild( out Icon, "icon" );
+		Icon.SetTexture( Weapon.Icon );
 	}
 
 	internal void TickSelection( WeaponBase selectedWeapon )

@@ -10,14 +10,16 @@ namespace SWB_CSS
 		public override HoldType HoldType => HoldType.Rifle;
 		public override string ViewModelPath => "weapons/css_awp/css_v_awp.vmdl";
 		public override string WorldModelPath => "weapons/css_awp/css_w_awp.vmdl";
+		public override string Icon => "/swb_css/textures/ui/css_icon_awp.png";
 		public override int FOV => 75;
 		public override int ZoomFOV => 75;
 		public override float WalkAnimationSpeedMod => 0.8f;
-		public override bool DrawCrosshair => true;
+		public override bool DrawCrosshair => false;
 		public override float AimSensitivity => 0.25f;
 
 		public override string LensTexture => "/swb_base/textures/scopes/swb_lens_hunter.png";
 		public override string ScopeTexture => "/swb_base/textures/scopes/swb_scope_hunter.png";
+		public override string ZoomInSound => "swb_sniper.zoom_in";
 		public override float ZoomAmount => 15f;
 
 		public AWP()
@@ -29,11 +31,11 @@ namespace SWB_CSS
 				ClipSize = 10,
 				ReloadTime = 3.67f,
 
-				BulletSize = 4f,
+				BulletSize = 5f,
 				Damage = 100f,
 				Force = 7f,
 				Spread = 1f,
-				Recoil = 1f,
+				Recoil = 2f,
 				RPM = 50,
 				FiringType = FiringType.semi,
 				ScreenShake = new ScreenShake

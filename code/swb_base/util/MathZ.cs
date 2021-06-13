@@ -1,5 +1,8 @@
 ﻿using Sandbox;
-using System;
+
+/* 
+ * Utility class to handle framerate independent animations
+*/
 
 namespace SWB_Base
 {

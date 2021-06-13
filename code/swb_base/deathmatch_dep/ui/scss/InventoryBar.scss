@@ -76,10 +76,9 @@ inventorycolumn
 	}
 }
 
-inventoryicon
-{
+inventoryicon {
 	margin-top: 5px;
-	mix-blend-mode: lighten;
+	mix-blend-mode: normal;
 	color: #fc0;
 	background-color: #fa04;
 	font-size: 40px;
@@ -89,34 +88,28 @@ inventoryicon
 	justify-content: center;
 	overflow: hidden;
 
-	.icon
-	{
+	.icon {
 		width: 150px;
 		height: 150px;
 		background-size: 100%;
 		background-image-tint: #fa0;
-		position: absolute;
 	}
 
-	&.active
-	{
+	&.active {
 		opacity: 1;
 
-		.icon
-		{
+		.icon {
 			// filter: drop-shadow additive glow
 			opacity: 1;
 		}
 	}
 
-	&.empty
-	{
+	&.empty {
 		opacity: 0.5;
 		background-color: #c004;
 		color: #f002;
 
-		.icon
-		{
+		.icon {
 			background-color: #f50;
 		}
 	}

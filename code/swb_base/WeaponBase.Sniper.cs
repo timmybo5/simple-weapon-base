@@ -1,16 +1,18 @@
 ﻿using Sandbox;
 
 /* 
- * Weapon base for weapons using shell based reloading 
+ * Weapon base for sniper based zooming
 */
 
 namespace SWB_Base
 {
 	public partial class WeaponBaseSniper : WeaponBase
 	{
-		public virtual string LensTexture => "/swb_base/textures/scopes/swb_lens_hunter.png";
-		public virtual string ScopeTexture => "/swb_base/textures/scopes/swb_scope_hunter.png";
-		public virtual float ZoomAmount => 20f;
+		public virtual string LensTexture => "/swb_base/textures/scopes/swb_lens_hunter.png"; // Path to the lens texture
+		public virtual string ScopeTexture => "/swb_base/textures/scopes/swb_scope_hunter.png"; // Path to the scope texture
+		public virtual string ZoomInSound => "swb_sniper.zoom_in"; // Sound to play when zooming in
+		public virtual string ZoomOutSound => ""; // Sound to play when zooming out
+		public virtual float ZoomAmount => 20f; // The amount to zoom in ( lower is more )
 
 		private SniperScope SniperScopePanel;
 		private bool switchBackToThirdP = false;
@@ -42,6 +44,9 @@ namespace SWB_Base
 			if ( IsLocalPawn )
 			{
 				ViewModelEntity.RenderAlpha = 0;
+
+				if ( !string.IsNullOrEmpty(ZoomInSound) )
+					PlaySound( ZoomInSound );
 			}
 		}
 
@@ -60,6 +65,9 @@ namespace SWB_Base
 			if ( IsLocalPawn && !(owner.Camera is ThirdPersonCamera))
 			{
 				ViewModelEntity.RenderAlpha = 1;
+
+				if ( !string.IsNullOrEmpty(ZoomOutSound) )
+					PlaySound( ZoomOutSound );
 			}
 		}
 
@@ -67,10 +75,9 @@ namespace SWB_Base
 		{
 			base.Simulate( owner );
 
-			if ( Input.Pressed( InputButton.Attack2 ) )
+			if ( Input.Pressed( InputButton.Attack2 ) && !IsReloading )
 			{
 				OnScopedStart();
-				
 			}
 
 			if ( Input.Released( InputButton.Attack2 ) )

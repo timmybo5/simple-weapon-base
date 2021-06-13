@@ -33,6 +33,10 @@ namespace SWB_Base
 		private bool isDualWieldVM = true;
 		private bool liveEditing = false;
 
+		/* 
+		 * Add realistic viewbobbing!
+		 */
+
 		public ViewModelBase( WeaponBase weapon, bool isDualWieldVM = false )
 		{
 			this.weapon = weapon;
@@ -76,15 +80,14 @@ namespace SWB_Base
 			if ( liveEditing ) return;
 			if ( weapon.IsZooming && !weapon.ShouldTuck( tuckDist ) ) return;
 
-			// Idle animation
 			var left = camSetup.Rotation.Left;
 			var up = camSetup.Rotation.Up;
 			var realTime = RealTime.Now;
-			var sideSwingMod = -0.1f;
-			var upSwingMod = 0.1f;
+			var sideSwingMod = 0.1f;
+			var upSwingMod = -0.1f;
 
-			Position += up * MathF.Sin( realTime ) * sideSwingMod;
-			Position += left * MathF.Sin( realTime * upSwingMod ) * -0.5f;
+			Position += up * MathF.Sin( realTime ) * upSwingMod;
+			Position += left * MathF.Sin( realTime * sideSwingMod ) * -0.5f;
 		}
 
 		// Viewbob animations

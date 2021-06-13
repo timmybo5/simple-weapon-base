@@ -13,33 +13,34 @@ namespace SWB_Base
 	public partial class WeaponBase
 	{
 		// Virtual
-		public virtual int Bucket => 1;
-		public virtual int BucketWeight => 100;
-		public virtual bool DrawCrosshair => true;
-		public virtual bool DropWeaponOnDeath => true;
+		public virtual int Bucket => 1; // Inventory slot position
+		public virtual int BucketWeight => 100; // Inventory slot position weight ( higher = more important )
+		public virtual bool DrawCrosshair => true; // Draw the crosshair
+		public virtual bool DropWeaponOnDeath => true; // Drop the weapon on death
 		public virtual string FreezeViewModelOnZoom => null; // Some weapons have looping idle animations -> force spam another animation to "freeze" it
-		public virtual int FOV => 65;
-		public virtual int ZoomFOV => 65;
-		public virtual float TuckRange => 30; // Set to -1 to disable tucking
-		public virtual HoldType HoldType => HoldType.Pistol;
-		public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
-		public virtual string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl";
-		public virtual float WalkAnimationSpeedMod => 1;
-		public virtual float AimSensitivity => 0.85f;
-		public virtual bool DualWield => false;
+		public virtual int FOV => 65; // Default FOV
+		public virtual int ZoomFOV => 65; // FOV while zooming
+		public virtual float TuckRange => 30; // Range that tucking should be enabled (set to -1 to disable tucking)
+		public virtual HoldType HoldType => HoldType.Pistol; // Thirdperson holdtype
+		public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl"; // Path to the view model
+		public virtual string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl"; // Path to the world model
+		public virtual string Icon => ""; // Path to an image that represent the weapon on the HUD
+		public virtual float WalkAnimationSpeedMod => 1; // Procedural animation speed ( lower is slower )
+		public virtual float AimSensitivity => 0.85f; // Aim sensitivity while zooming ( lower is slower )
+		public virtual bool DualWield => false; // If the weapon should be dual wielded
 
 		// Properties
-		public List<AnimatedAction> AnimatedActions { get; set; }
+		public List<AnimatedAction> AnimatedActions { get; set; } // Extra actions that use certain key combinations to trigger animations
 
-		public AngPos ZoomAnimData { get; set; }
+		public AngPos ZoomAnimData { get; set; } // Data used for setting the weapon to its zoom position
 
-		public AngPos RunAnimData { get; set; }
-
-		[Net]
-		public ClipInfo Primary { get; set; } = new ClipInfo();
+		public AngPos RunAnimData { get; set; } // Data used for setting the weapon to its run position
 
 		[Net]
-		public ClipInfo Secondary { get; set; } = null;
+		public ClipInfo Primary { get; set; } = new ClipInfo(); // Primary attack data
+
+		[Net]
+		public ClipInfo Secondary { get; set; } = null; // Secondary attack data ( setting this will disable weapon zooming )
 
 		[Net, Predicted]
 		public TimeSince TimeSincePrimaryAttack { get; set; }

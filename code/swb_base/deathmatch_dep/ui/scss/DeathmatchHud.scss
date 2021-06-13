@@ -51,29 +51,3 @@ ammo {
         }
     }
 }
-
-
-.dm_pistol .icon {
-    background-image: url( swb_base/deathmatch_dep/assets/ui/weapons/dm_pistol.png );
-}
-
-.dm_shotgun .icon {
-    background-image: url( swb_base/deathmatch_dep/assets/ui/weapons/dm_shotgun.png );
-}
-
-.dm_smg .icon {
-    background-image: url( swb_base/deathmatch_dep/assets/ui/weapons/dm_smg.png );
-}
-
-.dm_crossbow .icon, .crossbow_bolt .icon {
-    background-image: url( swb_base/deathmatch_dep/assets/ui/weapons/dm_crossbow.png );
-}
-
-// TEMP
-.swb_rust_smg .icon {
-    background-image: url( /swb_rust/assets/ui/swb_rust_smg.png );
-}
-
-.swb_rust_pistol .icon {
-    background-image: url( /swb_rust/assets/ui/swb_rust_pistol.png );
-}

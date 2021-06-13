@@ -6,8 +6,8 @@ namespace SWB_Base
 {
 	public partial class WeaponBaseShotty : WeaponBase
 	{
-		public virtual float ShellReloadTimeStart => -1;
-		public virtual float ShellReloadTimeInsert => -1;
+		public virtual float ShellReloadTimeStart => -1; // Duration of the reload start animation
+		public virtual float ShellReloadTimeInsert => -1; // Duration of the reload insert animation
 
 		public override void Reload()
 		{
