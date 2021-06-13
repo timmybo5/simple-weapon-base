@@ -16,10 +16,12 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Zooming
 * Running
 * Idle
+* Sway
 
 ### Bases
 * Magazine (default)
 * Shotgun (shell based reloading)
+* Sniper (scoped zooming)
 * Melee
 
 ### CSS Weapons
