@@ -13,16 +13,16 @@ namespace SWB_Base
 	public class SniperScopeRT : Panel
 	{
 		Image ScopeRT;
-		Texture RTTexture; 
+		Texture RTTexture;
 		SceneCapture sceneCapture;
 
-		public SniperScopeRT( string lensTexture, string scopeTexture)
+		public SniperScopeRT( string lensTexture, string scopeTexture )
 		{
 			StyleSheet.Load( "/swb_base/ui/SniperScopeRT.scss" );
 
 			SceneWorld.SetCurrent( SceneWorld.Current );
 			sceneCapture = SceneCapture.Create( "worldTestScene", 500, 500 );
-			ScopeRT = Add.Image("scene:worldTestScene");
+			ScopeRT = Add.Image( "scene:worldTestScene" );
 		}
 
 		public override void OnDeleted()

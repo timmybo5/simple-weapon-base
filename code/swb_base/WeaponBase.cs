@@ -8,314 +8,314 @@ using System.Collections.Generic;
 namespace SWB_Base
 {
 
-	public partial class WeaponBase : BaseCarriable
-	{
-		public override void Spawn()
-		{
-			base.Spawn();
+    public partial class WeaponBase : BaseCarriable
+    {
+        public override void Spawn()
+        {
+            base.Spawn();
 
-			CollisionGroup = CollisionGroup.Weapon;
-			SetInteractsAs( CollisionLayer.Debris );
+            CollisionGroup = CollisionGroup.Weapon;
+            SetInteractsAs( CollisionLayer.Debris );
 
-			SetModel( WorldModelPath );
+            SetModel( WorldModelPath );
 
-			PickupTrigger = new PickupTrigger();
-			PickupTrigger.Parent = this;
-			PickupTrigger.Position = Position;
-		}
+            PickupTrigger = new PickupTrigger();
+            PickupTrigger.Parent = this;
+            PickupTrigger.Position = Position;
+        }
 
-		public override void ActiveStart( Entity ent )
-		{
-			base.ActiveStart( ent );
-			
-			TimeSinceDeployed = 0;
-			IsReloading = false;
+        public override void ActiveStart( Entity ent )
+        {
+            base.ActiveStart( ent );
 
-			// Animated activity status will reset when weapon is switched out
-			if ( AnimatedActions != null )
-			{
-				for ( int i = 0; i < AnimatedActions.Count; i++ )
-				{
-					if ( AnimatedActions[i].isToggled )
-						AnimatedActions[i].HandleOnDeploy( this );
-				}
-			}
+            TimeSinceDeployed = 0;
+            IsReloading = false;
 
-			// Dualwield setup
-			if ( DualWield )
-			{
-				if ( !isDualWieldConverted )
-				{
-					isDualWieldConverted = true;
-					Primary.Ammo *= 2;
-					Primary.ClipSize *= 2;
-					Primary.RPM = (int)(Primary.RPM * 1.25);
-					ZoomAnimData = null;
-					RunAnimData = null;
-				}
-				
-				if ( IsLocalPawn )
-					dualWieldViewModel?.SetAnimBool( "deploy", true );
-			}
-		}
+            // Animated activity status will reset when weapon is switched out
+            if ( AnimatedActions != null )
+            {
+                for ( int i = 0; i < AnimatedActions.Count; i++ )
+                {
+                    if ( AnimatedActions[i].isToggled )
+                        AnimatedActions[i].HandleOnDeploy( this );
+                }
+            }
 
-		public override void ActiveEnd( Entity ent, bool dropped )
-		{
-			base.ActiveEnd( ent, dropped );
+            // Dualwield setup
+            if ( DualWield )
+            {
+                if ( !isDualWieldConverted )
+                {
+                    isDualWieldConverted = true;
+                    Primary.Ammo *= 2;
+                    Primary.ClipSize *= 2;
+                    Primary.RPM = (int)(Primary.RPM * 1.25);
+                    ZoomAnimData = null;
+                    RunAnimData = null;
+                }
 
-			if ( DualWield && dualWieldViewModel != null )
-			{
-				dualWieldViewModel.Delete();
-			}
-		}
+                if ( IsLocalPawn )
+                    dualWieldViewModel?.SetAnimBool( "deploy", true );
+            }
+        }
 
-		// BaseSimulate
-		public void BaseSimulate( Client player )
-		{
-			if ( Input.Down( InputButton.Reload ) )
-			{
-				Reload();
-			}
+        public override void ActiveEnd( Entity ent, bool dropped )
+        {
+            base.ActiveEnd( ent, dropped );
 
-			// Reload could have deleted us
-			if ( !this.IsValid() )
-				return;
+            if ( DualWield && dualWieldViewModel != null )
+            {
+                dualWieldViewModel.Delete();
+            }
+        }
 
-			if ( CanPrimaryAttack() )
-			{
-				TimeSincePrimaryAttack = 0;
-				AttackPrimary();
-			}
+        // BaseSimulate
+        public void BaseSimulate( Client player )
+        {
+            if ( Input.Down( InputButton.Reload ) )
+            {
+                Reload();
+            }
 
-			// AttackPrimary could have deleted us
-			if ( !player.IsValid() )
-				return;
+            // Reload could have deleted us
+            if ( !this.IsValid() )
+                return;
 
-			if ( CanSecondaryAttack() )
-			{
-				TimeSinceSecondaryAttack = 0;
-				AttackSecondary();
-			}
-		}
+            if ( CanPrimaryAttack() )
+            {
+                TimeSincePrimaryAttack = 0;
+                AttackPrimary();
+            }
 
-		public override void Simulate( Client owner )
-		{
+            // AttackPrimary could have deleted us
+            if ( !player.IsValid() )
+                return;
 
-			if ( IsAnimating ) return;
+            if ( CanSecondaryAttack() )
+            {
+                TimeSinceSecondaryAttack = 0;
+                AttackSecondary();
+            }
+        }
 
-			// Handle custom animation actions
-			if (AnimatedActions != null && !IsReloading)
-			{
-				for (int i=0; i< AnimatedActions.Count; i++ )
-				{
-					if ( AnimatedActions[i].Handle( owner, this ) )
-						return;
-				}
-			}
+        public override void Simulate( Client owner )
+        {
 
-			IsRunning = Input.Down( InputButton.Run ) && RunAnimData != null && Owner.Velocity.Length >= 200;
+            if ( IsAnimating ) return;
 
-			if ( Secondary == null && ZoomAnimData != null && !(this is WeaponBaseMelee) )
-				IsZooming = Input.Down( InputButton.Attack2 ) && !IsRunning && !IsReloading;
+            // Handle custom animation actions
+            if ( AnimatedActions != null && !IsReloading )
+            {
+                for ( int i = 0; i < AnimatedActions.Count; i++ )
+                {
+                    if ( AnimatedActions[i].Handle( owner, this ) )
+                        return;
+                }
+            }
 
-			if ( TimeSinceDeployed < 0.6f )
-				return;
+            IsRunning = Input.Down( InputButton.Run ) && RunAnimData != null && Owner.Velocity.Length >= 200;
 
-			if ( !IsReloading )
-			{
-				BaseSimulate( owner );
-			}
+            if ( Secondary == null && ZoomAnimData != null && !(this is WeaponBaseMelee) )
+                IsZooming = Input.Down( InputButton.Attack2 ) && !IsRunning && !IsReloading;
 
-			if ( IsReloading && TimeSinceReload > Primary.ReloadTime )
-			{
-				OnReloadFinish();
-			}
-		}
+            if ( TimeSinceDeployed < 0.6f )
+                return;
 
-		public virtual void Reload()
-		{
-			if ( IsReloading || IsAnimating )
-				return;
+            if ( !IsReloading )
+            {
+                BaseSimulate( owner );
+            }
 
-			if ( Primary.Ammo >= Primary.ClipSize )
-				return;
+            if ( IsReloading && TimeSinceReload > Primary.ReloadTime )
+            {
+                OnReloadFinish();
+            }
+        }
 
-			TimeSinceReload = 0;
+        public virtual void Reload()
+        {
+            if ( IsReloading || IsAnimating )
+                return;
 
-			if ( Owner is PlayerBase player )
-			{
-				if ( player.AmmoCount( Primary.AmmoType ) <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
-					return;
-			}
+            if ( Primary.Ammo >= Primary.ClipSize )
+                return;
 
-			IsReloading = true;
+            TimeSinceReload = 0;
 
-			// Player anim
-			(Owner as AnimEntity).SetAnimBool( "b_reload", true );
+            if ( Owner is PlayerBase player )
+            {
+                if ( player.AmmoCount( Primary.AmmoType ) <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
+                    return;
+            }
 
-			StartReloadEffects();
-		}
+            IsReloading = true;
 
-		public virtual void OnReloadFinish()
-		{
-			IsReloading = false;
+            // Player anim
+            (Owner as AnimEntity).SetAnimBool( "b_reload", true );
 
-			// Dual wield
-			if ( DualWield && !dualWieldShouldReload )
-			{
-				dualWieldShouldReload = true;
-				Reload();
-				return;
-			}
+            StartReloadEffects();
+        }
 
-			dualWieldShouldReload = false;
+        public virtual void OnReloadFinish()
+        {
+            IsReloading = false;
 
-			if ( Primary.InfiniteAmmo == InfiniteAmmoType.reserve )
-			{
-				Primary.Ammo = Primary.ClipSize;
-				return;
-			}
+            // Dual wield
+            if ( DualWield && !dualWieldShouldReload )
+            {
+                dualWieldShouldReload = true;
+                Reload();
+                return;
+            }
 
-			if ( Owner is PlayerBase player )
-			{
-				var ammo = player.TakeAmmo( Primary.AmmoType, Primary.ClipSize - Primary.Ammo );
-				if ( ammo == 0 )
-					return;
+            dualWieldShouldReload = false;
 
-				Primary.Ammo += ammo;
-			}
-		}
+            if ( Primary.InfiniteAmmo == InfiniteAmmoType.reserve )
+            {
+                Primary.Ammo = Primary.ClipSize;
+                return;
+            }
 
-		[ClientRpc]
-		public virtual void StartReloadEffects()
-		{
-			var reloadingViewModel = DualWield && dualWieldShouldReload ? dualWieldViewModel : ViewModelEntity;
+            if ( Owner is PlayerBase player )
+            {
+                var ammo = player.TakeAmmo( Primary.AmmoType, Primary.ClipSize - Primary.Ammo );
+                if ( ammo == 0 )
+                    return;
 
-			if ( Primary.ReloadAnim != null )
-				reloadingViewModel?.SetAnimBool( Primary.ReloadAnim, true );
+                Primary.Ammo += ammo;
+            }
+        }
 
-			// TODO - player third person model reload
-		}
+        [ClientRpc]
+        public virtual void StartReloadEffects()
+        {
+            var reloadingViewModel = DualWield && dualWieldShouldReload ? dualWieldViewModel : ViewModelEntity;
 
-		public override void BuildInput( InputBuilder input )
-		{
-			// Mouse sensitivity
-			if ( IsZooming )
-			{
-				input.ViewAngles = MathZ.FILerp( input.OriginalViewAngles, input.ViewAngles, AimSensitivity * 90 );
-			}
+            if ( Primary.ReloadAnim != null )
+                reloadingViewModel?.SetAnimBool( Primary.ReloadAnim, true );
 
-			// Recoil
-			if ( doRecoil )
-			{
-				doRecoil = false;
-				var recoilAngles = new Angles( IsZooming ? -Primary.Recoil*0.4f : -Primary.Recoil, 0, 0 );
-				input.ViewAngles += recoilAngles;
-			}
-		}
+            // TODO - player third person model reload
+        }
 
-		public override void CreateViewModel()
-		{
-			Host.AssertClient();
+        public override void BuildInput( InputBuilder input )
+        {
+            // Mouse sensitivity
+            if ( IsZooming )
+            {
+                input.ViewAngles = MathZ.FILerp( input.OriginalViewAngles, input.ViewAngles, AimSensitivity * 90 );
+            }
 
-			if ( string.IsNullOrEmpty( ViewModelPath ) )
-				return;
+            // Recoil
+            if ( doRecoil )
+            {
+                doRecoil = false;
+                var recoilAngles = new Angles( IsZooming ? -Primary.Recoil * 0.4f : -Primary.Recoil, 0, 0 );
+                input.ViewAngles += recoilAngles;
+            }
+        }
 
-			ViewModelEntity = new ViewModelBase(this);
-			ViewModelEntity.Position = Position; // --> Does not seem to do anything
-			ViewModelEntity.Owner = Owner;
-			ViewModelEntity.EnableViewmodelRendering = true;
-			ViewModelEntity.SetModel( ViewModelPath );
+        public override void CreateViewModel()
+        {
+            Host.AssertClient();
 
-			if ( DualWield )
-			{
-				dualWieldViewModel = new ViewModelBase( this, true );
-				dualWieldViewModel.Owner = Owner;
-				dualWieldViewModel.EnableViewmodelRendering = true;
-				dualWieldViewModel.SetModel( ViewModelPath );
-			}
+            if ( string.IsNullOrEmpty( ViewModelPath ) )
+                return;
 
-		}
+            ViewModelEntity = new ViewModelBase( this );
+            ViewModelEntity.Position = Position; // --> Does not seem to do anything
+            ViewModelEntity.Owner = Owner;
+            ViewModelEntity.EnableViewmodelRendering = true;
+            ViewModelEntity.SetModel( ViewModelPath );
 
-		public override void CreateHudElements()
-		{
-			if ( Local.Hud == null ) return;
+            if ( DualWield )
+            {
+                dualWieldViewModel = new ViewModelBase( this, true );
+                dualWieldViewModel.Owner = Owner;
+                dualWieldViewModel.EnableViewmodelRendering = true;
+                dualWieldViewModel.SetModel( ViewModelPath );
+            }
 
-			if ( DrawCrosshair )
-			{
-				CrosshairPanel = new Crosshair();
-				CrosshairPanel.Parent = Local.Hud;
-				CrosshairPanel.AddClass( ClassInfo.Name );
-			}
-		}
+        }
 
-		public bool TakeAmmo( int amount )
-		{
-			if ( Primary.InfiniteAmmo == InfiniteAmmoType.clip )
-				return true;
+        public override void CreateHudElements()
+        {
+            if ( Local.Hud == null ) return;
 
-			if ( Primary.Ammo < amount )
-				return false;
+            if ( DrawCrosshair )
+            {
+                CrosshairPanel = new Crosshair();
+                CrosshairPanel.Parent = Local.Hud;
+                CrosshairPanel.AddClass( ClassInfo.Name );
+            }
+        }
 
-			Primary.Ammo -= amount;
-			return true;
-		}
+        public bool TakeAmmo( int amount )
+        {
+            if ( Primary.InfiniteAmmo == InfiniteAmmoType.clip )
+                return true;
 
-		public int AvailableAmmo()
-		{
-			var owner = Owner as PlayerBase;
-			if ( owner == null ) return 0;
+            if ( Primary.Ammo < amount )
+                return false;
 
-			// Show clipsize as the available ammo
-			if ( Primary.InfiniteAmmo == InfiniteAmmoType.reserve )
-				return Primary.ClipSize;
+            Primary.Ammo -= amount;
+            return true;
+        }
 
-			return owner.AmmoCount( Primary.AmmoType );
-		}
+        public int AvailableAmmo()
+        {
+            var owner = Owner as PlayerBase;
+            if ( owner == null ) return 0;
 
-		public bool IsUsable()
-		{
-			if ( Primary.Ammo > 0 ) return true;
-			return AvailableAmmo() > 0;
-		}
+            // Show clipsize as the available ammo
+            if ( Primary.InfiniteAmmo == InfiniteAmmoType.reserve )
+                return Primary.ClipSize;
 
-		public override void OnCarryStart( Entity carrier )
-		{
-			base.OnCarryStart( carrier );
+            return owner.AmmoCount( Primary.AmmoType );
+        }
 
-			if ( PickupTrigger.IsValid() )
-			{
-				PickupTrigger.EnableTouch = false;
-			}
-		}
+        public bool IsUsable()
+        {
+            if ( Primary.Ammo > 0 ) return true;
+            return AvailableAmmo() > 0;
+        }
 
-		public override void OnCarryDrop( Entity dropper )
-		{
+        public override void OnCarryStart( Entity carrier )
+        {
+            base.OnCarryStart( carrier );
 
-			if ( !DropWeaponOnDeath )
-			{
-				this.Delete();
-				return;
-			}
+            if ( PickupTrigger.IsValid() )
+            {
+                PickupTrigger.EnableTouch = false;
+            }
+        }
 
-			base.OnCarryDrop( dropper );
+        public override void OnCarryDrop( Entity dropper )
+        {
 
-			if ( PickupTrigger.IsValid() )
-			{
-				PickupTrigger.EnableTouch = true;
-			}
-		}
+            if ( !DropWeaponOnDeath )
+            {
+                this.Delete();
+                return;
+            }
 
-		public override void SimulateAnimator( PawnAnimator anim )
-		{
-			anim.SetParam( "holdtype", (int)HoldType );
-			anim.SetParam( "aimat_weight", 1.0f );
-		}
+            base.OnCarryDrop( dropper );
 
-		[ClientRpc]
-		public virtual void SendWeaponAnim( string anim, bool value = true )
-		{
-			ViewModelEntity?.SetAnimBool( anim, value );
-		}
-	}
+            if ( PickupTrigger.IsValid() )
+            {
+                PickupTrigger.EnableTouch = true;
+            }
+        }
+
+        public override void SimulateAnimator( PawnAnimator anim )
+        {
+            anim.SetParam( "holdtype", (int)HoldType );
+            anim.SetParam( "aimat_weight", 1.0f );
+        }
+
+        [ClientRpc]
+        public virtual void SendWeaponAnim( string anim, bool value = true )
+        {
+            ViewModelEntity?.SetAnimBool( anim, value );
+        }
+    }
 }

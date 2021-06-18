@@ -6,61 +6,61 @@ using System.Threading.Tasks;
 
 public partial class DamageIndicator : Panel
 {
-	public static DamageIndicator Current;
+    public static DamageIndicator Current;
 
-	public DamageIndicator()
-	{
-		Current = this;
-		StyleSheet.Load( "swb_base/deathmatch_dep/ui/scss/DamageIndicator.scss" );
-	}
+    public DamageIndicator()
+    {
+        Current = this;
+        StyleSheet.Load( "swb_base/deathmatch_dep/ui/scss/DamageIndicator.scss" );
+    }
 
-	public void OnHit( Vector3 pos )
-	{
-		var p = new HitPoint( pos );
-		p.Parent = this;
-	}
+    public void OnHit( Vector3 pos )
+    {
+        var p = new HitPoint( pos );
+        p.Parent = this;
+    }
 
-	public class HitPoint : Panel
-	{
-		public Vector3 Position;
+    public class HitPoint : Panel
+    {
+        public Vector3 Position;
 
-		public HitPoint( Vector3 pos )
-		{
-			Position = pos;
+        public HitPoint( Vector3 pos )
+        {
+            Position = pos;
 
-			_ = Lifetime();
-		}
+            _ = Lifetime();
+        }
 
-		public override void Tick()
-		{
-			base.Tick();
-			
-			var wpos = CurrentView.Rotation.Inverse * ( Position.WithZ( 0 ) - CurrentView.Position.WithZ( 0 )).Normal;
-			wpos = wpos.WithZ( 0 ).Normal;
+        public override void Tick()
+        {
+            base.Tick();
 
-			var angle = MathF.Atan2( wpos.y, -1.0f * wpos.x );
+            var wpos = CurrentView.Rotation.Inverse * (Position.WithZ( 0 ) - CurrentView.Position.WithZ( 0 )).Normal;
+            wpos = wpos.WithZ( 0 ).Normal;
 
-			var pt = new PanelTransform();
+            var angle = MathF.Atan2( wpos.y, -1.0f * wpos.x );
 
-			pt.AddTranslateX( Length.Percent( -50.0f ) );
-			pt.AddTranslateY( Length.Percent( -50.0f ) );
-			pt.AddRotation( 0, 0, angle.RadianToDegree() );
+            var pt = new PanelTransform();
 
-			Style.Transform = pt;
-			Style.Dirty();
-			
-		}
+            pt.AddTranslateX( Length.Percent( -50.0f ) );
+            pt.AddTranslateY( Length.Percent( -50.0f ) );
+            pt.AddRotation( 0, 0, angle.RadianToDegree() );
 
-		async Task Lifetime()
-		{
-			await Task.Delay( 200 );
-			AddClass( "dying" );
-			await Task.Delay( 500 );
-			Delete();
-		}
+            Style.Transform = pt;
+            Style.Dirty();
+
+        }
+
+        async Task Lifetime()
+        {
+            await Task.Delay( 200 );
+            AddClass( "dying" );
+            await Task.Delay( 500 );
+            Delete();
+        }
 
 
-	}
+    }
 }
 
 

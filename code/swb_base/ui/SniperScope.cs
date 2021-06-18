@@ -15,7 +15,7 @@ namespace SWB_Base
 		Panel TopBar;
 		Panel BottomBar;
 
-		public SniperScope(string lensTexture, string scopeTexture)
+		public SniperScope( string lensTexture, string scopeTexture )
 		{
 			StyleSheet.Load( "/swb_base/ui/SniperScope.scss" );
 
