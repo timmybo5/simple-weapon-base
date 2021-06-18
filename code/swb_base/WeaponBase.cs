@@ -98,7 +98,6 @@ namespace SWB_Base
 			}
 		}
 
-		// Shared
 		public override void Simulate( Client owner )
 		{
 
@@ -114,7 +113,7 @@ namespace SWB_Base
 				}
 			}
 
-			IsRunning = Input.Down( InputButton.Run ) && RunAnimData != null && Owner.Velocity.Length >= 300;
+			IsRunning = Input.Down( InputButton.Run ) && RunAnimData != null && Owner.Velocity.Length >= 200;
 
 			if ( Secondary == null && ZoomAnimData != null && !(this is WeaponBaseMelee) )
 				IsZooming = Input.Down( InputButton.Attack2 ) && !IsRunning && !IsReloading;
@@ -203,7 +202,7 @@ namespace SWB_Base
 			// Mouse sensitivity
 			if ( IsZooming )
 			{
-				input.ViewAngles = MathZ.FILerp(input.OriginalViewAngles, input.ViewAngles, AimSensitivity*90 );
+				input.ViewAngles = MathZ.FILerp( input.OriginalViewAngles, input.ViewAngles, AimSensitivity * 90 );
 			}
 
 			// Recoil

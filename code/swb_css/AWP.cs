@@ -34,7 +34,7 @@ namespace SWB_CSS
 				BulletSize = 5f,
 				Damage = 100f,
 				Force = 7f,
-				Spread = 1f,
+				Spread = 0.75f,
 				Recoil = 2f,
 				RPM = 50,
 				FiringType = FiringType.semi,

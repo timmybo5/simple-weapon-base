@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Sandbox.UI;
 using System;
 using System.Numerics;
 
@@ -260,7 +261,7 @@ namespace SWB_Base
 				{
 					FieldOfView = weapon.ZoomFOV;
 					testAngles = new Angles( 0f, 0.5f, 0f );
-					testPos = new Vector3( -5.5f, -2f, 4f );
+					testPos = new Vector3( -5.5f, 2f, 4f );
 				}
 
 				LerpToPosition( testAngles, testPos, ref lerpRunAngle, ref lerpRunPos, ref camSetup );

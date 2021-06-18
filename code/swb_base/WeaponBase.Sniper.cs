@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Sandbox.UI;
 
 /* 
  * Weapon base for sniper based zooming
@@ -13,8 +14,9 @@ namespace SWB_Base
 		public virtual string ZoomInSound => "swb_sniper.zoom_in"; // Sound to play when zooming in
 		public virtual string ZoomOutSound => ""; // Sound to play when zooming out
 		public virtual float ZoomAmount => 20f; // The amount to zoom in ( lower is more )
+		public virtual bool UseRenderTarget => false ; // EXPERIMENTAL - Use a render target instead of a full screen texture zoom
 
-		private SniperScope SniperScopePanel;
+		private Panel SniperScopePanel;
 		private bool switchBackToThirdP = false;
 		private float lerpZoomAmount = 0;
 
@@ -91,8 +93,15 @@ namespace SWB_Base
 
 			if ( Local.Hud == null ) return;
 
-			SniperScopePanel = new SniperScope(LensTexture, ScopeTexture);
-			SniperScopePanel.Parent = Local.Hud;
+			if ( UseRenderTarget )
+			{
+				SniperScopePanel = new SniperScopeRT( LensTexture, ScopeTexture );
+				SniperScopePanel.Parent = Local.Hud;
+			} else
+			{
+				SniperScopePanel = new SniperScope( LensTexture, ScopeTexture );
+				SniperScopePanel.Parent = Local.Hud;
+			}
 		}
 
 		public override void PostCameraSetup( ref CameraSetup camSetup )
