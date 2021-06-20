@@ -5,64 +5,64 @@ using Sandbox.UI;
 namespace SWB_Base
 {
 
-	public class SniperScope : Panel
-	{
-		Image Lens;
-		Image Scope;
+    public class SniperScope : Panel
+    {
+        Image Lens;
+        Image Scope;
 
-		Panel LeftBar;
-		Panel RightBar;
-		Panel TopBar;
-		Panel BottomBar;
+        Panel LeftBar;
+        Panel RightBar;
+        Panel TopBar;
+        Panel BottomBar;
 
-		public SniperScope( string lensTexture, string scopeTexture )
-		{
-			StyleSheet.Load( "/swb_base/ui/SniperScope.scss" );
+        public SniperScope( string lensTexture, string scopeTexture )
+        {
+            StyleSheet.Load( "/swb_base/ui/SniperScope.scss" );
 
-			LeftBar = Add.Panel( "leftBar" );
-			RightBar = Add.Panel( "rightBar" );
-			TopBar = Add.Panel( "topBar" );
-			BottomBar = Add.Panel( "bottomBar" );
+            LeftBar = Add.Panel( "leftBar" );
+            RightBar = Add.Panel( "rightBar" );
+            TopBar = Add.Panel( "topBar" );
+            BottomBar = Add.Panel( "bottomBar" );
 
-			AddChild( out Lens, "lens" );
-			Lens.SetTexture( lensTexture );
+            AddChild( out Lens, "lens" );
+            Lens.SetTexture( lensTexture );
 
-			AddChild( out Scope, "scope" );
-			Scope.SetTexture( scopeTexture );
-		}
+            AddChild( out Scope, "scope" );
+            Scope.SetTexture( scopeTexture );
+        }
 
-		public override void Tick()
-		{
-			base.Tick();
+        public override void Tick()
+        {
+            base.Tick();
 
-			var player = Local.Pawn;
-			if ( player == null ) return;
+            var player = Local.Pawn;
+            if ( player == null ) return;
 
-			var weapon = player.ActiveChild as WeaponBase;
-			SetClass( "hideSniperScope", weapon != null ? !weapon.IsZooming : true );
+            var weapon = player.ActiveChild as WeaponBase;
+            SetClass( "hideSniperScope", weapon != null ? !weapon.IsZooming : true );
 
-			Lens.PositionAtCrosshair();
-			Scope.PositionAtCrosshair();
-			LeftBar.PositionAtCrosshair();
-			RightBar.PositionAtCrosshair();
-			TopBar.PositionAtCrosshair();
-			BottomBar.PositionAtCrosshair();
+            Lens.PositionAtCrosshair();
+            Scope.PositionAtCrosshair();
+            LeftBar.PositionAtCrosshair();
+            RightBar.PositionAtCrosshair();
+            TopBar.PositionAtCrosshair();
+            BottomBar.PositionAtCrosshair();
 
-			// Scope
-			var scopeSize = (Screen.Height * ScaleFromScreen * 0.9f);
-			Lens.Style.Width = scopeSize;
-			Lens.Style.Height = scopeSize;
-			Lens.Style.Dirty();
-			Scope.Style.Width = scopeSize;
-			Scope.Style.Height = scopeSize;
-			Scope.Style.Dirty();
+            // Scope
+            var scopeSize = (Screen.Height * ScaleFromScreen * 0.9f);
+            Lens.Style.Width = scopeSize;
+            Lens.Style.Height = scopeSize;
+            Lens.Style.Dirty();
+            Scope.Style.Width = scopeSize;
+            Scope.Style.Height = scopeSize;
+            Scope.Style.Dirty();
 
-			// Top/Bottom Bars
-			var topBarHeight = Screen.Height * ScaleFromScreen * 0.4f;
-			TopBar.Style.Height = topBarHeight;
-			TopBar.Style.Dirty();
-			BottomBar.Style.Height = topBarHeight;
-			BottomBar.Style.Dirty();
-		}
-	}
+            // Top/Bottom Bars
+            var topBarHeight = Screen.Height * ScaleFromScreen * 0.4f;
+            TopBar.Style.Height = topBarHeight;
+            TopBar.Style.Dirty();
+            BottomBar.Style.Height = topBarHeight;
+            BottomBar.Style.Dirty();
+        }
+    }
 }

@@ -8,6 +8,6 @@ namespace SWB_CSS
 		public override bool DualWield => true;
 
 		public DeagleDual() : base()
-		{}
+		{ }
 	}
 }

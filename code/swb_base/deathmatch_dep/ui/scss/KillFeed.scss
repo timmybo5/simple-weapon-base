@@ -43,8 +43,11 @@ KillFeedEntry {
     .icon {
         width: 100px;
         height: 100px;
+        margin-top: -40px;
         background-size: 100%;
         background-image-tint: normal;
+        border: none;
+        box-shadow: none;
     }
 
     .left, .right {

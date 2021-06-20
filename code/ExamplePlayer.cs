@@ -12,21 +12,21 @@ partial class ExamplePlayer : PlayerBase
 
 		SupressPickupNotices = true;
 
+		Inventory.Add( new SWB_CSS.Knife() );
+		Inventory.Add( new SWB_CSS.GrenadeHE() );
+
+		Inventory.Add( new SWB_CSS.Deagle() );
+
 		Inventory.Add( new SWB_CSS.Super90() );
-		Inventory.Add( new SWB_CSS.M249() );
+
 		Inventory.Add( new SWB_CSS.AK47() );
 		Inventory.Add( new SWB_CSS.M4A1() );
-		Inventory.Add( new SWB_CSS.Deagle() );
-		Inventory.Add( new SWB_CSS.Knife() );
-		
-		// Inventory.Add( new SWB_CSS.DeagleDual() );
-		// Inventory.Add( new SWB_CSS.AK47Dual() );
+		Inventory.Add( new SWB_CSS.M249() );
+		Inventory.Add( new SWB_CSS.AWP() );
 
-		GiveAmmo( AmmoType.SMG, 100 );
-		GiveAmmo( AmmoType.Pistol, 60 );
-		GiveAmmo( AmmoType.Revolver, 60 );
-		GiveAmmo( AmmoType.Rifle, 60 );
-		GiveAmmo( AmmoType.Shotgun, 60 );
+		//Inventory.Add( new SWB_CSS.M249HE() );
+		//Inventory.Add( new SWB_CSS.DeagleDual() );
+		//Inventory.Add( new SWB_CSS.AK47Dual() );
 
 		SupressPickupNotices = false;
 	}

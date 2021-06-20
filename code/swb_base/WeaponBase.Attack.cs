@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 /* 
  * Weapon base for weapons using magazine based reloading 
@@ -13,6 +14,7 @@ namespace SWB_Base
         {
             if ( IsAnimating ) return false;
             if ( clipInfo == null || !Owner.IsValid() || !Input.Down( inputButton ) ) return false;
+            if ( clipInfo.FiringType == FiringType.semi && !Input.Pressed( inputButton ) ) return false;
             if ( clipInfo.RPM <= 0 ) return true;
 
             return lastAttackTime > (60f / clipInfo.RPM);
@@ -28,12 +30,9 @@ namespace SWB_Base
             return CanAttack( Secondary, TimeSinceSecondaryAttack, InputButton.Attack2 );
         }
 
-        private void Attack( ClipInfo clipInfo )
+        public virtual void Attack( ClipInfo clipInfo, bool isPrimary )
         {
             if ( IsRunning || ShouldTuck() ) return;
-
-            if ( clipInfo.FiringType == FiringType.semi && !Input.Pressed( InputButton.Attack1 ) )
-                return;
 
             TimeSincePrimaryAttack = 0;
             TimeSinceSecondaryAttack = 0;
@@ -74,22 +73,89 @@ namespace SWB_Base
             doRecoil = true;
         }
 
+        async Task AsyncAttack( ClipInfo clipInfo, bool isPrimary, float delay )
+        {
+            if ( AvailableAmmo() <= 0 ) return;
+
+            TimeSincePrimaryAttack -= delay;
+            TimeSinceSecondaryAttack -= delay;
+
+            // Player anim
+            (Owner as AnimEntity).SetAnimBool( "b_attack", true );
+
+            // Play pre-fire animation
+            ShootEffects( null, null, clipInfo.ShootAnim, null );
+
+            var owner = Owner as PlayerBase;
+            if ( owner == null ) return;
+            var activeWeapon = owner.ActiveChild;
+
+            await GameTask.DelaySeconds( delay );
+
+            // Check if owner and weapon are still valid
+            if ( owner == null || activeWeapon != owner.ActiveChild ) return;
+
+            // Take ammo
+            TakeAmmo( 1 );
+
+            // Play shoot effects
+            ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null, clipInfo.ScreenShake );
+
+            if ( clipInfo.ShootSound != null )
+                PlaySound( clipInfo.ShootSound );
+
+            // Shoot the bullets
+            float realSpread;
+
+            if ( this is WeaponBaseShotty )
+            {
+                realSpread = clipInfo.Spread;
+            }
+            else
+            {
+                realSpread = IsZooming ? clipInfo.Spread / 4 : clipInfo.Spread;
+            }
+
+            for ( int i = 0; i < clipInfo.Bullets; i++ )
+            {
+                ShootBullet( realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize );
+            }
+        }
+
+        public virtual void DelayedAttack( ClipInfo clipInfo, bool isPrimary, float delay )
+        {
+            _ = AsyncAttack( Primary, isPrimary, PrimaryDelay );
+        }
+
         public virtual void AttackPrimary()
         {
-            // Dual wield
             if ( DualWield )
             {
                 dualWieldLeftFire = !dualWieldLeftFire;
             }
 
-            Attack( Primary );
+            if ( PrimaryDelay > 0 )
+            {
+                DelayedAttack( Primary, true, PrimaryDelay );
+            }
+            else
+            {
+                Attack( Primary, true );
+            }
         }
 
         public virtual void AttackSecondary()
         {
             if ( Secondary != null )
             {
-                Attack( Secondary );
+                if ( SecondaryDelay > 0 )
+                {
+                    DelayedAttack( Secondary, false, SecondaryDelay );
+                }
+                else
+                {
+                    Attack( Secondary, false );
+                }
                 return;
             }
         }
@@ -168,17 +234,15 @@ namespace SWB_Base
             if ( !string.IsNullOrEmpty( bulletEjectParticle ) )
                 Particles.Create( bulletEjectParticle, firingViewModel, "ejection_point" );
 
-            if ( IsLocalPawn )
+            if ( screenShake != null && IsLocalPawn && screenShake.Length > 0 && screenShake.Speed > 0 && screenShake.Size > 0 && screenShake.Rotation > 0 )
             {
                 new Sandbox.ScreenShake.Perlin( screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation );
             }
 
             if ( !string.IsNullOrEmpty( shootAnim ) )
-            {
                 animatingViewModel?.SetAnimBool( shootAnim, true );
-            }
 
-            CrosshairPanel?.OnEvent( "fire" );
+            CrosshairPanel?.CreateEvent( "fire" );
         }
 
         [ClientRpc]

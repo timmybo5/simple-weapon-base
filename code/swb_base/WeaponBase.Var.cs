@@ -28,6 +28,8 @@ namespace SWB_Base
         public virtual float WalkAnimationSpeedMod => 1; // Procedural animation speed ( lower is slower )
         public virtual float AimSensitivity => 0.85f; // Aim sensitivity while zooming ( lower is slower )
         public virtual bool DualWield => false; // If the weapon should be dual wielded
+        public virtual float PrimaryDelay => -1; // Delay before firing when the primary attack button is pressed
+        public virtual float SecondaryDelay => -1; // Delay before firing when the secondary attack button is pressed
 
         // Properties
         public List<AnimatedAction> AnimatedActions { get; set; } // Extra actions that use certain key combinations to trigger animations

@@ -22,5 +22,14 @@ namespace SWB_Base
         {
             return Angles.Lerp( fromAng, toAng, amount * RealTime.Delta );
         }
+
+        public static Vector3 RelativeAdd( Vector3 vec1, Vector3 vec2, Rotation rot )
+        {
+            vec1 += vec2.x * rot.Right;
+            vec1 += vec2.y * rot.Up;
+            vec1 += vec2.z * rot.Forward;
+
+            return vec1;
+        }
     }
 }

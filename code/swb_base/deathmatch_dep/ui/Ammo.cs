@@ -30,10 +30,19 @@ public class Ammo : Panel
             return;
         };
 
-        Weapon.Text = $"{weapon.Primary.Ammo}";
-
         var inv = weapon.AvailableAmmo();
-        Inventory.Text = $" / {inv}";
+
+        if ( weapon.Primary.ClipSize != -1 )
+        {
+            Weapon.Text = $"{weapon.Primary.Ammo}";
+            Inventory.Text = $" / {inv}";
+        }
+        else
+        {
+            Weapon.Text = "";
+            Inventory.Text = $"{inv}";
+        }
+
         Inventory.SetClass( "active", inv >= 0 );
     }
 }

@@ -10,67 +10,66 @@ using Sandbox.UI.Construct;
 namespace SWB_Base
 {
 
-	public class SniperScopeRT : Panel
-	{
-		Image ScopeRT;
-		Texture RTTexture;
-		SceneCapture sceneCapture;
+    public class SniperScopeRT : Panel
+    {
+        Image ScopeRT;
+        Texture RTTexture;
+        SceneCapture sceneCapture;
 
-		public SniperScopeRT( string lensTexture, string scopeTexture )
-		{
-			StyleSheet.Load( "/swb_base/ui/SniperScopeRT.scss" );
+        public SniperScopeRT( string lensTexture, string scopeTexture )
+        {
+            StyleSheet.Load( "/swb_base/ui/SniperScopeRT.scss" );
 
-			SceneWorld.SetCurrent( SceneWorld.Current );
-			sceneCapture = SceneCapture.Create( "worldTestScene", 500, 500 );
-			ScopeRT = Add.Image( "scene:worldTestScene" );
-		}
+            SceneWorld.SetCurrent( SceneWorld.Current );
+            sceneCapture = SceneCapture.Create( "worldTestScene", 500, 500 );
+            ScopeRT = Add.Image( "scene:worldTestScene" );
+        }
 
-		public override void OnDeleted()
-		{
-			base.OnDeleted();
+        public override void OnDeleted()
+        {
+            base.OnDeleted();
 
-			sceneCapture?.Delete();
-			sceneCapture = null;
-		}
+            sceneCapture?.Delete();
+            sceneCapture = null;
+        }
 
-		[Event( "frame" )]
-		public void OnFrame()
-		{
+        [Event( "frame" )]
+        public void OnFrame()
+        {
 
-		}
+        }
 
-		public override void Tick()
-		{
-			base.Tick();
+        public override void Tick()
+        {
+            base.Tick();
 
-			var player = Local.Pawn;
-			if ( player == null ) return;
+            var player = Local.Pawn;
+            if ( player == null ) return;
 
-			var weapon = player.ActiveChild as WeaponBaseSniper;
-			if ( weapon == null ) return;
+            var weapon = player.ActiveChild as WeaponBaseSniper;
+            if ( weapon == null ) return;
 
-			// Update render camera
-			var TargetPos = CurrentView.Position;
-			var TargetAng = CurrentView.Rotation.Angles();
+            // Update render camera
+            var TargetPos = CurrentView.Position;
+            var TargetAng = CurrentView.Rotation.Angles();
 
-			sceneCapture.SetCamera( TargetPos, TargetAng, weapon.ZoomAmount );
+            sceneCapture.SetCamera( TargetPos, TargetAng, weapon.ZoomAmount );
 
-			// RenderTarget on a panel
-			var scopeBone = weapon.ViewModelEntity.GetBoneTransform( "v_weapon_awm_bolt_action" );
-			var screenpos = scopeBone.Position.ToScreen();
+            // RenderTarget on a panel
+            var scopeBone = weapon.ViewModelEntity.GetBoneTransform( "v_weapon_awm_bolt_action" );
+            var screenpos = scopeBone.Position.ToScreen();
 
-			if ( screenpos.z < 0 )
-				return;
+            if ( screenpos.z < 0 )
+                return;
 
-			this.Style.Left = Length.Fraction( screenpos.x );
-			this.Style.Top = Length.Fraction( screenpos.y );
-			this.Style.Dirty();
+            this.Style.Left = Length.Fraction( screenpos.x );
+            this.Style.Top = Length.Fraction( screenpos.y );
+            this.Style.Dirty();
 
-			// RenderTarget inside a material
-			var sceneObject = weapon.ViewModelEntity.SceneObject;
-			RTTexture = Texture.Load( "scene:worldTestScene", false );
-			sceneObject.SetValue( "ScopeRT", RTTexture );
-
-		}
-	}
+            // RenderTarget inside a material
+            var sceneObject = weapon.ViewModelEntity.SceneObject;
+            RTTexture = Texture.Load( "scene:worldTestScene", false );
+            sceneObject.SetValue( "ScopeRT", RTTexture );
+        }
+    }
 }
