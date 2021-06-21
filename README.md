@@ -22,6 +22,7 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Magazine (default)
 * Shotgun (shell based reloading)
 * Sniper (scoped zooming)
+* Entity (grenades, arrows, props, ...)
 * Melee
 
 ### CSS Weapons
@@ -33,10 +34,12 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 Anyone can contribute by creating a pull request to their branch. Contributors can help out with the planned updates, outstanding bug/issues, or maybe you just have a cool idea that would improve the base, any help is welcome!
 
 ## Planned Updates
-* Entity base (e.g. shooting arrows)
+* Proper viewbob animations
+* More base-included entities (e.g. rpg, bomb)
+* Physical bullets
 * Attachment base
 
-## Current Bugs
+## Current Issues
 * While running looking up or down will force weird rotations on the run animation
 
 ## Deatchmatch Elements
