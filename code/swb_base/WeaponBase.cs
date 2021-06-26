@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace SWB_Base
 {
 
-	public partial class WeaponBase : BaseCarriable
+	public partial class WeaponBase : CarriableBase
 	{
 		public override void Spawn()
 		{
@@ -30,6 +30,21 @@ namespace SWB_Base
 
 			TimeSinceDeployed = 0;
 			IsReloading = false;
+
+			// Draw animation
+			if ( IsLocalPawn )
+			{
+				var activeViewModel = !DualWield ? ViewModelEntity : dualWieldViewModel;
+
+				if ( Primary.Ammo == 0 && !string.IsNullOrEmpty( Primary.DrawEmptyAnim ) )
+				{
+					activeViewModel?.SetAnimBool( Primary.DrawEmptyAnim, true );
+				}
+				else if ( !string.IsNullOrEmpty( Primary.DrawAnim ) )
+				{
+					activeViewModel?.SetAnimBool( Primary.DrawAnim, true );
+				}
+			}
 
 			// Animated activity status will reset when weapon is switched out
 			if ( AnimatedActions != null )
@@ -53,9 +68,6 @@ namespace SWB_Base
 					ZoomAnimData = null;
 					RunAnimData = null;
 				}
-
-				if ( IsLocalPawn )
-					dualWieldViewModel?.SetAnimBool( "deploy", true );
 			}
 		}
 
@@ -234,7 +246,6 @@ namespace SWB_Base
 				dualWieldViewModel.EnableViewmodelRendering = true;
 				dualWieldViewModel.SetModel( ViewModelPath );
 			}
-
 		}
 
 		public override void CreateHudElements()

@@ -29,88 +29,35 @@ namespace SWB_Base
 
 		public virtual void Start()
 		{
-			if ( UseGravity )
-			{
-				// Initialize physics
-				MoveType = MoveType.Physics;
-				PhysicsEnabled = true;
-				UsePhysicsCollision = true;
-				SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
-				PhysicsGroup.AddVelocity( StartVelocity * Speed );
+			// Initialize physics
+			MoveType = MoveType.Physics;
+			PhysicsEnabled = true;
+			UsePhysicsCollision = true;
+			SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
+			PhysicsGroup.AddVelocity( StartVelocity * Speed );
 
-				// Delete entity
-				if ( RemoveDelay > 0 )
-					_ = DeleteAsync( RemoveDelay );
-			}
-			else
-			{
-				canThink = true;
-			}
+			// Delete entity
+			if ( RemoveDelay > 0 )
+				_ = DeleteAsync( RemoveDelay );
 		}
 
 		protected override void OnPhysicsCollision( CollisionEventData eventData )
 		{
 			base.OnPhysicsCollision( eventData );
-		}
 
-		public virtual void OnCollision( TraceResult traceResult )
-		{
-			if ( RemoveDelay <= 0 )
-				Delete();
+			if ( IsSticky && eventData.Entity.IsValid() )
+			{
+				Velocity = Vector3.Zero;
+				Parent = eventData.Entity;
+			}
 		}
 
 		[Event.Tick.Server]
 		public virtual void Tick()
 		{
-			if ( !canThink || !IsServer || isStuck )
-				return;
-
-			var velocity = Rotation.Forward * Speed;
-			var start = Position;
-			var end = start + velocity * Time.Delta;
-
-			var tr = Trace.Ray( start, end )
-					.UseHitboxes()
-					.Ignore( Owner )
-					.Ignore( this )
-					.Size( 1.0f )
-					.Run();
-
-
-			if ( tr.Hit )
+			if ( !UseGravity )
 			{
-				if ( IsSticky )
-					isStuck = true;
-
-				Position = tr.EndPos + Rotation.Forward * -1;
-
-				if ( tr.Entity.IsValid() )
-				{
-					var damageInfo = DamageInfo.FromBullet( tr.EndPos, tr.Direction * 200, Damage )
-														.UsingTraceResult( tr )
-														.WithAttacker( Owner )
-														.WithWeapon( this );
-
-					tr.Entity.TakeDamage( damageInfo );
-				}
-
-				SetParent( tr.Entity, tr.Bone );
-				Owner = null;
-
-				// Surface impact effect
-				tr.Normal = Rotation.Forward * -1;
-				tr.Surface.DoBulletImpact( tr );
-				velocity = default;
-
-				// Delete entity
-				if ( RemoveDelay > 0 )
-					_ = DeleteAsync( RemoveDelay );
-
-				OnCollision( tr );
-			}
-			else
-			{
-				Position = end;
+				PhysicsBody.Velocity = PhysicsBody.Velocity.WithZ( 0 );
 			}
 		}
 	}
@@ -120,13 +67,13 @@ namespace SWB_Base
 		public virtual Func<ClipInfo, bool, FiredEntity> CreateEntity => null; // Function that creates an entity and returns it ( to use custom entities in the base )
 		public virtual string EntityModel => ""; // Path to the model of the entity
 		public virtual Vector3 EntityVelocity => new Vector3( 0, 0, 100 ); // Velocity ( right, up, forward )
-		public virtual Vector3 EntitySpawnOffset => Vector3.Zero; // Entity spawn offset ( right, up, forward )
+		public virtual Angles EntityAngles => new Angles( 0, 0, 0 ); // Spawn angles
+		public virtual Vector3 EntitySpawnOffset => Vector3.Zero; // Spawn offset ( right, up, forward )
 		public virtual float PrimaryEntitySpeed => 100f; // Primary velocity speed
 		public virtual float SecondaryEntitySpeed => 50f; // Secondary velocity Speed
 		public virtual float RemoveDelay => -1; // Delay that the entity should be removed after
 		public virtual bool UseGravity => true; // Should gravity affect the entity
 		public virtual bool IsSticky => false; // Should the entity stick to the surface it hits
-
 		public virtual void FireEntity( ClipInfo clipInfo, bool isPrimary )
 		{
 			FiredEntity firedEntity;
@@ -145,7 +92,7 @@ namespace SWB_Base
 
 			firedEntity.Owner = Owner;
 			firedEntity.Position = MathZ.RelativeAdd( Position, EntitySpawnOffset, Owner.EyeRot );
-			firedEntity.Rotation = Owner.EyeRot;
+			firedEntity.Rotation = Owner.EyeRot * Rotation.From( EntityAngles );
 
 			firedEntity.RemoveDelay = RemoveDelay;
 			firedEntity.UseGravity = UseGravity;

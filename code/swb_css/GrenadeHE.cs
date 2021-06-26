@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 using SWB_Base;
 using System;
+using System.Collections.Generic;
 
 namespace SWB_CSS
 {
@@ -18,6 +19,8 @@ namespace SWB_CSS
 		public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;
 		public override string EntityModel => "weapons/css_grenade_he/css_w_grenade_he_thrown.vmdl";
 		public override Vector3 EntityVelocity => new Vector3( 0, 25, 50 );
+		public override Angles EntityAngles => new Angles( 0, 0, -45 );
+		public override bool IsSticky => true;
 		public override float PrimaryEntitySpeed => 17;
 		public override float SecondaryEntitySpeed => 10;
 		public override float PrimaryDelay => 1.27f;
@@ -38,15 +41,25 @@ namespace SWB_CSS
 
 		private FiredEntity CreateGrenadeEntity( ClipInfo clipInfo, bool isPrimary )
 		{
-			var grenade = new ThrowableGrenade();
+			var grenade = new Grenade();
 			grenade.Weapon = this;
 			grenade.ExplosionDelay = 3f;
 			grenade.ExplosionRadius = 300f;
 			grenade.ExplosionDamage = 200f;
-			grenade.ExplosionForce = 250f;
+			grenade.ExplosionForce = 350f;
 			grenade.BounceSound = "css_grenade_he.bounce";
-			grenade.ExplosionSound = "css_grenade_he.explode";
+			grenade.ExplosionSounds = new List<string>
+			{
+				"css_grenade_he.explode" 
+			};
 			grenade.ExplosionEffect = "particles/explosion_fireball.vpcf";
+			grenade.ExplosionShake = new ScreenShake
+			{
+				Length = 1f,
+				Speed = 5f,
+				Size = 5f,
+				Rotation = 2f,
+			};
 
 			return grenade;
 		}

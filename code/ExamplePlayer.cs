@@ -24,6 +24,10 @@ partial class ExamplePlayer : PlayerBase
 		Inventory.Add( new SWB_CSS.M249() );
 		Inventory.Add( new SWB_CSS.AWP() );
 
+		Inventory.Add( new SWB_CSS.AWP() );
+
+		Inventory.Add( new SWB_EXPLOSIVES.RPG7() );
+		
 		//Inventory.Add( new SWB_CSS.M249HE() );
 		//Inventory.Add( new SWB_CSS.DeagleDual() );
 		//Inventory.Add( new SWB_CSS.AK47Dual() );

@@ -34,6 +34,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 					var panelBackground = new PanelBackground();
 					panelBackground.Texture = Texture.Load( killWeapon.Icon );
 					e.Icon.Style.Background = panelBackground;
+					killWeapon.Delete();
 				}
 			}
 		}

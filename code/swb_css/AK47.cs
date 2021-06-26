@@ -8,8 +8,8 @@ namespace SWB_CSS
     {
         public override int Bucket => 3;
         public override HoldType HoldType => HoldType.Rifle;
-        public override string ViewModelPath => "weapons/css_ak47/css_v_rif_ak47.vmdl";
-        public override string WorldModelPath => "weapons/css_ak47/css_w_rif_ak47.vmdl";
+        public override string ViewModelPath => "weapons/swb/css/ak47/css_v_rif_ak47.vmdl";
+        public override string WorldModelPath => "weapons/swb/css/ak47/css_w_rif_ak47.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_ak47.png";
         public override int FOV => 75;
         public override int ZoomFOV => 35;

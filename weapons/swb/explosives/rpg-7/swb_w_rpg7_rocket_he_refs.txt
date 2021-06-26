@@ -1,0 +1,4 @@
+importfilelist
+{
+	"file"	"weapon_w_rpg_dm_is_unused.vmt"
+}

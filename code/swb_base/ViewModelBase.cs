@@ -94,6 +94,36 @@ namespace SWB_Base
         // Viewbob animations
         private void AddViewbobAnimations( ref CameraSetup camSetup )
         {
+			/* WIP
+			float speedMod = 1;
+
+			if ( weapon.IsZooming )
+				speedMod = 0.7f;
+
+			var realTime = RealTime.Now;
+			var len = Owner.Velocity.Length;
+			var maxWalkSpeed = 190;
+
+			var mul = Math.Clamp( len / maxWalkSpeed, 0, 1 );
+			var sin = MathF.Sin( realTime * speedMod ) * mul;
+			var cos = MathF.Cos( realTime * speedMod ) * mul;
+			var tan = MathF.Atan2( cos * sin, cos * sin ) * mul;
+
+			//var viewbobAngles = Angles.Zero;
+			//viewbobAngles.pitch = tan;
+			//viewbobAngles.yaw = cos;
+			//viewbobAngles.roll = sin;
+
+			//Rotation *= Rotation.From( viewbobAngles );
+
+			var left = camSetup.Rotation.Left;
+			var up = camSetup.Rotation.Up;
+			var forward = camSetup.Rotation.Forward;
+			Position += left * sin * 0.1f;
+			Position += up * tan * 0.1f;
+			Position += forward * tan * 0.4f;
+			*/
+
             var speed = Owner.Velocity.Length.LerpInverse( 0, 320 );
             speed = speed * weapon.WalkAnimationSpeedMod;
 
@@ -117,10 +147,10 @@ namespace SWB_Base
 
             Position += up * MathF.Sin( walkBob ) * speed * sideSwingMod;
             Position += left * MathF.Sin( walkBob * upSwingMod ) * speed * -0.5f;
-        }
+		}
 
-        // Movement animations
-        private void AddMovementAnimations( ref CameraSetup camSetup )
+		// Movement animations
+		private void AddMovementAnimations( ref CameraSetup camSetup )
         {
             // Angles
             // var xSpeed = Math.Clamp( Owner.Velocity.x * 0.1f, -maxSideSway, maxSideSway ); // Is not predicted yet so looks weird
@@ -173,16 +203,14 @@ namespace SWB_Base
         {
             // Angles
             lerpTargAngle = MathZ.FILerp( lerpTargAngle, angles, 10f );
-            var targAngles = Rotation.Angles() + lerpTargAngle;
-
-            Rotation = Rotation.From( targAngles );
+			Rotation *= Rotation.From( lerpTargAngle );
 
             // Position
             lerpTargPos = MathZ.FILerp( lerpTargPos, pos, 10f );
 
             var right = camSetup.Rotation.Right;
             var up = camSetup.Rotation.Up;
-            var forward = camSetup.Rotation.Forward;
+            var forward = camSetup.Rotation.Forward; 
 
             var posOffset = Vector3.Zero;
             posOffset += right * lerpTargPos.x;
@@ -264,8 +292,8 @@ namespace SWB_Base
                 if ( liveEditing )
                 {
                     FieldOfView = weapon.ZoomFOV;
-                    testAngles = new Angles( 0f, 0.5f, 0f );
-                    testPos = new Vector3( -5.5f, 2f, 4f );
+                    testAngles = new Angles( -2.85f, -0.34f, 6f );
+                    testPos = new Vector3( -5.245f, -1.05f, 0f );
                 }
 
                 LerpToPosition( testAngles, testPos, ref lerpRunAngle, ref lerpRunPos, ref camSetup );

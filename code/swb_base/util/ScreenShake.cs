@@ -6,5 +6,5 @@
         public float Speed { get; set; } = 0f;
         public float Size { get; set; } = 0f;
         public float Rotation { get; set; } = 0f;
-    }
+	}
 }

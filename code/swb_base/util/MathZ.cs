@@ -1,4 +1,6 @@
 ﻿using Sandbox;
+using System;
+using System.Collections.Generic;
 
 /* 
  * Utility class to handle framerate independent animations
@@ -31,5 +33,14 @@ namespace SWB_Base
 
             return vec1;
         }
-    }
+
+		public static T GetRandom<T>( List<T> list )
+		{
+			if ( list.Count == 0 ) return default;
+
+			var random = new Random();
+			var randI = random.Next( list.Count );
+			return list[randI];
+		}
+	}
 }

@@ -35,12 +35,9 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 
 ## Planned Updates
 * Proper viewbob animations
-* More base-included entities (e.g. rpg, bomb)
+* More base-included entities (e.g. bomb)
 * Physical bullets
 * Attachment base
-
-## Current Issues
-* While running looking up or down will force weird rotations on the run animation
 
 ## Deatchmatch Elements
 For now some deathmatch dependencies are included as the base uses the inventory and hud elements from the deathmatch gamemode.
