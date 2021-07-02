@@ -7,6 +7,11 @@ using Sandbox.UI.Construct;
  * Very experimental, NOT ready for use yet
 */
 
+/* Layla removed SceneCapture.Create
+ * Remove bullshit SceneCapture, replaced with Render.DrawScene and UI.Scene control
+ * TODO: find out if a proper renderscope can be made now!
+*/
+
 namespace SWB_Base
 {
 
@@ -14,23 +19,23 @@ namespace SWB_Base
     {
         Image ScopeRT;
         Texture RTTexture;
-        SceneCapture sceneCapture;
+        //SceneCapture sceneCapture;
 
         public SniperScopeRT( string lensTexture, string scopeTexture )
         {
             StyleSheet.Load( "/swb_base/ui/SniperScopeRT.scss" );
 
             SceneWorld.SetCurrent( SceneWorld.Current );
-            sceneCapture = SceneCapture.Create( "worldTestScene", 500, 500 );
+			//sceneCapture = SceneCapture.Create( "worldTestScene", 500, 500 );
             ScopeRT = Add.Image( "scene:worldTestScene" );
-        }
+		}
 
         public override void OnDeleted()
         {
             base.OnDeleted();
 
-            sceneCapture?.Delete();
-            sceneCapture = null;
+            //sceneCapture?.Delete();
+            //sceneCapture = null;
         }
 
         [Event( "frame" )]
@@ -53,7 +58,7 @@ namespace SWB_Base
             var TargetPos = CurrentView.Position;
             var TargetAng = CurrentView.Rotation.Angles();
 
-            sceneCapture.SetCamera( TargetPos, TargetAng, weapon.ZoomAmount );
+			// sceneCapture.SetCamera( TargetPos, TargetAng, weapon.ZoomAmount );
 
             // RenderTarget on a panel
             var scopeBone = weapon.ViewModelEntity.GetBoneTransform( "v_weapon_awm_bolt_action" );
