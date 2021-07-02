@@ -17,6 +17,7 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Running
 * Idle
 * Sway
+* Aiming
 
 ### Bases
 * Magazine (default)
