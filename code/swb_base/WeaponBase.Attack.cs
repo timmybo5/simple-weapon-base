@@ -46,8 +46,9 @@ namespace SWB_Base
             // Player anim
             (Owner as AnimEntity).SetAnimBool( "b_attack", true );
 
-            // Tell the clients to play the shoot effects
-            ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim, clipInfo.ScreenShake );
+			// Tell the clients to play the shoot effects
+			BlastUtil.ScreenShakeRPC( clipInfo.ScreenShake.Length, clipInfo.ScreenShake.Speed, clipInfo.ScreenShake.Size, clipInfo.ScreenShake.Rotation );
+			ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim );
 
             if ( clipInfo.ShootSound != null )
                 PlaySound( clipInfo.ShootSound );
@@ -84,7 +85,7 @@ namespace SWB_Base
             (Owner as AnimEntity).SetAnimBool( "b_attack", true );
 
             // Play pre-fire animation
-            ShootEffects( null, null, clipInfo.ShootAnim, null );
+            ShootEffects( null, null, clipInfo.ShootAnim );
 
             var owner = Owner as PlayerBase;
             if ( owner == null ) return;
@@ -98,8 +99,9 @@ namespace SWB_Base
             // Take ammo
             TakeAmmo( 1 );
 
-            // Play shoot effects
-            ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null, clipInfo.ScreenShake );
+			// Play shoot effects
+			BlastUtil.ScreenShakeRPC( clipInfo.ScreenShake.Length, clipInfo.ScreenShake.Speed, clipInfo.ScreenShake.Size, clipInfo.ScreenShake.Rotation );
+            ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null );
 
             if ( clipInfo.ShootSound != null )
                 PlaySound( clipInfo.ShootSound );
@@ -215,7 +217,7 @@ namespace SWB_Base
         }
 
         [ClientRpc]
-        protected virtual void ShootEffects( string muzzleFlashParticle, string bulletEjectParticle, string shootAnim, ScreenShake screenShake )
+        protected virtual void ShootEffects( string muzzleFlashParticle, string bulletEjectParticle, string shootAnim )
         {
             Host.AssertClient();
 
@@ -233,11 +235,6 @@ namespace SWB_Base
 
             if ( !string.IsNullOrEmpty( bulletEjectParticle ) )
                 Particles.Create( bulletEjectParticle, firingViewModel, "ejection_point" );
-
-            if ( screenShake != null && IsLocalPawn && screenShake.Length > 0 && screenShake.Speed > 0 && screenShake.Size > 0 && screenShake.Rotation > 0 )
-            {
-                new Sandbox.ScreenShake.Perlin( screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation );
-            }
 
             if ( !string.IsNullOrEmpty( shootAnim ) )
                 animatingViewModel?.SetAnimBool( shootAnim, true );

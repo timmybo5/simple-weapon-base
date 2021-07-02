@@ -74,6 +74,7 @@ namespace SWB_Base
 		public virtual float RemoveDelay => -1; // Delay that the entity should be removed after
 		public virtual bool UseGravity => true; // Should gravity affect the entity
 		public virtual bool IsSticky => false; // Should the entity stick to the surface it hits
+
 		public virtual void FireEntity( ClipInfo clipInfo, bool isPrimary )
 		{
 			FiredEntity firedEntity;
@@ -122,7 +123,8 @@ namespace SWB_Base
 			(Owner as AnimEntity).SetAnimBool( "b_attack", true );
 
 			// Weapon anim
-			ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim, clipInfo.ScreenShake );
+			BlastUtil.ScreenShakeRPC( clipInfo.ScreenShake.Length, clipInfo.ScreenShake.Speed, clipInfo.ScreenShake.Size, clipInfo.ScreenShake.Rotation );
+			ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim );
 
 			if ( !string.IsNullOrEmpty( clipInfo.ShootSound ) )
 				PlaySound( clipInfo.ShootSound );
@@ -147,7 +149,7 @@ namespace SWB_Base
 			(Owner as AnimEntity).SetAnimBool( "b_attack", true );
 
 			// Play pre-fire animation
-			ShootEffects( null, null, clipInfo.ShootAnim, null );
+			ShootEffects( null, null, clipInfo.ShootAnim );
 
 			var owner = Owner as PlayerBase;
 			if ( owner == null ) return;
@@ -162,7 +164,8 @@ namespace SWB_Base
 			TakeAmmo( 1 );
 
 			// Play shoot effects
-			ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null, clipInfo.ScreenShake );
+			BlastUtil.ScreenShakeRPC( clipInfo.ScreenShake.Length, clipInfo.ScreenShake.Speed, clipInfo.ScreenShake.Size, clipInfo.ScreenShake.Rotation );
+			ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null );
 
 			if ( clipInfo.ShootSound != null )
 				PlaySound( clipInfo.ShootSound );
