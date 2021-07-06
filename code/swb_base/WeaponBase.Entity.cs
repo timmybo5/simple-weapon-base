@@ -35,6 +35,7 @@ namespace SWB_Base
 			UsePhysicsCollision = true;
 			SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
 			PhysicsGroup.AddVelocity( StartVelocity * Speed );
+			PhysicsBody.GravityEnabled = UseGravity;
 
 			// Delete entity
 			if ( RemoveDelay > 0 )
@@ -55,10 +56,6 @@ namespace SWB_Base
 		[Event.Tick.Server]
 		public virtual void Tick()
 		{
-			if ( !UseGravity )
-			{
-				PhysicsBody.Velocity = PhysicsBody.Velocity.WithZ( 0 );
-			}
 		}
 	}
 
