@@ -114,7 +114,7 @@ namespace SWB_Base
                 if ( lerpZoomAmount == 0 )
                     lerpZoomAmount = camSetup.FieldOfView;
 
-                lerpZoomAmount = MathZ.FILerp( lerpZoomAmount, ZoomAmount, 10f );
+                lerpZoomAmount = MathUtil.FILerp( lerpZoomAmount, ZoomAmount, 10f );
                 camSetup.FieldOfView = lerpZoomAmount;
             }
         }

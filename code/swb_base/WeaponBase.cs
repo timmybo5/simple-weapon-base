@@ -214,7 +214,7 @@ namespace SWB_Base
 			// Mouse sensitivity
 			if ( IsZooming )
 			{
-				input.ViewAngles = MathZ.FILerp( input.OriginalViewAngles, input.ViewAngles, AimSensitivity * 90 );
+				input.ViewAngles = MathUtil.FILerp( input.OriginalViewAngles, input.ViewAngles, AimSensitivity * 90 );
 			}
 
 			// Recoil

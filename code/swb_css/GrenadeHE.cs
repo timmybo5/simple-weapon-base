@@ -52,7 +52,7 @@ namespace SWB_CSS
 			{
 				"css_grenade_he.explode" 
 			};
-			grenade.ExplosionEffect = "particles/explosion_fireball.vpcf";
+			grenade.ExplosionEffect = "weapons/css_grenade_he/particles/grenade_he_explosion.vpcf";
 			grenade.ExplosionShake = new ScreenShake
 			{
 				Length = 1f,

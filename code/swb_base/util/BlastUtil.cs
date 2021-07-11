@@ -48,35 +48,5 @@ namespace SWB_Base
 						.WithWeapon( weapon ) );
 			}
 		}
-
-		[ClientRpc]
-		public static void ScreenShakeRPC( float length, float speed, float size, float rotation )
-		{
-			new Sandbox.ScreenShake.Perlin( length, speed, size, rotation );
-		}
-
-		public static void ScreenShake( Vector3 origin, float radius, ScreenShake screenShake )
-		{
-			var objects = Physics.GetEntitiesInSphere( origin, radius );
-
-			foreach ( var obj in objects )
-			{
-				// Player check
-				if ( obj is not Player ply || !ply.IsValid() )
-					continue;
-
-				// Dist check
-				var targetPos = ply.PhysicsBody.MassCenter;
-				var dist = Vector3.DistanceBetween( origin, targetPos );
-				if ( dist > radius )
-					continue;
-
-				var distanceMul = 1.0f - Math.Clamp( dist / radius, 0.0f, 0.75f );
-				screenShake.Rotation *= distanceMul;
-				screenShake.Size *= distanceMul;
-
-				ScreenShakeRPC( To.Single( ply ), screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation );
-			}
-		}
 	}
 }

@@ -89,7 +89,7 @@ namespace SWB_Base
 				firedEntity.SetModel( EntityModel );
 
 			firedEntity.Owner = Owner;
-			firedEntity.Position = MathZ.RelativeAdd( Position, EntitySpawnOffset, Owner.EyeRot );
+			firedEntity.Position = MathUtil.RelativeAdd( Position, EntitySpawnOffset, Owner.EyeRot );
 			firedEntity.Rotation = Owner.EyeRot * Rotation.From( EntityAngles );
 
 			firedEntity.RemoveDelay = RemoveDelay;
@@ -98,7 +98,7 @@ namespace SWB_Base
 			firedEntity.IsSticky = IsSticky;
 			firedEntity.Damage = clipInfo.Damage;
 			firedEntity.Force = clipInfo.Force;
-			firedEntity.StartVelocity = MathZ.RelativeAdd( Vector3.Zero, EntityVelocity, Owner.EyeRot );
+			firedEntity.StartVelocity = MathUtil.RelativeAdd( Vector3.Zero, EntityVelocity, Owner.EyeRot );
 
 			firedEntity.Start();
 		}
@@ -120,7 +120,7 @@ namespace SWB_Base
 			(Owner as AnimEntity).SetAnimBool( "b_attack", true );
 
 			// Weapon anim
-			BlastUtil.ScreenShakeRPC( clipInfo.ScreenShake.Length, clipInfo.ScreenShake.Speed, clipInfo.ScreenShake.Size, clipInfo.ScreenShake.Rotation );
+			ScreenUtil.Shake( clipInfo.ScreenShake );
 			ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim );
 
 			if ( !string.IsNullOrEmpty( clipInfo.ShootSound ) )
@@ -161,7 +161,7 @@ namespace SWB_Base
 			TakeAmmo( 1 );
 
 			// Play shoot effects
-			BlastUtil.ScreenShakeRPC( clipInfo.ScreenShake.Length, clipInfo.ScreenShake.Speed, clipInfo.ScreenShake.Size, clipInfo.ScreenShake.Rotation );
+			ScreenUtil.Shake( clipInfo.ScreenShake );
 			ShootEffects( clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null );
 
 			if ( clipInfo.ShootSound != null )

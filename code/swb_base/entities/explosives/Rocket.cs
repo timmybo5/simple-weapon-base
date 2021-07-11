@@ -65,7 +65,7 @@ namespace SWB_Base
 			}
 
 			// Explosion sound
-			var explosionSound = MathZ.GetRandom( ExplosionSounds );
+			var explosionSound = MathUtil.GetRandom( ExplosionSounds );
 
 			if ( !string.IsNullOrEmpty( explosionSound ) )
 				PlaySound( explosionSound );
@@ -75,7 +75,7 @@ namespace SWB_Base
 				Particles.Create( ExplosionEffect, PhysicsBody.MassCenter );
 
 			// Screenshake
-			BlastUtil.ScreenShake( PhysicsBody.MassCenter, ExplosionRadius*2, ExplosionShake );
+			ScreenUtil.ShakeAt( PhysicsBody.MassCenter, ExplosionRadius*2, ExplosionShake );
 
 			// Damage
 			BlastUtil.Explode( PhysicsBody.MassCenter, ExplosionRadius, ExplosionDamage, ExplosionForce, Owner, Weapon, this );
