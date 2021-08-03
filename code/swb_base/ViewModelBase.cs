@@ -5,115 +5,115 @@ using System.Numerics;
 
 namespace SWB_Base
 {
-	class ViewModelBase : BaseViewModel
-	{
-		private WeaponBase weapon;
+    class ViewModelBase : BaseViewModel
+    {
+        private WeaponBase weapon;
 
-		private bool isDualWieldVM = true;
+        private bool isDualWieldVM = true;
 
         private float animSpeed;
 
         // Target animation values
-		private Vector3 TargetVectorPos;
-		private Vector3 TargetVectorRot;
-		private float TargetFOV;
+        private Vector3 TargetVectorPos;
+        private Vector3 TargetVectorRot;
+        private float TargetFOV;
         
         // Finalized animation values
-		private Vector3 FinalVectorPos;
-		private Vector3 FinalVectorRot;
-		private float FinalFOV;
+        private Vector3 FinalVectorPos;
+        private Vector3 FinalVectorRot;
+        private float FinalFOV;
         
         // Sway
-		private Rotation LastEyeRot;
+        private Rotation LastEyeRot;
 
         // Jumping Animation
         private float jumpTime;
         private float landTime;
 
         // Helpful values
-		private Vector3 localVel;
+        private Vector3 localVel;
 
-		public ViewModelBase(WeaponBase weapon, bool isDualWieldVM = false)
-		{
-			this.weapon = weapon;
-			this.isDualWieldVM = isDualWieldVM;
-		}
+        public ViewModelBase(WeaponBase weapon, bool isDualWieldVM = false)
+        {
+            this.weapon = weapon;
+            this.isDualWieldVM = isDualWieldVM;
+        }
 
-		public override void PostCameraSetup(ref CameraSetup camSetup)
-		{
-			base.PostCameraSetup(ref camSetup);
-			FieldOfView = weapon.FOV;
-			Rotation = camSetup.Rotation;
-			Position = camSetup.Position;
-			if (weapon.IsDormant) return;
+        public override void PostCameraSetup(ref CameraSetup camSetup)
+        {
+            base.PostCameraSetup(ref camSetup);
+            FieldOfView = weapon.FOV;
+            Rotation = camSetup.Rotation;
+            Position = camSetup.Position;
+            if (weapon.IsDormant) return;
             
-			// Smoothly transition the vectors with the target values
-			this.FinalVectorPos = this.FinalVectorPos.LerpTo(this.TargetVectorPos, animSpeed*RealTime.Delta);
-			this.FinalVectorRot = this.FinalVectorRot.LerpTo(this.TargetVectorRot, animSpeed*RealTime.Delta);
+            // Smoothly transition the vectors with the target values
+            this.FinalVectorPos = this.FinalVectorPos.LerpTo(this.TargetVectorPos, animSpeed*RealTime.Delta);
+            this.FinalVectorRot = this.FinalVectorRot.LerpTo(this.TargetVectorRot, animSpeed*RealTime.Delta);
             this.FinalFOV = MathX.LerpTo(this.FinalFOV, this.TargetFOV, animSpeed*RealTime.Delta);
             this.animSpeed = 5;
 
-			// Change the angles and positions of the viewmodel with the new vectors
-			Rotation *= Rotation.From(this.FinalVectorRot.x, this.FinalVectorRot.y, this.FinalVectorRot.z);
-			Position += this.FinalVectorPos.z*Rotation.Up + this.FinalVectorPos.y*Rotation.Forward + this.FinalVectorPos.x*Rotation.Right;
+            // Change the angles and positions of the viewmodel with the new vectors
+            Rotation *= Rotation.From(this.FinalVectorRot.x, this.FinalVectorRot.y, this.FinalVectorRot.z);
+            Position += this.FinalVectorPos.z*Rotation.Up + this.FinalVectorPos.y*Rotation.Forward + this.FinalVectorPos.x*Rotation.Right;
             FieldOfView = this.FinalFOV;
 
-			// I'm sure there's something already that does this for me, but I spend an hour
-			// searching through the wiki and a bunch of other garbage and couldn't find anything...
-			// So I'm doing it manually. Problem solved.
-			this.localVel = new Vector3(Owner.Rotation.Right.Dot(Owner.Velocity), Owner.Rotation.Forward.Dot(Owner.Velocity), Owner.Velocity.z);
+            // I'm sure there's something already that does this for me, but I spend an hour
+            // searching through the wiki and a bunch of other garbage and couldn't find anything...
+            // So I'm doing it manually. Problem solved.
+            this.localVel = new Vector3(Owner.Rotation.Right.Dot(Owner.Velocity), Owner.Rotation.Forward.Dot(Owner.Velocity), Owner.Velocity.z);
 
-			// Initialize the target vectors for this frame
-			this.TargetVectorPos = new Vector3(0.0f, 0.0f, 0.0f);
-			this.TargetVectorRot = new Vector3(0.0f, 0.0f, 0.0f);
+            // Initialize the target vectors for this frame
+            this.TargetVectorPos = new Vector3(0.0f, 0.0f, 0.0f);
+            this.TargetVectorRot = new Vector3(0.0f, 0.0f, 0.0f);
             this.TargetFOV = weapon.FOV;
             
             // Flip the Viewmodel
-			if (isDualWieldVM)
+            if (isDualWieldVM)
                 FlipViewModel(ref camSetup);
 
-			// Handle different animations
-			HandleIdleAnimation(ref camSetup);
-			HandleWalkAnimation(ref camSetup);
+            // Handle different animations
+            HandleIdleAnimation(ref camSetup);
+            HandleWalkAnimation(ref camSetup);
             HandleSwayAnimation(ref camSetup);
             HandleIronAnimation(ref camSetup);
             HandleSprintAnimation(ref camSetup);
             HandleJumpAnimation(ref camSetup);
-		}
+        }
 
-		private void FlipViewModel( ref CameraSetup camSetup )
-		{
-			// Waiting for https://github.com/Facepunch/sbox-issues/issues/324
+        private void FlipViewModel( ref CameraSetup camSetup )
+        {
+            // Waiting for https://github.com/Facepunch/sbox-issues/issues/324
 
-			// Temp solution: 
-			var posOffset = Vector3.Zero;
-			posOffset -= camSetup.Rotation.Right*10.0f;
-			Position += posOffset;
-		}
+            // Temp solution: 
+            var posOffset = Vector3.Zero;
+            posOffset -= camSetup.Rotation.Right*10.0f;
+            Position += posOffset;
+        }
 
-		private void HandleIdleAnimation(ref CameraSetup camSetup)
-		{
+        private void HandleIdleAnimation(ref CameraSetup camSetup)
+        {
             // No swaying if aiming
             if (weapon.IsZooming)
                 return;
             
             // Perform a "breathing" animation
-			float breatheTime = RealTime.Now*2.0f; 
-			this.TargetVectorPos -= new Vector3(MathF.Cos(breatheTime/4.0f)/8.0f, 0.0f, -MathF.Cos(breatheTime/4.0f)/32.0f);
-			this.TargetVectorRot -= new Vector3(MathF.Cos(breatheTime/5.0f), MathF.Cos(breatheTime/4.0f), MathF.Cos(breatheTime/7.0f));
+            float breatheTime = RealTime.Now*2.0f; 
+            this.TargetVectorPos -= new Vector3(MathF.Cos(breatheTime/4.0f)/8.0f, 0.0f, -MathF.Cos(breatheTime/4.0f)/32.0f);
+            this.TargetVectorRot -= new Vector3(MathF.Cos(breatheTime/5.0f), MathF.Cos(breatheTime/4.0f), MathF.Cos(breatheTime/7.0f));
             
             // Crouching animation
             if (Input.Down(InputButton.Duck))
                 this.TargetVectorPos += new Vector3(-1.0f, -1.0f, 0.5f);
-		}
+        }
 
-		private void HandleWalkAnimation(ref CameraSetup camSetup)
-		{
-			float breatheTime = RealTime.Now*16.0f;
-			float walkSpeed = new Vector3(Owner.Velocity.x, Owner.Velocity.y, 0.0f).Length;
-			float maxWalkSpeed = 200.0f;
-			float roll = 0.0f;
-			float yaw = 0.0f;
+        private void HandleWalkAnimation(ref CameraSetup camSetup)
+        {
+            float breatheTime = RealTime.Now*16.0f;
+            float walkSpeed = new Vector3(Owner.Velocity.x, Owner.Velocity.y, 0.0f).Length;
+            float maxWalkSpeed = 200.0f;
+            float roll = 0.0f;
+            float yaw = 0.0f;
             
             // Check if on the ground
             if (Owner.GroundEntity == null)
@@ -126,19 +126,19 @@ namespace SWB_Base
                 maxWalkSpeed = 100.0f;
             }
 
-			// Check for sideways velocity to sway the gun slightly
-			if (this.localVel.x > 0.0f)
-				roll = -7.0f*(this.localVel.x/maxWalkSpeed);
-			else if (this.localVel.x < 0.0f)
-				yaw = 3.0f*(this.localVel.x/maxWalkSpeed);
+            // Check for sideways velocity to sway the gun slightly
+            if (this.localVel.x > 0.0f)
+                roll = -7.0f*(this.localVel.x/maxWalkSpeed);
+            else if (this.localVel.x < 0.0f)
+                yaw = 3.0f*(this.localVel.x/maxWalkSpeed);
 
-			// Perform walk cycle
-			this.TargetVectorPos -= new Vector3((-MathF.Cos(breatheTime/2.0f)/5.0f)*walkSpeed/maxWalkSpeed-yaw/4.0f, 0.0f, 0.0f);
-			this.TargetVectorRot -= new Vector3((Math.Clamp(MathF.Cos(breatheTime), -0.3f, 0.3f)*2.0f)*walkSpeed/maxWalkSpeed, (-MathF.Cos(breatheTime/2.0f)*1.2f)*walkSpeed/maxWalkSpeed-yaw*1.5f, roll);
-		}
+            // Perform walk cycle
+            this.TargetVectorPos -= new Vector3((-MathF.Cos(breatheTime/2.0f)/5.0f)*walkSpeed/maxWalkSpeed-yaw/4.0f, 0.0f, 0.0f);
+            this.TargetVectorRot -= new Vector3((Math.Clamp(MathF.Cos(breatheTime), -0.3f, 0.3f)*2.0f)*walkSpeed/maxWalkSpeed, (-MathF.Cos(breatheTime/2.0f)*1.2f)*walkSpeed/maxWalkSpeed-yaw*1.5f, roll);
+        }
 
-		private void HandleSwayAnimation(ref CameraSetup camSetup)
-		{            
+        private void HandleSwayAnimation(ref CameraSetup camSetup)
+        {            
             int swayspeed = 5;
             
             // Fix the sway faster if we're ironsighting
@@ -153,9 +153,9 @@ namespace SWB_Base
             angDif = new Angles(angDif.pitch, MathX.RadianToDegree(MathF.Atan2(MathF.Sin(MathX.DegreeToRadian(angDif.yaw)), MathF.Cos(MathX.DegreeToRadian(angDif.yaw)))), 0);
             
             // Perform sway
-			this.TargetVectorPos += new Vector3(Math.Clamp(angDif.yaw*0.04f, -1.5f, 1.5f), 0.0f, Math.Clamp(angDif.pitch*0.04f, -1.5f, 1.5f));
+            this.TargetVectorPos += new Vector3(Math.Clamp(angDif.yaw*0.04f, -1.5f, 1.5f), 0.0f, Math.Clamp(angDif.pitch*0.04f, -1.5f, 1.5f));
             this.TargetVectorRot += new Vector3(Math.Clamp(angDif.pitch*0.2f, -4.0f, 4.0f), Math.Clamp(angDif.yaw*0.2f, -4.0f, 4.0f), 0.0f);
-		}
+        }
         
         private void HandleIronAnimation(ref CameraSetup camSetup)
         {
@@ -247,5 +247,5 @@ namespace SWB_Base
             else
                 this.TargetVectorPos += new Vector3(0.0f, 0.0f, Math.Clamp(localVel.z/1000.0f, -1.0f, 1.0f));
         }
-	}
+    }
 }
