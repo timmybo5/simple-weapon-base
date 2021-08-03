@@ -9,60 +9,76 @@ namespace SWB_Base
 	{
 		private WeaponBase weapon;
 
-		private Vector3 lerpMovementPos;
-		private Angles lerpMovementAngle;
-		private Vector3 lerpSwayPos;
-		private Rotation lerpSwayRotation;
-		private Vector3 lerpZoomPos;
-		private Angles lerpZoomAngle;
-		private Vector3 lerpRunPos;
-		private Angles lerpRunAngle;
-		private Vector3 lerpTuckPos;
-		private Angles lerpTuckAngle;
-
-		private float lerpZoomFOV;
-
-		private float walkBob = 0;
-		private float tuckDist = -1;
-
-		private int maxSideSway = 2;
-		private int maxJumpSway = 4;
-		private int maxMoveSway = 5;
-		private int maxTiltSway = 5;
-
-		private bool isInJump = false;
 		private bool isDualWieldVM = true;
-		private bool liveEditing = false;
 
-		/* 
-		 * Add realistic viewbobbing!
-		 */
+        private float animSpeed;
 
-		public ViewModelBase( WeaponBase weapon, bool isDualWieldVM = false )
+        // Target animation values
+		private Vector3 TargetVectorPos;
+		private Vector3 TargetVectorRot;
+		private float TargetFOV;
+        
+        // Finalized animation values
+		private Vector3 FinalVectorPos;
+		private Vector3 FinalVectorRot;
+		private float FinalFOV;
+        
+        // Sway
+		private Rotation LastEyeRot;
+
+        // Jumping Animation
+        private float jumpTime;
+        private float landTime;
+
+        // Helpful values
+		private Vector3 localVel;
+
+		public ViewModelBase(WeaponBase weapon, bool isDualWieldVM = false)
 		{
 			this.weapon = weapon;
 			this.isDualWieldVM = isDualWieldVM;
 		}
 
-		public override void PostCameraSetup( ref CameraSetup camSetup )
+		public override void PostCameraSetup(ref CameraSetup camSetup)
 		{
-			base.PostCameraSetup( ref camSetup );
-
-			if ( weapon.IsDormant ) return;
-
+			base.PostCameraSetup(ref camSetup);
 			FieldOfView = weapon.FOV;
-			tuckDist = weapon.GetTuckDist();
+			Rotation = camSetup.Rotation;
+			Position = camSetup.Position;
+			if (weapon.IsDormant) return;
+            
+			// Smoothly transition the vectors with the target values
+			this.FinalVectorPos = this.FinalVectorPos.LerpTo(this.TargetVectorPos, animSpeed*RealTime.Delta);
+			this.FinalVectorRot = this.FinalVectorRot.LerpTo(this.TargetVectorRot, animSpeed*RealTime.Delta);
+            this.FinalFOV = MathX.LerpTo(this.FinalFOV, this.TargetFOV, animSpeed*RealTime.Delta);
+            this.animSpeed = 5;
 
-			if ( isDualWieldVM )
-			{
-				FlipViewModel( ref camSetup );
-			}
+			// Change the angles and positions of the viewmodel with the new vectors
+			Rotation *= Rotation.From(this.FinalVectorRot.x, this.FinalVectorRot.y, this.FinalVectorRot.z);
+			Position += this.FinalVectorPos.z*Rotation.Up + this.FinalVectorPos.y*Rotation.Forward + this.FinalVectorPos.x*Rotation.Right;
+            FieldOfView = this.FinalFOV;
 
-			AddIdleAnimations( ref camSetup );
-			AddViewbobAnimations( ref camSetup );
-			AddMovementAnimations( ref camSetup );
-			AddWeaponSwayAnimations( ref camSetup );
-			AddActionAnimations( ref camSetup );
+			// I'm sure there's something already that does this for me, but I spend an hour
+			// searching through the wiki and a bunch of other garbage and couldn't find anything...
+			// So I'm doing it manually. Problem solved.
+			this.localVel = new Vector3(Owner.Rotation.Right.Dot(Owner.Velocity), Owner.Rotation.Forward.Dot(Owner.Velocity), Owner.Velocity.z);
+
+			// Initialize the target vectors for this frame
+			this.TargetVectorPos = new Vector3(0.0f, 0.0f, 0.0f);
+			this.TargetVectorRot = new Vector3(0.0f, 0.0f, 0.0f);
+            this.TargetFOV = weapon.FOV;
+            
+            // Flip the Viewmodel
+			if (isDualWieldVM)
+                FlipViewModel(ref camSetup);
+
+			// Handle different animations
+			HandleIdleAnimation(ref camSetup);
+			HandleWalkAnimation(ref camSetup);
+            HandleSwayAnimation(ref camSetup);
+            HandleIronAnimation(ref camSetup);
+            HandleSprintAnimation(ref camSetup);
+            HandleJumpAnimation(ref camSetup);
 		}
 
 		private void FlipViewModel( ref CameraSetup camSetup )
@@ -71,247 +87,165 @@ namespace SWB_Base
 
 			// Temp solution: 
 			var posOffset = Vector3.Zero;
-			posOffset -= camSetup.Rotation.Right * 10;
+			posOffset -= camSetup.Rotation.Right*10.0f;
 			Position += posOffset;
 		}
 
-		// Idle animations
-		private void AddIdleAnimations( ref CameraSetup camSetup )
+		private void HandleIdleAnimation(ref CameraSetup camSetup)
 		{
-			if ( liveEditing ) return;
-			if ( weapon.IsZooming && !weapon.ShouldTuck( tuckDist ) ) return;
-
-			var left = camSetup.Rotation.Left;
-			var up = camSetup.Rotation.Up;
-			var realTime = RealTime.Now;
-			var sideSwingMod = 0.1f;
-			var upSwingMod = -0.1f;
-
-			Position += up * MathF.Sin( realTime ) * upSwingMod;
-			Position += left * MathF.Sin( realTime * sideSwingMod ) * -0.5f;
+            // No swaying if aiming
+            if (weapon.IsZooming)
+                return;
+            
+            // Perform a "breathing" animation
+			float breatheTime = RealTime.Now*2.0f; 
+			this.TargetVectorPos -= new Vector3(MathF.Cos(breatheTime/4.0f)/8.0f, 0.0f, -MathF.Cos(breatheTime/4.0f)/32.0f);
+			this.TargetVectorRot -= new Vector3(MathF.Cos(breatheTime/5.0f), MathF.Cos(breatheTime/4.0f), MathF.Cos(breatheTime/7.0f));
+            
+            // Crouching animation
+            if (Input.Down(InputButton.Duck))
+                this.TargetVectorPos += new Vector3(-1.0f, -1.0f, 0.5f);
 		}
 
-		// Viewbob animations
-		private void AddViewbobAnimations( ref CameraSetup camSetup )
+		private void HandleWalkAnimation(ref CameraSetup camSetup)
 		{
-			/* WIP
-			float speedMod = 1;
+			float breatheTime = RealTime.Now*16.0f;
+			float walkSpeed = new Vector3(Owner.Velocity.x, Owner.Velocity.y, 0.0f).Length;
+			float maxWalkSpeed = 200.0f;
+			float roll = 0.0f;
+			float yaw = 0.0f;
+            
+            // Check if on the ground
+            if (Owner.GroundEntity == null)
+                return;
+            
+            // Check if sprinting
+            if (weapon.IsRunning)
+            {
+                breatheTime = RealTime.Now*18.0f;
+                maxWalkSpeed = 100.0f;
+            }
 
-			if ( weapon.IsZooming )
-				speedMod = 0.7f;
+			// Check for sideways velocity to sway the gun slightly
+			if (this.localVel.x > 0.0f)
+				roll = -7.0f*(this.localVel.x/maxWalkSpeed);
+			else if (this.localVel.x < 0.0f)
+				yaw = 3.0f*(this.localVel.x/maxWalkSpeed);
 
-			var realTime = RealTime.Now;
-			var len = Owner.Velocity.Length;
-			var maxWalkSpeed = 190;
-
-			var mul = Math.Clamp( len / maxWalkSpeed, 0, 1 );
-			var sin = MathF.Sin( realTime * speedMod ) * mul;
-			var cos = MathF.Cos( realTime * speedMod ) * mul;
-			var tan = MathF.Atan2( cos * sin, cos * sin ) * mul;
-
-			//var viewbobAngles = Angles.Zero;
-			//viewbobAngles.pitch = tan;
-			//viewbobAngles.yaw = cos;
-			//viewbobAngles.roll = sin;
-
-			//Rotation *= Rotation.From( viewbobAngles );
-
-			var left = camSetup.Rotation.Left;
-			var up = camSetup.Rotation.Up;
-			var forward = camSetup.Rotation.Forward;
-			Position += left * sin * 0.1f;
-			Position += up * tan * 0.1f;
-			Position += forward * tan * 0.4f;
-			*/
-
-			var speed = Owner.Velocity.Length.LerpInverse( 0, 320 );
-			speed = speed * weapon.WalkAnimationSpeedMod;
-
-			var left = camSetup.Rotation.Left;
-			var up = camSetup.Rotation.Up;
-
-			if ( Owner.GroundEntity != null )
-			{
-				walkBob += Time.Delta * 25.0f * speed;
-			}
-
-			var sideSwingMod = -1f;
-			var upSwingMod = 0.6f;
-
-			if ( weapon.IsZooming )
-			{
-				speed = speed * 0.25f;
-				sideSwingMod = sideSwingMod * 0.4f;
-				upSwingMod = upSwingMod * 0.4f;
-			}
-
-			Position += up * MathF.Sin( walkBob ) * speed * sideSwingMod;
-			Position += left * MathF.Sin( walkBob * upSwingMod ) * speed * -0.5f;
+			// Perform walk cycle
+			this.TargetVectorPos -= new Vector3((-MathF.Cos(breatheTime/2.0f)/5.0f)*walkSpeed/maxWalkSpeed-yaw/4.0f, 0.0f, 0.0f);
+			this.TargetVectorRot -= new Vector3((Math.Clamp(MathF.Cos(breatheTime), -0.3f, 0.3f)*2.0f)*walkSpeed/maxWalkSpeed, (-MathF.Cos(breatheTime/2.0f)*1.2f)*walkSpeed/maxWalkSpeed-yaw*1.5f, roll);
 		}
 
-		// Movement animations
-		private void AddMovementAnimations( ref CameraSetup camSetup )
-		{
-			// Angles
-			// var xSpeed = Math.Clamp( Owner.Velocity.x * 0.1f, -maxSideSway, maxSideSway ); // Is not predicted yet so looks weird
-			var zSpeed = Math.Clamp( Owner.Velocity.z * 0.1f, -maxJumpSway, maxJumpSway );
-			var movAngle = new Angles( zSpeed, 0, 0 );
-
-			lerpMovementAngle = MathUtil.FILerp( lerpMovementAngle, movAngle, 10f * weapon.WalkAnimationSpeedMod );
-			Rotation *= Rotation.From( lerpMovementAngle );
-
-			// Pos
-			var up = camSetup.Rotation.Up;
-			var targPos = Vector3.Zero;
-			targPos -= up * zSpeed * 0.1f;
-
-			lerpMovementPos = MathUtil.FILerp( lerpMovementPos, targPos, 10f * weapon.WalkAnimationSpeedMod );
-			Position += lerpMovementPos;
+		private void HandleSwayAnimation(ref CameraSetup camSetup)
+		{            
+            int swayspeed = 5;
+            
+            // Fix the sway faster if we're ironsighting
+            if (weapon.IsZooming && weapon.ZoomAnimData != null)
+                swayspeed = 20;
+            
+            // Lerp the eye position
+            this.LastEyeRot = Rotation.Lerp(this.LastEyeRot, Owner.EyeRot, swayspeed*RealTime.Delta);
+            
+            // Calculate the difference between our current eye angles and old (lerped) eye angles
+            Angles angDif = Owner.EyeRot.Angles()-this.LastEyeRot.Angles();
+            angDif = new Angles(angDif.pitch, MathX.RadianToDegree(MathF.Atan2(MathF.Sin(MathX.DegreeToRadian(angDif.yaw)), MathF.Cos(MathX.DegreeToRadian(angDif.yaw)))), 0);
+            
+            // Perform sway
+			this.TargetVectorPos += new Vector3(Math.Clamp(angDif.yaw*0.04f, -1.5f, 1.5f), 0.0f, Math.Clamp(angDif.pitch*0.04f, -1.5f, 1.5f));
+            this.TargetVectorRot += new Vector3(Math.Clamp(angDif.pitch*0.2f, -4.0f, 4.0f), Math.Clamp(angDif.yaw*0.2f, -4.0f, 4.0f), 0.0f);
 		}
+        
+        private void HandleIronAnimation(ref CameraSetup camSetup)
+        {
+            if (weapon.IsZooming && weapon.ZoomAnimData != null)
+            {
+                this.animSpeed = 10;
+                this.TargetVectorPos += new Vector3(weapon.ZoomAnimData.Pos.x, weapon.ZoomAnimData.Pos.z, weapon.ZoomAnimData.Pos.y);
+                this.TargetVectorRot += new Vector3(weapon.ZoomAnimData.Angle.pitch, weapon.ZoomAnimData.Angle.yaw, weapon.ZoomAnimData.Angle.roll);
+                this.TargetFOV = weapon.ZoomFOV;
+            }
+        }
+        
+        private void HandleSprintAnimation(ref CameraSetup camSetup)
+        {
+            if (weapon.IsRunning && weapon.RunAnimData != null)
+            {
+                this.TargetVectorPos += new Vector3(weapon.RunAnimData.Pos.x, weapon.RunAnimData.Pos.z, weapon.RunAnimData.Pos.y);
+                this.TargetVectorRot += new Vector3(weapon.RunAnimData.Angle.pitch, weapon.RunAnimData.Angle.yaw, weapon.RunAnimData.Angle.roll);
+            }
+        }
+        
+        // Helpful bezier function. Use this if you gotta: https://www.desmos.com/calculator/cahqdxeshd
+        private float BezierY(float f, float a, float b, float c)
+        {
+            f = f*3.2258f;
+            return MathF.Pow((1.0f-f), 2.0f)*a + 2.0f*(1.0f-f)*f*b + MathF.Pow(f, 2.0f)*c;
+        }
+        
+        private void HandleJumpAnimation(ref CameraSetup camSetup)
+        {
+            // If we're not on the ground, reset the landing animation time
+            if (Owner.GroundEntity == null)
+                this.landTime = RealTime.Now + 0.31f;
+            
+            // Reset the timers once they elapse
+            if (this.landTime < RealTime.Now && this.landTime != 0.0f)
+            {
+                this.landTime = 0.0f;
+                this.jumpTime = 0.0f;
+            }
 
-		// Sway animations
-		private void AddWeaponSwayAnimations( ref CameraSetup camSetup )
-		{
-			var swayAmountMod = 1f;
-
-			if ( weapon.IsZooming )
-				swayAmountMod = 0.25f;
-
-			// Move sway
-			var right = camSetup.Rotation.Right;
-			var up = camSetup.Rotation.Up;
-			var targPos = Vector3.Zero;
-			targPos -= right * Math.Clamp( Mouse.Delta.x * swayAmountMod * 0.5f, -maxMoveSway, maxMoveSway );
-			targPos += up * Math.Clamp( Mouse.Delta.y * swayAmountMod * 0.5f, -maxMoveSway, maxMoveSway );
-
-			lerpSwayPos = MathUtil.FILerp( lerpSwayPos, targPos, 10f * weapon.WalkAnimationSpeedMod );
-			Position += lerpSwayPos;
-
-			// Tilt sway
-			var tiltX = Math.Clamp( Mouse.Delta.x * swayAmountMod * 1, -maxTiltSway, maxTiltSway );
-			var tiltY = Math.Clamp( Mouse.Delta.y * swayAmountMod * 2, -maxTiltSway, maxTiltSway );
-			var targRotation = Rotation.From( tiltY, -tiltX, tiltX );
-
-			if ( lerpSwayRotation.w == 0 )
-				lerpSwayRotation.w = 1;
-
-			lerpSwayRotation = Rotation.Slerp( lerpSwayRotation, targRotation, RealTime.Delta * 10f * weapon.WalkAnimationSpeedMod );
-			Rotation *= lerpSwayRotation;
-		}
-
-		private void LerpToPosition( Angles angles, Vector3 pos, ref Angles lerpTargAngle, ref Vector3 lerpTargPos, ref CameraSetup camSetup )
-		{
-			// Angles
-			lerpTargAngle = MathUtil.FILerp( lerpTargAngle, angles, 10f );
-			Rotation *= Rotation.From( lerpTargAngle );
-
-			// Position
-			lerpTargPos = MathUtil.FILerp( lerpTargPos, pos, 10f );
-
-			var right = camSetup.Rotation.Right;
-			var up = camSetup.Rotation.Up;
-			var forward = camSetup.Rotation.Forward;
-
-			var posOffset = Vector3.Zero;
-			posOffset += right * lerpTargPos.x;
-			posOffset += up * lerpTargPos.y;
-			posOffset += forward * lerpTargPos.z;
-
-			Position += posOffset;
-		}
-
-		// Action animations
-		private void AddActionAnimations( ref CameraSetup camSetup )
-		{
-
-			if ( weapon.ShouldTuck( tuckDist ) && weapon.RunAnimData != null )
-			{
-				var animationCompletion = Math.Min( 1, ((weapon.TuckRange - tuckDist) / weapon.TuckRange) + 0.5f );
-				LerpToPosition( weapon.RunAnimData.Angle * animationCompletion, weapon.RunAnimData.Pos * animationCompletion, ref lerpTuckAngle, ref lerpTuckPos, ref camSetup );
-
-				// Prevent other animations while tucking
-				return;
-
-			}
-			else if ( tuckDist == -1 && lerpTuckPos != Vector3.Zero )
-			{
-				if ( !weapon.IsZooming && !weapon.IsRunning )
-				{
-					LerpToPosition( Angles.Zero, Vector3.Zero, ref lerpTuckAngle, ref lerpTuckPos, ref camSetup );
-				}
-				else
-				{
-					lerpTuckPos = Vector3.Zero;
-					lerpTuckAngle = Angles.Zero;
-				}
-			}
-
-			if ( weapon.IsZooming && weapon.ZoomAnimData != null )
-			{
-				// Zoom in
-				LerpToPosition( weapon.ZoomAnimData.Angle, weapon.ZoomAnimData.Pos, ref lerpZoomAngle, ref lerpZoomPos, ref camSetup );
-
-				// FOV
-				lerpZoomFOV = MathUtil.FILerp( lerpZoomFOV, weapon.ZoomFOV, 10f );
-				FieldOfView = lerpZoomFOV;
-
-				// Freeze viewmodel (temp solution)
-				if ( !string.IsNullOrEmpty( weapon.FreezeViewModelOnZoom ) )
-					SetAnimBool( weapon.FreezeViewModelOnZoom, true );
-
-			}
-			else if ( !lerpZoomPos.IsNearlyEqual( Vector3.Zero, 0.01f ) )
-			{
-				// Zoom out
-				LerpToPosition( Angles.Zero, Vector3.Zero, ref lerpZoomAngle, ref lerpZoomPos, ref camSetup );
-
-				// FOV (restore)
-				lerpZoomFOV = MathUtil.FILerp( lerpZoomFOV, weapon.FOV, 10f );
-				FieldOfView = lerpZoomFOV;
-
-			}
-			else
-			{
-				if ( lerpZoomFOV != weapon.FOV )
-				{
-					// Reset zoom vars
-					lerpZoomPos = Vector3.Zero;
-					lerpZoomAngle = Angles.Zero;
-					lerpZoomFOV = weapon.FOV;
-				}
-			}
-
-			// DEBUG (set true to do live edits)
-			// liveEditing = true;
-
-			if ( weapon.IsRunning && weapon.RunAnimData != null || liveEditing )
-			{
-				var testAngles = weapon.RunAnimData.Angle;
-				var testPos = weapon.RunAnimData.Pos;
-
-				if ( liveEditing )
-				{
-					FieldOfView = weapon.ZoomFOV;
-					testAngles = new Angles( -2.85f, -0.34f, 6f );
-					testPos = new Vector3( -5.245f, -1.05f, 0f );
-				}
-
-				LerpToPosition( testAngles, testPos, ref lerpRunAngle, ref lerpRunPos, ref camSetup );
-
-			}
-			else if ( !lerpRunPos.IsNearlyEqual( Vector3.Zero, 0.01f ) )
-			{
-				LerpToPosition( Angles.Zero, Vector3.Zero, ref lerpRunAngle, ref lerpRunPos, ref camSetup );
-
-			}
-			else
-			{
-				if ( lerpRunPos != Vector3.Zero )
-				{
-					lerpRunPos = Vector3.Zero;
-					lerpRunAngle = Angles.Zero;
-				}
-			}
-		}
+            // If we jumped, start the animation
+            if (Input.Down(InputButton.Jump) && this.jumpTime == 0.0f)
+            {
+                this.jumpTime = RealTime.Now + 0.31f;
+                this.landTime = 0.0f;
+            }
+            
+            // If we're not ironsighting, do a fancy jump animation
+            if (!weapon.IsZooming)
+            {
+                if (this.jumpTime > RealTime.Now)
+                {                    
+                    // If we jumped, do a curve upwards
+                    float f = 0.31f - (this.jumpTime-RealTime.Now);
+                    float xx = BezierY(f, 0.0f, -4.0f, 0.0f);
+                    float yy = 0.0f;
+                    float zz = BezierY(f, 0.0f, -2.0f, -5.0f);
+                    float pt = BezierY(f, 0.0f, -4.36f, 10.0f);
+                    float yw = xx;
+                    float rl = BezierY(f, 0.0f, -10.82f, -5.0f);
+                    this.TargetVectorPos += new Vector3(xx, yy, zz)/4.0f;
+                    this.TargetVectorRot += new Vector3(pt, yw, rl)/4.0f;
+                    this.animSpeed = 20.0f;
+                }
+                else if (Owner.GroundEntity == null)
+                {
+                    // Shaking while falling
+                    float breatheTime = RealTime.Now*30.0f;
+                    this.TargetVectorPos += new Vector3(MathF.Cos(breatheTime/2.0f)/16.0f, 0.0f, -5.0f+(MathF.Sin(breatheTime/3.0f)/16.0f))/4.0f;
+                    this.TargetVectorRot += new Vector3(10.0f-(MathF.Sin(breatheTime/3.0f)/4.0f), MathF.Cos(breatheTime/2.0f)/4.0f,  -5.0f)/4.0f;
+                    this.animSpeed = 20.0f;
+                }
+                else if (this.landTime > RealTime.Now)
+                {
+                    // If we landed, do a fancy curve downwards
+                    float f = this.landTime-RealTime.Now;
+                    float xx = BezierY(f, 0.0f, -4.0f, 0.0f);
+                    float yy = 0.0f;
+                    float zz = BezierY(f, 0.0f, -2.0f, -5.0f);
+                    float pt = BezierY(f, 0.0f, -4.36f, 10.0f);
+                    float yw = xx;
+                    float rl = BezierY(f, 0.0f, -10.82f, -5.0f);
+                    this.TargetVectorPos += new Vector3(xx, yy, zz)/2.0f;
+                    this.TargetVectorRot += new Vector3(pt, yw, rl)/2.0f;
+                    this.animSpeed = 20.0f;
+                }
+            }
+            else
+                this.TargetVectorPos += new Vector3(0.0f, 0.0f, Math.Clamp(localVel.z/1000.0f, -1.0f, 1.0f));
+        }
 	}
 }
