@@ -127,7 +127,7 @@ namespace SWB_Base
             }
 
             // Check for sideways velocity to sway the gun slightly
-            if (this.localVel.x > 0.0f)
+            if (weapon.IsZooming || this.localVel.x > 0.0f)
                 roll = -7.0f*(this.localVel.x/maxWalkSpeed);
             else if (this.localVel.x < 0.0f)
                 yaw = 3.0f*(this.localVel.x/maxWalkSpeed);
