@@ -59,8 +59,8 @@ namespace SWB_EXPLOSIVES
 
 			ZoomAnimData = new AngPos
 			{
-				Angle = new Angles( -2.85f, -0.34f, 6f ),
-				Pos = new Vector3( -5.245f, -1.05f, 0f )
+				Angle = new Angles( -2.84f, -0.31f, 6f ),
+				Pos = new Vector3( -5.12f, -1.05f, -1.5f )
 			};
 
 			RunAnimData = new AngPos

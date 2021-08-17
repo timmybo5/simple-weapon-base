@@ -91,7 +91,6 @@ namespace SWB_Base
 			firedEntity.Owner = Owner;
 			firedEntity.Position = MathUtil.RelativeAdd( Position, EntitySpawnOffset, Owner.EyeRot );
 			firedEntity.Rotation = Owner.EyeRot * Rotation.From( EntityAngles );
-
 			firedEntity.RemoveDelay = RemoveDelay;
 			firedEntity.UseGravity = UseGravity;
 			firedEntity.Speed = isPrimary ? PrimaryEntitySpeed : SecondaryEntitySpeed;
@@ -99,7 +98,6 @@ namespace SWB_Base
 			firedEntity.Damage = clipInfo.Damage;
 			firedEntity.Force = clipInfo.Force;
 			firedEntity.StartVelocity = MathUtil.RelativeAdd( Vector3.Zero, EntityVelocity, Owner.EyeRot );
-
 			firedEntity.Start();
 		}
 

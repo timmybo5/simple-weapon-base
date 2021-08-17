@@ -40,7 +40,7 @@ namespace SWB_Base
         public virtual void Explode()
         {
 			// Explosion sound
-			var explosionSound = MathUtil.GetRandom( ExplosionSounds );
+			var explosionSound = TableUtil.GetRandom( ExplosionSounds );
 
 			if ( !string.IsNullOrEmpty( explosionSound ) )
                 PlaySound( explosionSound );

@@ -54,13 +54,13 @@ namespace SWB_CSS
             ZoomAnimData = new AngPos
             {
                 Angle = new Angles( 0.1f, -0.07f, -0.5f ),
-                Pos = new Vector3( -5.76f, 3.3f, 6 )
+                Pos = new Vector3( -5.76f, 6, 3.3f )
             };
 
             RunAnimData = new AngPos
             {
                 Angle = new Angles( 10, 50, 0 ),
-                Pos = new Vector3( 5, 0, 2 )
+                Pos = new Vector3( 5, 2, 0 )
             };
 
         }

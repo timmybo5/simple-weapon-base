@@ -34,13 +34,18 @@ namespace SWB_Base
 			return vec1;
 		}
 
-		public static T GetRandom<T>( List<T> list )
-		{
-			if ( list.Count == 0 ) return default;
 
-			var random = new Random();
-			var randI = random.Next( list.Count );
-			return list[randI];
+		// Helpful bezier function. Use this if you gotta: https://www.desmos.com/calculator/cahqdxeshd
+		public static float BezierY( float f, float a, float b, float c )
+		{
+			f = f * 3.2258f;
+			return MathF.Pow( (1.0f - f), 2.0f ) * a + 2.0f * (1.0f - f) * f * b + MathF.Pow( f, 2.0f ) * c;
 		}
+
+		public static Vector3 ToVector3( Angles angles )
+		{
+			return new Vector3( angles.pitch, angles.yaw, angles.roll );
+		}
+
 	}
 }

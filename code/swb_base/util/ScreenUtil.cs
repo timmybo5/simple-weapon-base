@@ -27,7 +27,7 @@ namespace SWB_Base
 				Shake( screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation );
 		}
 
-		public static void ShakeAt( Vector3 origin, float radius = 1, float length = 0, float speed = 0, float size = 0, float rotation = 0 )
+		public static void ShakeAt( Vector3 origin, float radius = 0, float length = 0, float speed = 0, float size = 0, float rotation = 0 )
 		{
 			var objects = Physics.GetEntitiesInSphere( origin, radius );
 

@@ -65,7 +65,7 @@ namespace SWB_Base
 			}
 
 			// Explosion sound
-			var explosionSound = MathUtil.GetRandom( ExplosionSounds );
+			var explosionSound = TableUtil.GetRandom( ExplosionSounds );
 
 			if ( !string.IsNullOrEmpty( explosionSound ) )
 				PlaySound( explosionSound );
