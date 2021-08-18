@@ -21,46 +21,46 @@ namespace SWB_Base
         private float canNextHandle = 0f;
         public bool isToggled = false;
 
-        private void HandleChanges( WeaponBase weaponBase )
+        private void HandleChanges(WeaponBase weaponBase)
         {
-            if ( !string.IsNullOrEmpty( NewShootSound ) )
+            if (!string.IsNullOrEmpty(NewShootSound))
             {
-                if ( isToggled )
+                if (isToggled)
                     clipInfo.ShootSound = weaponBase.Primary.ShootSound;
 
                 weaponBase.Primary.ShootSound = isToggled ? NewShootSound : clipInfo.ShootSound;
             }
 
-            if ( !string.IsNullOrEmpty( NewViewModel ) )
-                weaponBase?.ViewModelEntity?.SetModel( isToggled ? NewViewModel : weaponBase.ViewModelPath );
+            if (!string.IsNullOrEmpty(NewViewModel))
+                weaponBase?.ViewModelEntity?.SetModel(isToggled ? NewViewModel : weaponBase.ViewModelPath);
 
-            if ( !string.IsNullOrEmpty( NewWorldModel ) )
-                weaponBase.SetModel( isToggled ? NewWorldModel : weaponBase.WorldModelPath );
+            if (!string.IsNullOrEmpty(NewWorldModel))
+                weaponBase.SetModel(isToggled ? NewWorldModel : weaponBase.WorldModelPath);
         }
 
-        public void HandleOnDeploy( WeaponBase weaponBase )
+        public void HandleOnDeploy(WeaponBase weaponBase)
         {
-            weaponBase.SendWeaponAnim( AnimationStatus );
+            weaponBase.SendWeaponAnim(AnimationStatus);
         }
 
-        async private Task ResetAnimating( WeaponBase weaponBase, float delay )
+        async private Task ResetAnimating(WeaponBase weaponBase, float delay)
         {
-            await GameTask.DelaySeconds( delay );
+            await GameTask.DelaySeconds(delay);
             weaponBase.IsAnimating = false;
         }
 
-        public bool Handle( Client owner, WeaponBase weaponBase )
+        public bool Handle(Client owner, WeaponBase weaponBase)
         {
-            if ( RealTime.Now < canNextHandle ) return false;
+            if (RealTime.Now < canNextHandle) return false;
 
             // Check if animated keys are down
-            for ( int i = 0; i < ActionButtons.Count; i++ )
+            for (int i = 0; i < ActionButtons.Count; i++)
             {
-                if ( !Input.Down( ActionButtons[i] ) )
+                if (!Input.Down(ActionButtons[i]))
                     return false;
 
                 // Reload will fuck with animations, IsReload is still false here
-                if ( ActionButtons[i] == InputButton.Reload && weaponBase.Primary.Ammo < weaponBase.Primary.ClipSize )
+                if (ActionButtons[i] == InputButton.Reload && weaponBase.Primary.Ammo < weaponBase.Primary.ClipSize)
                     return false;
             }
 
@@ -71,25 +71,25 @@ namespace SWB_Base
 
             // Reset animating after the delay
             weaponBase.IsAnimating = true;
-            _ = ResetAnimating( weaponBase, canNextAnimateDelay );
+            _ = ResetAnimating(weaponBase, canNextAnimateDelay);
 
             // Handle shared changes
-            HandleChanges( weaponBase );
+            HandleChanges(weaponBase);
 
-            if ( weaponBase.IsClient )
+            if (weaponBase.IsClient)
             {
                 var viewModelEntity = weaponBase.ViewModelEntity;
 
-                if ( isToggled )
+                if (isToggled)
                 {
-                    viewModelEntity?.SetAnimBool( OnAnimation, true );
+                    viewModelEntity?.SetAnimBool(OnAnimation, true);
                 }
                 else
                 {
-                    viewModelEntity?.SetAnimBool( OffAnimation, true );
+                    viewModelEntity?.SetAnimBool(OffAnimation, true);
                 }
 
-                viewModelEntity?.SetAnimBool( AnimationStatus, isToggled );
+                viewModelEntity?.SetAnimBool(AnimationStatus, isToggled);
             }
 
             return true;

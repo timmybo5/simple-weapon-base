@@ -3,7 +3,7 @@ using SWB_Base;
 
 namespace SWB_CSS
 {
-    [Library( "swb_css_knife", Title = "Knife" )]
+    [Library("swb_css_knife", Title = "Knife")]
     public class Knife : WeaponBaseMelee
     {
         public override int Bucket => 0;

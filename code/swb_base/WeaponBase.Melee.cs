@@ -28,13 +28,13 @@ namespace SWB_Base
         public override void Reload() { }
 
         [ClientRpc]
-        public virtual void DoMeleeEffects( string animation, string sound )
+        public virtual void DoMeleeEffects(string animation, string sound)
         {
-            ViewModelEntity?.SetAnimBool( animation, true );
-            PlaySound( sound );
+            ViewModelEntity?.SetAnimBool(animation, true);
+            PlaySound(sound);
         }
 
-        public virtual void MeleeAttack( float damage, float force, string hitAnimation, string missAnimation, string sound )
+        public virtual void MeleeAttack(float damage, float force, string hitAnimation, string missAnimation, string sound)
         {
             TimeSincePrimaryAttack = 0;
             TimeSinceSecondaryAttack = 0;
@@ -42,60 +42,60 @@ namespace SWB_Base
             var hitEntity = true;
             var pos = Owner.EyePos;
             var forward = Owner.EyeRot.Forward;
-            var trace = Trace.Ray( pos, pos + forward * DamageDistance )
-                .Ignore( this )
-                .Ignore( Owner )
-                .Size( ImpactSize )
+            var trace = Trace.Ray(pos, pos + forward * DamageDistance)
+                .Ignore(this)
+                .Ignore(Owner)
+                .Size(ImpactSize)
                 .Run();
 
-            if ( !trace.Entity.IsValid() || trace.Entity.IsWorld )
+            if (!trace.Entity.IsValid() || trace.Entity.IsWorld)
             {
                 hitAnimation = missAnimation;
                 sound = !trace.Entity.IsValid() ? MissSound : HitWorldSound;
                 hitEntity = false;
             }
 
-            DoMeleeEffects( hitAnimation, sound );
+            DoMeleeEffects(hitAnimation, sound);
 
-            if ( !hitEntity || !IsServer ) return;
+            if (!hitEntity || !IsServer) return;
 
-            using ( Prediction.Off() )
+            using (Prediction.Off())
             {
-                var damageInfo = DamageInfo.FromBullet( trace.EndPos, forward * force, damage )
-                    .UsingTraceResult( trace )
-                    .WithAttacker( Owner )
-                    .WithWeapon( this );
+                var damageInfo = DamageInfo.FromBullet(trace.EndPos, forward * force, damage)
+                    .UsingTraceResult(trace)
+                    .WithAttacker(Owner)
+                    .WithWeapon(this);
 
-                trace.Entity.TakeDamage( damageInfo );
+                trace.Entity.TakeDamage(damageInfo);
             }
         }
 
-        private bool CanMelee( TimeSince lastAttackTime, float attackSpeed, InputButton inputButton )
+        private bool CanMelee(TimeSince lastAttackTime, float attackSpeed, InputButton inputButton)
         {
-            if ( IsAnimating ) return false;
-            if ( !Owner.IsValid() || !Input.Down( inputButton ) ) return false;
+            if (IsAnimating) return false;
+            if (!Owner.IsValid() || !Input.Down(inputButton)) return false;
 
             return lastAttackTime > attackSpeed;
         }
 
         public override bool CanPrimaryAttack()
         {
-            return CanMelee( TimeSincePrimaryAttack, SwingSpeed, InputButton.Attack1 );
+            return CanMelee(TimeSincePrimaryAttack, SwingSpeed, InputButton.Attack1);
         }
 
         public override bool CanSecondaryAttack()
         {
-            return CanMelee( TimeSincePrimaryAttack, StabSpeed, InputButton.Attack2 );
+            return CanMelee(TimeSincePrimaryAttack, StabSpeed, InputButton.Attack2);
         }
 
         public override void AttackPrimary()
         {
-            MeleeAttack( SwingDamage, SwingForce, SwingAnimationHit, SwingAnimationMiss, SwingSound );
+            MeleeAttack(SwingDamage, SwingForce, SwingAnimationHit, SwingAnimationMiss, SwingSound);
         }
 
         public override void AttackSecondary()
         {
-            MeleeAttack( StabDamage, StabForce, StabAnimationHit, StabAnimationMiss, StabSound );
+            MeleeAttack(StabDamage, StabForce, StabAnimationHit, StabAnimationMiss, StabSound);
         }
     }
 }

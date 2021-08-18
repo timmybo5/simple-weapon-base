@@ -30,9 +30,9 @@ namespace SWB_Base
         // Strings
         public string ShootAnim { get; set; } = "fire"; // Shooting animation
         public string ReloadAnim { get; set; } = "reload"; // Reloading animation
-		public string DrawAnim { get; set; } = "deploy"; // Draw animation
-		public string DrawEmptyAnim { get; set; } = ""; // Draw animation when there is no ammo
-		public string DryFireSound { get; set; } // Firing sound when clip is empty
+        public string DrawAnim { get; set; } = "deploy"; // Draw animation
+        public string DrawEmptyAnim { get; set; } = ""; // Draw animation when there is no ammo
+        public string DryFireSound { get; set; } // Firing sound when clip is empty
         public string ShootSound { get; set; } // Firing sound
         public string BulletEjectParticle { get; set; } // Particle that should be used for bullet ejection
         public string MuzzleFlashParticle { get; set; } // Particle that should be used for the muzzle flash

@@ -3,7 +3,7 @@ using SWB_Base;
 
 namespace SWB_CSS
 {
-    [Library( "swb_css_deagle", Title = "Desert Eagle" )]
+    [Library("swb_css_deagle", Title = "Desert Eagle")]
     public class Deagle : WeaponBase
     {
         public override int Bucket => 1;
@@ -49,14 +49,14 @@ namespace SWB_CSS
 
             ZoomAnimData = new AngPos
             {
-                Angle = new Angles( 0, -0.1f, 0 ),
-                Pos = new Vector3( -5.125f, 0, 2.67f )
+                Angle = new Angles(0, -0.1f, 0),
+                Pos = new Vector3(-5.125f, 0, 2.67f)
             };
 
             RunAnimData = new AngPos
             {
-                Angle = new Angles( -40, 0, 0 ),
-                Pos = new Vector3( 0, -3, -8 )
+                Angle = new Angles(-40, 0, 0),
+                Pos = new Vector3(0, -3, -8)
             };
         }
     }

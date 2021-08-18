@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SWB_CSS
 {
-    [Library( "swb_css_m4a1", Title = "M4A1" )]
+    [Library("swb_css_m4a1", Title = "M4A1")]
     public class M4A1 : WeaponBase
     {
         public override int Bucket => 3;
@@ -70,14 +70,14 @@ namespace SWB_CSS
 
             ZoomAnimData = new AngPos
             {
-                Angle = new Angles( -2.8f, -1.5f, -4f ),
-                Pos = new Vector3( -6.19f, 6,  0.35f )
+                Angle = new Angles(-2.8f, -1.5f, -4f),
+                Pos = new Vector3(-6.19f, 6, 0.35f)
             };
 
             RunAnimData = new AngPos
             {
-                Angle = new Angles( 10, 40, 0 ),
-                Pos = new Vector3( 5, 0, 0 )
+                Angle = new Angles(10, 40, 0),
+                Pos = new Vector3(5, 0, 0)
             };
         }
     }

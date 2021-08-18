@@ -3,7 +3,7 @@ using SWB_Base;
 
 namespace SWB_CSS
 {
-    [Library( "swb_css_super90", Title = "M3 Super 90" )]
+    [Library("swb_css_super90", Title = "M3 Super 90")]
     public class Super90 : WeaponBaseShotty
     {
         public override int Bucket => 2;
@@ -53,14 +53,14 @@ namespace SWB_CSS
 
             ZoomAnimData = new AngPos
             {
-                Angle = new Angles( 0.1f, -0.07f, -0.5f ),
-                Pos = new Vector3( -5.76f, 6, 3.3f )
+                Angle = new Angles(0.1f, -0.07f, -0.5f),
+                Pos = new Vector3(-5.76f, 6, 3.3f)
             };
 
             RunAnimData = new AngPos
             {
-                Angle = new Angles( 10, 50, 0 ),
-                Pos = new Vector3( 5, 2, 0 )
+                Angle = new Angles(10, 50, 0),
+                Pos = new Vector3(5, 2, 0)
             };
 
         }

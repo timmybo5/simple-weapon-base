@@ -15,20 +15,20 @@ namespace SWB_Base
         Panel TopBar;
         Panel BottomBar;
 
-        public SniperScope( string lensTexture, string scopeTexture )
+        public SniperScope(string lensTexture, string scopeTexture)
         {
-            StyleSheet.Load( "/swb_base/ui/SniperScope.scss" );
+            StyleSheet.Load("/swb_base/ui/SniperScope.scss");
 
-            LeftBar = Add.Panel( "leftBar" );
-            RightBar = Add.Panel( "rightBar" );
-            TopBar = Add.Panel( "topBar" );
-            BottomBar = Add.Panel( "bottomBar" );
+            LeftBar = Add.Panel("leftBar");
+            RightBar = Add.Panel("rightBar");
+            TopBar = Add.Panel("topBar");
+            BottomBar = Add.Panel("bottomBar");
 
-            AddChild( out Lens, "lens" );
-            Lens.SetTexture( lensTexture );
+            AddChild(out Lens, "lens");
+            Lens.SetTexture(lensTexture);
 
-            AddChild( out Scope, "scope" );
-            Scope.SetTexture( scopeTexture );
+            AddChild(out Scope, "scope");
+            Scope.SetTexture(scopeTexture);
         }
 
         public override void Tick()
@@ -36,10 +36,10 @@ namespace SWB_Base
             base.Tick();
 
             var player = Local.Pawn;
-            if ( player == null ) return;
+            if (player == null) return;
 
             var weapon = player.ActiveChild as WeaponBase;
-            SetClass( "hideSniperScope", weapon != null ? !weapon.IsScoped : true );
+            SetClass("hideSniperScope", weapon != null ? !weapon.IsScoped : true);
 
             Lens.PositionAtCrosshair();
             Scope.PositionAtCrosshair();

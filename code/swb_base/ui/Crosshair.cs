@@ -11,12 +11,12 @@ namespace SWB_Base
 
         public Crosshair()
         {
-            StyleSheet.Load( "/swb_base/ui/Crosshair.scss" );
+            StyleSheet.Load("/swb_base/ui/Crosshair.scss");
 
-            for ( int i = 0; i < 5; i++ )
+            for (int i = 0; i < 5; i++)
             {
-                var p = Add.Panel( "element" );
-                p.AddClass( $"el{i}" );
+                var p = Add.Panel("element");
+                p.AddClass($"el{i}");
             }
         }
 
@@ -25,17 +25,17 @@ namespace SWB_Base
             base.Tick();
             this.PositionAtCrosshair();
 
-            SetClass( "fire", fireCounter > 0 );
+            SetClass("fire", fireCounter > 0);
 
-            if ( fireCounter > 0 )
+            if (fireCounter > 0)
                 fireCounter--;
 
             // Hide when zooming in
             var player = Local.Pawn;
-            if ( player == null ) return;
+            if (player == null) return;
 
             var weapon = player.ActiveChild as WeaponBase;
-            SetClass( "hideCrosshair", weapon != null ? weapon.IsZooming : true );
+            SetClass("hideCrosshair", weapon != null ? weapon.IsZooming : true);
         }
 
         [PanelEvent]
