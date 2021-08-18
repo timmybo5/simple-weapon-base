@@ -19,6 +19,7 @@ namespace SWB_Base
 		private Panel SniperScopePanel;
 		private bool switchBackToThirdP = false;
 		private float lerpZoomAmount = 0;
+        private float oldSpread = -1;
 
 		public override void ActiveStart( Entity ent )
 		{
@@ -35,7 +36,11 @@ namespace SWB_Base
 		public virtual void OnScopedStart()
 		{
 			IsScoped = true;
-			Primary.Spread /= 1000;
+
+            if (oldSpread == -1)
+                oldSpread = Primary.Spread;
+
+            Primary.Spread = 0;
 
 			var owner = Owner.GetClientOwner();
 			if ( owner.Camera is ThirdPersonCamera )
@@ -56,7 +61,7 @@ namespace SWB_Base
 		public virtual void OnScopedEnd()
 		{
 			IsScoped = false;
-			Primary.Spread *= 1000;
+			Primary.Spread = oldSpread;
 			lerpZoomAmount = 0;
 
 			var owner = Owner.GetClientOwner();
