@@ -39,7 +39,7 @@ namespace SWB_Base
             if ( player == null ) return;
 
             var weapon = player.ActiveChild as WeaponBase;
-            SetClass( "hideSniperScope", weapon != null ? !weapon.IsZooming : true );
+            SetClass( "hideSniperScope", weapon != null ? !weapon.IsScoped : true );
 
             Lens.PositionAtCrosshair();
             Scope.PositionAtCrosshair();

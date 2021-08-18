@@ -54,7 +54,7 @@ namespace SWB_Base
 		public override void Simulate( Client cl )
 		{
 			//if ( cl.NetworkIdent == 1 )
-			//	return;
+			//  return;
 
 			base.Simulate( cl );
 
