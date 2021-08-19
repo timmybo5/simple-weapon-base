@@ -3,21 +3,21 @@
 [Library("simple-weapon-base")]
 public partial class ExampleGame : Sandbox.Game
 {
-	public ExampleGame()
-	{
-		if ( IsServer )
-		{
-			new DeathmatchHud();
-		}
-	}
+    public ExampleGame()
+    {
+        if (IsServer)
+        {
+            new DeathmatchHud();
+        }
+    }
 
-	public override void ClientJoined( Client client )
-	{
-		base.ClientJoined( client );
+    public override void ClientJoined(Client client)
+    {
+        base.ClientJoined(client);
 
-		var player = new ExamplePlayer();
-		client.Pawn = player;
+        var player = new ExamplePlayer();
+        client.Pawn = player;
 
-		player.Respawn();
-	}
+        player.Respawn();
+    }
 }
