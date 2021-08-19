@@ -9,6 +9,7 @@ namespace SWB_Base
     public class Crosshair : Panel
     {
 
+        Panel CenterDot;
         Panel LeftBar;
         Panel RightBar;
         Panel TopBar;
@@ -18,19 +19,22 @@ namespace SWB_Base
         private int sprintOffset = 100;
         private int fireOffset = 50;
 
+        private bool wasZooming = false;
+
         public Crosshair()
         {
             StyleSheet.Load("/swb_base/ui/Crosshair.scss");
 
-            Add.Panel("centerDot");
+            CenterDot = Add.Panel("centerDot");
             LeftBar = Add.Panel("leftBar");
             RightBar = Add.Panel("rightBar");
             TopBar = Add.Panel("topBar");
             BottomBar = Add.Panel("bottomBar");
         }
 
-        private void UpdateBars()
+        private void UpdateCrosshair()
         {
+            CenterDot.Style.Dirty();
             LeftBar.Style.Dirty();
             RightBar.Style.Dirty();
             TopBar.Style.Dirty();
@@ -45,6 +49,23 @@ namespace SWB_Base
             BottomBar.Style.Top = 5;
         }
 
+        private void RestoreCrosshairOpacity()
+        {
+            CenterDot.Style.Opacity = 1;
+            LeftBar.Style.Opacity = 1;
+            RightBar.Style.Opacity = 1;
+            TopBar.Style.Opacity = 1;
+            BottomBar.Style.Opacity = 1;
+        }
+
+        private void HideBarLines()
+        {
+            LeftBar.Style.Opacity = 0;
+            RightBar.Style.Opacity = 0;
+            TopBar.Style.Opacity = 0;
+            BottomBar.Style.Opacity = 0;
+        }
+
         public override void Tick()
         {
             base.Tick();
@@ -56,8 +77,6 @@ namespace SWB_Base
 
             var weapon = player.ActiveChild as WeaponBase;
             var shouldTuck = weapon.ShouldTuck();
-
-            SetClass("hideCrosshair", weapon != null ? weapon.IsZooming && !shouldTuck : true);
 
             var hideCrosshairLines = weapon != null ? !weapon.DrawCrosshairLines : true;
             LeftBar.SetClass("hideCrosshair", hideCrosshairLines);
@@ -78,24 +97,26 @@ namespace SWB_Base
             if (weapon.IsRunning || shouldTuck)
             {
                 LeftBar.Style.Left = -sprintOffset;
-                LeftBar.Style.Opacity = 0;
                 RightBar.Style.Left = sprintOffset - 5;
-                RightBar.Style.Opacity = 0;
                 TopBar.Style.Top = -sprintOffset;
-                TopBar.Style.Opacity = 0;
                 BottomBar.Style.Top = sprintOffset - 5;
-                BottomBar.Style.Opacity = 0;
+
+                HideBarLines();
             }
-            else if (LeftBar.Style.Left == -sprintOffset)
+            else if (weapon.IsZooming)
             {
+                wasZooming = true;
+                CenterDot.Style.Opacity = 0;
+                HideBarLines();
+            }
+            else if (LeftBar.Style.Left == -sprintOffset || wasZooming)
+            {
+                wasZooming = false;
                 RestoreBarPositions();
-                LeftBar.Style.Opacity = 1;
-                RightBar.Style.Opacity = 1;
-                TopBar.Style.Opacity = 1;
-                BottomBar.Style.Opacity = 1;
+                RestoreCrosshairOpacity();
             }
 
-            UpdateBars();
+            UpdateCrosshair();
         }
 
         [PanelEvent]

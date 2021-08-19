@@ -1,6 +1,6 @@
-﻿using Sandbox;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Sandbox;
 
 /* 
  * Weapon base for weapons firing entities
@@ -103,7 +103,7 @@ namespace SWB_Base
 
         public override void Attack(ClipInfo clipInfo, bool isPrimary)
         {
-            if (IsRunning && RunAnimData != null) return;
+            if ((IsRunning && RunAnimData != null) || ShouldTuck()) return;
 
             TimeSincePrimaryAttack = 0;
             TimeSinceSecondaryAttack = 0;
