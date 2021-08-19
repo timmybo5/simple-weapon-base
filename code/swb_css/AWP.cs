@@ -17,8 +17,8 @@ namespace SWB_CSS
         public override bool DrawCrosshair => false;
         public override float AimSensitivity => 0.25f;
 
-        public override string LensTexture => "/swb_base/textures/scopes/swb_lens_hunter.png";
-        public override string ScopeTexture => "/swb_base/textures/scopes/swb_scope_hunter.png";
+        public override string LensTexture => "/materials/swb/scopes/swb_lens_hunter.png";
+        public override string ScopeTexture => "/materials/swb/scopes/swb_scope_hunter.png";
         public override string ZoomInSound => "swb_sniper.zoom_in";
         public override float ZoomAmount => 15f;
 

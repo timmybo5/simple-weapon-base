@@ -9,8 +9,8 @@ namespace SWB_Base
 {
     public partial class WeaponBaseSniper : WeaponBase
     {
-        public virtual string LensTexture => "/swb_base/textures/scopes/swb_lens_hunter.png"; // Path to the lens texture
-        public virtual string ScopeTexture => "/swb_base/textures/scopes/swb_scope_hunter.png"; // Path to the scope texture
+        public virtual string LensTexture => "/materials/swb/scopes/swb_lens_hunter.png"; // Path to the lens texture
+        public virtual string ScopeTexture => "/materials/swb/scopes/swb_scope_hunter.png"; // Path to the scope texture
         public virtual string ZoomInSound => "swb_sniper.zoom_in"; // Sound to play when zooming in
         public virtual string ZoomOutSound => ""; // Sound to play when zooming out
         public virtual float ZoomAmount => 20f; // The amount to zoom in ( lower is more )
