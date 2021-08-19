@@ -23,6 +23,9 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Aiming
 * Jumping
 
+### Built-in HUD
+* Dynamic Crosshair
+
 ### Bases
 * Magazine (default)
 * Shotgun (shell based reloading)
