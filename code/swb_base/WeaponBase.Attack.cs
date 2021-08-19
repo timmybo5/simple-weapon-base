@@ -1,6 +1,6 @@
-﻿using Sandbox;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Sandbox;
 
 /* 
  * Weapon base for weapons using magazine based reloading 
@@ -107,20 +107,9 @@ namespace SWB_Base
                 PlaySound(clipInfo.ShootSound);
 
             // Shoot the bullets
-            float realSpread;
-
-            if (this is WeaponBaseShotty)
-            {
-                realSpread = clipInfo.Spread;
-            }
-            else
-            {
-                realSpread = IsZooming ? clipInfo.Spread / 4 : clipInfo.Spread;
-            }
-
             for (int i = 0; i < clipInfo.Bullets; i++)
             {
-                ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize);
+                ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize);
             }
         }
 
@@ -203,7 +192,7 @@ namespace SWB_Base
                 if (!IsServer) continue;
                 if (!tr.Entity.IsValid()) continue;
 
-                // We turn predictiuon off for this, so any exploding effects don't get culled etc
+                // We turn prediction off for this, so any exploding effects don't get culled etc
                 using (Prediction.Off())
                 {
                     var damageInfo = DamageInfo.FromBullet(tr.EndPos, forward * 100 * force, damage)
@@ -239,7 +228,7 @@ namespace SWB_Base
             if (!string.IsNullOrEmpty(shootAnim))
                 animatingViewModel?.SetAnimBool(shootAnim, true);
 
-            CrosshairPanel?.CreateEvent("fire");
+            CrosshairPanel?.CreateEvent("fire", (60f / Primary.RPM));
         }
 
         [ClientRpc]

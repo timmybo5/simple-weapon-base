@@ -49,20 +49,13 @@ namespace SWB_Base
             BottomBar.PositionAtCrosshair();
 
             // Scope
-            var scopeSize = (Screen.Height * ScaleFromScreen * 0.9f);
+            var scopeSize = Screen.Height * ScaleFromScreen * 0.9f;
             Lens.Style.Width = scopeSize;
             Lens.Style.Height = scopeSize;
             Lens.Style.Dirty();
             Scope.Style.Width = scopeSize;
             Scope.Style.Height = scopeSize;
             Scope.Style.Dirty();
-
-            // Top/Bottom Bars
-            var topBarHeight = Screen.Height * ScaleFromScreen * 0.4f;
-            TopBar.Style.Height = topBarHeight;
-            TopBar.Style.Dirty();
-            BottomBar.Style.Height = topBarHeight;
-            BottomBar.Style.Dirty();
         }
     }
 }

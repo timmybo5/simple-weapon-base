@@ -23,34 +23,34 @@
 
     .leftBar {
         position: absolute;
-        height: 100%;
         background-color: black;
-        // Temp solution
+        height: 100%;
         width: 10000px;
         transform: translateX( 4.85% ) translateY( -50% );
     }
 
     .rightBar {
         position: absolute;
-        height: 100%;
         background-color: black;
-        // Temp solution
+        height: 100%;
         width: 10000px;
         transform: translateX( -104.85% ) translateY( -50% );
     }
 
     .topBar {
         position: absolute;
-        width: 100%;
         background-color: black;
-        transform: translateX( -50% ) translateY( -212.3% );
+        width: 10000px;
+        height: 10000px;
+        transform: translateX( -50% ) translateY( -104.85% );
     }
 
     .bottomBar {
         position: absolute;
-        width: 100%;
         background-color: black;
-        transform: translateX( -50% ) translateY( 112.3% );
+        width: 10000px;
+        height: 10000px;
+        transform: translateX( -50% ) translateY( 4.85% );
     }
 }
 

@@ -12,6 +12,8 @@ namespace SWB_CSS
         public override string WorldModelPath => "weapons/css_knife/css_w_knife.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_knife.png";
         public override int FOV => 75;
+        public override bool DrawCrosshair => true;
+        public override bool DrawCrosshairLines => false;
 
         public override string SwingAnimationHit => "swing";
         public override string SwingAnimationMiss => "swing_miss";

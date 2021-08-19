@@ -259,6 +259,26 @@ namespace SWB_Base
             }
         }
 
+        public virtual float GetRealSpread(float baseSpread = -1)
+        {
+            float spread = baseSpread != -1 ? baseSpread : Primary.Spread;
+            float floatMod = 1f;
+
+            // Ducking
+            if (Input.Down(InputButton.Duck) && !IsZooming)
+                floatMod -= 0.25f;
+
+            // Aiming
+            if (IsZooming && this is not WeaponBaseShotty)
+                floatMod /= 4;
+
+            // Jumping
+            if (Owner.GroundEntity == null)
+                floatMod += 0.5f;
+
+            return spread * floatMod;
+        }
+
         public bool TakeAmmo(int amount)
         {
             if (Primary.InfiniteAmmo == InfiniteAmmoType.clip)
