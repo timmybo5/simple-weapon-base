@@ -14,6 +14,8 @@ namespace SWB_CSS
         public override int FOV => 75;
         public override bool DrawCrosshair => true;
         public override bool DrawCrosshairLines => false;
+        public override bool DrawHitmarker => false;
+        public override bool PlayHitmarkerSound => false;
 
         public override string SwingAnimationHit => "swing";
         public override string SwingAnimationMiss => "swing_miss";

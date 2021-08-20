@@ -1,7 +1,7 @@
-﻿using Sandbox;
-using SWB_Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Sandbox;
+using SWB_Base;
 
 namespace SWB_CSS
 {
@@ -16,6 +16,7 @@ namespace SWB_CSS
         public override int FOV => 75;
         public override int ZoomFOV => 40;
         public override float WalkAnimationSpeedMod => 0.7f;
+        public override bool PlayHitmarkerSound => false;
 
         public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;
         public override string EntityModel => "weapons/css_grenade_he/css_w_grenade_he_thrown.vmdl";
