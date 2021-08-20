@@ -167,19 +167,28 @@ namespace SWB_Base
             if (info.Attacker is PlayerBase attacker && attacker != this)
             {
                 // Note - sending this only to the attacker!
-                attacker.DidDamage(To.Single(attacker), info.Position, info.Damage, ((float)Health).LerpInverse(100, 0));
+                attacker.DidDamage(To.Single(attacker), info.Position, info.Damage, Health, ((float)Health).LerpInverse(100, 0));
+
+                // Hitmarker
+                var weapon = info.Weapon as WeaponBase;
+                if (weapon != null && weapon.DrawHitmarker)
+                    attacker.ShowHitmarker(To.Single(attacker), Alive(), weapon.PlayHitmarkerSound);
 
                 TookDamage(To.Single(this), info.Weapon.IsValid() ? info.Weapon.Position : info.Attacker.Position);
             }
         }
 
+        public bool Alive()
+        {
+            return Health <= 0;
+        }
+
         [ClientRpc]
-        public void DidDamage(Vector3 pos, float amount, float healthinv)
+        public void DidDamage(Vector3 pos, float amount, float health, float healthinv)
         {
             Sound.FromScreen("dm.ui_attacker")
                 .SetPitch(1 + healthinv * 1);
 
-            HitIndicator.Current?.OnHit(pos, amount);
         }
 
         [ClientRpc]
@@ -188,6 +197,15 @@ namespace SWB_Base
             //DebugOverlay.Sphere( pos, 5.0f, Color.Red, false, 50.0f );
 
             DamageIndicator.Current?.OnHit(pos);
+        }
+
+        [ClientRpc]
+        public void ShowHitmarker(bool isKill, bool playSound)
+        {
+            Hitmarker.Current?.Create(isKill);
+
+            if (playSound)
+                PlaySound("swb_hitmarker");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using Sandbox.UI;
 
 /* 
  * Weapon base for weapons using magazine based reloading 
@@ -255,7 +256,9 @@ namespace SWB_Base
             {
                 CrosshairPanel = new Crosshair();
                 CrosshairPanel.Parent = Local.Hud;
-                CrosshairPanel.AddClass(ClassInfo.Name);
+
+                Panel HitmarkerPanel = new Hitmarker();
+                HitmarkerPanel.Parent = Local.Hud;
             }
         }
 

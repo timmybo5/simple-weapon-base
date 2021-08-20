@@ -17,6 +17,8 @@ namespace SWB_Base
         public virtual int BucketWeight => 100; // Inventory slot position weight ( higher = more important )
         public virtual bool DrawCrosshair => true; // Draw the crosshair
         public virtual bool DrawCrosshairLines => true; // Draw the crosshair lines
+        public virtual bool DrawHitmarker => true; // Draw the hitmarker
+        public virtual bool PlayHitmarkerSound => true; // Draw the hitmarker
         public virtual bool DropWeaponOnDeath => true; // Drop the weapon on death
         public virtual string FreezeViewModelOnZoom => null; // Some weapons have looping idle animations -> force spam another animation to "freeze" it
         public virtual int FOV => 65; // Default FOV

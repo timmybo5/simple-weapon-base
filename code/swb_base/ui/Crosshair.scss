@@ -15,44 +15,35 @@
     }
 
     .leftBar {
-        position: absolute;
-        background-color: white;
         left: -16px;
         width: 12px;
         height: 1px;
-        box-shadow: 1px 1px 1px 0px black;
-        transition: all 0.1s ease-out 0s;
     }
 
     .rightBar {
-        position: absolute;
-        background-color: white;
         left: 5px;
         width: 12px;
         height: 1px;
-        box-shadow: 1px 1px 1px 0px black;
-        transition: all 0.1s ease-out 0s;
     }
 
     .topBar {
-        position: absolute;
-        background-color: white;
         top: -16px;
         width: 1px;
         height: 12px;
-        box-shadow: 1px 1px 1px 0px black;
-        transition: all 0.1s ease-out 0s;
     }
 
     .bottomBar {
-        position: absolute;
-        background-color: white;
         top: 5px;
         width: 1px;
         height: 12px;
-        box-shadow: 1px 1px 1px 0px black;
-        transition: all 0.1s ease-out 0s;
     }
+}
+
+.sharedBarStyling {
+    position: absolute;
+    background-color: white;
+    box-shadow: 1px 1px 1px 0px black;
+    transition: all 0.1s ease-out 0s;
 }
 
 .hideCrosshair {

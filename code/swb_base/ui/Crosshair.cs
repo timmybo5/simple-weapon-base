@@ -30,6 +30,11 @@ namespace SWB_Base
             RightBar = Add.Panel("rightBar");
             TopBar = Add.Panel("topBar");
             BottomBar = Add.Panel("bottomBar");
+
+            LeftBar.AddClass("sharedBarStyling");
+            RightBar.AddClass("sharedBarStyling");
+            TopBar.AddClass("sharedBarStyling");
+            BottomBar.AddClass("sharedBarStyling");
         }
 
         private void UpdateCrosshair()
@@ -71,12 +76,10 @@ namespace SWB_Base
             base.Tick();
             this.PositionAtCrosshair();
 
-            // Hide when zooming in
             var player = Local.Pawn;
             if (player == null) return;
 
             var weapon = player.ActiveChild as WeaponBase;
-            var shouldTuck = weapon.ShouldTuck();
 
             var hideCrosshairLines = weapon != null ? !weapon.DrawCrosshairLines : true;
             LeftBar.SetClass("hideCrosshair", hideCrosshairLines);
@@ -85,6 +88,7 @@ namespace SWB_Base
             BottomBar.SetClass("hideCrosshair", hideCrosshairLines);
 
             if (hideCrosshairLines) return;
+            var shouldTuck = weapon.ShouldTuck();
 
             // Crosshair spread offset
             var screenOffset = spreadOffset * weapon.GetRealSpread();
@@ -94,7 +98,7 @@ namespace SWB_Base
             BottomBar.Style.MarginTop = screenOffset;
 
             // Sprint spread offsets
-            if (weapon.IsRunning || shouldTuck)
+            if (weapon.IsRunning || shouldTuck || weapon.IsReloading)
             {
                 LeftBar.Style.Left = -sprintOffset;
                 RightBar.Style.Left = sprintOffset - 5;
