@@ -25,6 +25,7 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 
 ### Built-in HUD
 * Dynamic Crosshair
+* Hitmarkers
 
 ### Bases
 * Magazine (default)
