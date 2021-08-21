@@ -43,7 +43,6 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 Anyone can contribute by creating a pull request to their branch. Contributors can help out with the planned updates, outstanding bug/issues, or maybe you just have a cool idea that would improve the base, any help is welcome!
 
 ## Planned Updates
-* Proper viewbob animations
 * More base-included entities (e.g. bomb)
 * Physical bullets
 * Attachment base
