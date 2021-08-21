@@ -1,6 +1,6 @@
-﻿using Sandbox;
+﻿using System.Collections.Generic;
+using Sandbox;
 using SWB_Base;
-using System.Collections.Generic;
 
 namespace SWB_CSS
 {
@@ -71,7 +71,7 @@ namespace SWB_CSS
             ZoomAnimData = new AngPos
             {
                 Angle = new Angles(-2.8f, -1.5f, -4f),
-                Pos = new Vector3(-6.19f, 6, 0.35f)
+                Pos = new Vector3(-6.34f, 6, 0.57f)
             };
 
             RunAnimData = new AngPos

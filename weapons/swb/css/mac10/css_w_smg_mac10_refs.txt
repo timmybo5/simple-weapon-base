@@ -1,0 +1,4 @@
+importfilelist
+{
+	"file"	"w_smg_mac10_is_unused.vmt"
+}

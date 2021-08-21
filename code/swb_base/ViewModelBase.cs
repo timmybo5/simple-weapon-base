@@ -74,14 +74,14 @@ namespace SWB_Base
             if (liveEditing && weapon.RunAnimData != null)
             {
                 // Zooming
-                TargetVectorRot = MathUtil.ToVector3(new Angles(-2.84f, -0.31f, 6f));
-                TargetVectorPos = new Vector3(-5.12f, -1.05f, -1.5f);
+                TargetVectorRot = MathUtil.ToVector3(new Angles(-2.8f, -1.5f, -4f));
+                TargetVectorPos = new Vector3(-6.34f, 6, 0.57f);
                 TargetFOV = weapon.ZoomFOV;
                 return;
 
                 // Running
-                //weapon.RunAnimData.Angle = new Angles( 10, 40, 0 );
-                //weapon.RunAnimData.Pos = new Vector3( 5, 0, 0 );
+                //weapon.RunAnimData.Angle = new Angles(10, 40, 0);
+                //weapon.RunAnimData.Pos = new Vector3(5, 0, 0);
             }
 
             // Flip the Viewmodel

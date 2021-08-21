@@ -1,0 +1,5 @@
+importfilelist
+{
+	"file"	"smg_mac10_1_is_unused.vmt"
+	"file"	"v_hands_is_unused.vmt"
+}
