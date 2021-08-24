@@ -80,15 +80,18 @@ namespace SWB_Base
             if (player == null) return;
 
             var weapon = player.ActiveChild as WeaponBase;
+            bool isValidWeapon = weapon != null;
 
-            var hideCrosshairLines = weapon != null ? !weapon.DrawCrosshairLines : true;
+            var hideCrosshairDot = isValidWeapon ? !weapon.DrawCrosshairDot : true;
+            CenterDot.SetClass("hideCrosshair", hideCrosshairDot);
+
+            var hideCrosshairLines = isValidWeapon ? !weapon.DrawCrosshairLines : true;
             LeftBar.SetClass("hideCrosshair", hideCrosshairLines);
             RightBar.SetClass("hideCrosshair", hideCrosshairLines);
             TopBar.SetClass("hideCrosshair", hideCrosshairLines);
             BottomBar.SetClass("hideCrosshair", hideCrosshairLines);
 
-            if (hideCrosshairLines) return;
-            var shouldTuck = weapon.ShouldTuck();
+            if (!isValidWeapon) return;
 
             // Crosshair spread offset
             var screenOffset = spreadOffset * weapon.GetRealSpread();
@@ -98,7 +101,7 @@ namespace SWB_Base
             BottomBar.Style.MarginTop = screenOffset;
 
             // Sprint spread offsets
-            if (weapon.IsRunning || shouldTuck || weapon.IsReloading)
+            if (weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading)
             {
                 LeftBar.Style.Left = -sprintOffset;
                 RightBar.Style.Left = sprintOffset - 5;
@@ -110,8 +113,13 @@ namespace SWB_Base
             else if (weapon.IsZooming)
             {
                 wasZooming = true;
-                CenterDot.Style.Opacity = 0;
-                HideBarLines();
+                var playerBase = player as PlayerBase;
+
+                if (playerBase == null || playerBase.InFirstPerson())
+                {
+                    CenterDot.Style.Opacity = 0;
+                    HideBarLines();
+                }
             }
             else if (LeftBar.Style.Left == -sprintOffset || wasZooming)
             {

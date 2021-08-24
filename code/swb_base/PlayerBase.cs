@@ -183,6 +183,11 @@ namespace SWB_Base
             return Health <= 0;
         }
 
+        public bool InFirstPerson()
+        {
+            return Owner.Camera is FirstPersonCamera;
+        }
+
         [ClientRpc]
         public void DidDamage(Vector3 pos, float amount, float health, float healthinv)
         {

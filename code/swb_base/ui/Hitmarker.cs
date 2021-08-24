@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Sandbox;
 using Sandbox.UI;
 
 namespace SWB_Base
@@ -55,7 +54,6 @@ namespace SWB_Base
                 await Task.Delay(100);
                 AddClass("fadeOut");
                 await Task.Delay(300);
-                Sound.FromScreen("swb_hitmarker");
                 Delete();
             }
         }

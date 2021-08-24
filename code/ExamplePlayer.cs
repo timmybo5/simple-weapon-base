@@ -15,7 +15,10 @@ partial class ExamplePlayer : PlayerBase
         Inventory.Add(new SWB_CSS.GrenadeHE());
 
         Inventory.Add(new SWB_CSS.Deagle());
+
         Inventory.Add(new SWB_CSS.Super90());
+        Inventory.Add(new SWB_CSS.MAC10());
+
         Inventory.Add(new SWB_CSS.AK47());
         Inventory.Add(new SWB_CSS.M4A1());
         Inventory.Add(new SWB_CSS.M249());

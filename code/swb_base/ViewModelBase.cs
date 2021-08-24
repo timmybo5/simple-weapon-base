@@ -48,6 +48,11 @@ namespace SWB_Base
             Rotation = camSetup.Rotation;
             Position = camSetup.Position;
             if (weapon.IsDormant) return;
+            if (Owner != null && Owner.Health <= 0)
+            {
+                this.EnableDrawing = false;
+                return;
+            }
 
             // Smoothly transition the vectors with the target values
             FinalVectorPos = FinalVectorPos.LerpTo(TargetVectorPos, animSpeed * RealTime.Delta);
