@@ -9,9 +9,16 @@ namespace SWB_Base
 
         public bool SupressPickupNotices { get; set; }
 
-        public PlayerBase()
+        public PlayerBase(IBaseInventory inventory = null)
         {
-            Inventory = new DmInventory(this);
+            if (inventory != null)
+            {
+                Inventory = inventory;
+            }
+            else
+            {
+                Inventory = new InventoryBase(this);
+            }
         }
 
         public override void Respawn()
@@ -185,7 +192,7 @@ namespace SWB_Base
 
         public bool InFirstPerson()
         {
-            return Owner.Camera is FirstPersonCamera;
+            return Owner.Camera != null ? Owner.Camera is FirstPersonCamera : true;
         }
 
         [ClientRpc]
