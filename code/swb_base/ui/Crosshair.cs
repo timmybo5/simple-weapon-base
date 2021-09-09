@@ -140,7 +140,7 @@ namespace SWB_Base
             TopBar.Style.Top = -fireOffset;
             BottomBar.Style.Top = fireOffset - 5;
 
-            _ = FireDelay(fireDelay);
+            _ = FireDelay(fireDelay / 2);
         }
 
         private async Task FireDelay(float delay)
