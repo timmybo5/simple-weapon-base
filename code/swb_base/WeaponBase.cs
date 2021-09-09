@@ -256,7 +256,10 @@ namespace SWB_Base
             {
                 CrosshairPanel = new Crosshair();
                 CrosshairPanel.Parent = Local.Hud;
+            }
 
+            if (DrawHitmarker)
+            {
                 Panel HitmarkerPanel = new Hitmarker();
                 HitmarkerPanel.Parent = Local.Hud;
             }

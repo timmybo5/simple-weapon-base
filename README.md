@@ -63,7 +63,7 @@ public Game()
 {
   if ( IsServer )
     {
-      new DeathmatchHud()
+      new DeathmatchHud();
     }
   }
 }
