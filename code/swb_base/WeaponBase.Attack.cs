@@ -214,7 +214,8 @@ namespace SWB_Base
             ModelEntity firingViewModel = animatingViewModel;
 
             // We don't want to change the world effect origin if we or others can see it
-            if ((IsLocalPawn && GetClientOwner().Camera is ThirdPersonCamera) || !IsLocalPawn)
+            var player = Owner as PlayerBase;
+            if ((IsLocalPawn && player != null && player.InFirstPerson()) || !IsLocalPawn)
             {
                 firingViewModel = EffectEntity;
             }
