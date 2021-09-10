@@ -5,13 +5,11 @@
 
     .centerDot {
         background-color: white;
-        border-radius: 50%;
-        top: -1px;
-        left: -1px;
-        width: 4px;
-        height: 4px;
-        box-shadow: 1px 1px 2px 0px black;
-        //border: 1px thin black;
+        top: 0px;
+        left: 0px;
+        width: 2px;
+        height: 2px;
+        box-shadow: 0px 0px 3px 1px black;
         transition: all 0.1s ease-out 0s;
     }
 
@@ -43,26 +41,10 @@
 .sharedBarStyling {
     position: absolute;
     background-color: white;
-    box-shadow: 1px 1px 1px 0px black;
+    box-shadow: 0px 0px 3px 1px black;
     transition: all 0.1s ease-out 0s;
 }
 
 .hideCrosshair {
     display: none;
 }
-
-/* NOT SUPPORTED YET
-@keyframes fireAnimation {
-    0% {
-        transform: translateX(0);
-    }
-
-    50% {
-        transform: translateX(50px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-*/

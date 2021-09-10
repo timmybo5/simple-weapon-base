@@ -138,7 +138,7 @@ namespace SWB_Base
                 BaseSimulate(owner);
             }
 
-            if (IsReloading && TimeSinceReload > Primary.ReloadTime)
+            if (IsReloading && TimeSinceReload >= 0)
             {
                 OnReloadFinish();
             }
@@ -149,10 +149,11 @@ namespace SWB_Base
             if (IsReloading || IsAnimating)
                 return;
 
-            if (Primary.Ammo >= Primary.ClipSize || Primary.ClipSize == -1)
+            if (Primary.Ammo >= (Primary.ClipSize + 1) || Primary.ClipSize == -1)
                 return;
 
-            TimeSinceReload = 0;
+            var isEmptyReload = Primary.ReloadEmptyTime > 0 ? Primary.Ammo == 0 : false;
+            TimeSinceReload = -(isEmptyReload ? Primary.ReloadEmptyTime : Primary.ReloadTime);
 
             if (Owner is PlayerBase player)
             {
@@ -165,7 +166,7 @@ namespace SWB_Base
             // Player anim
             (Owner as AnimEntity).SetAnimBool("b_reload", true);
 
-            StartReloadEffects();
+            StartReloadEffects(isEmptyReload);
         }
 
         public virtual void OnReloadFinish()
@@ -184,7 +185,12 @@ namespace SWB_Base
 
             if (Primary.InfiniteAmmo == InfiniteAmmoType.reserve)
             {
-                Primary.Ammo = Primary.ClipSize;
+                var newAmmo = Primary.ClipSize;
+
+                if (Primary.Ammo > 0)
+                    newAmmo += 1;
+
+                Primary.Ammo = newAmmo;
                 return;
             }
 
@@ -199,12 +205,18 @@ namespace SWB_Base
         }
 
         [ClientRpc]
-        public virtual void StartReloadEffects()
+        public virtual void StartReloadEffects(bool isEmpty)
         {
             var reloadingViewModel = DualWield && dualWieldShouldReload ? dualWieldViewModel : ViewModelEntity;
 
-            if (Primary.ReloadAnim != null)
+            if (isEmpty && Primary.ReloadEmptyAnim != null)
+            {
+                reloadingViewModel?.SetAnimBool(Primary.ReloadEmptyAnim, true);
+            }
+            else if (Primary.ReloadAnim != null)
+            {
                 reloadingViewModel?.SetAnimBool(Primary.ReloadAnim, true);
+            }
 
             // TODO - player third person model reload
         }
