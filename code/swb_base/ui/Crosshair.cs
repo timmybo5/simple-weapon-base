@@ -113,9 +113,8 @@ namespace SWB_Base
             else if (weapon.IsZooming)
             {
                 wasZooming = true;
-                var playerBase = player as PlayerBase;
 
-                if (playerBase == null || playerBase.InFirstPerson())
+                if (player.IsFirstPersonMode)
                 {
                     CenterDot.Style.Opacity = 0;
                     HideBarLines();

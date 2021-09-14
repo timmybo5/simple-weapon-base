@@ -1,5 +1,5 @@
-﻿using Sandbox;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Sandbox;
 
 /* 
  * High explosive grenade
@@ -81,7 +81,7 @@ namespace SWB_Base
             BlastUtil.Explode(PhysicsBody.MassCenter, ExplosionRadius, ExplosionDamage, ExplosionForce, Owner, Weapon, this);
 
             // Remove entity
-            RenderAlpha = 0;
+            RenderColor = Color.Transparent;
             DeleteAsync(0.01f);
         }
     }

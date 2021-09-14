@@ -42,16 +42,18 @@ namespace SWB_Base
 
             Primary.Spread = 0;
 
-            var owner = Owner.GetClientOwner();
-            if (owner.Camera is ThirdPersonCamera)
+            if (IsServer)
             {
-                switchBackToThirdP = true;
-                owner.Camera = new FirstPersonCamera();
+                if (Owner.Camera is ThirdPersonCamera)
+                {
+                    switchBackToThirdP = true;
+                    Owner.Camera = new FirstPersonCamera();
+                }
             }
 
             if (IsLocalPawn)
             {
-                ViewModelEntity.RenderAlpha = 0;
+                ViewModelEntity.RenderColor = Color.Transparent;
 
                 if (!string.IsNullOrEmpty(ZoomInSound))
                     PlaySound(ZoomInSound);
@@ -64,16 +66,15 @@ namespace SWB_Base
             Primary.Spread = oldSpread;
             lerpZoomAmount = 0;
 
-            var owner = Owner.GetClientOwner();
-            if (switchBackToThirdP)
+            if (IsServer && switchBackToThirdP)
             {
                 switchBackToThirdP = false;
-                owner.Camera = new ThirdPersonCamera();
+                Owner.Camera = new ThirdPersonCamera();
             }
 
             if (IsLocalPawn)
             {
-                ViewModelEntity.RenderAlpha = 1;
+                ViewModelEntity.RenderColor = Color.White;
 
                 if (!string.IsNullOrEmpty(ZoomOutSound))
                     PlaySound(ZoomOutSound);

@@ -185,14 +185,9 @@ namespace SWB_Base
             }
         }
 
-        public bool Alive()
+        public virtual bool Alive()
         {
             return Health <= 0;
-        }
-
-        public bool InFirstPerson()
-        {
-            return Owner.Camera != null ? Owner.Camera is FirstPersonCamera : true;
         }
 
         [ClientRpc]
