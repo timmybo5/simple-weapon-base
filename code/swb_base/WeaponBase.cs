@@ -149,7 +149,9 @@ namespace SWB_Base
             if (IsReloading || IsAnimating)
                 return;
 
-            if (Primary.Ammo >= (Primary.ClipSize + 1) || Primary.ClipSize == -1)
+            var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
+
+            if (Primary.Ammo >= maxClipSize || Primary.ClipSize == -1)
                 return;
 
             var isEmptyReload = Primary.ReloadEmptyTime > 0 ? Primary.Ammo == 0 : false;
@@ -187,7 +189,7 @@ namespace SWB_Base
             {
                 var newAmmo = Primary.ClipSize;
 
-                if (Primary.Ammo > 0)
+                if (BulletCocking && Primary.Ammo > 0)
                     newAmmo += 1;
 
                 Primary.Ammo = newAmmo;

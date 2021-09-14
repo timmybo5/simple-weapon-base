@@ -79,8 +79,8 @@ namespace SWB_Base
             if (liveEditing && weapon.RunAnimData != null)
             {
                 // Zooming
-                TargetVectorRot = MathUtil.ToVector3(new Angles(-2.8f, -1.5f, -4f));
-                TargetVectorPos = new Vector3(-6.34f, 6, 0.57f);
+                TargetVectorRot = MathUtil.ToVector3(new Angles(-0.21f, -0.05f, 0));
+                TargetVectorPos = new Vector3(-2.317f, -3f, 1.56f);
                 TargetFOV = weapon.ZoomFOV;
                 return;
 
