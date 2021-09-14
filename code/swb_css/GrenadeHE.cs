@@ -10,15 +10,15 @@ namespace SWB_CSS
     {
         public override int Bucket => 0;
         public override HoldType HoldType => HoldType.Pistol;
-        public override string ViewModelPath => "weapons/css_grenade_he/css_v_grenade_he.vmdl";
-        public override string WorldModelPath => "weapons/css_grenade_he/css_w_grenade_he.vmdl";
+        public override string ViewModelPath => "weapons/swb/css/grenade_he/css_v_grenade_he.vmdl";
+        public override string WorldModelPath => "weapons/swb/css/grenade_he/css_w_grenade_he.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_grenade.png";
         public override int FOV => 75;
         public override bool DrawCrosshair => true;
         public override bool DrawCrosshairLines => false;
 
         public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;
-        public override string EntityModel => "weapons/css_grenade_he/css_w_grenade_he_thrown.vmdl";
+        public override string EntityModel => "weapons/swb/css/grenade_he/css_w_grenade_he_thrown.vmdl";
         public override Vector3 EntityVelocity => new Vector3(0, 25, 50);
         public override Angles EntityAngles => new Angles(0, 0, -45);
         public override bool IsSticky => true;
@@ -53,7 +53,7 @@ namespace SWB_CSS
             {
                 "css_grenade_he.explode"
             };
-            grenade.ExplosionEffect = "weapons/css_grenade_he/particles/grenade_he_explosion.vpcf";
+            grenade.ExplosionEffect = "weapons/swb/css/grenade_he/particles/grenade_he_explosion.vpcf";
             grenade.ExplosionShake = new ScreenShake
             {
                 Length = 1f,

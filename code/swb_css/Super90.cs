@@ -8,8 +8,8 @@ namespace SWB_CSS
     {
         public override int Bucket => 2;
         public override HoldType HoldType => HoldType.Shotgun;
-        public override string ViewModelPath => "weapons/css_super90/css_v_shot_m3super90.vmdl";
-        public override string WorldModelPath => "weapons/css_super90/css_w_shot_m3super90.vmdl";
+        public override string ViewModelPath => "weapons/swb/css/super90/css_v_shot_m3super90.vmdl";
+        public override string WorldModelPath => "weapons/swb/css/super90/css_w_shot_m3super90.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_super90.png";
         public override int FOV => 75;
         public override int ZoomFOV => 45;

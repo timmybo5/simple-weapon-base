@@ -9,8 +9,8 @@ namespace SWB_CSS
     {
         public override int Bucket => 3;
         public override HoldType HoldType => HoldType.Rifle;
-        public override string ViewModelPath => "weapons/css_m4a1/css_v_m4a1.vmdl";
-        public override string WorldModelPath => "weapons/css_m4a1/css_w_m4a1.vmdl";
+        public override string ViewModelPath => "weapons/swb/css/m4a1/css_v_m4a1.vmdl";
+        public override string WorldModelPath => "weapons/swb/css/m4a1/css_w_m4a1.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_m4a1.png";
         public override int FOV => 60;
         public override int ZoomFOV => 35;
@@ -63,7 +63,7 @@ namespace SWB_CSS
                     OffAnimation = "remove_silencer",
                     OffAnimationDuration = 2f,
                     AnimationStatus = "silenced",
-                    NewWorldModel = "weapons/css_m4a1/css_w_m4a1_silencer.vmdl",
+                    NewWorldModel = "weapons/swb/css/m4a1/css_w_m4a1_silencer.vmdl",
                     NewShootSound = "css_m4a1.fire_silenced"
                 }
             };

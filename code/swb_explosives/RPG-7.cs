@@ -1,7 +1,7 @@
-﻿using Sandbox;
-using SWB_Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Sandbox;
+using SWB_Base;
 
 namespace SWB_EXPLOSIVES
 {
@@ -86,7 +86,7 @@ namespace SWB_EXPLOSIVES
                 "swb_explosion_4",
                 "swb_explosion_5"
             };
-            rocket.ExplosionEffect = "weapons/css_grenade_he/particles/grenade_he_explosion.vpcf";
+            rocket.ExplosionEffect = "weapons/swb/css/grenade_he/particles/grenade_he_explosion.vpcf";
             rocket.RocketSound = "swb_explosives_rpg7.rocketloop";
             rocket.RocketEffects = new List<string>
             {

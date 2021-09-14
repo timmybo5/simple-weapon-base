@@ -8,8 +8,8 @@ namespace SWB_CSS
     {
         public override int Bucket => 1;
         public override HoldType HoldType => HoldType.Pistol;
-        public override string ViewModelPath => "weapons/css_deagle/css_v_pist_deagle.vmdl";
-        public override string WorldModelPath => "weapons/css_deagle/css_w_pist_deagle.vmdl";
+        public override string ViewModelPath => "weapons/swb/css/deagle/css_v_pist_deagle.vmdl";
+        public override string WorldModelPath => "weapons/swb/css/deagle/css_w_pist_deagle.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_deagle.png";
         public override int FOV => 75;
         public override int ZoomFOV => 60;
