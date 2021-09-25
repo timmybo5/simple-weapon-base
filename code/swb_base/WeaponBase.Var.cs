@@ -44,10 +44,10 @@ namespace SWB_Base
 
         public AngPos RunAnimData { get; set; } // Data used for setting the weapon to its run position
 
-        [Net]
+        [Net, Predicted]
         public ClipInfo Primary { get; set; } = new ClipInfo(); // Primary attack data
 
-        [Net]
+        [Net, Predicted]
         public ClipInfo Secondary { get; set; } = null; // Secondary attack data ( setting this will disable weapon zooming )
 
         [Net, Predicted]

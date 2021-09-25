@@ -8,7 +8,7 @@ namespace SWB_Base
         auto
     }
 
-    public class ClipInfo
+    public class ClipInfo : NetworkComponent
     {
         [Predicted]
         public int Ammo { get; set; } = 10; // Amount of ammo in the clip
