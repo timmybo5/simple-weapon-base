@@ -3,7 +3,7 @@ using Sandbox;
 
 namespace SWB_Base
 {
-    partial class PlayerBase : Player
+    public partial class PlayerBase : Player
     {
         TimeSince timeSinceDropped;
 
