@@ -38,6 +38,8 @@ namespace SWB_Base
         public virtual float SecondaryDelay => -1; // Delay before firing when the secondary attack button is pressed
 
         // Properties
+        public string PrintName { get { return ClassInfo.Title; } }
+
         public List<AnimatedAction> AnimatedActions { get; set; } // Extra actions that use certain key combinations to trigger animations
 
         public AngPos ZoomAnimData { get; set; } // Data used for setting the weapon to its zoom position

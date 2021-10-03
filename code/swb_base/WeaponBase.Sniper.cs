@@ -84,13 +84,14 @@ namespace SWB_Base
         public override void Simulate(Client owner)
         {
             base.Simulate(owner);
+            var shouldTuck = ShouldTuck();
 
-            if ((Input.Pressed(InputButton.Attack2) && !IsReloading && !IsRunning) || (IsZooming && !IsScoped))
+            if (((Input.Pressed(InputButton.Attack2) && !IsReloading && !IsRunning) || (IsZooming && !IsScoped)) && !shouldTuck)
             {
                 OnScopedStart();
             }
 
-            if (Input.Released(InputButton.Attack2) || (IsScoped && IsRunning))
+            if (Input.Released(InputButton.Attack2) || (IsScoped && (IsRunning || shouldTuck)))
             {
                 OnScopedEnd();
             }
