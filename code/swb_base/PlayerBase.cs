@@ -187,7 +187,7 @@ namespace SWB_Base
 
         public virtual bool Alive()
         {
-            return Health <= 0;
+            return Health > 0;
         }
 
         [ClientRpc]
