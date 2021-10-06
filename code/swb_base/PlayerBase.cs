@@ -179,7 +179,7 @@ namespace SWB_Base
                 // Hitmarker
                 var weapon = info.Weapon as WeaponBase;
                 if (weapon != null && weapon.DrawHitmarker)
-                    attacker.ShowHitmarker(To.Single(attacker), Alive(), weapon.PlayHitmarkerSound);
+                    attacker.ShowHitmarker(To.Single(attacker), !Alive(), weapon.PlayHitmarkerSound);
 
                 TookDamage(To.Single(this), info.Weapon.IsValid() ? info.Weapon.Position : info.Attacker.Position);
             }

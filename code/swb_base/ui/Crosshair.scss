@@ -36,15 +36,15 @@
         width: 1px;
         height: 12px;
     }
-}
 
-.sharedBarStyling {
-    position: absolute;
-    background-color: white;
-    box-shadow: 0px 0px 3px 1px black;
-    transition: all 0.1s ease-out 0s;
-}
+    .sharedBarStyling {
+        position: absolute;
+        background-color: white;
+        box-shadow: 0px 0px 3px 1px black;
+        transition: all 0.1s ease-out 0s;
+    }
 
-.hideCrosshair {
-    display: none;
+    .hideCrosshair {
+        display: none;
+    }
 }
