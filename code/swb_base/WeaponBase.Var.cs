@@ -64,7 +64,7 @@ namespace SWB_Base
 
         public bool IsZooming { get; set; }
 
-        public bool IsScoped { get; set; } = true;
+        public bool IsScoped { get; set; }
 
         public bool IsRunning { get; set; }
 
