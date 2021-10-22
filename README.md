@@ -19,16 +19,16 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 
 ### Built-in Animations
 * Walking
-* Zooming
+* Crouching
 * Running
+* Jumping
 * Idle
 * Sway
-* Aiming
-* Jumping
+* Zooming
 
 ### Built-in HUD
 * Dynamic Crosshair
-* Hitmarkers
+* Dynamic Hitmarkers
 
 ### Bases
 * Magazine (default)
