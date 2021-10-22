@@ -2,23 +2,31 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    //left: 400px;
+    transition: margin 0.2s ease-out 0s;
+    overflow: visible;
+
+    .lensWrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
 
     .lens {
         position: absolute;
-        background-size: cover;
+        height: 100%;
+        width: 100%;
+        background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-        transform: translateX( -50% ) translateY( -50% );
-        opacity: 1;
     }
 
     .scope {
-        position: absolute;
-        background-size: cover;
+        height: 100%;
+        width: 100%;
+        background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
-        transform: translateX( -50% ) translateY( -50% );
-        opacity: 1;
     }
 
     .leftBar {
@@ -26,30 +34,31 @@
         background-color: black;
         height: 100%;
         width: 10000px;
-        transform: translateX( 4.85% ) translateY( -50% );
+        margin-left: -9578px;
+        overflow: visible;
     }
 
     .rightBar {
         position: absolute;
         background-color: black;
         height: 100%;
-        width: 10000px;
-        transform: translateX( -104.85% ) translateY( -50% );
+        width: 22%;
+        margin-left: 78%;
     }
 
     .topBar {
         position: absolute;
         background-color: black;
-        width: 10000px;
-        height: 10000px;
-        transform: translateX( -50% ) translateY( -104.85% );
+        //width: 10000px;
+        //height: 10000px;
+        //transform: translateX( -50% ) translateY( -104.85% );
     }
 
     .bottomBar {
         position: absolute;
         background-color: black;
-        width: 10000px;
-        height: 10000px;
-        transform: translateX( -50% ) translateY( 4.85% );
+        //width: 10000px;
+        //height: 10000px;
+        //transform: translateX( -50% ) translateY( 4.85% );
     }
 }

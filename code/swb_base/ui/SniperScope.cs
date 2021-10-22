@@ -1,34 +1,43 @@
 ﻿
+using System;
 using Sandbox;
 using Sandbox.UI;
+using Sandbox.UI.Construct;
 
 namespace SWB_Base
 {
 
     public class SniperScope : Panel
     {
-        Image Lens;
-        Image Scope;
+        Panel LensWrapper;
+        Panel ScopeWrapper;
 
         Panel LeftBar;
         Panel RightBar;
         Panel TopBar;
         Panel BottomBar;
 
+        Image Lens;
+        Image Scope;
+
+        float lensRotation;
+
         public SniperScope(string lensTexture, string scopeTexture)
         {
             StyleSheet.Load("/swb_base/ui/SniperScope.scss");
 
-            LeftBar = Add.Panel("leftBar");
-            RightBar = Add.Panel("rightBar");
-            TopBar = Add.Panel("topBar");
-            BottomBar = Add.Panel("bottomBar");
+            LensWrapper = Add.Panel("lensWrapper");
+            Lens = LensWrapper.Add.Image(lensTexture, "lens");
 
-            AddChild(out Lens, "lens");
-            Lens.SetTexture(lensTexture);
+            if (scopeTexture != null)
+            {
+                Scope = LensWrapper.Add.Image(scopeTexture, "scope");
 
-            AddChild(out Scope, "scope");
-            Scope.SetTexture(scopeTexture);
+                LeftBar = Add.Panel("leftBar");
+                RightBar = Add.Panel("rightBar");
+                TopBar = Add.Panel("topBar");
+                BottomBar = Add.Panel("bottomBar");
+            }
         }
 
         public override void Tick()
@@ -42,23 +51,34 @@ namespace SWB_Base
 
             // Show when zooming
             Style.Opacity = (weapon == null || !weapon.IsScoped) ? 0 : 1;
+
+            /*
+            // Movement impact
+            var velocity = player.Velocity;
+            var velocityMove = (velocity.y + velocity.x) / 2;
+            var lensBob = 0f;
+
+            if (velocityMove != 0)
+            {
+                lensBob += MathF.Sin(RealTime.Now * 20f) * 2f;
+            }
+
+            this.Style.MarginTop = Length.Percent((velocity.z * 0.05f) + lensBob);
+
+            var targetRotation = 0f;
+
+            if (Input.Left != 0)
+            {
+                targetRotation = Input.Left * -5f;
+            }
+
+            var rotateTransform = new PanelTransform();
+            lensRotation = MathUtil.FILerp(lensRotation, targetRotation, 5);
+            rotateTransform.AddRotation(0, 0, lensRotation);
+
+            this.Style.Transform = rotateTransform;
+            */
             Style.Dirty();
-
-            Lens.PositionAtCrosshair();
-            Scope.PositionAtCrosshair();
-            LeftBar.PositionAtCrosshair();
-            RightBar.PositionAtCrosshair();
-            TopBar.PositionAtCrosshair();
-            BottomBar.PositionAtCrosshair();
-
-            // Scope
-            var scopeSize = Screen.Height * ScaleFromScreen * 0.9f;
-            Lens.Style.Width = scopeSize;
-            Lens.Style.Height = scopeSize;
-            Lens.Style.Dirty();
-            Scope.Style.Width = scopeSize;
-            Scope.Style.Height = scopeSize;
-            Scope.Style.Dirty();
         }
     }
 }

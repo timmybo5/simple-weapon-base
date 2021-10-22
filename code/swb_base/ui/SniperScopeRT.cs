@@ -19,7 +19,9 @@ namespace SWB_Base
     {
         Image ScopeRT;
         Texture RTTexture;
-        //SceneCapture sceneCapture;
+        Texture ColorTexture;
+        Texture DepthTexture;
+        ScenePanel scene;
 
         public SniperScopeRT(string lensTexture, string scopeTexture)
         {
@@ -28,6 +30,16 @@ namespace SWB_Base
             SceneWorld.SetCurrent(SceneWorld.Current);
             //sceneCapture = SceneCapture.Create( "worldTestScene", 500, 500 );
             ScopeRT = Add.Image("scene:worldTestScene");
+
+
+            // TESTING
+            ColorTexture = Texture.CreateRenderTarget().WithSize(500, 500).WithScreenFormat()
+                           .WithScreenMultiSample()
+                           .Create();
+
+            DepthTexture = Texture.CreateRenderTarget().WithSize(500, 500).WithDepthFormat()
+                           .WithScreenMultiSample()
+                           .Create();
         }
 
         public override void OnDeleted()
@@ -55,8 +67,8 @@ namespace SWB_Base
             if (weapon == null) return;
 
             // Update render camera
-            var TargetPos = CurrentView.Position;
-            var TargetAng = CurrentView.Rotation.Angles();
+            var targetPos = CurrentView.Position;
+            var targetAng = CurrentView.Rotation.Angles();
 
             // sceneCapture.SetCamera( TargetPos, TargetAng, weapon.ZoomAmount );
 
@@ -73,7 +85,30 @@ namespace SWB_Base
 
             // RenderTarget inside a material
             var sceneObject = weapon.ViewModelEntity.SceneObject;
-            RTTexture = Texture.Load("scene:worldTestScene", false);
+            //RTTexture = Texture.Load("scene:worldTestScene", false);
+
+            // TESTING
+            //Render.SetRenderTarget(RTTexture);
+            //Render.DrawScene(Texture.White, DepthTexture, new Vector2(500, 500), SceneWorld.Current, targetPos, targetAng, weapon.ZoomAmount);
+
+            //sceneObject.SetValue("ScopeRT", RTTexture);
+        }
+
+        public override void DrawBackground(ref RenderState state)
+        {
+            var player = Local.Pawn;
+            if (player == null) return;
+
+            var weapon = player.ActiveChild as WeaponBaseSniper;
+            if (weapon == null) return;
+
+            var targetPos = CurrentView.Position;
+            var targetAng = CurrentView.Rotation.Angles();
+            var sceneObject = weapon.ViewModelEntity.SceneObject;
+
+            Render.SetRenderTarget(RTTexture);
+            Render.DrawScene(ColorTexture, DepthTexture, new Vector2(500, 500), SceneWorld.Current, targetPos, targetAng, weapon.ZoomAmount);
+
             sceneObject.SetValue("ScopeRT", RTTexture);
         }
     }
