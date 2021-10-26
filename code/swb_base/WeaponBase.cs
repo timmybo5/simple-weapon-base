@@ -266,13 +266,13 @@ namespace SWB_Base
         {
             if (Local.Hud == null) return;
 
-            if (DrawCrosshair)
+            if (UISettings.ShowCrosshair)
             {
                 CrosshairPanel = new Crosshair();
                 CrosshairPanel.Parent = Local.Hud;
             }
 
-            if (DrawHitmarker)
+            if (UISettings.ShowHitmarker)
             {
                 Panel HitmarkerPanel = new Hitmarker();
                 HitmarkerPanel.Parent = Local.Hud;

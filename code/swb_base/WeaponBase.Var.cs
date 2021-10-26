@@ -15,11 +15,6 @@ namespace SWB_Base
         // Virtual
         public virtual int Bucket => 1; // Inventory slot position
         public virtual int BucketWeight => 100; // Inventory slot position weight ( higher = more important )
-        public virtual bool DrawCrosshair => true; // Draw the crosshair
-        public virtual bool DrawCrosshairDot => true; // Draw the crosshair dot
-        public virtual bool DrawCrosshairLines => true; // Draw the crosshair lines
-        public virtual bool DrawHitmarker => true; // Draw the hitmarker
-        public virtual bool PlayHitmarkerSound => true; // Play the hitmarker sound
         public virtual bool CanDrop => true; // Can manually drop weapon
         public virtual bool DropWeaponOnDeath => true; // Drop the weapon on death
         public virtual bool BulletCocking => true; // Can bullets be cocked in the barrel? ( clip ammo + 1 )
@@ -45,6 +40,9 @@ namespace SWB_Base
         public AngPos ZoomAnimData { get; set; } // Data used for setting the weapon to its zoom position
 
         public AngPos RunAnimData { get; set; } // Data used for setting the weapon to its run position
+
+        [Net]
+        public UISettings UISettings { get; set; } = new UISettings();
 
         [Net]
         public ClipInfo Primary { get; set; } = new ClipInfo(); // Primary attack data

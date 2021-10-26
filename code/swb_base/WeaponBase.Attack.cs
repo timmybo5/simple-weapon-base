@@ -177,7 +177,6 @@ namespace SWB_Base
         /// Shoot a single bullet
         public virtual void ShootBullet(float spread, float force, float damage, float bulletSize)
         {
-
             // Spread
             var forward = Owner.EyeRot.Forward;
             forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;

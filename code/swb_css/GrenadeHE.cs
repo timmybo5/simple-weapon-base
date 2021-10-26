@@ -14,8 +14,6 @@ namespace SWB_CSS
         public override string WorldModelPath => "weapons/swb/css/grenade_he/css_w_grenade_he.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_grenade.png";
         public override int FOV => 75;
-        public override bool DrawCrosshair => true;
-        public override bool DrawCrosshairLines => false;
 
         public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;
         public override string EntityModel => "weapons/swb/css/grenade_he/css_w_grenade_he_thrown.vmdl";
@@ -29,6 +27,11 @@ namespace SWB_CSS
 
         public GrenadeHE()
         {
+            UISettings = new UISettings
+            {
+                ShowCrosshairLines = false
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = -1,

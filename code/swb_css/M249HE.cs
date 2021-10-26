@@ -16,7 +16,6 @@ namespace SWB_CSS
         public override int FOV => 75;
         public override int ZoomFOV => 40;
         public override float WalkAnimationSpeedMod => 0.7f;
-        public override bool PlayHitmarkerSound => false;
 
         public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;
         public override string EntityModel => "weapons/swb/css/grenade_he/css_w_grenade_he_thrown.vmdl";
@@ -26,6 +25,11 @@ namespace SWB_CSS
 
         public M249HE()
         {
+            UISettings = new UISettings
+            {
+                PlayHitmarkerSound = false
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 100,

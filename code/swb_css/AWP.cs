@@ -14,16 +14,21 @@ namespace SWB_CSS
         public override int FOV => 75;
         public override int ZoomFOV => 75;
         public override float WalkAnimationSpeedMod => 0.8f;
-        public override bool DrawCrosshair => false;
         public override float AimSensitivity => 0.25f;
 
         public override string LensTexture => "/materials/swb/scopes/swb_lens_hunter.png";
         public override string ScopeTexture => "/materials/swb/scopes/swb_scope_hunter.png";
         public override string ZoomInSound => "swb_sniper.zoom_in";
         public override float ZoomAmount => 15f;
+        public override bool UseRenderTarget => false;
 
         public AWP()
         {
+            UISettings = new UISettings
+            {
+                ShowCrosshair = false
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 10,

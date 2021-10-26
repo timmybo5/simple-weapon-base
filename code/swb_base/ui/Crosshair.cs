@@ -82,10 +82,10 @@ namespace SWB_Base
             var weapon = player.ActiveChild as WeaponBase;
             bool isValidWeapon = weapon != null;
 
-            var hideCrosshairDot = isValidWeapon ? !weapon.DrawCrosshairDot : true;
+            var hideCrosshairDot = isValidWeapon ? !weapon.UISettings.ShowCrosshairDot : true;
             CenterDot.SetClass("hideCrosshair", hideCrosshairDot);
 
-            var hideCrosshairLines = isValidWeapon ? !weapon.DrawCrosshairLines : true;
+            var hideCrosshairLines = isValidWeapon ? !weapon.UISettings.ShowCrosshairLines : true;
             LeftBar.SetClass("hideCrosshair", hideCrosshairLines);
             RightBar.SetClass("hideCrosshair", hideCrosshairLines);
             TopBar.SetClass("hideCrosshair", hideCrosshairLines);
