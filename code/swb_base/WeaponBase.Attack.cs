@@ -47,7 +47,7 @@ namespace SWB_Base
             (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
             // Tell the clients to play the shoot effects
-            ScreenUtil.Shake(clipInfo.ScreenShake);
+            ScreenUtil.Shake(To.Single(Owner), clipInfo.ScreenShake);
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim);
 
             if (clipInfo.ShootSound != null)
@@ -100,7 +100,7 @@ namespace SWB_Base
             TakeAmmo(1);
 
             // Play shoot effects
-            ScreenUtil.Shake(clipInfo.ScreenShake);
+            ScreenUtil.Shake(To.Single(Owner), clipInfo.ScreenShake);
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null);
 
             if (clipInfo.ShootSound != null)
