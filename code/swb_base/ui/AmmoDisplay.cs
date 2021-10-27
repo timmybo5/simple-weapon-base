@@ -59,18 +59,35 @@ public class AmmoDisplay : Panel
 
         if (ammoWrapper != null)
         {
-            var reserveAmmo = Math.Min(player.AmmoCount(weapon.Primary.AmmoType), 999);
             var hasClipSize = weapon.Primary.ClipSize > 0;
-            var clipAmmo = hasClipSize ? weapon.Primary.Ammo : reserveAmmo;
-            clipAmmo = Math.Min(clipAmmo, 999);
+            var reserveAmmo = Math.Min(player.AmmoCount(weapon.Primary.AmmoType), 999);
 
-            clipLabel.SetText(clipAmmo.ToString());
-            clipLabel.Style.FontColor = clipAmmo == 0 ? emptyColor : Color.White;
+            if (weapon.Primary.InfiniteAmmo != InfiniteAmmoType.clip)
+            {
+                var clipAmmo = hasClipSize ? weapon.Primary.Ammo : reserveAmmo;
+                clipAmmo = Math.Min(clipAmmo, 999);
+
+                clipLabel.SetText(clipAmmo.ToString());
+                clipLabel.Style.FontColor = clipAmmo == 0 ? emptyColor : Color.White;
+            }
+            else
+            {
+                clipLabel.SetText("∞");
+                clipLabel.Style.FontColor = Color.White;
+            }
 
             if (hasClipSize)
             {
-                reserveLabel.SetText("|" + reserveAmmo);
-                reserveLabel.Style.FontColor = reserveAmmo == 0 ? emptyColor : reserveColor;
+                if (weapon.Primary.InfiniteAmmo == InfiniteAmmoType.normal)
+                {
+                    reserveLabel.SetText("|" + reserveAmmo);
+                    reserveLabel.Style.FontColor = reserveAmmo == 0 ? emptyColor : reserveColor;
+                }
+                else
+                {
+                    reserveLabel.SetText("|∞");
+                    reserveLabel.Style.FontColor = reserveColor;
+                }
             }
         }
 
