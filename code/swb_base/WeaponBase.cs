@@ -262,46 +262,6 @@ namespace SWB_Base
             }
         }
 
-        private Panel hitmarker;
-        private Panel ammoDisplay;
-
-        public override void CreateHudElements()
-        {
-            if (Local.Hud == null) return;
-
-            if (UISettings.ShowCrosshair)
-            {
-                CrosshairPanel = new Crosshair
-                {
-                    Parent = Local.Hud
-                };
-            }
-
-            if (UISettings.ShowHitmarker)
-            {
-                hitmarker = new Hitmarker
-                {
-                    Parent = Local.Hud
-                };
-            }
-
-            if (UISettings.ShowAmmoCount || UISettings.ShowWeaponIcon || UISettings.ShowFireMode)
-            {
-                ammoDisplay = new AmmoDisplay(UISettings)
-                {
-                    Parent = Local.Hud
-                };
-            }
-        }
-
-        public override void DestroyHudElements()
-        {
-            base.DestroyHudElements();
-
-            if (ammoDisplay != null) ammoDisplay.Delete(true);
-            if (hitmarker != null) hitmarker.Delete(true);
-        }
-
         public virtual float GetRealSpread(float baseSpread = -1)
         {
             if (!Owner.IsValid()) return 0;
