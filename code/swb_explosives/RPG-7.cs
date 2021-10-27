@@ -16,6 +16,7 @@ namespace SWB_EXPLOSIVES
         public override int FOV => 40;
         public override int ZoomFOV => 30;
         public override float WalkAnimationSpeedMod => 0.7f;
+        public override bool BulletCocking => false;
 
         public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateRocketEntity;
         public override string EntityModel => "weapons/swb/explosives/rpg-7/swb_w_rpg7_rocket_he.vmdl";
@@ -26,6 +27,11 @@ namespace SWB_EXPLOSIVES
 
         public RPG7()
         {
+            UISettings = new UISettings
+            {
+                ShowFireMode = false,
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 1,

@@ -29,7 +29,8 @@ namespace SWB_CSS
         {
             UISettings = new UISettings
             {
-                ShowCrosshairLines = false
+                ShowCrosshairLines = false,
+                ShowFireMode = false,
             };
 
             Primary = new ClipInfo

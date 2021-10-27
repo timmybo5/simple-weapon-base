@@ -36,6 +36,8 @@ namespace SWB_CSS
             {
                 ShowCrosshairLines = false,
                 ShowHitmarker = false,
+                ShowAmmoCount = false,
+                ShowFireMode = false
             };
         }
     }

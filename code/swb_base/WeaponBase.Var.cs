@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sandbox;
+using Sandbox.UI;
 
 namespace SWB_Base
 {
@@ -41,7 +42,6 @@ namespace SWB_Base
 
         public AngPos RunAnimData { get; set; } // Data used for setting the weapon to its run position
 
-        [Net]
         public UISettings UISettings { get; set; } = new UISettings();
 
         [Net]
