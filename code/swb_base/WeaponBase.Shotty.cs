@@ -38,7 +38,7 @@ namespace SWB_Base
                     Primary.Ammo += 1;
                 }
 
-                if (Primary.Ammo < Primary.ClipSize)
+                if (ammo != 0 && Primary.Ammo < Primary.ClipSize)
                 {
                     Primary.ReloadTime = ShellReloadTimeInsert;
                     base.Reload();
