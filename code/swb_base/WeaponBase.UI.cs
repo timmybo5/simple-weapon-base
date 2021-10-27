@@ -2,7 +2,7 @@
 using Sandbox.UI;
 
 /* 
- * Weapon base for weapons using magazine based reloading 
+ * Weapon base UI
 */
 
 namespace SWB_Base
