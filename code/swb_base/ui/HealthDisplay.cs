@@ -17,8 +17,11 @@ public class HealthDisplay : Panel
 
         healthWrapper = Add.Panel("healthWrapper");
 
-        healthIcon = healthWrapper.Add.Image("/materials/swb/hud/health.png", "healthIcon");
-        healthLabel = healthWrapper.Add.Label("", "healthLabel");
+        if (uiSettings.ShowHealthIcon)
+            healthIcon = healthWrapper.Add.Image("/materials/swb/hud/health.png", "healthIcon");
+
+        if (uiSettings.ShowHealthCount)
+            healthLabel = healthWrapper.Add.Label("", "healthLabel");
     }
 
     public override void Tick()
@@ -34,8 +37,13 @@ public class HealthDisplay : Panel
         var health = player.Health;
         var healthPer = health / 100f;
 
-        healthLabel.SetText(health.ToString());
-        healthLabel.Style.FontColor = new Color(1, 1 * healthPer, 1 * healthPer);
-        healthIcon.Style.Opacity = 1; // healthPer
+        if (healthIcon != null)
+            healthIcon.Style.Opacity = 1; // healthPer
+
+        if (healthLabel != null)
+        {
+            healthLabel.SetText(health.ToString());
+            healthLabel.Style.FontColor = new Color(1, 1 * healthPer, 1 * healthPer);
+        }
     }
 }

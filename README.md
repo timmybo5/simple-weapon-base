@@ -27,6 +27,8 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Zooming
 
 ### Built-in HUD
+* Modular Health Display
+* Modular Ammo Display
 * Dynamic Crosshair
 * Dynamic Hitmarkers
 
