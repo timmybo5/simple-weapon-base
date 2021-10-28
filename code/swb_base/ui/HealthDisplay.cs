@@ -34,8 +34,8 @@ public class HealthDisplay : Panel
 
         if (!isAlive) return;
 
-        var health = player.Health;
-        var healthPer = health / 100f;
+        var health = Math.Round(player.Health);
+        var healthPer = ((float)health) / 100f;
 
         if (healthIcon != null)
             healthIcon.Style.Opacity = 1; // healthPer

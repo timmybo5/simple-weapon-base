@@ -24,6 +24,7 @@ namespace SWB_EXPLOSIVES
         public override Angles EntityAngles => new Angles(0, 180, 0);
         public override Vector3 EntitySpawnOffset => new Vector3(10, 10, 10);
         public override float PrimaryEntitySpeed => 30;
+        public override bool UseGravity => false;
 
         public RPG7()
         {

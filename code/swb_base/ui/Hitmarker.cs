@@ -35,16 +35,16 @@ namespace SWB_Base
             {
                 Parent = parent;
 
-                Panel LeftTopBar = Add.Panel("leftTopBar");
-                Panel LefBottomBar = Add.Panel("leftBottomBar");
-                Panel RightTopBar = Add.Panel("rightTopBar");
-                Panel RightBottomBar = Add.Panel("rightBottomBar");
+                Panel leftTopBar = Add.Panel("leftTopBar");
+                Panel lefBottomBar = Add.Panel("leftBottomBar");
+                Panel rightTopBar = Add.Panel("rightTopBar");
+                Panel rightBottomBar = Add.Panel("rightBottomBar");
 
                 string sharedStyling = isKill ? "sharedBarStylingKill" : "sharedBarStyling";
-                LeftTopBar.AddClass(sharedStyling);
-                LefBottomBar.AddClass(sharedStyling);
-                RightTopBar.AddClass(sharedStyling);
-                RightBottomBar.AddClass(sharedStyling);
+                leftTopBar.AddClass(sharedStyling);
+                lefBottomBar.AddClass(sharedStyling);
+                rightTopBar.AddClass(sharedStyling);
+                rightBottomBar.AddClass(sharedStyling);
 
                 _ = Lifetime();
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sandbox;
 
 /* 
@@ -20,12 +21,15 @@ namespace SWB_Base
         public List<string> RocketEffects { get; set; } = new List<string>();
         public string RocketSmokeEffect { get; set; }
 
+        private TimeSince timeSince;
         private List<Particles> rocketParticles = new List<Particles>();
         private Sound rocketLoopSound;
 
         public override void Start()
         {
             base.Start();
+
+            timeSince = 0;
 
             if (!string.IsNullOrEmpty(RocketSound))
                 rocketLoopSound = PlaySound(RocketSound);
@@ -46,8 +50,12 @@ namespace SWB_Base
         public override void Tick()
         {
             // Rocket flight
-            var upForce = Rotation.Up * 12;
-            PhysicsBody.Velocity += upForce;
+            var downForce = Rotation.Down * 4;
+            var random = new Random();
+            var timeSinceMod = (int)(75 * timeSince);
+            var sideForce = Rotation.Left * (random.Next(1, timeSinceMod) * 2 - timeSinceMod);
+
+            Velocity += downForce + sideForce;
 
             // Update sound
             rocketLoopSound.SetPosition(Position);

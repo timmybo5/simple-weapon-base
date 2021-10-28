@@ -78,6 +78,7 @@ namespace SWB_Base
 
             this.Style.Transform = rotateTransform;
             */
+
             Style.Dirty();
         }
     }

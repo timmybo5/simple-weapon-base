@@ -40,7 +40,7 @@ namespace SWB_Base
         [Net]
         public FiringType FiringType { get; set; } = FiringType.semi; // Firing type
         [Net]
-        public ScreenShake ScreenShake { get; set; } = new ScreenShake(); // Screenshake per shot
+        public ScreenShake ScreenShake { get; set; } // Screenshake per shot
 
         // Strings
         [Net]
