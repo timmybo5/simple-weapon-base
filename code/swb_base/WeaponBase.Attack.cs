@@ -184,7 +184,7 @@ namespace SWB_Base
 
             // ShootBullet is coded in a way where we can have bullets pass through shit
             // or bounce off shit, in which case it'll return multiple results
-            foreach (var tr in TraceBullet(Owner.EyePos, Owner.EyePos + forward * 5000, bulletSize))
+            foreach (var tr in TraceBullet(Owner.EyePos, Owner.EyePos + forward * 999999, bulletSize))
             {
                 tr.Surface.DoBulletImpact(tr);
 

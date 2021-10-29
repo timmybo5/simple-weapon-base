@@ -21,8 +21,8 @@ namespace SWB_EXPLOSIVES
         public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateRocketEntity;
         public override string EntityModel => "weapons/swb/explosives/rpg-7/swb_w_rpg7_rocket_he.vmdl";
         public override Vector3 EntityVelocity => new Vector3(0, 0, 3000);
-        public override Angles EntityAngles => new Angles(0, 0, 0);
-        public override Vector3 EntitySpawnOffset => new Vector3(10, 10, 10);
+        public override Angles EntityAngles => new Angles(0, 180, 0);
+        public override Vector3 EntitySpawnOffset => new Vector3(0, 5, 42);
         public override float PrimaryEntitySpeed => 30;
         public override bool UseGravity => false;
 

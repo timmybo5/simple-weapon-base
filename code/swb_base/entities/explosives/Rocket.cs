@@ -29,7 +29,6 @@ namespace SWB_Base
         public override void Start()
         {
             base.Start();
-
             timeSince = 0;
 
             if (!string.IsNullOrEmpty(RocketSound))
