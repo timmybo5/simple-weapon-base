@@ -51,6 +51,7 @@ namespace SWB_Base
         public string ReloadEmptyAnim { get; set; } = "reload_empty"; // Reloading animation when clip is empty
         [Net]
         public string DrawAnim { get; set; } = "deploy"; // Draw animation
+        [Net]
         public string DrawEmptyAnim { get; set; } = ""; // Draw animation when there is no ammo
         [Net]
         public string DryFireSound { get; set; } // Firing sound when clip is empty

@@ -20,6 +20,7 @@ namespace SWB_Base
         public string RocketSound { get; set; }
         public List<string> RocketEffects { get; set; } = new List<string>();
         public string RocketSmokeEffect { get; set; }
+        public int Inaccuracy { get; set; } = 0; // How Inaccurate is the rocket (higher = less accurate)
 
         private TimeSince timeSince;
         private List<Particles> rocketParticles = new List<Particles>();
@@ -52,8 +53,8 @@ namespace SWB_Base
             // Rocket flight
             var downForce = Rotation.Down * 4;
             var random = new Random();
-            var timeSinceMod = (int)(75 * timeSince);
-            var sideForce = Rotation.Left * (random.Next(1, timeSinceMod) * 2 - timeSinceMod);
+            var timeSinceMod = (int)Math.Max(0, Inaccuracy * timeSince);
+            var sideForce = Rotation.Left * (random.Next(0, timeSinceMod) * 2 - timeSinceMod);
 
             Velocity += downForce + sideForce;
 
