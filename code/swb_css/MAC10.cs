@@ -35,15 +35,15 @@ namespace SWB_CSS
                 {
                     Length = 0.5f,
                     Speed = 4.0f,
-                    Size = 0.5f,
-                    Rotation = 0.5f
+                    Size = 0.3f,
+                    Rotation = 0.4f
                 },
 
                 DryFireSound = "swb_smg.empty",
                 ShootSound = "css_mac10.fire",
 
                 BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-                MuzzleFlashParticle = "particles/pistol_muzzleflash.vpcf",
+                MuzzleFlashParticle = "particles/swb/muzzle/flash_small.vpcf",
 
                 InfiniteAmmo = InfiniteAmmoType.reserve
             };

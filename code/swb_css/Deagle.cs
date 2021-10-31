@@ -42,7 +42,7 @@ namespace SWB_CSS
                 ShootSound = "css_deagle.fire",
 
                 BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-                MuzzleFlashParticle = "particles/pistol_muzzleflash.vpcf",
+                MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
 
                 InfiniteAmmo = InfiniteAmmoType.reserve
             };

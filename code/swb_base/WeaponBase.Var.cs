@@ -50,8 +50,10 @@ namespace SWB_Base
         [Net]
         public ClipInfo Secondary { get; set; } = null; // Secondary attack data ( setting this will disable weapon zooming )
 
+        [Net]
         public TimeSince TimeSincePrimaryAttack { get; set; }
 
+        [Net]
         public TimeSince TimeSinceSecondaryAttack { get; set; }
 
         public TimeSince TimeSinceReload { get; set; }

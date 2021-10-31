@@ -133,7 +133,7 @@ namespace SWB_Base
             if (TimeSinceDeployed < 0.6f)
                 return;
 
-            if (!IsReloading)
+            if (!IsReloading || this is WeaponBaseShotty)
             {
                 BaseSimulate(owner);
             }

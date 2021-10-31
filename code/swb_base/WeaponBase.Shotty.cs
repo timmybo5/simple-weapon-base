@@ -10,7 +10,31 @@ namespace SWB_Base
     {
         public virtual float ShellReloadTimeStart => -1; // Duration of the reload start animation
         public virtual float ShellReloadTimeInsert => -1; // Duration of the reload insert animation
+        public virtual bool CanShootDuringReload => true; // Can the shotgun shoot while reloading
         public override bool BulletCocking => false;
+
+        private void CancelReload()
+        {
+            if (!CanShootDuringReload) return;
+
+            IsReloading = false;
+        }
+
+        public override void AttackPrimary()
+        {
+            if (IsReloading && !CanShootDuringReload) return;
+
+            CancelReload();
+            base.AttackPrimary();
+        }
+
+        public override void AttackSecondary()
+        {
+            if (IsReloading && !CanShootDuringReload) return;
+
+            CancelReload();
+            base.AttackSecondary();
+        }
 
         public override void Reload()
         {
@@ -22,8 +46,11 @@ namespace SWB_Base
         {
             IsReloading = false;
 
-            TimeSincePrimaryAttack = 0;
-            TimeSinceSecondaryAttack = 0;
+            if (!CanShootDuringReload)
+            {
+                TimeSincePrimaryAttack = 0;
+                TimeSinceSecondaryAttack = 0;
+            }
 
             if (Primary.Ammo >= Primary.ClipSize)
                 return;

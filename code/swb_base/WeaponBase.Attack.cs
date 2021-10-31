@@ -10,7 +10,7 @@ namespace SWB_Base
 {
     public partial class WeaponBase
     {
-        private bool CanAttack(ClipInfo clipInfo, TimeSince lastAttackTime, InputButton inputButton)
+        public virtual bool CanAttack(ClipInfo clipInfo, TimeSince lastAttackTime, InputButton inputButton)
         {
             if (IsAnimating) return false;
             if (clipInfo == null || !Owner.IsValid() || !Input.Down(inputButton)) return false;
