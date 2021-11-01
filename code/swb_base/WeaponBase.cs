@@ -207,11 +207,15 @@ namespace SWB_Base
         }
 
         [ClientRpc]
-        public virtual void StartReloadEffects(bool isEmpty)
+        public virtual void StartReloadEffects(bool isEmpty, string reloadAnim = null)
         {
             var reloadingViewModel = DualWield && dualWieldShouldReload ? dualWieldViewModel : ViewModelEntity;
 
-            if (isEmpty && Primary.ReloadEmptyAnim != null)
+            if (reloadAnim != null)
+            {
+                reloadingViewModel?.SetAnimBool(reloadAnim, true);
+            }
+            else if (isEmpty && Primary.ReloadEmptyAnim != null)
             {
                 reloadingViewModel?.SetAnimBool(Primary.ReloadEmptyAnim, true);
             }
