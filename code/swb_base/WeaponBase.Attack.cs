@@ -36,6 +36,7 @@ namespace SWB_Base
 
             TimeSincePrimaryAttack = 0;
             TimeSinceSecondaryAttack = 0;
+            TimeSinceFired = 0;
 
             if (!TakeAmmo(1))
             {
@@ -49,6 +50,16 @@ namespace SWB_Base
             // Tell the clients to play the shoot effects
             ScreenUtil.Shake(To.Single(Owner), clipInfo.ScreenShake);
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim);
+
+            // Barrel smoke
+            if (IsServer && BarrelSmoking)
+            {
+                AddBarrelHeat();
+                if (barrelHeat >= clipInfo.ClipSize * 0.75)
+                {
+                    ShootEffects(clipInfo.BarrelSmokeParticle, null, null);
+                }
+            }
 
             if (clipInfo.ShootSound != null)
                 PlaySound(clipInfo.ShootSound);

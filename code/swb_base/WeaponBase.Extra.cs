@@ -45,5 +45,21 @@ namespace SWB_Base
             dist = GetTuckDist();
             return dist != -1;
         }
+
+        // Barrel heat
+        public void AddBarrelHeat()
+        {
+            barrelHeat += 1;
+        }
+
+        [Event.Tick.Server]
+        public void BarrelHeatCheck()
+        {
+            if (TimeSinceFired > 3)
+            {
+                barrelHeat = 0;
+            }
+        }
+
     }
 }
