@@ -199,13 +199,14 @@ namespace SWB_Base
             var forward = Owner.EyeRot.Forward;
             forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
             forward = forward.Normal;
+            var endPos = Owner.EyePos + forward * 999999;
 
-            // ShootBullet is coded in a way where we can have bullets pass through shit
-            // or bounce off shit, in which case it'll return multiple results
-            foreach (var tr in TraceBullet(Owner.EyePos, Owner.EyePos + forward * 999999, bulletSize))
+            // Client bullet
+            ShootClientBullet(Owner.EyePos, endPos, bulletSize);
+
+            // Server bullet
+            foreach (var tr in TraceBullet(Owner.EyePos, endPos, bulletSize))
             {
-                // Client bullet
-                ShootClientBullet(tr.StartPos, tr.EndPos, bulletSize);
 
                 if (!tr.Entity.IsValid()) continue;
 
