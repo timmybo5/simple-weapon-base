@@ -44,6 +44,7 @@ namespace SWB_CSS
 
                 BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
                 MuzzleFlashParticle = "particles/swb/muzzle/flash_large.vpcf",
+                BulletTracerParticle = "particles/swb/tracer/tracer_large.vpcf",
 
                 InfiniteAmmo = InfiniteAmmoType.reserve
             };

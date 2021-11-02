@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sandbox;
 
@@ -76,9 +77,12 @@ namespace SWB_Base
                 realSpread = IsZooming ? clipInfo.Spread / 4 : clipInfo.Spread;
             }
 
-            for (int i = 0; i < clipInfo.Bullets; i++)
+            if (IsServer)
             {
-                ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize);
+                for (int i = 0; i < clipInfo.Bullets; i++)
+                {
+                    ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize);
+                }
             }
 
             // Recoil
@@ -118,9 +122,12 @@ namespace SWB_Base
                 PlaySound(clipInfo.ShootSound);
 
             // Shoot the bullets
-            for (int i = 0; i < clipInfo.Bullets; i++)
+            if (IsServer)
             {
-                ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize);
+                for (int i = 0; i < clipInfo.Bullets; i++)
+                {
+                    ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize);
+                }
             }
         }
 
@@ -185,7 +192,7 @@ namespace SWB_Base
             //
         }
 
-        /// Shoot a single bullet
+        /// Shoot a single bullet (server)
         public virtual void ShootBullet(float spread, float force, float damage, float bulletSize)
         {
             // Spread
@@ -197,9 +204,9 @@ namespace SWB_Base
             // or bounce off shit, in which case it'll return multiple results
             foreach (var tr in TraceBullet(Owner.EyePos, Owner.EyePos + forward * 999999, bulletSize))
             {
-                tr.Surface.DoBulletImpact(tr);
+                // Client bullet
+                ShootClientBullet(tr.StartPos, tr.EndPos, bulletSize);
 
-                if (!IsServer) continue;
                 if (!tr.Entity.IsValid()) continue;
 
                 // We turn prediction off for this, so any exploding effects don't get culled etc
@@ -211,6 +218,26 @@ namespace SWB_Base
                         .WithWeapon(this);
 
                     tr.Entity.TakeDamage(damageInfo);
+                }
+            }
+        }
+
+        [ClientRpc]
+        public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, float radius = 2.0f)
+        {
+            foreach (var tr in TraceBullet(startPos, endPos, radius))
+            {
+                // Impact
+                tr.Surface.DoBulletImpact(tr);
+
+                // Tracer
+                if (!string.IsNullOrEmpty(Primary.BulletTracerParticle))
+                {
+                    var random = new Random();
+                    var randVal = random.Next(0, 2);
+
+                    if (randVal == 0)
+                        TracerEffects(Primary.BulletTracerParticle, tr.EndPos);
                 }
             }
         }
@@ -236,9 +263,20 @@ namespace SWB_Base
                 Particles.Create(bulletEjectParticle, firingViewModel, "ejection_point");
 
             if (!string.IsNullOrEmpty(shootAnim))
+            {
                 animatingViewModel?.SetAnimBool(shootAnim, true);
+                CrosshairPanel?.CreateEvent("fire", (60f / Primary.RPM));
+            }
+        }
 
-            CrosshairPanel?.CreateEvent("fire", (60f / Primary.RPM));
+        protected virtual void TracerEffects(string tracerParticle, Vector3 endPos)
+        {
+            ModelEntity firingViewModel = GetEffectModel();
+
+            var muzzleAttach = firingViewModel.GetAttachment("muzzle");
+            var tracer = Particles.Create(tracerParticle);
+            tracer.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
+            tracer.SetPosition(2, endPos);
         }
 
         [ClientRpc]

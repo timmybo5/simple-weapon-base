@@ -266,6 +266,20 @@ namespace SWB_Base
             }
         }
 
+        public virtual ModelEntity GetEffectModel()
+        {
+            var animatingViewModel = DualWield && dualWieldLeftFire ? dualWieldViewModel : ViewModelEntity;
+            ModelEntity effectModel = animatingViewModel;
+
+            // We don't want to change the world effect origin if we or others can see it
+            if ((IsLocalPawn && !Owner.IsFirstPersonMode) || !IsLocalPawn)
+            {
+                effectModel = EffectEntity;
+            }
+
+            return effectModel;
+        }
+
         public virtual float GetRealSpread(float baseSpread = -1)
         {
             if (!Owner.IsValid()) return 0;

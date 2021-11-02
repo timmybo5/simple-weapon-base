@@ -20,7 +20,7 @@ namespace SWB_CSS
         public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;
         public override string EntityModel => "weapons/swb/css/grenade_he/css_w_grenade_he_thrown.vmdl";
         public override Vector3 EntityVelocity => new Vector3(0, 0, 100);
-        public override Vector3 EntitySpawnOffset => new Vector3(10, 10, 10);
+        public override Vector3 EntitySpawnOffset => new Vector3(0, 15, 10);
         public override float PrimaryEntitySpeed => 17;
 
         public M249HE()

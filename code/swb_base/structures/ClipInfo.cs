@@ -63,6 +63,8 @@ namespace SWB_Base
         public string MuzzleFlashParticle { get; set; } // Particle that should be used for the muzzle flash
         [Net]
         public string BarrelSmokeParticle { get; set; } = "particles/swb/muzzle/barrel_smoke.vpcf"; // Particle that should be used for the barrel smoke
+        [Net]
+        public string BulletTracerParticle { get; set; } = "particles/swb/tracer/tracer_medium.vpcf"; // Particle that should be used for the barrel smoke
 
         // Extra
         [Net]
