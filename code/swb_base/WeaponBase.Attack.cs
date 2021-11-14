@@ -18,7 +18,7 @@ namespace SWB_Base
             if (clipInfo.FiringType == FiringType.semi && !Input.Pressed(inputButton)) return false;
             if (clipInfo.RPM <= 0) return true;
 
-            return lastAttackTime > (60f / clipInfo.RPM);
+            return lastAttackTime > GetRealRPM(clipInfo.RPM);
         }
 
         public virtual bool CanPrimaryAttack()
@@ -45,12 +45,37 @@ namespace SWB_Base
                 return;
             }
 
+            // Boltback
+            var bulletEjectParticle = clipInfo.BulletEjectParticle;
+
+            if (clipInfo.Ammo > 0 && clipInfo.BoltBackTime > -1)
+            {
+                TimeSincePrimaryAttack = -clipInfo.BoltBackTime;
+                TimeSinceSecondaryAttack = -clipInfo.BoltBackTime;
+                TimeSinceFired = -clipInfo.BoltBackTime;
+
+                bulletEjectParticle = "";
+
+                if (IsServer)
+                    _ = AsyncBoltBack(GetRealRPM(clipInfo.RPM), clipInfo.BoltBackAnim, clipInfo.BoltBackEjectDelay, clipInfo.BulletEjectParticle);
+            }
+
+            // Shotgun
+            if (this is WeaponBaseShotty shotty)
+            {
+                if (IsServer)
+                    _ = shotty.EjectShell(bulletEjectParticle);
+
+                bulletEjectParticle = "";
+            }
+
+
             // Player anim
             (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
             // Tell the clients to play the shoot effects
             ScreenUtil.Shake(To.Single(Owner), clipInfo.ScreenShake);
-            ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim);
+            ShootEffects(clipInfo.MuzzleFlashParticle, bulletEjectParticle, clipInfo.ShootAnim);
 
             // Barrel smoke
             if (IsServer && BarrelSmoking)
@@ -109,7 +134,7 @@ namespace SWB_Base
             await GameTask.DelaySeconds(delay);
 
             // Check if owner and weapon are still valid
-            if (owner == null || activeWeapon != owner.ActiveChild) return;
+            if (!IsAsyncValid(activeWeapon)) return;
 
             // Take ammo
             TakeAmmo(1);
@@ -241,6 +266,19 @@ namespace SWB_Base
                         TracerEffects(Primary.BulletTracerParticle, tr.EndPos);
                 }
             }
+        }
+
+        async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackEjectDelay, string bulletEjectParticle)
+        {
+            var activeWeapon = Owner.ActiveChild;
+
+            await GameTask.DelaySeconds(boltBackDelay);
+            if (!IsAsyncValid(activeWeapon)) return;
+            SendWeaponAnim(boltBackAnim);
+
+            await GameTask.DelaySeconds(boltBackEjectDelay);
+            if (!IsAsyncValid(activeWeapon)) return;
+            ShootEffects(null, bulletEjectParticle, null);
         }
 
         [ClientRpc]

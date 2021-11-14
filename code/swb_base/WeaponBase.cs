@@ -146,7 +146,7 @@ namespace SWB_Base
 
         public virtual void Reload()
         {
-            if (IsReloading || IsAnimating)
+            if (IsReloading || IsAnimating || IsShooting())
                 return;
 
             var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
@@ -156,6 +156,12 @@ namespace SWB_Base
 
             var isEmptyReload = Primary.ReloadEmptyTime > 0 ? Primary.Ammo == 0 : false;
             TimeSinceReload = -(isEmptyReload ? Primary.ReloadEmptyTime : Primary.ReloadTime);
+
+            if (!isEmptyReload && Primary.Ammo == 0 && Primary.BoltBackTime > -1)
+            {
+                TimeSinceReload -= Primary.BoltBackTime;
+                _ = AsyncBoltBack(Primary.ReloadTime, Primary.BoltBackAnim, Primary.BoltBackEjectDelay, Primary.BulletEjectParticle);
+            }
 
             if (Owner is PlayerBase player)
             {
@@ -252,10 +258,19 @@ namespace SWB_Base
                 return;
 
             ViewModelEntity = new ViewModelBase(this);
-            ViewModelEntity.Position = Position; // --> Does not seem to do anything
             ViewModelEntity.Owner = Owner;
             ViewModelEntity.EnableViewmodelRendering = true;
             ViewModelEntity.SetModel(ViewModelPath);
+
+            // Bonemerge hands
+            if (!string.IsNullOrEmpty(HandsModelPath))
+            {
+                HandsModel = new BaseViewModel();
+                HandsModel.Owner = Owner;
+                HandsModel.EnableViewmodelRendering = true;
+                HandsModel.SetModel(HandsModelPath);
+                HandsModel.SetParent(ViewModelEntity, true);
+            }
 
             if (DualWield)
             {
@@ -278,6 +293,25 @@ namespace SWB_Base
             }
 
             return effectModel;
+        }
+
+        // Pass the active child from before the delay
+        protected bool IsAsyncValid(Entity activeChild)
+        {
+            return Owner != null && activeChild == Owner.ActiveChild;
+        }
+
+        protected bool IsShooting()
+        {
+            if (Secondary == null)
+                return GetRealRPM(Primary.RPM) > TimeSincePrimaryAttack;
+
+            return GetRealRPM(Primary.RPM) > TimeSincePrimaryAttack || GetRealRPM(Secondary.RPM) > TimeSinceSecondaryAttack;
+        }
+
+        protected float GetRealRPM(int rpm)
+        {
+            return (60f / rpm);
         }
 
         public virtual float GetRealSpread(float baseSpread = -1)

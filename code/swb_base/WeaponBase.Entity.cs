@@ -153,7 +153,7 @@ namespace SWB_Base
             await GameTask.DelaySeconds(delay);
 
             // Check if owner and weapon are still valid
-            if (owner == null || activeWeapon != owner.ActiveChild) return;
+            if (!IsAsyncValid(activeWeapon)) return;
 
             // Take ammo
             TakeAmmo(1);

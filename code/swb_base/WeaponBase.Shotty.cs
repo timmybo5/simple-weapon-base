@@ -2,6 +2,7 @@
  * Weapon base for weapons using shell based reloading 
 */
 
+using System.Threading.Tasks;
 using Sandbox;
 
 namespace SWB_Base
@@ -10,6 +11,7 @@ namespace SWB_Base
     {
         public virtual float ShellReloadTimeStart => -1; // Duration of the reload start animation
         public virtual float ShellReloadTimeInsert => -1; // Duration of the reload insert animation
+        public virtual float ShellEjectDelay => -1; // The shell eject delay after firing
         public virtual string ReloadFinishAnim => "reload_finished"; // Finishing reload animation
         public virtual bool CanShootDuringReload => true; // Can the shotgun shoot while reloading
 
@@ -34,6 +36,15 @@ namespace SWB_Base
 
             CancelReload();
             base.AttackSecondary();
+        }
+
+        public async Task EjectShell(string bulletEjectParticle)
+        {
+            var activeWeapon = Owner.ActiveChild;
+
+            await GameTask.DelaySeconds(ShellEjectDelay);
+            if (!IsAsyncValid(activeWeapon)) return;
+            ShootEffects(null, bulletEjectParticle, null);
         }
 
         public override void Reload()

@@ -71,16 +71,16 @@ namespace SWB_Base
             localVel = new Vector3(Owner.Rotation.Right.Dot(Owner.Velocity), Owner.Rotation.Forward.Dot(Owner.Velocity), Owner.Velocity.z);
 
             // Initialize the target vectors for this frame
-            TargetVectorPos = new Vector3(0.0f, 0.0f, 0.0f);
-            TargetVectorRot = new Vector3(0.0f, 0.0f, 0.0f);
+            TargetVectorPos = new Vector3(weapon.ViewModelOffset.Pos);
+            TargetVectorRot = new Vector3(MathUtil.ToVector3(weapon.ViewModelOffset.Angle));
             TargetFOV = weapon.FOV;
 
             // Live editing
             if (liveEditing && weapon.RunAnimData != null)
             {
                 // Zooming
-                TargetVectorRot = MathUtil.ToVector3(new Angles(-0.21f, -0.05f, 0));
-                TargetVectorPos = new Vector3(-2.317f, -3f, 1.56f);
+                TargetVectorRot += MathUtil.ToVector3(new Angles(0.08f, -0.06f, 0f));
+                TargetVectorPos += new Vector3(-5f, 0f, 1.95f);
                 TargetFOV = weapon.ZoomFOV;
                 return;
 

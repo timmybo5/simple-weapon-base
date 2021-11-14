@@ -11,6 +11,12 @@ partial class ExamplePlayer : PlayerBase
 
         SupressPickupNotices = true;
 
+        Inventory.Add(new SWB_WEAPONS.Bayonet());
+        Inventory.Add(new SWB_WEAPONS.DEAGLE());
+        Inventory.Add(new SWB_WEAPONS.SPAS12());
+        Inventory.Add(new SWB_WEAPONS.FAL());
+        Inventory.Add(new SWB_WEAPONS.L96A1());
+
         Inventory.Add(new SWB_EXPLOSIVES.RPG7());
 
         GiveAmmo(AmmoType.SMG, 100);

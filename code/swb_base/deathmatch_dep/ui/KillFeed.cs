@@ -11,7 +11,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
         StyleSheet.Load("swb_base/deathmatch_dep/ui/scss/KillFeed.scss");
     }
 
-    public override Panel AddEntry(ulong lsteamid, string left, ulong rsteamid, string right, string method)
+    public override Panel AddEntry(long lsteamid, string left, long rsteamid, string right, string method)
     {
         Log.Info($"{left} killed {right} using {method}");
 
@@ -20,7 +20,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
         e.AddClass(method);
 
         e.Left.Text = left;
-        e.Left.SetClass("me", lsteamid == (Local.SteamId));
+        e.Left.SetClass("me", lsteamid == Local.PlayerId);
 
         try
         {
@@ -39,7 +39,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
         catch (Exception exception) { }
 
         e.Right.Text = right;
-        e.Right.SetClass("me", rsteamid == (Local.SteamId));
+        e.Right.SetClass("me", rsteamid == Local.PlayerId);
 
         return e;
     }

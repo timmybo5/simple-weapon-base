@@ -55,6 +55,11 @@ namespace SWB_Base
             {
                 ViewModelEntity.RenderColor = Color.Transparent;
 
+                if (HandsModel != null)
+                {
+                    HandsModel.RenderColor = Color.Transparent;
+                }
+
                 if (!string.IsNullOrEmpty(ZoomInSound))
                     PlaySound(ZoomInSound);
             }
@@ -75,6 +80,11 @@ namespace SWB_Base
             if (IsLocalPawn)
             {
                 ViewModelEntity.RenderColor = Color.White;
+
+                if (HandsModel != null)
+                {
+                    HandsModel.RenderColor = Color.White;
+                }
 
                 if (!string.IsNullOrEmpty(ZoomOutSound))
                     PlaySound(ZoomOutSound);

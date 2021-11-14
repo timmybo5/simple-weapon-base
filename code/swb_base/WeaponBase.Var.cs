@@ -25,7 +25,9 @@ namespace SWB_Base
         public virtual int ZoomFOV => 65; // FOV while zooming
         public virtual float TuckRange => 30; // Range that tucking should be enabled (set to -1 to disable tucking)
         public virtual HoldType HoldType => HoldType.Pistol; // Thirdperson holdtype
+        public virtual string HandsModelPath => ""; // Path to the hands model (will be bonemerged with viewmodel, leave empty to disable)
         public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl"; // Path to the view model
+        public virtual AngPos ViewModelOffset => new AngPos(); // Offset the viewmodel with an angle (not available in ModelDoc)
         public virtual string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl"; // Path to the world model
         public virtual string Icon => ""; // Path to an image that represent the weapon on the HUD
         public virtual float WalkAnimationSpeedMod => 1; // Procedural animation speed ( lower is slower )
@@ -70,6 +72,8 @@ namespace SWB_Base
         public bool IsAnimating { get; set; }
 
         public PickupTrigger PickupTrigger { get; protected set; }
+
+        public BaseViewModel HandsModel;
 
         // Private
         private bool doRecoil = false;
