@@ -1,4 +1,0 @@
-importfilelist
-{
-	"file"	"w_snip_awp_is_unused.vmt"
-}

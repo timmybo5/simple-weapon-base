@@ -1,5 +1,0 @@
-importfilelist
-{
-	"file"	"rif_m4a1_is_unused.vmt"
-	"file"	"v_hands_is_unused.vmt"
-}

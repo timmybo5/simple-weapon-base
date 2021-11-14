@@ -1,4 +1,0 @@
-importfilelist
-{
-	"file"	"w_eq_fraggrenade_is_unused.vmt"
-}

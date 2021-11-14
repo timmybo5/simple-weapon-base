@@ -1,4 +1,0 @@
-importfilelist
-{
-	"file"	"w_shot_m3super90_is_unused.vmt"
-}

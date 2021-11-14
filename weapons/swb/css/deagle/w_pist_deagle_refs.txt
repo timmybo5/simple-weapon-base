@@ -1,4 +1,0 @@
-importfilelist
-{
-	"file"	"w_pist_deagle_is_unused.vmt"
-}

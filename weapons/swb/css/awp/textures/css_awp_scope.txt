@@ -1,4 +1,0 @@
-"settings"
-{
-	"nolod"		"1"
-}
