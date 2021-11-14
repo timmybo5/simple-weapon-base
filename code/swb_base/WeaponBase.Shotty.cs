@@ -83,9 +83,19 @@ namespace SWB_Base
                 }
                 else
                 {
-                    StartReloadEffects(false, ReloadFinishAnim);
+                    StartReloadEffects(false, Primary.ReloadAnim);
+                    _ = FinishReload();
                 }
             }
+        }
+
+        public async Task FinishReload()
+        {
+            var activeWeapon = Owner.ActiveChild;
+
+            await GameTask.DelaySeconds(ShellEjectDelay);
+            if (!IsAsyncValid(activeWeapon)) return;
+            StartReloadEffects(false, ReloadFinishAnim);
         }
     }
 }
