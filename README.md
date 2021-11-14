@@ -39,10 +39,9 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Entity (grenades, arrows, props, ...)
 * Melee
 
-### CSS Weapons
-* CSS weapons are included to showcase the base usage
-* They will get their own repo later down the line when more guns are ported
-* Feel free to use them for your own gamemodes
+### Weapon Models
+* Properly licensed weapon models are included in the base
+* They can be used for any purpose as long as the license is respected (credits.txt)
 
 ## Contributing
 Anyone can contribute by creating a pull request to their branch. Contributors can help out with the planned updates, outstanding bug/issues, or maybe you just have a cool idea that would improve the base, any help is welcome!
