@@ -7,7 +7,7 @@ namespace SWB_WEAPONS
     public class Bayonet : WeaponBaseMelee
     {
         public override int Bucket => 0;
-        public override HoldType HoldType => HoldType.Pistol;
+        public override HoldType HoldType => HoldType.Fists; // just use fists for now
         public override string HandsModelPath => "weapons/swb/hands/swat/v_hands_swat.vmdl";
         public override string ViewModelPath => "weapons/swb/melee/bayonet/v_bayonet.vmdl";
         public override AngPos ViewModelOffset => new()

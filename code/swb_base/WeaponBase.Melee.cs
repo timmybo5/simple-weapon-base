@@ -56,6 +56,7 @@ namespace SWB_Base
             }
 
             DoMeleeEffects(hitAnimation, sound);
+            (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
             if (!hitEntity || !IsServer) return;
 

@@ -8,7 +8,8 @@ namespace SWB_Base
     {
         Pistol = 1,
         Rifle = 2,
-        Shotgun = 3
+        Shotgun = 3,
+        Fists = 5
     }
 
     public partial class WeaponBase

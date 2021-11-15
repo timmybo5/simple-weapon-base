@@ -140,3 +140,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+code/simple-weapon-base.csproj
+code/Properties/launchSettings.json
+tools_asset_info.bin
