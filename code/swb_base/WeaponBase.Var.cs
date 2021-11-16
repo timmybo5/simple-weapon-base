@@ -83,6 +83,7 @@ namespace SWB_Base
 
         // Private
         private bool doRecoil = false;
+        private int burstCount = 0;
 
         private int barrelHeat = 0;
         private TimeSince TimeSinceFired;

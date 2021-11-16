@@ -5,7 +5,8 @@ namespace SWB_Base
     public enum FiringType
     {
         semi,
-        auto
+        auto,
+        burst
     }
 
     public partial class ClipInfo : BaseNetworkable

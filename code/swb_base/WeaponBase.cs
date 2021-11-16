@@ -120,6 +120,10 @@ namespace SWB_Base
             if (TimeSinceDeployed < 0.6f)
                 return;
 
+            // Burst fire
+            ResetBurstFireCount(Primary, InputButton.Attack1);
+            ResetBurstFireCount(Secondary, InputButton.Attack2);
+
             if (!IsReloading || this is WeaponBaseShotty)
             {
                 BaseSimulate(owner);
@@ -128,6 +132,16 @@ namespace SWB_Base
             if (IsReloading && TimeSinceReload >= 0)
             {
                 OnReloadFinish();
+            }
+        }
+
+        public virtual void ResetBurstFireCount(ClipInfo clipInfo, InputButton inputButton)
+        {
+            if (clipInfo == null || clipInfo.FiringType != FiringType.burst) return;
+
+            if (Input.Released(inputButton))
+            {
+                burstCount = 0;
             }
         }
 

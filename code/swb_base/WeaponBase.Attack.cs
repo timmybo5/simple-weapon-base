@@ -16,6 +16,19 @@ namespace SWB_Base
             if (IsAnimating || inBoltBack) return false;
             if (clipInfo == null || !Owner.IsValid() || !Input.Down(inputButton)) return false;
             if (clipInfo.FiringType == FiringType.semi && !Input.Pressed(inputButton)) return false;
+            if (clipInfo.FiringType == FiringType.burst)
+            {
+                if (burstCount > 2) return false;
+
+                if (Input.Down(inputButton) && lastAttackTime > GetRealRPM(clipInfo.RPM))
+                {
+                    burstCount++;
+                    return true;
+                }
+
+                return false;
+            };
+
             if (clipInfo.RPM <= 0) return true;
 
             return lastAttackTime > GetRealRPM(clipInfo.RPM);

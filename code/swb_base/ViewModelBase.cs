@@ -7,8 +7,6 @@ namespace SWB_Base
     {
         private WeaponBase weapon;
 
-        private bool isDualWieldVM = false;
-
         private float animSpeed;
 
         // Target animation values
@@ -35,10 +33,9 @@ namespace SWB_Base
         // Be sure to switch weapons after changing this value
         private bool liveEditing = false;
 
-        public ViewModelBase(WeaponBase weapon, bool isDualWieldVM = false)
+        public ViewModelBase(WeaponBase weapon)
         {
             this.weapon = weapon;
-            this.isDualWieldVM = isDualWieldVM;
         }
 
         public override void PostCameraSetup(ref CameraSetup camSetup)
@@ -89,10 +86,6 @@ namespace SWB_Base
                 //weapon.RunAnimData.Pos = new Vector3(5, 0, 0);
             }
 
-            // Flip the Viewmodel
-            if (isDualWieldVM)
-                FlipViewModel(ref camSetup);
-
             // Tucking
             float tuckDist;
             if (weapon.RunAnimData != null && weapon.ShouldTuck(out tuckDist))
@@ -110,16 +103,6 @@ namespace SWB_Base
             HandleIronAnimation(ref camSetup);
             HandleSprintAnimation(ref camSetup);
             HandleJumpAnimation(ref camSetup);
-        }
-
-        private void FlipViewModel(ref CameraSetup camSetup)
-        {
-            // Waiting for https://github.com/Facepunch/sbox-issues/issues/324
-
-            // Temp solution: 
-            var posOffset = Vector3.Zero;
-            posOffset -= camSetup.Rotation.Right * 10.0f;
-            Position += posOffset;
         }
 
         private void HandleIdleAnimation(ref CameraSetup camSetup)
