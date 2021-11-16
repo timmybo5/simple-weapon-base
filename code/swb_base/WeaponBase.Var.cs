@@ -34,7 +34,6 @@ namespace SWB_Base
         public virtual string Icon => ""; // Path to an image that represent the weapon on the HUD
         public virtual float WalkAnimationSpeedMod => 1; // Procedural animation speed ( lower is slower )
         public virtual float AimSensitivity => 0.85f; // Aim sensitivity while zooming ( lower is slower )
-        public virtual bool DualWield => false; // If the weapon should be dual wielded
         public virtual float PrimaryDelay => -1; // Delay before firing when the primary attack button is pressed
         public virtual float SecondaryDelay => -1; // Delay before firing when the secondary attack button is pressed
 
@@ -73,6 +72,11 @@ namespace SWB_Base
 
         public bool IsAnimating { get; set; }
 
+        [Net]
+        public bool inBoltBack { get; set; }
+
+        public int InstanceID { get; protected set; }
+
         public PickupTrigger PickupTrigger { get; protected set; }
 
         public BaseViewModel HandsModel;
@@ -82,10 +86,5 @@ namespace SWB_Base
 
         private int barrelHeat = 0;
         private TimeSince TimeSinceFired;
-
-        private BaseViewModel dualWieldViewModel;
-        private bool isDualWieldConverted = false;
-        private bool dualWieldLeftFire = false;
-        private bool dualWieldShouldReload = false;
     }
 }

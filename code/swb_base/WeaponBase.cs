@@ -30,19 +30,18 @@ namespace SWB_Base
 
             TimeSinceDeployed = 0;
             IsReloading = false;
+            InstanceID++;
 
             // Draw animation
             if (IsLocalPawn)
             {
-                var activeViewModel = !DualWield ? ViewModelEntity : dualWieldViewModel;
-
                 if (Primary.Ammo == 0 && !string.IsNullOrEmpty(Primary.DrawEmptyAnim))
                 {
-                    activeViewModel?.SetAnimBool(Primary.DrawEmptyAnim, true);
+                    ViewModelEntity?.SetAnimBool(Primary.DrawEmptyAnim, true);
                 }
                 else if (!string.IsNullOrEmpty(Primary.DrawAnim))
                 {
-                    activeViewModel?.SetAnimBool(Primary.DrawAnim, true);
+                    ViewModelEntity?.SetAnimBool(Primary.DrawAnim, true);
                 }
             }
 
@@ -56,29 +55,17 @@ namespace SWB_Base
                 }
             }
 
-            // Dualwield setup
-            if (DualWield)
+            // Check if boltback was not completed
+            if (IsServer && inBoltBack)
             {
-                if (!isDualWieldConverted)
-                {
-                    isDualWieldConverted = true;
-                    Primary.Ammo *= 2;
-                    Primary.ClipSize *= 2;
-                    Primary.RPM = (int)(Primary.RPM * 1.25);
-                    ZoomAnimData = null;
-                    RunAnimData = null;
-                }
+                if (IsServer)
+                    _ = AsyncBoltBack(1, Primary.BoltBackAnim, Primary.BoltBackTime, Primary.BoltBackEjectDelay, Primary.BulletEjectParticle, true);
             }
         }
 
         public override void ActiveEnd(Entity ent, bool dropped)
         {
             base.ActiveEnd(ent, dropped);
-
-            if (DualWield && dualWieldViewModel != null)
-            {
-                dualWieldViewModel.Delete();
-            }
         }
 
         // BaseSimulate
@@ -146,7 +133,7 @@ namespace SWB_Base
 
         public virtual void Reload()
         {
-            if (IsReloading || IsAnimating || IsShooting())
+            if (IsReloading || IsAnimating || inBoltBack || IsShooting())
                 return;
 
             var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
@@ -160,7 +147,9 @@ namespace SWB_Base
             if (!isEmptyReload && Primary.Ammo == 0 && Primary.BoltBackTime > -1)
             {
                 TimeSinceReload -= Primary.BoltBackTime;
-                _ = AsyncBoltBack(Primary.ReloadTime, Primary.BoltBackAnim, Primary.BoltBackEjectDelay, Primary.BulletEjectParticle);
+
+                if (IsServer)
+                    _ = AsyncBoltBack(Primary.ReloadTime, Primary.BoltBackAnim, Primary.BoltBackTime, Primary.BoltBackEjectDelay, Primary.BulletEjectParticle);
             }
 
             if (Owner is PlayerBase player)
@@ -180,16 +169,6 @@ namespace SWB_Base
         public virtual void OnReloadFinish()
         {
             IsReloading = false;
-
-            // Dual wield
-            if (DualWield && !dualWieldShouldReload)
-            {
-                dualWieldShouldReload = true;
-                Reload();
-                return;
-            }
-
-            dualWieldShouldReload = false;
 
             if (Primary.InfiniteAmmo == InfiniteAmmoType.reserve)
             {
@@ -215,19 +194,17 @@ namespace SWB_Base
         [ClientRpc]
         public virtual void StartReloadEffects(bool isEmpty, string reloadAnim = null)
         {
-            var reloadingViewModel = DualWield && dualWieldShouldReload ? dualWieldViewModel : ViewModelEntity;
-
             if (reloadAnim != null)
             {
-                reloadingViewModel?.SetAnimBool(reloadAnim, true);
+                ViewModelEntity?.SetAnimBool(reloadAnim, true);
             }
             else if (isEmpty && Primary.ReloadEmptyAnim != null)
             {
-                reloadingViewModel?.SetAnimBool(Primary.ReloadEmptyAnim, true);
+                ViewModelEntity?.SetAnimBool(Primary.ReloadEmptyAnim, true);
             }
             else if (Primary.ReloadAnim != null)
             {
-                reloadingViewModel?.SetAnimBool(Primary.ReloadAnim, true);
+                ViewModelEntity?.SetAnimBool(Primary.ReloadAnim, true);
             }
 
             // TODO - player third person model reload
@@ -271,20 +248,11 @@ namespace SWB_Base
                 HandsModel.SetModel(HandsModelPath);
                 HandsModel.SetParent(ViewModelEntity, true);
             }
-
-            if (DualWield)
-            {
-                dualWieldViewModel = new ViewModelBase(this, true);
-                dualWieldViewModel.Owner = Owner;
-                dualWieldViewModel.EnableViewmodelRendering = true;
-                dualWieldViewModel.SetModel(ViewModelPath);
-            }
         }
 
         public virtual ModelEntity GetEffectModel()
         {
-            var animatingViewModel = DualWield && dualWieldLeftFire ? dualWieldViewModel : ViewModelEntity;
-            ModelEntity effectModel = animatingViewModel;
+            ModelEntity effectModel = ViewModelEntity;
 
             // We don't want to change the world effect origin if we or others can see it
             if ((IsLocalPawn && !Owner.IsFirstPersonMode) || !IsLocalPawn)
@@ -296,9 +264,9 @@ namespace SWB_Base
         }
 
         // Pass the active child from before the delay
-        protected bool IsAsyncValid(Entity activeChild)
+        protected bool IsAsyncValid(Entity activeChild, int instanceID)
         {
-            return Owner != null && activeChild == Owner.ActiveChild;
+            return Owner != null && activeChild == Owner.ActiveChild && instanceID == InstanceID;
         }
 
         protected bool IsShooting()

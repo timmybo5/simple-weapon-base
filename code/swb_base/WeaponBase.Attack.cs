@@ -13,7 +13,7 @@ namespace SWB_Base
     {
         public virtual bool CanAttack(ClipInfo clipInfo, TimeSince lastAttackTime, InputButton inputButton)
         {
-            if (IsAnimating) return false;
+            if (IsAnimating || inBoltBack) return false;
             if (clipInfo == null || !Owner.IsValid() || !Input.Down(inputButton)) return false;
             if (clipInfo.FiringType == FiringType.semi && !Input.Pressed(inputButton)) return false;
             if (clipInfo.RPM <= 0) return true;
@@ -46,18 +46,12 @@ namespace SWB_Base
             }
 
             // Boltback
-            var bulletEjectParticle = clipInfo.BulletEjectParticle;
+            var bulletEjectParticle = clipInfo.BoltBackTime > -1 ? "" : clipInfo.BulletEjectParticle;
 
             if (clipInfo.Ammo > 0 && clipInfo.BoltBackTime > -1)
             {
-                TimeSincePrimaryAttack = -clipInfo.BoltBackTime;
-                TimeSinceSecondaryAttack = -clipInfo.BoltBackTime;
-                TimeSinceFired = -clipInfo.BoltBackTime;
-
-                bulletEjectParticle = "";
-
                 if (IsServer)
-                    _ = AsyncBoltBack(GetRealRPM(clipInfo.RPM), clipInfo.BoltBackAnim, clipInfo.BoltBackEjectDelay, clipInfo.BulletEjectParticle);
+                    _ = AsyncBoltBack(GetRealRPM(clipInfo.RPM), clipInfo.BoltBackAnim, clipInfo.BoltBackTime, clipInfo.BoltBackEjectDelay, clipInfo.BulletEjectParticle, true);
             }
 
             // Shotgun
@@ -130,11 +124,12 @@ namespace SWB_Base
             var owner = Owner as PlayerBase;
             if (owner == null) return;
             var activeWeapon = owner.ActiveChild;
+            var instanceID = InstanceID;
 
             await GameTask.DelaySeconds(delay);
 
             // Check if owner and weapon are still valid
-            if (!IsAsyncValid(activeWeapon)) return;
+            if (!IsAsyncValid(activeWeapon, instanceID)) return;
 
             // Take ammo
             TakeAmmo(1);
@@ -163,11 +158,6 @@ namespace SWB_Base
 
         public virtual void AttackPrimary()
         {
-            if (DualWield)
-            {
-                dualWieldLeftFire = !dualWieldLeftFire;
-            }
-
             if (PrimaryDelay > 0)
             {
                 DelayedAttack(Primary, true, PrimaryDelay);
@@ -268,17 +258,26 @@ namespace SWB_Base
             }
         }
 
-        async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackEjectDelay, string bulletEjectParticle)
+        async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackTime, float boltBackEjectDelay, string bulletEjectParticle, bool force = false)
         {
             var activeWeapon = Owner.ActiveChild;
+            var instanceID = InstanceID;
+            inBoltBack = force;
 
+            // Start boltback
             await GameTask.DelaySeconds(boltBackDelay);
-            if (!IsAsyncValid(activeWeapon)) return;
+            if (!IsAsyncValid(activeWeapon, instanceID)) return;
             SendWeaponAnim(boltBackAnim);
 
+            // Eject shell
             await GameTask.DelaySeconds(boltBackEjectDelay);
-            if (!IsAsyncValid(activeWeapon)) return;
+            if (!IsAsyncValid(activeWeapon, instanceID)) return;
             ShootEffects(null, bulletEjectParticle, null);
+
+            // Finished
+            await GameTask.DelaySeconds(boltBackTime - boltBackEjectDelay);
+            if (!IsAsyncValid(activeWeapon, instanceID)) return;
+            inBoltBack = false;
         }
 
         [ClientRpc]
@@ -286,8 +285,9 @@ namespace SWB_Base
         {
             Host.AssertClient();
 
-            var animatingViewModel = DualWield && dualWieldLeftFire ? dualWieldViewModel : ViewModelEntity;
-            ModelEntity firingViewModel = animatingViewModel;
+            ModelEntity firingViewModel = ViewModelEntity;
+
+            if (firingViewModel == null) return;
 
             // We don't want to change the world effect origin if we or others can see it
             if ((IsLocalPawn && !Owner.IsFirstPersonMode) || !IsLocalPawn)
@@ -303,7 +303,7 @@ namespace SWB_Base
 
             if (!string.IsNullOrEmpty(shootAnim))
             {
-                animatingViewModel?.SetAnimBool(shootAnim, true);
+                ViewModelEntity?.SetAnimBool(shootAnim, true);
                 CrosshairPanel?.CreateEvent("fire", (60f / Primary.RPM));
             }
         }
@@ -311,6 +311,8 @@ namespace SWB_Base
         protected virtual void TracerEffects(string tracerParticle, Vector3 endPos)
         {
             ModelEntity firingViewModel = GetEffectModel();
+
+            if (firingViewModel == null) return;
 
             var muzzleAttach = firingViewModel.GetAttachment("muzzle");
             var tracer = Particles.Create(tracerParticle);

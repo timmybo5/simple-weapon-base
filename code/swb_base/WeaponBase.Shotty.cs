@@ -41,9 +41,10 @@ namespace SWB_Base
         public async Task EjectShell(string bulletEjectParticle)
         {
             var activeWeapon = Owner.ActiveChild;
+            var instanceID = InstanceID;
 
             await GameTask.DelaySeconds(ShellEjectDelay);
-            if (!IsAsyncValid(activeWeapon)) return;
+            if (!IsAsyncValid(activeWeapon, instanceID)) return;
             ShootEffects(null, bulletEjectParticle, null);
         }
 
@@ -92,9 +93,10 @@ namespace SWB_Base
         public async Task FinishReload()
         {
             var activeWeapon = Owner.ActiveChild;
+            var instanceID = InstanceID;
 
             await GameTask.DelaySeconds(ShellEjectDelay);
-            if (!IsAsyncValid(activeWeapon)) return;
+            if (!IsAsyncValid(activeWeapon, instanceID)) return;
             StartReloadEffects(false, ReloadFinishAnim);
         }
     }

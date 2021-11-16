@@ -149,11 +149,12 @@ namespace SWB_Base
             var owner = Owner as PlayerBase;
             if (owner == null) return;
             var activeWeapon = owner.ActiveChild;
+            var instanceID = InstanceID;
 
             await GameTask.DelaySeconds(delay);
 
             // Check if owner and weapon are still valid
-            if (!IsAsyncValid(activeWeapon)) return;
+            if (!IsAsyncValid(activeWeapon, instanceID)) return;
 
             // Take ammo
             TakeAmmo(1);
