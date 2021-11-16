@@ -9,6 +9,7 @@ namespace SWB_Base
         Pistol = 1,
         Rifle = 2,
         Shotgun = 3,
+        Carry = 4,
         Fists = 5
     }
 

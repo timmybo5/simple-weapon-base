@@ -15,7 +15,7 @@ namespace SWB_WEAPONS
             Angle = new Angles(0, -5, 0),
             Pos = new Vector3(-5, 0, 0)
         };
-        public override string WorldModelPath => "weapons/swb/css/deagle/css_w_pist_deagle.vmdl";
+        public override string WorldModelPath => "weapons/swb/pistols/deagle/w_deagle.vmdl";
         public override string Icon => "/swb_weapons/textures/deagle.png";
         public override int FOV => 75;
         public override int ZoomFOV => 60;
