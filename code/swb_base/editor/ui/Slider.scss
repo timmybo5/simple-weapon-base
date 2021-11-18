@@ -1,0 +1,64 @@
+﻿$primary: #e84118 !default;
+$thumb: white;
+$primary-alt: white !default;
+
+Slider {
+    align-items: center;
+    margin: 0 0 10px 10px;
+    font-family: Poppins;
+
+    .name {
+        font-size: 16px;
+        font-weight: 700;
+        color: white;
+        white-space: nowrap;
+        margin: 0 10px 0 5px;
+        min-width: 40px; // Temp
+        display: none;
+    }
+
+    .sliderContainer {
+        width: 100%;
+        cursor: pointer;
+        min-height: 30px;
+        align-items: center;
+        padding-right: 30px;
+
+        > .thumb {
+            background-color: $thumb;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 100%;
+            box-shadow: 2px 2px 10px black;
+            transition: all 0.2s ease-out;
+
+            &:hover {
+                background-color: $primary-alt;
+            }
+        }
+
+        &:active {
+            > .thumb {
+                background-color: $primary-alt;
+            }
+        }
+
+        > .track {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            height: 10px;
+            background-color: rgba( $primary, 0.1 );
+            border-radius: 5px;
+
+            > .inner {
+                border-radius: 4px;
+                background-color: $primary;
+                width: 200px;
+                height: 10px;
+                transition: all 0.2s ease-out;
+            }
+        }
+    }
+}

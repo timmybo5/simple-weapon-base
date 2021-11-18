@@ -5,6 +5,8 @@ namespace SWB_Base
 {
     class ViewModelBase : BaseViewModel
     {
+        public AngPos editorOffset;
+
         private WeaponBase weapon;
 
         private float animSpeed;
@@ -28,10 +30,6 @@ namespace SWB_Base
 
         // Helpful values
         private Vector3 localVel;
-
-        // Enable this to help calculate weapon vector postions & angles
-        // Be sure to switch weapons after changing this value
-        private bool liveEditing = false;
 
         public ViewModelBase(WeaponBase weapon)
         {
@@ -72,19 +70,16 @@ namespace SWB_Base
             TargetVectorRot = new Vector3(MathUtil.ToVector3(weapon.ViewModelOffset.Angle));
             TargetFOV = weapon.FOV;
 
-            // Live editing
-            if (liveEditing && weapon.RunAnimData != null)
+            // Model editor
+            if (Owner is PlayerBase player && player.IsModelEditing())
             {
-                // Zooming
-                TargetVectorRot += MathUtil.ToVector3(new Angles(0.08f, -0.06f, 0f));
-                TargetVectorPos += new Vector3(-5f, 0f, 1.95f);
-                TargetFOV = weapon.ZoomFOV;
+                if (editorOffset != null)
+                {
+                    TargetVectorRot += MathUtil.ToVector3(editorOffset.Angle);
+                    TargetVectorPos += editorOffset.Pos;
+                }
                 return;
-
-                // Running
-                //weapon.RunAnimData.Angle = new Angles(10, 40, 0);
-                //weapon.RunAnimData.Pos = new Vector3(5, 0, 0);
-            }
+            };
 
             // Tucking
             float tuckDist;

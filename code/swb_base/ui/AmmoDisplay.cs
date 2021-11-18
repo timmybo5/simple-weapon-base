@@ -4,104 +4,107 @@ using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB_Base;
 
-public class AmmoDisplay : Panel
+namespace SWB_Base
 {
-    Panel ammoWrapper;
-    Panel iconWrapper;
-    Panel fireModeWrapper;
-
-    Image weaponIcon;
-    Image semiFireIcon;
-    Image autoFireIcon;
-
-    Label clipLabel;
-    Label reserveLabel;
-
-    Color reserveColor = new Color32(200, 200, 200).ToColor();
-    Color emptyColor = new Color32(175, 175, 175, 200).ToColor();
-
-    public AmmoDisplay(UISettings uiSettings)
+    public class AmmoDisplay : Panel
     {
-        StyleSheet.Load("/swb_base/ui/AmmoDisplay.scss");
+        Panel ammoWrapper;
+        Panel iconWrapper;
+        Panel fireModeWrapper;
 
-        if (uiSettings.ShowAmmoCount)
+        Image weaponIcon;
+        Image semiFireIcon;
+        Image autoFireIcon;
+
+        Label clipLabel;
+        Label reserveLabel;
+
+        Color reserveColor = new Color32(200, 200, 200).ToColor();
+        Color emptyColor = new Color32(175, 175, 175, 200).ToColor();
+
+        public AmmoDisplay(UISettings uiSettings)
         {
-            ammoWrapper = Add.Panel("ammoWrapper");
-            clipLabel = ammoWrapper.Add.Label("", "clipLabel");
-            reserveLabel = ammoWrapper.Add.Label("", "reserveLabel");
-        }
+            StyleSheet.Load("/swb_base/ui/AmmoDisplay.scss");
 
-        if (uiSettings.ShowWeaponIcon)
-        {
-            iconWrapper = Add.Panel("iconWrapper");
-            weaponIcon = iconWrapper.Add.Image("", "weaponIcon");
-        }
-
-        if (uiSettings.ShowFireMode)
-        {
-            fireModeWrapper = iconWrapper.Add.Panel("fireModeWrapper");
-            semiFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_1.png", "fireModeIcon");
-            autoFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_3.png", "fireModeIcon");
-        }
-    }
-
-    public override void Tick()
-    {
-        var player = Local.Pawn as PlayerBase;
-        if (player == null) return;
-
-        var weapon = player.ActiveChild as WeaponBase;
-        bool isValidWeapon = weapon != null;
-
-        SetClass("hideAmmoDisplay", !isValidWeapon);
-
-        if (!isValidWeapon) return;
-
-        if (ammoWrapper != null)
-        {
-            var hasClipSize = weapon.Primary.ClipSize > 0;
-            var reserveAmmo = Math.Min(player.AmmoCount(weapon.Primary.AmmoType), 999);
-
-            if (weapon.Primary.InfiniteAmmo != InfiniteAmmoType.clip)
+            if (uiSettings.ShowAmmoCount)
             {
-                var clipAmmo = hasClipSize ? weapon.Primary.Ammo : reserveAmmo;
-                clipAmmo = Math.Min(clipAmmo, 999);
-
-                clipLabel.SetText(clipAmmo.ToString());
-                clipLabel.Style.FontColor = clipAmmo == 0 ? emptyColor : Color.White;
-            }
-            else
-            {
-                clipLabel.SetText("∞");
-                clipLabel.Style.FontColor = Color.White;
+                ammoWrapper = Add.Panel("ammoWrapper");
+                clipLabel = ammoWrapper.Add.Label("", "clipLabel");
+                reserveLabel = ammoWrapper.Add.Label("", "reserveLabel");
             }
 
-            if (hasClipSize)
+            if (uiSettings.ShowWeaponIcon)
             {
-                if (weapon.Primary.InfiniteAmmo == InfiniteAmmoType.normal)
+                iconWrapper = Add.Panel("iconWrapper");
+                weaponIcon = iconWrapper.Add.Image("", "weaponIcon");
+            }
+
+            if (uiSettings.ShowFireMode)
+            {
+                fireModeWrapper = iconWrapper.Add.Panel("fireModeWrapper");
+                semiFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_1.png", "fireModeIcon");
+                autoFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_3.png", "fireModeIcon");
+            }
+        }
+
+        public override void Tick()
+        {
+            var player = Local.Pawn as PlayerBase;
+            if (player == null) return;
+
+            var weapon = player.ActiveChild as WeaponBase;
+            bool isValidWeapon = weapon != null;
+
+            SetClass("hideAmmoDisplay", !isValidWeapon);
+
+            if (!isValidWeapon) return;
+
+            if (ammoWrapper != null)
+            {
+                var hasClipSize = weapon.Primary.ClipSize > 0;
+                var reserveAmmo = Math.Min(player.AmmoCount(weapon.Primary.AmmoType), 999);
+
+                if (weapon.Primary.InfiniteAmmo != InfiniteAmmoType.clip)
                 {
-                    reserveLabel.SetText("|" + reserveAmmo);
-                    reserveLabel.Style.FontColor = reserveAmmo == 0 ? emptyColor : reserveColor;
+                    var clipAmmo = hasClipSize ? weapon.Primary.Ammo : reserveAmmo;
+                    clipAmmo = Math.Min(clipAmmo, 999);
+
+                    clipLabel.SetText(clipAmmo.ToString());
+                    clipLabel.Style.FontColor = clipAmmo == 0 ? emptyColor : Color.White;
                 }
                 else
                 {
-                    reserveLabel.SetText("|∞");
-                    reserveLabel.Style.FontColor = reserveColor;
+                    clipLabel.SetText("∞");
+                    clipLabel.Style.FontColor = Color.White;
+                }
+
+                if (hasClipSize)
+                {
+                    if (weapon.Primary.InfiniteAmmo == InfiniteAmmoType.normal)
+                    {
+                        reserveLabel.SetText("|" + reserveAmmo);
+                        reserveLabel.Style.FontColor = reserveAmmo == 0 ? emptyColor : reserveColor;
+                    }
+                    else
+                    {
+                        reserveLabel.SetText("|∞");
+                        reserveLabel.Style.FontColor = reserveColor;
+                    }
                 }
             }
-        }
 
-        if (iconWrapper != null)
-        {
-            weaponIcon.SetTexture(weapon.Icon);
-        }
+            if (iconWrapper != null)
+            {
+                weaponIcon.SetTexture(weapon.Icon);
+            }
 
-        if (fireModeWrapper != null)
-        {
-            var isSemiFire = weapon.Primary.FiringType == FiringType.semi;
+            if (fireModeWrapper != null)
+            {
+                var isSemiFire = weapon.Primary.FiringType == FiringType.semi;
 
-            semiFireIcon.Style.Opacity = isSemiFire ? 1 : 0.25f;
-            autoFireIcon.Style.Opacity = isSemiFire ? 0.25f : 1;
+                semiFireIcon.Style.Opacity = isSemiFire ? 1 : 0.25f;
+                autoFireIcon.Style.Opacity = isSemiFire ? 0.25f : 1;
+            }
         }
     }
 }
