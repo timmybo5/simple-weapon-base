@@ -17,7 +17,7 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Highly configurable
 * Support for custom animations and actions
 
-### Model Editor
+### Model Editor ([Demo](https://www.youtube.com/watch?v=OAYmOp3oJOE))
 The `swb_editor` command opens a model editor that can be used to easily calculate offsets needed for running, zooming, and more.
 
 ### Built-in Animations
