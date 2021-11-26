@@ -23,6 +23,12 @@
         <SliderEntry min="-360" max="360" step="0.001" name="Yaw" @value="Yaw"></SliderEntry>
         <SliderEntry min="-360" max="360" step="0.001" name="Roll" @value="Roll"></SliderEntry>
 
+        <text class="subTitle">Use Data</text>
+        <div class="dataButtons">
+            <button style="background-color: #9b59b6;" onclick="SetZoomAnimData()">ZoomAnimData</button>
+            <button style="background-color: #9b59b6;" onclick="SetRunAnimData()">RunAnimData</button>
+        </div>
+
         <div class="buttonContainer">
             <button style="background-color: #e84118;" onclick="OnReset()">RESET</button>
             <button style="background-color: #00a8ff;" onclick="OnCopy()">COPY</button>

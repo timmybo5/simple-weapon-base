@@ -38,10 +38,10 @@ $dragMode: #e67e22;
 .menu {
     flex-direction: column;
     width: 400px;
-    height: 525px;
+    height: 625px;
     background-color: rgb(31, 31, 31);
-    top: 2%;
-    left: 2%;
+    top: 10px;
+    left: 10px;
     font-family: Poppins;
     border-radius: 4px;
 
@@ -64,43 +64,63 @@ $dragMode: #e67e22;
         text-align: center;
     }
 
-    .buttonContainer {
+    button {
+        cursor: pointer;
+        color: white;
+        text-align: center;
+        width: 120px;
+        margin: 0 25px 0 25px;
+        border: 2px;
+        height: 30px;
+        border-color: transparent;
+        border-radius: 4px;
+        align-items: center;
+
+        label {
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            transition: font-size 0.05s ease-in-out;
+
+            &:active {
+                font-size: 24px;
+            }
+        }
+
+        &:hover {
+            border-color: white;
+        }
+
+        &:active {
+            border-color: transparent;
+        }
+    }
+
+    .dataButtons {
         justify-content: center;
         align-items: center;
         margin-top: 20px;
-        height: 60px;
+        height: 20px;
 
         button {
-            cursor: pointer;
-            color: white;
-            text-align: center;
-            width: 120px;
-            margin: 0 25px 0 25px;
-            border: 2px;
-            height: 30px;
-            border-color: transparent;
-            border-radius: 4px;
-            align-items: center;
+            margin: 0 8px 0 8px;
+            width: 180px;
 
             label {
-                width: 100%;
-                font-size: 18px;
-                font-weight: bold;
-                transition: font-size 0.05s ease-in-out;
+                font-size: 16px;
 
                 &:active {
-                    font-size: 24px;
+                    font-size: 20px;
                 }
             }
-
-            &:hover {
-                border-color: white;
-            }
-
-            &:active {
-                border-color: transparent;
-            }
         }
+    }
+
+    .buttonContainer {
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+        height: 60px;
     }
 }
 

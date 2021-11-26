@@ -7,21 +7,25 @@ namespace SWB_Base
     {
         private Panel modelEditor;
 
-        // Server only
         public void ToggleModelEditor()
         {
+            Host.AssertServer();
+
             ToggleModelEditorCL(To.Single(this));
         }
 
-        // Client only
         public bool IsModelEditing()
         {
+            Host.AssertClient();
+
             return modelEditor != null;
         }
 
         [ClientRpc]
         public void ToggleModelEditorCL()
         {
+            Host.AssertClient();
+
             if (!IsModelEditing())
             {
                 Log.Info("Opened editor!");

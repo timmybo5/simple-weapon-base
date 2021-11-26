@@ -35,6 +35,8 @@ namespace SWB_Base
         private float pitchOrigin;
         private float yawOrigin;
 
+        private WeaponBase activeWeapon;
+
         public EditorMenu()
         {
             DragModeLabel.Text = "x/z";
@@ -60,6 +62,26 @@ namespace SWB_Base
         private bool CanDragOnPanel(Panel p)
         {
             return p.ElementName == "editormenu";
+        }
+
+        public void SetZoomAnimData()
+        {
+            SetFromAngPos(activeWeapon.ZoomAnimData);
+        }
+
+        public void SetRunAnimData()
+        {
+            SetFromAngPos(activeWeapon.RunAnimData);
+        }
+
+        private void SetFromAngPos(AngPos angPos)
+        {
+            X = angPos.Pos.x;
+            Y = angPos.Pos.y;
+            Z = angPos.Pos.z;
+            Pitch = angPos.Angle.pitch;
+            Yaw = angPos.Angle.yaw;
+            Roll = angPos.Angle.roll;
         }
 
         protected override void OnMouseMove(MousePanelEvent e)
@@ -119,12 +141,12 @@ namespace SWB_Base
             var player = Local.Pawn as PlayerBase;
             if (player == null) return;
 
-            var weapon = player.ActiveChild as WeaponBase;
-            bool isValidWeapon = weapon != null;
+            activeWeapon = player.ActiveChild as WeaponBase;
+            bool isValidWeapon = activeWeapon != null;
 
             if (!isValidWeapon) return;
 
-            if (weapon.ViewModelEntity is ViewModelBase viewModel)
+            if (activeWeapon.ViewModelEntity is ViewModelBase viewModel)
             {
                 viewModel.editorOffset = new AngPos
                 {

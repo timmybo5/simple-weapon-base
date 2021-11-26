@@ -58,7 +58,7 @@ namespace SWB_WEAPONS
             ZoomAnimData = new AngPos
             {
                 Angle = new Angles(-0.1f, 4.95f, -1f),
-                Pos = new Vector3(-5f, -2f, 0.75f)
+                Pos = new Vector3(-5f, -4.211f, 0.75f)
             };
 
             RunAnimData = new AngPos
