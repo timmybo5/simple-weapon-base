@@ -80,8 +80,10 @@ namespace SWB_Base
             // Player anim
             (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
-            // Tell the clients to play the shoot effects
-            ScreenUtil.Shake(To.Single(Owner), clipInfo.ScreenShake);
+            // Shoot effects
+            if (IsClient)
+                ScreenUtil.Shake(clipInfo.ScreenShake);
+
             ShootEffects(clipInfo.MuzzleFlashParticle, bulletEjectParticle, clipInfo.ShootAnim);
 
             // Barrel smoke
@@ -147,8 +149,10 @@ namespace SWB_Base
             // Take ammo
             TakeAmmo(1);
 
-            // Play shoot effects
-            ScreenUtil.Shake(To.Single(Owner), clipInfo.ScreenShake);
+            // Shoot effects
+            if (IsClient)
+                ScreenUtil.Shake(clipInfo.ScreenShake);
+
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null);
 
             if (clipInfo.ShootSound != null)

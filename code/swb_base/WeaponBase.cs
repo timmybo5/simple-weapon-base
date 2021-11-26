@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using Sandbox.UI;
 
 /* 
@@ -236,6 +237,8 @@ namespace SWB_Base
             if (doRecoil)
             {
                 doRecoil = false;
+                //var random = new Random(); -> might making aiming too difficult
+                //var randVal = random.Next(-5, 5) / 10f;
                 var recoilAngles = new Angles(IsZooming ? -Primary.Recoil * 0.4f : -Primary.Recoil, 0, 0);
                 input.ViewAngles += recoilAngles;
             }

@@ -117,8 +117,10 @@ namespace SWB_Base
             // Player anim
             (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
-            // Weapon anim
-            ScreenUtil.Shake(To.Single(Owner), clipInfo.ScreenShake);
+            // Shoot effects
+            if (IsClient)
+                ScreenUtil.Shake(clipInfo.ScreenShake);
+
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim);
 
             if (!string.IsNullOrEmpty(clipInfo.ShootSound))
@@ -159,8 +161,10 @@ namespace SWB_Base
             // Take ammo
             TakeAmmo(1);
 
-            // Play shoot effects
-            ScreenUtil.Shake(To.Single(owner), clipInfo.ScreenShake);
+            // Shoot effects
+            if (IsClient)
+                ScreenUtil.Shake(clipInfo.ScreenShake);
+
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null);
 
             if (clipInfo.ShootSound != null)
