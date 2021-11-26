@@ -30,12 +30,16 @@ namespace SWB_CSS
                 PlayHitmarkerSound = false
             };
 
+            General = new WeaponInfo
+            {
+                ReloadTime = 5.7f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 100,
                 AmmoType = AmmoType.Grenade,
                 ClipSize = 100,
-                ReloadTime = 5.7f,
 
                 BulletSize = 5f,
                 Damage = 15f,

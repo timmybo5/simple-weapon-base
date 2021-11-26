@@ -23,13 +23,18 @@ namespace SWB_WEAPONS
 
         public FAL()
         {
+            General = new WeaponInfo
+            {
+                DrawTime = 1f,
+                ReloadTime = 2.03f,
+                ReloadEmptyTime = 2.67f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 20,
                 AmmoType = AmmoType.Rifle,
                 ClipSize = 20,
-                ReloadTime = 2.03f,
-                ReloadEmptyTime = 2.67f,
 
                 BulletSize = 4f,
                 Damage = 20f,

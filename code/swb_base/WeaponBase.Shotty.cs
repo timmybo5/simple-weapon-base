@@ -50,7 +50,7 @@ namespace SWB_Base
 
         public override void Reload()
         {
-            Primary.ReloadTime = ShellReloadTimeStart;
+            General.ReloadTime = ShellReloadTimeStart;
             base.Reload();
         }
 
@@ -79,12 +79,12 @@ namespace SWB_Base
 
                 if (ammo != 0 && Primary.Ammo < Primary.ClipSize)
                 {
-                    Primary.ReloadTime = ShellReloadTimeInsert;
+                    General.ReloadTime = ShellReloadTimeInsert;
                     base.Reload();
                 }
                 else
                 {
-                    StartReloadEffects(false, Primary.ReloadAnim);
+                    StartReloadEffects(false, General.ReloadAnim);
                     _ = FinishReload();
                 }
             }

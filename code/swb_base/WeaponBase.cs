@@ -36,13 +36,13 @@ namespace SWB_Base
             // Draw animation
             if (IsLocalPawn)
             {
-                if (Primary.Ammo == 0 && !string.IsNullOrEmpty(Primary.DrawEmptyAnim))
+                if (Primary.Ammo == 0 && !string.IsNullOrEmpty(General.DrawEmptyAnim))
                 {
-                    ViewModelEntity?.SetAnimBool(Primary.DrawEmptyAnim, true);
+                    ViewModelEntity?.SetAnimBool(General.DrawEmptyAnim, true);
                 }
-                else if (!string.IsNullOrEmpty(Primary.DrawAnim))
+                else if (!string.IsNullOrEmpty(General.DrawAnim))
                 {
-                    ViewModelEntity?.SetAnimBool(Primary.DrawAnim, true);
+                    ViewModelEntity?.SetAnimBool(General.DrawAnim, true);
                 }
             }
 
@@ -60,7 +60,7 @@ namespace SWB_Base
             if (IsServer && inBoltBack)
             {
                 if (IsServer)
-                    _ = AsyncBoltBack(1, Primary.BoltBackAnim, Primary.BoltBackTime, Primary.BoltBackEjectDelay, Primary.BulletEjectParticle, true);
+                    _ = AsyncBoltBack(General.DrawTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle, true);
             }
         }
 
@@ -118,7 +118,7 @@ namespace SWB_Base
             if (Secondary == null && ZoomAnimData != null && !(this is WeaponBaseMelee))
                 IsZooming = Input.Down(InputButton.Attack2) && !IsRunning && !IsReloading;
 
-            if (TimeSinceDeployed < 0.6f)
+            if (TimeSinceDeployed < General.DrawTime)
                 return;
 
             // Burst fire
@@ -156,15 +156,15 @@ namespace SWB_Base
             if (Primary.Ammo >= maxClipSize || Primary.ClipSize == -1)
                 return;
 
-            var isEmptyReload = Primary.ReloadEmptyTime > 0 ? Primary.Ammo == 0 : false;
-            TimeSinceReload = -(isEmptyReload ? Primary.ReloadEmptyTime : Primary.ReloadTime);
+            var isEmptyReload = General.ReloadEmptyTime > 0 ? Primary.Ammo == 0 : false;
+            TimeSinceReload = -(isEmptyReload ? General.ReloadEmptyTime : General.ReloadTime);
 
-            if (!isEmptyReload && Primary.Ammo == 0 && Primary.BoltBackTime > -1)
+            if (!isEmptyReload && Primary.Ammo == 0 && General.BoltBackTime > -1)
             {
-                TimeSinceReload -= Primary.BoltBackTime;
+                TimeSinceReload -= General.BoltBackTime;
 
                 if (IsServer)
-                    _ = AsyncBoltBack(Primary.ReloadTime, Primary.BoltBackAnim, Primary.BoltBackTime, Primary.BoltBackEjectDelay, Primary.BulletEjectParticle);
+                    _ = AsyncBoltBack(General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle);
             }
 
             if (Owner is PlayerBase player)
@@ -213,13 +213,13 @@ namespace SWB_Base
             {
                 ViewModelEntity?.SetAnimBool(reloadAnim, true);
             }
-            else if (isEmpty && Primary.ReloadEmptyAnim != null)
+            else if (isEmpty && General.ReloadEmptyAnim != null)
             {
-                ViewModelEntity?.SetAnimBool(Primary.ReloadEmptyAnim, true);
+                ViewModelEntity?.SetAnimBool(General.ReloadEmptyAnim, true);
             }
-            else if (Primary.ReloadAnim != null)
+            else if (General.ReloadAnim != null)
             {
-                ViewModelEntity?.SetAnimBool(Primary.ReloadAnim, true);
+                ViewModelEntity?.SetAnimBool(General.ReloadAnim, true);
             }
 
             // TODO - player third person model reload

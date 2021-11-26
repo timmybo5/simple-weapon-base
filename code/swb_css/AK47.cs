@@ -17,12 +17,16 @@ namespace SWB_CSS
 
         public AK47()
         {
+            General = new WeaponInfo
+            {
+                ReloadTime = 2.17f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 30,
                 AmmoType = AmmoType.Rifle,
                 ClipSize = 30,
-                ReloadTime = 2.17f,
 
                 BulletSize = 4f,
                 Damage = 15f,

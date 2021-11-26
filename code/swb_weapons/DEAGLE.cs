@@ -22,13 +22,18 @@ namespace SWB_WEAPONS
 
         public DEAGLE()
         {
+            General = new WeaponInfo
+            {
+                DrawTime = 1f,
+                ReloadTime = 1.8f,
+                ReloadEmptyTime = 2.9f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 7,
                 AmmoType = AmmoType.Revolver,
                 ClipSize = 7,
-                ReloadTime = 1.8f,
-                ReloadEmptyTime = 2.9f,
 
                 BulletSize = 6f,
                 Damage = 50f,

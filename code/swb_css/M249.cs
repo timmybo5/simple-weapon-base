@@ -17,12 +17,16 @@ namespace SWB_CSS
 
         public M249()
         {
+            General = new WeaponInfo
+            {
+                ReloadTime = 5.7f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 100,
                 AmmoType = AmmoType.LMG,
                 ClipSize = 100,
-                ReloadTime = 5.7f,
 
                 BulletSize = 5f,
                 Damage = 15f,

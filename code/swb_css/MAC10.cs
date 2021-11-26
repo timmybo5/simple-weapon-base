@@ -17,12 +17,16 @@ namespace SWB_CSS
 
         public MAC10()
         {
+            General = new WeaponInfo
+            {
+                ReloadTime = 3.14f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 32,
                 AmmoType = AmmoType.SMG,
                 ClipSize = 32,
-                ReloadTime = 3.14f,
 
                 BulletSize = 2f,
                 Damage = 12f,

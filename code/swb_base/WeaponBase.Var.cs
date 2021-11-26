@@ -53,6 +53,9 @@ namespace SWB_Base
         public UISettings UISettings { get; set; } = new UISettings();
 
         [Net]
+        public WeaponInfo General { get; set; } = new WeaponInfo(); // General data
+
+        [Net]
         public ClipInfo Primary { get; set; } = new ClipInfo(); // Primary attack data
 
         [Net]

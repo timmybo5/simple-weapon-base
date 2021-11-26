@@ -29,12 +29,16 @@ namespace SWB_CSS
                 ShowCrosshair = false
             };
 
+            General = new WeaponInfo
+            {
+                ReloadTime = 3.67f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 10,
                 AmmoType = AmmoType.Sniper,
                 ClipSize = 10,
-                ReloadTime = 3.67f,
 
                 BulletSize = 5f,
                 Damage = 100f,

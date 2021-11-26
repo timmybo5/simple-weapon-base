@@ -16,12 +16,16 @@ namespace SWB_CSS
 
         public Deagle()
         {
+            General = new WeaponInfo
+            {
+                ReloadTime = 2.17f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 7,
                 AmmoType = AmmoType.Revolver,
                 ClipSize = 7,
-                ReloadTime = 2.17f,
 
                 BulletSize = 6f,
                 Damage = 50f,

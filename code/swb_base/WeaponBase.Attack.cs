@@ -59,12 +59,12 @@ namespace SWB_Base
             }
 
             // Boltback
-            var bulletEjectParticle = clipInfo.BoltBackTime > -1 ? "" : clipInfo.BulletEjectParticle;
+            var bulletEjectParticle = General.BoltBackTime > -1 ? "" : clipInfo.BulletEjectParticle;
 
-            if (clipInfo.Ammo > 0 && clipInfo.BoltBackTime > -1)
+            if (clipInfo.Ammo > 0 && General.BoltBackTime > -1)
             {
                 if (IsServer)
-                    _ = AsyncBoltBack(GetRealRPM(clipInfo.RPM), clipInfo.BoltBackAnim, clipInfo.BoltBackTime, clipInfo.BoltBackEjectDelay, clipInfo.BulletEjectParticle, true);
+                    _ = AsyncBoltBack(GetRealRPM(clipInfo.RPM), General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, clipInfo.BulletEjectParticle, true);
             }
 
             // Shotgun
@@ -75,7 +75,6 @@ namespace SWB_Base
 
                 bulletEjectParticle = "";
             }
-
 
             // Player anim
             (Owner as AnimEntity).SetAnimBool("b_attack", true);

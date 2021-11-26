@@ -35,15 +35,20 @@ namespace SWB_WEAPONS
                 ShowCrosshair = false
             };
 
+            General = new WeaponInfo
+            {
+                DrawTime = 0.5f,
+                ReloadTime = 1.8f,
+
+                BoltBackTime = 1.6f,
+                BoltBackEjectDelay = 0.5f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 5,
                 AmmoType = AmmoType.Sniper,
                 ClipSize = 5,
-                ReloadTime = 1.8f,
-
-                BoltBackTime = 1.6f,
-                BoltBackEjectDelay = 0.5f,
 
                 BulletSize = 5f,
                 Damage = 100f,

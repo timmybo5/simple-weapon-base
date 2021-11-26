@@ -33,12 +33,18 @@ namespace SWB_EXPLOSIVES
                 ShowFireMode = false,
             };
 
+            General = new WeaponInfo
+            {
+                ReloadTime = 4f,
+
+                DrawEmptyAnim = "deploy_empty",
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 1,
                 AmmoType = AmmoType.RPG,
                 ClipSize = 1,
-                ReloadTime = 4f,
 
                 BulletSize = 5f,
                 Damage = 15f,
@@ -55,7 +61,6 @@ namespace SWB_EXPLOSIVES
                     Rotation = 1f
                 },
 
-                DrawEmptyAnim = "deploy_empty",
                 DryFireSound = "swb_lmg.empty",
                 ShootSound = "swb_explosives_rpg7.fire",
 

@@ -18,12 +18,16 @@ namespace SWB_CSS
 
         public M4A1()
         {
+            General = new WeaponInfo
+            {
+                ReloadTime = 3.05f
+            };
+
             Primary = new ClipInfo
             {
                 Ammo = 30,
                 AmmoType = AmmoType.Rifle,
                 ClipSize = 30,
-                ReloadTime = 3.05f,
 
                 BulletSize = 3.5f,
                 Damage = 13f,
