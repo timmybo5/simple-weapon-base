@@ -55,6 +55,15 @@ namespace SWB_Base
             if (!TakeAmmo(1))
             {
                 DryFire(clipInfo.DryFireSound);
+
+                // Check for auto reloading
+                if (AutoReloadSV > 0)
+                {
+                    TimeSincePrimaryAttack = 999;
+                    TimeSinceSecondaryAttack = 999;
+                    TimeSinceFired = 999;
+                    Reload();
+                }
                 return;
             }
 

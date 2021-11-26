@@ -13,6 +13,9 @@ namespace SWB_Base
         [ConVar.Replicated("swb_sv_showhud", Help = "Enable HUD for all clients", Saved = true)]
         public static int ShowHudSV { get; set; } = 1;
 
+        [ConVar.Replicated("swb_sv_autoreload", Help = "Reload weapons automatically when shooting if empty", Saved = true)]
+        public static int AutoReloadSV { get; set; } = 0;
+
         // Client
         [ConVar.ClientData("swb_cl_showhud", Help = "Enable HUD", Saved = true)]
         public static int ShowHudCL { get; set; } = 1;
