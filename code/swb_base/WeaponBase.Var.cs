@@ -2,6 +2,10 @@
 using Sandbox;
 using Sandbox.UI;
 
+/* 
+ * Weapon base properties/fields
+*/
+
 namespace SWB_Base
 {
     public enum HoldType

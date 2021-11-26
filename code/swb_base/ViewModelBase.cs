@@ -34,6 +34,7 @@ namespace SWB_Base
         public ViewModelBase(WeaponBase weapon)
         {
             this.weapon = weapon;
+            FinalFOV = weapon.FOV;
         }
 
         public override void PostCameraSetup(ref CameraSetup camSetup)

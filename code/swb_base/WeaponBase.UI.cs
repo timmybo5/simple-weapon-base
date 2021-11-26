@@ -17,7 +17,10 @@ namespace SWB_Base
 
         public override void CreateHudElements()
         {
-            if (Local.Hud == null) return;
+            var showHUDCL = GetSetting<bool>("swb_cl_showhud", true);
+            var showHUDSV = GetSetting<bool>("swb_sv_showhud", true);
+
+            if (Local.Hud == null || !showHUDCL || !showHUDSV) return;
 
             if (UISettings.ShowCrosshair)
             {
