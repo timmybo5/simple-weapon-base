@@ -26,15 +26,20 @@ namespace SWB_Base
         {
             Host.AssertClient();
 
+            if (IsAttachmentEditing())
+            {
+                ToggleAttachmentEditorCL();
+            }
+
             if (!IsModelEditing())
             {
-                Log.Info("Opened editor!");
-                modelEditor = new EditorMenu();
+                Log.Info("Opened model editor!");
+                modelEditor = new ModelEditorMenu();
                 modelEditor.Parent = Local.Hud;
             }
             else
             {
-                Log.Info("Closed editor!");
+                Log.Info("Closed model editor!");
                 modelEditor.Delete(true);
                 modelEditor = null;
             }

@@ -33,6 +33,9 @@ namespace SWB_Base
             IsReloading = false;
             InstanceID++;
 
+            // Attachments
+            HandleAttachments(true);
+
             // Draw animation
             if (IsLocalPawn)
             {
@@ -57,7 +60,7 @@ namespace SWB_Base
             }
 
             // Check if boltback was not completed
-            if (IsServer && inBoltBack)
+            if (IsServer && InBoltBack)
             {
                 if (IsServer)
                     _ = AsyncBoltBack(General.DrawTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle, true);
@@ -66,12 +69,21 @@ namespace SWB_Base
 
         public override void ActiveEnd(Entity ent, bool dropped)
         {
+            // Attachments
+            HandleAttachments(false);
+
             base.ActiveEnd(ent, dropped);
         }
 
         // BaseSimulate
         public void BaseSimulate(Client player)
         {
+            // DEBUG
+            //foreach (var att in ActiveAttachments)
+            //{
+            //    LogUtil.Info("[" + ActiveAttachments.Count + "] name=" + att.ToString());
+            //}
+
             if (Input.Down(InputButton.Reload))
             {
                 Reload();
@@ -113,9 +125,9 @@ namespace SWB_Base
                 }
             }
 
-            IsRunning = Input.Down(InputButton.Run) && RunAnimData != null && Owner.Velocity.Length >= 200;
+            IsRunning = Input.Down(InputButton.Run) && RunAnimData != AngPos.Zero && Owner.Velocity.Length >= 200;
 
-            if (Secondary == null && ZoomAnimData != null && !(this is WeaponBaseMelee))
+            if (Secondary == null && ZoomAnimData != AngPos.Zero && !(this is WeaponBaseMelee))
                 IsZooming = Input.Down(InputButton.Attack2) && !IsRunning && !IsReloading;
 
             if (TimeSinceDeployed < General.DrawTime)
@@ -148,7 +160,7 @@ namespace SWB_Base
 
         public virtual void Reload()
         {
-            if (IsReloading || IsAnimating || inBoltBack || IsShooting())
+            if (IsReloading || IsAnimating || InBoltBack || IsShooting())
                 return;
 
             var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
@@ -292,6 +304,11 @@ namespace SWB_Base
                 return GetRealRPM(Primary.RPM) > TimeSincePrimaryAttack;
 
             return GetRealRPM(Primary.RPM) > TimeSincePrimaryAttack || GetRealRPM(Secondary.RPM) > TimeSinceSecondaryAttack;
+        }
+
+        protected bool CanSeeViewModel()
+        {
+            return IsLocalPawn && Owner.IsFirstPersonMode;
         }
 
         protected float GetRealRPM(int rpm)

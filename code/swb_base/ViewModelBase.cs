@@ -3,7 +3,7 @@ using Sandbox;
 
 namespace SWB_Base
 {
-    class ViewModelBase : BaseViewModel
+    partial class ViewModelBase : BaseViewModel
     {
         public AngPos editorOffset;
 
@@ -72,9 +72,9 @@ namespace SWB_Base
             TargetFOV = weapon.FOV;
 
             // Model editor
-            if (Owner is PlayerBase player && player.IsModelEditing())
+            if (Owner is PlayerBase player && (player.IsModelEditing() || player.IsAttachmentEditing()))
             {
-                if (editorOffset != null)
+                if (editorOffset != AngPos.Zero)
                 {
                     TargetVectorRot += MathUtil.ToVector3(editorOffset.Angle);
                     TargetVectorPos += editorOffset.Pos;
@@ -84,7 +84,7 @@ namespace SWB_Base
 
             // Tucking
             float tuckDist;
-            if (weapon.RunAnimData != null && weapon.ShouldTuck(out tuckDist))
+            if (weapon.RunAnimData != AngPos.Zero && weapon.ShouldTuck(out tuckDist))
             {
                 var animationCompletion = Math.Min(1, ((weapon.TuckRange - tuckDist) / weapon.TuckRange) + 0.5f);
                 TargetVectorPos = weapon.RunAnimData.Pos * animationCompletion;
@@ -152,7 +152,7 @@ namespace SWB_Base
             int swayspeed = 5;
 
             // Fix the sway faster if we're ironsighting
-            if (weapon.IsZooming && weapon.ZoomAnimData != null)
+            if (weapon.IsZooming && weapon.ZoomAnimData != AngPos.Zero)
                 swayspeed = 20;
 
             // Lerp the eye position
@@ -169,7 +169,7 @@ namespace SWB_Base
 
         private void HandleIronAnimation(ref CameraSetup camSetup)
         {
-            if (weapon.IsZooming && weapon.ZoomAnimData != null)
+            if (weapon.IsZooming && weapon.ZoomAnimData != AngPos.Zero)
             {
                 animSpeed = 10 * weapon.WalkAnimationSpeedMod;
                 TargetVectorPos += weapon.ZoomAnimData.Pos;
@@ -180,7 +180,7 @@ namespace SWB_Base
 
         private void HandleSprintAnimation(ref CameraSetup camSetup)
         {
-            if (weapon.IsRunning && weapon.RunAnimData != null)
+            if (weapon.IsRunning && weapon.RunAnimData != AngPos.Zero)
             {
                 TargetVectorPos += weapon.RunAnimData.Pos;
                 TargetVectorRot += new Vector3(weapon.RunAnimData.Angle.pitch, weapon.RunAnimData.Angle.yaw, weapon.RunAnimData.Angle.roll);

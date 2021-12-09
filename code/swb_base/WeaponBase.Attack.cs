@@ -13,7 +13,7 @@ namespace SWB_Base
     {
         public virtual bool CanAttack(ClipInfo clipInfo, TimeSince lastAttackTime, InputButton inputButton)
         {
-            if (IsAnimating || inBoltBack) return false;
+            if (IsAnimating || InBoltBack) return false;
             if (clipInfo == null || !Owner.IsValid() || !Input.Down(inputButton)) return false;
             if (clipInfo.FiringType == FiringType.semi && !Input.Pressed(inputButton)) return false;
             if (clipInfo.FiringType == FiringType.burst)
@@ -89,7 +89,7 @@ namespace SWB_Base
             (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
             // Shoot effects
-            if (IsClient)
+            if (IsLocalPawn)
                 ScreenUtil.Shake(clipInfo.ScreenShake);
 
             ShootEffects(clipInfo.MuzzleFlashParticle, bulletEjectParticle, clipInfo.ShootAnim);
@@ -158,7 +158,7 @@ namespace SWB_Base
             TakeAmmo(1);
 
             // Shoot effects
-            if (IsClient)
+            if (IsLocalPawn)
                 ScreenUtil.Shake(clipInfo.ScreenShake);
 
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null);
@@ -287,7 +287,7 @@ namespace SWB_Base
         {
             var activeWeapon = Owner.ActiveChild;
             var instanceID = InstanceID;
-            inBoltBack = force;
+            InBoltBack = force;
 
             // Start boltback
             await GameTask.DelaySeconds(boltBackDelay);
@@ -302,7 +302,30 @@ namespace SWB_Base
             // Finished
             await GameTask.DelaySeconds(boltBackTime - boltBackEjectDelay);
             if (!IsAsyncValid(activeWeapon, instanceID)) return;
-            inBoltBack = false;
+            InBoltBack = false;
+        }
+
+        public virtual (ModelEntity, string) GetMuzzleEffectData(ModelEntity effectEntity)
+        {
+            var activeAttachment = GetActiveAttachmentFromCategory(AttachmentCategoryName.Muzzle);
+            var particleAttachment = "muzzle";
+
+            if (activeAttachment != null)
+            {
+                var attachment = GetAttachment(activeAttachment.Name);
+                particleAttachment = attachment.EffectAttachment;
+
+                if (CanSeeViewModel())
+                {
+                    effectEntity = activeAttachment.ViewAttachmentModel;
+                }
+                else
+                {
+                    effectEntity = activeAttachment.WorldAttachmentModel;
+                }
+            }
+
+            return (effectEntity, particleAttachment);
         }
 
         [ClientRpc]
@@ -310,18 +333,15 @@ namespace SWB_Base
         {
             Host.AssertClient();
 
-            ModelEntity firingViewModel = ViewModelEntity;
+            ModelEntity firingViewModel = GetEffectModel();
 
             if (firingViewModel == null) return;
 
-            // We don't want to change the world effect origin if we or others can see it
-            if ((IsLocalPawn && !Owner.IsFirstPersonMode) || !IsLocalPawn)
-            {
-                firingViewModel = EffectEntity;
-            }
-
             if (!string.IsNullOrEmpty(muzzleFlashParticle))
-                Particles.Create(muzzleFlashParticle, firingViewModel, "muzzle");
+            {
+                var effectData = GetMuzzleEffectData(firingViewModel);
+                Particles.Create(muzzleFlashParticle, effectData.Item1, effectData.Item2);
+            }
 
             if (!string.IsNullOrEmpty(bulletEjectParticle))
                 Particles.Create(bulletEjectParticle, firingViewModel, "ejection_point");
@@ -339,7 +359,9 @@ namespace SWB_Base
 
             if (firingViewModel == null) return;
 
-            var muzzleAttach = firingViewModel.GetAttachment("muzzle");
+            var effectData = GetMuzzleEffectData(firingViewModel);
+            var effectEntity = effectData.Item1;
+            var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
             var tracer = Particles.Create(tracerParticle);
             tracer.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
             tracer.SetPosition(2, endPos);

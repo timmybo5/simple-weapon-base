@@ -1,0 +1,126 @@
+﻿.background .menu {
+    width: 450px;
+    height: 750px;
+
+    .title {
+        font-size: 43px;
+        margin-bottom: 0;
+    }
+
+    .textentry.modelInput {
+        width: 90%;
+        height: 74px;
+        max-height: 74px;
+        margin: 10px 0 0 5%;
+        color: rgba( white, 0.5 );
+        border-radius: 4px;
+        background-color: rgba( black, 0.5 );
+        overflow: scroll;
+
+        label {
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        &.valid {
+            color: #2ecc71;
+        }
+
+        &.invalid {
+            color: #e84118;
+        }
+    }
+
+    .buttonContainer {
+        margin-top: 20px;
+    }
+}
+
+.perspectiveButtons {
+    flex-direction: column;
+    margin-left: -60px;
+    cursor: pointer;
+    z-index: -1;
+    font-family: Poppins;
+    color: white;
+
+    button {
+        height: 40px;
+        width: 170px;
+        transform: rotateZ( 90deg );
+        border-radius: 4px;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(20, 20, 20);
+        border: 1px;
+        border-bottom: 0;
+        margin-top: 140px;
+
+        &:first-child {
+            margin-top: 90px;
+        }
+
+        &.selected {
+            color: #2ecc71;
+            border-color: #2ecc71;
+        }
+
+        label {
+            font-size: 18px;
+            font-weight: bold;
+            transition: font-size 0.05s ease-in-out;
+
+            &:active {
+                font-size: 22px;
+            }
+        }
+
+        &:hover {
+            border-color: white;
+        }
+
+        &:active {
+            border-color: transparent;
+        }
+    }
+}
+
+.controls {
+    position: absolute;
+    width: 300px;
+    right: 50%;
+    bottom: 10px;
+    transform: translate(50%,0);
+    background-color: rgba(31, 31, 31, 0.9);
+    border-radius: 4px;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+        height: 60px;
+        width: 33%;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .material-icons {
+        font-family: MaterialIcons;
+        font-size: 50px;
+        color: white;
+        transition: color 0.1s linear, font-size 0.05s ease-in-out;
+
+        &.rotate:hover {
+            color: #9b59b6;
+        }
+
+        &.reset:hover {
+            color: #e84118;
+        }
+
+        &:active {
+            font-size: 70px;
+        }
+    }
+}

@@ -118,7 +118,7 @@ namespace SWB_Base
             (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
             // Shoot effects
-            if (IsClient)
+            if (IsLocalPawn)
                 ScreenUtil.Shake(clipInfo.ScreenShake);
 
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim);
@@ -162,7 +162,7 @@ namespace SWB_Base
             TakeAmmo(1);
 
             // Shoot effects
-            if (IsClient)
+            if (IsLocalPawn)
                 ScreenUtil.Shake(clipInfo.ScreenShake);
 
             ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null);

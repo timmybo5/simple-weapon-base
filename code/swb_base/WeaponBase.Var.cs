@@ -33,7 +33,7 @@ namespace SWB_Base
         public virtual HoldType HoldType => HoldType.Pistol; // Thirdperson holdtype
         public virtual string HandsModelPath => ""; // Path to the hands model (will be bonemerged with viewmodel, leave empty to disable)
         public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl"; // Path to the view model
-        public virtual AngPos ViewModelOffset => new AngPos(); // Offset the viewmodel with an angle (not available in ModelDoc)
+        public virtual AngPos ViewModelOffset => new(); // Offset the viewmodel with an angle (not available in ModelDoc)
         public virtual string WorldModelPath => "weapons/rust_pistol/rust_pistol.vmdl"; // Path to the world model
         public virtual string Icon => ""; // Path to an image that represent the weapon on the HUD
         public virtual float WalkAnimationSpeedMod => 1; // Procedural animation speed ( lower is slower )
@@ -45,6 +45,8 @@ namespace SWB_Base
         public string PrintName { get { return ClassInfo.Title; } }
 
         public List<AnimatedAction> AnimatedActions { get; set; } // Extra actions that use certain key combinations to trigger animations
+
+        public List<AttachmentCategory> AttachmentCategories { get; set; } // List of all weapon attachments
 
         public AngPos ZoomAnimData { get; set; } // Data used for setting the weapon to its zoom position
 
@@ -80,7 +82,7 @@ namespace SWB_Base
         public bool IsAnimating { get; set; }
 
         [Net]
-        public bool inBoltBack { get; set; }
+        public bool InBoltBack { get; set; }
 
         public int InstanceID { get; protected set; }
 
