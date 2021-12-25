@@ -324,7 +324,7 @@ namespace SWB_Base
             float floatMod = 1f;
 
             // Ducking
-            if (Input.Down(InputButton.Duck) && !IsZooming)
+            if (Input.Down(InputButton.Duck) && (!IsZooming || this is WeaponBaseShotty))
                 floatMod -= 0.25f;
 
             // Aiming
