@@ -53,6 +53,7 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 * More base-included entities (e.g. bomb)
 * Physical bullets
 * Attachment base
+* Worldmodel clipping shader
 
 ## Deatchmatch Elements
 For now some deathmatch dependencies are included as the base uses the inventory and hud elements from the deathmatch gamemode.
