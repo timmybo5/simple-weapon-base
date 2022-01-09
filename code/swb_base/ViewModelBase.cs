@@ -98,6 +98,7 @@ namespace SWB_Base
             HandleSwayAnimation(ref camSetup);
             HandleIronAnimation(ref camSetup);
             HandleSprintAnimation(ref camSetup);
+            HandleCustomizeAnimation(ref camSetup);
             HandleJumpAnimation(ref camSetup);
         }
 
@@ -173,17 +174,26 @@ namespace SWB_Base
             {
                 animSpeed = 10 * weapon.WalkAnimationSpeedMod;
                 TargetVectorPos += weapon.ZoomAnimData.Pos;
-                TargetVectorRot += new Vector3(weapon.ZoomAnimData.Angle.pitch, weapon.ZoomAnimData.Angle.yaw, weapon.ZoomAnimData.Angle.roll);
+                TargetVectorRot += MathUtil.ToVector3(weapon.ZoomAnimData.Angle);
                 TargetFOV = weapon.ZoomFOV;
             }
         }
 
         private void HandleSprintAnimation(ref CameraSetup camSetup)
         {
-            if (weapon.IsRunning && weapon.RunAnimData != AngPos.Zero)
+            if (weapon.IsRunning && weapon.RunAnimData != AngPos.Zero && !weapon.IsCustomizing)
             {
                 TargetVectorPos += weapon.RunAnimData.Pos;
-                TargetVectorRot += new Vector3(weapon.RunAnimData.Angle.pitch, weapon.RunAnimData.Angle.yaw, weapon.RunAnimData.Angle.roll);
+                TargetVectorRot += MathUtil.ToVector3(weapon.RunAnimData.Angle);
+            }
+        }
+
+        private void HandleCustomizeAnimation(ref CameraSetup camSetup)
+        {
+            if (weapon.IsCustomizing && weapon.CustomizeAnimData != AngPos.Zero)
+            {
+                TargetVectorPos += weapon.CustomizeAnimData.Pos;
+                TargetVectorRot += MathUtil.ToVector3(weapon.CustomizeAnimData.Angle);
             }
         }
 

@@ -63,13 +63,19 @@ namespace SWB_WEAPONS
             ZoomAnimData = new AngPos
             {
                 Angle = new Angles(0.25f, 4.95f, -0.4f),
-                Pos = new Vector3(-5f, 0, 2.45f)
+                Pos = new Vector3(-5f, -2f, 2.45f)
             };
 
             RunAnimData = new AngPos
             {
                 Angle = new Angles(-30, 0, 0),
                 Pos = new Vector3(0, -3, -8)
+            };
+
+            CustomizeAnimData = new AngPos
+            {
+                Angle = new Angles(-19.2f, 69.6f, 0f),
+                Pos = new Vector3(10.4f, -16.2f, 2.6f)
             };
 
             // Attachments //
@@ -83,7 +89,7 @@ namespace SWB_WEAPONS
                     {
                         new PistolSilencer
                         {
-                            Enabled = true,
+                            Enabled = false,
                             MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
                             ShootSound = "swb_heavy.silenced.fire",
                             ViewParentBone = "talon",
@@ -99,9 +105,122 @@ namespace SWB_WEAPONS
                                 Rotation = Rotation.From(new Angles(-90f, 0f, 0f)),
                                 Scale = 9f
                             },
+                        },
+                        new TestSilencer
+                        {
+                            Enabled = false,
+                            MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
+                            ShootSound = "swb_heavy.silenced.fire",
+                            ViewParentBone = "talon",
+                            ViewTransform = new Transform
+                            {
+                                Position = new Vector3(0f, 2.6f, 14.8f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 90f)),
+                                Scale = 20f
+                            },
+                            WorldParentBone = "talon",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1f, 4.4f, 16.5f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 0f)),
+                                Scale = 20f
+                            },
                         }
                     }
-                }
+                },
+
+                //new AttachmentCategory
+                //{
+                //    Name = AttachmentCategoryName.Barrel,
+                //    BoneOrAttachment = "muzzle",
+                //    Attachments = new List<AttachmentBase>()
+                //    {
+                //        new TempSilencer(),
+                //    }
+                //},
+                //new AttachmentCategory
+                //{
+                //    Name = AttachmentCategoryName.Special,
+                //    BoneOrAttachment = "muzzle",
+                //    Attachments = new List<AttachmentBase>()
+                //    {
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //        new TempSilencer(),
+                //    }
+                //},
+                //new AttachmentCategory
+                //{
+                //    Name = AttachmentCategoryName.Sight,
+                //    BoneOrAttachment = "muzzle",
+                //    Attachments = new List<AttachmentBase>()
+                //    {
+                //        new TempSilencer(),
+                //    }
+                //},
+                //new AttachmentCategory
+                //{
+                //    Name = AttachmentCategoryName.Stock,
+                //    BoneOrAttachment = "muzzle",
+                //    Attachments = new List<AttachmentBase>()
+                //    {
+                //        new TempSilencer(),
+                //    }
+                //},
+                //new AttachmentCategory
+                //{
+                //    Name = AttachmentCategoryName.Magazine,
+                //    BoneOrAttachment = "muzzle",
+                //    Attachments = new List<AttachmentBase>()
+                //    {
+                //        new TempSilencer(),
+                //    }
+                //},
+                //new AttachmentCategory
+                //{
+                //    Name = AttachmentCategoryName.Other,
+                //    BoneOrAttachment = "muzzle",
+                //    Attachments = new List<AttachmentBase>()
+                //    {
+                //        new TempSilencer(),
+                //    }
+                //}
             };
         }
     }

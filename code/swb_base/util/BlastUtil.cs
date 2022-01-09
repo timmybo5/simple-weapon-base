@@ -3,7 +3,7 @@ using System;
 
 namespace SWB_Base
 {
-    partial class BlastUtil
+    public class BlastUtil
     {
         public static void Explode(Vector3 origin, float radius, float damage, float force, Entity attacker = null, Entity weapon = null, ModelEntity explodingEnt = null)
         {

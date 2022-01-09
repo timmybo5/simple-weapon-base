@@ -65,6 +65,18 @@ namespace SWB_Base
                 if (IsServer)
                     _ = AsyncBoltBack(General.DrawTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle, true);
             }
+
+            // Save initial values
+            if (InitialStats == null)
+            {
+                InitialStats = new StatModifier
+                {
+                    Damage = Primary.Damage,
+                    Recoil = Primary.Recoil,
+                    Spread = Primary.Spread,
+                    RPM = Primary.RPM,
+                };
+            }
         }
 
         public override void ActiveEnd(Entity ent, bool dropped)
@@ -110,9 +122,8 @@ namespace SWB_Base
             }
         }
 
-        public override void Simulate(Client owner)
+        public override void Simulate(Client player)
         {
-
             if (IsAnimating) return;
 
             // Handle custom animation actions
@@ -120,7 +131,7 @@ namespace SWB_Base
             {
                 for (int i = 0; i < AnimatedActions.Count; i++)
                 {
-                    if (AnimatedActions[i].Handle(owner, this))
+                    if (AnimatedActions[i].Handle(player, this))
                         return;
                 }
             }
@@ -139,12 +150,17 @@ namespace SWB_Base
 
             if (!IsReloading || this is WeaponBaseShotty)
             {
-                BaseSimulate(owner);
+                BaseSimulate(player);
             }
 
             if (IsReloading && TimeSinceReload >= 0)
             {
                 OnReloadFinish();
+            }
+
+            if (IsClient)
+            {
+                UISimulate(player);
             }
         }
 
@@ -338,6 +354,11 @@ namespace SWB_Base
             return spread * floatMod;
         }
 
+        public Transform? GetModelAttachment(string name, bool worldspace = true)
+        {
+            return base.GetAttachment(name, worldspace);
+        }
+
         public bool TakeAmmo(int amount)
         {
             if (Primary.InfiniteAmmo == InfiniteAmmoType.clip)
@@ -396,6 +417,16 @@ namespace SWB_Base
             }
 
             base.OnCarryDrop(dropper);
+
+            if (IsServer)
+            {
+                // Reattach attachments (they get removed in ActiveEnd) [TEMP]
+                foreach (var activeAttach in ActiveAttachments)
+                {
+                    var attach = GetAttachment(activeAttach.Name);
+                    attach.CreateModel(this);
+                }
+            }
 
             if (PickupTrigger.IsValid())
             {

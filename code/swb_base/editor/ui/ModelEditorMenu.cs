@@ -76,6 +76,11 @@ namespace SWB_Base
             SetFromAngPos(activeWeapon.RunAnimData);
         }
 
+        public void SetCustomizeAnimData()
+        {
+            SetFromAngPos(activeWeapon.CustomizeAnimData);
+        }
+
         private void SetFromAngPos(AngPos angPos)
         {
             X = angPos.Pos.x;

@@ -35,7 +35,7 @@ namespace SWB_Base
                             Forced = true,
                         };
 
-                        // Adding to ActiveAttachments in initialize on client will not work since server overrides it
+                        // Adding to ActiveAttachments on client will not work since server overrides it
                         ActiveAttachments.Add(activeAttachment);
                     }
 
@@ -62,7 +62,38 @@ namespace SWB_Base
             return null;
         }
 
-        public AttachmentCategoryName GetAttachmentCategory(string name)
+        public ActiveAttachment GetActiveAttachment(string name)
+        {
+            foreach (var activeAttachment in ActiveAttachments)
+            {
+                if (activeAttachment.Name == name)
+                {
+                    return activeAttachment;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Finds an AttachmentCategory by name
+        /// </summary>
+        public AttachmentCategory GetAttachmentCategory(string name)
+        {
+            foreach (var attachmentCategory in AttachmentCategories)
+            {
+                if (attachmentCategory.Name.ToString() == name)
+                {
+                    return attachmentCategory;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets an AttachmentCategoryName from an attachment name
+        /// </summary>
+        public AttachmentCategoryName GetAttachmentCategoryName(string name)
         {
             foreach (var attachmentCategory in AttachmentCategories)
             {
@@ -77,6 +108,10 @@ namespace SWB_Base
             return AttachmentCategoryName.None;
         }
 
+        /// <summary>
+        /// Equips an attachment and assigns a valid attachment model to the activeAttachment.
+        /// Gets called by EquipAttachmentSV for both client and server.
+        /// </summary>
         public void EquipAttachment(ActiveAttachment activeAttachment)
         {
             var attachment = GetAttachment(activeAttachment.Name);
@@ -107,26 +142,105 @@ namespace SWB_Base
             }
         }
 
+        /// <summary>
+        /// Creates an ActiveAttachment and calls EquipAttachment.
+        /// </summary>
         public void EquipAttachment(string name)
         {
             var activeAttachment = new ActiveAttachment
             {
                 Name = name,
-                Forced = false,
-                Category = GetAttachmentCategory(name)
+                Category = GetAttachmentCategoryName(name)
             };
 
+            ActiveAttachments.Add(activeAttachment);
+
             EquipAttachment(activeAttachment);
+        }
+
+        /// <summary>
+        /// Unequips an attachment.
+        /// Gets called by EquipAttachmentSV for both client and server.
+        /// </summary>
+        public void UnequipAttachment(string name)
+        {
+            var activeAttachment = GetActiveAttachment(name);
+
+            if (IsServer && activeAttachment != null)
+            {
+                ActiveAttachments.Remove(activeAttachment);
+            }
+
+            var attachment = GetAttachment(name);
+            attachment.Unequip(this);
+        }
+
+        [ClientRpc]
+        public void UnequipAttachmentCL(string name)
+        {
+            UnequipAttachment(name);
+        }
+
+        /// <summary>
+        /// Tries to equip attachment on client after server created a valid networked attachment
+        /// </summary>
+        [ClientRpc]
+        protected void EquipAttachmentCL(string name)
+        {
+            var instanceID = InstanceID;
+            _ = TryEquipAttachmentCL(name, instanceID);
+        }
+
+        async Task TryEquipAttachmentCL(string name, int instanceID)
+        {
+            Host.AssertClient();
+
+            var activeAttachment = GetActiveAttachment(name);
+
+            if (activeAttachment != null)
+            {
+                EquipAttachment(activeAttachment);
+                return;
+            }
+
+            var activeWeapon = Owner.ActiveChild;
+            await GameTask.DelaySeconds(0.05f);
+            if (!IsAsyncValid(activeWeapon, instanceID)) return;
+            _ = TryEquipAttachmentCL(name, instanceID);
+        }
+
+        /// <summary>
+        /// Request server to equip an attachment.
+        /// </summary>
+        public void EquipAttachmentSV(string name)
+        {
+            // Server
+            EquipAttachment(name);
+
+            // Client
+            EquipAttachmentCL(To.Single(Owner), name);
+        }
+
+        /// <summary>
+        /// Request server to unequip an attachment.
+        /// </summary>
+        public void UnequipAttachmentSV(string name)
+        {
+            // Server
+            UnequipAttachment(name);
+
+            // Client
+            UnequipAttachmentCL(To.Single(Owner), name);
         }
 
         [ClientRpc]
         protected void HandleAttachmentsRecheckCL()
         {
             var instanceID = InstanceID;
-            _ = TryHandleAttachments(instanceID);
+            _ = TryHandleAttachmentsCL(instanceID);
         }
 
-        async Task TryHandleAttachments(int instanceID)
+        async Task TryHandleAttachmentsCL(int instanceID)
         {
             Host.AssertClient();
 
@@ -139,9 +253,12 @@ namespace SWB_Base
             var activeWeapon = Owner.ActiveChild;
             await GameTask.DelaySeconds(0.05f);
             if (!IsAsyncValid(activeWeapon, instanceID)) return;
-            _ = TryHandleAttachments(instanceID);
+            _ = TryHandleAttachmentsCL(instanceID);
         }
 
+        /// <summary>
+        /// Handles forced and active attachments.
+        /// </summary>
         public virtual void HandleAttachments(bool shouldEquip)
         {
             if (AttachmentCategories != null)
@@ -179,11 +296,16 @@ namespace SWB_Base
 
         public virtual ActiveAttachment GetActiveAttachmentFromCategory(AttachmentCategoryName attachmentCategoryName)
         {
+            return GetActiveAttachmentFromCategory(attachmentCategoryName.ToString());
+        }
+
+        public virtual ActiveAttachment GetActiveAttachmentFromCategory(string attachmentCategoryName)
+        {
             if (AttachmentCategories != null)
             {
                 foreach (var activeAttachment in ActiveAttachments)
                 {
-                    if (activeAttachment.Category == attachmentCategoryName)
+                    if (activeAttachment.Category.ToString() == attachmentCategoryName)
                     {
                         return activeAttachment;
                     }

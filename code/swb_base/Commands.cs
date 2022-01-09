@@ -27,5 +27,31 @@ namespace SWB_Base
                 player.ToggleAttachmentEditor();
             }
         }
+
+        [ServerCmd("swb_attachment_equip", Help = "Equips an attachment by name")]
+        public static void EquipAttachmentCMD(string name, bool enabled)
+        {
+            Client client = ConsoleSystem.Caller;
+
+            if (client != null)
+            {
+                var player = client.Pawn as PlayerBase;
+                var activeWeapon = player.ActiveChild as WeaponBase;
+                if (activeWeapon == null) return;
+
+                var activeAttachment = activeWeapon.GetActiveAttachment(name);
+
+                if (enabled && activeAttachment == null && activeWeapon.GetAttachment(name) != null)
+                {
+                    // Attach
+                    activeWeapon.EquipAttachmentSV(name);
+                }
+                else if (!enabled && activeAttachment != null)
+                {
+                    // Detach
+                    activeWeapon.UnequipAttachmentSV(name);
+                }
+            }
+        }
     }
 }

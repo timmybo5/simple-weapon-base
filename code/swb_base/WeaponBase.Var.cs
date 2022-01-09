@@ -52,6 +52,8 @@ namespace SWB_Base
 
         public AngPos RunAnimData { get; set; } // Data used for setting the weapon to its run position
 
+        public AngPos CustomizeAnimData { get; set; } // Data used for setting the weapon to its customization position
+
         public UISettings UISettings { get; set; } = new UISettings();
 
         [Net]
@@ -79,6 +81,8 @@ namespace SWB_Base
 
         public bool IsRunning { get; set; }
 
+        public bool IsCustomizing { get; set; } // Client only
+
         public bool IsAnimating { get; set; }
 
         [Net]
@@ -89,6 +93,8 @@ namespace SWB_Base
         public PickupTrigger PickupTrigger { get; protected set; }
 
         public BaseViewModel HandsModel;
+
+        public StatModifier InitialStats { get; protected set; }
 
         // Private
         private bool doRecoil = false;

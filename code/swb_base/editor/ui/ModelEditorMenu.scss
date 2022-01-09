@@ -38,7 +38,7 @@ $dragMode: #e67e22;
 .menu {
     flex-direction: column;
     width: 400px;
-    height: 625px;
+    height: 675px;
     background-color: rgb(31, 31, 31);
     top: 10px;
     left: 10px;
@@ -99,12 +99,17 @@ $dragMode: #e67e22;
     .dataButtons {
         justify-content: center;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 0px;
         height: 20px;
+        flex-wrap: wrap;
 
         button {
-            margin: 0 8px 0 8px;
+            margin: 8px;
             width: 180px;
+
+            &.large {
+                width: 240px;
+            }
 
             label {
                 font-size: 16px;
@@ -119,7 +124,7 @@ $dragMode: #e67e22;
     .buttonContainer {
         justify-content: center;
         align-items: center;
-        margin-top: 40px;
+        margin-top: 80px;
         height: 60px;
     }
 }

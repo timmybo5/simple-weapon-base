@@ -12,6 +12,7 @@ namespace SWB_Base
     {
         private Panel healthDisplay;
         private Panel ammoDisplay;
+        private Panel customizationMenu;
 
         private Panel hitmarker;
 
@@ -62,6 +63,27 @@ namespace SWB_Base
             if (healthDisplay != null) healthDisplay.Delete(true);
             if (ammoDisplay != null) ammoDisplay.Delete(true);
             if (hitmarker != null) hitmarker.Delete(true);
+            if (customizationMenu != null) customizationMenu.Delete();
+        }
+
+        public void UISimulate(Client player)
+        {
+            // Cutomization menu
+            if (Input.Pressed(InputButton.Menu) && AttachmentCategories != null)
+            {
+                if (customizationMenu == null)
+                {
+                    customizationMenu = new CustomizationMenu();
+                    customizationMenu.Parent = Local.Hud;
+                }
+                else
+                {
+                    customizationMenu.Delete();
+                    customizationMenu = null;
+                }
+            }
+
+            IsCustomizing = customizationMenu != null;
         }
     }
 }
