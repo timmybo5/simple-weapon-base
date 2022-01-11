@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System.Collections.Generic;
+using Sandbox;
 using SWB_Base;
 
 namespace SWB_WEAPONS
@@ -65,6 +66,42 @@ namespace SWB_WEAPONS
                 Pos = new Vector3(10, -2, 0)
             };
 
+            CustomizeAnimData = new AngPos
+            {
+                Angle = new Angles(-2.25f, 51.84f, 0f),
+                Pos = new Vector3(11.22f, -4.96f, 1.078f)
+            };
+
+            // Attachments //
+            AttachmentCategories = new List<AttachmentCategory>()
+            {
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Muzzle,
+                    BoneOrAttachment = "muzzle",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        new ShotgunSilencer
+                        {
+                            Enabled = false,
+                            MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
+                            ShootSound = "swb_shotgun.silenced.fire",
+                            ViewParentBone = "shotgun",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(0.004f, 3.4f, 36.623f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -90f)),
+                                Scale = 12f
+                            },
+                            WorldParentBone = "shotgun",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(-0.011f, 3.4f, 36.616f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -90f)),
+                                Scale = 12f
+                            },
+                        }
+                    }
+                }
+            };
         }
     }
 }

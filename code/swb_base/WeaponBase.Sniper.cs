@@ -55,6 +55,11 @@ namespace SWB_Base
             {
                 ViewModelEntity.RenderColor = Color.Transparent;
 
+                foreach (var child in ViewModelEntity.Children)
+                {
+                    (child as ModelEntity).RenderColor = Color.Transparent;
+                }
+
                 if (HandsModel != null)
                 {
                     HandsModel.RenderColor = Color.Transparent;
@@ -80,6 +85,11 @@ namespace SWB_Base
             if (IsLocalPawn)
             {
                 ViewModelEntity.RenderColor = Color.White;
+
+                foreach (var child in ViewModelEntity.Children)
+                {
+                    (child as ModelEntity).RenderColor = Color.White;
+                }
 
                 if (HandsModel != null)
                 {

@@ -63,6 +63,20 @@ namespace SWB_Base
         public override string ModelPath => "attachments/swb/muzzle/silencer_rifle/silencer_rifle.vmdl";
     }
 
+    public class SniperSilencer : Silencer
+    {
+        public override string Name => "ATS5 Silencer";
+        public override string IconPath => "attachments/swb/muzzle/silencer_sniper/ui/icon.png";
+        public override string ModelPath => "attachments/swb/muzzle/silencer_sniper/silencer_sniper.vmdl";
+    }
+
+    public class ShotgunSilencer : Silencer
+    {
+        public override string Name => "Salvo 12G Silencer";
+        public override string IconPath => "attachments/swb/muzzle/silencer_shotgun/ui/icon.png";
+        public override string ModelPath => "attachments/swb/muzzle/silencer_shotgun/silencer_shotgun.vmdl";
+    }
+
     public class TestSilencer : PistolSilencer
     {
         public override string Name => "Big Silencer";

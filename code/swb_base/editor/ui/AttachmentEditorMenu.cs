@@ -51,7 +51,7 @@ namespace SWB_Base
             }
 
             // ModelInput
-            ModelInput.Text = "attachments/swb/barrel/silencer_pistol/silencer_pistol.vmdl"; //modelPlaceholder;
+            ModelInput.Text = "attachments/swb/muzzle/silencer_pistol/silencer_pistol.vmdl"; //modelPlaceholder;
             ModelInput.AddEventListener("onmousedown", () =>
             {
                 if (ModelInput.Text == modelPlaceholder)
