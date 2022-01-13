@@ -17,8 +17,11 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Highly configurable
 * Support for custom animations and actions
 
+### Attachment Editor ([Demo](https://www.youtube.com/watch?v=7BgAXlzTlCU))
+The `swb_editor_attachment` command opens an attachment editor that can be used to easily calculate offsets needed for the view and worldmodel.
+
 ### Model Editor ([Demo](https://www.youtube.com/watch?v=OAYmOp3oJOE))
-The `swb_editor` command opens a model editor that can be used to easily calculate offsets needed for running, zooming, and more.
+The `swb_editor_model` command opens a model editor that can be used to easily calculate offsets needed for running, zooming, and more.
 
 ### Built-in Animations
 * Walking
@@ -42,6 +45,13 @@ The `swb_editor` command opens a model editor that can be used to easily calcula
 * Entity (grenades, arrows, props, ...)
 * Melee
 
+### Attachments
+* Customization menu (`q`)
+* Categorized
+* Localization
+* Stat modifiers
+* Easy to add
+
 ### Weapon Models
 * Properly licensed weapon models are included in the base
 * They can be used for any purpose as long as the license is respected (credits.txt)
@@ -51,8 +61,8 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 
 ## Planned Updates
 * More base-included entities (e.g. bomb)
+* More attachments
 * Physical bullets
-* Attachment base
 * Worldmodel clipping shader
 
 ## Deatchmatch Elements
