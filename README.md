@@ -65,7 +65,7 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 * Physical bullets
 * Worldmodel clipping shader
 
-## Deatchmatch Elements
+## Deathmatch Elements
 For now some deathmatch dependencies are included as the base uses the inventory and hud elements from the deathmatch gamemode.
 
 ## Installing
