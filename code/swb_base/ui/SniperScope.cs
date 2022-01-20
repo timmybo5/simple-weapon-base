@@ -26,6 +26,9 @@ namespace SWB_Base
         {
             StyleSheet.Load("/swb_base/ui/SniperScope.scss");
 
+            if (scopeTexture != null)
+                LeftBar = Add.Panel("leftBar");
+
             LensWrapper = Add.Panel("lensWrapper");
             Lens = LensWrapper.Add.Image(lensTexture, "lens");
 
@@ -33,10 +36,9 @@ namespace SWB_Base
             {
                 Scope = LensWrapper.Add.Image(scopeTexture, "scope");
 
-                LeftBar = Add.Panel("leftBar");
                 RightBar = Add.Panel("rightBar");
-                TopBar = Add.Panel("topBar");
-                BottomBar = Add.Panel("bottomBar");
+                //TopBar = Add.Panel("topBar");
+                //BottomBar = Add.Panel("bottomBar");
             }
         }
 
@@ -48,6 +50,12 @@ namespace SWB_Base
             if (player == null) return;
 
             var weapon = player.ActiveChild as WeaponBase;
+
+            // Scope
+            var scopeSize = Screen.Height * ScaleFromScreen;
+            LensWrapper.Style.Width = Length.Pixels(scopeSize);
+            LensWrapper.Style.Height = Length.Pixels(scopeSize);
+            LensWrapper.Style.Dirty();
 
             // Show when zooming
             Style.Opacity = (weapon == null || !weapon.IsScoped) ? 0 : 1;
@@ -79,7 +87,7 @@ namespace SWB_Base
             this.Style.Transform = rotateTransform;
             */
 
-            Style.Dirty();
+            //Style.Dirty();
         }
     }
 }
