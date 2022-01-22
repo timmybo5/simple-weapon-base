@@ -18,6 +18,7 @@ namespace SWB_Base
         Stock,
         Other,
         Special,
+        Tactical,
         None,
     }
 
@@ -123,17 +124,8 @@ namespace SWB_Base
 
         public bool Enabled { get; set; } // Always on if enabled (cannot be disabled through menu)
 
-        public virtual AttachmentModel Equip(WeaponBase weapon, bool createModel = true)
-        {
-            OnEquip(weapon, null);
-            return null;
-        }
-
-        public virtual void Unequip(WeaponBase weapon)
-        {
-            OnUnequip(weapon);
-        }
-
+        public abstract AttachmentModel Equip(WeaponBase weapon, bool createModel = true);
+        public abstract void Unequip(WeaponBase weapon);
         public abstract AttachmentModel CreateModel(WeaponBase weapon);
         public abstract void OnEquip(WeaponBase weapon, AttachmentModel attachmentModel);
         public abstract void OnUnequip(WeaponBase weapon);

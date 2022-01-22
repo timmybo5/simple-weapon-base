@@ -1,12 +1,12 @@
 ﻿/* 
- * Weapon base attachments support
+ * Weapon base attachment model
 */
 
 using Sandbox;
 
 namespace SWB_Base
 {
-    public class AttachmentModel : ModelEntity
+    public class AttachmentModel : AnimEntity
     {
         public AttachmentModel() { }
 

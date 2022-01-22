@@ -1,9 +1,5 @@
-﻿using System;
-using Sandbox;
-
-// Sounds Effects: https://www.soundsnap.com/tags/silencer?filters=K190YWdzJTNBJTI3c2lsZW5jZXIlMjcrQU5EK3B1Ymxpc2hlZCslMjElM0QrMA==&otherfilter=K190YWdzJTNBJTI3c2lsZW5jZXIlMjc=&sorting=1&page=3&maxaudio=-10&minaudio=-100&filteredCategories=&filteredSubCategories=&filteredTags=c2lsZW5jZXI=&filteredLibraries=&audioLengthChanged=false&searchTerm=c2lsZW5jZXI=
-
-namespace SWB_Base
+﻿
+namespace SWB_Base.Attachments
 {
     public class Silencer : OffsetAttachment
     {
