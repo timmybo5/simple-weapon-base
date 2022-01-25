@@ -96,6 +96,25 @@ namespace SWB_WEAPONS
             };
 
             // Attachments //
+            var quadRail = new QuadRail
+            {
+                Enabled = false,
+                ViewParentBone = "sniper",
+                ViewTransform = new Transform
+                {
+                    Position = new Vector3(0f, 3.9f, 25.7f),
+                    Rotation = Rotation.From(new Angles(90.863f, 0f, 0f)),
+                    Scale = 4f
+                },
+                WorldParentBone = "sniper",
+                WorldTransform = new Transform
+                {
+                    Position = new Vector3(0f, 1.3f, 26.5f),
+                    Rotation = Rotation.From(new Angles(90.863f, 0f, 0f)),
+                    Scale = 4f
+                }
+            };
+
             AttachmentCategories = new List<AttachmentCategory>()
             {
                 new AttachmentCategory
@@ -122,6 +141,92 @@ namespace SWB_WEAPONS
                                 Scale = 15f
                             },
                         }
+                    }
+                },
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Tactical,
+                    BoneOrAttachment = "",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        new RifleLaserRed
+                        {
+                            RequiresAttachmentWithName = quadRail.Name,
+                            Color = Color.Red,
+                            ViewParentBone = "sniper",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(1.512f, 4f, 25.073f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, 0f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "sniper",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1.512f, 1.5f, 25.9f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, 0f)),
+                                Scale = 4f
+                            },
+                        },
+                        new RifleLaserBlue
+                        {
+                            RequiresAttachmentWithName = quadRail.Name,
+                            Color = Color.Blue,
+                            ViewParentBone = "sniper",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(1.512f, 4f, 25.073f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, 0f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "sniper",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1.512f, 1.5f, 25.9f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, 0f)),
+                                Scale = 4f
+                            },
+                        },
+                        new RifleLaserGreen
+                        {
+                            RequiresAttachmentWithName = quadRail.Name,
+                            Color = Color.Green,
+                            ViewParentBone = "sniper",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(1.512f, 4f, 25.073f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, 0f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "sniper",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1.512f, 1.5f, 25.9f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, 0f)),
+                                Scale = 4f
+                            },
+                        },
+                        new RifleLaserRainbow
+                        {
+                            RequiresAttachmentWithName = quadRail.Name,
+                            RainbowColor = true,
+                            ViewParentBone = "sniper",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(1.512f, 4f, 25.073f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, 0f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "sniper",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1.512f, 1.5f, 25.9f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, 0f)),
+                                Scale = 4f
+                            },
+                        },
+                    }
+                },
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Rail,
+                    Selectable = false,
+                    BoneOrAttachment = "",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        quadRail
                     }
                 }
             };

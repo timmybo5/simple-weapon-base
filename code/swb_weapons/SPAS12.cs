@@ -101,6 +101,78 @@ namespace SWB_WEAPONS
                             },
                         }
                     }
+                },
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Tactical,
+                    BoneOrAttachment = "",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        new SmallLaserRed
+                        {
+                            Color = Color.Red,
+                            ViewParentBone = "shotgun",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(0f, 1.5f, 31.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 180f)),
+                                Scale = 5.269f
+                            },
+                            WorldParentBone = "shotgun",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(0f, 1.5f, 31.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 180f)),
+                                Scale = 5.269f
+                            },
+                        },
+                        new SmallLaserBlue
+                        {
+                            Color = Color.Blue,
+                            ViewParentBone = "shotgun",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(0f, 1.5f, 31.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 180f)),
+                                Scale = 5.269f
+                            },
+                            WorldParentBone = "shotgun",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(0f, 1.5f, 31.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 180f)),
+                                Scale = 5.269f
+                            },
+                        },
+                        new SmallLaserGreen
+                        {
+                            Color = Color.Green,
+                            ViewParentBone = "shotgun",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(0f, 1.5f, 31.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 180f)),
+                                Scale = 5.269f
+                            },
+                            WorldParentBone = "shotgun",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(0f, 1.5f, 31.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 180f)),
+                                Scale = 5.269f
+                            },
+                        },
+                        new SmallLaserRainbow
+                        {
+                            RainbowColor = true,
+                            ViewParentBone = "shotgun",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(0f, 1.5f, 31.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 180f)),
+                                Scale = 5.269f
+                            },
+                            WorldParentBone = "shotgun",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(0f, 1.5f, 31.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, 180f)),
+                                Scale = 5.269f
+                            },
+                        },
+                    }
                 }
             };
         }

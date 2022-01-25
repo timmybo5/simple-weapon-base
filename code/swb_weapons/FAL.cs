@@ -108,6 +108,78 @@ namespace SWB_WEAPONS
                             },
                         }
                     }
+                },
+               new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Tactical,
+                    BoneOrAttachment = "",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        new RifleLaserRed
+                        {
+                            Color = Color.Red,
+                            ViewParentBone = "fal",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(1.479f, 4.4f, 22.182f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -10f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "fal",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1.688f, 2.6f, 23.241f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -10f)),
+                                Scale = 4f
+                            },
+                        },
+                        new RifleLaserBlue
+                        {
+                            Color = Color.Blue,
+                            ViewParentBone = "fal",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(1.479f, 4.4f, 22.182f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -10f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "fal",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1.688f, 2.6f, 23.241f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -10f)),
+                                Scale = 4f
+                            },
+                        },
+                        new RifleLaserGreen
+                        {
+                            Color = Color.Green,
+                            ViewParentBone = "fal",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(1.479f, 4.4f, 22.182f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -10f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "fal",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1.688f, 2.6f, 23.241f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -10f)),
+                                Scale = 4f
+                            },
+                        },
+                        new RifleLaserRainbow
+                        {
+                            RainbowColor = true,
+                            ViewParentBone = "fal",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(1.479f, 4.4f, 22.182f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -10f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "fal",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1.688f, 2.6f, 23.241f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -10f)),
+                                Scale = 4f
+                            },
+                        },
+                    }
                 }
             };
         }

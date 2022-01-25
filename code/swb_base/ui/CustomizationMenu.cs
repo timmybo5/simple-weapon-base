@@ -55,7 +55,7 @@ namespace SWB_Base
             foreach (var cat in activeWeapon.AttachmentCategories)
             {
                 // Do not list empty categories
-                if (cat.Attachments == null || cat.Attachments.Count == 0)
+                if (cat.Attachments == null || cat.Attachments.Count == 0 || !cat.Selectable)
                 {
                     continue;
                 }

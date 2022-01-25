@@ -13,6 +13,7 @@ namespace SWB_Base
         Barrel,
         Sight,
         Grip,
+        Rail,
         Magazine,
         Muzzle,
         Stock,
@@ -25,6 +26,8 @@ namespace SWB_Base
     public class AttachmentCategory : IComparable<AttachmentCategory>
     {
         public AttachmentCategoryName Name { get; set; }
+
+        public bool Selectable { get; set; } = true; // Can attachments in this category be equipped from the menu
 
         public string BoneOrAttachment { get; set; } // Equip menu will point to this bone or attachment
 
@@ -122,6 +125,7 @@ namespace SWB_Base
         public virtual string EffectAttachment => ""; // New effect point if used
         public virtual StatModifier StatModifier => null;
 
+        public string RequiresAttachmentWithName { get; set; } // Depends on another attachment (e.g. rail/mount)
         public bool Enabled { get; set; } // Always on if enabled (cannot be disabled through menu)
 
         public abstract AttachmentModel Equip(WeaponBase weapon, bool createModel = true);

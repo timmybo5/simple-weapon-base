@@ -38,11 +38,6 @@
 	m_Operators = 
 	[
 		{
-			_class = "C_OP_FadeInSimple"
-			m_flFadeInTime = 1.0
-			m_bDisableOperator = true
-		},
-		{
 			_class = "C_OP_MaintainSequentialPath"
 			m_fMaxDistance = 100.0
 			m_flNumToAssign = 10.0
@@ -163,6 +158,11 @@
 			_class = "C_OP_SetCPtoVector"
 			m_nCPInput = 3
 			m_nFieldOutput = "6"
+		},
+		{
+			_class = "C_OP_FadeInSimple"
+			m_flFadeInTime = 1.0
+			m_nFieldOutput = "16"
 		},
 		{
 			_class = "C_OP_SetFloat"

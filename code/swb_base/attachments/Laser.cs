@@ -48,7 +48,6 @@ namespace SWB_Base.Attachments
         private void CreateParticle()
         {
             DestroyParticle();
-
             laserParticle = Particles.Create(Particle);
             laserParticle.SetPosition(3, Color);
         }
@@ -142,13 +141,22 @@ namespace SWB_Base.Attachments
                     laserParticle.SetPosition(3, ColorUtil.HSL2RGB(rainbowI, 0.5, 0.5));
                 }
 
-                laserParticle.EnableDrawing = !weapon.ShouldTuck();
+                var isScoping = false;
+
+                if (weapon is WeaponBaseSniper sniper)
+                {
+                    isScoping = sniper.IsScoped;
+                }
+
+                laserParticle.EnableDrawing = !weapon.ShouldTuck() && !isScoping;
+                var rangeMultiplier = 1;
 
                 // Firstperson & Thirdperson
                 if (Local.Pawn == weapon.Owner && weapon.IsFirstPersonMode)
                 {
                     if (activeAttach.ViewAttachmentModel == null || !activeAttach.ViewAttachmentModel.IsValid) return;
                     laserAttach = activeAttach.ViewAttachmentModel.GetAttachment(EffectAttachment);
+                    rangeMultiplier = 2;
                 }
                 else
                 {
@@ -164,13 +172,17 @@ namespace SWB_Base.Attachments
                 var owner = weapon.Owner;
                 if (weapon.Owner == null) return;
 
-                var tr = Trace.Ray(owner.EyePos, laserStartPos + laserTrans.Rotation.Forward * Range)
-                                .Size(1.0f)
+                var tr = Trace.Ray(laserStartPos, laserStartPos + laserTrans.Rotation.Forward * Range * rangeMultiplier)
+                                .Size(0.1f)
                                 .Ignore(owner)
                                 .UseHitboxes()
                                 .Run();
 
                 laserParticle.SetPosition(1, tr.EndPos);
+
+                //DebugOverlay.Line(laserStartPos, tr.EndPos, 0, false);
+                //LogUtil.Info(laserTrans.Rotation);
+                //LogUtil.Info(laserTrans.Rotation.Forward);
             }
         }
     }
@@ -201,5 +213,35 @@ namespace SWB_Base.Attachments
     {
         public override string Name => "CMR-207 Laser (rainbow)";
         public override string IconPath => "attachments/swb/tactical/laser_small/ui/icon_rainbow.png";
+    }
+
+    public class RifleLaser : Laser
+    {
+        public override string Name => "PEQ-15 Laser";
+        public override string IconPath => "attachments/swb/tactical/laser_rifle/ui/icon.png";
+        public override string ModelPath => "attachments/swb/tactical/laser_rifle/w_laser_rifle.vmdl";
+    }
+
+    public class RifleLaserRed : RifleLaser
+    {
+        public override string Name => "PEQ-15 Laser (red)";
+        public override string IconPath => "attachments/swb/tactical/laser_rifle/ui/icon_red.png";
+    }
+    public class RifleLaserBlue : RifleLaser
+    {
+        public override string Name => "PEQ-15 Laser (blue)";
+        public override string IconPath => "attachments/swb/tactical/laser_rifle/ui/icon_blue.png";
+    }
+
+    public class RifleLaserGreen : RifleLaser
+    {
+        public override string Name => "PEQ-15 Laser (green)";
+        public override string IconPath => "attachments/swb/tactical/laser_rifle/ui/icon_green.png";
+    }
+
+    public class RifleLaserRainbow : RifleLaser
+    {
+        public override string Name => "PEQ-15 Laser (rainbow)";
+        public override string IconPath => "attachments/swb/tactical/laser_rifle/ui/icon_rainbow.png";
     }
 }
