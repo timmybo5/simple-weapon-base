@@ -33,9 +33,6 @@ namespace SWB_Base
             IsReloading = false;
             InstanceID++;
 
-            // Attachments
-            HandleAttachments(true);
-
             // Draw animation
             if (IsLocalPawn)
             {
@@ -77,6 +74,9 @@ namespace SWB_Base
                     RPM = Primary.RPM,
                 };
             }
+
+            // Attachments
+            HandleAttachments(true);
         }
 
         public override void ActiveEnd(Entity ent, bool dropped)
