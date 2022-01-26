@@ -80,7 +80,7 @@ namespace SWB_Base
 
                 if (hasClipSize)
                 {
-                    if (weapon.Primary.InfiniteAmmo == InfiniteAmmoType.normal)
+                    if (weapon.Primary.InfiniteAmmo == 0)
                     {
                         reserveLabel.SetText("|" + reserveAmmo);
                         reserveLabel.Style.FontColor = reserveAmmo == 0 ? emptyColor : reserveColor;

@@ -34,8 +34,7 @@
 
         public static AngPos operator -(AngPos x)
         {
-            var negAngle = new Angles(-x.Angle.pitch, -x.Angle.yaw, -x.Angle.roll);
-            return new AngPos(negAngle, -x.Pos);
+            return new AngPos(x.Angle * -1, -x.Pos);
         }
 
         public static bool operator ==(AngPos x, AngPos y)

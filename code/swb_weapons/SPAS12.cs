@@ -84,7 +84,6 @@ namespace SWB_WEAPONS
                     {
                         new ShotgunSilencer
                         {
-                            Enabled = false,
                             MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
                             ShootSound = "swb_shotgun.silenced.fire",
                             ViewParentBone = "shotgun",

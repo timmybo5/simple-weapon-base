@@ -23,12 +23,16 @@ namespace SWB_Base.Attachments
 
         public override string EffectAttachment => "laser_start"; // Laser start point
 
+        /// <summary>Laser particle</summary>
         public string Particle { get; set; } = "particles/swb/laser/laser_small.vpcf";
 
-        //public Color[] Colors { get; set; } = { Color.Green };
-
+        /// <summary>Laser color</summary>
         public Color Color { get; set; } = Color.Red;
+
+        /// <summary>Laser length</summary>
         public int Range { get; set; } = 35;
+
+        /// <summary>Rainbow color override</summary>
         public bool RainbowColor { get; set; }
 
         private Particles laserParticle;

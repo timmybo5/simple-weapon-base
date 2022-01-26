@@ -23,7 +23,10 @@ namespace SWB_Base.Attachments
 
         public override string EffectAttachment => "muzzle2"; // New muzzle flash effect point
 
+        /// <summary>New particle used for the muzzle flash</summary>
         public string MuzzleFlashParticle { get; set; }
+
+        /// <summary>New sound used for firing</summary>
         public string ShootSound { get; set; }
 
         private string oldMuzzleFlashParticle;

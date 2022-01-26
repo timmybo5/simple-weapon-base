@@ -4,18 +4,34 @@ namespace SWB_Base
 {
     public class UISettings
     {
-        public bool ShowHealthIcon { get; set; } = true; // Show health icon
-        public bool ShowHealthCount { get; set; } = true; // Show health counter
+        /// <summary>Show health icon</summary>
+        public bool ShowHealthIcon { get; set; } = true;
 
-        public bool ShowAmmoCount { get; set; } = true; // Show ammo counter
-        public bool ShowFireMode { get; set; } = true; // Show active fire mode icon (semi/auto)
-        public bool ShowWeaponIcon { get; set; } = true; // Show weapon icon
+        /// <summary>Show health counter</summary>
+        public bool ShowHealthCount { get; set; } = true;
 
-        public bool ShowCrosshair { get; set; } = true; // Show crosshair
-        public bool ShowCrosshairDot { get; set; } = true; // Show crosshair dot
-        public bool ShowCrosshairLines { get; set; } = true; // Show crosshair lines
+        /// <summary>Show ammo counter</summary>
+        public bool ShowAmmoCount { get; set; } = true;
 
-        public bool ShowHitmarker { get; set; } = true; // Show hitmarker
-        public bool PlayHitmarkerSound { get; set; } = true; // Play the hitmarker sound
+        /// <summary>Show active fire mode icon (semi/auto)</summary>
+        public bool ShowFireMode { get; set; } = true;
+
+        /// <summary>Show weapon icon</summary>
+        public bool ShowWeaponIcon { get; set; } = true;
+
+        /// <summary>Show crosshair</summary>
+        public bool ShowCrosshair { get; set; } = true;
+
+        /// <summary>Show crosshair dot</summary>
+        public bool ShowCrosshairDot { get; set; } = true;
+
+        /// <summary>Show crosshair lines</summary>
+        public bool ShowCrosshairLines { get; set; } = true;
+
+        /// <summary>Show hitmarker</summary>
+        public bool ShowHitmarker { get; set; } = true;
+
+        /// <summary>Play the hitmarker sound</summary>
+        public bool PlayHitmarkerSound { get; set; } = true;
     }
 }

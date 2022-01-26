@@ -21,9 +21,10 @@ namespace SWB_Base
 
     public enum InfiniteAmmoType
     {
-        normal,
-        clip,
-        reserve
+        /// <summary>Infinite clip ammo, no need to reload</summary>
+        clip = 1,
+        /// <summary>Infinite reserve ammo, can always reload</summary>
+        reserve = 2
     }
 
     partial class PlayerBase
