@@ -11,6 +11,13 @@ namespace SWB_Base
 {
     public partial class WeaponBase
     {
+        /// <summary>
+        /// Checks if the weapon can do the provided attack
+        /// </summary>
+        /// <param name="clipInfo">Attack information</param>
+        /// <param name="lastAttackTime">Time since this attack</param>
+        /// <param name="inputButton">The input button for this attack</param>
+        /// <returns></returns>
         public virtual bool CanAttack(ClipInfo clipInfo, TimeSince lastAttackTime, InputButton inputButton)
         {
             if (IsAnimating || InBoltBack) return false;
@@ -34,16 +41,27 @@ namespace SWB_Base
             return lastAttackTime > GetRealRPM(clipInfo.RPM);
         }
 
+        /// <summary>
+        /// Checks if weapon can do the primary attack
+        /// </summary>
         public virtual bool CanPrimaryAttack()
         {
             return CanAttack(Primary, TimeSincePrimaryAttack, InputButton.Attack1);
         }
 
+        /// <summary>
+        /// Checks if weapon can do the secondary attack
+        /// </summary>
         public virtual bool CanSecondaryAttack()
         {
             return CanAttack(Secondary, TimeSinceSecondaryAttack, InputButton.Attack2);
         }
 
+        /// <summary>
+        /// Shoot the weapon
+        /// </summary>
+        /// <param name="clipInfo">Attack information</param>
+        /// <param name="isPrimary">If this is the primary attack</param>
         public virtual void Attack(ClipInfo clipInfo, bool isPrimary)
         {
             if (IsRunning || ShouldTuck()) return;
@@ -92,7 +110,7 @@ namespace SWB_Base
             if (IsLocalPawn)
                 ScreenUtil.Shake(clipInfo.ScreenShake);
 
-            ShootEffects(clipInfo.MuzzleFlashParticle, bulletEjectParticle, clipInfo.ShootAnim);
+            ShootEffects(clipInfo.MuzzleFlashParticle, bulletEjectParticle, GetShootAnimation(clipInfo));
 
             // Barrel smoke
             if (IsServer && BarrelSmoking)
@@ -131,6 +149,12 @@ namespace SWB_Base
             doRecoil = true;
         }
 
+        /// <summary>
+        /// Shoot the weapon with a delay
+        /// </summary>
+        /// <param name="clipInfo">Attack information</param>
+        /// <param name="isPrimary">If this is the primary attack</param>
+        /// <param name="delay">Bullet firing delay</param>
         async Task AsyncAttack(ClipInfo clipInfo, bool isPrimary, float delay)
         {
             if (AvailableAmmo() <= 0) return;
@@ -142,7 +166,7 @@ namespace SWB_Base
             (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
             // Play pre-fire animation
-            ShootEffects(null, null, clipInfo.ShootAnim);
+            ShootEffects(null, null, GetShootAnimation(clipInfo));
 
             var owner = Owner as PlayerBase;
             if (owner == null) return;
@@ -181,6 +205,9 @@ namespace SWB_Base
             _ = AsyncAttack(Primary, isPrimary, PrimaryDelay);
         }
 
+        /// <summary>
+        /// Do the primary attack
+        /// </summary>
         public virtual void AttackPrimary()
         {
             if (PrimaryDelay > 0)
@@ -193,6 +220,9 @@ namespace SWB_Base
             }
         }
 
+        /// <summary>
+        /// Do the secondary attack
+        /// </summary>
         public virtual void AttackSecondary()
         {
             if (Secondary != null)
@@ -232,7 +262,9 @@ namespace SWB_Base
             //
         }
 
-        /// Shoot a single bullet (server)
+        /// <summary>
+        /// Shoot a single bullet (server only)
+        /// </summary>
         public virtual void ShootBullet(float spread, float force, float damage, float bulletSize)
         {
             // Spread
@@ -263,6 +295,9 @@ namespace SWB_Base
             }
         }
 
+        /// <summary>
+        /// Shoot a single bullet (client only)
+        /// </summary>
         [ClientRpc]
         public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, float radius = 2.0f)
         {
@@ -283,6 +318,9 @@ namespace SWB_Base
             }
         }
 
+        /// <summary>
+        /// Plays the bolt back animation
+        /// </summary>
         async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackTime, float boltBackEjectDelay, string bulletEjectParticle, bool force = false)
         {
             var activeWeapon = Owner.ActiveChild;
@@ -305,6 +343,9 @@ namespace SWB_Base
             InBoltBack = false;
         }
 
+        /// <summary>
+        /// Gets the data on where to show the muzzle effect
+        /// </summary>
         public virtual (ModelEntity, string) GetMuzzleEffectData(ModelEntity effectEntity)
         {
             var activeAttachment = GetActiveAttachmentFromCategory(AttachmentCategoryName.Muzzle);
@@ -328,6 +369,9 @@ namespace SWB_Base
             return (effectEntity, particleAttachment);
         }
 
+        /// <summary>
+        /// Shows shooting effects
+        /// </summary>
         [ClientRpc]
         protected virtual void ShootEffects(string muzzleFlashParticle, string bulletEjectParticle, string shootAnim)
         {
@@ -353,6 +397,9 @@ namespace SWB_Base
             }
         }
 
+        /// <summary>
+        /// Shows tracer effects
+        /// </summary>
         protected virtual void TracerEffects(string tracerParticle, Vector3 endPos)
         {
             ModelEntity firingViewModel = GetEffectModel();
@@ -367,6 +414,9 @@ namespace SWB_Base
             tracer.SetPosition(2, endPos);
         }
 
+        /// <summary>
+        /// Plays the dry fire sound
+        /// </summary>
         [ClientRpc]
         public virtual void DryFire(string dryFireSound)
         {

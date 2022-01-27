@@ -103,7 +103,7 @@ namespace SWB_Base
 
         public override void Attack(ClipInfo clipInfo, bool isPrimary)
         {
-            if ((IsRunning && RunAnimData != null) || ShouldTuck()) return;
+            if ((IsRunning && RunAnimData != AngPos.Zero) || ShouldTuck()) return;
 
             TimeSincePrimaryAttack = 0;
             TimeSinceSecondaryAttack = 0;
@@ -121,7 +121,7 @@ namespace SWB_Base
             if (IsLocalPawn)
                 ScreenUtil.Shake(clipInfo.ScreenShake);
 
-            ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, clipInfo.ShootAnim);
+            ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, GetShootAnimation(clipInfo));
 
             if (!string.IsNullOrEmpty(clipInfo.ShootSound))
                 PlaySound(clipInfo.ShootSound);
@@ -146,7 +146,7 @@ namespace SWB_Base
             (Owner as AnimEntity).SetAnimBool("b_attack", true);
 
             // Play pre-fire animation
-            ShootEffects(null, null, clipInfo.ShootAnim);
+            ShootEffects(null, null, GetShootAnimation(clipInfo));
 
             var owner = Owner as PlayerBase;
             if (owner == null) return;

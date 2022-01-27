@@ -70,6 +70,10 @@ namespace SWB_Base
         [Net]
         public string ShootAnim { get; set; } = "fire";
 
+        /// <summary>Animation used for shooting while zoooming</summary>
+        [Net]
+        public string ShootZoomedAnim { get; set; }
+
         /// <summary>Firing sound when clip is empty</summary>
         [Net]
         public string DryFireSound { get; set; }

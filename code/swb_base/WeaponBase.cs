@@ -308,6 +308,25 @@ namespace SWB_Base
             return effectModel;
         }
 
+        /// <summary>
+        /// Gets the correct shoot animation
+        /// </summary>
+        /// <param name="clipInfo">Info used for the current attack</param>
+        /// <returns></returns>
+        public virtual string GetShootAnimation(ClipInfo clipInfo)
+        {
+            if (IsZooming && (!string.IsNullOrEmpty(clipInfo.ShootZoomedAnim)))
+            {
+                return clipInfo.ShootZoomedAnim;
+            }
+            else if (!string.IsNullOrEmpty(clipInfo.ShootAnim))
+            {
+                return clipInfo.ShootAnim;
+            }
+
+            return null;
+        }
+
         // Pass the active child from before the delay
         protected bool IsAsyncValid(Entity activeChild, int instanceID)
         {
