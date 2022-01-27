@@ -107,8 +107,11 @@ namespace SWB_Base
 
             if (CanPrimaryAttack())
             {
-                TimeSincePrimaryAttack = 0;
-                AttackPrimary();
+                using (LagCompensation())
+                {
+                    TimeSincePrimaryAttack = 0;
+                    AttackPrimary();
+                }
             }
 
             // AttackPrimary could have deleted us
@@ -117,8 +120,11 @@ namespace SWB_Base
 
             if (CanSecondaryAttack())
             {
-                TimeSinceSecondaryAttack = 0;
-                AttackSecondary();
+                using (LagCompensation())
+                {
+                    TimeSinceSecondaryAttack = 0;
+                    AttackSecondary();
+                }
             }
         }
 
