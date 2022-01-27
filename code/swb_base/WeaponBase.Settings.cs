@@ -16,6 +16,9 @@ namespace SWB_Base
         [ConVar.Replicated("swb_sv_autoreload", Help = "Reload weapons automatically when shooting if empty", Saved = true)]
         public static int AutoReloadSV { get; set; } = 0;
 
+        [ConVar.Replicated("swb_sv_customization", Help = "Enable the customization menu (Q)", Saved = true)]
+        public static int EnableCustomizationSV { get; set; } = 1;
+
         // Client
         [ConVar.ClientData("swb_cl_showhud", Help = "Enable HUD", Saved = true)]
         public static int ShowHudCL { get; set; } = 1;
