@@ -14,6 +14,7 @@ partial class ExamplePlayer : PlayerBase
         Inventory.Add(new SWB_WEAPONS.Bayonet());
         Inventory.Add(new SWB_WEAPONS.DEAGLE());
         Inventory.Add(new SWB_WEAPONS.SPAS12());
+		Inventory.Add(new SWB_WEAPONS.UMP45());
         Inventory.Add(new SWB_WEAPONS.FAL());
         Inventory.Add(new SWB_WEAPONS.L96A1());
 
