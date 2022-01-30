@@ -34,7 +34,7 @@ namespace SWB_WEAPONS
                 ClipSize = 25,
 
                 BulletSize = 4f,
-                Damage = 20f,
+                Damage = 15f,
                 Force = 3f,
                 Spread = 0.08f,
                 Recoil = 0.35f,
@@ -76,8 +76,56 @@ namespace SWB_WEAPONS
             };
 
             // Attachments //
+            var singleRail = new SingleRail
+            {
+                ViewParentBone = "smg45",
+                ViewTransform = new Transform
+                {
+                    Position = new Vector3(0f, 13.8f, 3.6f),
+                    Rotation = Rotation.From(new Angles(90f, 0f, 90f)),
+                    Scale = 6f
+                },
+                WorldParentBone = "smg45",
+                WorldTransform = new Transform
+                {
+                    Position = new Vector3(0.004f, 6.1f, 1.7f),
+                    Rotation = Rotation.From(new Angles(90f, 0f, 90f)),
+                    Scale = 2f
+                },
+            };
+
             AttachmentCategories = new List<AttachmentCategory>()
             {
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Sight,
+                    BoneOrAttachment = "muzzle",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        new ReflexSight
+                        {
+                            ZoomAnimData = new AngPos { 
+                                Angle = new Angles(0f, 0f, 0f), 
+                                Pos = new Vector3(-9.973f, -8.12f, 2.197f) 
+                            },
+                            RequiresAttachmentWithName = singleRail.Name,
+                            ViewParentBone = "smg45",
+                            ViewTransform = new Transform
+                            {
+                                Position = new Vector3(0f, 16f, 4f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -90f)),
+                                Scale = 11f
+                            },
+                            WorldParentBone = "smg45",
+                            WorldTransform = new Transform
+                            {
+                                Position = new Vector3(0f, 6.8f, 1.5f),
+                                Rotation = Rotation.From(new Angles(90f, 0f, -90f)),
+                                Scale = 4f
+                            },
+                        }
+    }
+},
                 new AttachmentCategory
                 {
                     Name = AttachmentCategoryName.Muzzle,
@@ -104,7 +152,7 @@ namespace SWB_WEAPONS
                         }
                     }
                 },
-               new AttachmentCategory
+                new AttachmentCategory
                 {
                     Name = AttachmentCategoryName.Tactical,
                     BoneOrAttachment = "",
@@ -174,6 +222,16 @@ namespace SWB_WEAPONS
                                 Scale = 3f
                             },
                         },
+                    }
+                },
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Rail,
+                    Selectable = false,
+                    BoneOrAttachment = "",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        singleRail
                     }
                 }
             };

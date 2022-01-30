@@ -29,7 +29,14 @@ namespace SWB_Base.Attachments
     public class QuadRail : Rail
     {
         public override string Name => "UTG Quad-Rail";
-        public override string IconPath => "attachments/swb/rail/rail_barrel/ui/icon.png";
-        public override string ModelPath => "attachments/swb/rail/rail_barrel/w_rail_barrel.vmdl";
+        public override string IconPath => "attachments/swb/rail/rail_quad/ui/icon.png";
+        public override string ModelPath => "attachments/swb/rail/rail_quad/w_rail_quad.vmdl";
+    }
+
+    public class SingleRail : Rail
+    {
+        public override string Name => "UTG Single-Rail";
+        public override string IconPath => "attachments/swb/rail/rail_single/ui/icon.png";
+        public override string ModelPath => "attachments/swb/rail/rail_single/w_rail_single.vmdl";
     }
 }
