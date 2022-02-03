@@ -104,9 +104,9 @@ namespace SWB_WEAPONS
                     {
                         new ReflexSight
                         {
-                            ZoomAnimData = new AngPos { 
-                                Angle = new Angles(0f, 0f, 0f), 
-                                Pos = new Vector3(-9.973f, -8.12f, 2.197f) 
+                            ZoomAnimData = new AngPos {
+                                Angle = new Angles(0f, 0f, 0f),
+                                Pos = new Vector3(-9.973f, -8.12f, 2.197f)
                             },
                             RequiresAttachmentWithName = singleRail.Name,
                             ViewParentBone = "smg45",

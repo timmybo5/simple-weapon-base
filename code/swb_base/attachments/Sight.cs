@@ -20,13 +20,17 @@ namespace SWB_Base.Attachments
         };
 
         public AngPos ZoomAnimData; // New sight zoom offset
+        private AngPos oldZoomAnimData;
 
         public override void OnEquip(WeaponBase weapon, AttachmentModel attachmentModel)
         {
+            oldZoomAnimData = weapon.ZoomAnimData;
+            weapon.ZoomAnimData = ZoomAnimData;
         }
 
         public override void OnUnequip(WeaponBase weapon)
         {
+            weapon.ZoomAnimData = oldZoomAnimData;
         }
     }
 

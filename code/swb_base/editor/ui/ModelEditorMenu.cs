@@ -3,6 +3,7 @@ using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB_Base;
+using SWB_Base.Attachments;
 
 namespace SWB_Base
 {
@@ -27,6 +28,7 @@ namespace SWB_Base
         public float Sensitivity { get; set; } = 0f;
 
         public Label DragModeLabel { get; set; }
+        public Button AttachmentAnimDataButton { get; set; }
 
         private DragMode dragMode = DragMode.pos;
 
@@ -36,12 +38,33 @@ namespace SWB_Base
         private float zOrigin;
         private float pitchOrigin;
         private float yawOrigin;
+        private AngPos sightAttachmentAnimData;
 
         private WeaponBase activeWeapon;
 
         public ModelEditorMenu()
         {
             DragModeLabel.Text = "x/z";
+
+            // Get data from active sight attachment
+            var showButton = false;
+            var player = Local.Pawn as PlayerBase;
+            var weapon = player.ActiveChild as WeaponBase;
+            var activeAttach = weapon.GetActiveAttachmentFromCategory(AttachmentCategoryName.Sight);
+
+            if (activeAttach != null)
+            {
+                var attach = weapon.GetAttachment(activeAttach.Name);
+                if (attach is Sight sight)
+                {
+                    showButton = true;
+                    AttachmentAnimDataButton.Text = sight.Name;
+                    sightAttachmentAnimData = sight.ZoomAnimData;
+                }
+            }
+
+            if (!showButton && AttachmentAnimDataButton != null)
+                AttachmentAnimDataButton.Delete();
         }
 
         public virtual void OnReset()
@@ -79,6 +102,11 @@ namespace SWB_Base
         public void SetCustomizeAnimData()
         {
             SetFromAngPos(activeWeapon.CustomizeAnimData);
+        }
+
+        public void SetSightAttachmentAnimData()
+        {
+            SetFromAngPos(sightAttachmentAnimData);
         }
 
         private void SetFromAngPos(AngPos angPos)

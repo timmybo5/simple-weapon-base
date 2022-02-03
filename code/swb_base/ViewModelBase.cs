@@ -171,27 +171,11 @@ namespace SWB_Base
 
         private void HandleIronAnimation(ref CameraSetup camSetup)
         {
-            if (!weapon.IsZooming) return;
-
-            var zoomAnimData = weapon.ZoomAnimData;
-
-            // Check active sight attachment
-            var activeAttach = weapon.GetActiveAttachmentFromCategory(AttachmentCategoryName.Sight);
-
-            if (activeAttach != null)
-            {
-                var attach = weapon.GetAttachment(activeAttach.Name);
-                if (attach is Sight sight && sight.ZoomAnimData != AngPos.Zero)
-                {
-                    zoomAnimData = sight.ZoomAnimData;
-                }
-            }
-
-            if (zoomAnimData != AngPos.Zero)
+            if (weapon.IsZooming && weapon.ZoomAnimData != AngPos.Zero)
             {
                 animSpeed = 10 * weapon.WalkAnimationSpeedMod;
-                TargetVectorPos += zoomAnimData.Pos;
-                TargetVectorRot += MathUtil.ToVector3(zoomAnimData.Angle);
+                TargetVectorPos += weapon.ZoomAnimData.Pos;
+                TargetVectorRot += MathUtil.ToVector3(weapon.ZoomAnimData.Angle);
                 TargetFOV = weapon.ZoomFOV;
             }
         }
