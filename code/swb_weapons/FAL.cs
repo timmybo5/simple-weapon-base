@@ -227,7 +227,7 @@ namespace SWB_WEAPONS
                 new AttachmentCategory
                 {
                     Name = AttachmentCategoryName.Rail,
-                    Selectable = true,
+                    Selectable = false,
                     BoneOrAttachment = "",
                     Attachments = new List<AttachmentBase>()
                     {
