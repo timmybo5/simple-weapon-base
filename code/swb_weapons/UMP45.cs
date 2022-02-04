@@ -81,14 +81,14 @@ namespace SWB_WEAPONS
                 ViewParentBone = "smg45",
                 ViewTransform = new Transform
                 {
-                    Position = new Vector3(0f, 13.8f, 3.6f),
+                    Position = new Vector3(0f, 13.6f, 7f),
                     Rotation = Rotation.From(new Angles(90f, 0f, 90f)),
-                    Scale = 6f
+                    Scale = 5f
                 },
                 WorldParentBone = "smg45",
                 WorldTransform = new Transform
                 {
-                    Position = new Vector3(0.004f, 6.1f, 1.7f),
+                    Position = new Vector3(0f, 6.1f, 2.4f),
                     Rotation = Rotation.From(new Angles(90f, 0f, 90f)),
                     Scale = 2f
                 },
@@ -110,22 +110,20 @@ namespace SWB_WEAPONS
                             },
                             RequiresAttachmentWithName = singleRail.Name,
                             ViewParentBone = "smg45",
-                            ViewTransform = new Transform
-                            {
-                                Position = new Vector3(0f, 16f, 4f),
-                                Rotation = Rotation.From(new Angles(90f, 0f, -90f)),
+                            ViewTransform = new Transform {
+                                Position = new Vector3(0f, 16f, 4.2f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
                                 Scale = 11f
                             },
                             WorldParentBone = "smg45",
-                            WorldTransform = new Transform
-                            {
-                                Position = new Vector3(0f, 6.8f, 1.5f),
-                                Rotation = Rotation.From(new Angles(90f, 0f, -90f)),
+                            WorldTransform = new Transform {
+                                Position = new Vector3(0.004f, 7f, 1.725f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
                                 Scale = 4f
                             },
                         }
-    }
-},
+                    }
+                },
                 new AttachmentCategory
                 {
                     Name = AttachmentCategoryName.Muzzle,

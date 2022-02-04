@@ -39,4 +39,12 @@ namespace SWB_Base.Attachments
         public override string IconPath => "attachments/swb/rail/rail_single/ui/icon.png";
         public override string ModelPath => "attachments/swb/rail/rail_single/w_rail_single.vmdl";
     }
+
+
+    public class SideTopRail : Rail
+    {
+        public override string Name => "Leapers UTG";
+        public override string IconPath => "attachments/swb/rail/side_rail_top/ui/icon.png";
+        public override string ModelPath => "attachments/swb/rail/side_rail_top/w_side_rail_top.vmdl";
+    }
 }

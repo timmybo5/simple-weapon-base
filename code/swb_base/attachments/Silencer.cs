@@ -75,30 +75,4 @@ namespace SWB_Base.Attachments
         public override string IconPath => "attachments/swb/muzzle/silencer_shotgun/ui/icon.png";
         public override string ModelPath => "attachments/swb/muzzle/silencer_shotgun/silencer_shotgun.vmdl";
     }
-
-    public class TestSilencer : PistolSilencer
-    {
-        public override string Name => "Big Silencer";
-        public override string Description => "This shit is OP AF, do NOT equip!!";
-
-        public override StatModifier StatModifier => new StatModifier
-        {
-            Damage = 0.1f,
-            Spread = -0.1f,
-        };
-
-        public override string[] Positives => new string[]
-        {
-        };
-
-        public override string[] Negatives => new string[]
-        {
-            "Good luck aiming with this monstrosity",
-        };
-    }
-
-    public class TempSilencer : PistolSilencer
-    {
-        public override string Name => "Temp Silencer";
-    }
 }

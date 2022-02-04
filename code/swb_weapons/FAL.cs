@@ -81,8 +81,51 @@ namespace SWB_WEAPONS
             };
 
             // Attachments //
+            var sideTopRail = new SideTopRail
+            {
+                ViewParentBone = "fal",
+                ViewTransform = new Transform
+                {
+                    Position = new Vector3(-0.7f, 4.4f, 4f),
+                    Rotation = Rotation.From(new Angles(180f, 0f, -90f)),
+                    Scale = 9f
+                },
+                WorldParentBone = "fal",
+                WorldTransform = new Transform
+                {
+                    Position = new Vector3(-0.7f, 2f, 4f),
+                    Rotation = Rotation.From(new Angles(180f, 0f, -90f)),
+                    Scale = 10f
+                },
+            };
+
             AttachmentCategories = new List<AttachmentCategory>()
             {
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Sight,
+                    BoneOrAttachment = "muzzle",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        new ReflexSight
+                        {
+                            ZoomAnimData = new AngPos { Angle = new Angles(-0.53f, 4.99f, 0f), Pos = new Vector3(-4.989f, -4.8f, 0.093f) },
+                            RequiresAttachmentWithName = sideTopRail.Name,
+                            ViewParentBone = "fal",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(0, 6.6f, 1.5f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "fal",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(0f, 4.5f, 1.4f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
+                                Scale = 5f
+                            },
+                        }
+                    }
+                },
                 new AttachmentCategory
                 {
                     Name = AttachmentCategoryName.Muzzle,
@@ -109,7 +152,7 @@ namespace SWB_WEAPONS
                         }
                     }
                 },
-               new AttachmentCategory
+                new AttachmentCategory
                 {
                     Name = AttachmentCategoryName.Tactical,
                     BoneOrAttachment = "",
@@ -179,6 +222,16 @@ namespace SWB_WEAPONS
                                 Scale = 4f
                             },
                         },
+                    }
+                },
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Rail,
+                    Selectable = true,
+                    BoneOrAttachment = "",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        sideTopRail
                     }
                 }
             };

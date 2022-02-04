@@ -129,7 +129,7 @@ PS
         float2 vCalcTextureCoords = CalculateTextureCoords( i.vTextureCoords, vTangentViewVector );
         i.vTextureCoords = vCalcTextureCoords;
 
-        o.vColor.rgba = float4( g_vSightColor, 1 ) * g_flSightAlpha;
+        o.vColor.rgba = float4( g_vSightColor, g_flSightAlpha );
         
         float4 vTextureSample = Tex2DS( g_tReticleMask, TextureFiltering, vCalcTextureCoords );
 

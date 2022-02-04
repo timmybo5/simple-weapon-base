@@ -80,8 +80,54 @@ namespace SWB_WEAPONS
             };
 
             // Attachments //
+            var singleRail = new SingleRail
+            {
+                ViewParentBone = "talon",
+                ViewTransform = new Transform
+                {
+                    Position = new Vector3(0f, 3.3f, 5f),
+                    Rotation = Rotation.From(new Angles(90f, 0f, 90f)),
+                    Scale = 1.9f
+                },
+                WorldParentBone = "talon",
+                WorldTransform = new Transform
+                {
+                    Position = new Vector3(1f, 5f, 5.6f),
+                    Rotation = Rotation.From(new Angles(90f, 0f, 90f)),
+                    Scale = 2f
+                },
+            };
+
             AttachmentCategories = new List<AttachmentCategory>()
             {
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Sight,
+                    BoneOrAttachment = "muzzle",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        new ReflexSight
+                        {
+                            ZoomAnimData = new AngPos {
+                                Angle = new Angles(-0.18f, 5.08f, 0f),
+                                Pos = new Vector3(-4.946f, -5.1f, 1.417f)
+                            },
+                            RequiresAttachmentWithName = singleRail.Name,
+                            ViewParentBone = "talon",
+                            ViewTransform = new Transform {
+                                Position = new Vector3(0f, 4.12f, 4f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
+                                Scale = 4f
+                            },
+                            WorldParentBone = "talon",
+                            WorldTransform = new Transform {
+                                Position = new Vector3(1f, 5.828f, 4.55f),
+                                Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
+                                Scale = 4f
+                            },
+                        }
+                    }
+                },
                 new AttachmentCategory
                 {
                     Name = AttachmentCategoryName.Muzzle,
@@ -104,24 +150,6 @@ namespace SWB_WEAPONS
                                 Position = new Vector3(1f, 4.4f, 16.5f),
                                 Rotation = Rotation.From(new Angles(-90f, 0f, 0f)),
                                 Scale = 9f
-                            },
-                        },
-                        new TestSilencer
-                        {
-                            MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
-                            ShootSound = "swb_heavy.silenced.fire",
-                            ViewParentBone = "talon",
-                            ViewTransform = new Transform
-                            {
-                                Position = new Vector3(0f, 2.6f, 14.8f),
-                                Rotation = Rotation.From(new Angles(-90f, 0f, 90f)),
-                                Scale = 20f
-                            },
-                            WorldParentBone = "talon",
-                            WorldTransform = new Transform {
-                                Position = new Vector3(1f, 4.4f, 16.5f),
-                                Rotation = Rotation.From(new Angles(-90f, 0f, 0f)),
-                                Scale = 20f
                             },
                         }
                     }
@@ -196,6 +224,16 @@ namespace SWB_WEAPONS
                                 Scale = 5f
                             },
                         },
+                    }
+                },
+                new AttachmentCategory
+                {
+                    Name = AttachmentCategoryName.Rail,
+                    Selectable = false,
+                    BoneOrAttachment = "",
+                    Attachments = new List<AttachmentBase>()
+                    {
+                        singleRail
                     }
                 }
             };

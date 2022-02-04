@@ -52,7 +52,7 @@ namespace SWB_Base
             var weapon = player.ActiveChild as WeaponBase;
             var activeAttach = weapon.GetActiveAttachmentFromCategory(AttachmentCategoryName.Sight);
 
-            if (activeAttach != null)
+            if (activeAttach != null && AttachmentAnimDataButton != null)
             {
                 var attach = weapon.GetAttachment(activeAttach.Name);
                 if (attach is Sight sight)
