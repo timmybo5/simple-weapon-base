@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Sandbox.UI;
 
-namespace SWB_Base
+namespace SWB_Base.UI
 {
 
     public class Hitmarker : Panel

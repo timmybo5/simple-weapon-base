@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Sandbox;
 using Sandbox.UI;
 
-namespace SWB_Base
+namespace SWB_Base.Editor
 {
     [UseTemplate]
     public class AttachmentEditorMenu : ModelEditorMenu
@@ -182,7 +182,7 @@ namespace SWB_Base
         {
             var rx = new Regex(@"\.vmdl$", RegexOptions.IgnoreCase);
 
-            if (!rx.IsMatch(modelPath) || !FileSystem.Mounted.FileExists(modelPath))
+            if (!rx.IsMatch(modelPath) || (!FileSystem.Mounted.FileExists(modelPath) && !FileSystem.Mounted.FileExists(modelPath + "_c")))
             {
                 ModelInput.AddClass("invalid");
                 isValidAttachment = false;

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Sandbox;
 using Sandbox.UI;
 
-namespace SWB_Base
+namespace SWB_Base.UI
 {
 
     public class Crosshair : Panel

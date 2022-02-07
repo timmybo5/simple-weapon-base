@@ -4,7 +4,7 @@ using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB_Base;
 
-namespace SWB_Base
+namespace SWB_Base.UI
 {
     public class AmmoDisplay : Panel
     {

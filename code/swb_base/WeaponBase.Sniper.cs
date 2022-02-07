@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using SWB_Base.UI;
 
 /* 
  * Weapon base for sniper based zooming

@@ -5,8 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SWB_Base
+namespace SWB_Base.Editor
 {
+    [Library("swb_Popup")]
     public partial class Popup : Panel
     {
         // For keyboard navigation

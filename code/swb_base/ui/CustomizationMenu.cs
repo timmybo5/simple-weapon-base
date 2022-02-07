@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB_Base.Translations;
 
-namespace SWB_Base
+namespace SWB_Base.UI
 {
     [UseTemplate]
     public class CustomizationMenu : Panel

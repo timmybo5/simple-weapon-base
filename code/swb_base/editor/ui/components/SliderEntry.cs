@@ -1,13 +1,13 @@
-﻿using Sandbox.UI;
+﻿using Sandbox;
+using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System;
-using System.Linq;
 
-namespace SWB_Base
+namespace SWB_Base.Editor
 {
     /// <summary>
     /// A horizontal slider with a text entry on the right
     /// </summary>
+    [Library("swb_SliderEntry")]
     public class SliderEntry : Panel
     {
 

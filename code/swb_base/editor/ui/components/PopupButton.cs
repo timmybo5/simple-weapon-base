@@ -1,14 +1,16 @@
-﻿using Sandbox.UI;
+﻿using Sandbox;
+using Sandbox.UI;
 using Sandbox.UI.Construct;
 using System;
 using System.Linq;
 
-namespace SWB_Base
+namespace SWB_Base.Editor
 {
     /// <summary>
     /// A button that opens a popup panel.
     /// Useless on its own - you need to implement Open
     /// </summary>
+    [Library("swb_PopupButton")]
     public abstract class PopupButton : Button
     {
         protected Popup Popup;

@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using SWB_Base.Editor;
 
 namespace SWB_Base
 {
@@ -21,15 +22,23 @@ namespace SWB_Base
             return modelEditor != null;
         }
 
+        public void CloseModelEditor()
+        {
+            Host.AssertClient();
+
+            if (modelEditor != null)
+            {
+                modelEditor.Delete();
+                modelEditor = null;
+            }
+        }
+
         [ClientRpc]
         public void ToggleModelEditorCL()
         {
             Host.AssertClient();
 
-            if (IsAttachmentEditing())
-            {
-                ToggleAttachmentEditorCL();
-            }
+            CloseAttachmentEditor();
 
             if (!IsModelEditing())
             {

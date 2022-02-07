@@ -11,7 +11,7 @@ using Sandbox.UI.Construct;
  * TODO: find out if a proper renderscope can be made now!
 */
 
-namespace SWB_Base
+namespace SWB_Base.UI
 {
 
     public class SniperScopeRT : Panel

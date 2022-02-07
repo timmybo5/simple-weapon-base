@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SWB_Base
+namespace SWB_Base.Editor
 {
     /// <summary>
     /// A UI control which provides multiple options via a dropdown box
     /// </summary>
-    [Library("swb_select", Alias = new[] { "swb_dropdown" })]
+    [Library("swb_Select", Alias = new[] { "swb_Dropdown" })]
     public class DropDown : PopupButton
     {
         protected IconPanel DropdownIndicator;

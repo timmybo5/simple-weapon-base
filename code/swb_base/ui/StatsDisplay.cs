@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Sandbox;
 using Sandbox.UI;
-using Sandbox.UI.Construct;
 
-namespace SWB_Base
+namespace SWB_Base.UI
 {
     [UseTemplate]
     public class StatsDisplay : Panel

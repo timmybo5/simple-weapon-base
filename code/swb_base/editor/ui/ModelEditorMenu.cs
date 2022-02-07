@@ -5,7 +5,7 @@ using Sandbox.UI.Construct;
 using SWB_Base;
 using SWB_Base.Attachments;
 
-namespace SWB_Base
+namespace SWB_Base.Editor
 {
     [UseTemplate]
     public class ModelEditorMenu : Panel

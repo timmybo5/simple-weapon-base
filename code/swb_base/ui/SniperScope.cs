@@ -1,10 +1,8 @@
-﻿
-using System;
-using Sandbox;
+﻿using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-namespace SWB_Base
+namespace SWB_Base.UI
 {
 
     public class SniperScope : Panel
