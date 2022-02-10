@@ -232,7 +232,9 @@ namespace SWB_Base
 
             if (Owner is PlayerBase player)
             {
-                var ammo = player.TakeAmmo(Primary.AmmoType, Primary.ClipSize - Primary.Ammo);
+                var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
+                var ammo = player.TakeAmmo(Primary.AmmoType, maxClipSize - Primary.Ammo);
+
                 if (ammo == 0)
                     return;
 
