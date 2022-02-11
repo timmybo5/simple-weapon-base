@@ -27,8 +27,7 @@ namespace SWB_Base.UI
 
         public override void Tick()
         {
-            var player = Local.Pawn as PlayerBase;
-            if (player == null) return;
+            if (Local.Pawn is not PlayerBase) return;
 
             if (weapon == null)
             {

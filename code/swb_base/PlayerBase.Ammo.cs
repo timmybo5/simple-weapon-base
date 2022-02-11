@@ -33,12 +33,12 @@ namespace SWB_Base
         [Net]
         public List<int> Ammo { get; set; } = new();
 
-        public void ClearAmmo()
+        public virtual void ClearAmmo()
         {
             Ammo.Clear();
         }
 
-        public int AmmoCount(AmmoType type)
+        public virtual int AmmoCount(AmmoType type)
         {
             var iType = (int)type;
             if (Ammo == null) return 0;
@@ -47,7 +47,7 @@ namespace SWB_Base
             return Ammo[(int)type];
         }
 
-        public bool SetAmmo(AmmoType type, int amount)
+        public virtual bool SetAmmo(AmmoType type, int amount)
         {
             var iType = (int)type;
             if (!Host.IsServer) return false;
@@ -62,7 +62,7 @@ namespace SWB_Base
             return true;
         }
 
-        public bool GiveAmmo(AmmoType type, int amount)
+        public virtual bool GiveAmmo(AmmoType type, int amount)
         {
             if (!Host.IsServer) return false;
             if (Ammo == null) return false;
@@ -71,7 +71,7 @@ namespace SWB_Base
             return true;
         }
 
-        public int TakeAmmo(AmmoType type, int amount)
+        public virtual int TakeAmmo(AmmoType type, int amount)
         {
             if (Ammo == null) return 0;
 
@@ -83,7 +83,7 @@ namespace SWB_Base
             return amount;
         }
 
-        public bool HasAmmo(AmmoType type)
+        public virtual bool HasAmmo(AmmoType type)
         {
             return AmmoCount(type) > 0;
         }

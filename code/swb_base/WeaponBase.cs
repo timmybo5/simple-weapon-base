@@ -90,12 +90,6 @@ namespace SWB_Base
         // BaseSimulate
         public void BaseSimulate(Client player)
         {
-            // DEBUG
-            //foreach (var att in ActiveAttachments)
-            //{
-            //    LogUtil.Info("[" + ActiveAttachments.Count + "] name=" + att.ToString());
-            //}
-
             if (Input.Down(InputButton.Reload))
             {
                 Reload();
@@ -144,7 +138,7 @@ namespace SWB_Base
 
             IsRunning = Input.Down(InputButton.Run) && RunAnimData != AngPos.Zero && Owner.Velocity.Length >= 200;
 
-            if (Secondary == null && ZoomAnimData != AngPos.Zero && !(this is WeaponBaseMelee))
+            if (Secondary == null && ZoomAnimData != AngPos.Zero && this is not WeaponBaseMelee)
                 IsZooming = Input.Down(InputButton.Attack2) && !IsRunning && !IsReloading;
 
             if (TimeSinceDeployed < General.DrawTime)
@@ -190,7 +184,7 @@ namespace SWB_Base
             if (Primary.Ammo >= maxClipSize || Primary.ClipSize == -1)
                 return;
 
-            var isEmptyReload = General.ReloadEmptyTime > 0 ? Primary.Ammo == 0 : false;
+            var isEmptyReload = General.ReloadEmptyTime > 0 && Primary.Ammo == 0;
             TimeSinceReload = -(isEmptyReload ? General.ReloadEmptyTime : General.ReloadTime);
 
             if (!isEmptyReload && Primary.Ammo == 0 && General.BoltBackTime > -1)
@@ -218,21 +212,16 @@ namespace SWB_Base
         public virtual void OnReloadFinish()
         {
             IsReloading = false;
+            var maxClipSize = BulletCocking && Primary.Ammo > 0 ? Primary.ClipSize + 1 : Primary.ClipSize;
 
             if (Primary.InfiniteAmmo == InfiniteAmmoType.reserve)
             {
-                var newAmmo = Primary.ClipSize;
-
-                if (BulletCocking && Primary.Ammo > 0)
-                    newAmmo += 1;
-
-                Primary.Ammo = newAmmo;
+                Primary.Ammo = maxClipSize;
                 return;
             }
 
             if (Owner is PlayerBase player)
             {
-                var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
                 var ammo = player.TakeAmmo(Primary.AmmoType, maxClipSize - Primary.Ammo);
 
                 if (ammo == 0)
@@ -354,11 +343,6 @@ namespace SWB_Base
             return IsLocalPawn && Owner.IsFirstPersonMode;
         }
 
-        protected float GetRealRPM(int rpm)
-        {
-            return (60f / rpm);
-        }
-
         public virtual float GetRealSpread(float baseSpread = -1)
         {
             if (!Owner.IsValid()) return 0;
@@ -409,8 +393,7 @@ namespace SWB_Base
 
         public int AvailableAmmo()
         {
-            var owner = Owner as PlayerBase;
-            if (owner == null) return 0;
+            if (Owner is not PlayerBase owner) return 0;
 
             // Show clipsize as the available ammo
             if (Primary.InfiniteAmmo == InfiniteAmmoType.reserve)
@@ -471,6 +454,12 @@ namespace SWB_Base
         public virtual void SendWeaponAnim(string anim, bool value = true)
         {
             ViewModelEntity?.SetAnimBool(anim, value);
+        }
+
+        // Static
+        protected static float GetRealRPM(int rpm)
+        {
+            return (60f / rpm);
         }
     }
 }

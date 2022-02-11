@@ -36,8 +36,8 @@ namespace SWB_Base
             if (client != null)
             {
                 var player = client.Pawn as PlayerBase;
-                var activeWeapon = player.ActiveChild as WeaponBase;
-                if (activeWeapon == null) return;
+
+                if (player.ActiveChild is not WeaponBase activeWeapon) return;
 
                 var activeAttachment = activeWeapon.GetActiveAttachment(name);
 

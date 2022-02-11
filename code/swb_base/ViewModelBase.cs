@@ -158,10 +158,10 @@ namespace SWB_Base
                 swayspeed = 20;
 
             // Lerp the eye position
-            LastEyeRot = Rotation.Lerp(LastEyeRot, Owner.EyeRot, swayspeed * RealTime.Delta);
+            LastEyeRot = Rotation.Lerp(LastEyeRot, Owner.EyeRotation, swayspeed * RealTime.Delta);
 
             // Calculate the difference between our current eye angles and old (lerped) eye angles
-            Angles angDif = Owner.EyeRot.Angles() - LastEyeRot.Angles();
+            Angles angDif = Owner.EyeRotation.Angles() - LastEyeRot.Angles();
             angDif = new Angles(angDif.pitch, MathX.RadianToDegree(MathF.Atan2(MathF.Sin(MathX.DegreeToRadian(angDif.yaw)), MathF.Cos(MathX.DegreeToRadian(angDif.yaw)))), 0);
 
             // Perform sway

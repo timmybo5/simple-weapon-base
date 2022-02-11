@@ -8,6 +8,7 @@ $col-green-trans: #2ecc7196;
 $col-red: #e84118;
 
 .background {
+    position: absolute;
     height: 100%;
     width: 100%;
     pointer-events: all;

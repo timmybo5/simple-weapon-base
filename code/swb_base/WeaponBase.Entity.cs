@@ -89,15 +89,15 @@ namespace SWB_Base
                 firedEntity.SetModel(EntityModel);
 
             firedEntity.Owner = Owner;
-            firedEntity.Position = MathUtil.RelativeAdd(Position, EntitySpawnOffset, Owner.EyeRot);
-            firedEntity.Rotation = Owner.EyeRot * Rotation.From(EntityAngles);
+            firedEntity.Position = MathUtil.RelativeAdd(Position, EntitySpawnOffset, Owner.EyeRotation);
+            firedEntity.Rotation = Owner.EyeRotation * Rotation.From(EntityAngles);
             firedEntity.RemoveDelay = RemoveDelay;
             firedEntity.UseGravity = UseGravity;
             firedEntity.Speed = isPrimary ? PrimaryEntitySpeed : SecondaryEntitySpeed;
             firedEntity.IsSticky = IsSticky;
             firedEntity.Damage = clipInfo.Damage;
             firedEntity.Force = clipInfo.Force;
-            firedEntity.StartVelocity = MathUtil.RelativeAdd(Vector3.Zero, EntityVelocity, Owner.EyeRot);
+            firedEntity.StartVelocity = MathUtil.RelativeAdd(Vector3.Zero, EntityVelocity, Owner.EyeRotation);
             firedEntity.Start();
         }
 
@@ -148,7 +148,7 @@ namespace SWB_Base
             // Play pre-fire animation
             ShootEffects(null, null, GetShootAnimation(clipInfo));
 
-            var owner = Owner as PlayerBase;
+            var owner = Owner as Player;
             if (owner == null) return;
             var activeWeapon = owner.ActiveChild;
             var instanceID = InstanceID;

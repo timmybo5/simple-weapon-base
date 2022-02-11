@@ -71,8 +71,8 @@ namespace SWB_Base
             TimeSinceSecondaryAttack = 0;
 
             var hitEntity = true;
-            var pos = Owner.EyePos;
-            var forward = Owner.EyeRot.Forward;
+            var pos = Owner.EyePosition;
+            var forward = Owner.EyeRotation.Forward;
             var trace = Trace.Ray(pos, pos + forward * DamageDistance)
                 .Ignore(this)
                 .Ignore(Owner)

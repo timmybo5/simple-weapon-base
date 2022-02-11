@@ -8,7 +8,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
 {
     public KillFeed()
     {
-        StyleSheet.Load("swb_base/deathmatch_dep/ui/scss/KillFeed.scss");
+        StyleSheet.Load("deathmatch_dep/ui/KillFeed.scss");
     }
 
     public override Panel AddEntry(long lsteamid, string left, long rsteamid, string right, string method)

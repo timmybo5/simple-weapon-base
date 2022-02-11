@@ -168,8 +168,7 @@ namespace SWB_Base
             // Play pre-fire animation
             ShootEffects(null, null, GetShootAnimation(clipInfo));
 
-            var owner = Owner as PlayerBase;
-            if (owner == null) return;
+            if (Owner is not PlayerBase owner) return;
             var activeWeapon = owner.ActiveChild;
             var instanceID = InstanceID;
 
@@ -268,16 +267,16 @@ namespace SWB_Base
         public virtual void ShootBullet(float spread, float force, float damage, float bulletSize)
         {
             // Spread
-            var forward = Owner.EyeRot.Forward;
+            var forward = Owner.EyeRotation.Forward;
             forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
             forward = forward.Normal;
-            var endPos = Owner.EyePos + forward * 999999;
+            var endPos = Owner.EyePosition + forward * 999999;
 
             // Client bullet
-            ShootClientBullet(Owner.EyePos, endPos, bulletSize);
+            ShootClientBullet(Owner.EyePosition, endPos, bulletSize);
 
             // Server bullet
-            foreach (var tr in TraceBullet(Owner.EyePos, endPos, bulletSize))
+            foreach (var tr in TraceBullet(Owner.EyePosition, endPos, bulletSize))
             {
 
                 if (!tr.Entity.IsValid()) continue;

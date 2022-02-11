@@ -133,15 +133,15 @@ namespace SWB_Base
         public virtual string Description => "";
 
         /// <summary>List of positive attributes</summary>
-        public virtual string[] Positives => new string[0];
+        public virtual string[] Positives => Array.Empty<string>();
 
         /// <summary>List of negative attributes</summary>
-        public virtual string[] Negatives => new string[0];
+        public virtual string[] Negatives => Array.Empty<string>();
 
         /// <summary>Path to an image that represent the attachment on the HUD</summary>
         public virtual string IconPath => "";
 
-        /// <summary>Path to the attachment model</summary>
+        /// <summary>Path to the attachment model</summary> 
         public virtual string ModelPath => "";
 
         /// <summary>Name of the model attachment used for new effect origins</summary>

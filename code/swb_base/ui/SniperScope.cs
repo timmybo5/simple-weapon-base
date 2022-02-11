@@ -46,8 +46,7 @@ namespace SWB_Base.UI
 
             var player = Local.Pawn;
             if (player == null) return;
-
-            var weapon = player.ActiveChild as WeaponBase;
+            if (player.ActiveChild is not WeaponBase weapon) return;
 
             // Scope
             var scopeSize = Screen.Height * ScaleFromScreen;
@@ -56,7 +55,7 @@ namespace SWB_Base.UI
             LensWrapper.Style.Dirty();
 
             // Show when zooming
-            Style.Opacity = (weapon == null || !weapon.IsScoped) ? 0 : 1;
+            Style.Opacity = !weapon.IsScoped ? 0 : 1;
 
             /*
             // Movement impact

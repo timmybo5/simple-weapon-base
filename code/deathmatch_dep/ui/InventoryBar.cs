@@ -17,7 +17,7 @@ public class InventoryBar : Panel
 
     public InventoryBar()
     {
-        StyleSheet.Load("swb_base/deathmatch_dep/ui/scss/InventoryBar.scss");
+        StyleSheet.Load("deathmatch_dep/ui/InventoryBar.scss");
 
         for (int i = 0; i < 6; i++)
         {

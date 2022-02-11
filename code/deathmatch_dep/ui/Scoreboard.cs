@@ -8,7 +8,7 @@ public class Scoreboard : Sandbox.UI.Scoreboard<ScoreboardEntry>
 
     public Scoreboard()
     {
-        StyleSheet.Load("swb_base/deathmatch_dep/ui/scss/Scoreboard.scss");
+        StyleSheet.Load("deathmatch_dep/ui/Scoreboard.scss");
     }
 
     protected override void AddHeader()

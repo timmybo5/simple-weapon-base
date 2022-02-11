@@ -11,12 +11,12 @@ public partial class DamageIndicator : Panel
     public DamageIndicator()
     {
         Current = this;
-        StyleSheet.Load( "swb_base/deathmatch_dep/ui/scss/DamageIndicator.scss" );
+        StyleSheet.Load("deathmatch_dep/ui/DamageIndicator.scss");
     }
 
-    public void OnHit( Vector3 pos )
+    public void OnHit(Vector3 pos)
     {
-        var p = new HitPoint( pos );
+        var p = new HitPoint(pos);
         p.Parent = this;
     }
 
@@ -24,7 +24,7 @@ public partial class DamageIndicator : Panel
     {
         public Vector3 Position;
 
-        public HitPoint( Vector3 pos )
+        public HitPoint(Vector3 pos)
         {
             Position = pos;
 
@@ -35,16 +35,16 @@ public partial class DamageIndicator : Panel
         {
             base.Tick();
 
-            var wpos = CurrentView.Rotation.Inverse * (Position.WithZ( 0 ) - CurrentView.Position.WithZ( 0 )).Normal;
-            wpos = wpos.WithZ( 0 ).Normal;
+            var wpos = CurrentView.Rotation.Inverse * (Position.WithZ(0) - CurrentView.Position.WithZ(0)).Normal;
+            wpos = wpos.WithZ(0).Normal;
 
-            var angle = MathF.Atan2( wpos.y, -1.0f * wpos.x );
+            var angle = MathF.Atan2(wpos.y, -1.0f * wpos.x);
 
             var pt = new PanelTransform();
 
-            pt.AddTranslateX( Length.Percent( -50.0f ) );
-            pt.AddTranslateY( Length.Percent( -50.0f ) );
-            pt.AddRotation( 0, 0, angle.RadianToDegree() );
+            pt.AddTranslateX(Length.Percent(-50.0f));
+            pt.AddTranslateY(Length.Percent(-50.0f));
+            pt.AddRotation(0, 0, angle.RadianToDegree());
 
             Style.Transform = pt;
             Style.Dirty();
@@ -53,9 +53,9 @@ public partial class DamageIndicator : Panel
 
         async Task Lifetime()
         {
-            await Task.Delay( 200 );
-            AddClass( "dying" );
-            await Task.Delay( 500 );
+            await Task.Delay(200);
+            AddClass("dying");
+            await Task.Delay(500);
             Delete();
         }
 
