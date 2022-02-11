@@ -6,7 +6,6 @@ namespace SWB_Base
 {
     public partial class PlayerBase : Player
     {
-        public bool SupressPickupNotices { get; set; }
         public DamageInfo LastDamage;
 
         public override void TakeDamage(DamageInfo info)

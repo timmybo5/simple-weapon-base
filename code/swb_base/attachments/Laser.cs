@@ -52,8 +52,11 @@ namespace SWB_Base.Attachments
         private void CreateParticle()
         {
             DestroyParticle();
+
             laserParticle = Particles.Create(Particle);
-            laserParticle.SetPosition(3, Color);
+
+            if (laserParticle != null)
+                laserParticle.SetPosition(3, Color);
         }
 
         private void DestroyParticle()

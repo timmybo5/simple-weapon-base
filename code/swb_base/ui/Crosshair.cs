@@ -82,10 +82,10 @@ namespace SWB_Base.UI
             var weapon = player.ActiveChild as WeaponBase;
             bool isValidWeapon = weapon != null;
 
-            var hideCrosshairDot = isValidWeapon ? !weapon.UISettings.ShowCrosshairDot || weapon.IsCustomizing : true;
+            var hideCrosshairDot = !isValidWeapon || !weapon.UISettings.ShowCrosshairDot || weapon.IsCustomizing;
             CenterDot.SetClass("hideCrosshair", hideCrosshairDot);
 
-            var hideCrosshairLines = isValidWeapon ? !weapon.UISettings.ShowCrosshairLines || weapon.IsCustomizing : true;
+            var hideCrosshairLines = !isValidWeapon || !weapon.UISettings.ShowCrosshairLines || weapon.IsCustomizing;
             LeftBar.SetClass("hideCrosshair", hideCrosshairLines);
             RightBar.SetClass("hideCrosshair", hideCrosshairLines);
             TopBar.SetClass("hideCrosshair", hideCrosshairLines);
@@ -146,6 +146,7 @@ namespace SWB_Base.UI
         {
             await GameTask.DelaySeconds(delay);
             RestoreBarPositions();
+            RestoreCrosshairOpacity();
         }
     }
 }

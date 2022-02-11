@@ -11,7 +11,7 @@ partial class ExampleInventory : InventoryBase
 
     public override bool Add(Entity ent, bool makeActive = false)
     {
-        var player = Owner as PlayerBase;
+        var player = Owner as ExamplePlayer;
         var weapon = ent as WeaponBase;
 
         var showNotice = !player.SupressPickupNotices;

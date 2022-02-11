@@ -4,6 +4,7 @@ using SWB_Base;
 
 public partial class ExamplePlayer : PlayerBase
 {
+    public bool SupressPickupNotices { get; set; }
     TimeSince timeSinceDropped;
 
     public ExamplePlayer()
