@@ -128,6 +128,9 @@ namespace SWB_Base
         /// <summary>Time since deployment</summary>
         public TimeSince TimeSinceDeployed { get; set; }
 
+        /// <summary>Time since added to inventory</summary>
+        public TimeSince TimeSinceActiveStart { get; set; }
+
         /// <summary>If the weapon is being reloaded</summary>
         public bool IsReloading { get; set; }
 

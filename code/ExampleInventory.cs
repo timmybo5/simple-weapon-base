@@ -18,6 +18,9 @@ partial class ExampleInventory : InventoryBase
 
         if (weapon != null && IsCarryingType(ent.GetType()))
         {
+            // Inventory bug workaround (duplicate pickup)
+            if (weapon.TimeSinceActiveStart == 0) return false;
+
             var ammo = weapon.Primary.Ammo;
             var ammoType = weapon.Primary.AmmoType;
 
@@ -33,7 +36,7 @@ partial class ExampleInventory : InventoryBase
             }
 
             // Despawn it
-            ent.Delete();
+            weapon.Delete();
             return false;
         }
 

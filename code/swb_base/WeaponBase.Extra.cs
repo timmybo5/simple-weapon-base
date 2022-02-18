@@ -61,5 +61,15 @@ namespace SWB_Base
             }
         }
 
+        // Burst Fire
+        public virtual void ResetBurstFireCount(ClipInfo clipInfo, InputButton inputButton)
+        {
+            if (clipInfo == null || clipInfo.FiringType != FiringType.burst) return;
+
+            if (Input.Released(inputButton))
+            {
+                burstCount = 0;
+            }
+        }
     }
 }

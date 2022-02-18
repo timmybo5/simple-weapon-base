@@ -23,6 +23,9 @@ namespace SWB_Base
         [ConVar.ClientData("swb_cl_showhud", Help = "Enable HUD", Saved = true)]
         public static int ShowHudCL { get; set; } = 1;
 
+        /// <summary>
+        /// Gets a console variable and returns it with a specific type
+        /// </summary>
         public T GetSetting<T>(string setting, T defaultValue)
         {
             string value;

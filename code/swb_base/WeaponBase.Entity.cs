@@ -110,7 +110,7 @@ namespace SWB_Base
 
             if (!TakeAmmo(1))
             {
-                DryFire(clipInfo.DryFireSound);
+                SendWeaponSound(clipInfo.DryFireSound);
                 return;
             }
 
@@ -137,7 +137,7 @@ namespace SWB_Base
 
         async Task AsyncAttack(ClipInfo clipInfo, bool isPrimary, float delay)
         {
-            if (AvailableAmmo() <= 0) return;
+            if (GetAvailableAmmo() <= 0) return;
 
             TimeSincePrimaryAttack -= delay;
             TimeSinceSecondaryAttack -= delay;

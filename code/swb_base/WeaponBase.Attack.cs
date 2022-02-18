@@ -72,7 +72,7 @@ namespace SWB_Base
 
             if (!TakeAmmo(1))
             {
-                DryFire(clipInfo.DryFireSound);
+                SendWeaponSound(clipInfo.DryFireSound);
 
                 // Check for auto reloading
                 if (AutoReloadSV > 0)
@@ -157,7 +157,7 @@ namespace SWB_Base
         /// <param name="delay">Bullet firing delay</param>
         async Task AsyncAttack(ClipInfo clipInfo, bool isPrimary, float delay)
         {
-            if (AvailableAmmo() <= 0) return;
+            if (GetAvailableAmmo() <= 0) return;
 
             TimeSincePrimaryAttack -= delay;
             TimeSinceSecondaryAttack -= delay;
@@ -411,16 +411,6 @@ namespace SWB_Base
             var tracer = Particles.Create(tracerParticle);
             tracer.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
             tracer.SetPosition(2, endPos);
-        }
-
-        /// <summary>
-        /// Plays the dry fire sound
-        /// </summary>
-        [ClientRpc]
-        public virtual void DryFire(string dryFireSound)
-        {
-            if (!string.IsNullOrEmpty(dryFireSound))
-                PlaySound(dryFireSound);
         }
     }
 }
