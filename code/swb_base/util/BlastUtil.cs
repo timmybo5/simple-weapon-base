@@ -7,7 +7,7 @@ namespace SWB_Base
     {
         public static void Explode(Vector3 origin, float radius, float damage, float force, Entity attacker = null, Entity weapon = null, ModelEntity explodingEnt = null)
         {
-            var objects = Physics.GetEntitiesInSphere(origin, radius);
+            var objects = Entity.FindInSphere(origin, radius);
 
             foreach (var obj in objects)
             {

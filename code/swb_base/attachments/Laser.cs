@@ -92,7 +92,7 @@ namespace SWB_Base.Attachments
         public void OnFrame()
         {
             // Destroy laser when dropped or if weapon owner switches weapon
-            if (weapon != null && (weapon.Owner == null || (weapon.Owner != null && weapon.Owner != Local.Pawn && weapon.Owner.ActiveChild != weapon)))
+            if (weapon != null && (weapon.Owner == null || (weapon.Owner != null && weapon.Owner != Local.Pawn && weapon.Owner is PlayerBase player && player.ActiveChild != weapon)))
             {
                 this.weapon = null;
                 DestroyParticle();
@@ -185,9 +185,9 @@ namespace SWB_Base.Attachments
                                 .UseHitboxes()
                                 .Run();
 
-                laserParticle.SetPosition(1, tr.EndPos);
+                laserParticle.SetPosition(1, tr.EndPosition);
 
-                //DebugOverlay.Line(laserStartPos, tr.EndPos, 0, false);
+                //DebugOverlay.Line(laserStartPos, tr.EndPosition, 0, false);
                 //LogUtil.Info(laserTrans.Rotation);
                 //LogUtil.Info(laserTrans.Rotation.Forward);
             }

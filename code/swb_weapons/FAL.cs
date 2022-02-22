@@ -14,7 +14,7 @@ namespace SWB_WEAPONS
         public override string ViewModelPath => "weapons/swb/rifles/fal/v_fal.vmdl";
         public override AngPos ViewModelOffset => new()
         {
-            Angle = new Angles(0, -5, 0),
+            Angle = new Angles(0, -5, 0), 
             Pos = new Vector3(-5, 0, 0)
         };
         public override string WorldModelPath => "weapons/swb/rifles/fal/w_fal.vmdl";

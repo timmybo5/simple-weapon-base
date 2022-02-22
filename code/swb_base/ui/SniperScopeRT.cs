@@ -26,7 +26,7 @@ namespace SWB_Base.UI
         {
             StyleSheet.Load("/swb_base/ui/SniperScopeRT.scss");
 
-            SceneWorld.SetCurrent(SceneWorld.Current);
+            //SceneWorld.SetCurrent(SceneWorld.Current);
             //sceneCapture = SceneCapture.Create( "worldTestScene", 500, 500 );
             ScopeRT = Add.Image("scene:worldTestScene");
 
@@ -59,7 +59,7 @@ namespace SWB_Base.UI
         {
             base.Tick();
 
-            var player = Local.Pawn;
+            var player = Local.Pawn as Player;
             if (player == null) return;
 
             var weapon = player.ActiveChild as WeaponBaseSniper;
@@ -95,7 +95,7 @@ namespace SWB_Base.UI
 
         public override void DrawBackground(ref RenderState state)
         {
-            var player = Local.Pawn;
+            var player = Local.Pawn as Player;
             if (player == null) return;
 
             var weapon = player.ActiveChild as WeaponBaseSniper;
@@ -106,9 +106,9 @@ namespace SWB_Base.UI
             var sceneObject = weapon.ViewModelEntity.SceneObject;
 
             Render.SetRenderTarget(RTTexture);
-            Render.DrawScene(ColorTexture, DepthTexture, new Vector2(500, 500), SceneWorld.Current, targetPos, targetAng, weapon.ZoomAmount);
+            //Render.DrawScene(ColorTexture, DepthTexture, new Vector2(500, 500), SceneWorld.Current, targetPos, targetAng, weapon.ZoomAmount);
 
-            sceneObject.SetValue("ScopeRT", RTTexture);
+            //sceneObject.SetValue("ScopeRT", RTTexture);
         }
     }
 }

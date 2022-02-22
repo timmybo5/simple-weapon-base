@@ -49,7 +49,8 @@ namespace SWB_Base
 
         public async Task EjectShell(string bulletEjectParticle)
         {
-            var activeWeapon = Owner.ActiveChild;
+            var player = Owner as PlayerBase;
+            var activeWeapon = player.ActiveChild;
             var instanceID = InstanceID;
 
             await GameTask.DelaySeconds(ShellEjectDelay);
@@ -101,7 +102,8 @@ namespace SWB_Base
 
         public async Task FinishReload()
         {
-            var activeWeapon = Owner.ActiveChild;
+            var player = Owner as PlayerBase;
+            var activeWeapon = player.ActiveChild;
             var instanceID = InstanceID;
 
             await GameTask.DelaySeconds(ShellEjectDelay);

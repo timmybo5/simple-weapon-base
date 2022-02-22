@@ -53,13 +53,14 @@ namespace SWB_Base
                 oldSpread = Primary.Spread;
 
             Primary.Spread = 0;
-
             if (IsServer)
             {
-                if (Owner.Camera is ThirdPersonCamera)
+                var player = Owner as PlayerBase;
+
+                if (player.CameraMode is ThirdPersonCamera)
                 {
                     switchBackToThirdP = true;
-                    Owner.Camera = new FirstPersonCamera();
+                    player.CameraMode = new FirstPersonCamera();
                 }
             }
 
@@ -90,8 +91,10 @@ namespace SWB_Base
 
             if (IsServer && switchBackToThirdP)
             {
+                var player = Owner as PlayerBase;
+
                 switchBackToThirdP = false;
-                Owner.Camera = new ThirdPersonCamera();
+                player.CameraMode = new ThirdPersonCamera();
             }
 
             if (IsLocalPawn)

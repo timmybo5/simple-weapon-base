@@ -104,7 +104,7 @@ namespace SWB_Base
             }
 
             // Player anim
-            (Owner as AnimEntity).SetAnimBool("b_attack", true);
+            (Owner as AnimEntity).SetAnimParameter("b_attack", true);
 
             // Shoot effects
             if (IsLocalPawn)
@@ -163,7 +163,7 @@ namespace SWB_Base
             TimeSinceSecondaryAttack -= delay;
 
             // Player anim
-            (Owner as AnimEntity).SetAnimBool("b_attack", true);
+            (Owner as AnimEntity).SetAnimParameter("b_attack", true);
 
             // Play pre-fire animation
             ShootEffects(null, null, GetShootAnimation(clipInfo));
@@ -244,7 +244,7 @@ namespace SWB_Base
         /// </summary>
         public virtual IEnumerable<TraceResult> TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
         {
-            bool InWater = Physics.TestPointContents(start, CollisionLayer.Water);
+            bool InWater = Map.Physics.IsPointWater(start);
 
             var tr = Trace.Ray(start, end)
                     .UseHitboxes()
@@ -284,7 +284,7 @@ namespace SWB_Base
                 // We turn prediction off for this, so any exploding effects don't get culled etc
                 using (Prediction.Off())
                 {
-                    var damageInfo = DamageInfo.FromBullet(tr.EndPos, forward * 100 * force, damage)
+                    var damageInfo = DamageInfo.FromBullet(tr.EndPosition, forward * 100 * force, damage)
                         .UsingTraceResult(tr)
                         .WithAttacker(Owner)
                         .WithWeapon(this);
@@ -312,7 +312,7 @@ namespace SWB_Base
                     var randVal = random.Next(0, 2);
 
                     if (randVal == 0)
-                        TracerEffects(Primary.BulletTracerParticle, tr.EndPos);
+                        TracerEffects(Primary.BulletTracerParticle, tr.EndPosition);
                 }
             }
         }
@@ -322,7 +322,8 @@ namespace SWB_Base
         /// </summary>
         async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackTime, float boltBackEjectDelay, string bulletEjectParticle, bool force = false)
         {
-            var activeWeapon = Owner.ActiveChild;
+            var player = Owner as PlayerBase;
+            var activeWeapon = player.ActiveChild;
             var instanceID = InstanceID;
             InBoltBack = force;
 
@@ -391,7 +392,7 @@ namespace SWB_Base
 
             if (!string.IsNullOrEmpty(shootAnim))
             {
-                ViewModelEntity?.SetAnimBool(shootAnim, true);
+                ViewModelEntity?.SetAnimParameter(shootAnim, true);
                 CrosshairPanel?.CreateEvent("fire", (60f / Primary.RPM));
             }
         }

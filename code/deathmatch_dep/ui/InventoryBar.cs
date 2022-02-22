@@ -51,6 +51,9 @@ public class InventoryBar : Panel
     [Event.BuildInput]
     public void ProcessClientInput(InputBuilder input)
     {
+        var player = Local.Pawn as PlayerBase;
+        if (player == null) return;
+
         bool wantOpen = IsOpen;
 
         // If we're not open, maybe this input has something that will 
@@ -72,7 +75,7 @@ public class InventoryBar : Panel
         // We're not open, but we want to be
         if (IsOpen != wantOpen)
         {
-            SelectedWeapon = Local.Pawn.ActiveChild as WeaponBase;
+            SelectedWeapon = player.ActiveChild as WeaponBase;
             IsOpen = true;
         }
 

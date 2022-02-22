@@ -23,7 +23,7 @@ namespace SWB_Base.UI
                             .UseHitboxes()
                             .Run();
 
-            panel.PositionAtWorld(tr.EndPos, centered);
+            panel.PositionAtWorld(tr.EndPosition, centered);
         }
 
         public static void PositionAtWorld(this Panel panel, Vector3 pos, bool centered = true)

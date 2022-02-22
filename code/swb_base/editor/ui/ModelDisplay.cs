@@ -32,24 +32,21 @@ namespace SWB_Base.Editor
 
             SceneWorld = new SceneWorld();
 
-            using (SceneWorld.SetCurrent(SceneWorld))
-            {
-                SceneObject = SceneObject.CreateModel(modelPath, Transform.Zero);
+            SceneObject = new SceneModel(SceneWorld, modelPath, Transform.Zero);
 
-                var maxX = SceneObject.Model.Bounds.Maxs.x;
-                var maxZ = SceneObject.Model.Bounds.Maxs.z;
-                SceneObject.Position += new Vector3(-maxX / 2, 0, maxZ / 2);
+            var maxX = SceneObject.Model.Bounds.Maxs.x;
+            var maxZ = SceneObject.Model.Bounds.Maxs.z;
+            SceneObject.Position += new Vector3(-maxX / 2, 0, maxZ / 2);
 
-                SceneObject.CreateModel("models/room.vmdl", new Transform(SceneObject.Model.Bounds.Mins - 10));
+            new SceneModel(SceneWorld, "models/room.vmdl", new Transform(SceneObject.Model.Bounds.Mins - 10));
 
-                Light.Point(Vector3.Up * 150.0f, 9999, Color.White);
-                Light.Point(Vector3.Up * 10.0f + Vector3.Forward * 100.0f, 9999, Color.White);
-                Light.Point(Vector3.Up * 10.0f + Vector3.Backward * 100.0f, 9999, Color.White);
-                Light.Point(Vector3.Up * 10.0f + Vector3.Left * 100.0f, 9999, Color.White);
-                Light.Point(Vector3.Up * 10.0f + Vector3.Right * 100.0f, 9999, Color.White);
+            new SceneLight(SceneWorld, Vector3.Up * 150.0f, 9999, Color.White);
+            new SceneLight(SceneWorld, Vector3.Up * 10.0f + Vector3.Forward * 100.0f, 9999, Color.White);
+            new SceneLight(SceneWorld, Vector3.Up * 10.0f + Vector3.Backward * 100.0f, 9999, Color.White);
+            new SceneLight(SceneWorld, Vector3.Up * 10.0f + Vector3.Left * 100.0f, 9999, Color.White);
+            new SceneLight(SceneWorld, Vector3.Up * 10.0f + Vector3.Right * 100.0f, 9999, Color.White);
 
-                scene = Add.ScenePanel(SceneWorld.Current, CamPos, Rotation.From(CamAngles), 45);
-            }
+            scene = Add.ScenePanel(SceneWorld, CamPos, Rotation.From(CamAngles), 45);
         }
 
         public override void OnMouseWheel(float value)

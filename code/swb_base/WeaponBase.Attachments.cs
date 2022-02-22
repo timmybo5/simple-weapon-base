@@ -203,7 +203,8 @@ namespace SWB_Base
                 return;
             }
 
-            var activeWeapon = Owner.ActiveChild;
+            var player = Owner as PlayerBase;
+            var activeWeapon = player.ActiveChild;
             await GameTask.DelaySeconds(0.05f);
             if (!IsAsyncValid(activeWeapon, instanceID)) return;
             _ = TryEquipAttachmentCL(name, instanceID);
@@ -289,7 +290,9 @@ namespace SWB_Base
                 return;
             }
 
-            var activeWeapon = Owner.ActiveChild;
+            var player = Owner as PlayerBase;
+            var activeWeapon = player.ActiveChild;
+
             await GameTask.DelaySeconds(0.05f);
             if (!IsAsyncValid(activeWeapon, instanceID)) return;
             _ = TryHandleAttachmentsCL(instanceID);

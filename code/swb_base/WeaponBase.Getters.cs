@@ -43,7 +43,9 @@ namespace SWB_Base
         // Pass the active child from before the delay
         protected bool IsAsyncValid(Entity activeChild, int instanceID)
         {
-            return Owner != null && activeChild == Owner.ActiveChild && instanceID == InstanceID;
+            var player = Owner as PlayerBase;
+
+            return player != null && activeChild == player.ActiveChild && instanceID == InstanceID;
         }
 
         protected bool IsShooting()

@@ -38,11 +38,11 @@ namespace SWB_Base
             {
                 if (Primary.Ammo == 0 && !string.IsNullOrEmpty(General.DrawEmptyAnim))
                 {
-                    ViewModelEntity?.SetAnimBool(General.DrawEmptyAnim, true);
+                    ViewModelEntity?.SetAnimParameter(General.DrawEmptyAnim, true);
                 }
                 else if (!string.IsNullOrEmpty(General.DrawAnim))
                 {
-                    ViewModelEntity?.SetAnimBool(General.DrawAnim, true);
+                    ViewModelEntity?.SetAnimParameter(General.DrawAnim, true);
                 }
             }
 
@@ -193,7 +193,7 @@ namespace SWB_Base
             IsReloading = true;
 
             // Player anim
-            (Owner as AnimEntity).SetAnimBool("b_reload", true);
+            (Owner as AnimEntity).SetAnimParameter("b_reload", true);
 
             StartReloadEffects(isEmptyReload);
         }
@@ -225,15 +225,15 @@ namespace SWB_Base
         {
             if (reloadAnim != null)
             {
-                ViewModelEntity?.SetAnimBool(reloadAnim, true);
+                ViewModelEntity?.SetAnimParameter(reloadAnim, true);
             }
             else if (isEmpty && General.ReloadEmptyAnim != null)
             {
-                ViewModelEntity?.SetAnimBool(General.ReloadEmptyAnim, true);
+                ViewModelEntity?.SetAnimParameter(General.ReloadEmptyAnim, true);
             }
             else if (General.ReloadAnim != null)
             {
-                ViewModelEntity?.SetAnimBool(General.ReloadAnim, true);
+                ViewModelEntity?.SetAnimParameter(General.ReloadAnim, true);
             }
 
             // TODO - player third person model reload
@@ -342,8 +342,8 @@ namespace SWB_Base
 
         public override void SimulateAnimator(PawnAnimator anim)
         {
-            anim.SetParam("holdtype", (int)HoldType);
-            anim.SetParam("aimat_weight", 1.0f);
+            anim.SetAnimParameter("holdtype", (int)HoldType);
+            anim.SetAnimParameter("aim_body_weight", 1.0f);
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace SWB_Base
         public virtual void SendWeaponAnim(string anim, bool value = true)
         {
             if (!string.IsNullOrEmpty(anim))
-                ViewModelEntity?.SetAnimBool(anim, value);
+                ViewModelEntity?.SetAnimParameter(anim, value);
         }
     }
 }

@@ -76,7 +76,7 @@ namespace SWB_Base.UI
             base.Tick();
             this.PositionAtCrosshair();
 
-            var player = Local.Pawn;
+            var player = Local.Pawn as PlayerBase;
             if (player == null) return;
 
             var weapon = player.ActiveChild as WeaponBase;

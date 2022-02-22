@@ -61,7 +61,7 @@ namespace SWB_Base
         [ClientRpc]
         public virtual void DoMeleeEffects(string animation, string sound)
         {
-            ViewModelEntity?.SetAnimBool(animation, true);
+            ViewModelEntity?.SetAnimParameter(animation, true);
             PlaySound(sound);
         }
 
@@ -87,13 +87,13 @@ namespace SWB_Base
             }
 
             DoMeleeEffects(hitAnimation, sound);
-            (Owner as AnimEntity).SetAnimBool("b_attack", true);
+            (Owner as AnimEntity).SetAnimParameter("b_attack", true);
 
             if (!hitEntity || !IsServer) return;
 
             using (Prediction.Off())
             {
-                var damageInfo = DamageInfo.FromBullet(trace.EndPos, forward * force, damage)
+                var damageInfo = DamageInfo.FromBullet(trace.EndPosition, forward * force, damage)
                     .UsingTraceResult(trace)
                     .WithAttacker(Owner)
                     .WithWeapon(this);

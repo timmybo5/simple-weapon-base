@@ -21,7 +21,7 @@ public partial class ExamplePlayer : PlayerBase
 
         Controller = new WalkController();
         Animator = new StandardPlayerAnimator();
-        Camera = new FirstPersonCamera();
+        CameraMode = new FirstPersonCamera();
 
         EnableAllCollisions = true;
         EnableDrawing = true;
@@ -73,13 +73,13 @@ public partial class ExamplePlayer : PlayerBase
 
         if (Input.Pressed(InputButton.View))
         {
-            if (Camera is ThirdPersonCamera)
+            if (CameraMode is ThirdPersonCamera)
             {
-                Camera = new FirstPersonCamera();
+                CameraMode = new FirstPersonCamera();
             }
             else
             {
-                Camera = new ThirdPersonCamera();
+                CameraMode = new ThirdPersonCamera();
             }
         }
 
@@ -127,7 +127,7 @@ public partial class ExamplePlayer : PlayerBase
         BecomeRagdollOnClient(LastDamage.Force, GetHitboxBone(LastDamage.HitboxIndex));
 
         Controller = null;
-        Camera = new SpectateRagdollCamera();
+        CameraMode = new SpectateRagdollCamera();
 
         EnableAllCollisions = false;
         EnableDrawing = false;

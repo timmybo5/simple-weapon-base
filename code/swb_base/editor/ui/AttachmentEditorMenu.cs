@@ -126,7 +126,7 @@ namespace SWB_Base.Editor
                 foreach (var activeAttach in activeWeapon.ActiveAttachments)
                 {
                     var attach = (OffsetAttachment)activeWeapon.GetAttachment(activeAttach.Name);
-                    CreateAttachmentModel(attach.ModelPath, attach.WorldTransform);
+                    CreateAttachmentModel(attach.ModelPath, attach.WorldTransform, attach.WorldParentBone);
                 }
             }
 
@@ -135,12 +135,12 @@ namespace SWB_Base.Editor
             var ang = new Angles(Pitch, Yaw, Roll);
             var transform = new Transform(pos, Rotation.From(ang), Scale);
 
-            CreateAttachmentModel(ModelInput.Text, transform);
+            CreateAttachmentModel(ModelInput.Text, transform, BoneName);
         }
 
-        private void CreateAttachmentModel(string model, Transform transform)
+        private void CreateAttachmentModel(string model, Transform transform, string bone)
         {
-            if (!isValidAttachment || activeWeapon == null || BoneName == null || BoneName == "-1") return;
+            if (!isValidAttachment || activeWeapon == null || bone == null || bone == "-1") return;
 
             if (isEditingViewModel)
             {
@@ -154,27 +154,24 @@ namespace SWB_Base.Editor
                 activeModel = new AttachmentModel(true);
                 activeModel.Owner = activeWeapon.Owner;
                 activeModel.SetModel(model);
-                activeModel.SetParent(activeWeapon.ViewModelEntity, BoneName, transform);
+                activeModel.SetParent(activeWeapon.ViewModelEntity, bone, transform);
             }
             else if (ModelDisplay != null)
             {
                 // Bone base offsets
                 var weaponTrans = activeWeapon.Transform;
-                var attachTrans = activeWeapon.GetBoneTransform(BoneName);
+                var attachTrans = activeWeapon.GetBoneTransform(bone);
                 var editorOffsetPos = attachTrans.PointToWorld(transform.Position);
                 var boneOffsetPos = weaponTrans.PointToLocal(editorOffsetPos);
                 var boneOffetRot = weaponTrans.RotationToLocal(attachTrans.Rotation);
 
                 var attachRot = boneOffetRot * transform.Rotation;
-                var attachPos = boneOffsetPos + ModelDisplay.SceneObject.Position;
+                var attachPos = boneOffsetPos;
                 var modelTransform = new Transform(attachPos, attachRot, transform.Scale);
 
-                using (SceneWorld.SetCurrent(ModelDisplay.SceneWorld))
-                {
-                    var sceneObject = SceneObject.CreateModel(model, modelTransform);
-                    activeWorldAttachments.Add(sceneObject);
-                    ModelDisplay.SceneObject.AddChild("attach" + activeWorldAttachments.Count, sceneObject);
-                }
+                var sceneObject = new SceneModel(ModelDisplay.SceneWorld, model, modelTransform);
+                activeWorldAttachments.Add(sceneObject);
+                ModelDisplay.SceneObject.AddChild("attach" + activeWorldAttachments.Count, sceneObject);
             }
         }
 

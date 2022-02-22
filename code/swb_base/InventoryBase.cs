@@ -11,14 +11,14 @@ partial class InventoryBase : BaseInventory
 
     public override Entity DropActive()
     {
-        if (!Host.IsServer) return null;
+        if (!Host.IsServer || Owner is not Player player) return null;
 
-        var ent = Owner.ActiveChild;
+        var ent = player.ActiveChild;
         if (ent == null) return null;
 
         if (ent is WeaponBase weapon && weapon.CanDrop && Drop(ent))
         {
-            Owner.ActiveChild = null;
+            player.ActiveChild = null;
             return ent;
         }
 

@@ -82,14 +82,14 @@ namespace SWB_Base
 
                 if (isToggled)
                 {
-                    viewModelEntity?.SetAnimBool(OnAnimation, true);
+                    viewModelEntity?.SetAnimParameter(OnAnimation, true);
                 }
                 else
                 {
-                    viewModelEntity?.SetAnimBool(OffAnimation, true);
+                    viewModelEntity?.SetAnimParameter(OffAnimation, true);
                 }
 
-                viewModelEntity?.SetAnimBool(AnimationStatus, isToggled);
+                viewModelEntity?.SetAnimParameter(AnimationStatus, isToggled);
             }
 
             return true;

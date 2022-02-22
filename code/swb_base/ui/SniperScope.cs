@@ -44,7 +44,7 @@ namespace SWB_Base.UI
         {
             base.Tick();
 
-            var player = Local.Pawn;
+            var player = Local.Pawn as PlayerBase;
             if (player == null) return;
             if (player.ActiveChild is not WeaponBase weapon) return;
 
