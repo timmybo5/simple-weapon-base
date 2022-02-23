@@ -1,6 +1,6 @@
 ﻿using Sandbox;
 
-[Library("simple-weapon-base")]
+[Library("swb")]
 public partial class ExampleGame : Sandbox.Game
 {
     public ExampleGame()

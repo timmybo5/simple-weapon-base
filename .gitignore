@@ -1,5 +1,8 @@
 ## Ignore S&Box specific files
 
+code/*.csproj
+config/
+
 # Uncompiled models/sounds/textures
 *.vanmgrph
 *.vmdl
