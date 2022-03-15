@@ -14,7 +14,7 @@ namespace SWB_WEAPONS
         public override string ViewModelPath => "weapons/swb/rifles/fal/v_fal.vmdl";
         public override AngPos ViewModelOffset => new()
         {
-            Angle = new Angles(0, -5, 0), 
+            Angle = new Angles(0, -5, 0),
             Pos = new Vector3(-5, 0, 0)
         };
         public override string WorldModelPath => "weapons/swb/rifles/fal/w_fal.vmdl";
@@ -123,7 +123,20 @@ namespace SWB_WEAPONS
                                 Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
                                 Scale = 5f
                             },
-                        }
+                        },
+                        //new HunterScope
+                        //{
+                        //    ZoomAnimData = new AngPos { Angle = new Angles(-0.53f, 4.99f, 0f), Pos = new Vector3(-5.066f, -5.217f, -0.231f) },
+                        //    RequiresAttachmentWithName = sideTopRail.Name,
+                        //    ViewParentBone = "fal",
+                        //    ViewTransform = new Transform { Position = new Vector3(0f, 7.5f, 5f), Rotation = Rotation.From(new Angles(-90f, 0f, -90f)), Scale = 6.5f },
+                        //    WorldParentBone = "fal",
+                        //    WorldTransform = new Transform {
+                        //        Position = new Vector3(0f, 4.5f, 1.4f),
+                        //        Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
+                        //        Scale = 5f
+                        //    },
+                        //}
                     }
                 },
                 new AttachmentCategory

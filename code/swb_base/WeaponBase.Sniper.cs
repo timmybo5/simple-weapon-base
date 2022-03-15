@@ -139,8 +139,8 @@ namespace SWB_Base
 
             if (UseRenderTarget)
             {
-                SniperScopePanel = new SniperScopeRT(LensTexture, ScopeTexture);
-                SniperScopePanel.Parent = Local.Hud;
+                //SniperScopePanel = new RenderScopeRT();
+                //SniperScopePanel.Parent = Local.Hud;
             }
             else
             {
