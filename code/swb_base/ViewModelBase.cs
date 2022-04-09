@@ -41,7 +41,7 @@ namespace SWB_Base
         public override void PostCameraSetup(ref CameraSetup camSetup)
         {
             base.PostCameraSetup(ref camSetup);
-            FieldOfView = weapon.FOV;
+            camSetup.FieldOfView = weapon.FOV;
             Rotation = camSetup.Rotation;
             Position = camSetup.Position;
             if (weapon.IsDormant) return;
@@ -60,7 +60,7 @@ namespace SWB_Base
             // Change the angles and positions of the viewmodel with the new vectors
             Rotation *= Rotation.From(FinalVectorRot.x, FinalVectorRot.y, FinalVectorRot.z);
             Position += FinalVectorPos.z * Rotation.Up + FinalVectorPos.y * Rotation.Forward + FinalVectorPos.x * Rotation.Right;
-            FieldOfView = FinalFOV;
+            camSetup.FieldOfView = FinalFOV;
 
             // I'm sure there's something already that does this for me, but I spend an hour
             // searching through the wiki and a bunch of other garbage and couldn't find anything...
