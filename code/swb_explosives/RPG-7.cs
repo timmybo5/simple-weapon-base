@@ -11,10 +11,15 @@ namespace SWB_EXPLOSIVES
         public override int Bucket => 4;
         public override HoldType HoldType => HoldType.Rifle;
         public override string ViewModelPath => "weapons/swb/explosives/rpg-7/swb_v_rpg7.vmdl";
+        public override AngPos ViewModelOffset => new()
+        {
+            Angle = new Angles(0, 0, 0),
+            Pos = new Vector3(0, -7, 0)
+        };
         public override string WorldModelPath => "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl";
         public override string Icon => "/swb_explosives/textures/ui/icon_rpg7.png";
-        public override int FOV => 40;
-        public override int ZoomFOV => 30;
+        public override int FOV => 75;
+        public override int ZoomFOV => 75;
         public override float WalkAnimationSpeedMod => 0.7f;
         public override bool BulletCocking => false;
 
@@ -71,8 +76,8 @@ namespace SWB_EXPLOSIVES
 
             ZoomAnimData = new AngPos
             {
-                Angle = new Angles(-2.84f, -0.31f, 6f),
-                Pos = new Vector3(-5.12f, -1.05f, -1.5f)
+                Angle = new Angles(-3.1f, -0.23f, 6f),
+                Pos = new Vector3(-5.103f, -4.504f, -1.052f)
             };
 
             RunAnimData = new AngPos
