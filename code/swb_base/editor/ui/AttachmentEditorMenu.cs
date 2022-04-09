@@ -265,7 +265,7 @@ namespace SWB_Base.Editor
             if (activeWeapon == null) return;
             if (isEditingViewModel && activeWeapon.ViewModelEntity is ViewModelBase viewModel)
             {
-                viewModel.editorOffset = new AngPos();
+                viewModel.EditorOffset = new AngPos();
             }
             else if (ModelDisplay != null)
             {
@@ -283,7 +283,7 @@ namespace SWB_Base.Editor
             if (activeWeapon == null) return;
             if (isEditingViewModel && activeWeapon.ViewModelEntity is ViewModelBase viewModel)
             {
-                viewModel.editorOffset += offset;
+                viewModel.EditorOffset += offset;
             }
             else if (ModelDisplay != null)
             {

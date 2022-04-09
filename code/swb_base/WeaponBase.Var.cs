@@ -48,6 +48,12 @@ namespace SWB_Base
         /// <summary>FOV while zooming</summary>
         public virtual int ZoomFOV => 65;
 
+        /// <summary>FOV zoom in speed</summary>
+        public virtual int ZoomInFOVSpeed => 1;
+
+        /// <summary>FOV zoom out speed</summary>
+        public virtual int ZoomOutFOVSpeed => 10;
+
         /// <summary>Range that tucking should be enabled (-1 to disable tucking)</summary>
         public virtual float TuckRange => 30;
 

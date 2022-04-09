@@ -184,7 +184,7 @@ namespace SWB_Base.Editor
 
             if (activeWeapon.ViewModelEntity is ViewModelBase viewModel)
             {
-                viewModel.editorOffset = new AngPos
+                viewModel.EditorOffset = new AngPos
                 {
                     Angle = new Angles(Pitch, Yaw, Roll),
                     Pos = new Vector3(X, Y, Z)

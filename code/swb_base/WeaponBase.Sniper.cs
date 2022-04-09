@@ -22,15 +22,11 @@ namespace SWB_Base
         /// <summary>Sound to play when zooming out</summary>
         public virtual string ZoomOutSound => "";
 
-        /// <summary>The amount to zoom in (lower is more)</summary>
-        public virtual float ZoomAmount => 20f;
-
         /// <summary>EXPERIMENTAL - Use a render target instead of a full screen texture zoom</summary>
         public virtual bool UseRenderTarget => false;
 
         private Panel SniperScopePanel;
         private bool switchBackToThirdP = false;
-        private float lerpZoomAmount = 0;
         private float oldSpread = -1;
 
         public override void ActiveStart(Entity ent)
@@ -87,7 +83,6 @@ namespace SWB_Base
         {
             IsScoped = false;
             Primary.Spread = oldSpread;
-            lerpZoomAmount = 0;
 
             if (IsServer && switchBackToThirdP)
             {
@@ -146,20 +141,6 @@ namespace SWB_Base
             {
                 SniperScopePanel = new SniperScope(LensTexture, ScopeTexture);
                 SniperScopePanel.Parent = Local.Hud;
-            }
-        }
-
-        public override void PostCameraSetup(ref CameraSetup camSetup)
-        {
-            base.PostCameraSetup(ref camSetup);
-
-            if (IsScoped)
-            {
-                if (lerpZoomAmount == 0)
-                    lerpZoomAmount = camSetup.FieldOfView;
-
-                lerpZoomAmount = MathUtil.FILerp(lerpZoomAmount, ZoomAmount, 10f);
-                camSetup.FieldOfView = lerpZoomAmount;
             }
         }
     }

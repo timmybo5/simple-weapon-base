@@ -210,6 +210,9 @@ namespace SWB_Base
             _ = TryEquipAttachmentCL(name, instanceID);
         }
 
+        /// <summary>
+        /// Toggle an attachment's required attachment
+        /// </summary>
         public void ToggleRequiredAttachment(string name, bool toggle)
         {
             var attach = GetAttachment(name);
