@@ -11,7 +11,7 @@
             top: -12px;
             left: -16px;
             width: 12px;
-            height: 3px;
+            height: 1px;
             transform: rotate(45deg);
         }
 
@@ -19,7 +19,7 @@
             top: 12px;
             left: -16px;
             width: 12px;
-            height: 3px;
+            height: 1px;
             transform: rotate(-45deg);
         }
 
@@ -27,7 +27,7 @@
             top: -12px;
             left: 6px;
             width: 12px;
-            height: 3px;
+            height: 1px;
             transform: rotate(-45deg);
         }
 
@@ -35,7 +35,7 @@
             top: 12px;
             left: 6px;
             width: 12px;
-            height: 3px;
+            height: 1px;
             transform: rotate(45deg);
         }
     }
@@ -48,11 +48,11 @@
 .sharedBarStyling {
     position: absolute;
     background-color: white;
-    border: 1px solid black;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
 }
 
 .sharedBarStylingKill {
     position: absolute;
     background-color: #DC143C;
-    border: 1px solid black;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
 }
