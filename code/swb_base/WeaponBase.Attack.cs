@@ -244,11 +244,11 @@ namespace SWB_Base
         /// </summary>
         public virtual IEnumerable<TraceResult> TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
         {
-            bool InWater = Map.Physics.IsPointWater(start);
+            bool inWater = Map.Physics.IsPointWater(start);
 
             var tr = Trace.Ray(start, end)
                     .UseHitboxes()
-                    .HitLayer(CollisionLayer.Water, !InWater)
+                    .HitLayer(CollisionLayer.Water, !inWater)
                     .Ignore(Owner)
                     .Ignore(this)
                     .Size(radius)
@@ -278,7 +278,6 @@ namespace SWB_Base
             // Server bullet
             foreach (var tr in TraceBullet(Owner.EyePosition, endPos, bulletSize))
             {
-
                 if (!tr.Entity.IsValid()) continue;
 
                 // We turn prediction off for this, so any exploding effects don't get culled etc
