@@ -216,19 +216,16 @@ namespace SWB_Base.UI
 
                 RemoveInfoPanel();
 
-                if (!isEquipped)
+                if (isDisable)
                 {
-                    // Dequip old attachment
+                    // Unequip attachment
                     var activeAttach = activeWeapon.GetActiveAttachmentFromCategory(catName);
                     if (activeAttach != null)
                     {
                         ConsoleSystem.Run("swb_attachment_equip", activeAttach.Name, false);
                         SetCategoryAttachment(activeCategoryP, false);
                     }
-                }
 
-                if (isDisable)
-                {
                     activeWeapon.PlaySound("swb_unequip");
                     OnAttachmentHover(attachmentP, attach, catName);
                     return;

@@ -10,7 +10,6 @@ using Sandbox.UI;
 
 namespace SWB_Base
 {
-
     public partial class WeaponBase
     {
         [Net]
@@ -222,7 +221,7 @@ namespace SWB_Base
             var activeAttach = GetActiveAttachment(attach.RequiresAttachmentWithName);
             if (toggle && activeAttach == null)
             {
-                EquipAttachmentSV(attach.RequiresAttachmentWithName);
+                _ = EquipAttachmentSV(attach.RequiresAttachmentWithName);
             }
             else if (!toggle && activeAttach != null)
             {
@@ -251,8 +250,19 @@ namespace SWB_Base
         /// <summary>
         /// Request server to equip an attachment.
         /// </summary>
-        public void EquipAttachmentSV(string name)
+        public async Task EquipAttachmentSV(string name)
         {
+            // Unequip same category attachment
+            var cat = GetAttachmentCategoryName(name);
+            var catAtt = GetActiveAttachmentFromCategory(cat);
+            if (catAtt != null)
+            {
+                UnequipAttachmentSV(catAtt.Name);
+
+                // Networked list bug workaround, changing the list too fast will corrupt it on client
+                await GameTask.DelaySeconds(0.01f);
+            }
+
             ToggleRequiredAttachment(name, true);
 
             // Server

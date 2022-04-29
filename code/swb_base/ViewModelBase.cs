@@ -191,8 +191,7 @@ namespace SWB_Base
                     speedMod = timeDiff * 10;
                 }
 
-                animSpeed = 10 * weapon.WalkAnimationSpeedMod;
-                animSpeed *= speedMod;
+                animSpeed = 10 * weapon.WalkAnimationSpeedMod * speedMod;
                 targetVectorPos += weapon.ZoomAnimData.Pos;
                 targetVectorRot += MathUtil.ToVector3(weapon.ZoomAnimData.Angle);
                 targetFOV = weapon.ZoomFOV;
