@@ -26,16 +26,20 @@ namespace SWB_Base.Attachments
         /// <summary>Laser particle</summary>
         public string Particle { get; set; } = "particles/swb/laser/laser_small.vpcf";
 
+        /// <summary>Laser Dot particle</summary>
+        public string DotParticle { get; set; } = "particles/swb/laser/laser_dot.vpcf";
+
         /// <summary>Laser color</summary>
         public Color Color { get; set; } = Color.Red;
 
         /// <summary>Laser length</summary>
-        public int Range { get; set; } = 35;
+        public int Range { get; set; } = 20;
 
         /// <summary>Rainbow color override</summary>
         public bool RainbowColor { get; set; }
 
         private Particles laserParticle;
+        private Particles laserDotParticle;
         private WeaponBase weapon;
         private float rainbowI;
 
@@ -57,6 +61,11 @@ namespace SWB_Base.Attachments
 
             if (laserParticle != null)
                 laserParticle.SetPosition(3, Color);
+
+            laserDotParticle = Particles.Create(DotParticle);
+
+            if (laserDotParticle != null)
+                laserDotParticle.SetPosition(1, Color);
         }
 
         private void DestroyParticle()
@@ -65,6 +74,12 @@ namespace SWB_Base.Attachments
             {
                 laserParticle.Destroy(true);
                 laserParticle = null;
+            }
+
+            if (laserDotParticle != null)
+            {
+                laserDotParticle.Destroy(true);
+                laserDotParticle = null;
             }
         }
 
@@ -145,21 +160,17 @@ namespace SWB_Base.Attachments
                     if (rainbowI > 1)
                         rainbowI = 0;
 
-                    laserParticle.SetPosition(3, ColorUtil.HSL2RGB(rainbowI, 0.5, 0.5));
+                    var col = ColorUtil.HSL2RGB(rainbowI, 0.5, 0.5);
+                    laserParticle.SetPosition(3, col);
+                    laserDotParticle.SetPosition(1, col);
                 }
 
-                var isScoping = false;
-
-                if (weapon is WeaponBaseSniper sniper)
-                {
-                    isScoping = sniper.IsScoped;
-                }
-
-                laserParticle.EnableDrawing = !weapon.ShouldTuck() && !isScoping;
+                laserParticle.EnableDrawing = !weapon.ShouldTuck() && !weapon.IsScoped;
                 var rangeMultiplier = 1;
+                var isOwner = Local.Pawn == weapon.Owner;
 
                 // Firstperson & Thirdperson
-                if (Local.Pawn == weapon.Owner && weapon.IsFirstPersonMode)
+                if (isOwner && weapon.IsFirstPersonMode)
                 {
                     if (activeAttach.ViewAttachmentModel == null || !activeAttach.ViewAttachmentModel.IsValid) return;
                     laserAttach = activeAttach.ViewAttachmentModel.GetAttachment(EffectAttachment);
@@ -190,6 +201,33 @@ namespace SWB_Base.Attachments
                 //DebugOverlay.Line(laserStartPos, tr.EndPosition, 0, false);
                 //LogUtil.Info(laserTrans.Rotation);
                 //LogUtil.Info(laserTrans.Rotation.Forward);
+
+                TraceResult trDot;
+
+                if (isOwner && weapon.IsScoped)
+                {
+                    // Centered dot when scoped
+                    var eyePos = Local.Pawn.EyePosition;
+                    var eyeRot = Local.Pawn.EyeRotation;
+
+                    trDot = Trace.Ray(eyePos, eyePos + eyeRot.Forward * 9999)
+                                    .Size(0.1f)
+                                    .Ignore(owner)
+                                    .UseHitboxes()
+                                    .Run();
+                }
+                else
+                {
+                    trDot = Trace.Ray(laserStartPos, laserStartPos + laserTrans.Rotation.Forward * 2000)
+                                    .Size(0.1f)
+                                    .Ignore(owner)
+                                    .UseHitboxes()
+                                    .Run();
+                }
+
+
+
+                laserDotParticle.SetPosition(0, trDot.EndPosition);
             }
         }
     }
