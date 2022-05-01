@@ -165,10 +165,13 @@ namespace SWB_Base.Attachments
                     laserDotParticle.SetPosition(1, col);
                 }
 
-                laserParticle.EnableDrawing = !weapon.ShouldTuck() && !weapon.IsScoped;
+                var showLaser = !weapon.ShouldTuck() && !weapon.IsScoped;
                 var rangeMultiplier = 1;
                 var isOwner = Local.Pawn == weapon.Owner;
 
+                laserParticle.EnableDrawing = showLaser;
+                //laserDotParticle.EnableDrawing = showLaser; -> bugs out
+                
                 // Firstperson & Thirdperson
                 if (isOwner && weapon.IsFirstPersonMode)
                 {
@@ -224,8 +227,6 @@ namespace SWB_Base.Attachments
                                     .UseHitboxes()
                                     .Run();
                 }
-
-
 
                 laserDotParticle.SetPosition(0, trDot.EndPosition);
             }

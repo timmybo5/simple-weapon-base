@@ -36,7 +36,11 @@ namespace SWB_Base
         [Net]
         public float BulletSize { get; set; } = 0.1f;
 
-        /// <summary>Damage per bullet</summary>
+        /// <summary>Bullet type (Hitscan/Physical)</summary>
+        [Net]
+        public BulletBase BulletType { get; set; } = new HitScanBullet();
+
+        /// <summary>Damage per bullet</summary> 
         [Net]
         public float Damage { get; set; } = 5;
 

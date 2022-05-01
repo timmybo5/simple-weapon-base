@@ -34,6 +34,7 @@ namespace SWB_WEAPONS
                 ClipSize = 25,
 
                 BulletSize = 4f,
+                //BulletType = new SMGBullet(),
                 Damage = 15f,
                 Force = 3f,
                 Spread = 0.08f,

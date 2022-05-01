@@ -1,13 +1,22 @@
-﻿namespace SWB_Base
-{
-    public enum BulletType
-    {
-        HitScan,
-        Physical
-    }
+﻿using System;
+using Sandbox;
 
-    class BulletBase
+/* 
+ * Base for bullets
+*/
+
+namespace SWB_Base
+{
+    public abstract class BulletBase : BaseNetworkable
     {
-        BulletType BulletType;
+        /// <summary>
+        /// Shoot the bullet on server
+        /// </summary>
+        public abstract void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize);
+
+        /// <summary>
+        /// Shoot the bullet on client
+        /// </summary>
+        public abstract void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize);
     }
 }

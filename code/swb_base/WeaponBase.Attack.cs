@@ -141,7 +141,7 @@ namespace SWB_Base
             {
                 for (int i = 0; i < clipInfo.Bullets; i++)
                 {
-                    ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize);
+                    ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, isPrimary);
                 }
             }
 
@@ -194,7 +194,7 @@ namespace SWB_Base
             {
                 for (int i = 0; i < clipInfo.Bullets; i++)
                 {
-                    ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize);
+                    ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, isPrimary);
                 }
             }
         }
@@ -264,7 +264,7 @@ namespace SWB_Base
         /// <summary>
         /// Shoot a single bullet (server only)
         /// </summary>
-        public virtual void ShootBullet(float spread, float force, float damage, float bulletSize)
+        public virtual void ShootBullet(float spread, float force, float damage, float bulletSize, bool isPrimary)
         {
             // Spread
             var forward = Owner.EyeRotation.Forward;
@@ -272,47 +272,33 @@ namespace SWB_Base
             forward = forward.Normal;
             var endPos = Owner.EyePosition + forward * 999999;
 
-            // Client bullet
-            ShootClientBullet(Owner.EyePosition, endPos, bulletSize);
-
-            // Server bullet
-            foreach (var tr in TraceBullet(Owner.EyePosition, endPos, bulletSize))
+            // Server Bullet
+            if (isPrimary)
             {
-                if (!tr.Entity.IsValid()) continue;
-
-                // We turn prediction off for this, so any exploding effects don't get culled etc
-                using (Prediction.Off())
-                {
-                    var damageInfo = DamageInfo.FromBullet(tr.EndPosition, forward * 100 * force, damage)
-                        .UsingTraceResult(tr)
-                        .WithAttacker(Owner)
-                        .WithWeapon(this);
-
-                    tr.Entity.TakeDamage(damageInfo);
-                }
+                Primary.BulletType.FireSV(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize);
             }
+            else
+            {
+                Secondary.BulletType.FireSV(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize);
+            }
+
+            // Client bullet
+            ShootClientBullet(Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
         }
 
         /// <summary>
         /// Shoot a single bullet (client only)
         /// </summary>
         [ClientRpc]
-        public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, float radius = 2.0f)
+        public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
         {
-            foreach (var tr in TraceBullet(startPos, endPos, radius))
+            if (isPrimary)
             {
-                // Impact
-                tr.Surface.DoBulletImpact(tr);
-
-                // Tracer
-                if (!string.IsNullOrEmpty(Primary.BulletTracerParticle))
-                {
-                    var random = new Random();
-                    var randVal = random.Next(0, 2);
-
-                    if (randVal == 0)
-                        TracerEffects(Primary.BulletTracerParticle, tr.EndPosition);
-                }
+                Primary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize);
+            }
+            else
+            {
+                Secondary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize);
             }
         }
 
@@ -399,7 +385,7 @@ namespace SWB_Base
         /// <summary>
         /// Shows tracer effects
         /// </summary>
-        protected virtual void TracerEffects(string tracerParticle, Vector3 endPos)
+        public virtual void TracerEffects(string tracerParticle, Vector3 endPos)
         {
             ModelEntity firingViewModel = GetEffectModel();
 
