@@ -205,28 +205,35 @@ namespace SWB_Base.Attachments
                 //LogUtil.Info(laserTrans.Rotation);
                 //LogUtil.Info(laserTrans.Rotation.Forward);
 
-                TraceResult trDot;
+                var eyePos = Local.Pawn.EyePosition;
+                var eyeRot = Local.Pawn.EyeRotation;
+                Vector3 fromPos;
+                Vector3 toPos;
 
                 if (isOwner && weapon.IsScoped)
                 {
-                    // Centered dot when scoped
-                    var eyePos = Local.Pawn.EyePosition;
-                    var eyeRot = Local.Pawn.EyeRotation;
-
-                    trDot = Trace.Ray(eyePos, eyePos + eyeRot.Forward * 9999)
-                                    .Size(0.1f)
-                                    .Ignore(owner)
-                                    .UseHitboxes()
-                                    .Run();
+                    // Firstperson scoped
+                    fromPos = eyePos;
+                    toPos = eyePos + eyeRot.Forward * 9999;
                 }
+                else if(isOwner && weapon.IsFirstPersonMode)
+                {
+                    // Firstperson
+                    fromPos = laserStartPos;
+                    toPos = laserStartPos + laserTrans.Rotation.Forward * 2000;
+                } 
                 else
                 {
-                    trDot = Trace.Ray(laserStartPos, laserStartPos + laserTrans.Rotation.Forward * 2000)
+                    // Thirdperson
+                    fromPos = eyePos;
+                    toPos = eyePos + eyeRot.Forward * 2000;
+                }
+
+                TraceResult trDot = Trace.Ray(fromPos, toPos)
                                     .Size(0.1f)
                                     .Ignore(owner)
                                     .UseHitboxes()
                                     .Run();
-                }
 
                 laserDotParticle.SetPosition(0, trDot.EndPosition);
             }
