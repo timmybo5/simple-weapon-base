@@ -43,7 +43,7 @@ namespace SWB_Base
             var explosionSound = TableUtil.GetRandom(ExplosionSounds);
 
             if (!string.IsNullOrEmpty(explosionSound))
-                PlaySound(explosionSound);
+                PlaySound(explosionSound).SetPosition(Position);
 
             // Effects
             Particles.Create(ExplosionEffect, PhysicsBody.MassCenter);
