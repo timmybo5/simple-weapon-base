@@ -56,8 +56,23 @@ namespace SWB_Base.UI
             DamageDiffP.SetClass("pos", isPosDiff);
             DamageDiffP.SetClass("neg", !isPosDiff);
 
-            // Range (WIP)
-            RangeDefaultP.Style.Width = Length.Fraction(1f);
+            // Range 
+            if (weapon.Primary.BulletType is PhysicalBulletBase physBullet)
+            {
+                var velocity = physBullet.Velocity * BulletEntity.InchesPerMeter;
+                var diffVelocity = Math.Abs(velocity - (velocity * weapon.BulletVelocityMod));
+                isPosDiff = weapon.BulletVelocityMod > 1;
+                var defaultVelocity = isPosDiff ? velocity : velocity - diffVelocity;
+
+                RangeDefaultP.Style.Width = Length.Fraction(defaultVelocity / 30000);
+                RangeDiffP.Style.Width = Length.Fraction(diffVelocity / 30000);
+                RangeDiffP.SetClass("pos", isPosDiff);
+                RangeDiffP.SetClass("neg", !isPosDiff);
+            }
+            else
+            {
+                RangeDefaultP.Style.Width = Length.Fraction(1f);
+            }
 
             // Recoil
             scaleMultiplier = 3;

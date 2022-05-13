@@ -128,6 +128,30 @@ namespace SWB_Base.UI
             }
 
             UpdateCrosshair();
+
+            /*
+            // DEBUG
+            ModelEntity firingViewModel = weapon.GetEffectModel();
+
+            if (firingViewModel == null) return;
+
+            // server trace
+            var forward = player.EyeRotation.Forward;
+            forward = forward.Normal;
+            var endPos = player.EyePosition + forward * 999999;
+            var startPos = player.EyePosition;
+
+            DebugOverlay.Line(startPos, endPos, Color.Green, 0, false);
+
+            // client trace
+            var effectData = weapon.GetMuzzleEffectData(firingViewModel);
+            var effectEntity = effectData.Item1;
+            var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
+            var muzzlePos = muzzleAttach.GetValueOrDefault().Position;
+
+            var clientEndPos = muzzlePos + forward * 999999;
+            DebugOverlay.Line(muzzlePos, clientEndPos, Color.Yellow, 0, false);
+            */
         }
 
         [PanelEvent]

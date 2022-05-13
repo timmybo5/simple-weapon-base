@@ -29,6 +29,7 @@ namespace SWB_CSS
                 ClipSize = 100,
 
                 BulletSize = 5f,
+                BulletType = new HitScanBullet(),
                 Damage = 15f,
                 Force = 4f,
                 Spread = 0.2f,

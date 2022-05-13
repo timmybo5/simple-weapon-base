@@ -58,29 +58,19 @@ namespace SWB_Base.Attachments
             DestroyParticle();
 
             laserParticle = Particles.Create(Particle);
-
-            if (laserParticle != null)
-                laserParticle.SetPosition(3, Color);
+            laserParticle?.SetPosition(3, Color);
 
             laserDotParticle = Particles.Create(DotParticle);
-
-            if (laserDotParticle != null)
-                laserDotParticle.SetPosition(1, Color);
+            laserDotParticle?.SetPosition(1, Color);
         }
 
         private void DestroyParticle()
         {
-            if (laserParticle != null)
-            {
-                laserParticle.Destroy(true);
-                laserParticle = null;
-            }
+            laserParticle?.Destroy(true);
+            laserParticle = null;
 
-            if (laserDotParticle != null)
-            {
-                laserDotParticle.Destroy(true);
-                laserDotParticle = null;
-            }
+            laserDotParticle?.Destroy(true);
+            laserDotParticle = null;
         }
 
         public override void OnEquip(WeaponBase weapon, AttachmentModel attachmentModel)
@@ -171,7 +161,7 @@ namespace SWB_Base.Attachments
 
                 laserParticle.EnableDrawing = showLaser;
                 //laserDotParticle.EnableDrawing = showLaser; -> bugs out
-                
+
                 // Firstperson & Thirdperson
                 if (isOwner && weapon.IsFirstPersonMode)
                 {
@@ -205,8 +195,8 @@ namespace SWB_Base.Attachments
                 //LogUtil.Info(laserTrans.Rotation);
                 //LogUtil.Info(laserTrans.Rotation.Forward);
 
-                var eyePos = Local.Pawn.EyePosition;
-                var eyeRot = Local.Pawn.EyeRotation;
+                var eyePos = isOwner ? Local.Pawn.EyePosition : owner.EyePosition;
+                var eyeRot = isOwner ? Local.Pawn.EyeRotation : owner.EyeRotation;
                 Vector3 fromPos;
                 Vector3 toPos;
 
@@ -216,12 +206,12 @@ namespace SWB_Base.Attachments
                     fromPos = eyePos;
                     toPos = eyePos + eyeRot.Forward * 9999;
                 }
-                else if(isOwner && weapon.IsFirstPersonMode)
+                else if (isOwner && weapon.IsFirstPersonMode)
                 {
                     // Firstperson
                     fromPos = laserStartPos;
                     toPos = laserStartPos + laserTrans.Rotation.Forward * 2000;
-                } 
+                }
                 else
                 {
                     // Thirdperson

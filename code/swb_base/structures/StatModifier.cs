@@ -12,24 +12,38 @@
 
         public void Apply(WeaponBase weapon)
         {
-            weapon.Primary.Damage += weapon.InitialStats.Damage * Damage;
-            weapon.Primary.Recoil += weapon.InitialStats.Recoil * Recoil;
-            weapon.Primary.Spread += weapon.InitialStats.Spread * Spread;
-            weapon.Primary.RPM += (int)(weapon.InitialStats.RPM * RPM);
+            Apply(weapon.Primary, weapon.InitialStats);
+            Apply(weapon.Secondary, weapon.InitialStats);
 
-            // Temp bullet velocity
-            weapon.Primary.Damage += weapon.InitialStats.Damage * BulletVelocity;
+            weapon.BulletVelocityMod += BulletVelocity;
+        }
+
+        private void Apply(ClipInfo clipInfo, StatModifier initialStats)
+        {
+            if (clipInfo == null) return;
+
+            clipInfo.Damage += initialStats.Damage * Damage;
+            clipInfo.Recoil += initialStats.Recoil * Recoil;
+            clipInfo.Spread += initialStats.Spread * Spread;
+            clipInfo.RPM += (int)(initialStats.RPM * RPM);
         }
 
         public void Remove(WeaponBase weapon)
         {
-            weapon.Primary.Damage -= weapon.InitialStats.Damage * Damage;
-            weapon.Primary.Recoil -= weapon.InitialStats.Recoil * Recoil;
-            weapon.Primary.Spread -= weapon.InitialStats.Spread * Spread;
-            weapon.Primary.RPM -= (int)(weapon.InitialStats.RPM * RPM);
+            Remove(weapon.Primary, weapon.InitialStats);
+            Remove(weapon.Secondary, weapon.InitialStats);
 
-            // Temp bullet velocity
-            weapon.Primary.Damage -= weapon.InitialStats.Damage * BulletVelocity;
+            weapon.BulletVelocityMod -= BulletVelocity;
+        }
+
+        private void Remove(ClipInfo clipInfo, StatModifier initialStats)
+        {
+            if (clipInfo == null) return;
+
+            clipInfo.Damage -= initialStats.Damage * Damage;
+            clipInfo.Recoil -= initialStats.Recoil * Recoil;
+            clipInfo.Spread -= initialStats.Spread * Spread;
+            clipInfo.RPM -= (int)(initialStats.RPM * RPM);
         }
     }
 }

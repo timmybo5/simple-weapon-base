@@ -6,8 +6,26 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "ResourcePaths": null,
+  "ResourcePaths": [
+    "/attachments/*",
+    "/fonts/*",
+    "/weapons/*",
+    "/materials/*",
+    "/code/swb_base/translations/languages/*"
+  ],
   "HasCode": true,
   "CodePath": "code",
-  "RootNamespace": "Sandbox"
+  "RootNamespace": "Sandbox",
+  "Metadata": {
+    "MapList": [
+      "facepunch.construct"
+    ],
+    "PerMapRanking": false,
+    "LeaderboardType": 0,
+    "RankType": 0,
+    "MapSelect": 0,
+    "GameNetworkType": 0,
+    "MaxPlayers": 64,
+    "MinPlayers": 1
+  }
 }

@@ -4,7 +4,7 @@
 HEADER
 {
     CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
-    Description = "Reflex Sight Shader";
+    Description = "Reflex Sight Shader"; 
 }
 
 //=========================================================================================================================
@@ -88,8 +88,6 @@ PS
 	float g_flSightAlpha < UiType( Slider ); Default( 0.75 ); Range(0.0f, 1.0f); UiGroup( "Reflex Sight,0/Appearance,2/4" ); >;
 	float3 g_vGlassColor < UiType( Color ); Default3( 0.0, 0.0, 0.0 ); UiGroup( "Reflex Sight,0/Appearance,2/5" ); >;
 	float g_flGlassAlpha < UiType( Slider ); Default( 0.7 ); Range(0.0f, 1.0f); UiGroup( "Reflex Sight,0/Appearance,2/6" ); >;
-	
-	float3 g_vColorTint < UiType( Color ); Default3( 1.0, 1.0, 1.0 ); UiGroup( "Color,10/20" ); >;
     
     CreateInputTexture2D( TextureReticleMask, Srgb, 8, "", "_color", "Reflex Sight,0/Appearance,2/7", Default3( 1.0, 1.0, 1.0 ) );
     CreateTexture2DWithoutSampler( g_tReticleMask ) < Channel( RGB, Box( TextureReticleMask ), Srgb ); OutputFormat( BC7 ); SrgbRead( true ); >;

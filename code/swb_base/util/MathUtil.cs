@@ -47,5 +47,9 @@ namespace SWB_Base
             return new Vector3(angles.pitch, angles.yaw, angles.roll);
         }
 
+        public static Angles ToAngles(Vector3 vector)
+        {
+            return new Angles(vector.x, vector.y, vector.z);
+        }
     }
 }

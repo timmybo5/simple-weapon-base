@@ -15,9 +15,9 @@ public partial class ExampleGame : Sandbox.Game
     {
         base.ClientJoined(client);
 
-        var player = new ExamplePlayer();
-        client.Pawn = player;
-
+        var player = new ExamplePlayer(client);
         player.Respawn();
+
+        client.Pawn = player;
     }
 }

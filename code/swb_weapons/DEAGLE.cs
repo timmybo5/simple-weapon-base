@@ -2,6 +2,7 @@
 using Sandbox;
 using SWB_Base;
 using SWB_Base.Attachments;
+using SWB_Base.Bullets;
 
 namespace SWB_WEAPONS
 {
@@ -37,7 +38,8 @@ namespace SWB_WEAPONS
                 AmmoType = AmmoType.Revolver,
                 ClipSize = 7,
 
-                BulletSize = 6f,
+                BulletSize = 4f,
+                BulletType = new DeagleBullet(),
                 Damage = 50f,
                 Force = 5f,
                 Spread = 0.06f,
@@ -57,6 +59,7 @@ namespace SWB_WEAPONS
 
                 BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
                 MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
+                BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
 
                 InfiniteAmmo = InfiniteAmmoType.reserve
             };

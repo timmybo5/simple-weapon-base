@@ -19,6 +19,9 @@ namespace SWB_Base
         [ConVar.Replicated("swb_sv_customization", Help = "Enable the customization menu (Q)", Saved = true)]
         public static int EnableCustomizationSV { get; set; } = 1;
 
+        [ConVar.Replicated("swb_sv_debug_bullets", Help = "Shows physical bullet path and distance", Saved = true)]
+        public static int DebugBulletsSV { get; set; } = 0;
+
         // Client
         [ConVar.ClientData("swb_cl_showhud", Help = "Enable HUD", Saved = true)]
         public static int ShowHudCL { get; set; } = 1;

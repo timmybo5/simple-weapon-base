@@ -28,6 +28,7 @@ namespace SWB_CSS
                 ClipSize = 7,
 
                 BulletSize = 6f,
+                BulletType = new HitScanBullet(),
                 Damage = 50f,
                 Force = 5f,
                 Spread = 0.06f,
@@ -47,6 +48,7 @@ namespace SWB_CSS
 
                 BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
                 MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
+                BulletTracerParticle = "particles/swb/tracer/tracer_medium.vpcf",
 
                 InfiniteAmmo = InfiniteAmmoType.reserve
             };

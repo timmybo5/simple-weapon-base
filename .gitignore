@@ -1,10 +1,10 @@
 ## Ignore S&Box specific files
 
+.vs/
 code/*.csproj
 config/
 
 # Uncompiled models/sounds/textures
-*.vanmgrph
 *.vmdl
 *.vmat
 *.sound

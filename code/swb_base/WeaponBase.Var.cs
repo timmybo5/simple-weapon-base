@@ -39,9 +39,6 @@ namespace SWB_Base
         /// <summary>Should the barrel smoke after heavy weapon usage?</summary>
         public virtual bool BarrelSmoking => true;
 
-        /// <summary>Some weapons have looping idle animations -> force spam another animation to "freeze" it</summary>
-        public virtual string FreezeViewModelOnZoom => null;
-
         /// <summary>Default FOV</summary>
         public virtual int FOV => 65;
 
@@ -170,6 +167,9 @@ namespace SWB_Base
 
         /// <summary>Initial stats (not actual)</summary>
         public StatModifier InitialStats { get; protected set; }
+
+        /// <summary>Bullet velocity modifier (phys bullets only)</summary>
+        public float BulletVelocityMod = 1;
 
         // Private
         private bool doRecoil = false;

@@ -7,9 +7,17 @@ public partial class ExamplePlayer : PlayerBase
     public bool SupressPickupNotices { get; set; }
     TimeSince timeSinceDropped;
 
+    public Clothing.Container Clothing = new();
+
     public ExamplePlayer()
     {
         Inventory = new ExampleInventory(this);
+    }
+
+    public ExamplePlayer(Client client) : this()
+    {
+        // Load clothing from client data
+        Clothing.LoadFromClient(client);
     }
 
     public override void Respawn()
@@ -18,6 +26,7 @@ public partial class ExamplePlayer : PlayerBase
 
         // Initialize player
         SetModel("models/citizen/citizen.vmdl");
+        Clothing.DressEntity(this);
 
         Controller = new WalkController();
         Animator = new StandardPlayerAnimator();
@@ -27,6 +36,7 @@ public partial class ExamplePlayer : PlayerBase
         EnableDrawing = true;
         EnableHideInFirstPerson = true;
         EnableShadowInFirstPerson = true;
+
 
         Health = 100;
 

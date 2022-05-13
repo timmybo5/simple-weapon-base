@@ -275,11 +275,11 @@ namespace SWB_Base
             // Server Bullet
             if (isPrimary)
             {
-                Primary.BulletType.FireSV(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize);
+                Primary.BulletType.FireSV(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
             }
             else
             {
-                Secondary.BulletType.FireSV(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize);
+                Secondary.BulletType.FireSV(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
             }
 
             // Client bullet
@@ -294,11 +294,11 @@ namespace SWB_Base
         {
             if (isPrimary)
             {
-                Primary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize);
+                Primary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
             }
             else
             {
-                Secondary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize);
+                Secondary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
             }
         }
 
@@ -380,23 +380,6 @@ namespace SWB_Base
                 ViewModelEntity?.SetAnimParameter(shootAnim, true);
                 CrosshairPanel?.CreateEvent("fire", (60f / Primary.RPM));
             }
-        }
-
-        /// <summary>
-        /// Shows tracer effects
-        /// </summary>
-        public virtual void TracerEffects(string tracerParticle, Vector3 endPos)
-        {
-            ModelEntity firingViewModel = GetEffectModel();
-
-            if (firingViewModel == null) return;
-
-            var effectData = GetMuzzleEffectData(firingViewModel);
-            var effectEntity = effectData.Item1;
-            var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
-            var tracer = Particles.Create(tracerParticle);
-            tracer.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
-            tracer.SetPosition(2, endPos);
         }
     }
 }

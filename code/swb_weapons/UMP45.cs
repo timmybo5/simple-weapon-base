@@ -2,6 +2,7 @@
 using Sandbox;
 using SWB_Base;
 using SWB_Base.Attachments;
+using SWB_Base.Bullets;
 
 namespace SWB_WEAPONS
 {
@@ -33,8 +34,8 @@ namespace SWB_WEAPONS
                 AmmoType = AmmoType.SMG,
                 ClipSize = 25,
 
-                BulletSize = 4f,
-                //BulletType = new SMGBullet(),
+                BulletSize = 2f,
+                BulletType = new SMGBullet(),
                 Damage = 15f,
                 Force = 3f,
                 Spread = 0.08f,
@@ -54,6 +55,7 @@ namespace SWB_WEAPONS
 
                 BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
                 MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
+                BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
 
                 InfiniteAmmo = InfiniteAmmoType.reserve
             };

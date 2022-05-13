@@ -40,7 +40,7 @@ namespace SWB_Base
         [Net]
         public BulletBase BulletType { get; set; } = new HitScanBullet();
 
-        /// <summary>Damage per bullet</summary> 
+        /// <summary>Damage per bullet</summary>  
         [Net]
         public float Damage { get; set; } = 5;
 
