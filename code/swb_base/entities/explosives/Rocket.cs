@@ -76,7 +76,7 @@ namespace SWB_Base
             var explosionSound = TableUtil.GetRandom(ExplosionSounds);
 
             if (!string.IsNullOrEmpty(explosionSound))
-                PlaySound(explosionSound);
+                PlaySound(explosionSound).SetPosition(Position);
 
             // Explosion effect
             if (!string.IsNullOrEmpty(ExplosionEffect))
