@@ -38,6 +38,10 @@ The `swb_editor_model` command opens a model editor that can be used to easily c
 * Dynamic Crosshair
 * Dynamic Hitmarkers
 
+### Bullet Types
+* Hitscan
+* Physical (bullet drop & drag)
+
 ### Bases
 * Magazine (default)
 * Shotgun (shell based reloading)
@@ -62,7 +66,6 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 ## Planned Updates
 * More base-included entities (e.g. bomb)
 * More attachments
-* Physical bullets
 * Worldmodel clipping shader
 
 ## Deathmatch Elements
