@@ -75,10 +75,15 @@ namespace SWB_Base
             // Aiming
             if (IsZooming && this is not WeaponBaseShotty)
                 floatMod /= 4;
-
-            // Jumping
-            if (Owner.GroundEntity == null)
-                floatMod += 0.5f;
+            
+            if (Owner.GroundEntity == null) {
+                // Jumping
+                floatMod += 0.75f;
+            } else if (Owner.Velocity.Length > 100)
+            {
+                // Moving 
+                floatMod += 0.25f;
+            }
 
             return spread * floatMod;
         }
