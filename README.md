@@ -4,7 +4,7 @@
 
 A community managed simple to use weapon base for S&amp;Box.
 
-Skeleton version [here](https://github.com/timmybo5/swb-skeleton).
+[Skeleton version here](https://github.com/timmybo5/swb-skeleton)
 
 ## Demonstration
 [![Watch the video](https://img.youtube.com/vi/EmdQRybRiu0/maxresdefault.jpg)](https://www.youtube.com/watch?v=EmdQRybRiu0)
