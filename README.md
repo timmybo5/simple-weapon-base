@@ -5,7 +5,7 @@
 A community managed simple to use weapon base for S&amp;Box
 
 ## Demonstration
-[![Watch the video](https://img.youtube.com/vi/dXaeXi6mX04/maxresdefault.jpg)](https://www.youtube.com/watch?v=dXaeXi6mX04)
+[![Watch the video](https://img.youtube.com/vi/EmdQRybRiu0/maxresdefault.jpg)](https://www.youtube.com/watch?v=EmdQRybRiu0)
 
 ## Goal
 During the lifetime of garrysmod many weapon bases consisting of poor quality were created, and it would be a shame to see the same in S&box. The goal is to offer an easy to use yet very configurable weapon base maintained by the community for the community.
