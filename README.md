@@ -2,10 +2,12 @@
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/timmybo5/simple-weapon-base)
 ![GitHub repo size](https://img.shields.io/github/repo-size/timmybo5/simple-weapon-base)
 
-A community managed simple to use weapon base for S&amp;Box
+A community managed simple to use weapon base for S&amp;Box.
+
+[Skeleton version here](https://github.com/timmybo5/swb-skeleton)
 
 ## Demonstration
-[![Watch the video](https://img.youtube.com/vi/dXaeXi6mX04/maxresdefault.jpg)](https://www.youtube.com/watch?v=dXaeXi6mX04)
+[![Watch the video](https://img.youtube.com/vi/EmdQRybRiu0/maxresdefault.jpg)](https://www.youtube.com/watch?v=EmdQRybRiu0)
 
 ## Goal
 During the lifetime of garrysmod many weapon bases consisting of poor quality were created, and it would be a shame to see the same in S&box. The goal is to offer an easy to use yet very configurable weapon base maintained by the community for the community.
