@@ -89,6 +89,9 @@ namespace SWB_Base
         /// <summary>Display name</summary>
         public string PrintName { get { return ClassInfo.Title; } }
 
+        /// <summary>Class name</summary>
+        public string ClassName { get { return ClassInfo.Name; } }
+
         /// <summary>Extra actions that use certain key combinations to trigger animations</summary>
         public List<AnimatedAction> AnimatedActions { get; set; }
 
