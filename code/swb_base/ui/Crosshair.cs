@@ -5,7 +5,6 @@ using Sandbox.UI;
 
 namespace SWB_Base.UI
 {
-
     public class Crosshair : Panel
     {
 

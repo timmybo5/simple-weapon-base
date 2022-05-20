@@ -45,6 +45,7 @@ namespace SWB_Base
         public override void PostCameraSetup(ref CameraSetup camSetup)
         {
             base.PostCameraSetup(ref camSetup);
+
             camSetup.FieldOfView = weapon.FOV;
             Rotation = camSetup.Rotation;
             Position = camSetup.Position;

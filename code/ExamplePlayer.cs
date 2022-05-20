@@ -7,7 +7,7 @@ public partial class ExamplePlayer : PlayerBase
     public bool SupressPickupNotices { get; set; }
     TimeSince timeSinceDropped;
 
-    public Clothing.Container Clothing = new();
+    public ClothingContainer Clothing = new();
 
     public ExamplePlayer()
     {

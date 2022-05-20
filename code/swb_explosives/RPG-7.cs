@@ -60,10 +60,10 @@ namespace SWB_EXPLOSIVES
                 FiringType = FiringType.semi,
                 ScreenShake = new ScreenShake
                 {
-                    Length = 0.5f,
-                    Speed = 4.0f,
-                    Size = 1.0f,
-                    Rotation = 1f
+                    Length = 0.08f,
+                    Delay = 0.02f,
+                    Size = 2f,
+                    Rotation = 0.2f
                 },
 
                 DryFireSound = "swb_lmg.empty",
@@ -113,10 +113,10 @@ namespace SWB_EXPLOSIVES
             };
             rocket.ExplosionShake = new ScreenShake
             {
-                Length = 1f,
-                Speed = 5f,
-                Size = 7f,
-                Rotation = 3f
+                Length = 0.5f,
+                Delay = 0.05f,
+                Size = 10f,
+                Rotation = 1f
             };
 
             return rocket;

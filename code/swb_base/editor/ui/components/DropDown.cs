@@ -11,7 +11,7 @@ namespace SWB_Base.Editor
     /// <summary>
     /// A UI control which provides multiple options via a dropdown box
     /// </summary>
-    [Library("swb_Select", Alias = new[] { "swb_Dropdown" })]
+    [Library("swb_Select"), Alias("swb_Dropdown")]
     public class DropDown : PopupButton
     {
         protected IconPanel DropdownIndicator;

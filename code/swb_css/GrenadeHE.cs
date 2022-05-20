@@ -60,10 +60,10 @@ namespace SWB_CSS
             grenade.ExplosionEffect = "weapons/swb/css/grenade_he/particles/grenade_he_explosion.vpcf";
             grenade.ExplosionShake = new ScreenShake
             {
-                Length = 1f,
-                Speed = 5f,
-                Size = 5f,
-                Rotation = 2f,
+                Length = 0.5f,
+                Delay = 0.05f,
+                Size = 10f,
+                Rotation = 1f
             };
 
             return grenade;

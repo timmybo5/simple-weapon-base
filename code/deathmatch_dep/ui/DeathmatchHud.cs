@@ -12,7 +12,6 @@ public partial class DeathmatchHud : HudEntity<RootPanel>
 
         RootPanel.StyleSheet.Load("deathmatch_dep/ui/DeathmatchHud.scss");
 
-        RootPanel.AddChild<NameTags>();
         RootPanel.AddChild<DamageIndicator>();
 
         RootPanel.AddChild<InventoryBar>();

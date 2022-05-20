@@ -62,10 +62,10 @@ namespace SWB_WEAPONS
                 FiringType = FiringType.semi,
                 ScreenShake = new ScreenShake
                 {
-                    Length = 0.5f,
-                    Speed = 4.0f,
-                    Size = 1f,
-                    Rotation = 0.5f
+                    Length = 0.08f,
+                    Delay = 0.02f,
+                    Size = 2f,
+                    Rotation = 0.2f
                 },
 
                 DryFireSound = "swb_sniper.empty",

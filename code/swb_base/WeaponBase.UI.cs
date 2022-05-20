@@ -15,6 +15,7 @@ namespace SWB_Base
         private Panel customizationMenu;
 
         private Panel hitmarker;
+        private Panel crosshair;
 
         public override void CreateHudElements()
         {
@@ -25,8 +26,8 @@ namespace SWB_Base
 
             if (UISettings.ShowCrosshair)
             {
-                CrosshairPanel = CreateCrosshair();
-                CrosshairPanel.Parent = Local.Hud;
+                crosshair = CreateCrosshair();
+                crosshair.Parent = Local.Hud;
             }
 
             if (UISettings.ShowHitmarker)
@@ -54,7 +55,7 @@ namespace SWB_Base
             }
         }
 
-        public new virtual Panel CreateCrosshair()
+        public virtual Panel CreateCrosshair()
         {
             return new Crosshair();
         }
@@ -66,6 +67,7 @@ namespace SWB_Base
             if (healthDisplay != null) healthDisplay.Delete(true);
             if (ammoDisplay != null) ammoDisplay.Delete(true);
             if (hitmarker != null) hitmarker.Delete(true);
+            if (crosshair != null) crosshair.Delete(true);
             if (customizationMenu != null) customizationMenu.Delete();
         }
 

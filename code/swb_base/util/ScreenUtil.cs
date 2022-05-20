@@ -5,30 +5,48 @@ namespace SWB_Base
 {
     partial class ScreenUtil
     {
-        public static void Shake(float length = 0, float speed = 0, float size = 0, float rotation = 0)
+        [ClientRpc]
+        public static void ShakeRPC(float length = 0, float delay = 0, float size = 0, float rotation = 0)
         {
-            ShakeRPC(length, speed, size, rotation);
+            Shake(length, delay, size, rotation);
         }
 
-        public static void Shake(To to, float length = 0, float speed = 0, float size = 0, float rotation = 0)
+        public static void Shake(float length = 0, float delay = 0, float size = 0, float rotation = 0)
         {
-            ShakeRPC(to, length, speed, size, rotation);
+            if (Local.Pawn is PlayerBase player)
+            {
+                var screenShake = new ScreenShakeStruct
+                {
+                    Length = length,
+                    Delay = delay,
+                    Size = size,
+                    Rotation = rotation
+                };
+
+                player.ScreenShake(screenShake);
+            }
+        }
+
+        public static void Shake(To to, float length = 0, float delay = 0, float size = 0, float rotation = 0)
+        {
+            ShakeRPC(to, length, delay, size, rotation);
         }
 
         public static void Shake(To to, ScreenShake screenShake)
         {
             if (screenShake != null)
-                Shake(to, screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation);
+                Shake(to, screenShake.Length, screenShake.Delay, screenShake.Size, screenShake.Rotation);
         }
 
         public static void Shake(ScreenShake screenShake)
         {
-            if (screenShake != null)
-                Shake(screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation);
+
+            Shake(screenShake.Length, screenShake.Delay, screenShake.Size, screenShake.Rotation);
         }
 
-        public static void ShakeAt(Vector3 origin, float radius = 0, float length = 0, float speed = 0, float size = 0, float rotation = 0)
+        public static void ShakeAt(Vector3 origin, float radius = 0, float delay = 0, float speed = 0, float size = 0, float rotation = 0)
         {
+            LogUtil.Info("HERE");
             var objects = Entity.FindInSphere(origin, radius);
 
             foreach (var obj in objects)
@@ -48,20 +66,14 @@ namespace SWB_Base
                 rotation *= distanceMul;
                 size *= distanceMul;
 
-                ShakeRPC(To.Single(ply), length, speed, size, rotation);
+                ShakeRPC(To.Single(ply), delay, speed, size, rotation);
             }
         }
 
         public static void ShakeAt(Vector3 position, float radius, ScreenShake screenShake)
         {
             if (screenShake != null)
-                ShakeAt(position, radius, screenShake.Length, screenShake.Speed, screenShake.Size, screenShake.Rotation);
-        }
-
-        [ClientRpc]
-        public static void ShakeRPC(float length = 0, float speed = 0, float size = 0, float rotation = 0)
-        {
-            new Sandbox.ScreenShake.Perlin(length, speed, size, rotation);
+                ShakeAt(position, radius, screenShake.Length, screenShake.Delay, screenShake.Size, screenShake.Rotation);
         }
     }
 }

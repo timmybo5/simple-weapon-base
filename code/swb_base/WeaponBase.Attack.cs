@@ -46,7 +46,7 @@ namespace SWB_Base
         /// </summary>
         public virtual bool CanPrimaryAttack()
         {
-            return CanAttack(Primary, TimeSincePrimaryAttack, InputButton.Attack1);
+            return CanAttack(Primary, TimeSincePrimaryAttack, InputButton.PrimaryAttack);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace SWB_Base
         /// </summary>
         public virtual bool CanSecondaryAttack()
         {
-            return CanAttack(Secondary, TimeSinceSecondaryAttack, InputButton.Attack2);
+            return CanAttack(Secondary, TimeSinceSecondaryAttack, InputButton.SecondaryAttack);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace SWB_Base
             }
 
             // Player anim
-            (Owner as AnimEntity).SetAnimParameter("b_attack", true);
+            (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
             // Shoot effects
             if (IsLocalPawn)
@@ -163,7 +163,7 @@ namespace SWB_Base
             TimeSinceSecondaryAttack -= delay;
 
             // Player anim
-            (Owner as AnimEntity).SetAnimParameter("b_attack", true);
+            (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
             // Play pre-fire animation
             ShootEffects(null, null, GetShootAnimation(clipInfo));
@@ -378,7 +378,7 @@ namespace SWB_Base
             if (!string.IsNullOrEmpty(shootAnim))
             {
                 ViewModelEntity?.SetAnimParameter(shootAnim, true);
-                CrosshairPanel?.CreateEvent("fire", (60f / Primary.RPM));
+                crosshair?.CreateEvent("fire", (60f / Primary.RPM));
             }
         }
     }

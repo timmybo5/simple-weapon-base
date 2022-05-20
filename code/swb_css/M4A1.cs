@@ -39,10 +39,10 @@ namespace SWB_CSS
                 FiringType = FiringType.auto,
                 ScreenShake = new ScreenShake
                 {
-                    Length = 0.5f,
-                    Speed = 4.0f,
+                    Length = 0.08f,
+                    Delay = 0.02f,
                     Size = 0.5f,
-                    Rotation = 0.5f
+                    Rotation = 0.1f
                 },
 
                 DryFireSound = "swb_rifle.empty",

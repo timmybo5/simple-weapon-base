@@ -87,7 +87,7 @@ namespace SWB_Base
             }
 
             DoMeleeEffects(hitAnimation, sound);
-            (Owner as AnimEntity).SetAnimParameter("b_attack", true);
+            (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
             if (!hitEntity || !IsServer) return;
 
@@ -112,12 +112,12 @@ namespace SWB_Base
 
         public override bool CanPrimaryAttack()
         {
-            return CanMelee(TimeSincePrimaryAttack, SwingSpeed, InputButton.Attack1);
+            return CanMelee(TimeSincePrimaryAttack, SwingSpeed, InputButton.PrimaryAttack);
         }
 
         public override bool CanSecondaryAttack()
         {
-            return CanMelee(TimeSincePrimaryAttack, StabSpeed, InputButton.Attack2);
+            return CanMelee(TimeSincePrimaryAttack, StabSpeed, InputButton.SecondaryAttack);
         }
 
         public override void AttackPrimary()

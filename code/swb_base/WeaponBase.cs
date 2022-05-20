@@ -138,14 +138,14 @@ namespace SWB_Base
             IsRunning = Input.Down(InputButton.Run) && RunAnimData != AngPos.Zero && Owner.Velocity.Length >= 200;
 
             if (Secondary == null && ZoomAnimData != AngPos.Zero && this is not WeaponBaseMelee)
-                IsZooming = Input.Down(InputButton.Attack2) && !IsRunning && !IsReloading;
+                IsZooming = Input.Down(InputButton.SecondaryAttack) && !IsRunning && !IsReloading;
 
             if (TimeSinceDeployed < General.DrawTime)
                 return;
 
             // Burst fire
-            ResetBurstFireCount(Primary, InputButton.Attack1);
-            ResetBurstFireCount(Secondary, InputButton.Attack2);
+            ResetBurstFireCount(Primary, InputButton.PrimaryAttack);
+            ResetBurstFireCount(Secondary, InputButton.SecondaryAttack);
 
             if (!IsReloading || this is WeaponBaseShotty)
             {
@@ -193,7 +193,7 @@ namespace SWB_Base
             IsReloading = true;
 
             // Player anim
-            (Owner as AnimEntity).SetAnimParameter("b_reload", true);
+            (Owner as AnimatedEntity).SetAnimParameter("b_reload", true);
 
             StartReloadEffects(isEmptyReload);
         }

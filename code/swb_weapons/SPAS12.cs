@@ -6,7 +6,7 @@ using SWB_Base.Bullets;
 
 namespace SWB_WEAPONS
 {
-    [Library("swb_css_spas12", Title = "SPAS-12")]
+    [Library("swb_spas12", Title = "SPAS-12")]
     public class SPAS12 : WeaponBaseShotty
     {
         public override int Bucket => 2;
@@ -42,10 +42,10 @@ namespace SWB_WEAPONS
                 FiringType = FiringType.semi,
                 ScreenShake = new ScreenShake
                 {
-                    Length = 0.5f,
-                    Speed = 4.0f,
-                    Size = 1.0f,
-                    Rotation = 0.5f
+                    Length = 0.08f,
+                    Delay = 0.02f,
+                    Size = 2f,
+                    Rotation = 0.15f
                 },
 
                 DryFireSound = "swb_shotty.empty",

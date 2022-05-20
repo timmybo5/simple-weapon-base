@@ -51,10 +51,10 @@ namespace SWB_CSS
                 FiringType = FiringType.auto,
                 ScreenShake = new ScreenShake
                 {
-                    Length = 0.5f,
-                    Speed = 4.0f,
-                    Size = 1.0f,
-                    Rotation = 0.5f
+                    Length = 0.08f,
+                    Delay = 0.02f,
+                    Size = 0.5f,
+                    Rotation = 0.1f
                 },
 
                 DryFireSound = "swb_lmg.empty",
@@ -97,7 +97,7 @@ namespace SWB_CSS
             grenade.ExplosionShake = new ScreenShake
             {
                 Length = 1f,
-                Speed = 5f,
+                Delay = 5f,
                 Size = 5f,
                 Rotation = 2f,
             };

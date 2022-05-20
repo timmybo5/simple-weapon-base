@@ -15,7 +15,7 @@ namespace SWB_Base
         /// <summary>Duration of the reload insert animatio</summary>
         public virtual float ShellReloadTimeInsert => -1;
 
-        /// <summary>The shell eject delay after firing</summary>
+        /// <summary>The shell eject delay after firing</summary> 
         public virtual float ShellEjectDelay => -1;
 
         /// <summary>Animation for finishing the reload</summary>

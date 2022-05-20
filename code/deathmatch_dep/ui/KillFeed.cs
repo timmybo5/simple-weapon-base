@@ -4,14 +4,16 @@ using Sandbox.UI;
 using SWB_Base;
 using System;
 
-public partial class KillFeed : Sandbox.UI.KillFeed
+public partial class KillFeed : Panel
 {
+    public static KillFeed Current;
+
     public KillFeed()
     {
         StyleSheet.Load("deathmatch_dep/ui/KillFeed.scss");
     }
 
-    public override Panel AddEntry(long lsteamid, string left, long rsteamid, string right, string method)
+    public virtual Panel AddEntry(long lsteamid, string left, long rsteamid, string right, string method)
     {
         Log.Info($"{left} killed {right} using {method}");
 
@@ -27,7 +29,7 @@ public partial class KillFeed : Sandbox.UI.KillFeed
             // Temp solution ( get reference to kill weapon icon )
             if (method.StartsWith("swb_"))
             {
-                var killWeapon = Library.Create<WeaponBase>(method); // throws error when not found
+                var killWeapon = TypeLibrary.Create<WeaponBase>(method); // throws error when not found
 
                 if (!string.IsNullOrEmpty(killWeapon.Icon))
                 {

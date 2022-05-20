@@ -4,7 +4,7 @@ namespace SWB_Base
 {
     internal class Commands
     {
-        [ServerCmd("swb_editor_model", Help = "Opens the model editor")]
+        [ConCmd.Server("swb_editor_model", Help = "Opens the model editor")]
         public static void OpenModelEditor()
         {
             Client client = ConsoleSystem.Caller;
@@ -16,7 +16,7 @@ namespace SWB_Base
             }
         }
 
-        [ServerCmd("swb_editor_attachment", Help = "Opens the attachment editor")]
+        [ConCmd.Server("swb_editor_attachment", Help = "Opens the attachment editor")]
         public static void OpenAttachmentEditor()
         {
             Client client = ConsoleSystem.Caller;
@@ -28,7 +28,7 @@ namespace SWB_Base
             }
         }
 
-        [ServerCmd("swb_attachment_equip", Help = "Equips an attachment by name")]
+        [ConCmd.Server("swb_attachment_equip", Help = "Equips an attachment by name")]
         public static void EquipAttachmentCMD(string name, bool enabled)
         {
             Client client = ConsoleSystem.Caller;

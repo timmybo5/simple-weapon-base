@@ -115,7 +115,7 @@ namespace SWB_Base
             }
 
             // Player anim
-            (Owner as AnimEntity).SetAnimParameter("b_attack", true);
+            (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
             // Shoot effects
             if (IsLocalPawn)
@@ -143,7 +143,7 @@ namespace SWB_Base
             TimeSinceSecondaryAttack -= delay;
 
             // Player anim
-            (Owner as AnimEntity).SetAnimParameter("b_attack", true);
+            (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
             // Play pre-fire animation
             ShootEffects(null, null, GetShootAnimation(clipInfo));

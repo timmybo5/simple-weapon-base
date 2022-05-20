@@ -116,12 +116,12 @@ namespace SWB_Base
             base.Simulate(owner);
             var shouldTuck = ShouldTuck();
 
-            if (((Input.Pressed(InputButton.Attack2) && !IsReloading && !IsRunning) || (IsZooming && !IsScoped)) && !shouldTuck)
+            if (((Input.Pressed(InputButton.SecondaryAttack) && !IsReloading && !IsRunning) || (IsZooming && !IsScoped)) && !shouldTuck)
             {
                 OnScopedStart();
             }
 
-            if (Input.Released(InputButton.Attack2) || (IsScoped && (IsRunning || shouldTuck)))
+            if (Input.Released(InputButton.SecondaryAttack) || (IsScoped && (IsRunning || shouldTuck)))
             {
                 OnScopedEnd();
             }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Sandbox;
 using SWB_Base.UI;
 
@@ -7,6 +8,9 @@ namespace SWB_Base
     public partial class PlayerBase : Player
     {
         public DamageInfo LastDamage;
+        private ScreenShakeStruct lastScreenShake;
+        private TimeSince timeSinceShake;
+        private float nextShake;
 
         public override void TakeDamage(DamageInfo info)
         {
@@ -32,6 +36,27 @@ namespace SWB_Base
 
                 TookDamage(To.Single(this), info.Weapon.IsValid() ? info.Weapon.Position : info.Attacker.Position);
             }
+        }
+
+        public override void PostCameraSetup(ref CameraSetup camSetup)
+        {
+            base.PostCameraSetup(ref camSetup);
+
+            if (timeSinceShake < lastScreenShake.Length && timeSinceShake > nextShake)
+            {
+                var random = new Random();
+                camSetup.Position += new Vector3(random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size));
+                camSetup.Rotation *= Rotation.From(new Angles(random.Float(0, lastScreenShake.Rotation), random.Float(0, lastScreenShake.Rotation), 0));
+
+                nextShake = timeSinceShake + lastScreenShake.Delay;
+            }
+        }
+
+        public virtual void ScreenShake(ScreenShakeStruct screenShake)
+        {
+            lastScreenShake = screenShake;
+            timeSinceShake = 0;
+            nextShake = 0;
         }
 
         public virtual bool Alive()

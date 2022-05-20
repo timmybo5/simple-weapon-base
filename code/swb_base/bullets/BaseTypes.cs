@@ -22,7 +22,7 @@ namespace SWB_Base.Bullets
     {
         public override float Mass => 30f;
         public override float Drag => 0.5f;
-        public override float Velocity => 115f;
+        public override float Velocity => 250f;
     }
 
     // .45 ACP

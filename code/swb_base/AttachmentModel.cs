@@ -6,7 +6,7 @@ using Sandbox;
 
 namespace SWB_Base
 {
-    public class AttachmentModel : AnimEntity
+    public class AttachmentModel : AnimatedEntity
     {
         public AttachmentModel() { }
 

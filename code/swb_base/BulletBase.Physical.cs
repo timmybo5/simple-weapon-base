@@ -201,12 +201,12 @@ namespace SWB_Base
             {
                 var hitRotation = Rotation.From(new Angles(tr.Normal.z, tr.Normal.y, 0) * 90);
 
-                DebugOverlay.Circle(tr.EndPosition, hitRotation, bulletSize, IsServer ? Color.Red : Color.Blue, false, maxLifeTime);
+                DebugOverlay.Circle(tr.EndPosition, hitRotation, bulletSize, IsServer ? Color.Red : Color.Blue, maxLifeTime, false);
 
                 if (IsServer)
                 {
                     var distance = startPos.Distance(Position) / InchesPerMeter;
-                    DebugOverlay.ScreenText(Rand.Int(40), distance.ToString(CultureInfo.InvariantCulture), maxLifeTime);
+                    DebugOverlay.ScreenText(distance.ToString(CultureInfo.InvariantCulture), Rand.Int(40), maxLifeTime);
                 }
             }
 

@@ -44,10 +44,10 @@ namespace SWB_WEAPONS
                 FiringType = FiringType.auto,
                 ScreenShake = new ScreenShake
                 {
-                    Length = 0.4f,
-                    Speed = 3.0f,
-                    Size = 0.35f,
-                    Rotation = 0.35f
+                    Length = 0.08f,
+                    Delay = 0.02f,
+                    Size = 0.5f,
+                    Rotation = 0.1f
                 },
 
                 DryFireSound = "swb_smg.empty",
