@@ -8,7 +8,6 @@ using SWB_Base.UI;
 
 namespace SWB_Base
 {
-
     public partial class WeaponBase
     {
         private Panel healthDisplay;
@@ -26,10 +25,8 @@ namespace SWB_Base
 
             if (UISettings.ShowCrosshair)
             {
-                CrosshairPanel = new Crosshair
-                {
-                    Parent = Local.Hud
-                };
+                CrosshairPanel = CreateCrosshair();
+                CrosshairPanel.Parent = Local.Hud;
             }
 
             if (UISettings.ShowHitmarker)
@@ -55,6 +52,11 @@ namespace SWB_Base
                     Parent = Local.Hud
                 };
             }
+        }
+
+        public new virtual Panel CreateCrosshair()
+        {
+            return new Crosshair();
         }
 
         public override void DestroyHudElements()
