@@ -4,6 +4,9 @@ namespace SWB_Base
 {
     public class UISettings
     {
+        /// <summary>Hide all HUD elements</summary>
+        public bool HideAll { get; set; } = false;
+
         /// <summary>Show health icon</summary>
         public bool ShowHealthIcon { get; set; } = true;
 

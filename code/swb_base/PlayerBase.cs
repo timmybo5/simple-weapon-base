@@ -31,8 +31,9 @@ namespace SWB_Base
 
                 // Hitmarker
                 var weapon = info.Weapon as WeaponBase;
-                if (weapon != null && weapon.UISettings.ShowHitmarker)
-                    attacker.ShowHitmarker(To.Single(attacker), !Alive(), weapon.UISettings.PlayHitmarkerSound);
+                var uiSettings = weapon.UISettings;
+                if (weapon != null && uiSettings.ShowHitmarker && !uiSettings.HideAll)
+                    attacker.ShowHitmarker(To.Single(attacker), !Alive(), uiSettings.PlayHitmarkerSound);
 
                 TookDamage(To.Single(this), info.Weapon.IsValid() ? info.Weapon.Position : info.Attacker.Position);
             }

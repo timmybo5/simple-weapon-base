@@ -50,7 +50,7 @@ internal class NameTagComponent : EntityComponent<PlayerBase>
 
         foreach (var player in Sandbox.Entity.All.OfType<PlayerBase>())
         {
-            if (player.IsLocalPawn && player.IsFirstPersonMode)
+            if (player.IsLocalPawn)
             {
                 var c = player.Components.Get<NameTagComponent>();
                 c?.Remove();

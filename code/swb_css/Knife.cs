@@ -13,22 +13,22 @@ namespace SWB_CSS
         public override string Icon => "/swb_css/textures/ui/css_icon_knife.png";
         public override int FOV => 75;
 
-        public override string SwingAnimationHit => "swing";
-        public override string SwingAnimationMiss => "swing_miss";
-        public override string StabAnimationHit => "stab";
-        public override string StabAnimationMiss => "stab_miss";
-        public override string SwingSound => "css_knife.hit";
-        public override string StabSound => "css_knife.stab";
+        public override string PrimaryHitAnimation => "swing";
+        public override string PrimaryMissAnimation => "swing_miss";
+        public override string SecondaryHitAnimation => "stab";
+        public override string SecondaryMissAnimation => "stab_miss";
+        public override string PrimarySound => "css_knife.hit";
+        public override string SecondarySound => "css_knife.stab";
         public override string MissSound => "css_knife.slash";
         public override string HitWorldSound => "css_knife.hitwall";
-        public override float SwingSpeed => 0.6f;
-        public override float StabSpeed => 1.29f;
-        public override float SwingDamage => 25f;
-        public override float StabDamage => 100f;
-        public override float SwingForce => 25f;
-        public override float StabForce => 50f;
+        public override float PrimarySpeed => 0.6f;
+        public override float SecondarySpeed => 1.29f;
+        public override float PrimaryDamage => 25f;
+        public override float SecondaryDamage => 100f;
+        public override float PrimaryForce => 25f;
+        public override float SecondaryForce => 50f;
         public override float DamageDistance => 35f;
-        public override float ImpactSize => 10f;
+        public override float DamageSize => 10f;
 
         public Knife()
         {

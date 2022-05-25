@@ -292,6 +292,8 @@ namespace SWB_Base
         [ClientRpc]
         public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
         {
+            if (Owner == null) return;
+
             if (isPrimary)
             {
                 Primary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);

@@ -9,22 +9,22 @@ namespace SWB_Base
     public partial class WeaponBaseMelee : WeaponBase
     {
         /// <summary>Animation to play for the primary attack</summary>
-        public virtual string SwingAnimationHit => "";
+        public virtual string PrimaryHitAnimation => "";
 
         /// <summary>Animation to play when missing the primary attack</summary>
-        public virtual string SwingAnimationMiss => "";
+        public virtual string PrimaryMissAnimation => "";
 
         /// <summary>Animation to play for the secondary attack</summary>
-        public virtual string StabAnimationHit => "";
+        public virtual string SecondaryHitAnimation => "";
 
         /// <summary>Animation to play when missing the secondary attack</summary>
-        public virtual string StabAnimationMiss => "";
+        public virtual string SecondaryMissAnimation => "";
 
         /// <summary>Sound to play for the primary attack</summary>
-        public virtual string SwingSound => "";
+        public virtual string PrimarySound => "";
 
         /// <summary>Sound to play for the secondary attack</summary>
-        public virtual string StabSound => "";
+        public virtual string SecondarySound => "";
 
         /// <summary>Sound to play when missing an attack</summary>
         public virtual string MissSound => "";
@@ -33,28 +33,28 @@ namespace SWB_Base
         public virtual string HitWorldSound => "";
 
         /// <summary>Primary attack speed (lower is faster)</summary>
-        public virtual float SwingSpeed => 1f;
+        public virtual float PrimarySpeed => 1f;
 
         /// <summary>Secondary attack speed (lower is faster)</summary>
-        public virtual float StabSpeed => 1f;
+        public virtual float SecondarySpeed => 1f;
 
         /// <summary>Primary attack damage</summary>
-        public virtual float SwingDamage => 50;
+        public virtual float PrimaryDamage => 50;
 
         /// <summary>Secondary attack damage</summary>
-        public virtual float StabDamage => 100;
+        public virtual float SecondaryDamage => 100;
 
         /// <summary>Primary attack force</summary>
-        public virtual float SwingForce => 25f;
+        public virtual float PrimaryForce => 25f;
 
         /// <summary>Secondary attack force</summary>
-        public virtual float StabForce => 50f;
+        public virtual float SecondaryForce => 50f;
 
         /// <summary>Attack range</summary>
         public virtual float DamageDistance => 25f;
 
-        /// <summary>Attack impact size</summary>
-        public virtual float ImpactSize => 10f;
+        /// <summary>Attack impact size (radius)</summary>
+        public virtual float DamageSize => 10f;
 
         public override void Reload() { }
 
@@ -76,7 +76,7 @@ namespace SWB_Base
             var trace = Trace.Ray(pos, pos + forward * DamageDistance)
                 .Ignore(this)
                 .Ignore(Owner)
-                .Size(ImpactSize)
+                .Size(DamageSize)
                 .Run();
 
             if (!trace.Entity.IsValid() || trace.Entity.IsWorld)
@@ -112,22 +112,22 @@ namespace SWB_Base
 
         public override bool CanPrimaryAttack()
         {
-            return CanMelee(TimeSincePrimaryAttack, SwingSpeed, InputButton.PrimaryAttack);
+            return CanMelee(TimeSincePrimaryAttack, PrimarySpeed, InputButton.PrimaryAttack);
         }
 
         public override bool CanSecondaryAttack()
         {
-            return CanMelee(TimeSincePrimaryAttack, StabSpeed, InputButton.SecondaryAttack);
+            return CanMelee(TimeSincePrimaryAttack, SecondarySpeed, InputButton.SecondaryAttack);
         }
 
         public override void AttackPrimary()
         {
-            MeleeAttack(SwingDamage, SwingForce, SwingAnimationHit, SwingAnimationMiss, SwingSound);
+            MeleeAttack(PrimaryDamage, PrimaryForce, PrimaryHitAnimation, PrimaryMissAnimation, PrimarySound);
         }
 
         public override void AttackSecondary()
         {
-            MeleeAttack(StabDamage, StabForce, StabAnimationHit, StabAnimationMiss, StabSound);
+            MeleeAttack(SecondaryDamage, SecondaryForce, SecondaryHitAnimation, SecondaryMissAnimation, SecondarySound);
         }
     }
 }

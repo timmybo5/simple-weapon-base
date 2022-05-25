@@ -20,22 +20,22 @@ namespace SWB_WEAPONS
         public override int FOV => 75;
         public override float WalkAnimationSpeedMod => 1.25f;
 
-        public override string SwingAnimationHit => "swing";
-        public override string SwingAnimationMiss => "swing_miss";
-        public override string StabAnimationHit => "stab";
-        public override string StabAnimationMiss => "stab_miss";
-        public override string SwingSound => "bayonet.hit";
-        public override string StabSound => "bayonet.stab";
+        public override string PrimaryHitAnimation => "swing";
+        public override string PrimaryMissAnimation => "swing_miss";
+        public override string SecondaryHitAnimation => "stab";
+        public override string SecondaryMissAnimation => "stab_miss";
+        public override string PrimarySound => "bayonet.hit";
+        public override string SecondarySound => "bayonet.stab";
         public override string MissSound => "bayonet.slash";
         public override string HitWorldSound => "bayonet.hitwall";
-        public override float SwingSpeed => 0.5f;
-        public override float StabSpeed => 1f;
-        public override float SwingDamage => 25f;
-        public override float StabDamage => 100f;
-        public override float SwingForce => 25f;
-        public override float StabForce => 50f;
+        public override float PrimarySpeed => 0.5f;
+        public override float SecondarySpeed => 1f;
+        public override float PrimaryDamage => 25f;
+        public override float SecondaryDamage => 100f;
+        public override float PrimaryForce => 25f;
+        public override float SecondaryForce => 50f;
         public override float DamageDistance => 35f;
-        public override float ImpactSize => 10f;
+        public override float DamageSize => 10f;
 
         public Bayonet()
         {

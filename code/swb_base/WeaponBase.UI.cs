@@ -19,6 +19,8 @@ namespace SWB_Base
 
         public override void CreateHudElements()
         {
+            if (UISettings.HideAll) return;
+
             var showHUDCL = GetSetting<bool>("swb_cl_showhud", true);
             var showHUDSV = GetSetting<bool>("swb_sv_showhud", true);
 
