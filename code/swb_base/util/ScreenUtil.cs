@@ -46,7 +46,6 @@ namespace SWB_Base
 
         public static void ShakeAt(Vector3 origin, float radius = 0, float delay = 0, float speed = 0, float size = 0, float rotation = 0)
         {
-            LogUtil.Info("HERE");
             var objects = Entity.FindInSphere(origin, radius);
 
             foreach (var obj in objects)

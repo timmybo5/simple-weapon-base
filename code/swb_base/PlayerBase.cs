@@ -7,10 +7,18 @@ namespace SWB_Base
 {
     public partial class PlayerBase : Player
     {
+        public BulletSimulator BulletSimulator { get; private set; } = new();
         public DamageInfo LastDamage;
+
         private ScreenShakeStruct lastScreenShake;
         private TimeSince timeSinceShake;
         private float nextShake;
+
+        public override void Simulate(Client client)
+        {
+            base.Simulate(client);
+            BulletSimulator.Simulate();
+        }
 
         public override void TakeDamage(DamageInfo info)
         {

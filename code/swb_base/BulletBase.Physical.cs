@@ -119,6 +119,12 @@ namespace SWB_Base
                 startPos = Position;
             }
 
+            if (Owner is PlayerBase player)
+            {
+                var simulator = player.BulletSimulator;
+                simulator?.Add(this);
+            }
+
             DeleteAsync(maxLifeTime);
         }
 
@@ -163,7 +169,6 @@ namespace SWB_Base
             bulletTracer?.SetPosition(1, Velocity);
         }
 
-        [Event.Physics.PreStep]
         public void BulletPhysics()
         {
             lastPosition = Position;
