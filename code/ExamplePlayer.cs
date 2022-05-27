@@ -9,7 +9,7 @@ public partial class ExamplePlayer : PlayerBase
 
     public ClothingContainer Clothing = new();
 
-    public ExamplePlayer()
+    public ExamplePlayer() : base()
     {
         Inventory = new ExampleInventory(this);
     }
@@ -24,19 +24,17 @@ public partial class ExamplePlayer : PlayerBase
     {
         base.Respawn();
 
-        // Initialize player
         SetModel("models/citizen/citizen.vmdl");
         Clothing.DressEntity(this);
 
-        Controller = new WalkController();
-        Animator = new StandardPlayerAnimator();
+        Controller = new PlayerWalkController();
+        Animator = new PlayerBaseAnimator();
         CameraMode = new FirstPersonCamera();
 
         EnableAllCollisions = true;
         EnableDrawing = true;
         EnableHideInFirstPerson = true;
         EnableShadowInFirstPerson = true;
-
 
         Health = 100;
 

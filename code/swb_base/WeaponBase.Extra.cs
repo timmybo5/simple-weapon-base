@@ -14,7 +14,7 @@ namespace SWB_Base
             if (TuckRange == -1)
                 return -1;
 
-            var player = Owner as Player;
+            var player = Owner as PlayerBase;
             if (player == null) return -1;
 
             var pos = player.EyePosition;
@@ -55,7 +55,7 @@ namespace SWB_Base
         [Event.Tick.Server]
         public void BarrelHeatCheck()
         {
-            if (TimeSinceFired > 3)
+            if (timeSinceFired > 3)
             {
                 barrelHeat = 0;
             }

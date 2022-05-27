@@ -51,7 +51,7 @@ namespace SWB_Base
             foreach (var obj in objects)
             {
                 // Player check
-                if (obj is not Player ply || !ply.IsValid())
+                if (obj is not PlayerBase ply || !ply.IsValid())
                     continue;
 
                 // Distance check

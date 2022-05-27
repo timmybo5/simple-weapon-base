@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Sandbox;
-using Sandbox.UI;
 
 /* 
  * Weapon base properties/fields
@@ -159,8 +158,8 @@ namespace SWB_Base
         /// <summary>Instance ID</summary>
         public int InstanceID { get; protected set; }
 
-        /// <summary>Pickup trigger</summary>
-        public PickupTrigger PickupTrigger { get; protected set; }
+        /// <summary>Pickup trigger</summary> 
+        public PickupBase PickupTrigger { get; protected set; }
 
         /// <summary>Model of the hands</summary>
         public BaseViewModel HandsModel;
@@ -176,6 +175,6 @@ namespace SWB_Base
         private int burstCount = 0;
 
         private int barrelHeat = 0;
-        private TimeSince TimeSinceFired;
+        private TimeSince timeSinceFired;
     }
 }

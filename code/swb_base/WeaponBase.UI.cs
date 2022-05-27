@@ -64,8 +64,6 @@ namespace SWB_Base
 
         public override void DestroyHudElements()
         {
-            base.DestroyHudElements();
-
             if (healthDisplay != null) healthDisplay.Delete(true);
             if (ammoDisplay != null) ammoDisplay.Delete(true);
             if (hitmarker != null) hitmarker.Delete(true);

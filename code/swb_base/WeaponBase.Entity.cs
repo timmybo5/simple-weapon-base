@@ -148,7 +148,7 @@ namespace SWB_Base
             // Play pre-fire animation
             ShootEffects(null, null, GetShootAnimation(clipInfo));
 
-            var owner = Owner as Player;
+            var owner = Owner as PlayerBase;
             if (owner == null) return;
             var activeWeapon = owner.ActiveChild;
             var instanceID = InstanceID;

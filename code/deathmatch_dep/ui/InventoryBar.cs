@@ -32,7 +32,7 @@ public class InventoryBar : Panel
 
         SetClass("active", IsOpen);
 
-        var player = Local.Pawn as Player;
+        var player = Local.Pawn as PlayerBase;
         if (player == null) return;
 
         Weapons.Clear();

@@ -3,7 +3,7 @@ using System.Linq;
 using Sandbox;
 using SWB_Base;
 
-partial class ExampleInventory : InventoryBase
+public class ExampleInventory : InventoryBase
 {
     public ExampleInventory(PlayerBase player) : base(player)
     {

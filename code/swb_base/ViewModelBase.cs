@@ -1,6 +1,5 @@
 ﻿using System;
 using Sandbox;
-using SWB_Base.Attachments;
 
 namespace SWB_Base
 {

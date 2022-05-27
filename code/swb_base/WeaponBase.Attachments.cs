@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sandbox;
-using Sandbox.UI;
 
 /* 
  * Weapon base for weapons using magazine based reloading 

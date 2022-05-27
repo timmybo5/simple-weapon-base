@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 using Sandbox;
 using SWB_Base.UI;
 
 namespace SWB_Base
 {
-    public partial class PlayerBase : Player
+    public partial class PlayerBase
     {
         public BulletSimulator BulletSimulator { get; private set; } = new();
         public DamageInfo LastDamage;
@@ -16,7 +15,7 @@ namespace SWB_Base
 
         public override void Simulate(Client client)
         {
-            base.Simulate(client);
+            SimulateBase(client);
             BulletSimulator.Simulate();
         }
 
@@ -30,7 +29,7 @@ namespace SWB_Base
                 info.Damage *= 2.0f;
             }
 
-            base.TakeDamage(info);
+            TakeDamageBase(info);
 
             if (info.Attacker is PlayerBase attacker && attacker != this)
             {
@@ -49,7 +48,7 @@ namespace SWB_Base
 
         public override void PostCameraSetup(ref CameraSetup camSetup)
         {
-            base.PostCameraSetup(ref camSetup);
+            PostCameraSetupBase(ref camSetup);
 
             if (timeSinceShake < lastScreenShake.Length && timeSinceShake > nextShake)
             {

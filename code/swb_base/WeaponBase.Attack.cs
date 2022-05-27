@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sandbox;
 
@@ -68,7 +67,7 @@ namespace SWB_Base
 
             TimeSincePrimaryAttack = 0;
             TimeSinceSecondaryAttack = 0;
-            TimeSinceFired = 0;
+            timeSinceFired = 0;
 
             if (!TakeAmmo(1))
             {
@@ -79,7 +78,7 @@ namespace SWB_Base
                 {
                     TimeSincePrimaryAttack = 999;
                     TimeSinceSecondaryAttack = 999;
-                    TimeSinceFired = 999;
+                    timeSinceFired = 999;
                     Reload();
                 }
                 return;

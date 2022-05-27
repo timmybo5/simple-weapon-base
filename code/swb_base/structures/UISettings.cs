@@ -1,6 +1,4 @@
-﻿using Sandbox;
-
-namespace SWB_Base
+﻿namespace SWB_Base
 {
     public class UISettings
     {

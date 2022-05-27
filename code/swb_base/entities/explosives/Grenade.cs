@@ -27,7 +27,7 @@ namespace SWB_Base
 
         protected override void OnPhysicsCollision(CollisionEventData eventData)
         {
-            if (eventData.Entity is not Player && eventData.Speed > 50 && !string.IsNullOrEmpty(BounceSound))
+            if (eventData.Entity is not PlayerBase && eventData.Speed > 50 && !string.IsNullOrEmpty(BounceSound))
                 PlaySound(BounceSound);
         }
 
