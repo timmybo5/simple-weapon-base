@@ -106,10 +106,9 @@ namespace SWB_Base
             return owner.AmmoCount(Primary.AmmoType);
         }
 
-        public bool IsUsable()
+        public virtual bool IsUsable()
         {
-            if (Primary.Ammo > 0) return true;
-            return GetAvailableAmmo() > 0;
+            return true;
         }
 
         // Static
