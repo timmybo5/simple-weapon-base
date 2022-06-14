@@ -38,7 +38,7 @@ struct VertexInput
 
 struct PixelInput
 {
-    #include "common/pixelinput.hlsl"
+    #include "common/pixelinput.hlsl" 
 };
 
 //=========================================================================================================================
