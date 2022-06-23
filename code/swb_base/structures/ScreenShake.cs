@@ -34,5 +34,9 @@ namespace SWB_Base
         public float Delay { get; set; } = 0f;
         public float Size { get; set; } = 0f;
         public float Rotation { get; set; } = 0f;
+
+        public ScreenShakeStruct()
+        {
+        }
     }
 }
