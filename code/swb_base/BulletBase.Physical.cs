@@ -67,6 +67,7 @@ namespace SWB_Base
 
         private WeaponBase weapon;
         private PhysicalBulletBase ammoType;
+        private TimeSince timeSinceFire;
         private Particles bulletTracer;
         private string tracerParticle;
 
@@ -108,6 +109,7 @@ namespace SWB_Base
             this.tracerParticle = tracerParticle;
             this.posDiff = posDiff;
             this.direction = direction;
+            timeSinceFire = 0;
 
             if (IsClient)
             {
@@ -143,9 +145,6 @@ namespace SWB_Base
             if (tr.Distance > 120)
             {
                 posDiffMaxUpdate = (int)Math.Clamp(Math.Floor(tr.Distance / (Velocity.Length * 0.02)), 1, 10);
-
-                // Only create when far enough
-                CreateTracer();
             }
             else
             {
@@ -196,7 +195,20 @@ namespace SWB_Base
             if (WeaponBase.DebugBulletsSV > 0)
                 DebugOverlay.Line(lastPosition, Position, IsServer ? Color.Green : Color.Yellow, 0, false);
 
-            UpdateTracer();
+            if (timeSinceFire > 0.1)
+            {
+                if (bulletTracer == null)
+                {
+                    var random = new Random();
+                    var randVal = random.Next(0, 2);
+
+                    if (randVal == 0)
+                        CreateTracer();
+                }
+
+                UpdateTracer();
+            }
+
             DoTraceCheck();
         }
 
@@ -215,30 +227,38 @@ namespace SWB_Base
                 }
             }
 
-            if (IsClient)
+            var isValidEnt = tr.Entity.IsValid();
+            var canPenetrate = SurfaceUtil.CanPenetrate(tr.Surface);
+
+            if (isValidEnt || canPenetrate)
             {
-                tr.Surface.DoBulletImpact(tr);
-                Delete();
+                if (IsClient)
+                {
+                    tr.Surface.DoBulletImpact(tr);
+                }
+
+                if (IsServer && isValidEnt)
+                {
+                    var damageInfo = DamageInfo.FromBullet(tr.EndPosition, direction * 25 * force, damage)
+                        .UsingTraceResult(tr)
+                        .WithAttacker(Owner)
+                        .WithWeapon(weapon);
+
+                    tr.Entity.TakeDamage(damageInfo);
+                }
+
+                if (!canPenetrate)
+                {
+                    Delete();
+                }
+
                 return;
             }
-
-            var damageInfo = DamageInfo.FromBullet(tr.EndPosition, direction * 25 * force, damage)
-                .UsingTraceResult(tr)
-                .WithAttacker(Owner)
-                .WithWeapon(weapon);
-
-            tr.Entity.TakeDamage(damageInfo);
-
-            Delete();
         }
 
         private void DoTraceCheck()
         {
-            foreach (var tr in weapon.TraceBullet(lastPosition, Position, bulletSize))
-            {
-                if (!tr.Entity.IsValid()) continue;
-                BulletHit(tr);
-            }
+            BulletHit(weapon.TraceBullet(lastPosition, Position, bulletSize));
         }
     }
 }

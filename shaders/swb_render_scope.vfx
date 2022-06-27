@@ -91,7 +91,7 @@ PS
 	float2 g_vReticleOffset < UiType( Slider ); Default2( 0.5f, 0.5f ); UiGroup( "Reticle" ); Range2( 0.0f, 0.0f, 1.0f, 1.0f ); >;
 	float g_flReticleCircleScale < UiType( Slider ); Default( 2.0f ); UiGroup( "Reticle" ); >;
 	float g_flReticleLiveOffsetMul < UiType( Slider ); Default( 0.25f ); Range( 0.0f, 2.0f ); UiGroup( "Reticle" ); >;
-	
+	 
 	float g_flMaskLiveOffsetMul < UiType( Slider ); Default( 1.5f ); Range( 0.0f, 2.0f ); UiGroup( "Mask" ); >;
 	float g_flMaskScale < UiType( Slider ); Default( 1.0f ); UiGroup( "Mask" ); >;
 	float2 g_vMaskOffset < UiType( Slider ); Default2( 0.0f, 0.0f ); UiGroup( "Mask" ); Range2( -1.0f, -1.0f, 1.0f, 1.0f ); >;
@@ -143,7 +143,7 @@ PS
 		float4 vReticleColor = Tex2D( g_tReticle, vReticleUvs );
 
 		//
-		// Put it all together
+		// Put it all together 
 		//
 		float2 vScreenUvs = vPositionUvWithOffset - ( g_vMaskOffset * g_flScreenLiveOffsetMul );
 		o.vColor = Tex2D( g_tScopeRT, vScreenUvs );

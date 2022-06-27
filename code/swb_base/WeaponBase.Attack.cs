@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Sandbox;
-
-/* 
- * Weapon base for weapons using magazine based reloading 
-*/
 
 namespace SWB_Base
 {
@@ -241,17 +236,19 @@ namespace SWB_Base
         /// Does a trace from start to end, does bullet impact effects. Coded as an IEnumerable so you can return multiple
         /// hits, like if you're going through layers or ricocet'ing or something.
         /// </summary>
-        public virtual IEnumerable<TraceResult> TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
+        public virtual TraceResult TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
         {
+            var startsInWater = SurfaceUtil.IsPointWater(start);
+
             var tr = Trace.Ray(start, end)
                     .UseHitboxes()
-                    .HitLayer(CollisionLayer.Water, false)
+                    .HitLayer(CollisionLayer.Water, !startsInWater)
                     .Ignore(Owner)
                     .Ignore(this)
                     .Size(radius)
                     .Run();
 
-            yield return tr;
+            return tr;
         }
 
         /// <summary>

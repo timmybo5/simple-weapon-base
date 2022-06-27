@@ -11,26 +11,23 @@ namespace SWB_Base
     {
         public override void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
         {
-            foreach (var tr in weapon.TraceBullet(startPos, endPos, bulletSize))
-            {
-                if (!tr.Entity.IsValid()) continue;
-
-                // We turn prediction off for this, so any exploding effects don't get culled etc
-                using (Prediction.Off())
-                {
-                    var damageInfo = DamageInfo.FromBullet(tr.EndPosition, forward * 25 * force, damage)
-                        .UsingTraceResult(tr)
-                        .WithAttacker(weapon.Owner)
-                        .WithWeapon(weapon);
-
-                    tr.Entity.TakeDamage(damageInfo);
-                }
-            }
+            Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary);
         }
 
         public override void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
         {
-            foreach (var tr in weapon.TraceBullet(startPos, endPos, bulletSize))
+            Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+        }
+
+        private void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary, int refireCount = 0)
+        {
+            var tr = weapon.TraceBullet(startPos, endPos, bulletSize);
+            var isValidEnt = tr.Entity.IsValid();
+            var canPenetrate = SurfaceUtil.CanPenetrate(tr.Surface);
+
+            if (!isValidEnt && !canPenetrate) return;
+
+            if (Host.IsClient)
             {
                 // Impact
                 tr.Surface.DoBulletImpact(tr);
@@ -46,6 +43,29 @@ namespace SWB_Base
                     if (randVal == 0)
                         TracerEffects(weapon, tracerParticle, tr.EndPosition);
                 }
+            }
+
+            if (Host.IsServer && isValidEnt)
+            {
+                using (Prediction.Off())
+                {
+                    // Damage
+                    var damageInfo = DamageInfo.FromBullet(tr.EndPosition, forward * 25 * force, damage)
+                        .UsingTraceResult(tr)
+                        .WithAttacker(weapon.Owner)
+                        .WithWeapon(weapon);
+
+                    tr.Entity.TakeDamage(damageInfo);
+                }
+            }
+
+            // Re-run the trace if we can penetrate
+            if (canPenetrate)
+            {
+                if (refireCount > 100) return;
+                refireCount++;
+
+                Fire(weapon, tr.HitPosition + tr.Direction * 10, endPos, forward, spread, force, damage, bulletSize, isPrimary, refireCount);
             }
         }
 
