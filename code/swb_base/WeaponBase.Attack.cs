@@ -233,8 +233,7 @@ namespace SWB_Base
         }
 
         /// <summary>
-        /// Does a trace from start to end, does bullet impact effects. Coded as an IEnumerable so you can return multiple
-        /// hits, like if you're going through layers or ricocet'ing or something.
+        /// A single bullet trace from start to end with a certain radius.
         /// </summary>
         public virtual TraceResult TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
         {
