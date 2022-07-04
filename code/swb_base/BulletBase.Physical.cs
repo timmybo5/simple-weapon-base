@@ -70,6 +70,8 @@ namespace SWB_Base
         private TimeSince timeSinceFire;
         private Particles bulletTracer;
         private string tracerParticle;
+        private float particleDelay;
+        private bool createParticle;
 
         private Vector3 direction;
         private Vector3 startPos;
@@ -110,6 +112,15 @@ namespace SWB_Base
             this.posDiff = posDiff;
             this.direction = direction;
             timeSinceFire = 0;
+
+            var random = new Random();
+            createParticle = random.Next(0, 2) == 0;
+
+            if (createParticle)
+            {
+                var randVal = random.Float(0.15f);
+                particleDelay = randVal;
+            }
 
             if (IsClient)
             {
@@ -195,19 +206,29 @@ namespace SWB_Base
             if (WeaponBase.DebugBulletsSV > 0)
                 DebugOverlay.Line(lastPosition, Position, IsServer ? Color.Green : Color.Yellow, 0, false);
 
-            if (timeSinceFire > 0.1)
+            if (createParticle && timeSinceFire > particleDelay)
             {
                 if (bulletTracer == null)
                 {
-                    var random = new Random();
-                    var randVal = random.Next(0, 2);
-
-                    if (randVal == 0)
-                        CreateTracer();
+                    CreateTracer();
                 }
 
                 UpdateTracer();
             }
+
+            //if (timeSinceFire > 0)
+            //{
+            //    if (bulletTracer == null)
+            //    {
+            //        var random = new Random();
+            //        var randVal = random.Next(0, 2);
+
+            //        if (randVal == 0)
+            //            CreateTracer();
+            //    }
+
+            //    UpdateTracer();
+            //}
 
             DoTraceCheck();
         }

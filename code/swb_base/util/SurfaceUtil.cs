@@ -2,7 +2,7 @@
 using Sandbox;
 
 /* 
- * Handles bullet penetration
+ * Util class for checking surface properties
 */
 
 namespace SWB_Base

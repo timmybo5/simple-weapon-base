@@ -83,11 +83,11 @@ PS
     bool g_bUseInfiniteDepth < UiType( CheckBox ); UiGroup( "Reflex Sight,0/Depth,1/2" ); >;
 
     float g_flSightTexScale < UiType( Slider ); Default( 1.0 ); Range(0.0f, 5.0f); UiGroup( "Reflex Sight,0/Appearance,2/1" ); >;
-	float g_flSightTexGlow < UiType( Slider ); Default( 3.0 ); Range(0.0f, 20.0f); UiGroup( "Reflex Sight,0/Appearance,2/2" ); >;
+	  float g_flSightTexGlow < UiType( Slider ); Default( 3.0 ); Range(0.0f, 20.0f); UiGroup( "Reflex Sight,0/Appearance,2/2" ); >;
     float3 g_vSightColor < UiType( Color ); Default3( 1.0, 0.0, 0.0 ); UiGroup( "Reflex Sight,0/Appearance,2/3" ); >;
-	float g_flSightAlpha < UiType( Slider ); Default( 0.75 ); Range(0.0f, 1.0f); UiGroup( "Reflex Sight,0/Appearance,2/4" ); >;
-	float3 g_vGlassColor < UiType( Color ); Default3( 0.0, 0.0, 0.0 ); UiGroup( "Reflex Sight,0/Appearance,2/5" ); >;
-	float g_flGlassAlpha < UiType( Slider ); Default( 0.7 ); Range(0.0f, 1.0f); UiGroup( "Reflex Sight,0/Appearance,2/6" ); >;
+	  float g_flSightAlpha < UiType( Slider ); Default( 0.75 ); Range(0.0f, 1.0f); UiGroup( "Reflex Sight,0/Appearance,2/4" ); >;
+	  float3 g_vGlassColor < UiType( Color ); Default3( 0.0, 0.0, 0.0 ); UiGroup( "Reflex Sight,0/Appearance,2/5" ); >;
+	  float g_flGlassAlpha < UiType( Slider ); Default( 0.7 ); Range(0.0f, 1.0f); UiGroup( "Reflex Sight,0/Appearance,2/6" ); >;
     
     CreateInputTexture2D( TextureReticleMask, Srgb, 8, "", "_color", "Reflex Sight,0/Appearance,2/7", Default3( 1.0, 1.0, 1.0 ) );
     CreateTexture2DWithoutSampler( g_tReticleMask ) < Channel( RGB, Box( TextureReticleMask ), Srgb ); OutputFormat( BC7 ); SrgbRead( true ); >;
@@ -95,12 +95,12 @@ PS
 
     float2 CalculateTextureCoords( float2 vTextureCoords, float3 vTangentViewVector ) 
     {
-        float2 vCalcTextureCoords;
+        float2 vCalcTextureCoords; 
 
         if ( g_bUseInfiniteDepth ) 
         {
             vCalcTextureCoords = vTangentViewVector.xy / g_flSightTexScale;
-        }
+        } 
         else
         {
             vCalcTextureCoords = (
