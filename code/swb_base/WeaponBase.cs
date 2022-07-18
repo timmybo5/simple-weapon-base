@@ -12,14 +12,9 @@ namespace SWB_Base
         {
             base.Spawn();
 
-            CollisionGroup = CollisionGroup.Weapon;
-            SetInteractsAs(CollisionLayer.Debris);
+            Tags.Add("weapon");
 
             SetModel(WorldModelPath);
-
-            PickupTrigger = new PickupBase();
-            PickupTrigger.Parent = this;
-            PickupTrigger.Position = Position;
         }
 
         public override void ActiveStart(Entity ent)
@@ -304,11 +299,6 @@ namespace SWB_Base
             TimeSinceActiveStart = 0;
 
             base.OnCarryStart(carrier);
-
-            if (PickupTrigger.IsValid())
-            {
-                PickupTrigger.EnableTouch = false;
-            }
         }
 
         public override void OnCarryDrop(Entity dropper)
@@ -329,11 +319,6 @@ namespace SWB_Base
                     var attach = GetAttachment(activeAttach.Name);
                     attach.CreateModel(this);
                 }
-            }
-
-            if (PickupTrigger.IsValid())
-            {
-                PickupTrigger.EnableTouch = true;
             }
         }
 

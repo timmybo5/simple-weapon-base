@@ -35,12 +35,7 @@ namespace SWB_Base
 
             var tr = Trace.Ray(start + TraceOffset, end + TraceOffset)
                         .Size(mins, maxs)
-                        .HitLayer(CollisionLayer.All, false)
-                        .HitLayer(CollisionLayer.Solid, true)
-                        .HitLayer(CollisionLayer.GRATE, true)
-                        .HitLayer(CollisionLayer.PLAYER_CLIP, true)
-                        .HitLayer(CollisionLayer.WINDOW, true)
-                        .HitLayer(CollisionLayer.NPC, true)
+                        .WithAnyTags("solid", "player", "npc", "window", "player_clip", "grate")
                         .Ignore(Pawn)
                         .Run();
 

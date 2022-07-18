@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 
 /* 
- * Weapon base for weapons using magazine based reloading 
+ * Extra features such as tucking, barrel heat, and burst fire mechanics
 */
 
 namespace SWB_Base
@@ -20,6 +20,7 @@ namespace SWB_Base
             var pos = player.EyePosition;
             var forward = Owner.EyeRotation.Forward;
             var trace = Trace.Ray(pos, pos + forward * TuckRange)
+                .WithTag("solid")
                 .Ignore(this)
                 .Ignore(player)
                 .Run();

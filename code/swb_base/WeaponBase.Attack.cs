@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Sandbox;
 
 namespace SWB_Base
@@ -238,10 +239,14 @@ namespace SWB_Base
         public virtual TraceResult TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
         {
             var startsInWater = SurfaceUtil.IsPointWater(start);
+            List<string> withoutTags = new();
+
+            if (startsInWater)
+                withoutTags.Add("water");
 
             var tr = Trace.Ray(start, end)
                     .UseHitboxes()
-                    .HitLayer(CollisionLayer.Water, !startsInWater)
+                    .WithoutTags(withoutTags.ToArray())
                     .Ignore(Owner)
                     .Ignore(this)
                     .Size(radius)

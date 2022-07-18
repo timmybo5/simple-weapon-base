@@ -19,6 +19,7 @@ namespace SWB_Base.UI
 
             var tr = Trace.Ray(eyePos, eyePos + eyeRot.Forward * 2000)
                             .Size(1.0f)
+                            .WithTag("solid")
                             .Ignore(player)
                             .UseHitboxes()
                             .Run();

@@ -158,9 +158,6 @@ namespace SWB_Base
         /// <summary>Instance ID</summary>
         public int InstanceID { get; protected set; }
 
-        /// <summary>Pickup trigger</summary> 
-        public PickupBase PickupTrigger { get; protected set; }
-
         /// <summary>Model of the hands</summary>
         public BaseViewModel HandsModel;
 
