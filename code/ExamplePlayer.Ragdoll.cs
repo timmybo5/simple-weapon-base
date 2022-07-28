@@ -14,9 +14,9 @@ partial class ExamplePlayer
         var ent = new ModelEntity();
         ent.Position = Position;
         ent.Rotation = Rotation;
-        ent.MoveType = MoveType.Physics;
+        ent.PhysicsEnabled = true;
         ent.UsePhysicsCollision = true;
-        ent.SetInteractsExclude(CollisionLayer.Player | CollisionLayer.Debris);
+        Tags.Add("debris");
 
         ent.SetModel(GetModelName());
         ent.CopyBonesFrom(this);

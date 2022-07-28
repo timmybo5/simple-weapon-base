@@ -42,7 +42,7 @@ namespace SWB_Base
 
         protected override void OnPhysicsCollision(CollisionEventData eventData)
         {
-            if (eventData.Entity == Owner) return;
+            if (eventData.Other.Entity == Owner) return;
 
             Explode();
         }
@@ -55,7 +55,7 @@ namespace SWB_Base
             var timeSinceMod = (int)Math.Max(0, Inaccuracy * timeSince);
             var sideForce = Rotation.Left * (random.Next(0, timeSinceMod) * 2 - timeSinceMod);
 
-            Velocity += downForce + sideForce;
+            Velocity += (downForce + sideForce) * 20;
 
             // Update sound
             rocketLoopSound.SetPosition(Position);

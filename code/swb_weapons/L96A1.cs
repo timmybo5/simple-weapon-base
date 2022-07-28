@@ -16,7 +16,7 @@ namespace SWB_WEAPONS
         public override AngPos ViewModelOffset => new()
         {
             Angle = new Angles(0, -5, 0),
-            Pos = new Vector3(-5, 0, 0)
+            Pos = new Vector3(-5, -2, 0)
         };
         public override string WorldModelPath => "weapons/swb/snipers/l96a1/w_l96a1.vmdl";
         public override string Icon => "/swb_weapons/textures/l96a1.png";

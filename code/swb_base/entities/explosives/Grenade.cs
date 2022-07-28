@@ -1,6 +1,6 @@
-﻿using Sandbox;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Sandbox;
 
 /* 
  * High explosive grenade
@@ -27,7 +27,7 @@ namespace SWB_Base
 
         protected override void OnPhysicsCollision(CollisionEventData eventData)
         {
-            if (eventData.Entity is not PlayerBase && eventData.Speed > 50 && !string.IsNullOrEmpty(BounceSound))
+            if (eventData.Other.Entity is not PlayerBase && eventData.Speed > 50 && !string.IsNullOrEmpty(BounceSound))
                 PlaySound(BounceSound);
         }
 

@@ -30,11 +30,10 @@ namespace SWB_Base
         public virtual void Start()
         {
             // Initialize physics
-            MoveType = MoveType.Physics;
             PhysicsEnabled = true;
             UsePhysicsCollision = true;
             SetupPhysicsFromModel(PhysicsMotionType.Dynamic);
-            PhysicsGroup.AddVelocity(StartVelocity * Speed);
+            Velocity = StartVelocity * Speed;
             PhysicsBody.GravityEnabled = UseGravity;
 
             // Delete entity
@@ -46,10 +45,10 @@ namespace SWB_Base
         {
             base.OnPhysicsCollision(eventData);
 
-            if (IsSticky && eventData.Entity.IsValid())
+            if (IsSticky && eventData.Other.Entity.IsValid())
             {
                 Velocity = Vector3.Zero;
-                Parent = eventData.Entity;
+                Parent = eventData.Other.Entity;
             }
         }
 
