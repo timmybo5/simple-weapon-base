@@ -82,9 +82,9 @@ namespace SWB_Base.UI
             rotateTransform.AddRotation(0, 0, lensRotation);
 
             this.Style.Transform = rotateTransform;
-            */
+            Style.Dirty();
 
-            //Style.Dirty();
+            */
         }
     }
 }

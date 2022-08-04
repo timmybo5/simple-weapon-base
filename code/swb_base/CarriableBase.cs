@@ -1,6 +1,4 @@
 ﻿using Sandbox;
-using Sandbox.UI;
-using System;
 
 namespace SWB_Base
 {
@@ -16,8 +14,6 @@ namespace SWB_Base
         {
             base.Spawn();
 
-            MoveType = MoveType.Physics;
-            CollisionGroup = CollisionGroup.Interactive;
             PhysicsEnabled = true;
             UsePhysicsCollision = true;
             EnableHideInFirstPerson = true;
@@ -76,7 +72,7 @@ namespace SWB_Base
 
             SetParent(carrier, true);
             Owner = carrier;
-            MoveType = MoveType.None;
+            PhysicsEnabled = false;
             EnableAllCollisions = false;
             EnableDrawing = false;
         }
@@ -87,7 +83,7 @@ namespace SWB_Base
 
             SetParent(null);
             Owner = null;
-            MoveType = MoveType.Physics;
+            PhysicsEnabled = true;
             EnableDrawing = true;
             EnableAllCollisions = true;
         }

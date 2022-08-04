@@ -24,11 +24,12 @@
       "facepunch.construct"
     ],
     "PerMapRanking": false,
-    "LeaderboardType": 0,
-    "RankType": 0,
-    "MapSelect": 0,
-    "GameNetworkType": 0,
+    "LeaderboardType": "None",
+    "RankType": "None",
+    "MapSelect": "Unrestricted",
+    "GameNetworkType": "Multiplayer",
     "MaxPlayers": 64,
-    "MinPlayers": 1
+    "MinPlayers": 1,
+    "GameCategory": "TechDemos"
   }
 }
