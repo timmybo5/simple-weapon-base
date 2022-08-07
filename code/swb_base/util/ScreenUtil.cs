@@ -1,5 +1,5 @@
-﻿using Sandbox;
-using System;
+﻿using System;
+using Sandbox;
 
 namespace SWB_Base
 {
@@ -40,8 +40,8 @@ namespace SWB_Base
 
         public static void Shake(ScreenShake screenShake)
         {
-
-            Shake(screenShake.Length, screenShake.Delay, screenShake.Size, screenShake.Rotation);
+            if (screenShake != null)
+                Shake(screenShake.Length, screenShake.Delay, screenShake.Size, screenShake.Rotation);
         }
 
         public static void ShakeAt(Vector3 origin, float radius = 0, float delay = 0, float speed = 0, float size = 0, float rotation = 0)

@@ -134,7 +134,7 @@ namespace SWB_Base
             }
         }
 
-        async Task AsyncAttack(ClipInfo clipInfo, bool isPrimary, float delay)
+        public override async Task AsyncAttack(ClipInfo clipInfo, bool isPrimary, float delay)
         {
             if (GetAvailableAmmo() <= 0) return;
 

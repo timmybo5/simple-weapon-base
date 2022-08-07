@@ -41,7 +41,14 @@ namespace SWB_CSS
                 FiringType = FiringType.semi,
                 RPM = 50,
             };
-            Secondary = Primary;
+            Secondary = new ClipInfo
+            {
+                Ammo = -1,
+                ClipSize = -1,
+                AmmoType = AmmoType.Grenade,
+                FiringType = FiringType.semi,
+                RPM = 50,
+            };
         }
 
         private FiredEntity CreateGrenadeEntity(ClipInfo clipInfo, bool isPrimary)

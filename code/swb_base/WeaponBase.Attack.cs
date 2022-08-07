@@ -150,7 +150,7 @@ namespace SWB_Base
         /// <param name="clipInfo">Attack information</param>
         /// <param name="isPrimary">If this is the primary attack</param>
         /// <param name="delay">Bullet firing delay</param>
-        async Task AsyncAttack(ClipInfo clipInfo, bool isPrimary, float delay)
+        public virtual async Task AsyncAttack(ClipInfo clipInfo, bool isPrimary, float delay)
         {
             if (GetAvailableAmmo() <= 0) return;
 
@@ -239,7 +239,7 @@ namespace SWB_Base
         public virtual TraceResult TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
         {
             var startsInWater = SurfaceUtil.IsPointWater(start);
-            List<string> withoutTags = new();
+            List<string> withoutTags = new() { "trigger" };
 
             if (startsInWater)
                 withoutTags.Add("water");
