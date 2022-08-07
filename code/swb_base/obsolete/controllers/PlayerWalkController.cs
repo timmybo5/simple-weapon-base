@@ -1,4 +1,4 @@
-﻿
+
 using Sandbox;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
@@ -155,7 +155,7 @@ namespace SWB_Base
 
             // if ( underwater ) do underwater movement
 
-            if (AutoJump ? Input.Down(InputButton.Jump) : Input.Pressed(InputButton.Jump))
+            if ((AutoJump || Swimming) ? Input.Down(InputButton.Jump) : Input.Pressed(InputButton.Jump))
             {
                 CheckJumpButton();
             }
@@ -436,7 +436,19 @@ namespace SWB_Base
                 // swimming, not jumping
                 ClearGroundEntity();
 
-                Velocity = Velocity.WithZ(100);
+				var jumpLedge = false;
+
+				var startPos = Pawn.EyePosition;
+
+				var tr = Trace.Ray( startPos, startPos + Pawn.EyeRotation.Forward * 1000 )
+				.Ignore(Pawn)	
+				.Run();
+
+
+				if ( tr.Entity == null || tr.Entity.ClassName != "func_water" )
+					jumpLedge = true;
+
+				Velocity = Velocity.WithZ( jumpLedge ? 350 : 100 );
 
                 // play swimming sound
                 //  if ( player->m_flSwimSoundTime <= 0 )
