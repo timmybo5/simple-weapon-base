@@ -12,7 +12,7 @@ namespace SWB_CSS
         public override string WorldModelPath => "weapons/swb/css/awp/css_w_awp.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_awp.png";
         public override int FOV => 75;
-        public override int ZoomFOV => 15;
+        public override int ZoomPlayerFOV => 15;
         public override float WalkAnimationSpeedMod => 0.8f;
         public override float AimSensitivity => 0.25f;
 

@@ -10,17 +10,20 @@ namespace SWB_Base
         private WeaponBase weapon;
 
         private float animSpeed;
-        private float fovSpeed;
+        private float playerFOVSpeed;
 
         // Target animation values
         private Vector3 targetVectorPos;
         private Vector3 targetVectorRot;
-        private float targetFOV;
+        private float targetPlayerFOV = -1;
+        private float targetWeaponFOV = -1;
+        private float playerFOV = -1;
 
         // Finalized animation values
         private Vector3 finalVectorPos;
         private Vector3 finalVectorRot;
-        private float finalFOV;
+        private float finalPlayerFOV;
+        private float finalWeaponFOV;
 
         // Sway
         private Rotation lastEyeRot;
@@ -38,16 +41,23 @@ namespace SWB_Base
         public ViewModelBase(WeaponBase weapon)
         {
             this.weapon = weapon;
-            finalFOV = weapon.FOV;
         }
 
         public override void PostCameraSetup(ref CameraSetup camSetup)
         {
             base.PostCameraSetup(ref camSetup);
 
-            camSetup.FieldOfView = weapon.FOV;
+            if (playerFOV == -1)
+            {
+                playerFOV = camSetup.FieldOfView;
+                finalPlayerFOV = camSetup.FieldOfView;
+                targetWeaponFOV = weapon.FOV;
+                finalWeaponFOV = weapon.FOV;
+            }
+
             Rotation = camSetup.Rotation;
             Position = camSetup.Position;
+
             if (weapon.IsDormant) return;
             if (Owner != null && Owner.Health <= 0)
             {
@@ -58,13 +68,15 @@ namespace SWB_Base
             // Smoothly transition the vectors with the target values
             finalVectorPos = finalVectorPos.LerpTo(targetVectorPos, animSpeed * RealTime.Delta);
             finalVectorRot = finalVectorRot.LerpTo(targetVectorRot, animSpeed * RealTime.Delta);
-            finalFOV = MathX.LerpTo(finalFOV, targetFOV, fovSpeed * animSpeed * RealTime.Delta);
+            finalPlayerFOV = MathX.LerpTo(finalPlayerFOV, targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta);
+            finalWeaponFOV = MathX.LerpTo(finalWeaponFOV, targetWeaponFOV, playerFOVSpeed * animSpeed * RealTime.Delta);
             animSpeed = 10 * weapon.WalkAnimationSpeedMod;
 
             // Change the angles and positions of the viewmodel with the new vectors
             Rotation *= Rotation.From(finalVectorRot.x, finalVectorRot.y, finalVectorRot.z);
             Position += finalVectorPos.z * Rotation.Up + finalVectorPos.y * Rotation.Forward + finalVectorPos.x * Rotation.Right;
-            camSetup.FieldOfView = finalFOV;
+            camSetup.FieldOfView = finalPlayerFOV;
+            camSetup.ViewModel.FieldOfView = finalWeaponFOV;
 
             // I'm sure there's something already that does this for me, but I spend an hour
             // searching through the wiki and a bunch of other garbage and couldn't find anything...
@@ -74,7 +86,8 @@ namespace SWB_Base
             // Initialize the target vectors for this frame
             targetVectorPos = new Vector3(weapon.ViewModelOffset.Pos);
             targetVectorRot = new Vector3(MathUtil.ToVector3(weapon.ViewModelOffset.Angle));
-            targetFOV = weapon.FOV;
+            targetPlayerFOV = playerFOV;
+            targetWeaponFOV = weapon.FOV;
 
             // Model editor
             if (Owner is PlayerBase player && (player.IsModelEditing() || player.IsAttachmentEditing()))
@@ -194,16 +207,23 @@ namespace SWB_Base
                 animSpeed = 10 * weapon.WalkAnimationSpeedMod * speedMod;
                 targetVectorPos += weapon.ZoomAnimData.Pos;
                 targetVectorRot += MathUtil.ToVector3(weapon.ZoomAnimData.Angle);
-                targetFOV = weapon.ZoomFOV;
-                fovSpeed = weapon.ZoomInFOVSpeed;
+
+                if (weapon.ZoomPlayerFOV > 0)
+                    targetPlayerFOV = weapon.ZoomPlayerFOV;
+
+                if (weapon.ZoomWeaponFOV > 0)
+                    targetWeaponFOV = weapon.ZoomWeaponFOV;
+
+                playerFOVSpeed = weapon.ZoomInFOVSpeed;
             }
             else
             {
                 zoomTime = 0;
+                targetWeaponFOV = weapon.FOV;
 
-                if (finalFOV != weapon.FOV)
+                if (finalPlayerFOV != weapon.ZoomPlayerFOV)
                 {
-                    fovSpeed = weapon.ZoomOutFOVSpeed;
+                    playerFOVSpeed = weapon.ZoomOutFOVSpeed;
                 }
             }
         }

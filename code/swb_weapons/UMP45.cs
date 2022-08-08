@@ -16,7 +16,6 @@ namespace SWB_WEAPONS
         public override string WorldModelPath => "weapons/swb/smgs/ump45/w_ump45.vmdl";
         public override string Icon => "/swb_weapons/textures/ump45.png";
         public override int FOV => 75;
-        public override int ZoomFOV => 75;
         public override float WalkAnimationSpeedMod => 1f;
 
         public UMP45()

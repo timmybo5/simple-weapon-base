@@ -21,7 +21,7 @@ namespace SWB_WEAPONS
         public override string WorldModelPath => "weapons/swb/snipers/l96a1/w_l96a1.vmdl";
         public override string Icon => "/swb_weapons/textures/l96a1.png";
         public override int FOV => 75;
-        public override int ZoomFOV => 15;
+        public override int ZoomPlayerFOV => 15;
         public override float WalkAnimationSpeedMod => 0.8f;
         public override float AimSensitivity => 0.25f;
 

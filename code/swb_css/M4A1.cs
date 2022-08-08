@@ -12,8 +12,7 @@ namespace SWB_CSS
         public override string ViewModelPath => "weapons/swb/css/m4a1/css_v_m4a1.vmdl";
         public override string WorldModelPath => "weapons/swb/css/m4a1/css_w_m4a1.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_m4a1.png";
-        public override int FOV => 60;
-        public override int ZoomFOV => 35;
+        public override int FOV => 75;
         public override float WalkAnimationSpeedMod => 0.85f;
 
         public M4A1()

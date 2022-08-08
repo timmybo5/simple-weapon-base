@@ -12,7 +12,6 @@ namespace SWB_CSS
         public override string WorldModelPath => "weapons/swb/css/super90/css_w_shot_m3super90.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_super90.png";
         public override int FOV => 75;
-        public override int ZoomFOV => 45;
         public override float WalkAnimationSpeedMod => 0.9f;
 
         public override float ShellReloadTimeStart => 0.38f;

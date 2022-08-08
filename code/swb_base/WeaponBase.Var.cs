@@ -38,11 +38,14 @@ namespace SWB_Base
         /// <summary>Should the barrel smoke after heavy weapon usage?</summary>
         public virtual bool BarrelSmoking => true;
 
-        /// <summary>Default FOV</summary>
-        public virtual int FOV => 65;
+        /// <summary>Default weapon FOV</summary>
+        public virtual int FOV => 75;
 
-        /// <summary>FOV while zooming</summary>
-        public virtual int ZoomFOV => 65;
+        /// <summary>Weapon FOV while zooming</summary>
+        public virtual int ZoomWeaponFOV => -1;
+
+        /// <summary>Player FOV while zooming</summary>
+        public virtual int ZoomPlayerFOV => -1;
 
         /// <summary>FOV zoom in speed</summary>
         public virtual int ZoomInFOVSpeed => 1;

@@ -21,7 +21,6 @@ namespace SWB_WEAPONS
         public override string WorldModelPath => "weapons/swb/rifles/fal/w_fal.vmdl";
         public override string Icon => "/swb_weapons/textures/fal.png";
         public override int FOV => 75;
-        public override int ZoomFOV => 75;
         public override float WalkAnimationSpeedMod => 0.85f;
 
         public FAL()

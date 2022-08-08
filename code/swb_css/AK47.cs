@@ -12,7 +12,6 @@ namespace SWB_CSS
         public override string WorldModelPath => "weapons/swb/css/ak47/css_w_rif_ak47.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_ak47.png";
         public override int FOV => 75;
-        public override int ZoomFOV => 35;
         public override float WalkAnimationSpeedMod => 0.85f;
 
         public AK47()

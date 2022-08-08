@@ -21,7 +21,6 @@ namespace SWB_WEAPONS
         public override string WorldModelPath => "weapons/swb/pistols/deagle/w_deagle.vmdl";
         public override string Icon => "/swb_weapons/textures/deagle.png";
         public override int FOV => 75;
-        public override int ZoomFOV => 75;
 
         public DEAGLE()
         {

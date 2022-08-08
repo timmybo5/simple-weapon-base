@@ -12,7 +12,6 @@ namespace SWB_CSS
         public override string WorldModelPath => "weapons/swb/css/mac10/css_w_smg_mac10.vmdl";
         public override string Icon => "/swb_css/textures/ui/css_icon_mac10.png";
         public override int FOV => 75;
-        public override int ZoomFOV => 75;
         public override float WalkAnimationSpeedMod => 0.85f;
 
         public MAC10()
