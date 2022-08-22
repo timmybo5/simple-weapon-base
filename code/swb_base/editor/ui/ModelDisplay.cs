@@ -23,7 +23,7 @@ namespace SWB_Base.Editor
 
             this.canMouseDrag = canMouseDrag;
             SetMouseCapture(canMouseDrag);
-            Style.PointerEvents = canMouseDrag ? "all" : "none";
+            Style.PointerEvents = canMouseDrag ? PointerEvents.All : PointerEvents.None;
 
             Style.FlexWrap = Wrap.Wrap;
             Style.JustifyContent = Justify.Center;
