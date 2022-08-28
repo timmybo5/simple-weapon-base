@@ -1,9 +1,7 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SWB_Base.Editor
 {
@@ -186,7 +184,7 @@ namespace SWB_Base.Editor
                 case PositionMode.AboveLeft:
                     {
                         Style.Left = rect.left;
-                        Style.Bottom = Parent.Box.Rect.height - rect.top + PopupSourceOffset;
+                        Style.Bottom = Parent.Box.Rect.Height - rect.top + PopupSourceOffset;
                         Style.BackgroundColor = Color.Red;
                         break;
                     }
@@ -208,7 +206,7 @@ namespace SWB_Base.Editor
                 case PositionMode.BelowStretch:
                     {
                         Style.Left = rect.left;
-                        Style.Width = rect.width;
+                        Style.Width = rect.Width;
                         Style.Top = rect.bottom + PopupSourceOffset;
                         break;
                     }

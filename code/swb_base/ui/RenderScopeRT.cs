@@ -1,6 +1,5 @@
 ﻿using Sandbox;
 using Sandbox.UI;
-using Sandbox.UI.Construct;
 
 namespace SWB_Base.UI
 {
@@ -26,13 +25,13 @@ namespace SWB_Base.UI
             viewport = new Rect(Vector2.Zero, Screen.Size / 2f);
 
             colorTexture = Texture.CreateRenderTarget()
-                         .WithSize((int)viewport.width, (int)viewport.height)
+                         .WithSize((int)viewport.Width, (int)viewport.Height)
                          .WithScreenFormat()
                          .WithScreenMultiSample()
                          .Create();
 
             depthTexture = Texture.CreateRenderTarget()
-                         .WithSize((int)viewport.width, (int)viewport.height)
+                         .WithSize((int)viewport.Width, (int)viewport.Height)
                          .WithDepthFormat()
                          .WithScreenMultiSample()
                          .Create();

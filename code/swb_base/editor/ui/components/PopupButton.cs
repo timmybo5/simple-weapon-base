@@ -1,8 +1,5 @@
 ﻿using Sandbox;
 using Sandbox.UI;
-using Sandbox.UI.Construct;
-using System;
-using System.Linq;
 
 namespace SWB_Base.Editor
 {
@@ -38,7 +35,7 @@ namespace SWB_Base.Editor
 
             if (Popup != null)
             {
-                Popup.Style.Width = Box.Rect.width;
+                Popup.Style.Width = Box.Rect.Width;
             }
         }
     }

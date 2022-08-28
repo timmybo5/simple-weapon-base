@@ -1,8 +1,7 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System;
-using System.Linq;
 
 namespace SWB_Base.Editor
 {
@@ -122,8 +121,8 @@ namespace SWB_Base.Editor
         public virtual float ScreenPosToValue(Vector2 pos)
         {
             var localPos = ScreenPositionToPanelPosition(pos);
-            var thumbSize = Thumb.Box.Rect.width * 0.5f;
-            var normalized = MathX.LerpInverse(localPos.x, thumbSize, (Box.Rect.width - thumbSize), true);
+            var thumbSize = Thumb.Box.Rect.Width * 0.5f;
+            var normalized = MathX.LerpInverse(localPos.x, thumbSize, (Box.Rect.Width - thumbSize), true);
             var scaled = MathX.LerpTo(MinValue, MaxValue, normalized, true);
             return Step > 0 ? scaled.SnapToGrid(Step) : scaled;
         }

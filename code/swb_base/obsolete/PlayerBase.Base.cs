@@ -164,7 +164,8 @@ namespace SWB_Base
 
             // TODO - investigate this? if we don't set movetype then the lerp is too much. Can we control lerp amount?
             // if so we should expose that instead, that would be awesome.
-            MoveType = MoveType.MOVETYPE_WALK;
+            // MoveType = MoveType.MOVETYPE_WALK;
+
             EnableHitboxes = true;
         }
 
