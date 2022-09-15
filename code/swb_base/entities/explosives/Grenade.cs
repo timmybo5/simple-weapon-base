@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Sandbox;
 
 /* 
@@ -15,7 +14,7 @@ namespace SWB_Base
         public float ExplosionDamage { get; set; }
         public float ExplosionForce { get; set; }
         public string BounceSound { get; set; }
-        public List<string> ExplosionSounds { get; set; }
+        public string ExplosionSound { get; set; }
         public string ExplosionEffect { get; set; }
         public ScreenShake ExplosionShake { get; set; }
 
@@ -40,10 +39,8 @@ namespace SWB_Base
         public virtual void Explode()
         {
             // Explosion sound
-            var explosionSound = TableUtil.GetRandom(ExplosionSounds);
-
-            if (!string.IsNullOrEmpty(explosionSound))
-                PlaySound(explosionSound).SetPosition(Position);
+            if (!string.IsNullOrEmpty(ExplosionSound))
+                PlaySound(ExplosionSound).SetPosition(Position);
 
             // Effects
             Particles.Create(ExplosionEffect, PhysicsBody.MassCenter);

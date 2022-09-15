@@ -4,7 +4,6 @@ using Sandbox.UI.Construct;
 
 namespace SWB_Base.UI
 {
-
     public class SniperScope : Panel
     {
         Panel LensWrapper;

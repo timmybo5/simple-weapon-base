@@ -14,7 +14,7 @@ namespace SWB_Base
         public float ExplosionRadius { get; set; }
         public float ExplosionDamage { get; set; }
         public float ExplosionForce { get; set; }
-        public List<string> ExplosionSounds { get; set; }
+        public string ExplosionSound { get; set; }
         public string ExplosionEffect { get; set; }
         public ScreenShake ExplosionShake { get; set; }
         public string RocketSound { get; set; }
@@ -78,10 +78,8 @@ namespace SWB_Base
             }
 
             // Explosion sound
-            var explosionSound = TableUtil.GetRandom(ExplosionSounds);
-
-            if (!string.IsNullOrEmpty(explosionSound))
-                PlaySound(explosionSound).SetPosition(Position);
+            if (!string.IsNullOrEmpty(ExplosionSound))
+                PlaySound(ExplosionSound).SetPosition(Position);
 
             // Explosion effect
             if (!string.IsNullOrEmpty(ExplosionEffect))

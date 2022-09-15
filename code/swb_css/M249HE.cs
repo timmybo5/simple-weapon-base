@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Sandbox;
 using SWB_Base;
 
@@ -88,10 +87,7 @@ namespace SWB_CSS
             grenade.ExplosionDamage = 200f;
             grenade.ExplosionForce = 350f;
             grenade.BounceSound = "css_grenade_he.bounce";
-            grenade.ExplosionSounds = new List<string>
-            {
-                "css_grenade_he.explode"
-            };
+            grenade.ExplosionSound = "css_grenade_he.explode";
             grenade.ExplosionEffect = "weapons/swb/css/grenade_he/particles/grenade_he_explosion.vpcf";
             grenade.ExplosionShake = new ScreenShake
             {

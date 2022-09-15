@@ -95,14 +95,7 @@ namespace SWB_EXPLOSIVES
             rocket.ExplosionDamage = 300f;
             rocket.ExplosionForce = 500f;
             rocket.Inaccuracy = 75;
-            rocket.ExplosionSounds = new List<string>
-            {
-                "swb_explosion_1",
-                "swb_explosion_2",
-                "swb_explosion_3",
-                "swb_explosion_4",
-                "swb_explosion_5"
-            };
+            rocket.ExplosionSound = "swb_explosion_random";
             rocket.ExplosionEffect = "weapons/swb/explosives/rpg-7/temp_particles/grenade_he_explosion.vpcf";
             rocket.RocketSound = "swb_explosives_rpg7.rocketloop";
             rocket.RocketEffects = new List<string>

@@ -78,10 +78,10 @@ namespace SWB_Base.Editor
                 CamAngles.pitch = CamAngles.pitch.Clamp(0, 90);
             }
 
-            scene.CameraPosition = MathUtil.FILerp(scene.CameraPosition, CamPos, 10);
+            scene.Camera.Position = MathUtil.FILerp(scene.Camera.Position, CamPos, 10);
 
-            var newAngles = MathUtil.FILerp(scene.CameraRotation.Angles(), CamAngles, 10);
-            scene.CameraRotation = Rotation.From(newAngles);
+            var newAngles = MathUtil.FILerp(scene.Camera.Rotation.Angles(), CamAngles, 10);
+            scene.Camera.Rotation = Rotation.From(newAngles);
         }
     }
 }
