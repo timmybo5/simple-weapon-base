@@ -129,7 +129,9 @@ public partial class ExamplePlayer : PlayerBase
     {
         base.OnKilled();
 
-        Inventory.DropActive();
+        if (ActiveChild is WeaponBase weapon && weapon.DropWeaponOnDeath)
+            Inventory.DropActive();
+
         Inventory.DeleteContents();
 
         BecomeRagdollOnClient(LastDamage.Force, GetHitboxBone(LastDamage.HitboxIndex));

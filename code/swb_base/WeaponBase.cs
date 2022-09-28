@@ -303,7 +303,7 @@ namespace SWB_Base
 
         public override void OnCarryDrop(Entity dropper)
         {
-            if (!DropWeaponOnDeath)
+            if (!CanDrop)
             {
                 this.Delete();
                 return;

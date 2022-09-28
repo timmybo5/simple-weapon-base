@@ -24,7 +24,7 @@ namespace SWB_Base.UI
         public void Create(bool isKill)
         {
             if (activeMarker != null)
-                activeMarker.Delete();
+                activeMarker.Delete(true);
 
             activeMarker = new Marker(this, isKill);
         }
