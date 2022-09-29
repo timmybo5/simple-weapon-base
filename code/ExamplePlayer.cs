@@ -129,7 +129,14 @@ public partial class ExamplePlayer : PlayerBase
     {
         base.OnKilled();
 
-        if (ActiveChild is WeaponBase weapon && weapon.DropWeaponOnDeath)
+        var attacker = LastAttacker as PlayerBase;
+
+        if (attacker != null && LastDamage.Weapon is WeaponBase weapon && Game.Current is ExampleGame game)
+        {
+            game.UI.AddKillfeedEntry(To.Everyone, attacker.Client.PlayerId, attacker.Client.Name, Client.PlayerId, Client.Name, weapon.Icon);
+        }
+
+        if (ActiveChild is WeaponBase activeWep && activeWep.DropWeaponOnDeath)
             Inventory.DropActive();
 
         Inventory.DeleteContents();
@@ -153,5 +160,21 @@ public partial class ExamplePlayer : PlayerBase
         if (best == null) return;
 
         ActiveChild = best;
+    }
+
+    public override void TakeDamage(DamageInfo info)
+    {
+        base.TakeDamage(info);
+
+        if (info.Attacker is PlayerBase attacker && attacker != this)
+        {
+            TookDamage(To.Single(this), info.Weapon.IsValid() ? info.Weapon.Position : info.Attacker.Position);
+        }
+    }
+
+    [ClientRpc]
+    public virtual void TookDamage(Vector3 pos)
+    {
+        DamageIndicator.Current?.OnHit(pos);
     }
 }

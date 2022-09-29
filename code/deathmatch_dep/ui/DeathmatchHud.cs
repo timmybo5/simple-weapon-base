@@ -5,6 +5,8 @@ using Sandbox.UI;
 [Library]
 public partial class DeathmatchHud : HudEntity<RootPanel>
 {
+    KillFeed killFeed;
+
     public DeathmatchHud()
     {
         if (!IsClient)
@@ -18,7 +20,7 @@ public partial class DeathmatchHud : HudEntity<RootPanel>
         RootPanel.AddChild<PickupFeed>();
 
         RootPanel.AddChild<ChatBox>();
-        RootPanel.AddChild<KillFeed>();
+        killFeed = RootPanel.AddChild<KillFeed>();
         RootPanel.AddChild<Scoreboard>();
         RootPanel.AddChild<VoiceList>();
     }
@@ -33,5 +35,11 @@ public partial class DeathmatchHud : HudEntity<RootPanel>
     public void ShowDeathScreen(string attackerName)
     {
         Host.AssertClient();
+    }
+
+    [ClientRpc]
+    public void AddKillfeedEntry(long lsteamid, string left, long rsteamid, string right, string icon)
+    {
+        killFeed.AddEntry(lsteamid, left, rsteamid, right, icon);
     }
 }

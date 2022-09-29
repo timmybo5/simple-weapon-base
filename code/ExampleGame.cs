@@ -3,11 +3,13 @@
 [Library("swb")]
 public partial class ExampleGame : Sandbox.Game
 {
+    public DeathmatchHud UI;
+
     public ExampleGame()
     {
         if (IsServer)
         {
-            new DeathmatchHud();
+            UI = new DeathmatchHud();
         }
     }
 
