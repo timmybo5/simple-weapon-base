@@ -61,19 +61,20 @@ namespace SWB_Base.UI
             if (!weapon.IsZooming)
                 return;
 
-            Render.Draw.DrawScene(colorTexture,
-                    depthTexture,
-                    Map.Scene,
-                    renderAttributes,
-                    viewport,
-                    CurrentView.Position,
-                    CurrentView.Rotation,
-                    fieldOfView,
-                    zNear: 32,
-                    zFar: 25000);
+            // Remake it with https://asset.party/api/Sandbox.Graphics
+            //Render.Draw.DrawScene(colorTexture,
+            //        depthTexture,
+            //        Map.Scene,
+            //        renderAttributes,
+            //        viewport,
+            //        CurrentView.Position,
+            //        CurrentView.Rotation,
+            //        fieldOfView,
+            //        zNear: 32,
+            //        zFar: 25000);
 
-            Render.Attributes.Set("ScopeRT", colorTexture);
-            sceneObject.Attributes.Set("ScopeRT", colorTexture);
+            //Render.Attributes.Set("ScopeRT", colorTexture);
+            //sceneObject.Attributes.Set("ScopeRT", colorTexture);
         }
     }
 }
