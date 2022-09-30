@@ -1562,5 +1562,8 @@
 		{
 			m_ChildRef = resource:"particles/swb/muzzle/sparks_medium.vpcf"
 		},
+		{
+			m_ChildRef = resource:"particles/swb/muzzle/smoke_medium.vpcf"
+		},
 	]
 }
