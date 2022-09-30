@@ -21,6 +21,16 @@ namespace SWB_Base
         {
             return ID == ammoType.ID && Name == ammoType.Name;
         }
+
+        public static bool operator ==(AmmoType x, AmmoType y)
+        {
+            return x.Equals(y);
+        }
+
+        public static bool operator !=(AmmoType x, AmmoType y)
+        {
+            return !x.Equals(y);
+        }
     }
 
     public partial class AmmoTypes
