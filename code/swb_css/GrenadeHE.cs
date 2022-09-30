@@ -36,7 +36,7 @@ namespace SWB_CSS
             {
                 Ammo = -1,
                 ClipSize = -1,
-                AmmoType = AmmoType.Grenade,
+                AmmoType = AmmoTypes.Grenade,
                 FiringType = FiringType.semi,
                 RPM = 50,
             };
@@ -44,7 +44,7 @@ namespace SWB_CSS
             {
                 Ammo = -1,
                 ClipSize = -1,
-                AmmoType = AmmoType.Grenade,
+                AmmoType = AmmoTypes.Grenade,
                 FiringType = FiringType.semi,
                 RPM = 50,
             };

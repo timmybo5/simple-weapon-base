@@ -20,7 +20,7 @@ namespace SWB_Base
 
         /// <summary>Type of ammo</summary>
         [Net]
-        public AmmoType AmmoType { get; set; } = AmmoType.Pistol;
+        public AmmoType AmmoType { get; set; } = AmmoTypes.Pistol;
 
         /// <summary>Size of the clip</summary>
         [Net]

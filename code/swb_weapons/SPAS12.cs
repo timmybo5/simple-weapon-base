@@ -27,7 +27,7 @@ namespace SWB_WEAPONS
             Primary = new ClipInfo
             {
                 Ammo = 8,
-                AmmoType = AmmoType.Shotgun,
+                AmmoType = AmmoTypes.Shotgun,
                 ClipSize = 8,
 
                 Bullets = 8,

@@ -49,7 +49,7 @@ namespace SWB_WEAPONS
             Primary = new ClipInfo
             {
                 Ammo = 5,
-                AmmoType = AmmoType.Sniper,
+                AmmoType = AmmoTypes.Sniper,
                 ClipSize = 5,
 
                 BulletSize = 4f,

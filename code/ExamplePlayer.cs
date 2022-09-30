@@ -52,14 +52,14 @@ public partial class ExamplePlayer : PlayerBase
 
         Inventory.Add(new SWB_EXPLOSIVES.RPG7());
 
-        GiveAmmo(AmmoType.SMG, 100);
-        GiveAmmo(AmmoType.Pistol, 60);
-        GiveAmmo(AmmoType.Revolver, 60);
-        GiveAmmo(AmmoType.Rifle, 60);
-        GiveAmmo(AmmoType.Shotgun, 60);
-        GiveAmmo(AmmoType.Sniper, 60);
-        GiveAmmo(AmmoType.Grenade, 60);
-        GiveAmmo(AmmoType.RPG, 60);
+        GiveAmmo(AmmoTypes.SMG, 100);
+        GiveAmmo(AmmoTypes.Pistol, 60);
+        GiveAmmo(AmmoTypes.Revolver, 60);
+        GiveAmmo(AmmoTypes.Rifle, 60);
+        GiveAmmo(AmmoTypes.Shotgun, 60);
+        GiveAmmo(AmmoTypes.Sniper, 60);
+        GiveAmmo(AmmoTypes.Grenade, 60);
+        GiveAmmo(AmmoTypes.RPG, 60);
 
         SupressPickupNotices = false;
     }

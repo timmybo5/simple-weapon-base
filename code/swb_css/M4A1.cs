@@ -25,7 +25,7 @@ namespace SWB_CSS
             Primary = new ClipInfo
             {
                 Ammo = 30,
-                AmmoType = AmmoType.Rifle,
+                AmmoType = AmmoTypes.Rifle,
                 ClipSize = 30,
 
                 BulletSize = 3.5f,

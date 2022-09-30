@@ -47,7 +47,7 @@ namespace SWB_EXPLOSIVES
             Primary = new ClipInfo
             {
                 Ammo = 1,
-                AmmoType = AmmoType.RPG,
+                AmmoType = AmmoTypes.RPG,
                 ClipSize = 1,
 
                 BulletSize = 5f,

@@ -31,7 +31,7 @@ public class ExampleInventory : InventoryBase
                 if (showNotice)
                 {
                     Sound.FromWorld("dm.pickup_ammo", ent.Position);
-                    PickupFeed.OnPickup(To.Single(player), $"+{ammo} {ammoType}");
+                    PickupFeed.OnPickup(To.Single(player), $"+{ammo} {ammoType.Name}");
                 }
             }
 
