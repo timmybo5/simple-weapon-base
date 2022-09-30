@@ -16,6 +16,11 @@ namespace SWB_Base
             this.ID = ID;
             Name = name;
         }
+
+        public bool Equals(AmmoType ammoType)
+        {
+            return ID == ammoType.ID && Name == ammoType.Name;
+        }
     }
 
     public partial class AmmoTypes
