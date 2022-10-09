@@ -4,6 +4,8 @@ using Sandbox;
 using Sandbox.UI;
 using SWB_Base;
 
+namespace Deathmatch.Hud;
+
 /// <summary>
 /// The main inventory panel, top left of the screen.
 /// </summary>

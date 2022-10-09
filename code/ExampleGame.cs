@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using Deathmatch.Hud;
+using Sandbox;
 
 [Library("swb")]
 public partial class ExampleGame : Sandbox.Game

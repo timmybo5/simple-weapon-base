@@ -1,9 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB_Base;
+
+namespace Deathmatch.Hud;
 
 /// <summary>
 /// When a player is within radius of the camera we add this to their entity.

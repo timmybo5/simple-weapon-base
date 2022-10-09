@@ -1,7 +1,6 @@
-﻿
-using Sandbox;
-using Sandbox.UI;
-using Sandbox.UI.Construct;
+﻿using Sandbox.UI.Construct;
+
+namespace Deathmatch.Hud;
 
 public class Scoreboard : Sandbox.UI.Scoreboard<ScoreboardEntry>
 {

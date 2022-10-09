@@ -1,11 +1,10 @@
-﻿
-using Sandbox;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using SWB_Base;
+
+namespace Deathmatch.Hud;
 
 public class InventoryColumn : Panel
 {

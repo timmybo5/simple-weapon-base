@@ -1,7 +1,8 @@
-﻿using Sandbox;
+﻿using System.Threading.Tasks;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using System.Threading.Tasks;
+
+namespace Deathmatch.Hud;
 
 public partial class KillFeedEntry : Panel
 {
@@ -11,16 +12,16 @@ public partial class KillFeedEntry : Panel
 
     public KillFeedEntry()
     {
-        Left = Add.Label( "", "left" );
-        Icon = Add.Panel( "icon" );
-        Right = Add.Label( "", "right" );
+        Left = Add.Label("", "left");
+        Icon = Add.Panel("icon");
+        Right = Add.Label("", "right");
 
         _ = RunAsync();
     }
 
     async Task RunAsync()
     {
-        await Task.Delay( 4000 );
+        await Task.Delay(4000);
         Delete();
     }
 

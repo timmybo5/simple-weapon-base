@@ -1,9 +1,9 @@
 ﻿
 using Sandbox;
 using Sandbox.UI;
-using Sandbox.UI.Construct;
-using System;
 using SWB_Base;
+
+namespace Deathmatch.Hud;
 
 class InventoryIcon : Panel
 {

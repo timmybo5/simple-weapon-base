@@ -1,8 +1,9 @@
-﻿using Sandbox;
-using Sandbox.UI;
-using Sandbox.UI.Construct;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Sandbox;
+using Sandbox.UI;
+
+namespace Deathmatch.Hud;
 
 public partial class DamageIndicator : Panel
 {

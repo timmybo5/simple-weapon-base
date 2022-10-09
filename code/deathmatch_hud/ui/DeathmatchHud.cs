@@ -2,6 +2,8 @@
 using Sandbox;
 using Sandbox.UI;
 
+namespace Deathmatch.Hud;
+
 [Library]
 public partial class DeathmatchHud : HudEntity<RootPanel>
 {
