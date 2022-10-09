@@ -46,7 +46,6 @@ namespace SWB_Base
 
             if (currFlinch > 0)
             {
-                LogUtil.Info(currFlinch);
                 var flinchAngles = new Angles(isLoweringFlinch ? currFlinch : -currFlinch, 0, 0);
                 input.ViewAngles += flinchAngles;
             }
