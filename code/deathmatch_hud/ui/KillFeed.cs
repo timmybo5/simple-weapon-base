@@ -10,7 +10,7 @@ public partial class KillFeed : Panel
     public KillFeed()
     {
         Current = this;
-        StyleSheet.Load("deathmatch_dep/ui/KillFeed.scss");
+        StyleSheet.Load("deathmatch_hud/ui/KillFeed.scss");
     }
 
     public virtual Panel AddEntry(long lsteamid, string left, long rsteamid, string right, string icon)

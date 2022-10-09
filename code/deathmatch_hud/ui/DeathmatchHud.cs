@@ -14,7 +14,7 @@ public partial class DeathmatchHud : HudEntity<RootPanel>
         if (!IsClient)
             return;
 
-        RootPanel.StyleSheet.Load("deathmatch_dep/ui/DeathmatchHud.scss");
+        RootPanel.StyleSheet.Load("deathmatch_hud/ui/DeathmatchHud.scss");
 
         RootPanel.AddChild<DamageIndicator>();
 

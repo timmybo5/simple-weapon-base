@@ -13,7 +13,7 @@ public partial class PickupFeed : Panel
     public PickupFeed()
     {
         Current = this;
-        StyleSheet.Load("deathmatch_dep/ui/PickupFeed.scss");
+        StyleSheet.Load("deathmatch_hud/ui/PickupFeed.scss");
     }
 
     /// <summary>

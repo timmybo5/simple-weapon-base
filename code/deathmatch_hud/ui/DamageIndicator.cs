@@ -12,7 +12,7 @@ public partial class DamageIndicator : Panel
     public DamageIndicator()
     {
         Current = this;
-        StyleSheet.Load("deathmatch_dep/ui/DamageIndicator.scss");
+        StyleSheet.Load("deathmatch_hud/ui/DamageIndicator.scss");
     }
 
     public void OnHit(Vector3 pos)

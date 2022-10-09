@@ -85,7 +85,7 @@ public class NameTag : WorldPanel
 
     internal NameTag(string title, long? steamid)
     {
-        StyleSheet.Load("deathmatch_dep/ui/Nametags.scss");
+        StyleSheet.Load("deathmatch_hud/ui/Nametags.scss");
 
         if (steamid != null)
         {
