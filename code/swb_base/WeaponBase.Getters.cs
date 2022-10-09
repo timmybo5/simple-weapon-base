@@ -95,6 +95,9 @@ namespace SWB_Base
             return base.GetAttachment(name, worldspace);
         }
 
+        /// <summary>
+        /// The available reserve ammo
+        /// </summary>
         public int GetAvailableAmmo()
         {
             if (Owner is not PlayerBase owner) return 0;
@@ -106,15 +109,37 @@ namespace SWB_Base
             return owner.AmmoCount(Primary.AmmoType);
         }
 
+        /// <summary>
+        /// If there is usable ammo left
+        /// </summary>
+        public bool HasAmmo()
+        {
+            if (Primary.InfiniteAmmo == InfiniteAmmoType.clip)
+                return true;
+
+            if (Primary.ClipSize == -1)
+            {
+                if (Owner is PlayerBase player)
+                {
+                    return player.HasAmmo(Primary.AmmoType);
+                }
+                return true;
+            }
+
+            if (Primary.Ammo == 0)
+                return false;
+
+            return true;
+        }
+
         public virtual bool IsUsable()
         {
             return true;
         }
 
-        // Static
         protected static float GetRealRPM(int rpm)
         {
-            return (60f / rpm);
+            return 60f / rpm;
         }
     }
 }

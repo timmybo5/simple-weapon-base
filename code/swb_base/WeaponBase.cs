@@ -273,7 +273,10 @@ namespace SWB_Base
             }
         }
 
-        public bool TakeAmmo(int amount)
+        /// <summary>
+        /// Tries to take ammo from the weapon, returns if the attempt was successful
+        /// </summary>
+        public bool TakeAmmo(int amount = 1)
         {
             if (Primary.InfiniteAmmo == InfiniteAmmoType.clip)
                 return true;
