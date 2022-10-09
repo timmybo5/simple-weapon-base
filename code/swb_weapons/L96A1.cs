@@ -56,6 +56,7 @@ namespace SWB_WEAPONS
                 BulletType = new SniperBullet(),
                 Damage = 100f,
                 Force = 7f,
+                HitFlinch = 5f,
                 Spread = 0.75f,
                 Recoil = 2f,
                 RPM = 125,

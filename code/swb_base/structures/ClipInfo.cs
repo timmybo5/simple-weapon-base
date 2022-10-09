@@ -48,6 +48,10 @@ namespace SWB_Base
         [Net]
         public float Force { get; set; } = 0.1f;
 
+        /// <summary>Bullet hit flinch</summary>
+        [Net]
+        public float HitFlinch { get; set; } = 1.25f;
+
         /// <summary>Weapon spread</summary>
         [Net]
         public float Spread { get; set; } = 0.1f;

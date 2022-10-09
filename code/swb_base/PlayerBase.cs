@@ -13,15 +13,62 @@ namespace SWB_Base
         private TimeSince timeSinceShake;
         private float nextShake;
 
+        private bool isLoweringFlinch;
+        private float currFlinch;
+        private float targetFlinch;
+        private float flinchSpeed;
+
         public override void Simulate(Client client)
         {
             SimulateBase(client);
             BulletSimulator.Simulate();
         }
 
+        [Event.BuildInput]
+        public virtual void ProcessClientInput(InputBuilder input)
+        {
+            if (!Alive())
+            {
+                targetFlinch = 0;
+                isLoweringFlinch = false;
+                return;
+            }
+
+            if (currFlinch == targetFlinch)
+            {
+                targetFlinch = 0;
+                isLoweringFlinch = true;
+            }
+            else
+            {
+                currFlinch = currFlinch.Approach(targetFlinch, flinchSpeed);
+            }
+
+            if (currFlinch > 0)
+            {
+                LogUtil.Info(currFlinch);
+                var flinchAngles = new Angles(isLoweringFlinch ? currFlinch : -currFlinch, 0, 0);
+                input.ViewAngles += flinchAngles;
+            }
+        }
+
+        [ClientRpc]
+        public virtual void DoHitFlinch(float amount)
+        {
+            isLoweringFlinch = false;
+            flinchSpeed = amount / 4f;
+            targetFlinch = amount;
+        }
+
         public override void TakeDamage(DamageInfo info)
         {
             LastDamage = info;
+
+            var weapon = info.Weapon as WeaponBase;
+
+            // Hit flinch
+            if (weapon != null && weapon.Primary.HitFlinch > 0)
+                DoHitFlinch(To.Single(this), weapon.Primary.HitFlinch);
 
             // Headshot double damage
             if (GetHitboxGroup(info.HitboxIndex) == 1)
@@ -37,7 +84,6 @@ namespace SWB_Base
                 attacker.DidDamage(To.Single(attacker), info.Position, info.Damage, Health, ((float)Health).LerpInverse(100, 0));
 
                 // Hitmarker
-                var weapon = info.Weapon as WeaponBase;
                 var uiSettings = weapon.UISettings;
                 if (weapon != null && uiSettings.ShowHitmarker && !uiSettings.HideAll)
                     attacker.ShowHitmarker(To.Single(attacker), !Alive(), uiSettings.PlayHitmarkerSound);
@@ -64,6 +110,7 @@ namespace SWB_Base
             timeSinceShake = 0;
             nextShake = 0;
         }
+
 
         public virtual bool Alive()
         {

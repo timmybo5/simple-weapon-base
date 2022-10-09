@@ -41,6 +41,7 @@ namespace SWB_WEAPONS
                 BulletType = new DeagleBullet(),
                 Damage = 50f,
                 Force = 5f,
+                HitFlinch = 3f,
                 Spread = 0.06f,
                 Recoil = 1f,
                 RPM = 300,

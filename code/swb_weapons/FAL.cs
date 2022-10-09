@@ -42,6 +42,7 @@ namespace SWB_WEAPONS
                 BulletType = new RifleBullet(),
                 Damage = 20f,
                 Force = 3f,
+                HitFlinch = 2f,
                 Spread = 0.1f,
                 Recoil = 0.5f,
                 RPM = 600,

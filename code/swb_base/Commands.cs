@@ -4,6 +4,21 @@ namespace SWB_Base
 {
     internal class Commands
     {
+        [ConCmd.Server("swb_damageme", Help = "damage me")]
+        public static void DamageCommand(int amount = 10)
+        {
+            Client client = ConsoleSystem.Caller;
+
+            if (client != null && client.Pawn is PlayerBase ply && ply.ActiveChild is WeaponBase weapon)
+            {
+                var damageInfo = new DamageInfo();
+                damageInfo.Damage = amount;
+                damageInfo.Weapon = weapon;
+
+                ply.TakeDamage(damageInfo);
+            }
+        }
+
         [ConCmd.Server("swb_editor_model", Help = "Opens the model editor")]
         public static void OpenModelEditor()
         {
