@@ -70,8 +70,8 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 * More attachments
 * Worldmodel clipping shader
 
-## Deathmatch Elements
-For now some deathmatch dependencies are included as the base uses the inventory and hud elements from the deathmatch gamemode.
+## Deathmatch HUD
+Some basic HUD elements from the DM98 gamemode are included but are not required for the base to work.
 
 ## Installing
 If you want to test out the base just drag and drop simple-weapon-base-master into your addons folder.
