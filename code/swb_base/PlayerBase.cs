@@ -70,7 +70,7 @@ namespace SWB_Base
                 DoHitFlinch(To.Single(this), weapon.Primary.HitFlinch);
 
             // Headshot double damage
-            if (GetHitboxGroup(info.HitboxIndex) == 1)
+            if (info.Hitbox.HasTag("head"))
             {
                 info.Damage *= 2.0f;
             }

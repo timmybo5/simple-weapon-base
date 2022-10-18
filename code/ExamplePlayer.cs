@@ -142,7 +142,7 @@ public partial class ExamplePlayer : PlayerBase
 
         Inventory.DeleteContents();
 
-        BecomeRagdollOnClient(LastDamage.Force, GetHitboxBone(LastDamage.HitboxIndex));
+        BecomeRagdollOnClient(LastDamage.Force, LastDamage.BoneIndex);
 
         Controller = null;
         CameraMode = new SpectateRagdollCamera();
