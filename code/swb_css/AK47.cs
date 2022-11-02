@@ -10,7 +10,7 @@ namespace SWB_CSS
         public override HoldType HoldType => HoldType.Rifle;
         public override string ViewModelPath => "weapons/swb/css/ak47/css_v_rif_ak47.vmdl";
         public override string WorldModelPath => "weapons/swb/css/ak47/css_w_rif_ak47.vmdl";
-        public override string Icon => "/swb_css/textures/ui/css_icon_ak47.png";
+        public override string Icon => "code/swb_css/textures/ui/css_icon_ak47.png";
         public override int FOV => 75;
         public override float WalkAnimationSpeedMod => 0.85f;
 

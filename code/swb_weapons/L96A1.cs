@@ -19,7 +19,7 @@ namespace SWB_WEAPONS
             Pos = new Vector3(-5, -2, 0)
         };
         public override string WorldModelPath => "weapons/swb/snipers/l96a1/w_l96a1.vmdl";
-        public override string Icon => "/swb_weapons/textures/l96a1.png";
+        public override string Icon => "code/swb_weapons/textures/l96a1.png";
         public override int FOV => 75;
         public override int ZoomPlayerFOV => 15;
         public override float WalkAnimationSpeedMod => 0.8f;

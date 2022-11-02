@@ -14,7 +14,7 @@ namespace SWB_WEAPONS
         public override string HandsModelPath => "weapons/swb/hands/swat/v_hands_swat.vmdl";
         public override string ViewModelPath => "weapons/swb/shotguns/spas/v_spas12.vmdl";
         public override string WorldModelPath => "weapons/swb/shotguns/spas/w_spas12.vmdl";
-        public override string Icon => "/swb_weapons/textures/spas12.png";
+        public override string Icon => "code/swb_weapons/textures/spas12.png";
         public override int FOV => 75;
         public override float WalkAnimationSpeedMod => 0.9f;
 

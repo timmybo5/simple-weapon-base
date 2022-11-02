@@ -19,7 +19,7 @@ namespace SWB_WEAPONS
             Pos = new Vector3(-5, 0, 0)
         };
         public override string WorldModelPath => "weapons/swb/pistols/deagle/w_deagle.vmdl";
-        public override string Icon => "/swb_weapons/textures/deagle.png";
+        public override string Icon => "code/swb_weapons/textures/deagle.png";
         public override int FOV => 75;
 
         public DEAGLE()

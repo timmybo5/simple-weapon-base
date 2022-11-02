@@ -16,7 +16,7 @@ namespace SWB_WEAPONS
             Pos = new Vector3(-4, 0, 0)
         };
         public override string WorldModelPath => "weapons/swb/melee/bayonet/w_bayonet.vmdl";
-        public override string Icon => "/swb_weapons/textures/bayonet.png";
+        public override string Icon => "code/swb_weapons/textures/bayonet.png";
         public override int FOV => 75;
         public override float WalkAnimationSpeedMod => 1.25f;
 

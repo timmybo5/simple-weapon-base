@@ -17,7 +17,7 @@ namespace SWB_EXPLOSIVES
             Pos = new Vector3(0, -7, 0)
         };
         public override string WorldModelPath => "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl";
-        public override string Icon => "/swb_explosives/textures/ui/icon_rpg7.png";
+        public override string Icon => "code/swb_explosives/textures/ui/icon_rpg7.png";
         public override int FOV => 75;
         public override float WalkAnimationSpeedMod => 0.7f;
         public override bool BulletCocking => false;

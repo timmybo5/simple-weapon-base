@@ -10,7 +10,7 @@ namespace SWB_CSS
         public override HoldType HoldType => HoldType.Pistol;
         public override string ViewModelPath => "weapons/swb/css/mac10/css_v_smg_mac10.vmdl";
         public override string WorldModelPath => "weapons/swb/css/mac10/css_w_smg_mac10.vmdl";
-        public override string Icon => "/swb_css/textures/ui/css_icon_mac10.png";
+        public override string Icon => "code/swb_css/textures/ui/css_icon_mac10.png";
         public override int FOV => 75;
         public override float WalkAnimationSpeedMod => 0.85f;
 

@@ -11,7 +11,7 @@ namespace SWB_CSS
         public override HoldType HoldType => HoldType.Pistol;
         public override string ViewModelPath => "weapons/swb/css/grenade_he/css_v_grenade_he.vmdl";
         public override string WorldModelPath => "weapons/swb/css/grenade_he/css_w_grenade_he.vmdl";
-        public override string Icon => "/swb_css/textures/ui/css_icon_grenade.png";
+        public override string Icon => "code/swb_css/textures/ui/css_icon_grenade.png";
         public override int FOV => 75;
 
         public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;

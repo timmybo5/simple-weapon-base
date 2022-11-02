@@ -10,7 +10,7 @@ namespace SWB_CSS
         public override HoldType HoldType => HoldType.Rifle;
         public override string ViewModelPath => "weapons/swb/css/m249/css_v_mach_m249para.vmdl";
         public override string WorldModelPath => "weapons/swb/css/m249/css_w_mach_m249para.vmdl";
-        public override string Icon => "/swb_css/textures/ui/css_icon_m249.png";
+        public override string Icon => "code/swb_css/textures/ui/css_icon_m249.png";
         public override int FOV => 75;
         public override float WalkAnimationSpeedMod => 0.7f;
 
