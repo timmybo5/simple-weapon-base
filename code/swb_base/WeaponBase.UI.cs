@@ -10,12 +10,12 @@ namespace SWB_Base
 {
     public partial class WeaponBase
     {
-        private Panel healthDisplay;
-        private Panel ammoDisplay;
-        private Panel customizationMenu;
+        protected Panel healthDisplay;
+        protected Panel ammoDisplay;
+        protected Panel customizationMenu;
 
-        private Panel hitmarker;
-        private Panel crosshair;
+        protected Panel hitmarker;
+        protected Panel crosshair;
 
         public override void CreateHudElements()
         {
