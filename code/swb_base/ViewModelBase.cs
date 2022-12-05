@@ -6,6 +6,7 @@ namespace SWB_Base;
 partial class ViewModelBase : BaseViewModel
 {
     public AngPos EditorOffset;
+    public float EditorFOV;
 
     private WeaponBase weapon;
 
@@ -97,6 +98,9 @@ partial class ViewModelBase : BaseViewModel
                 targetVectorRot += MathUtil.ToVector3(EditorOffset.Angle);
                 targetVectorPos += EditorOffset.Pos;
             }
+
+            targetWeaponFOV = EditorFOV;
+
             return;
         };
 

@@ -25,6 +25,8 @@ public class ModelEditorMenu : Panel
     public float Roll { get; set; } = 0f;
     public float Sensitivity { get; set; } = 0f;
 
+    public int FOV { get; set; } = 75;
+
     public Label DragModeLabel { get; set; }
     public Button AttachmentAnimDataButton { get; set; }
 
@@ -49,6 +51,7 @@ public class ModelEditorMenu : Panel
         var player = Local.Pawn as PlayerBase;
         var weapon = player.ActiveChild as WeaponBase;
         var activeAttach = weapon.GetActiveAttachmentFromCategory(AttachmentCategoryName.Sight);
+        FOV = weapon.FOV;
 
         if (activeAttach != null && AttachmentAnimDataButton != null)
         {
@@ -73,6 +76,7 @@ public class ModelEditorMenu : Panel
         Pitch = 0;
         Yaw = 0;
         Roll = 0;
+        FOV = activeWeapon.FOV;
     }
 
     public virtual void OnCopy()
@@ -187,6 +191,8 @@ public class ModelEditorMenu : Panel
                 Angle = new Angles(Pitch, Yaw, Roll),
                 Pos = new Vector3(X, Y, Z)
             };
+
+            viewModel.EditorFOV = FOV;
         }
     }
 }

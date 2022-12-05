@@ -17,6 +17,7 @@ public class UMP45 : WeaponBase
     public override string Icon => "code/swb_weapons/textures/ump45.png";
     public override int FOV => 75;
     public override float WalkAnimationSpeedMod => 1f;
+    public override int ZoomWeaponFOV => 50;
 
     public UMP45()
     {
