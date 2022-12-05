@@ -70,9 +70,9 @@ public partial class ExamplePlayer : PlayerBase
         base.Simulate(cl);
 
         // Input requested a weapon switch
-        if (Input.ActiveChild != null)
+        if (ActiveChildInput != null)
         {
-            ActiveChild = Input.ActiveChild;
+            ActiveChild = ActiveChildInput;
         }
 
         if (LifeState != LifeState.Alive)

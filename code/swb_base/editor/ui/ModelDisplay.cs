@@ -12,7 +12,7 @@ namespace SWB_Base.Editor
 
         public Angles CamAngles = new(50f, 450f, 0.0f);
         public float CamDistance = 150;
-        public Vector3 CamPos => Vector3.Up * 10 + CamAngles.Direction * -CamDistance;
+        public Vector3 CamPos => Vector3.Up * 10 + CamAngles.Forward * -CamDistance;
 
         private readonly ScenePanel scene;
         private bool canMouseDrag;

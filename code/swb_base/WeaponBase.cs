@@ -113,7 +113,7 @@ namespace SWB_Base
             }
         }
 
-        public override void Simulate(Client player)
+        public override void Simulate(Client client)
         {
             if (IsAnimating) return;
 
@@ -122,7 +122,7 @@ namespace SWB_Base
             {
                 for (int i = 0; i < AnimatedActions.Count; i++)
                 {
-                    if (AnimatedActions[i].Handle(player, this))
+                    if (AnimatedActions[i].Handle(client, this))
                         return;
                 }
             }
@@ -141,7 +141,7 @@ namespace SWB_Base
 
             if (!IsReloading || this is WeaponBaseShotty)
             {
-                BaseSimulate(player);
+                BaseSimulate(client);
             }
 
             if (IsReloading && TimeSinceReload >= 0)
@@ -151,7 +151,7 @@ namespace SWB_Base
 
             if (IsClient)
             {
-                UISimulate(player);
+                UISimulate(client);
             }
         }
 
@@ -231,12 +231,14 @@ namespace SWB_Base
             // TODO - player third person model reload
         }
 
-        public override void BuildInput(InputBuilder input)
+        public override void BuildInput()
         {
+            if (Owner is not PlayerBase player) return;
+
             // Mouse sensitivity
             if (IsZooming)
             {
-                input.ViewAngles = MathUtil.FILerp(input.OriginalViewAngles, input.ViewAngles, AimSensitivity * 90);
+                player.ViewAngles = MathUtil.FILerp(player.OriginalViewAngles, player.ViewAngles, AimSensitivity * 90);
             }
 
             // Recoil
@@ -246,7 +248,7 @@ namespace SWB_Base
                 //var random = new Random(); -> might making aiming too difficult
                 //var randVal = random.Next(-5, 5) / 10f;
                 var recoilAngles = new Angles(IsZooming ? -Primary.Recoil * 0.4f : -Primary.Recoil, 0, 0);
-                input.ViewAngles += recoilAngles;
+                player.ViewAngles += recoilAngles;
             }
         }
 

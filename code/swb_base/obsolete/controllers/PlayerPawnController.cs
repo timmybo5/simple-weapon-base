@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sandbox;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
@@ -160,10 +159,7 @@ namespace SWB_Base
         /// <summary>
         /// Allow the controller to tweak input. Empty by default
         /// </summary>
-        public virtual void BuildInput(InputBuilder input)
-        {
-
-        }
+        public virtual void BuildInput() { }
 
         public void Simulate(Client client, Entity pawn, PlayerPawnController additional)
         {

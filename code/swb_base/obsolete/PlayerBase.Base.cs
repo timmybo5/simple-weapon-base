@@ -4,6 +4,7 @@
 
 namespace SWB_Base
 {
+    [Title("Player"), Icon("emoji_people")]
     public partial class PlayerBase : AnimatedEntity
     {
         /// <summary>
@@ -28,8 +29,11 @@ namespace SWB_Base
         /// <summary> 
         /// The active weapon, or tool, or whatever else
         /// </summary>
-        [Net, Predicted]
-        public Entity ActiveChild { get; set; }
+        [Net, Predicted] public Entity ActiveChild { get; set; }
+        [ClientInput] public Vector3 InputDirection { get; protected set; }
+        [ClientInput] public Entity ActiveChildInput { get; set; }
+        [ClientInput] public Angles ViewAngles { get; set; }
+        public Angles OriginalViewAngles { get; private set; }
 
         public IInventoryBase Inventory { get; protected set; }
 
@@ -64,6 +68,11 @@ namespace SWB_Base
 
         public virtual void SimulateBase(Client cl)
         {
+            if (ActiveChildInput.IsValid() && ActiveChildInput.Owner == this)
+            {
+                ActiveChild = ActiveChildInput;
+            }
+
             if (LifeState == LifeState.Dead)
             {
                 if (timeSinceDied > 3 && IsServer)
@@ -73,8 +82,6 @@ namespace SWB_Base
 
                 return;
             }
-
-            //UpdatePhysicsHull();
 
             var controller = GetActiveController();
             controller?.Simulate(cl, this, GetActiveAnimator());
@@ -98,6 +105,10 @@ namespace SWB_Base
             }
         }
 
+        /// <summary>
+        /// Applies flashbang-like ear ringing effect to the player.
+        /// </summary>
+        /// <param name="strength">Can be approximately treated as duration in seconds.</param>
         [ClientRpc]
         public void Deafen(float strength)
         {
@@ -153,7 +164,6 @@ namespace SWB_Base
         /// </summary>
         public virtual void CreateHull()
         {
-            Tags.Add("player");
             SetupPhysicsFromAABB(PhysicsMotionType.Keyframed, new Vector3(-16, -16, 0), new Vector3(16, 16, 72));
 
             //var capsule = new Capsule( new Vector3( 0, 0, 16 ), new Vector3( 0, 0, 72 - 16 ), 32 );
@@ -172,19 +182,35 @@ namespace SWB_Base
         /// <summary>
         /// Called from the gamemode, clientside only.
         /// </summary>
-        public override void BuildInput(InputBuilder input)
+        public override void BuildInput()
         {
-            if (input.StopProcessing)
+            OriginalViewAngles = ViewAngles;
+            InputDirection = Input.AnalogMove;
+
+            if (Input.StopProcessing)
                 return;
 
-            ActiveChild?.BuildInput(input);
+            var look = Input.AnalogLook;
 
-            GetActiveController()?.BuildInput(input);
+            if (ViewAngles.pitch > 90f || ViewAngles.pitch < -90f)
+            {
+                look = look.WithYaw(look.yaw * -1f);
+            }
 
-            if (input.StopProcessing)
+            var viewAngles = ViewAngles;
+            viewAngles += look;
+            viewAngles.pitch = viewAngles.pitch.Clamp(-89f, 89f);
+            viewAngles.roll = 0f;
+            ViewAngles = viewAngles.Normal;
+
+            ActiveChild?.BuildInput();
+
+            GetActiveController()?.BuildInput();
+
+            if (Input.StopProcessing)
                 return;
 
-            GetActiveAnimator()?.BuildInput(input);
+            GetActiveAnimator()?.BuildInput();
         }
 
         /// <summary>
@@ -251,13 +277,19 @@ namespace SWB_Base
         {
             if (IsClient) return;
 
+            if (other is PickupTrigger)
+            {
+                StartTouch(other.Parent);
+                return;
+            }
+
             Inventory?.Add(other, Inventory.Active == null);
         }
 
         /// <summary>
         /// This isn't networked, but it's predicted. If it wasn't then when the prediction system
         /// re-ran the commands LastActiveChild would be the value set in a future tick, so ActiveEnd
-        /// and ActiveStart would get called mulitple times and out of order, causing all kinds of pain.
+        /// and ActiveStart would get called multiple times and out of order, causing all kinds of pain.
         /// </summary>
         [Predicted]
         Entity LastActiveChild { get; set; }

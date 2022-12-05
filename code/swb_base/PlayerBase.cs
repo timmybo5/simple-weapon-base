@@ -25,7 +25,7 @@ namespace SWB_Base
         }
 
         [Event.BuildInput]
-        public virtual void ProcessClientInput(InputBuilder input)
+        public virtual void ProcessClientInput()
         {
             if (!Alive())
             {
@@ -47,7 +47,7 @@ namespace SWB_Base
             if (currFlinch > 0)
             {
                 var flinchAngles = new Angles(isLoweringFlinch ? currFlinch : -currFlinch, 0, 0);
-                input.ViewAngles += flinchAngles;
+                ViewAngles += flinchAngles;
             }
         }
 
