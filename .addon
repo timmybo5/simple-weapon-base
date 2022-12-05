@@ -3,7 +3,7 @@
   "Type": "game",
   "Org": "swb",
   "Ident": "demo",
-  "Tags": null,
+  "Tags": "pvp weapons techdemo shooter",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -31,6 +31,7 @@
     "GameNetworkType": "Multiplayer",
     "MaxPlayers": 64,
     "MinPlayers": 1,
-    "GameCategory": "TechDemos"
+    "GameCategory": "Shooter",
+    "DefaultLeaderboards": null
   }
 }
