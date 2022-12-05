@@ -3,6 +3,7 @@
   "Type": "game",
   "Org": "swb",
   "Ident": "demo",
+  "Tags": null,
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
