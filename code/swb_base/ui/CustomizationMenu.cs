@@ -108,7 +108,7 @@ namespace SWB_Base.UI
 
             if (activeSelectionMenu != null)
             {
-                activeSelectionMenu.Delete(); // true causes an error
+                activeSelectionMenu.Delete(true);
                 activeSelectionMenu = null;
             }
 
@@ -343,7 +343,7 @@ namespace SWB_Base.UI
         {
             if (activeInfoP != null)
             {
-                activeInfoP.Delete(); // true here causes an error
+                activeInfoP.Delete(true);
                 activeInfoP = null;
                 activeInfoPName = "";
             }
