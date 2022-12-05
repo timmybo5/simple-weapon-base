@@ -78,6 +78,10 @@ namespace SWB_Base
         [Net]
         public string ShootAnim { get; set; } = "fire";
 
+        /// <summary>Animation used for shooting the last bullet</summary>
+        [Net]
+        public string ShootEmptyAnim { get; set; } = "";
+
         /// <summary>Animation used for shooting while zoooming</summary>
         [Net]
         public string ShootZoomedAnim { get; set; }

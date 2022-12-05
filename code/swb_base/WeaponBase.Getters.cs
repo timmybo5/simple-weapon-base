@@ -32,6 +32,10 @@ namespace SWB_Base
             {
                 return clipInfo.ShootZoomedAnim;
             }
+            else if (clipInfo.Ammo == 0 && !string.IsNullOrEmpty(clipInfo.ShootEmptyAnim))
+            {
+                return clipInfo.ShootEmptyAnim;
+            }
             else if (!string.IsNullOrEmpty(clipInfo.ShootAnim))
             {
                 return clipInfo.ShootAnim;
