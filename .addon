@@ -32,6 +32,10 @@
     "MaxPlayers": 64,
     "MinPlayers": 1,
     "GameCategory": "Shooter",
-    "DefaultLeaderboards": null
+    "DefaultLeaderboards": null,
+    "Summary": "Experience SWB first hand with a handful of demo weapons!",
+    "Description": "This is a demonstration of the Simple Weapon Base, a variety of weapons can be used. Who doesn\u0027t like to shoot weapons and rocket launchers :)\r\n\r\nPlease report bugs on github: https://github.com/timmybo5/simple-weapon-base\r\n\r\nLooking for base official weapon modelers!",
+    "Public": true,
+    "ReplaceTags": "pvp weapons techdemo shooter"
   }
 }
