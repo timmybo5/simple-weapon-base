@@ -2,56 +2,55 @@
 using Sandbox.UI;
 using SWB_Base.Editor;
 
-namespace SWB_Base
+namespace SWB_Base;
+
+partial class PlayerBase
 {
-    partial class PlayerBase
+    private Panel modelEditor;
+
+    public void ToggleModelEditor()
     {
-        private Panel modelEditor;
+        Host.AssertServer();
 
-        public void ToggleModelEditor()
+        ToggleModelEditorCL(To.Single(this));
+    }
+
+    public bool IsModelEditing()
+    {
+        Host.AssertClient();
+
+        return modelEditor != null;
+    }
+
+    public void CloseModelEditor()
+    {
+        Host.AssertClient();
+
+        if (modelEditor != null)
         {
-            Host.AssertServer();
-
-            ToggleModelEditorCL(To.Single(this));
+            modelEditor.Delete();
+            modelEditor = null;
         }
+    }
 
-        public bool IsModelEditing()
+    [ClientRpc]
+    public void ToggleModelEditorCL()
+    {
+        Host.AssertClient();
+
+        CloseAttachmentEditor();
+
+        if (!IsModelEditing())
         {
-            Host.AssertClient();
-
-            return modelEditor != null;
+            Log.Info("Opened model editor!");
+            modelEditor = new ModelEditorMenu();
+            modelEditor.Parent = Local.Hud;
         }
-
-        public void CloseModelEditor()
+        else
         {
-            Host.AssertClient();
-
-            if (modelEditor != null)
-            {
-                modelEditor.Delete();
-                modelEditor = null;
-            }
-        }
-
-        [ClientRpc]
-        public void ToggleModelEditorCL()
-        {
-            Host.AssertClient();
-
-            CloseAttachmentEditor();
-
-            if (!IsModelEditing())
-            {
-                Log.Info("Opened model editor!");
-                modelEditor = new ModelEditorMenu();
-                modelEditor.Parent = Local.Hud;
-            }
-            else
-            {
-                Log.Info("Closed model editor!");
-                modelEditor.Delete(true);
-                modelEditor = null;
-            }
+            Log.Info("Closed model editor!");
+            modelEditor.Delete(true);
+            modelEditor = null;
         }
     }
 }

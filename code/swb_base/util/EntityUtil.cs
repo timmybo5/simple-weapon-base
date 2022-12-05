@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sandbox;
+﻿using Sandbox;
 
-namespace SWB_Base
+namespace SWB_Base;
+
+class EntityUtil
 {
-    class EntityUtil
+    public static Entity GetEntityByNetworkIdent(int networkIdent)
     {
-        public static Entity GetEntityByNetworkIdent(int networkIdent)
+        foreach (var ent in Entity.All)
         {
-            foreach (var ent in Entity.All)
+            if (ent.NetworkIdent == networkIdent)
             {
-                if (ent.NetworkIdent == networkIdent)
-                {
-                    return ent;
-                }
+                return ent;
             }
-            return null;
         }
+        return null;
     }
 }

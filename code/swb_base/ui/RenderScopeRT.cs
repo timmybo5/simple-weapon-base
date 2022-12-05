@@ -1,80 +1,79 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 
-namespace SWB_Base.UI
+namespace SWB_Base.UI;
+
+public class RenderScopeRT : Panel
 {
-    public class RenderScopeRT : Panel
+    private Texture colorTexture;
+    private Texture depthTexture;
+
+    private Rect viewport;
+    private float fieldOfView = 25f;
+    const float baseFov = 50f;
+
+    private RenderAttributes renderAttributes;
+    private SceneObject sceneObject;
+
+    public RenderScopeRT(SceneObject sceneObject)
     {
-        private Texture colorTexture;
-        private Texture depthTexture;
+        if (!sceneObject.IsValid()) return;
 
-        private Rect viewport;
-        private float fieldOfView = 25f;
-        const float baseFov = 50f;
+        this.sceneObject = sceneObject;
 
-        private RenderAttributes renderAttributes;
-        private SceneObject sceneObject;
+        renderAttributes = new();
+        viewport = new Rect(Vector2.Zero, Screen.Size / 2f);
 
-        public RenderScopeRT(SceneObject sceneObject)
-        {
-            if (!sceneObject.IsValid()) return;
+        colorTexture = Texture.CreateRenderTarget()
+                     .WithSize((int)viewport.Width, (int)viewport.Height)
+                     .WithScreenFormat()
+                     .WithScreenMultiSample()
+                     .Create();
 
-            this.sceneObject = sceneObject;
+        depthTexture = Texture.CreateRenderTarget()
+                     .WithSize((int)viewport.Width, (int)viewport.Height)
+                     .WithDepthFormat()
+                     .WithScreenMultiSample()
+                     .Create();
+    }
 
-            renderAttributes = new();
-            viewport = new Rect(Vector2.Zero, Screen.Size / 2f);
+    public override void OnDeleted()
+    {
+        colorTexture.Dispose();
+        depthTexture.Dispose();
 
-            colorTexture = Texture.CreateRenderTarget()
-                         .WithSize((int)viewport.Width, (int)viewport.Height)
-                         .WithScreenFormat()
-                         .WithScreenMultiSample()
-                         .Create();
+        base.OnDeleted();
+    }
 
-            depthTexture = Texture.CreateRenderTarget()
-                         .WithSize((int)viewport.Width, (int)viewport.Height)
-                         .WithDepthFormat()
-                         .WithScreenMultiSample()
-                         .Create();
-        }
+    public override void DrawBackground(ref RenderState state)
+    {
+        Log.Info("Drawing");
 
-        public override void OnDeleted()
-        {
-            colorTexture.Dispose();
-            depthTexture.Dispose();
+        var player = Local.Pawn as PlayerBase;
+        if (player == null || sceneObject == null) return;
+        if (player.ActiveChild is not WeaponBase weapon) return;
 
-            base.OnDeleted();
-        }
+        sceneObject.Flags.ViewModelLayer = true;
 
-        public override void DrawBackground(ref RenderState state)
-        {
-            Log.Info("Drawing");
+        if (sceneObject == null)
+            return;
 
-            var player = Local.Pawn as PlayerBase;
-            if (player == null || sceneObject == null) return;
-            if (player.ActiveChild is not WeaponBase weapon) return;
+        if (!weapon.IsZooming)
+            return;
 
-            sceneObject.Flags.ViewModelLayer = true;
+        // Remake it with https://asset.party/api/Sandbox.Graphics
+        //Render.Draw.DrawScene(colorTexture,
+        //        depthTexture,
+        //        Map.Scene,
+        //        renderAttributes,
+        //        viewport,
+        //        CurrentView.Position,
+        //        CurrentView.Rotation,
+        //        fieldOfView,
+        //        zNear: 32,
+        //        zFar: 25000);
 
-            if (sceneObject == null)
-                return;
-
-            if (!weapon.IsZooming)
-                return;
-
-            // Remake it with https://asset.party/api/Sandbox.Graphics
-            //Render.Draw.DrawScene(colorTexture,
-            //        depthTexture,
-            //        Map.Scene,
-            //        renderAttributes,
-            //        viewport,
-            //        CurrentView.Position,
-            //        CurrentView.Rotation,
-            //        fieldOfView,
-            //        zNear: 32,
-            //        zFar: 25000);
-
-            //Render.Attributes.Set("ScopeRT", colorTexture);
-            //sceneObject.Attributes.Set("ScopeRT", colorTexture);
-        }
+        //Render.Attributes.Set("ScopeRT", colorTexture);
+        //sceneObject.Attributes.Set("ScopeRT", colorTexture);
     }
 }

@@ -1,50 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using Sandbox;
 
 /* 
  * Simulator for the physical bullets making sure every projectile is lag compensated
 */
 
-namespace SWB_Base
+namespace SWB_Base;
+
+public partial class BulletSimulator
 {
-    public partial class BulletSimulator
+    public List<BulletEntity> List { get; private set; }
+
+    public BulletSimulator()
     {
-        public List<BulletEntity> List { get; private set; }
+        List = new();
+    }
 
-        public BulletSimulator()
-        {
-            List = new();
-        }
+    public void Add(BulletEntity projectile)
+    {
+        List.Add(projectile);
+    }
 
-        public void Add(BulletEntity projectile)
-        {
-            List.Add(projectile);
-        }
+    public void Remove(BulletEntity projectile)
+    {
+        List.Remove(projectile);
+    }
 
-        public void Remove(BulletEntity projectile)
+    public void Simulate()
+    {
+        using (Entity.LagCompensation())
         {
-            List.Remove(projectile);
-        }
-
-        public void Simulate()
-        {
-            using (Entity.LagCompensation())
+            for (int i = List.Count - 1; i >= 0; i--)
             {
-                for (int i = List.Count - 1; i >= 0; i--)
+                var projectile = List[i];
+
+                if (!projectile.IsValid())
                 {
-                    var projectile = List[i];
-
-                    if (!projectile.IsValid())
-                    {
-                        List.RemoveAt(i);
-                        continue;
-                    }
-
-                    if (Prediction.FirstTime)
-                        projectile.BulletPhysics();
+                    List.RemoveAt(i);
+                    continue;
                 }
+
+                if (Prediction.FirstTime)
+                    projectile.BulletPhysics();
             }
         }
     }

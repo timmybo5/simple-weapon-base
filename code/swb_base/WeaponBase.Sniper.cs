@@ -6,142 +6,141 @@ using SWB_Base.UI;
  * Weapon base for sniper based zooming
 */
 
-namespace SWB_Base
+namespace SWB_Base;
+
+public partial class WeaponBaseSniper : WeaponBase
 {
-    public partial class WeaponBaseSniper : WeaponBase
+    /// <summary>Path to the lens texture</summary>
+    public virtual string LensTexture => "/materials/swb/scopes/swb_lens_hunter.png";
+
+    /// <summary>Path to the scope texture</summary>
+    public virtual string ScopeTexture => "/materials/swb/scopes/swb_scope_hunter.png";
+
+    /// <summary>Sound to play when zooming in</summary>
+    public virtual string ZoomInSound => "swb_sniper.zoom_in";
+
+    /// <summary>Sound to play when zooming out</summary>
+    public virtual string ZoomOutSound => "";
+
+    /// <summary>EXPERIMENTAL - Use a render target instead of a full screen texture zoom</summary>
+    public virtual bool UseRenderTarget => false;
+
+    private Panel SniperScopePanel;
+    private bool switchBackToThirdP = false;
+    private float oldSpread = -1;
+
+    public override void ActiveStart(Entity ent)
     {
-        /// <summary>Path to the lens texture</summary>
-        public virtual string LensTexture => "/materials/swb/scopes/swb_lens_hunter.png";
+        base.ActiveStart(ent);
+    }
 
-        /// <summary>Path to the scope texture</summary>
-        public virtual string ScopeTexture => "/materials/swb/scopes/swb_scope_hunter.png";
+    public override void ActiveEnd(Entity ent, bool dropped)
+    {
+        base.ActiveEnd(ent, dropped);
 
-        /// <summary>Sound to play when zooming in</summary>
-        public virtual string ZoomInSound => "swb_sniper.zoom_in";
+        SniperScopePanel?.Delete();
+    }
 
-        /// <summary>Sound to play when zooming out</summary>
-        public virtual string ZoomOutSound => "";
+    public virtual void OnScopedStart()
+    {
+        IsScoped = true;
 
-        /// <summary>EXPERIMENTAL - Use a render target instead of a full screen texture zoom</summary>
-        public virtual bool UseRenderTarget => false;
+        if (oldSpread == -1)
+            oldSpread = Primary.Spread;
 
-        private Panel SniperScopePanel;
-        private bool switchBackToThirdP = false;
-        private float oldSpread = -1;
-
-        public override void ActiveStart(Entity ent)
+        Primary.Spread = 0;
+        if (IsServer)
         {
-            base.ActiveStart(ent);
-        }
+            var player = Owner as PlayerBase;
 
-        public override void ActiveEnd(Entity ent, bool dropped)
-        {
-            base.ActiveEnd(ent, dropped);
-
-            SniperScopePanel?.Delete();
-        }
-
-        public virtual void OnScopedStart()
-        {
-            IsScoped = true;
-
-            if (oldSpread == -1)
-                oldSpread = Primary.Spread;
-
-            Primary.Spread = 0;
-            if (IsServer)
+            if (player.CameraMode is ThirdPersonCamera)
             {
-                var player = Owner as PlayerBase;
-
-                if (player.CameraMode is ThirdPersonCamera)
-                {
-                    switchBackToThirdP = true;
-                    player.CameraMode = new FirstPersonCamera();
-                }
-            }
-
-            if (IsLocalPawn)
-            {
-                ViewModelEntity.RenderColor = Color.Transparent;
-
-                foreach (var child in ViewModelEntity.Children)
-                {
-                    (child as ModelEntity).RenderColor = Color.Transparent;
-                }
-
-                if (HandsModel != null)
-                {
-                    HandsModel.RenderColor = Color.Transparent;
-                }
-
-                if (!string.IsNullOrEmpty(ZoomInSound))
-                    PlaySound(ZoomInSound);
+                switchBackToThirdP = true;
+                player.CameraMode = new FirstPersonCamera();
             }
         }
 
-        public virtual void OnScopedEnd()
+        if (IsLocalPawn)
         {
-            IsScoped = false;
-            Primary.Spread = oldSpread;
+            ViewModelEntity.RenderColor = Color.Transparent;
 
-            if (IsServer && switchBackToThirdP)
+            foreach (var child in ViewModelEntity.Children)
             {
-                var player = Owner as PlayerBase;
-
-                switchBackToThirdP = false;
-                player.CameraMode = new ThirdPersonCamera();
+                (child as ModelEntity).RenderColor = Color.Transparent;
             }
 
-            if (IsLocalPawn)
+            if (HandsModel != null)
             {
-                ViewModelEntity.RenderColor = Color.White;
-
-                foreach (var child in ViewModelEntity.Children)
-                {
-                    (child as ModelEntity).RenderColor = Color.White;
-                }
-
-                if (HandsModel != null)
-                {
-                    HandsModel.RenderColor = Color.White;
-                }
-
-                if (!string.IsNullOrEmpty(ZoomOutSound))
-                    PlaySound(ZoomOutSound);
+                HandsModel.RenderColor = Color.Transparent;
             }
+
+            if (!string.IsNullOrEmpty(ZoomInSound))
+                PlaySound(ZoomInSound);
+        }
+    }
+
+    public virtual void OnScopedEnd()
+    {
+        IsScoped = false;
+        Primary.Spread = oldSpread;
+
+        if (IsServer && switchBackToThirdP)
+        {
+            var player = Owner as PlayerBase;
+
+            switchBackToThirdP = false;
+            player.CameraMode = new ThirdPersonCamera();
         }
 
-        public override void Simulate(Client owner)
+        if (IsLocalPawn)
         {
-            base.Simulate(owner);
-            var shouldTuck = ShouldTuck();
+            ViewModelEntity.RenderColor = Color.White;
 
-            if (((Input.Pressed(InputButton.SecondaryAttack) && !IsReloading && !IsRunning) || (IsZooming && !IsScoped)) && !shouldTuck)
+            foreach (var child in ViewModelEntity.Children)
             {
-                OnScopedStart();
+                (child as ModelEntity).RenderColor = Color.White;
             }
 
-            if (Input.Released(InputButton.SecondaryAttack) || (IsScoped && (IsRunning || shouldTuck)))
+            if (HandsModel != null)
             {
-                OnScopedEnd();
+                HandsModel.RenderColor = Color.White;
             }
+
+            if (!string.IsNullOrEmpty(ZoomOutSound))
+                PlaySound(ZoomOutSound);
         }
-        public override void CreateHudElements()
+    }
+
+    public override void Simulate(Client owner)
+    {
+        base.Simulate(owner);
+        var shouldTuck = ShouldTuck();
+
+        if (((Input.Pressed(InputButton.SecondaryAttack) && !IsReloading && !IsRunning) || (IsZooming && !IsScoped)) && !shouldTuck)
         {
-            base.CreateHudElements();
+            OnScopedStart();
+        }
 
-            if (Local.Hud == null) return;
+        if (Input.Released(InputButton.SecondaryAttack) || (IsScoped && (IsRunning || shouldTuck)))
+        {
+            OnScopedEnd();
+        }
+    }
+    public override void CreateHudElements()
+    {
+        base.CreateHudElements();
 
-            if (UseRenderTarget)
-            {
-                //SniperScopePanel = new RenderScopeRT();
-                //SniperScopePanel.Parent = Local.Hud;
-            }
-            else
-            {
-                SniperScopePanel = new SniperScope(LensTexture, ScopeTexture);
-                SniperScopePanel.Parent = Local.Hud;
-            }
+        if (Local.Hud == null) return;
+
+        if (UseRenderTarget)
+        {
+            //SniperScopePanel = new RenderScopeRT();
+            //SniperScopePanel.Parent = Local.Hud;
+        }
+        else
+        {
+            SniperScopePanel = new SniperScope(LensTexture, ScopeTexture);
+            SniperScopePanel.Parent = Local.Hud;
         }
     }
 }

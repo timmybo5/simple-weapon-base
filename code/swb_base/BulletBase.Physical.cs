@@ -6,280 +6,279 @@ using Sandbox;
  * Base for physical bullets, bullets with physics characteristics e.g. bullet drop
 */
 
-namespace SWB_Base
+namespace SWB_Base;
+
+public abstract class PhysicalBulletBase : BulletBase
 {
-    public abstract class PhysicalBulletBase : BulletBase
+    /// <summary>Mass of the bullet in grams</summary>
+    public virtual float Mass => 1;
+
+    /// <summary>Amount of drag force</summary>
+    public virtual float Drag => 0;
+
+    /// <summary>Initial bullet velocity (m/s)</summary>
+    public virtual float Velocity => 1000;
+
+    public override void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
     {
-        /// <summary>Mass of the bullet in grams</summary>
-        public virtual float Mass => 1;
+        // Server bullet for damage (from eyePos)
+        var bullet = new BulletEntity();
+        bullet?.Fire(startPos, forward, weapon, this, damage, force, bulletSize);
+    }
 
-        /// <summary>Amount of drag force</summary>
-        public virtual float Drag => 0;
+    public override void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
+    {
+        // Client bullet for effects (from muzzle)
+        ModelEntity firingViewModel = weapon.GetEffectModel();
 
-        /// <summary>Initial bullet velocity (m/s)</summary>
-        public virtual float Velocity => 1000;
+        if (firingViewModel == null) return;
 
-        public override void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
+        var tracerParticle = isPrimary ? weapon.Primary.BulletTracerParticle : weapon.Secondary.BulletTracerParticle;
+        var effectData = weapon.GetMuzzleEffectData(firingViewModel);
+        var effectEntity = effectData.Item1;
+        var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
+        var muzzlePos = muzzleAttach.GetValueOrDefault().Position;
+        var posDiff = startPos - muzzlePos;
+
+        var bullet = new BulletEntity();
+        bullet?.Fire(muzzlePos, forward, weapon, this, damage, force, bulletSize, tracerParticle, posDiff);
+    }
+}
+
+public class BulletEntity : Entity
+{
+    public static string BulletTag = "swb_bullet";
+    public static float InchesPerMeter = 39.3701f;
+
+    /// <summary>Airdensity in kilograms per inch cubed</summary>
+    public static float AirDensity = 2.007e-5f;
+
+    /// <summary>This is the gravity we want this physics body to have in meters per second</summary>
+    private static float TargetGravity = 9.8f * InchesPerMeter;
+
+    private float speedMultiplier = 1f;
+
+    private float damage = 0f;
+    private float gravScale = 1f;
+    private float maxLifeTime = 5f;
+    private float bulletSize = 0f;
+    private float bulletMass = 0f;
+    private float force = 0f;
+
+    private WeaponBase weapon;
+    private PhysicalBulletBase ammoType;
+    private TimeSince timeSinceFire;
+    private Particles bulletTracer;
+    private string tracerParticle;
+    private float particleDelay;
+    private bool createParticle;
+
+    private Vector3 direction;
+    private Vector3 startPos;
+    private Vector3 lastPosition;
+
+    private Vector3 posDiff = Vector3.Zero;
+    private int posDiffMaxUpdate = 0;
+    private int posDiffCurUpdate = 0;
+
+    public override void Spawn()
+    {
+        // Gravity calc
+        var currentGravity = Map.Physics.Gravity;
+        var gravityRatio = TargetGravity / currentGravity.Length;
+        gravScale = gravityRatio;
+
+        // Hide for all clients
+        Transmit = TransmitType.Never;
+    }
+
+    public void Fire(Vector3 position, Vector3 direction, WeaponBase weapon, PhysicalBulletBase ammoType,
+        float damage, float force, float bulletSize, string tracerParticle = "", Vector3 posDiff = new Vector3())
+    {
+        Position = position;
+        Owner = weapon.Owner;
+        var realBulletVel = ammoType.Velocity * InchesPerMeter;
+        Velocity = direction * realBulletVel * weapon.BulletVelocityMod * speedMultiplier + Owner.Velocity * 0.2f;
+
+        lastPosition = position;
+
+        this.weapon = weapon;
+        this.ammoType = ammoType;
+        this.damage = damage;
+        this.force = force;
+        this.bulletSize = bulletSize;
+        this.bulletMass = ammoType.Mass / 100;
+        this.tracerParticle = tracerParticle;
+        this.posDiff = posDiff;
+        this.direction = direction;
+        timeSinceFire = 0;
+
+        var random = new Random();
+        createParticle = random.Next(0, 2) == 0;
+
+        if (createParticle)
         {
-            // Server bullet for damage (from eyePos)
-            var bullet = new BulletEntity();
-            bullet?.Fire(startPos, forward, weapon, this, damage, force, bulletSize);
+            var randVal = random.Float(0.15f);
+            particleDelay = randVal;
         }
 
-        public override void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
+        if (IsClient)
         {
-            // Client bullet for effects (from muzzle)
-            ModelEntity firingViewModel = weapon.GetEffectModel();
+            CompensateForCrosshair(direction);
+        }
 
-            if (firingViewModel == null) return;
+        if (WeaponBase.DebugBulletsSV > 0)
+        {
+            startPos = Position;
+        }
 
-            var tracerParticle = isPrimary ? weapon.Primary.BulletTracerParticle : weapon.Secondary.BulletTracerParticle;
-            var effectData = weapon.GetMuzzleEffectData(firingViewModel);
-            var effectEntity = effectData.Item1;
-            var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
-            var muzzlePos = muzzleAttach.GetValueOrDefault().Position;
-            var posDiff = startPos - muzzlePos;
+        if (Owner is PlayerBase player)
+        {
+            var simulator = player.BulletSimulator;
+            simulator?.Add(this);
+        }
 
-            var bullet = new BulletEntity();
-            bullet?.Fire(muzzlePos, forward, weapon, this, damage, force, bulletSize, tracerParticle, posDiff);
+        DeleteAsync(maxLifeTime);
+    }
+
+    // Shooting a bullet from muzzle pos will make it less 'accurate'
+    private void CompensateForCrosshair(Vector3 direction)
+    {
+        // Check initial distance
+        var tr = Trace.Ray(Position, Position + direction * 9999)
+            .UseHitboxes()
+            .Ignore(Owner)
+            .WithoutTags(BulletTag)
+            .WorldAndEntities()
+            .Size(bulletSize)
+            .Run();
+
+        if (tr.Distance > 120)
+        {
+            posDiffMaxUpdate = (int)Math.Clamp(Math.Floor(tr.Distance / (Velocity.Length * 0.02)), 1, 10);
+        }
+        else
+        {
+            // Be super accurate close to wall
+            Position += posDiff;
+            lastPosition = Position;
         }
     }
 
-    public class BulletEntity : Entity
+    private void CreateTracer()
     {
-        public static string BulletTag = "swb_bullet";
-        public static float InchesPerMeter = 39.3701f;
-
-        /// <summary>Airdensity in kilograms per inch cubed</summary>
-        public static float AirDensity = 2.007e-5f;
-
-        /// <summary>This is the gravity we want this physics body to have in meters per second</summary>
-        private static float TargetGravity = 9.8f * InchesPerMeter;
-
-        private float speedMultiplier = 1f;
-
-        private float damage = 0f;
-        private float gravScale = 1f;
-        private float maxLifeTime = 5f;
-        private float bulletSize = 0f;
-        private float bulletMass = 0f;
-        private float force = 0f;
-
-        private WeaponBase weapon;
-        private PhysicalBulletBase ammoType;
-        private TimeSince timeSinceFire;
-        private Particles bulletTracer;
-        private string tracerParticle;
-        private float particleDelay;
-        private bool createParticle;
-
-        private Vector3 direction;
-        private Vector3 startPos;
-        private Vector3 lastPosition;
-
-        private Vector3 posDiff = Vector3.Zero;
-        private int posDiffMaxUpdate = 0;
-        private int posDiffCurUpdate = 0;
-
-        public override void Spawn()
+        if (!string.IsNullOrEmpty(tracerParticle))
         {
-            // Gravity calc
-            var currentGravity = Map.Physics.Gravity;
-            var gravityRatio = TargetGravity / currentGravity.Length;
-            gravScale = gravityRatio;
+            bulletTracer = Particles.Create(tracerParticle, this);
+            UpdateTracer();
+        }
+    }
 
-            // Hide for all clients
-            Transmit = TransmitType.Never;
+    private void UpdateTracer()
+    {
+        bulletTracer?.SetPosition(1, Velocity);
+    }
+
+    public void BulletPhysics()
+    {
+        lastPosition = Position;
+
+        // Forward
+        var dt = Time.Delta;
+        Velocity += Map.Physics.Gravity * gravScale * dt;
+
+        // Drag
+        var drag = AirDensity * MathF.Pow(Velocity.Length, 2) * ammoType.Drag;
+        drag /= 2 * bulletMass;
+
+        Velocity -= Velocity.Normal * drag * dt;
+
+        // Update pos
+        Position += Velocity * dt;
+
+        // Center adjustment
+        if (IsClient && posDiffCurUpdate < posDiffMaxUpdate)
+        {
+            posDiffCurUpdate++;
+            Position += posDiff / posDiffMaxUpdate;
         }
 
-        public void Fire(Vector3 position, Vector3 direction, WeaponBase weapon, PhysicalBulletBase ammoType,
-            float damage, float force, float bulletSize, string tracerParticle = "", Vector3 posDiff = new Vector3())
+        if (WeaponBase.DebugBulletsSV > 0)
+            DebugOverlay.Line(lastPosition, Position, IsServer ? Color.Green : Color.Yellow, 0, false);
+
+        if (createParticle && timeSinceFire > particleDelay)
         {
-            Position = position;
-            Owner = weapon.Owner;
-            var realBulletVel = ammoType.Velocity * InchesPerMeter;
-            Velocity = direction * realBulletVel * weapon.BulletVelocityMod * speedMultiplier + Owner.Velocity * 0.2f;
-
-            lastPosition = position;
-
-            this.weapon = weapon;
-            this.ammoType = ammoType;
-            this.damage = damage;
-            this.force = force;
-            this.bulletSize = bulletSize;
-            this.bulletMass = ammoType.Mass / 100;
-            this.tracerParticle = tracerParticle;
-            this.posDiff = posDiff;
-            this.direction = direction;
-            timeSinceFire = 0;
-
-            var random = new Random();
-            createParticle = random.Next(0, 2) == 0;
-
-            if (createParticle)
+            if (bulletTracer == null)
             {
-                var randVal = random.Float(0.15f);
-                particleDelay = randVal;
+                CreateTracer();
             }
 
+            UpdateTracer();
+        }
+
+        //if (timeSinceFire > 0)
+        //{
+        //    if (bulletTracer == null)
+        //    {
+        //        var random = new Random();
+        //        var randVal = random.Next(0, 2);
+
+        //        if (randVal == 0)
+        //            CreateTracer();
+        //    }
+
+        //    UpdateTracer();
+        //}
+
+        DoTraceCheck();
+    }
+
+    private void BulletHit(TraceResult tr)
+    {
+        if (WeaponBase.DebugBulletsSV > 0)
+        {
+            var hitRotation = Rotation.From(new Angles(tr.Normal.z, tr.Normal.y, 0) * 90);
+
+            DebugOverlay.Circle(tr.EndPosition, hitRotation, bulletSize, IsServer ? Color.Red : Color.Blue, maxLifeTime, false);
+
+            if (IsServer)
+            {
+                var distance = startPos.Distance(Position) / InchesPerMeter;
+                DebugOverlay.ScreenText(distance.ToString(CultureInfo.InvariantCulture), Rand.Int(40), maxLifeTime);
+            }
+        }
+
+        var isValidEnt = tr.Entity.IsValid();
+        var canPenetrate = SurfaceUtil.CanPenetrate(tr.Surface);
+
+        if (isValidEnt || canPenetrate)
+        {
             if (IsClient)
             {
-                CompensateForCrosshair(direction);
+                tr.Surface.DoBulletImpact(tr);
             }
 
-            if (WeaponBase.DebugBulletsSV > 0)
+            if (IsServer && isValidEnt)
             {
-                startPos = Position;
+                var damageInfo = DamageInfo.FromBullet(tr.EndPosition, direction * 25 * force, damage)
+                    .UsingTraceResult(tr)
+                    .WithAttacker(Owner)
+                    .WithWeapon(weapon);
+
+                tr.Entity.TakeDamage(damageInfo);
             }
 
-            if (Owner is PlayerBase player)
+            if (!canPenetrate)
             {
-                var simulator = player.BulletSimulator;
-                simulator?.Add(this);
+                Delete();
             }
 
-            DeleteAsync(maxLifeTime);
+            return;
         }
+    }
 
-        // Shooting a bullet from muzzle pos will make it less 'accurate'
-        private void CompensateForCrosshair(Vector3 direction)
-        {
-            // Check initial distance
-            var tr = Trace.Ray(Position, Position + direction * 9999)
-                .UseHitboxes()
-                .Ignore(Owner)
-                .WithoutTags(BulletTag)
-                .WorldAndEntities()
-                .Size(bulletSize)
-                .Run();
-
-            if (tr.Distance > 120)
-            {
-                posDiffMaxUpdate = (int)Math.Clamp(Math.Floor(tr.Distance / (Velocity.Length * 0.02)), 1, 10);
-            }
-            else
-            {
-                // Be super accurate close to wall
-                Position += posDiff;
-                lastPosition = Position;
-            }
-        }
-
-        private void CreateTracer()
-        {
-            if (!string.IsNullOrEmpty(tracerParticle))
-            {
-                bulletTracer = Particles.Create(tracerParticle, this);
-                UpdateTracer();
-            }
-        }
-
-        private void UpdateTracer()
-        {
-            bulletTracer?.SetPosition(1, Velocity);
-        }
-
-        public void BulletPhysics()
-        {
-            lastPosition = Position;
-
-            // Forward
-            var dt = Time.Delta;
-            Velocity += Map.Physics.Gravity * gravScale * dt;
-
-            // Drag
-            var drag = AirDensity * MathF.Pow(Velocity.Length, 2) * ammoType.Drag;
-            drag /= 2 * bulletMass;
-
-            Velocity -= Velocity.Normal * drag * dt;
-
-            // Update pos
-            Position += Velocity * dt;
-
-            // Center adjustment
-            if (IsClient && posDiffCurUpdate < posDiffMaxUpdate)
-            {
-                posDiffCurUpdate++;
-                Position += posDiff / posDiffMaxUpdate;
-            }
-
-            if (WeaponBase.DebugBulletsSV > 0)
-                DebugOverlay.Line(lastPosition, Position, IsServer ? Color.Green : Color.Yellow, 0, false);
-
-            if (createParticle && timeSinceFire > particleDelay)
-            {
-                if (bulletTracer == null)
-                {
-                    CreateTracer();
-                }
-
-                UpdateTracer();
-            }
-
-            //if (timeSinceFire > 0)
-            //{
-            //    if (bulletTracer == null)
-            //    {
-            //        var random = new Random();
-            //        var randVal = random.Next(0, 2);
-
-            //        if (randVal == 0)
-            //            CreateTracer();
-            //    }
-
-            //    UpdateTracer();
-            //}
-
-            DoTraceCheck();
-        }
-
-        private void BulletHit(TraceResult tr)
-        {
-            if (WeaponBase.DebugBulletsSV > 0)
-            {
-                var hitRotation = Rotation.From(new Angles(tr.Normal.z, tr.Normal.y, 0) * 90);
-
-                DebugOverlay.Circle(tr.EndPosition, hitRotation, bulletSize, IsServer ? Color.Red : Color.Blue, maxLifeTime, false);
-
-                if (IsServer)
-                {
-                    var distance = startPos.Distance(Position) / InchesPerMeter;
-                    DebugOverlay.ScreenText(distance.ToString(CultureInfo.InvariantCulture), Rand.Int(40), maxLifeTime);
-                }
-            }
-
-            var isValidEnt = tr.Entity.IsValid();
-            var canPenetrate = SurfaceUtil.CanPenetrate(tr.Surface);
-
-            if (isValidEnt || canPenetrate)
-            {
-                if (IsClient)
-                {
-                    tr.Surface.DoBulletImpact(tr);
-                }
-
-                if (IsServer && isValidEnt)
-                {
-                    var damageInfo = DamageInfo.FromBullet(tr.EndPosition, direction * 25 * force, damage)
-                        .UsingTraceResult(tr)
-                        .WithAttacker(Owner)
-                        .WithWeapon(weapon);
-
-                    tr.Entity.TakeDamage(damageInfo);
-                }
-
-                if (!canPenetrate)
-                {
-                    Delete();
-                }
-
-                return;
-            }
-        }
-
-        private void DoTraceCheck()
-        {
-            BulletHit(weapon.TraceBullet(lastPosition, Position, bulletSize));
-        }
+    private void DoTraceCheck()
+    {
+        BulletHit(weapon.TraceBullet(lastPosition, Position, bulletSize));
     }
 }

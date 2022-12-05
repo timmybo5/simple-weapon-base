@@ -6,89 +6,88 @@ using SWB_Base.UI;
  * Weapon base UI
 */
 
-namespace SWB_Base
+namespace SWB_Base;
+
+public partial class WeaponBase
 {
-    public partial class WeaponBase
+    protected Panel healthDisplay;
+    protected Panel ammoDisplay;
+    protected Panel customizationMenu;
+
+    protected Panel hitmarker;
+    protected Panel crosshair;
+
+    public override void CreateHudElements()
     {
-        protected Panel healthDisplay;
-        protected Panel ammoDisplay;
-        protected Panel customizationMenu;
+        if (UISettings.HideAll) return;
 
-        protected Panel hitmarker;
-        protected Panel crosshair;
+        var showHUDCL = GetSetting<bool>("swb_cl_showhud", true);
+        var showHUDSV = GetSetting<bool>("swb_sv_showhud", true);
 
-        public override void CreateHudElements()
+        if (Local.Hud == null || !showHUDCL || !showHUDSV) return;
+
+        if (UISettings.ShowCrosshair)
         {
-            if (UISettings.HideAll) return;
+            crosshair = CreateCrosshair();
+            crosshair.Parent = Local.Hud;
+        }
 
-            var showHUDCL = GetSetting<bool>("swb_cl_showhud", true);
-            var showHUDSV = GetSetting<bool>("swb_sv_showhud", true);
-
-            if (Local.Hud == null || !showHUDCL || !showHUDSV) return;
-
-            if (UISettings.ShowCrosshair)
+        if (UISettings.ShowHitmarker)
+        {
+            hitmarker = new Hitmarker
             {
-                crosshair = CreateCrosshair();
-                crosshair.Parent = Local.Hud;
+                Parent = Local.Hud
+            };
+        }
+
+        if (UISettings.ShowHealthCount || UISettings.ShowHealthIcon)
+        {
+            healthDisplay = new HealthDisplay(UISettings)
+            {
+                Parent = Local.Hud
+            };
+        }
+
+        if (UISettings.ShowAmmoCount || UISettings.ShowWeaponIcon || UISettings.ShowFireMode)
+        {
+            ammoDisplay = new AmmoDisplay(UISettings)
+            {
+                Parent = Local.Hud
+            };
+        }
+    }
+
+    public virtual Panel CreateCrosshair()
+    {
+        return new Crosshair();
+    }
+
+    public override void DestroyHudElements()
+    {
+        if (healthDisplay != null) healthDisplay.Delete(true);
+        if (ammoDisplay != null) ammoDisplay.Delete(true);
+        if (hitmarker != null) hitmarker.Delete(true);
+        if (crosshair != null) crosshair.Delete(true);
+        if (customizationMenu != null) customizationMenu.Delete();
+    }
+
+    public void UISimulate(Client player)
+    {
+        // Cutomization menu
+        if (EnableCustomizationSV > 0 && Input.Pressed(InputButton.Menu) && AttachmentCategories != null)
+        {
+            if (customizationMenu == null)
+            {
+                customizationMenu = new CustomizationMenu();
+                customizationMenu.Parent = Local.Hud;
             }
-
-            if (UISettings.ShowHitmarker)
+            else
             {
-                hitmarker = new Hitmarker
-                {
-                    Parent = Local.Hud
-                };
-            }
-
-            if (UISettings.ShowHealthCount || UISettings.ShowHealthIcon)
-            {
-                healthDisplay = new HealthDisplay(UISettings)
-                {
-                    Parent = Local.Hud
-                };
-            }
-
-            if (UISettings.ShowAmmoCount || UISettings.ShowWeaponIcon || UISettings.ShowFireMode)
-            {
-                ammoDisplay = new AmmoDisplay(UISettings)
-                {
-                    Parent = Local.Hud
-                };
+                customizationMenu.Delete();
+                customizationMenu = null;
             }
         }
 
-        public virtual Panel CreateCrosshair()
-        {
-            return new Crosshair();
-        }
-
-        public override void DestroyHudElements()
-        {
-            if (healthDisplay != null) healthDisplay.Delete(true);
-            if (ammoDisplay != null) ammoDisplay.Delete(true);
-            if (hitmarker != null) hitmarker.Delete(true);
-            if (crosshair != null) crosshair.Delete(true);
-            if (customizationMenu != null) customizationMenu.Delete();
-        }
-
-        public void UISimulate(Client player)
-        {
-            // Cutomization menu
-            if (EnableCustomizationSV > 0 && Input.Pressed(InputButton.Menu) && AttachmentCategories != null)
-            {
-                if (customizationMenu == null)
-                {
-                    customizationMenu = new CustomizationMenu();
-                    customizationMenu.Parent = Local.Hud;
-                }
-                else
-                {
-                    customizationMenu.Delete();
-                    customizationMenu = null;
-                }
-            }
-
-            IsCustomizing = customizationMenu != null;
-        }
+        IsCustomizing = customizationMenu != null;
     }
 }
