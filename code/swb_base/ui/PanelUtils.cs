@@ -22,7 +22,7 @@ public static class PanelUtils
                         .UseHitboxes()
                         .Run();
 
-        Log.Info(tr.EndPosition);
+        // Log.Info(tr.EndPosition);
 
         panel.PositionAtWorld(tr.EndPosition, centered);
     }
