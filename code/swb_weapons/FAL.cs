@@ -20,7 +20,7 @@ public class FAL : WeaponBase
     };
     public override string WorldModelPath => "weapons/swb/rifles/fal/w_fal.vmdl";
     public override string Icon => "code/swb_weapons/textures/fal.png";
-    public override int FOV => 75;
+    public override int FOV => 90;
     public override float WalkAnimationSpeedMod => 0.85f;
 
     public FAL()

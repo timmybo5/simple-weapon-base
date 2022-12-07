@@ -67,8 +67,8 @@ public class RenderScopeRT : Panel
         //        Map.Scene,
         //        renderAttributes,
         //        viewport,
-        //        CurrentView.Position,
-        //        CurrentView.Rotation,
+        //        Camera.Position,
+        //        Camera.Rotation,
         //        fieldOfView,
         //        zNear: 32,
         //        zFar: 25000);

@@ -30,7 +30,7 @@ public partial class ExamplePlayer : PlayerBase
 
         Controller = new PlayerWalkController();
         Animator = new PlayerBaseAnimator();
-        CameraMode = new FirstPersonCamera();
+        CameraMode = new FirstPersonCamera(this);
 
         EnableAllCollisions = true;
         EnableDrawing = true;
@@ -78,11 +78,11 @@ public partial class ExamplePlayer : PlayerBase
         {
             if (CameraMode is ThirdPersonCamera)
             {
-                CameraMode = new FirstPersonCamera();
+                CameraMode = new FirstPersonCamera(this);
             }
             else
             {
-                CameraMode = new ThirdPersonCamera();
+                CameraMode = new ThirdPersonCamera(this);
             }
         }
 
@@ -93,7 +93,7 @@ public partial class ExamplePlayer : PlayerBase
             {
                 if (dropped.PhysicsGroup != null)
                 {
-                    dropped.PhysicsGroup.Velocity = Velocity + (EyeRotation.Forward + EyeRotation.Up) * 300;
+                    dropped.PhysicsGroup.Velocity = Velocity + (this.EyeRotation.Forward + this.EyeRotation.Up) * 300;
                 }
 
                 timeSinceDropped = 0;
@@ -126,9 +126,9 @@ public partial class ExamplePlayer : PlayerBase
 
         var attacker = LastAttacker as PlayerBase;
 
-        if (attacker != null && LastDamage.Weapon is WeaponBase weapon && Game.Current is ExampleGame game)
+        if (attacker != null && LastDamage.Weapon is WeaponBase weapon && GameManager.Current is ExampleGame game)
         {
-            game.UI.AddKillfeedEntry(To.Everyone, attacker.Client.PlayerId, attacker.Client.Name, Client.PlayerId, Client.Name, weapon.Icon);
+            game.UI.AddKillfeedEntry(To.Everyone, attacker.Client.SteamId, attacker.Client.Name, Client.SteamId, Client.Name, weapon.Icon);
         }
 
         if (ActiveChild is WeaponBase activeWep && activeWep.DropWeaponOnDeath)
@@ -139,7 +139,7 @@ public partial class ExamplePlayer : PlayerBase
         BecomeRagdollOnClient(LastDamage.Force, LastDamage.BoneIndex);
 
         Controller = null;
-        CameraMode = new SpectateRagdollCamera();
+        //CameraMode = new SpectateRagdollCamera();
 
         EnableAllCollisions = false;
         EnableDrawing = false;

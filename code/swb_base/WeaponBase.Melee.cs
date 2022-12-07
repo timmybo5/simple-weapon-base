@@ -70,9 +70,10 @@ public partial class WeaponBaseMelee : WeaponBase
         TimeSincePrimaryAttack = 0;
         TimeSinceSecondaryAttack = 0;
 
+        var player = Owner as PlayerBase;
         var hitEntity = true;
-        var pos = Owner.EyePosition;
-        var forward = Owner.EyeRotation.Forward;
+        var pos = player.EyePosition;
+        var forward = player.EyeRotation.Forward;
         var trace = Trace.Ray(pos, pos + forward * DamageDistance)
             .Ignore(this)
             .Ignore(Owner)

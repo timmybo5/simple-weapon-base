@@ -267,24 +267,26 @@ public partial class WeaponBase
     /// </summary>
     public virtual void ShootBullet(float spread, float force, float damage, float bulletSize, bool isPrimary)
     {
+        var player = Owner as PlayerBase;
+
         // Spread
-        var forward = Owner.EyeRotation.Forward;
+        var forward = player.EyeRotation.Forward;
         forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
         forward = forward.Normal;
-        var endPos = Owner.EyePosition + forward * 999999;
+        var endPos = player.EyePosition + forward * 999999;
 
         // Server Bullet
         if (isPrimary)
         {
-            Primary.BulletType.FireSV(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+            Primary.BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
         }
         else
         {
-            Secondary.BulletType.FireSV(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+            Secondary.BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
         }
 
         // Client bullet
-        ShootClientBullet(Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+        ShootClientBullet(player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
     }
 
     /// <summary>
@@ -293,15 +295,15 @@ public partial class WeaponBase
     [ClientRpc]
     public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
     {
-        if (Owner == null) return;
+        if (Owner is not PlayerBase player) return;
 
         if (isPrimary)
         {
-            Primary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+            Primary.BulletType.FireCL(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
         }
         else
         {
-            Secondary.BulletType.FireCL(this, Owner.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+            Secondary.BulletType.FireCL(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
         }
     }
 

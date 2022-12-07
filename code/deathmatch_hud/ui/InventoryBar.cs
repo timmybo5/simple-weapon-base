@@ -50,7 +50,7 @@ public class InventoryBar : Panel
     /// IClientInput implementation, calls during the client input build.
     /// You can both read and write to input, to affect what happens down the line.
     /// </summary>
-    [Event.BuildInput]
+    [Event.Client.BuildInput]
     public void ProcessClientInput()
     {
         var player = Local.Pawn as PlayerBase;

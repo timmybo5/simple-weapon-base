@@ -9,6 +9,7 @@ partial class ViewModelBase : BaseViewModel
     public float EditorFOV;
 
     private WeaponBase weapon;
+    private PlayerBase player;
 
     private float animSpeed;
     private float playerFOVSpeed;
@@ -42,22 +43,26 @@ partial class ViewModelBase : BaseViewModel
     public ViewModelBase(WeaponBase weapon)
     {
         this.weapon = weapon;
+        player = weapon.Owner as PlayerBase;
     }
 
-    public override void PostCameraSetup(ref CameraSetup camSetup)
+    public override void PlaceViewmodel()
     {
-        base.PostCameraSetup(ref camSetup);
+        // Override to prevent base from setting position
+    }
 
+    public void UpdateCamera()
+    {
         if (playerFOV == -1)
         {
-            playerFOV = camSetup.FieldOfView;
-            finalPlayerFOV = camSetup.FieldOfView;
+            playerFOV = Local.UserPreference.FieldOfView;
+            finalPlayerFOV = playerFOV;
             targetWeaponFOV = weapon.FOV;
             finalWeaponFOV = weapon.FOV;
         }
 
-        Rotation = camSetup.Rotation;
-        Position = camSetup.Position;
+        Rotation = Camera.Rotation;
+        Position = Camera.Position;
 
         if (weapon.IsDormant) return;
         if (Owner != null && Owner.Health <= 0)
@@ -76,8 +81,8 @@ partial class ViewModelBase : BaseViewModel
         // Change the angles and positions of the viewmodel with the new vectors
         Rotation *= Rotation.From(finalVectorRot.x, finalVectorRot.y, finalVectorRot.z);
         Position += finalVectorPos.z * Rotation.Up + finalVectorPos.y * Rotation.Forward + finalVectorPos.x * Rotation.Right;
-        camSetup.FieldOfView = finalPlayerFOV;
-        camSetup.ViewModel.FieldOfView = finalWeaponFOV;
+        Camera.FieldOfView = finalPlayerFOV;
+        Camera.Main.SetViewModelCamera(finalWeaponFOV, 0.01f, 100.0f);
 
         // I'm sure there's something already that does this for me, but I spend an hour
         // searching through the wiki and a bunch of other garbage and couldn't find anything...
@@ -115,16 +120,16 @@ partial class ViewModelBase : BaseViewModel
         }
 
         // Handle different animations
-        HandleIdleAnimation(ref camSetup);
-        HandleWalkAnimation(ref camSetup);
-        HandleSwayAnimation(ref camSetup);
-        HandleIronAnimation(ref camSetup);
-        HandleSprintAnimation(ref camSetup);
-        HandleCustomizeAnimation(ref camSetup);
-        HandleJumpAnimation(ref camSetup);
+        HandleIdleAnimation();
+        HandleWalkAnimation();
+        HandleSwayAnimation();
+        HandleIronAnimation();
+        HandleSprintAnimation();
+        HandleCustomizeAnimation();
+        HandleJumpAnimation();
     }
 
-    private void HandleIdleAnimation(ref CameraSetup camSetup)
+    private void HandleIdleAnimation()
     {
         // No swaying if aiming
         if (weapon.IsZooming)
@@ -140,7 +145,7 @@ partial class ViewModelBase : BaseViewModel
             targetVectorPos += new Vector3(-1.0f, -1.0f, 0.5f);
     }
 
-    private void HandleWalkAnimation(ref CameraSetup camSetup)
+    private void HandleWalkAnimation()
     {
         float breatheTime = RealTime.Now * 16.0f;
         float walkSpeed = new Vector3(Owner.Velocity.x, Owner.Velocity.y, 0.0f).Length;
@@ -170,7 +175,7 @@ partial class ViewModelBase : BaseViewModel
         targetVectorRot -= new Vector3((Math.Clamp(MathF.Cos(breatheTime), -0.3f, 0.3f) * 2.0f) * walkSpeed / maxWalkSpeed, (-MathF.Cos(breatheTime / 2.0f) * 1.2f) * walkSpeed / maxWalkSpeed - yaw * 1.5f, roll);
     }
 
-    private void HandleSwayAnimation(ref CameraSetup camSetup)
+    private void HandleSwayAnimation()
     {
         int swayspeed = 5;
 
@@ -179,10 +184,10 @@ partial class ViewModelBase : BaseViewModel
             swayspeed = 20;
 
         // Lerp the eye position
-        lastEyeRot = Rotation.Lerp(lastEyeRot, Owner.EyeRotation, swayspeed * RealTime.Delta);
+        lastEyeRot = Rotation.Lerp(lastEyeRot, player.EyeRotation, swayspeed * RealTime.Delta);
 
         // Calculate the difference between our current eye angles and old (lerped) eye angles
-        Angles angDif = Owner.EyeRotation.Angles() - lastEyeRot.Angles();
+        Angles angDif = player.EyeRotation.Angles() - lastEyeRot.Angles();
         angDif = new Angles(angDif.pitch, MathX.RadianToDegree(MathF.Atan2(MathF.Sin(MathX.DegreeToRadian(angDif.yaw)), MathF.Cos(MathX.DegreeToRadian(angDif.yaw)))), 0);
 
         // Perform sway
@@ -190,7 +195,7 @@ partial class ViewModelBase : BaseViewModel
         targetVectorRot += new Vector3(Math.Clamp(angDif.pitch * 0.2f, -4.0f, 4.0f), Math.Clamp(angDif.yaw * 0.2f, -4.0f, 4.0f), 0.0f);
     }
 
-    private void HandleIronAnimation(ref CameraSetup camSetup)
+    private void HandleIronAnimation()
     {
         if (weapon.IsZooming && weapon.ZoomAnimData != AngPos.Zero)
         {
@@ -232,7 +237,7 @@ partial class ViewModelBase : BaseViewModel
         }
     }
 
-    private void HandleSprintAnimation(ref CameraSetup camSetup)
+    private void HandleSprintAnimation()
     {
         if (weapon.IsRunning && weapon.RunAnimData != AngPos.Zero && !weapon.IsCustomizing)
         {
@@ -241,7 +246,7 @@ partial class ViewModelBase : BaseViewModel
         }
     }
 
-    private void HandleCustomizeAnimation(ref CameraSetup camSetup)
+    private void HandleCustomizeAnimation()
     {
         if (weapon.IsCustomizing && weapon.CustomizeAnimData != AngPos.Zero)
         {
@@ -250,7 +255,7 @@ partial class ViewModelBase : BaseViewModel
         }
     }
 
-    private void HandleJumpAnimation(ref CameraSetup camSetup)
+    private void HandleJumpAnimation()
     {
         // If we're not on the ground, reset the landing animation time
         if (Owner.GroundEntity == null)

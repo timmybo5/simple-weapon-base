@@ -24,7 +24,7 @@ public partial class PlayerBase
         BulletSimulator.Simulate();
     }
 
-    [Event.BuildInput]
+    [Event.Client.BuildInput]
     public virtual void ProcessClientInput()
     {
         if (!Alive())
@@ -89,15 +89,13 @@ public partial class PlayerBase
         }
     }
 
-    public override void PostCameraSetup(ref CameraSetup camSetup)
+    public virtual void UpdateCamera()
     {
-        PostCameraSetupBase(ref camSetup);
-
         if (timeSinceShake < lastScreenShake.Length && timeSinceShake > nextShake)
         {
             var random = new Random();
-            camSetup.Position += new Vector3(random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size));
-            camSetup.Rotation *= Rotation.From(new Angles(random.Float(0, lastScreenShake.Rotation), random.Float(0, lastScreenShake.Rotation), 0));
+            Camera.Position += new Vector3(random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size));
+            Camera.Rotation *= Rotation.From(new Angles(random.Float(0, lastScreenShake.Rotation), random.Float(0, lastScreenShake.Rotation), 0));
 
             nextShake = timeSinceShake + lastScreenShake.Delay;
         }

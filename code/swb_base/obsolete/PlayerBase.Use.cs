@@ -100,7 +100,7 @@ public partial class PlayerBase
         // Nothing found, try a wider search
         if (!IsValidUseEntity(ent))
         {
-            tr = Trace.Ray(EyePosition, EyePosition + EyeRotation.Forward * 85)
+            tr = Trace.Ray(EyePosition, EyePosition + this.EyeRotation.Forward * 85)
             .Radius(2)
             .Ignore(this)
             .Run();

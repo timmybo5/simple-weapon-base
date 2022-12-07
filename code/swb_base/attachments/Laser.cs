@@ -92,7 +92,7 @@ public class Laser : OffsetAttachment
         }
     }
 
-    [Event.Frame]
+    [Event.Client.Frame]
     public void OnFrame()
     {
         // Destroy laser when dropped or if weapon owner switches weapon
@@ -194,8 +194,10 @@ public class Laser : OffsetAttachment
             //LogUtil.Info(laserTrans.Rotation);
             //LogUtil.Info(laserTrans.Rotation.Forward);
 
-            var eyePos = isOwner ? Local.Pawn.EyePosition : owner.EyePosition;
-            var eyeRot = isOwner ? Local.Pawn.EyeRotation : owner.EyeRotation;
+            var ownerPly = owner as PlayerBase;
+            var localPly = Local.Pawn as PlayerBase;
+            var eyePos = isOwner ? localPly.EyePosition : ownerPly.EyePosition;
+            var eyeRot = isOwner ? localPly.EyeRotation : ownerPly.EyeRotation;
             Vector3 fromPos;
             Vector3 toPos;
 

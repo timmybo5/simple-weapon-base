@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System.ComponentModel;
+using Sandbox;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
 
@@ -17,14 +18,12 @@ public partial class PlayerBase : AnimatedEntity
     /// that setting the class on the server will automatically network and set it
     /// on the client.
     /// </summary>
-    [Net, Predicted]
-    public PlayerPawnController Controller { get; set; }
+    [Net, Predicted] public PlayerPawnController Controller { get; set; }
 
     /// <summary>
     /// This is used for noclip mode 
     /// </summary>
-    [Net, Predicted]
-    public PlayerPawnController DevController { get; set; }
+    [Net, Predicted] public PlayerPawnController DevController { get; set; }
 
     /// <summary> 
     /// The active weapon, or tool, or whatever else
@@ -54,8 +53,7 @@ public partial class PlayerBase : AnimatedEntity
     /// The player animator is responsible for positioning/rotating the player and
     /// interacting with the animation graph.
     /// </summary>
-    [Net, Predicted]
-    public PlayerBaseAnimator Animator { get; set; }
+    [Net, Predicted] public PlayerBaseAnimator Animator { get; set; }
 
     /// <summary>
     /// Return the controller to use. Remember any logic you use here needs to match
@@ -63,6 +61,11 @@ public partial class PlayerBase : AnimatedEntity
     /// avoid creating new classes here or you're gonna be making a ton of garbage!
     /// </summary>
     public virtual PlayerBaseAnimator GetActiveAnimator() => Animator;
+
+    /// <summary>
+    /// Provides an easy way to switch our current cameramode component
+    /// </summary> 
+    [Net] public CameraMode CameraMode { get; set; }
 
     TimeSince timeSinceDied;
 
@@ -92,17 +95,23 @@ public partial class PlayerBase : AnimatedEntity
     {
         base.FrameSimulate(cl);
 
-        var controller = GetActiveController();
-        controller?.FrameSimulate(cl, this, GetActiveAnimator());
+        CameraMode.UpdateCamera();
+        //UpdateCamera();
 
-        if (WaterLevel > 0.9f)
-        {
-            Audio.SetEffect("underwater", 1, velocity: 5.0f);
-        }
-        else
-        {
-            Audio.SetEffect("underwater", 0, velocity: 1.0f);
-        }
+        //Camera.Position = AimRay.Position;
+        //Log.Info(AimRay.Position);
+
+        //var controller = GetActiveController();
+        //controller?.FrameSimulate(cl, this, GetActiveAnimator());
+
+        //if (WaterLevel > 0.9f)
+        //{
+        //    Audio.SetEffect("underwater", 1, velocity: 5.0f);
+        //}
+        //else
+        //{
+        //    Audio.SetEffect("underwater", 0, velocity: 1.0f);
+        //}
     }
 
     /// <summary>
@@ -129,7 +138,7 @@ public partial class PlayerBase : AnimatedEntity
     /// </summary>
     public override void OnKilled()
     {
-        Game.Current?.OnKilled(this);
+        GameManager.Current?.OnKilled(this);
 
         timeSinceDied = 0;
         LifeState = LifeState.Dead;
@@ -153,7 +162,7 @@ public partial class PlayerBase : AnimatedEntity
 
         CreateHull();
 
-        Game.Current?.MoveToSpawnpoint(this);
+        GameManager.Current?.MoveToSpawnpoint(this);
         ResetInterpolation();
     }
 
@@ -217,23 +226,6 @@ public partial class PlayerBase : AnimatedEntity
     /// A generic corpse entity
     /// </summary>
     public ModelEntity Corpse { get; set; }
-
-
-    /// <summary>
-    /// Called after the camera setup logic has run. Allow the player to
-    /// do stuff to the camera, or using the camera. Such as positioning entities
-    /// relative to it, like viewmodels etc.
-    /// </summary>
-    public virtual void PostCameraSetupBase(ref CameraSetup setup)
-    {
-        Host.AssertClient();
-
-        if (ActiveChild != null)
-        {
-            ActiveChild.PostCameraSetup(ref setup);
-        }
-    }
-
 
     TimeSince timeSinceLastFootstep = 0;
 
@@ -369,11 +361,39 @@ public partial class PlayerBase : AnimatedEntity
     }
 
     /// <summary>
-    /// Provides an easy way to switch our current cameramode component
+    /// Position a player should be looking from in world space.
     /// </summary>
-    public CameraMode CameraMode
+    [Browsable(false)]
+    public Vector3 EyePosition
     {
-        get => Components.Get<CameraMode>();
-        set => Components.Add(value);
+        get => Transform.PointToWorld(EyeLocalPosition);
+        set => EyeLocalPosition = Transform.PointToLocal(value);
     }
+
+    /// <summary>
+    /// Position a player should be looking from in local to the entity coordinates.
+    /// </summary>
+    [Net, Predicted, Browsable(false)]
+    public Vector3 EyeLocalPosition { get; set; }
+
+    /// <summary>
+    /// Rotation of the entity's "eyes", i.e. rotation for the camera when this entity is used as the view entity.
+    /// </summary>
+    [Browsable(false)]
+    public Rotation EyeRotation
+    {
+        get => Transform.RotationToWorld(EyeLocalRotation);
+        set => EyeLocalRotation = Transform.RotationToLocal(value);
+    }
+
+    /// <summary>
+    /// Rotation of the entity's "eyes", i.e. rotation for the camera when this entity is used as the view entity. In local to the entity coordinates.
+    /// </summary>
+    [Net, Predicted, Browsable(false)]
+    public Rotation EyeLocalRotation { get; set; }
+
+    /// <summary>
+    /// Override the aim ray to use the player's eye position and rotation.
+    /// </summary>
+    public override Ray AimRay => new Ray(EyePosition, EyeRotation.Forward);
 }

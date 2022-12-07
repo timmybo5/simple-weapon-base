@@ -14,11 +14,10 @@ public partial class WeaponBase
         if (TuckRange == -1)
             return -1;
 
-        var player = Owner as PlayerBase;
-        if (player == null) return -1;
+        if (Owner is not PlayerBase player) return -1;
 
         var pos = player.EyePosition;
-        var forward = Owner.EyeRotation.Forward;
+        var forward = player.EyeRotation.Forward;
         var trace = Trace.Ray(pos, pos + forward * TuckRange)
             .WithTag("solid")
             .Ignore(this)

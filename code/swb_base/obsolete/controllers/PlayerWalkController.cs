@@ -446,9 +446,10 @@ public partial class PlayerWalkController : PlayerBaseController
 
             var jumpLedge = false;
 
-            var startPos = Pawn.EyePosition;
+            var player = Pawn as PlayerBase;
+            var startPos = player.EyePosition;
 
-            var tr = Trace.Ray(startPos, startPos + Pawn.EyeRotation.Forward * 1000)
+            var tr = Trace.Ray(startPos, startPos + player.EyeRotation.Forward * 1000)
             .Ignore(Pawn)
             .Run();
 

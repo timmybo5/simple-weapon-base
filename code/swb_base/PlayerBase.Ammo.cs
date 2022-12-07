@@ -6,7 +6,7 @@ namespace SWB_Base;
 
 partial class PlayerBase
 {
-    [Net] public List<int> Ammo { get; set; }
+    [Net] public IList<int> Ammo { get; set; }
 
     public virtual void ClearAmmo()
     {

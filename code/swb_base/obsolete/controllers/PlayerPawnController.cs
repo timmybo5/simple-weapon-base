@@ -29,8 +29,12 @@ public class PlayerPawnController : BaseNetworkable
         Rotation = entity.Rotation;
         Velocity = entity.Velocity;
 
-        EyeRotation = entity.EyeRotation;
-        EyeLocalPosition = entity.EyeLocalPosition;
+        if (entity is PlayerBase player)
+        {
+            EyeRotation = player.EyeRotation;
+            EyeLocalPosition = player.EyePosition;
+        }
+
         BaseVelocity = entity.BaseVelocity;
         GroundEntity = entity.GroundEntity;
         WishVelocity = entity.Velocity;
@@ -62,8 +66,13 @@ public class PlayerPawnController : BaseNetworkable
         target.Rotation = Rotation;
         target.GroundEntity = GroundEntity;
         target.BaseVelocity = BaseVelocity;
-        target.EyeLocalPosition = EyeLocalPosition;
-        target.EyeRotation = EyeRotation;
+        // What did this do?
+
+        if (target is PlayerBase player)
+        {
+            player.EyeLocalPosition = EyeLocalPosition;
+            player.EyeRotation = EyeRotation;
+        }
     }
 
     /// <summary>

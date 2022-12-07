@@ -15,6 +15,4 @@ public class AttachmentModel : AnimatedEntity
         EnableViewmodelRendering = isViewModel;
         EnableHideInFirstPerson = !isViewModel;
     }
-
-    public override void PostCameraSetup(ref CameraSetup camSetup) { }
 }

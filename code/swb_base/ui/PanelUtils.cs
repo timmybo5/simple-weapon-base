@@ -14,15 +14,15 @@ public static class PanelUtils
     {
         if (!player.IsValid()) return;
 
-        var eyePos = player.EyePosition;
-        var eyeRot = player.EyeRotation;
-
-        var tr = Trace.Ray(eyePos, eyePos + eyeRot.Forward * 2000)
+        var ply = player as PlayerBase;
+        var tr = Trace.Ray(ply.AimRay, 2000)
                         .Size(1.0f)
                         .WithTag("solid")
                         .Ignore(player)
                         .UseHitboxes()
                         .Run();
+
+        Log.Info(tr.EndPosition);
 
         panel.PositionAtWorld(tr.EndPosition, centered);
     }

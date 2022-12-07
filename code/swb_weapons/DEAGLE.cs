@@ -20,8 +20,8 @@ public class DEAGLE : WeaponBase
     };
     public override string WorldModelPath => "weapons/swb/pistols/deagle/w_deagle.vmdl";
     public override string Icon => "code/swb_weapons/textures/deagle.png";
-    public override int FOV => 75;
-    public override int ZoomWeaponFOV => 50;
+    public override int FOV => 90;
+    public override int ZoomWeaponFOV => 70;
 
     public DEAGLE()
     {

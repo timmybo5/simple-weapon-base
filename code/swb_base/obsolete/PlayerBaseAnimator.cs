@@ -44,7 +44,7 @@ public class PlayerBaseAnimator : PlayerPawnAnimator
             SetAnimParameter("voice", Client.TimeSinceLastVoice < 0.5f ? Client.VoiceLevel : 0.0f);
         }
 
-        Vector3 aimPos = Pawn.EyePosition + rotation.Forward * 200;
+        Vector3 aimPos = player.EyePosition + rotation.Forward * 200;
         Vector3 lookPos = aimPos;
 
         //

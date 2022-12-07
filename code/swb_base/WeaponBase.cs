@@ -252,6 +252,16 @@ public partial class WeaponBase : CarriableBase
         }
     }
 
+    public virtual void UpdateCamera() { }
+
+    public virtual void UpdateViewmodelCamera()
+    {
+        if (ViewModelEntity is ViewModelBase viewModel)
+        {
+            viewModel.UpdateCamera();
+        }
+    }
+
     public override void CreateViewModel()
     {
         Host.AssertClient();

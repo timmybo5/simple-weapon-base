@@ -3,7 +3,7 @@ using Sandbox;
 using SWB_Base;
 
 [Library("swb")]
-public partial class ExampleGame : Sandbox.Game
+public partial class ExampleGame : GameManager
 {
     public DeathmatchHud UI;
 

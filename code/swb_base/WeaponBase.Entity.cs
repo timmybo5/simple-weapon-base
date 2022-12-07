@@ -87,16 +87,18 @@ public partial class WeaponBaseEntity : WeaponBase
         if (!string.IsNullOrEmpty(EntityModel))
             firedEntity.SetModel(EntityModel);
 
+        var player = Owner as PlayerBase;
+
         firedEntity.Owner = Owner;
-        firedEntity.Position = MathUtil.RelativeAdd(Position, EntitySpawnOffset, Owner.EyeRotation);
-        firedEntity.Rotation = Owner.EyeRotation * Rotation.From(EntityAngles);
+        firedEntity.Position = MathUtil.RelativeAdd(Position, EntitySpawnOffset, player.EyeRotation);
+        firedEntity.Rotation = player.EyeRotation * Rotation.From(EntityAngles);
         firedEntity.RemoveDelay = RemoveDelay;
         firedEntity.UseGravity = UseGravity;
         firedEntity.Speed = isPrimary ? PrimaryEntitySpeed : SecondaryEntitySpeed;
         firedEntity.IsSticky = IsSticky;
         firedEntity.Damage = clipInfo.Damage;
         firedEntity.Force = clipInfo.Force;
-        firedEntity.StartVelocity = MathUtil.RelativeAdd(Vector3.Zero, EntityVelocity, Owner.EyeRotation);
+        firedEntity.StartVelocity = MathUtil.RelativeAdd(Vector3.Zero, EntityVelocity, player.EyeRotation);
         firedEntity.Start();
     }
 

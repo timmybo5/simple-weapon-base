@@ -14,7 +14,8 @@ public class PlayerPawnAnimator : PlayerPawnController
     /// </summary>
     public virtual void SetLookAt(string name, Vector3 Position)
     {
-        var localPos = (Position - Pawn.EyePosition) * Rotation.Inverse;
+        var player = Pawn as PlayerBase;
+        var localPos = (Position - player.EyePosition) * Rotation.Inverse;
         SetAnimParameter(name, localPos);
     }
 
