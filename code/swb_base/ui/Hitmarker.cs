@@ -15,12 +15,6 @@ public class Hitmarker : Panel
         Current = this;
     }
 
-    public override void Tick()
-    {
-        base.Tick();
-        this.PositionAtCrosshair();
-    }
-
     public void Create(bool isKill)
     {
         if (activeMarker != null)

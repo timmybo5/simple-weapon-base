@@ -72,10 +72,8 @@ public class Crosshair : Panel
     public override void Tick()
     {
         base.Tick();
-        this.PositionAtCrosshair();
 
-        var player = Local.Pawn as PlayerBase;
-        if (player == null) return;
+        if (Local.Pawn is not PlayerBase player) return;
 
         var weapon = player.ActiveChild as WeaponBase;
         bool isValidWeapon = weapon != null;
