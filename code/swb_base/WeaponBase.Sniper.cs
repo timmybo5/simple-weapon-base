@@ -56,7 +56,7 @@ public partial class WeaponBaseSniper : WeaponBase
             if (player.CameraMode is ThirdPersonCamera)
             {
                 switchBackToThirdP = true;
-                player.CameraMode = new FirstPersonCamera(player);
+                player.CameraMode = new FirstPersonCamera();
             }
         }
 
@@ -89,7 +89,7 @@ public partial class WeaponBaseSniper : WeaponBase
             var player = Owner as PlayerBase;
 
             switchBackToThirdP = false;
-            player.CameraMode = new ThirdPersonCamera(player);
+            player.CameraMode = new ThirdPersonCamera();
         }
 
         if (IsLocalPawn)

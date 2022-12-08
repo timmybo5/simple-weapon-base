@@ -61,8 +61,8 @@ partial class ViewModelBase : BaseViewModel
             finalWeaponFOV = weapon.FOV;
         }
 
-        Rotation = Camera.Rotation;
-        Position = Camera.Position;
+        Rotation = this.player.ViewAngles.ToRotation();
+        Position = this.player.EyePosition;
 
         if (weapon.IsDormant) return;
         if (Owner != null && Owner.Health <= 0)

@@ -4,17 +4,12 @@ namespace SWB_Base;
 
 public class FirstPersonCamera : CameraMode
 {
-    public FirstPersonCamera()
-    {
-    }
-
-    public FirstPersonCamera(PlayerBase player) : base(player)
-    {
-    }
-
     public override void UpdateCamera()
     {
         base.UpdateCamera();
+
+        if (Entity is not PlayerBase player) return;
+
         Camera.ZNear = 1f;
         Camera.ZFar = 25000.0f;
         Camera.Rotation = player.ViewAngles.ToRotation();

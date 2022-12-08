@@ -65,12 +65,21 @@ public partial class PlayerBase : AnimatedEntity
     /// <summary>
     /// Provides an easy way to switch our current cameramode component
     /// </summary> 
-    [Net] public CameraMode CameraMode { get; set; }
+    public CameraMode CameraMode
+    {
+        get => Components.Get<CameraMode>();
+        set
+        {
+            Components.RemoveAny<CameraMode>(); // Temp workaround
+            Components.Add(value);
+        }
+    }
 
     TimeSince timeSinceDied;
 
     public virtual void SimulateBase(Client cl)
     {
+        // E.g player trying to switch weapon
         if (ActiveChildInput.IsValid() && ActiveChildInput.Owner == this)
         {
             ActiveChild = ActiveChildInput;
@@ -98,20 +107,17 @@ public partial class PlayerBase : AnimatedEntity
         CameraMode.UpdateCamera();
         //UpdateCamera();
 
-        //Camera.Position = AimRay.Position;
-        //Log.Info(AimRay.Position);
+        var controller = GetActiveController();
+        controller?.FrameSimulate(cl, this, GetActiveAnimator());
 
-        //var controller = GetActiveController();
-        //controller?.FrameSimulate(cl, this, GetActiveAnimator());
-
-        //if (WaterLevel > 0.9f)
-        //{
-        //    Audio.SetEffect("underwater", 1, velocity: 5.0f);
-        //}
-        //else
-        //{
-        //    Audio.SetEffect("underwater", 0, velocity: 1.0f);
-        //}
+        if (WaterLevel > 0.9f)
+        {
+            Audio.SetEffect("underwater", 1, velocity: 5.0f);
+        }
+        else
+        {
+            Audio.SetEffect("underwater", 0, velocity: 1.0f);
+        }
     }
 
     /// <summary>

@@ -30,7 +30,7 @@ public partial class ExamplePlayer : PlayerBase
 
         Controller = new PlayerWalkController();
         Animator = new PlayerBaseAnimator();
-        CameraMode = new FirstPersonCamera(this);
+        CameraMode = new FirstPersonCamera();
 
         EnableAllCollisions = true;
         EnableDrawing = true;
@@ -78,11 +78,11 @@ public partial class ExamplePlayer : PlayerBase
         {
             if (CameraMode is ThirdPersonCamera)
             {
-                CameraMode = new FirstPersonCamera(this);
+                CameraMode = new FirstPersonCamera();
             }
             else
             {
-                CameraMode = new ThirdPersonCamera(this);
+                CameraMode = new ThirdPersonCamera();
             }
         }
 

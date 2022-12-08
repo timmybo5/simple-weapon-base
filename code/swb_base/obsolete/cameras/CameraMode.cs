@@ -2,19 +2,8 @@
 
 namespace SWB_Base;
 
-public partial class CameraMode : BaseNetworkable
+public class CameraMode : EntityComponent
 {
-    [Net] public PlayerBase player { get; private set; }
-
-    public CameraMode()
-    {
-    }
-
-    public CameraMode(PlayerBase player)
-    {
-        this.player = player;
-    }
-
     public virtual void UpdateCamera()
     {
         Host.AssertClient();
