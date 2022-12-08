@@ -12,9 +12,7 @@
     "/fonts/*",
     "/weapons/*",
     "/materials/*",
-    "/code/swb_base/translations/languages/*",
-    "/code/swb_base/ui/*",
-    "/code/swb_base/editor/*",
+    "/code/*",
     "/sounds/*"
   ],
   "HasCode": true,
