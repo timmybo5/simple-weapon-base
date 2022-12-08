@@ -18,8 +18,6 @@ public class FirstPersonCamera : CameraMode
         Camera.ZNear = 1f;
         Camera.ZFar = 25000.0f;
         Camera.Rotation = player.ViewAngles.ToRotation();
-
-        // From PlayerPawnController -> EyeLocalPosition
         Camera.Position = player.EyePosition;
         Camera.FieldOfView = Local.UserPreference.FieldOfView;
         Camera.FirstPersonViewer = player;

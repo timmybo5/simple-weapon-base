@@ -18,10 +18,10 @@ public partial class KillFeed : Panel
         var e = Current.AddChild<KillFeedEntry>();
 
         e.Left.Text = left;
-        e.Left.SetClass("me", lsteamid == Local.PlayerId);
+        e.Left.SetClass("me", lsteamid == Local.SteamId);
         e.Icon.Style.BackgroundImage = Texture.Load(icon);
         e.Right.Text = right;
-        e.Right.SetClass("me", rsteamid == Local.PlayerId);
+        e.Right.SetClass("me", rsteamid == Local.SteamId);
 
         return e;
     }
