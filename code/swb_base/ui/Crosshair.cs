@@ -73,7 +73,7 @@ public class Crosshair : Panel
     {
         base.Tick();
 
-        if (Local.Pawn is not PlayerBase player) return;
+        if (Game.LocalPawn is not PlayerBase player) return;
 
         var weapon = player.ActiveChild as WeaponBase;
         bool isValidWeapon = weapon != null;

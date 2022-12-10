@@ -1,6 +1,6 @@
-﻿using Sandbox;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Sandbox;
 
 namespace SWB_Base
 {
@@ -49,7 +49,7 @@ namespace SWB_Base
             weaponBase.IsAnimating = false;
         }
 
-        public bool Handle(Client owner, WeaponBase weaponBase)
+        public bool Handle(IClient owner, WeaponBase weaponBase)
         {
             if (RealTime.Now < canNextHandle) return false;
 
@@ -76,7 +76,7 @@ namespace SWB_Base
             // Handle shared changes
             HandleChanges(weaponBase);
 
-            if (weaponBase.IsClient)
+            if (Game.IsClient)
             {
                 var viewModelEntity = weaponBase.ViewModelEntity;
 

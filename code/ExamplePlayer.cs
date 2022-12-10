@@ -15,7 +15,7 @@ public partial class ExamplePlayer : PlayerBase
         Inventory = new ExampleInventory(this);
     }
 
-    public ExamplePlayer(Client client) : this()
+    public ExamplePlayer(IClient client) : this()
     {
         // Load clothing from client data
         Clothing.LoadFromClient(client);
@@ -65,7 +65,7 @@ public partial class ExamplePlayer : PlayerBase
         SupressPickupNotices = false;
     }
 
-    public override void Simulate(Client cl)
+    public override void Simulate(IClient cl)
     {
         base.Simulate(cl);
 

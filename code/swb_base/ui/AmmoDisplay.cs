@@ -48,7 +48,7 @@ public class AmmoDisplay : Panel
 
     public override void Tick()
     {
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         if (player == null) return;
 
         var weapon = player.ActiveChild as WeaponBase;

@@ -124,7 +124,7 @@ public partial class WeaponBaseEntity : WeaponBase
         if (!string.IsNullOrEmpty(clipInfo.ShootSound))
             PlaySound(clipInfo.ShootSound);
 
-        if (Host.IsServer)
+        if (Game.IsServer)
         {
             using (Prediction.Off())
             {
@@ -166,7 +166,7 @@ public partial class WeaponBaseEntity : WeaponBase
         if (clipInfo.ShootSound != null)
             PlaySound(clipInfo.ShootSound);
 
-        if (IsServer)
+        if (Game.IsServer)
         {
             using (Prediction.Off())
             {

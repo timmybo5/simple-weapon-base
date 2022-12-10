@@ -13,7 +13,7 @@ partial class ScreenUtil
 
     public static void Shake(float length = 0, float delay = 0, float size = 0, float rotation = 0)
     {
-        if (Local.Pawn is PlayerBase player)
+        if (Game.LocalPawn is PlayerBase player)
         {
             var screenShake = new ScreenShakeStruct
             {

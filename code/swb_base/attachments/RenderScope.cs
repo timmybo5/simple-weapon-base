@@ -26,10 +26,10 @@ public class RenderScope : Sight
     {
         base.OnEquip(weapon, attachmentModel);
 
-        if (Host.IsClient)
+        if (Game.IsClient)
         {
             renderScopeRT = new RenderScopeRT(attachmentModel.SceneObject);
-            renderScopeRT.Parent = Local.Hud;
+            renderScopeRT.Parent = Game.RootPanel;
         }
     }
 
@@ -37,7 +37,7 @@ public class RenderScope : Sight
     {
         base.Unequip(weapon);
 
-        if (Host.IsClient && renderScopeRT != null)
+        if (Game.IsClient && renderScopeRT != null)
             renderScopeRT.Delete(true);
     }
 }

@@ -43,7 +43,7 @@ public class BlastUtil
             var realForce = force * distanceMul;
             var forceDir = (targetPos - origin).Normal;
 
-            ent.TakeDamage(DamageInfo.Explosion(origin, forceDir * realForce, realDamage)
+            ent.TakeDamage(DamageInfo.FromExplosion(origin, forceDir * realForce, realDamage)
                     .WithAttacker(attacker)
                     .WithWeapon(weapon));
         }

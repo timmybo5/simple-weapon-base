@@ -6,8 +6,9 @@ public class SpectateCamera : CameraMode
 {
     public override void UpdateCamera()
     {
-        if (Local.Pawn is not Player player)
-            return;
+        base.UpdateCamera();
+
+        if (Entity is not PlayerBase player) return;
 
         Camera.Position = player.EyePosition;
 

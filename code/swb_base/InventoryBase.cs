@@ -31,7 +31,7 @@ public class InventoryBase : IInventoryBase
 
     public virtual Entity DropActive()
     {
-        if (!Host.IsServer || Owner is not PlayerBase player) return null;
+        if (!Game.IsServer || Owner is not PlayerBase player) return null;
 
         var ent = player.ActiveChild;
         if (ent == null) return null;
@@ -58,7 +58,7 @@ public class InventoryBase : IInventoryBase
 
     public virtual void DeleteContents()
     {
-        Host.AssertServer();
+        Game.AssertServer();
 
         foreach (var item in List.ToArray())
         {
@@ -153,7 +153,7 @@ public class InventoryBase : IInventoryBase
 
     public virtual bool Drop(Entity ent)
     {
-        if (!Host.IsServer)
+        if (!Game.IsServer)
             return false;
 
         if (!Contains(ent))
@@ -185,7 +185,7 @@ public class InventoryBase : IInventoryBase
 
     public virtual bool Add(Entity ent, bool makeActive = false)
     {
-        Host.AssertServer();
+        Game.AssertServer();
 
         // Can't pickup if already owned
         if (ent.Owner != null)

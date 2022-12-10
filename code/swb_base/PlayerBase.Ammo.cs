@@ -23,7 +23,7 @@ partial class PlayerBase
 
     public virtual bool SetAmmo(AmmoType ammoType, int amount)
     {
-        if (!Host.IsServer) return false;
+        if (!Game.IsServer) return false;
         if (Ammo == null) return false;
 
         while (Ammo.Count <= ammoType.ID)
@@ -37,7 +37,7 @@ partial class PlayerBase
 
     public virtual bool GiveAmmo(AmmoType ammoType, int amount)
     {
-        if (!Host.IsServer) return false;
+        if (!Game.IsServer) return false;
         if (Ammo == null) return false;
 
         SetAmmo(ammoType, AmmoCount(ammoType) + amount);

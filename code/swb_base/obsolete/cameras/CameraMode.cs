@@ -6,6 +6,6 @@ public class CameraMode : EntityComponent
 {
     public virtual void UpdateCamera()
     {
-        Host.AssertClient();
+        Game.AssertClient();
     }
 }

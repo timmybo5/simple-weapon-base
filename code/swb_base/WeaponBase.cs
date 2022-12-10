@@ -49,7 +49,7 @@ public partial class WeaponBase : CarriableBase
         }
 
         // Check if boltback was not completed
-        if (IsServer && InBoltBack)
+        if (Game.IsServer && InBoltBack)
         {
             _ = AsyncBoltBack(General.DrawTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle, true);
         }
@@ -79,7 +79,7 @@ public partial class WeaponBase : CarriableBase
     }
 
     // BaseSimulate
-    public void BaseSimulate(Client player)
+    public void BaseSimulate(IClient player)
     {
         if (Input.Down(InputButton.Reload))
         {
@@ -113,7 +113,7 @@ public partial class WeaponBase : CarriableBase
         }
     }
 
-    public override void Simulate(Client client)
+    public override void Simulate(IClient client)
     {
         if (IsAnimating) return;
 
@@ -149,7 +149,7 @@ public partial class WeaponBase : CarriableBase
             OnReloadFinish();
         }
 
-        if (IsClient)
+        if (Game.IsClient)
         {
             UISimulate(client);
         }
@@ -172,7 +172,7 @@ public partial class WeaponBase : CarriableBase
         {
             TimeSinceReload -= General.BoltBackTime;
 
-            if (IsServer)
+            if (Game.IsServer)
                 _ = AsyncBoltBack(General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle);
         }
 
@@ -264,7 +264,7 @@ public partial class WeaponBase : CarriableBase
 
     public override void CreateViewModel()
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         if (string.IsNullOrEmpty(ViewModelPath))
             return;
@@ -326,7 +326,7 @@ public partial class WeaponBase : CarriableBase
 
         base.OnCarryDrop(dropper);
 
-        if (IsServer)
+        if (Game.IsServer)
         {
             // Reattach attachments (they get removed in ActiveEnd) [TEMP]
             foreach (var activeAttach in ActiveAttachments)

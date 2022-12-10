@@ -84,7 +84,7 @@ public class BulletEntity : Entity
     public override void Spawn()
     {
         // Gravity calc
-        var currentGravity = Map.Physics.Gravity;
+        var currentGravity = Game.PhysicsWorld.Gravity;
         var gravityRatio = TargetGravity / currentGravity.Length;
         gravScale = gravityRatio;
 
@@ -122,7 +122,7 @@ public class BulletEntity : Entity
             particleDelay = randVal;
         }
 
-        if (IsClient)
+        if (Game.IsClient)
         {
             CompensateForCrosshair(direction);
         }
@@ -185,7 +185,7 @@ public class BulletEntity : Entity
 
         // Forward
         var dt = Time.Delta;
-        Velocity += Map.Physics.Gravity * gravScale * dt;
+        Velocity += Game.PhysicsWorld.Gravity * gravScale * dt;
 
         // Drag
         var drag = AirDensity * MathF.Pow(Velocity.Length, 2) * ammoType.Drag;
@@ -197,14 +197,14 @@ public class BulletEntity : Entity
         Position += Velocity * dt;
 
         // Center adjustment
-        if (IsClient && posDiffCurUpdate < posDiffMaxUpdate)
+        if (Game.IsClient && posDiffCurUpdate < posDiffMaxUpdate)
         {
             posDiffCurUpdate++;
             Position += posDiff / posDiffMaxUpdate;
         }
 
         if (WeaponBase.DebugBulletsSV > 0)
-            DebugOverlay.Line(lastPosition, Position, IsServer ? Color.Green : Color.Yellow, 0, false);
+            DebugOverlay.Line(lastPosition, Position, Game.IsServer ? Color.Green : Color.Yellow, 0, false);
 
         if (createParticle && timeSinceFire > particleDelay)
         {
@@ -239,12 +239,12 @@ public class BulletEntity : Entity
         {
             var hitRotation = Rotation.From(new Angles(tr.Normal.z, tr.Normal.y, 0) * 90);
 
-            DebugOverlay.Circle(tr.EndPosition, hitRotation, bulletSize, IsServer ? Color.Red : Color.Blue, maxLifeTime, false);
+            DebugOverlay.Circle(tr.EndPosition, hitRotation, bulletSize, Game.IsServer ? Color.Red : Color.Blue, maxLifeTime, false);
 
-            if (IsServer)
+            if (Game.IsServer)
             {
                 var distance = startPos.Distance(Position) / InchesPerMeter;
-                DebugOverlay.ScreenText(distance.ToString(CultureInfo.InvariantCulture), Rand.Int(40), maxLifeTime);
+                DebugOverlay.ScreenText(distance.ToString(CultureInfo.InvariantCulture), Game.Random.Int(40), maxLifeTime);
             }
         }
 
@@ -253,12 +253,12 @@ public class BulletEntity : Entity
 
         if (isValidEnt || canPenetrate)
         {
-            if (IsClient)
+            if (Game.IsClient)
             {
                 tr.Surface.DoBulletImpact(tr);
             }
 
-            if (IsServer && isValidEnt)
+            if (Game.IsServer && isValidEnt)
             {
                 var damageInfo = DamageInfo.FromBullet(tr.EndPosition, direction * 25 * force, damage)
                     .UsingTraceResult(tr)

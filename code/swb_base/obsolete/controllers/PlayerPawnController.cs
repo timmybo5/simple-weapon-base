@@ -11,7 +11,7 @@ public class PlayerPawnController : BaseNetworkable
     internal HashSet<string> Tags;
 
     public Entity Pawn { get; protected set; }
-    public Client Client { get; protected set; }
+    public IClient Client { get; protected set; }
     public Vector3 Position { get; set; }
     public Rotation Rotation { get; set; }
     public Vector3 Velocity { get; set; }
@@ -32,7 +32,7 @@ public class PlayerPawnController : BaseNetworkable
         if (entity is PlayerBase player)
         {
             EyeRotation = player.EyeRotation;
-            EyeLocalPosition = player.EyePosition;
+            EyeLocalPosition = player.EyeLocalPosition;
         }
 
         BaseVelocity = entity.BaseVelocity;
@@ -88,7 +88,7 @@ public class PlayerPawnController : BaseNetworkable
     /// </summary>
     public virtual void FrameSimulate()
     {
-        Host.AssertClient();
+        Game.AssertClient();
     }
 
     /// <summary>
@@ -170,7 +170,7 @@ public class PlayerPawnController : BaseNetworkable
     /// </summary>
     public virtual void BuildInput() { }
 
-    public void Simulate(Client client, Entity pawn, PlayerPawnController additional)
+    public void Simulate(IClient client, Entity pawn, PlayerPawnController additional)
     {
         Events?.Clear();
         Tags?.Clear();
@@ -196,7 +196,7 @@ public class PlayerPawnController : BaseNetworkable
         }
     }
 
-    public void FrameSimulate(Client client, Entity pawn, PlayerPawnController additional)
+    public void FrameSimulate(IClient client, Entity pawn, PlayerPawnController additional)
     {
         Pawn = pawn;
         Client = client;

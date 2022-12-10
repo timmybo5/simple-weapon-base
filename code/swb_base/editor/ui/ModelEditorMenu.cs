@@ -48,7 +48,7 @@ public class ModelEditorMenu : Panel
 
         // Get data from active sight attachment
         var showButton = false;
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         var weapon = player.ActiveChild as WeaponBase;
         var activeAttach = weapon.GetActiveAttachmentFromCategory(AttachmentCategoryName.Sight);
         FOV = weapon.FOV;
@@ -176,7 +176,7 @@ public class ModelEditorMenu : Panel
 
     public override void Tick()
     {
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         if (player == null) return;
 
         activeWeapon = player.ActiveChild as WeaponBase;

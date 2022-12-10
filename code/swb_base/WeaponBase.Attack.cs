@@ -22,7 +22,7 @@ public partial class WeaponBase
         {
             if (Input.Pressed(inputButton))
             {
-                if (IsClient)
+                if (Game.IsClient)
                     PlaySound(clipInfo.DryFireSound);
 
                 // Check for auto reloading
@@ -94,14 +94,14 @@ public partial class WeaponBase
 
         if (clipInfo.Ammo > 0 && General.BoltBackTime > -1)
         {
-            if (IsServer)
+            if (Game.IsServer)
                 _ = AsyncBoltBack(GetRealRPM(clipInfo.RPM), General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, clipInfo.BulletEjectParticle, true);
         }
 
         // Shotgun
         if (this is WeaponBaseShotty shotty)
         {
-            if (IsServer)
+            if (Game.IsServer)
                 _ = shotty.EjectShell(bulletEjectParticle);
 
             bulletEjectParticle = "";
@@ -117,7 +117,7 @@ public partial class WeaponBase
         ShootEffects(clipInfo.MuzzleFlashParticle, bulletEjectParticle, GetShootAnimation(clipInfo));
 
         // Barrel smoke
-        if (IsServer && BarrelSmoking)
+        if (Game.IsServer && BarrelSmoking)
         {
             AddBarrelHeat();
             if (barrelHeat >= clipInfo.ClipSize * 0.75)
@@ -141,7 +141,7 @@ public partial class WeaponBase
             realSpread = IsZooming ? clipInfo.Spread / 4 : clipInfo.Spread;
         }
 
-        if (IsServer)
+        if (Game.IsServer)
         {
             for (int i = 0; i < clipInfo.Bullets; i++)
             {
@@ -192,7 +192,7 @@ public partial class WeaponBase
             PlaySound(clipInfo.ShootSound);
 
         // Shoot the bullets
-        if (IsServer)
+        if (Game.IsServer)
         {
             for (int i = 0; i < clipInfo.Bullets; i++)
             {
@@ -365,7 +365,7 @@ public partial class WeaponBase
     [ClientRpc]
     protected virtual void ShootEffects(string muzzleFlashParticle, string bulletEjectParticle, string shootAnim)
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         ModelEntity firingViewModel = GetEffectModel();
 

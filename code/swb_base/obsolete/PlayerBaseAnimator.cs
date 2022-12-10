@@ -37,11 +37,11 @@ public class PlayerBaseAnimator : PlayerPawnAnimator
         SetAnimParameter("b_grounded", GroundEntity != null || noclip || sitting);
         SetAnimParameter("b_noclip", noclip);
         SetAnimParameter("b_sit", sitting);
-        SetAnimParameter("b_swim", Pawn.WaterLevel > 0.5f && !sitting);
+        SetAnimParameter("b_swim", Pawn.GetWaterLevel() > 0.5f && !sitting);
 
-        if (Host.IsClient && Client.IsValid())
+        if (Game.IsClient && Client.IsValid())
         {
-            SetAnimParameter("voice", Client.TimeSinceLastVoice < 0.5f ? Client.VoiceLevel : 0.0f);
+            SetAnimParameter("voice", Client.Voice.LastHeard < 0.5f ? Client.Voice.LastHeard : 0.0f); ;
         }
 
         Vector3 aimPos = player.EyePosition + rotation.Forward * 200;

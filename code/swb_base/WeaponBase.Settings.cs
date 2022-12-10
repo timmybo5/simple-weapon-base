@@ -33,7 +33,7 @@ public partial class WeaponBase
     {
         string value;
 
-        if (IsClient)
+        if (Game.IsClient)
         {
             value = ConsoleSystem.GetValue(setting, defaultValue.ToString());
         }

@@ -55,7 +55,7 @@ partial class ViewModelBase : BaseViewModel
     {
         if (playerFOV == -1)
         {
-            playerFOV = Local.UserPreference.FieldOfView;
+            playerFOV = Game.Preferences.FieldOfView;
             finalPlayerFOV = playerFOV;
             targetWeaponFOV = weapon.FOV;
             finalWeaponFOV = weapon.FOV;

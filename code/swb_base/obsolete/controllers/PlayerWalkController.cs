@@ -136,7 +136,7 @@ public partial class PlayerWalkController : PlayerBaseController
         // RunLadderMode
 
         CheckLadder();
-        Swimming = Pawn.WaterLevel > 0.6f;
+        Swimming = Pawn.GetWaterLevel() > 0.6f;
 
         //
         // Start Gravity
@@ -249,7 +249,7 @@ public partial class PlayerWalkController : PlayerBaseController
             DebugOverlay.Box(Position, mins, maxs, Color.Blue);
 
             var lineOffset = 0;
-            if (Host.IsServer) lineOffset = 10;
+            if (Game.IsServer) lineOffset = 10;
 
             DebugOverlay.ScreenText($"        Position: {Position}", lineOffset + 0);
             DebugOverlay.ScreenText($"        Velocity: {Velocity}", lineOffset + 1);

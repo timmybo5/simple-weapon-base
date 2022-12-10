@@ -14,7 +14,7 @@ public class ThirdPersonCamera : CameraMode
         Camera.ZFar = 25000.0f;
         Camera.Rotation = player.ViewAngles.ToRotation();
 
-        Camera.FieldOfView = Local.UserPreference.FieldOfView;
+        Camera.FieldOfView = Game.Preferences.FieldOfView;
         Camera.FirstPersonViewer = null;
 
         Vector3 targetPos;

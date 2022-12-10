@@ -76,7 +76,7 @@ public class Laser : OffsetAttachment
     {
         this.weapon = weapon;
 
-        if (Host.IsClient)
+        if (Game.IsClient)
         {
             CreateParticle();
         }
@@ -86,7 +86,7 @@ public class Laser : OffsetAttachment
     {
         this.weapon = null;
 
-        if (Host.IsClient)
+        if (Game.IsClient)
         {
             DestroyParticle();
         }
@@ -96,7 +96,7 @@ public class Laser : OffsetAttachment
     public void OnFrame()
     {
         // Destroy laser when dropped or if weapon owner switches weapon
-        if (weapon != null && (weapon.Owner == null || (weapon.Owner != null && weapon.Owner != Local.Pawn && weapon.Owner is PlayerBase player && player.ActiveChild != weapon)))
+        if (weapon != null && (weapon.Owner == null || (weapon.Owner != null && weapon.Owner != Game.LocalPawn && weapon.Owner is PlayerBase player && player.ActiveChild != weapon)))
         {
             this.weapon = null;
             DestroyParticle();
@@ -109,7 +109,7 @@ public class Laser : OffsetAttachment
             foreach (var entity in Entity.All)
             {
                 // Find weapon with active laser that has no weapon assigned
-                if (entity is WeaponBase weapon && entity.Owner != null && entity.Owner != Local.Pawn)
+                if (entity is WeaponBase weapon && entity.Owner != null && entity.Owner != Game.LocalPawn)
                 {
                     var activeAttach = weapon.GetActiveAttachment(Name);
                     if (activeAttach == null || activeAttach.WorldAttachmentModel == null) continue;
@@ -130,7 +130,7 @@ public class Laser : OffsetAttachment
             if (activeAttach == null)
             {
                 // Delete laser for other clients
-                if (weapon.Owner != Local.Pawn)
+                if (weapon.Owner != Game.LocalPawn)
                 {
                     this.weapon = null;
                     DestroyParticle();
@@ -156,7 +156,7 @@ public class Laser : OffsetAttachment
 
             var showLaser = !weapon.ShouldTuck() && !weapon.IsScoped;
             var rangeMultiplier = 1;
-            var isOwner = Local.Pawn == weapon.Owner;
+            var isOwner = Game.LocalPawn == weapon.Owner;
 
             laserParticle.EnableDrawing = showLaser;
             //laserDotParticle.EnableDrawing = showLaser; -> bugs out
@@ -195,7 +195,7 @@ public class Laser : OffsetAttachment
             //LogUtil.Info(laserTrans.Rotation.Forward);
 
             var ownerPly = owner as PlayerBase;
-            var localPly = Local.Pawn as PlayerBase;
+            var localPly = Game.LocalPawn as PlayerBase;
             var eyePos = isOwner ? localPly.EyePosition : ownerPly.EyePosition;
             var eyeRot = isOwner ? localPly.EyeRotation : ownerPly.EyeRotation;
             Vector3 fromPos;

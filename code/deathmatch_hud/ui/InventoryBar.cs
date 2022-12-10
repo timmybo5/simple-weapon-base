@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Sandbox;
+using Sandbox.Diagnostics;
 using Sandbox.UI;
 using SWB_Base;
 
@@ -34,8 +35,7 @@ public class InventoryBar : Panel
 
         SetClass("active", IsOpen);
 
-        var player = Local.Pawn as PlayerBase;
-        if (player == null) return;
+        if (Game.LocalPawn is not PlayerBase player) return;
 
         Weapons.Clear();
         Weapons.AddRange(player.Children.Select(x => x as WeaponBase).Where(x => x.IsValid() && x.IsUsable()));
@@ -53,7 +53,7 @@ public class InventoryBar : Panel
     [Event.Client.BuildInput]
     public void ProcessClientInput()
     {
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         if (player == null) return;
 
         bool wantOpen = IsOpen;

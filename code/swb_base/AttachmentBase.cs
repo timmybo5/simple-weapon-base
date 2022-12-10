@@ -66,11 +66,11 @@ public abstract class OffsetAttachment : AttachmentBase
 
     public override AttachmentModel CreateModel(WeaponBase weapon)
     {
-        var model = new AttachmentModel(Host.IsClient);
+        var model = new AttachmentModel(Game.IsClient);
         model.Owner = weapon.Owner;
         model.SetModel(ModelPath);
 
-        if (Host.IsClient)
+        if (Game.IsClient)
         {
             model.SetParent(weapon.ViewModelEntity, ViewParentBone, ViewTransform);
         }

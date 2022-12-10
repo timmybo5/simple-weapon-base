@@ -1,5 +1,7 @@
 ﻿
 
+using Sandbox;
+
 namespace SWB_Base;
 
 public class PlayerUnstuck
@@ -39,7 +41,7 @@ public class PlayerUnstuck
         // Client can't jiggle its way out, needs to wait for
         // server correction to come
         //
-        if (Sandbox.Host.IsClient)
+        if (Game.IsClient)
             return true;
 
         int AttemptsPerTick = 20;

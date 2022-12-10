@@ -18,7 +18,7 @@ public partial class PlayerBase
     private float targetFlinch;
     private float flinchSpeed;
 
-    public override void Simulate(Client client)
+    public override void Simulate(IClient client)
     {
         SimulateBase(client);
         BulletSimulator.Simulate();

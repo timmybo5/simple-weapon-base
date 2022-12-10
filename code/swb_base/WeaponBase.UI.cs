@@ -24,19 +24,19 @@ public partial class WeaponBase
         var showHUDCL = GetSetting<bool>("swb_cl_showhud", true);
         var showHUDSV = GetSetting<bool>("swb_sv_showhud", true);
 
-        if (Local.Hud == null || !showHUDCL || !showHUDSV) return;
+        if (Game.RootPanel == null || !showHUDCL || !showHUDSV) return;
 
         if (UISettings.ShowCrosshair)
         {
             crosshair = CreateCrosshair();
-            crosshair.Parent = Local.Hud;
+            crosshair.Parent = Game.RootPanel;
         }
 
         if (UISettings.ShowHitmarker)
         {
             hitmarker = new Hitmarker
             {
-                Parent = Local.Hud
+                Parent = Game.RootPanel
             };
         }
 
@@ -44,7 +44,7 @@ public partial class WeaponBase
         {
             healthDisplay = new HealthDisplay(UISettings)
             {
-                Parent = Local.Hud
+                Parent = Game.RootPanel
             };
         }
 
@@ -52,7 +52,7 @@ public partial class WeaponBase
         {
             ammoDisplay = new AmmoDisplay(UISettings)
             {
-                Parent = Local.Hud
+                Parent = Game.RootPanel
             };
         }
     }
@@ -64,14 +64,14 @@ public partial class WeaponBase
 
     public override void DestroyHudElements()
     {
-        if (healthDisplay != null) healthDisplay.Delete(true);
-        if (ammoDisplay != null) ammoDisplay.Delete(true);
-        if (hitmarker != null) hitmarker.Delete(true);
-        if (crosshair != null) crosshair.Delete(true);
-        if (customizationMenu != null) customizationMenu.Delete();
+        healthDisplay?.Delete(true);
+        ammoDisplay?.Delete(true);
+        hitmarker?.Delete(true);
+        crosshair?.Delete(true);
+        customizationMenu?.Delete();
     }
 
-    public void UISimulate(Client player)
+    public void UISimulate(IClient player)
     {
         // Cutomization menu
         if (EnableCustomizationSV > 0 && Input.Pressed(InputButton.Menu) && AttachmentCategories != null)
@@ -79,7 +79,7 @@ public partial class WeaponBase
             if (customizationMenu == null)
             {
                 customizationMenu = new CustomizationMenu();
-                customizationMenu.Parent = Local.Hud;
+                customizationMenu.Parent = Game.RootPanel;
             }
             else
             {

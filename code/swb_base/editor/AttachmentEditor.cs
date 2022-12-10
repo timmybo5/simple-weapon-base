@@ -9,21 +9,21 @@ partial class PlayerBase
 
     public void ToggleAttachmentEditor()
     {
-        Host.AssertServer();
+        Game.AssertServer();
 
         ToggleAttachmentEditorCL(To.Single(this));
     }
 
     public bool IsAttachmentEditing()
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         return attachmentEditor != null;
     }
 
     public void CloseAttachmentEditor()
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         if (attachmentEditor != null)
         {
@@ -36,15 +36,14 @@ partial class PlayerBase
     [ClientRpc]
     public void ToggleAttachmentEditorCL()
     {
-        Host.AssertClient();
-
+        Game.AssertClient();
         CloseModelEditor();
 
         if (!IsAttachmentEditing())
         {
             Log.Info("Opened attachment editor!");
             attachmentEditor = new AttachmentEditorMenu();
-            attachmentEditor.Parent = Local.Hud;
+            attachmentEditor.Parent = Game.RootPanel;
         }
         else
         {

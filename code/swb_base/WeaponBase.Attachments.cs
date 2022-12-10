@@ -15,7 +15,7 @@ public partial class WeaponBase
 
     protected void InitAttachments()
     {
-        Host.AssertServer();
+        Game.AssertServer();
 
         foreach (var attachmentCategory in AttachmentCategories)
         {
@@ -117,12 +117,12 @@ public partial class WeaponBase
             return;
         }
 
-        var shouldCreateModel = IsServer ? activeAttachment.WorldAttachmentModel == null : true;
+        var shouldCreateModel = Game.IsServer ? activeAttachment.WorldAttachmentModel == null : true;
         var attachmentModel = attachment.Equip(this, shouldCreateModel);
 
         if (attachmentModel != null)
         {
-            if (IsClient)
+            if (Game.IsClient)
             {
                 activeAttachment.ViewAttachmentModel = attachmentModel;
             }
@@ -162,7 +162,7 @@ public partial class WeaponBase
     {
         var activeAttachment = GetActiveAttachment(name);
 
-        if (IsServer && activeAttachment != null)
+        if (Game.IsServer && activeAttachment != null)
         {
             ActiveAttachments.Remove(activeAttachment);
         }
@@ -189,7 +189,7 @@ public partial class WeaponBase
 
     async Task TryEquipAttachmentCL(string name, int instanceID)
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         var activeAttachment = GetActiveAttachment(name);
 
@@ -292,7 +292,7 @@ public partial class WeaponBase
 
     async Task TryHandleAttachmentsCL(int instanceID)
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         if (ActiveAttachments.Count > 0)
         {
@@ -316,7 +316,7 @@ public partial class WeaponBase
         if (AttachmentCategories != null)
         {
             // Initialize attachments on server
-            if (Host.IsServer && shouldEquip && !initializedAttachments)
+            if (Game.IsServer && shouldEquip && !initializedAttachments)
             {
                 initializedAttachments = true;
                 InitAttachments();

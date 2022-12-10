@@ -32,7 +32,7 @@ public class CustomizationMenu : Panel
 
     public CustomizationMenu() : base()
     {
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         if (player == null) return;
 
         activeWeapon = player.ActiveChild as WeaponBase;
@@ -382,7 +382,7 @@ public class CustomizationMenu : Panel
 
     public override void Tick()
     {
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         if (player == null) return;
 
         if (activeWeapon == null || activeWeapon != player.ActiveChild as WeaponBase)

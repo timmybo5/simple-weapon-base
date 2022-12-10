@@ -11,7 +11,7 @@ public partial class DeathmatchHud : HudEntity<RootPanel>
 
     public DeathmatchHud()
     {
-        if (!IsClient)
+        if (!Game.IsClient)
             return;
 
         RootPanel.StyleSheet.Load("deathmatch_hud/ui/DeathmatchHud.scss");
@@ -30,13 +30,13 @@ public partial class DeathmatchHud : HudEntity<RootPanel>
     [ClientRpc]
     public void OnPlayerDied(string victim, string attacker = null)
     {
-        Host.AssertClient();
+        Game.AssertClient();
     }
 
     [ClientRpc]
     public void ShowDeathScreen(string attackerName)
     {
-        Host.AssertClient();
+        Game.AssertClient();
     }
 
     [ClientRpc]

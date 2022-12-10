@@ -4,7 +4,7 @@ namespace SWB_Base;
 
 class LogUtil
 {
-    public static string Realm => Host.IsClient ? "(CLIENT)" : "(SERVER)";
+    public static string Realm => Game.IsClient ? "(CLIENT)" : "(SERVER)";
     public static string Prefix => "[SWB] " + Realm + " ";
 
     public static void Info(string msg)

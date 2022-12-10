@@ -10,21 +10,21 @@ partial class PlayerBase
 
     public void ToggleModelEditor()
     {
-        Host.AssertServer();
+        Game.AssertServer();
 
         ToggleModelEditorCL(To.Single(this));
     }
 
     public bool IsModelEditing()
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         return modelEditor != null;
     }
 
     public void CloseModelEditor()
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         if (modelEditor != null)
         {
@@ -36,7 +36,7 @@ partial class PlayerBase
     [ClientRpc]
     public void ToggleModelEditorCL()
     {
-        Host.AssertClient();
+        Game.AssertClient();
 
         CloseAttachmentEditor();
 
@@ -44,7 +44,7 @@ partial class PlayerBase
         {
             Log.Info("Opened model editor!");
             modelEditor = new ModelEditorMenu();
-            modelEditor.Parent = Local.Hud;
+            modelEditor.Parent = Game.RootPanel;
         }
         else
         {

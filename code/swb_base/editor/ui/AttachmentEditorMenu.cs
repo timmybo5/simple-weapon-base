@@ -39,7 +39,7 @@ public class AttachmentEditorMenu : ModelEditorMenu
     public AttachmentEditorMenu() : base()
     {
         // Weapon Model
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         if (player == null) return;
 
         activeWeapon = player.ActiveChild as WeaponBase;

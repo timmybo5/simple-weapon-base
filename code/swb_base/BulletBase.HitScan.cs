@@ -27,7 +27,7 @@ public class HitScanBullet : BulletBase
 
         if (!isValidEnt && !canPenetrate) return;
 
-        if (Host.IsClient)
+        if (Game.IsClient)
         {
             // Impact
             tr.Surface.DoBulletImpact(tr);
@@ -45,7 +45,7 @@ public class HitScanBullet : BulletBase
             }
         }
 
-        if (Host.IsServer && isValidEnt)
+        if (Game.IsServer && isValidEnt)
         {
             using (Prediction.Off())
             {

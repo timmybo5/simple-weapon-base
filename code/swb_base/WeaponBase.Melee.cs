@@ -90,7 +90,7 @@ public partial class WeaponBaseMelee : WeaponBase
         DoMeleeEffects(hitAnimation, sound);
         (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
-        if (!hitEntity || !IsServer) return;
+        if (!hitEntity || !Game.IsServer) return;
 
         using (Prediction.Off())
         {

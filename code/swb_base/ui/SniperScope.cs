@@ -43,7 +43,7 @@ public class SniperScope : Panel
     {
         base.Tick();
 
-        var player = Local.Pawn as PlayerBase;
+        var player = Game.LocalPawn as PlayerBase;
         if (player == null) return;
         if (player.ActiveChild is not WeaponBase weapon) return;
 

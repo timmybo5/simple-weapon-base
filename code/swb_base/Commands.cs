@@ -7,7 +7,7 @@ internal class Commands
     [ConCmd.Server("swb_damageme", Help = "damage me")]
     public static void DamageCommand(int amount = 10)
     {
-        Client client = ConsoleSystem.Caller;
+        var client = ConsoleSystem.Caller;
 
         if (client != null && client.Pawn is PlayerBase ply && ply.ActiveChild is WeaponBase weapon)
         {
@@ -22,7 +22,7 @@ internal class Commands
     [ConCmd.Server("swb_editor_model", Help = "Opens the model editor")]
     public static void OpenModelEditor()
     {
-        Client client = ConsoleSystem.Caller;
+        var client = ConsoleSystem.Caller;
 
         if (client != null)
         {
@@ -34,7 +34,7 @@ internal class Commands
     [ConCmd.Server("swb_editor_attachment", Help = "Opens the attachment editor")]
     public static void OpenAttachmentEditor()
     {
-        Client client = ConsoleSystem.Caller;
+        var client = ConsoleSystem.Caller;
 
         if (client != null)
         {
@@ -46,7 +46,7 @@ internal class Commands
     [ConCmd.Server("swb_attachment_equip", Help = "Equips an attachment by name")]
     public static void EquipAttachmentCMD(string name, bool enabled)
     {
-        Client client = ConsoleSystem.Caller;
+        var client = ConsoleSystem.Caller;
 
         if (client != null)
         {

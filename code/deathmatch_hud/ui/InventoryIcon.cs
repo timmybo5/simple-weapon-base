@@ -27,7 +27,7 @@ class InventoryIcon : Panel
     {
         base.Tick();
 
-        if (!Weapon.IsValid() || Weapon.Owner != Local.Pawn)
+        if (!Weapon.IsValid() || Weapon.Owner != Game.LocalPawn)
             Delete();
     }
 }
