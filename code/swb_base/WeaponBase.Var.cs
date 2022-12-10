@@ -39,7 +39,7 @@ public partial class WeaponBase
     public virtual bool BarrelSmoking => true;
 
     /// <summary>Default weapon FOV</summary>
-    public virtual int FOV => 75;
+    public virtual int FOV => 90;
 
     /// <summary>Weapon FOV while zooming</summary>
     public virtual int ZoomWeaponFOV => -1;
