@@ -6,13 +6,8 @@ using SWB_Base.Translations;
 
 namespace SWB_Base.UI;
 
-[UseTemplate]
 public class CustomizationMenu : Panel
 {
-    public Panel Menu { get; set; }
-    public Panel Categories { get; set; }
-    public Label WeaponName { get; set; }
-
     private WeaponBase activeWeapon;
     private Panel activeCategoryP;
     private string activeCategoryPName;
@@ -30,10 +25,11 @@ public class CustomizationMenu : Panel
     private int catActiveAttachPIconWrapperIndex;
     private Translator translator;
 
-    public CustomizationMenu() : base()
+    public CustomizationMenu()
     {
-        var player = Game.LocalPawn as PlayerBase;
-        if (player == null) return;
+        StyleSheet.Load("/swb_base/ui/CustomizationMenu.scss");
+
+        if (Game.LocalPawn is not PlayerBase player) return;
 
         activeWeapon = player.ActiveChild as WeaponBase;
 
@@ -43,9 +39,12 @@ public class CustomizationMenu : Panel
             return;
         }
 
+        var menu = Add.Panel("menu");
+        menu.Add.Label(activeWeapon.PrintName, "title");
+        var categories = menu.Add.Panel("categories");
+
         translator = Translator.GetInstance();
         previewMaterial = Material.Load("materials/swb/attachments/preview.vmat");
-        WeaponName.Text = activeWeapon.PrintName;
         activeWeapon.AttachmentCategories.Sort();
 
         // Add categories
@@ -57,7 +56,7 @@ public class CustomizationMenu : Panel
                 continue;
             }
 
-            var categoryP = new Panel(Categories, "category");
+            var categoryP = new Panel(categories, "category");
             var catName = cat.Name.ToString();
             categoryP.Add.Label(catName, "name");
             var catActiveAttachP = categoryP.Add.Panel("activeAttachment");
@@ -94,7 +93,7 @@ public class CustomizationMenu : Panel
         }
 
         // Add stats
-        Menu.AddChild(new StatsDisplay(activeWeapon));
+        menu.AddChild(new StatsDisplay(activeWeapon));
     }
 
     private void CloseActiveCategory()

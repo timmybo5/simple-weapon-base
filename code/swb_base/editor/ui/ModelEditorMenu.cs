@@ -5,15 +5,14 @@ using SWB_Base.Attachments;
 
 namespace SWB_Base.Editor;
 
-[UseTemplate]
-public class ModelEditorMenu : Panel
+public enum DragMode
 {
-    private enum DragMode
-    {
-        pos = 0,
-        angle = 1,
-    }
+    pos = 0,
+    angle = 1,
+}
 
+public partial class ModelEditorMenu
+{
     public virtual bool InvertedX => false;
 
     public float X { get; set; } = 0f;
@@ -42,8 +41,10 @@ public class ModelEditorMenu : Panel
 
     private WeaponBase activeWeapon;
 
-    public ModelEditorMenu()
+    protected override void OnAfterTreeRender(bool firstTime)
     {
+        if (!firstTime) return;
+
         DragModeLabel.Text = "x/z";
 
         // Get data from active sight attachment
@@ -176,8 +177,7 @@ public class ModelEditorMenu : Panel
 
     public override void Tick()
     {
-        var player = Game.LocalPawn as PlayerBase;
-        if (player == null) return;
+        if (Game.LocalPawn is not PlayerBase player) return;
 
         activeWeapon = player.ActiveChild as WeaponBase;
         bool isValidWeapon = activeWeapon != null;
@@ -194,5 +194,10 @@ public class ModelEditorMenu : Panel
 
             viewModel.EditorFOV = FOV;
         }
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(DateTime.Now.ToString());
     }
 }

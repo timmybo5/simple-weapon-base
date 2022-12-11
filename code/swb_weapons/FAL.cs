@@ -80,7 +80,7 @@ public class FAL : WeaponBase
         CustomizeAnimData = new AngPos
         {
             Angle = new Angles(-2.25f, 51.84f, 0f),
-            Pos = new Vector3(11.22f, -4.96f, 1.078f)
+            Pos = new Vector3(9.431f, -5.299f, 1.078f)
         };
 
         // Attachments //

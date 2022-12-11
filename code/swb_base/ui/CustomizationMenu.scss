@@ -7,7 +7,7 @@ $col-green: #2ecc71;
 $col-green-trans: #2ecc7196;
 $col-red: #e84118;
 
-.background {
+CustomizationMenu {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -172,7 +172,7 @@ $col-red: #e84118;
             }
         }
 
-        .statsDisplay {
+        StatsDisplay {
             margin-top: auto;
             height: 20%;
             width: 100%;

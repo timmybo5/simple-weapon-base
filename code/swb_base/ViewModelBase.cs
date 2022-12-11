@@ -104,7 +104,10 @@ partial class ViewModelBase : BaseViewModel
                 targetVectorPos += EditorOffset.Pos;
             }
 
-            targetWeaponFOV = EditorFOV;
+            if (EditorFOV > 1)
+            {
+                targetWeaponFOV = EditorFOV;
+            }
 
             return;
         };

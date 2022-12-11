@@ -1,15 +1,15 @@
-﻿swb_SliderEntry {
+﻿SliderEntry {
     font-family: Poppins;
 
     Slider {
         width: 80%;
     }
 
-    TextEntry {
+    .TextEntry {
         justify-content: center;
         align-items: center;
-        width: 60px;
         height: 30px;
+        width: 60px;
         border-radius: 12px;
         margin-right: 10px;
         background-color: rgba( black, 0.5 );

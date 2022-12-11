@@ -1,5 +1,4 @@
-﻿using Sandbox;
-using Sandbox.UI;
+﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
 
 namespace SWB_Base.Editor;
@@ -7,10 +6,8 @@ namespace SWB_Base.Editor;
 /// <summary>
 /// A horizontal slider with a text entry on the right
 /// </summary>
-[Library("swb_SliderEntry")]
 public class SliderEntry : Panel
 {
-
     public Slider Slider { get; protected set; }
     public TextEntry TextEntry { get; protected set; }
 

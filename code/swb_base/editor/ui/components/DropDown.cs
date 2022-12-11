@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sandbox;
 using Sandbox.Html;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
@@ -11,7 +10,7 @@ namespace SWB_Base.Editor;
 /// <summary>
 /// A UI control which provides multiple options via a dropdown box
 /// </summary>
-[Library("swb_Select"), Alias("swb_Dropdown")]
+//[Library("swb_Select"), Alias("swb_Dropdown")]
 public class DropDown : PopupButton
 {
     protected IconPanel DropdownIndicator;

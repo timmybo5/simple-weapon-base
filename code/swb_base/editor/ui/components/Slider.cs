@@ -8,7 +8,6 @@ namespace SWB_Base.Editor;
 /// <summary>
 /// A horizontal slider. Can be float or whole number.
 /// </summary>
-[Library("swb_Slider")]
 public class Slider : Panel
 {
     public Panel Track { get; protected set; }

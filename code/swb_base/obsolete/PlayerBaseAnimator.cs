@@ -73,7 +73,7 @@ public class PlayerBaseAnimator : PlayerPawnAnimator
 
     public virtual void DoRotation(Rotation idealRotation)
     {
-        var player = Pawn as Player;
+        var player = Pawn as PlayerBase;
 
         //
         // Our ideal player model rotation is the way we're facing

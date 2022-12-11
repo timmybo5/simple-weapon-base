@@ -4,8 +4,7 @@ using Sandbox.UI;
 
 namespace SWB_Base.UI;
 
-[UseTemplate]
-public class StatsDisplay : Panel
+public partial class StatsDisplay : Panel
 {
     public Panel AccuracyDefaultP { get; set; }
     public Panel AccuracyDiffP { get; set; }

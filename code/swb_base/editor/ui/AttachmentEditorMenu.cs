@@ -6,9 +6,14 @@ using Sandbox.UI;
 
 namespace SWB_Base.Editor;
 
-[UseTemplate]
-public class AttachmentEditorMenu : ModelEditorMenu
+public partial class AttachmentEditorMenu
 {
+    public float X { get; set; } = 0f;
+    public float Y { get; set; } = 0f;
+    public float Z { get; set; } = 0f;
+    public float Pitch { get; set; } = 0f;
+    public float Yaw { get; set; } = 0f;
+    public float Roll { get; set; } = 0f;
     public float Scale { get; set; } = 1f;
     public string BoneName { get; set; }
 
@@ -17,6 +22,9 @@ public class AttachmentEditorMenu : ModelEditorMenu
     public Button ViewModelButton { get; set; }
     public Button WorldModelButton { get; set; }
     public ModelDisplay ModelDisplay { get; set; }
+
+    public Label DragModeLabel { get; set; }
+    private DragMode dragMode = DragMode.pos;
 
     private AttachmentModel activeModel;
     private WeaponBase activeWeapon;
@@ -29,6 +37,13 @@ public class AttachmentEditorMenu : ModelEditorMenu
     private bool isValidAttachment;
     private bool isEditingViewModel = true;
 
+    private float startX;
+    private float startY;
+    private float xOrigin;
+    private float zOrigin;
+    private float pitchOrigin;
+    private float yawOrigin;
+
     private string[] blacklistedBones = new string[] {
         "l_",
         "r_",
@@ -36,11 +51,14 @@ public class AttachmentEditorMenu : ModelEditorMenu
         "c_"
     };
 
-    public AttachmentEditorMenu() : base()
+    protected override void OnAfterTreeRender(bool firstTime)
     {
+        if (!firstTime) return;
+
+        DragModeLabel.Text = "x/z";
+
         // Weapon Model
-        var player = Game.LocalPawn as PlayerBase;
-        if (player == null) return;
+        if (Game.LocalPawn is not PlayerBase player) return;
 
         activeWeapon = player.ActiveChild as WeaponBase;
 
@@ -92,9 +110,62 @@ public class AttachmentEditorMenu : ModelEditorMenu
     }
 
     // No dragging if not directly on base panel
-    public override bool CanDragOnPanel(Panel p)
+    public bool CanDragOnPanel(Panel p)
     {
         return p.ElementName == "attachmenteditormenu" || p.ElementName == "scenepanel";
+    }
+
+    protected override void OnMouseMove(MousePanelEvent e)
+    {
+        base.OnMouseMove(e);
+
+        if (!HasActive || !CanDragOnPanel(e.Target)) return;
+
+        if (dragMode == DragMode.pos)
+        {
+
+            X = xOrigin - (startX - Mouse.Position.x) * 0.001f;
+            Z = zOrigin + (startY - Mouse.Position.y) * 0.001f;
+        }
+        else
+        {
+            Yaw = yawOrigin + (startX - Mouse.Position.x) * 0.01f;
+            Pitch = pitchOrigin - (startY - Mouse.Position.y) * 0.01f;
+        }
+
+        SkipTransitions();
+        e.StopPropagation();
+    }
+
+    protected override void OnRightClick(MousePanelEvent e)
+    {
+        if (dragMode == DragMode.pos)
+        {
+            DragModeLabel.Text = "yaw/pitch";
+            dragMode = DragMode.angle;
+        }
+        else
+        {
+            DragModeLabel.Text = "x/z";
+            dragMode = DragMode.pos;
+        }
+    }
+
+    protected override void OnMouseDown(MousePanelEvent e)
+    {
+        base.OnMouseDown(e);
+
+        if (!CanDragOnPanel(e.Target)) return;
+
+        startX = Mouse.Position.x;
+        startY = Mouse.Position.y;
+
+        xOrigin = X;
+        zOrigin = Z;
+        pitchOrigin = Pitch;
+        yawOrigin = Yaw;
+
+        e.StopPropagation();
     }
 
     public void OnClose()
@@ -196,20 +267,21 @@ public class AttachmentEditorMenu : ModelEditorMenu
         CreateAttachmentModels();
     }
 
-    public override void OnReset()
+    public void OnReset()
     {
-        base.OnReset();
+        X = 0;
+        Y = 0;
+        Z = 0;
+        Pitch = 0;
+        Yaw = 0;
+        Roll = 0;
         Scale = 1f;
     }
 
-    public override void OnCopy()
+    public void OnCopy()
     {
         var dataStr = String.Format("new Transform {{ Position = new Vector3({3:0.###}f, {4:0.###}f, {5:0.###}f), Rotation = Rotation.From(new Angles({0:0.###}f, {1:0.###}f, {2:0.###}f)), Scale = {6:0.###}f }},", Pitch, Yaw, Roll, X, Y, Z, Scale);
         Clipboard.SetText(dataStr);
-    }
-
-    public override void Tick()
-    {
     }
 
     // Model switching
@@ -345,5 +417,10 @@ public class AttachmentEditorMenu : ModelEditorMenu
             Angle = new Angles(isEditingViewModel ? 45 : -worldModelRotationAmount, 0, 0),
             Pos = new Vector3(0, -5 * downRotation, 20),
         });
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(DateTime.Now.ToString());
     }
 }
