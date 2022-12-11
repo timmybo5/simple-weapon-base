@@ -13,7 +13,6 @@ public class ThirdPersonCamera : CameraMode
         Camera.ZNear = 1f;
         Camera.ZFar = 25000.0f;
         Camera.Rotation = player.ViewAngles.ToRotation();
-
         Camera.FieldOfView = Game.Preferences.FieldOfView;
         Camera.FirstPersonViewer = null;
 
@@ -34,5 +33,9 @@ public class ThirdPersonCamera : CameraMode
             .Run();
 
         Camera.Position = tr.EndPosition;
+
+        // Look at crosshair pos (Smooth on CL)
+        player.EyeRotation = Camera.Rotation;
+        player.EyePosition = Camera.Position;
     }
 }
