@@ -70,8 +70,12 @@ public partial class PlayerBase : AnimatedEntity
         get => Components.Get<CameraMode>();
         set
         {
-            Components.RemoveAny<CameraMode>(); // Temp workaround
-            Components.Add(value);
+            // Server only otherwise breaks refs
+            if (Game.IsServer)
+            {
+                Components.RemoveAny<CameraMode>(); // Temp workaround
+                Components.Add(value);
+            }
         }
     }
 

@@ -70,7 +70,14 @@ public partial class ExamplePlayer : PlayerBase
         base.Simulate(cl);
 
         if (LifeState != LifeState.Alive)
+        {
+            if (CameraMode is not DeathCamera)
+            {
+                CameraMode = new DeathCamera();
+            }
+
             return;
+        }
 
         TickPlayerUse();
 

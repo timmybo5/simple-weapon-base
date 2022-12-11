@@ -1,6 +1,5 @@
 ﻿using Sandbox;
-
-namespace SWB_Base;
+using SWB_Base;
 
 internal class ExampleCommands
 {
