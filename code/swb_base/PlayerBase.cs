@@ -23,11 +23,9 @@ public partial class PlayerBase
         SimulateBase(client);
         BulletSimulator.Simulate();
 
-        // Look at crosshair pos
         if (CameraMode is ThirdPersonCamera)
         {
-            EyeRotation = Camera.Rotation;
-            EyePosition = Camera.Position;
+            EyeRotation = ThirdPersonCamera.GetEyeRotation(this);
         }
     }
 

@@ -44,7 +44,7 @@ public class CustomizationMenu : Panel
         var categories = menu.Add.Panel("categories");
 
         translator = Translator.GetInstance();
-        previewMaterial = Material.Load("materials/swb/attachments/preview.vmat");
+        previewMaterial = Material.Load("materials/swb/attachments/preview_2.vmat");
         activeWeapon.AttachmentCategories.Sort();
 
         // Add categories

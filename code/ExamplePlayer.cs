@@ -69,16 +69,6 @@ public partial class ExamplePlayer : PlayerBase
     {
         base.Simulate(cl);
 
-        if (LifeState != LifeState.Alive)
-        {
-            if (CameraMode is not DeathCamera)
-            {
-                CameraMode = new DeathCamera();
-            }
-
-            return;
-        }
-
         TickPlayerUse();
 
         if (Input.Pressed(InputButton.View))
@@ -131,6 +121,7 @@ public partial class ExamplePlayer : PlayerBase
     {
         base.OnKilled();
 
+        CameraMode = new DeathCamera();
         var attacker = LastAttacker as PlayerBase;
 
         if (attacker != null && LastDamage.Weapon is WeaponBase weapon && GameManager.Current is ExampleGame game)
