@@ -116,11 +116,67 @@ public abstract class OffsetAttachment : AttachmentBase
     }
 }
 
-// Attachments using bodygroups (TODO)
-public abstract class BodygroupAttachment : AttachmentBase
+// Attachments using bodygroups
+public abstract class BodyGroupAttachment : AttachmentBase
 {
-    // viewbodygroup
-    // worldbodygroup
+    /// <summary>The name of the body group</summary>
+    public virtual string BodyGroup { get; set; }
+
+    /// <summary>The name of the body group choice</summary>
+    public virtual int BodyGroupChoice { get; set; }
+
+    /// <summary>The default target body group value</summary>
+    public virtual int BodyGroupDefault { get; set; } = 0;
+
+    private void SetBodyGroup(WeaponBase weapon, int choice)
+    {
+        if (Game.IsClient)
+        {
+            weapon.ViewModelEntity?.SetBodyGroup(BodyGroup, choice);
+        }
+        else
+        {
+            weapon.SetBodyGroup(BodyGroup, choice);
+        }
+    }
+
+    public override AttachmentModel CreateModel(WeaponBase weapon)
+    {
+        // Not possible to get mesh from bodygroup
+        return null;
+    }
+
+    public override AttachmentModel Equip(WeaponBase weapon, bool createModel = true)
+    {
+        // Model
+        if (createModel)
+        {
+            SetBodyGroup(weapon, BodyGroupChoice);
+        }
+
+        // Stats
+        if (StatModifier != null)
+        {
+            StatModifier.Apply(weapon);
+        }
+
+        OnEquip(weapon, null);
+        return null;
+    }
+
+    public override void Unequip(WeaponBase weapon)
+    {
+        // Model
+        SetBodyGroup(weapon, BodyGroupDefault);
+
+        // Stats
+        if (StatModifier != null)
+        {
+            StatModifier.Remove(weapon);
+        }
+
+        OnUnequip(weapon);
+    }
 }
 
 // General attachment

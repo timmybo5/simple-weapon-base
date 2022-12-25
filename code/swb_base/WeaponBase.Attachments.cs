@@ -260,6 +260,14 @@ public partial class WeaponBase
             await GameTask.DelaySeconds(0.01f);
         }
 
+        // Wait for initialized stats
+        if (InitialStats == null)
+        {
+            await GameTask.DelaySeconds(0.1f);
+            await EquipAttachmentSV(name);
+            return;
+        }
+
         ToggleRequiredAttachment(name, true);
 
         // Server

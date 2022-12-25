@@ -346,13 +346,16 @@ public partial class WeaponBase
             var attachment = GetAttachment(activeAttachment.Name);
             particleAttachment = attachment.EffectAttachment;
 
-            if (CanSeeViewModel())
+            if (attachment is OffsetAttachment)
             {
-                effectEntity = activeAttachment.ViewAttachmentModel;
-            }
-            else
-            {
-                effectEntity = activeAttachment.WorldAttachmentModel;
+                if (CanSeeViewModel())
+                {
+                    effectEntity = activeAttachment.ViewAttachmentModel;
+                }
+                else
+                {
+                    effectEntity = activeAttachment.WorldAttachmentModel;
+                }
             }
         }
 
