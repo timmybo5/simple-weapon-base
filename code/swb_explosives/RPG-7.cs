@@ -18,8 +18,6 @@ public class RPG7 : WeaponBaseEntity
     };
     public override string WorldModelPath => "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl";
     public override string Icon => "code/swb_explosives/textures/ui/icon_rpg7.png";
-    public override int FOV => 90;
-    public override float WalkAnimationSpeedMod => 0.7f;
     public override bool BulletCocking => false;
 
     public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateRocketEntity;
@@ -39,8 +37,10 @@ public class RPG7 : WeaponBaseEntity
 
         General = new WeaponInfo
         {
-            ReloadTime = 4f,
+            FOV = 75,
+            WalkAnimationSpeedMod = 0.7f,
 
+            ReloadTime = 4f,
             DrawEmptyAnim = "deploy_empty",
         };
 

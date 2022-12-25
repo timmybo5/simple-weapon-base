@@ -238,7 +238,7 @@ public partial class WeaponBase : CarriableBase
         // Mouse sensitivity
         if (IsZooming)
         {
-            player.ViewAngles = MathUtil.FILerp(player.OriginalViewAngles, player.ViewAngles, AimSensitivity * 90);
+            player.ViewAngles = MathUtil.FILerp(player.OriginalViewAngles, player.ViewAngles, General.AimSensitivity * 90);
         }
 
         // Recoil

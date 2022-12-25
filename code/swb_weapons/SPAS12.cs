@@ -15,8 +15,6 @@ public class SPAS12 : WeaponBaseShotty
     public override string ViewModelPath => "weapons/swb/shotguns/spas/v_spas12.vmdl";
     public override string WorldModelPath => "weapons/swb/shotguns/spas/w_spas12.vmdl";
     public override string Icon => "code/swb_weapons/textures/spas12.png";
-    public override int FOV => 90;
-    public override float WalkAnimationSpeedMod => 0.9f;
 
     public override float ShellReloadTimeStart => 0.4f;
     public override float ShellReloadTimeInsert => 0.65f;
@@ -24,6 +22,12 @@ public class SPAS12 : WeaponBaseShotty
 
     public SPAS12()
     {
+        General = new WeaponInfo
+        {
+            FOV = 90,
+            WalkAnimationSpeedMod = 0.9f
+        };
+
         Primary = new ClipInfo
         {
             Ammo = 8,

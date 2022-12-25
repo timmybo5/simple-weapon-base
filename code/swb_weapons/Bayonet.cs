@@ -17,8 +17,6 @@ public class Bayonet : WeaponBaseMelee
     };
     public override string WorldModelPath => "weapons/swb/melee/bayonet/w_bayonet.vmdl";
     public override string Icon => "code/swb_weapons/textures/bayonet.png";
-    public override int FOV => 75;
-    public override float WalkAnimationSpeedMod => 1.25f;
 
     public override string PrimaryHitAnimation => "swing";
     public override string PrimaryMissAnimation => "swing_miss";
@@ -39,6 +37,12 @@ public class Bayonet : WeaponBaseMelee
 
     public Bayonet()
     {
+        General = new WeaponInfo
+        {
+            FOV = 75,
+            WalkAnimationSpeedMod = 1.25f,
+        };
+
         UISettings = new UISettings
         {
             ShowCrosshairLines = false,

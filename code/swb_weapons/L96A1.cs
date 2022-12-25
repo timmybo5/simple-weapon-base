@@ -20,10 +20,6 @@ public class L96A1 : WeaponBaseSniper
     };
     public override string WorldModelPath => "weapons/swb/snipers/l96a1/w_l96a1.vmdl";
     public override string Icon => "code/swb_weapons/textures/l96a1.png";
-    public override int FOV => 90;
-    public override int ZoomPlayerFOV => 15;
-    public override float WalkAnimationSpeedMod => 0.8f;
-    public override float AimSensitivity => 0.25f;
 
     public override string LensTexture => "/materials/swb/scopes/swb_lens_hunter.png";
     public override string ScopeTexture => "/materials/swb/scopes/swb_scope_hunter.png";
@@ -39,9 +35,13 @@ public class L96A1 : WeaponBaseSniper
 
         General = new WeaponInfo
         {
+            FOV = 90,
+            ZoomPlayerFOV = 15,
+            WalkAnimationSpeedMod = 0.8f,
+            AimSensitivity = 0.25f,
+
             DrawTime = 0.5f,
             ReloadTime = 1.8f,
-
             BoltBackTime = 1.6f,
             BoltBackEjectDelay = 0.5f
         };

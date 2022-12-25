@@ -16,13 +16,14 @@ public class M4A1 : WeaponBase
     public override string ViewModelPath => "weapons/swb/css/m4a1/css_v_m4a1.vmdl";
     public override string WorldModelPath => "weapons/swb/css/m4a1/css_w_m4a1.vmdl";
     public override string Icon => "code/swb_css/textures/ui/css_icon_m4a1.png";
-    public override int FOV => 75;
-    public override float WalkAnimationSpeedMod => 0.85f;
 
     public M4A1()
     {
         General = new WeaponInfo
         {
+            FOV = 75,
+            WalkAnimationSpeedMod = 0.85f,
+
             ReloadTime = 3.05f
         };
 

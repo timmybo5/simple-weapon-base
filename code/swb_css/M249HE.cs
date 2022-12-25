@@ -16,8 +16,6 @@ public class M249HE : WeaponBaseEntity
     public override string ViewModelPath => "weapons/swb/css/m249/css_v_mach_m249para.vmdl";
     public override string WorldModelPath => "weapons/swb/css/m249/css_w_mach_m249para.vmdl";
     public override string Icon => "code/swb_css/textures/ui/css_icon_m249he.png";
-    public override int FOV => 75;
-    public override float WalkAnimationSpeedMod => 0.7f;
 
     public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;
     public override string EntityModel => "weapons/swb/css/grenade_he/css_w_grenade_he_thrown.vmdl";
@@ -34,6 +32,9 @@ public class M249HE : WeaponBaseEntity
 
         General = new WeaponInfo
         {
+            FOV = 75,
+            WalkAnimationSpeedMod = 0.7f,
+
             ReloadTime = 5.7f
         };
 

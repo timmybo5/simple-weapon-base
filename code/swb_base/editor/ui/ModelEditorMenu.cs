@@ -52,7 +52,7 @@ public partial class ModelEditorMenu
         var player = Game.LocalPawn as PlayerBase;
         var weapon = player.ActiveChild as WeaponBase;
         var activeAttach = weapon.GetActiveAttachmentFromCategory(AttachmentCategoryName.Sight);
-        FOV = weapon.FOV;
+        FOV = weapon.General.FOV;
 
         if (activeAttach != null && AttachmentAnimDataButton != null)
         {
@@ -77,7 +77,7 @@ public partial class ModelEditorMenu
         Pitch = 0;
         Yaw = 0;
         Roll = 0;
-        FOV = activeWeapon.FOV;
+        FOV = activeWeapon.General.FOV;
     }
 
     public virtual void OnCopy()

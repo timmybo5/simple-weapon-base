@@ -15,13 +15,14 @@ public class AK47 : WeaponBase
     public override string ViewModelPath => "weapons/swb/css/ak47/css_v_rif_ak47.vmdl";
     public override string WorldModelPath => "weapons/swb/css/ak47/css_w_rif_ak47.vmdl";
     public override string Icon => "code/swb_css/textures/ui/css_icon_ak47.png";
-    public override int FOV => 75;
-    public override float WalkAnimationSpeedMod => 0.85f;
 
     public AK47()
     {
         General = new WeaponInfo
         {
+            FOV = 75,
+            WalkAnimationSpeedMod = 0.85f,
+
             ReloadTime = 2.17f
         };
 

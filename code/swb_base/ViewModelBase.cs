@@ -55,8 +55,8 @@ partial class ViewModelBase : BaseViewModel
         if (targetWeaponFOV == -1)
         {
             finalPlayerFOV = Game.Preferences.FieldOfView;
-            targetWeaponFOV = weapon.FOV;
-            finalWeaponFOV = weapon.FOV;
+            targetWeaponFOV = weapon.General.FOV;
+            finalWeaponFOV = weapon.General.FOV;
         }
 
         Rotation = this.player.ViewAngles.ToRotation();
@@ -74,7 +74,7 @@ partial class ViewModelBase : BaseViewModel
         finalVectorRot = finalVectorRot.LerpTo(targetVectorRot, animSpeed * RealTime.Delta);
         finalPlayerFOV = MathX.LerpTo(finalPlayerFOV, targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta);
         finalWeaponFOV = MathX.LerpTo(finalWeaponFOV, targetWeaponFOV, playerFOVSpeed * animSpeed * RealTime.Delta);
-        animSpeed = 10 * weapon.WalkAnimationSpeedMod;
+        animSpeed = 10 * weapon.General.WalkAnimationSpeedMod;
 
         // Change the angles and positions of the viewmodel with the new vectors
         Rotation *= Rotation.From(finalVectorRot.x, finalVectorRot.y, finalVectorRot.z);
@@ -91,7 +91,7 @@ partial class ViewModelBase : BaseViewModel
         targetVectorPos = new Vector3(weapon.ViewModelOffset.Pos);
         targetVectorRot = MathUtil.ToVector3(weapon.ViewModelOffset.Angle);
         targetPlayerFOV = Game.Preferences.FieldOfView;
-        targetWeaponFOV = weapon.FOV;
+        targetWeaponFOV = weapon.General.FOV;
 
         // Model editor
         if (Owner is PlayerBase player && (player.IsModelEditing() || player.IsAttachmentEditing()))
@@ -214,26 +214,26 @@ partial class ViewModelBase : BaseViewModel
                 speedMod = timeDiff * 10;
             }
 
-            animSpeed = 10 * weapon.WalkAnimationSpeedMod * speedMod;
+            animSpeed = 10 * weapon.General.WalkAnimationSpeedMod * speedMod;
             targetVectorPos += weapon.ZoomAnimData.Pos;
             targetVectorRot += MathUtil.ToVector3(weapon.ZoomAnimData.Angle);
 
-            if (weapon.ZoomPlayerFOV > 0)
-                targetPlayerFOV = weapon.ZoomPlayerFOV;
+            if (weapon.General.ZoomPlayerFOV > 0)
+                targetPlayerFOV = weapon.General.ZoomPlayerFOV;
 
-            if (weapon.ZoomWeaponFOV > 0)
-                targetWeaponFOV = weapon.ZoomWeaponFOV;
+            if (weapon.General.ZoomWeaponFOV > 0)
+                targetWeaponFOV = weapon.General.ZoomWeaponFOV;
 
-            playerFOVSpeed = weapon.ZoomInFOVSpeed;
+            playerFOVSpeed = weapon.General.ZoomInFOVSpeed;
         }
         else
         {
             zoomTime = 0;
-            targetWeaponFOV = weapon.FOV;
+            targetWeaponFOV = weapon.General.FOV;
 
-            if (finalPlayerFOV != weapon.ZoomPlayerFOV)
+            if (finalPlayerFOV != weapon.General.ZoomPlayerFOV)
             {
-                playerFOVSpeed = weapon.ZoomOutFOVSpeed;
+                playerFOVSpeed = weapon.General.ZoomOutFOVSpeed;
             }
         }
     }

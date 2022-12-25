@@ -15,10 +15,6 @@ public class AWP : WeaponBaseSniper
     public override string ViewModelPath => "weapons/swb/css/awp/css_v_awp.vmdl";
     public override string WorldModelPath => "weapons/swb/css/awp/css_w_awp.vmdl";
     public override string Icon => "code/swb_css/textures/ui/css_icon_awp.png";
-    public override int FOV => 75;
-    public override int ZoomPlayerFOV => 15;
-    public override float WalkAnimationSpeedMod => 0.8f;
-    public override float AimSensitivity => 0.25f;
 
     public override string LensTexture => "/materials/swb/scopes/swb_lens_hunter.png";
     public override string ScopeTexture => "/materials/swb/scopes/swb_scope_hunter.png";
@@ -34,6 +30,11 @@ public class AWP : WeaponBaseSniper
 
         General = new WeaponInfo
         {
+            FOV = 75,
+            ZoomPlayerFOV = 15,
+            WalkAnimationSpeedMod = 0.8f,
+            AimSensitivity = 0.25f,
+
             ReloadTime = 3.67f
         };
 

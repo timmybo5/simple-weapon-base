@@ -38,21 +38,6 @@ public partial class WeaponBase
     /// <summary>Should the barrel smoke after heavy weapon usage?</summary>
     public virtual bool BarrelSmoking => true;
 
-    /// <summary>Default weapon FOV</summary>
-    public virtual int FOV => 90;
-
-    /// <summary>Weapon FOV while zooming</summary>
-    public virtual int ZoomWeaponFOV => -1;
-
-    /// <summary>Player FOV while zooming</summary>
-    public virtual int ZoomPlayerFOV => -1;
-
-    /// <summary>FOV zoom in speed</summary>
-    public virtual int ZoomInFOVSpeed => 1;
-
-    /// <summary>FOV zoom out speed</summary>
-    public virtual int ZoomOutFOVSpeed => 10;
-
     /// <summary>Range that tucking should be enabled (-1 to disable tucking)</summary>
     public virtual float TuckRange => 30;
 
@@ -73,12 +58,6 @@ public partial class WeaponBase
 
     /// <summary>Path to an image that represent the weapon on the HUD</summary>
     public virtual string Icon => "";
-
-    /// <summary>Procedural animation speed (lower is slower)</summary>
-    public virtual float WalkAnimationSpeedMod => 1;
-
-    /// <summary>Aim sensitivity while zooming (lower is slower)</summary>
-    public virtual float AimSensitivity => 0.85f;
 
     /// <summary>Delay before firing when the primary attack button is pressed</summary>
     public virtual float PrimaryDelay => -1;

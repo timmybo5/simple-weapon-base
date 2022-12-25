@@ -16,7 +16,6 @@ public class GrenadeHE : WeaponBaseEntity
     public override string ViewModelPath => "weapons/swb/css/grenade_he/css_v_grenade_he.vmdl";
     public override string WorldModelPath => "weapons/swb/css/grenade_he/css_w_grenade_he.vmdl";
     public override string Icon => "code/swb_css/textures/ui/css_icon_grenade.png";
-    public override int FOV => 75;
 
     public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateGrenadeEntity;
     public override string EntityModel => "weapons/swb/css/grenade_he/css_w_grenade_he_thrown.vmdl";
@@ -34,6 +33,11 @@ public class GrenadeHE : WeaponBaseEntity
         {
             ShowCrosshairLines = false,
             ShowFireMode = false,
+        };
+
+        General = new WeaponInfo
+        {
+            FOV = 75,
         };
 
         Primary = new ClipInfo

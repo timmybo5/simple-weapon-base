@@ -15,7 +15,6 @@ public class Knife : WeaponBaseMelee
     public override string ViewModelPath => "weapons/swb/css/knife/css_v_knife.vmdl";
     public override string WorldModelPath => "weapons/swb/css/knife/css_w_knife.vmdl";
     public override string Icon => "code/swb_css/textures/ui/css_icon_knife.png";
-    public override int FOV => 75;
 
     public override string PrimaryHitAnimation => "swing";
     public override string PrimaryMissAnimation => "swing_miss";
@@ -36,6 +35,11 @@ public class Knife : WeaponBaseMelee
 
     public Knife()
     {
+        General = new WeaponInfo
+        {
+            FOV = 75,
+        };
+
         UISettings = new UISettings
         {
             ShowCrosshairLines = false,

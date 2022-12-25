@@ -15,14 +15,15 @@ public class UMP45 : WeaponBase
     public override string ViewModelPath => "weapons/swb/smgs/ump45/v_ump45.vmdl";
     public override string WorldModelPath => "weapons/swb/smgs/ump45/w_ump45.vmdl";
     public override string Icon => "code/swb_weapons/textures/ump45.png";
-    public override int FOV => 90;
-    public override float WalkAnimationSpeedMod => 1f;
-    public override int ZoomWeaponFOV => 70;
 
     public UMP45()
     {
         General = new WeaponInfo
         {
+            FOV = 90,
+            WalkAnimationSpeedMod = 1f,
+            ZoomWeaponFOV = 70,
+
             DrawTime = 1.2f,
             ReloadTime = 1.6f,
             ReloadEmptyTime = 2.47f

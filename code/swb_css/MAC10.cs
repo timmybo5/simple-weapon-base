@@ -15,13 +15,14 @@ public class MAC10 : WeaponBase
     public override string ViewModelPath => "weapons/swb/css/mac10/css_v_smg_mac10.vmdl";
     public override string WorldModelPath => "weapons/swb/css/mac10/css_w_smg_mac10.vmdl";
     public override string Icon => "code/swb_css/textures/ui/css_icon_mac10.png";
-    public override int FOV => 75;
-    public override float WalkAnimationSpeedMod => 0.85f;
 
     public MAC10()
     {
         General = new WeaponInfo
         {
+            FOV = 75,
+            WalkAnimationSpeedMod = 0.85f,
+
             ReloadTime = 3.14f
         };
 

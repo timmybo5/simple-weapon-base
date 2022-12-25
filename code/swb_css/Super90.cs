@@ -15,14 +15,18 @@ public class Super90 : WeaponBaseShotty
     public override string ViewModelPath => "weapons/swb/css/super90/css_v_shot_m3super90.vmdl";
     public override string WorldModelPath => "weapons/swb/css/super90/css_w_shot_m3super90.vmdl";
     public override string Icon => "code/swb_css/textures/ui/css_icon_super90.png";
-    public override int FOV => 75;
-    public override float WalkAnimationSpeedMod => 0.9f;
 
     public override float ShellReloadTimeStart => 0.38f;
     public override float ShellReloadTimeInsert => 0.49f;
 
     public Super90()
     {
+        General = new WeaponInfo
+        {
+            FOV = 75,
+            WalkAnimationSpeedMod = 0.9f,
+        };
+
         Primary = new ClipInfo
         {
             Ammo = 8,
