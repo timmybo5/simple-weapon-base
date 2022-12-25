@@ -89,7 +89,7 @@ partial class ViewModelBase : BaseViewModel
 
         // Initialize the target vectors for this frame
         targetVectorPos = new Vector3(weapon.ViewModelOffset.Pos);
-        targetVectorRot = new Vector3(MathUtil.ToVector3(weapon.ViewModelOffset.Angle));
+        targetVectorRot = MathUtil.ToVector3(weapon.ViewModelOffset.Angle);
         targetPlayerFOV = Game.Preferences.FieldOfView;
         targetWeaponFOV = weapon.FOV;
 
