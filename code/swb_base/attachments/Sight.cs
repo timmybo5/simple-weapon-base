@@ -23,15 +23,25 @@ public class Sight : OffsetAttachment
     public AngPos ZoomAnimData;
     private AngPos oldZoomAnimData;
 
+    /// <summary>The new weapon zoom FOV (-1 to use default weapon fov)</summary>
+    public int ZoomWeaponFOV;
+    private int oldZoomWeaponFOV;
+
     public override void OnEquip(WeaponBase weapon, AttachmentModel attachmentModel)
     {
         oldZoomAnimData = weapon.ZoomAnimData;
+        oldZoomWeaponFOV = weapon.General.ZoomWeaponFOV;
+
         weapon.ZoomAnimData = ZoomAnimData;
+
+        if (ZoomWeaponFOV > 0)
+            weapon.General.ZoomWeaponFOV = ZoomWeaponFOV;
     }
 
     public override void OnUnequip(WeaponBase weapon)
     {
         weapon.ZoomAnimData = oldZoomAnimData;
+        weapon.General.ZoomWeaponFOV = oldZoomWeaponFOV;
     }
 }
 

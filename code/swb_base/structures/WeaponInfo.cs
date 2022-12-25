@@ -9,10 +9,10 @@ public partial class WeaponInfo : BaseNetworkable
     /// <summary>Default weapon FOV</summary>
     [Net] public int FOV { get; set; } = 90;
 
-    /// <summary>Weapon FOV while zooming (-1 to disable)</summary>
+    /// <summary>Weapon FOV while zooming (-1 to use default weapon fov)</summary>
     [Net] public int ZoomWeaponFOV { get; set; } = -1;
 
-    /// <summary>Player FOV while zooming (-1 to disable)</summary>
+    /// <summary>Player FOV while zooming (-1 to use default player fov)</summary>
     [Net] public int ZoomPlayerFOV { get; set; } = -1;
 
     /// <summary>FOV zoom in speed</summary>
