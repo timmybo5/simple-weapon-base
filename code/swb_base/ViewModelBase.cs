@@ -19,7 +19,6 @@ partial class ViewModelBase : BaseViewModel
     private Vector3 targetVectorRot;
     private float targetPlayerFOV = -1;
     private float targetWeaponFOV = -1;
-    private float playerFOV = -1;
 
     // Finalized animation values
     private Vector3 finalVectorPos;
@@ -53,10 +52,9 @@ partial class ViewModelBase : BaseViewModel
 
     public void UpdateCamera()
     {
-        if (playerFOV == -1)
+        if (targetWeaponFOV == -1)
         {
-            playerFOV = Game.Preferences.FieldOfView;
-            finalPlayerFOV = playerFOV;
+            finalPlayerFOV = Game.Preferences.FieldOfView;
             targetWeaponFOV = weapon.FOV;
             finalWeaponFOV = weapon.FOV;
         }
@@ -92,7 +90,7 @@ partial class ViewModelBase : BaseViewModel
         // Initialize the target vectors for this frame
         targetVectorPos = new Vector3(weapon.ViewModelOffset.Pos);
         targetVectorRot = new Vector3(MathUtil.ToVector3(weapon.ViewModelOffset.Angle));
-        targetPlayerFOV = playerFOV;
+        targetPlayerFOV = Game.Preferences.FieldOfView;
         targetWeaponFOV = weapon.FOV;
 
         // Model editor
