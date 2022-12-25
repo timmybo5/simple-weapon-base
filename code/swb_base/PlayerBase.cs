@@ -104,6 +104,7 @@ public partial class PlayerBase
             Camera.Position += randomPos;
             Camera.Rotation *= randomRot;
 
+            // Make viewmodel 'follow' the shake
             if (ActiveChild is WeaponBase weapon && weapon.ViewModelEntity != null && weapon.ViewModelEntity.IsValid)
             {
                 weapon.ViewModelEntity.Position += randomPos;
