@@ -109,7 +109,7 @@ public partial class PlayerBase : AnimatedEntity
         base.FrameSimulate(cl);
 
         CameraMode.UpdateCamera();
-        //UpdateCamera();
+        UpdateCamera();
 
         var controller = GetActiveController();
         controller?.FrameSimulate(cl, this, GetActiveAnimator());

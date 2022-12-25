@@ -99,8 +99,16 @@ public partial class PlayerBase
         if (timeSinceShake < lastScreenShake.Length && timeSinceShake > nextShake)
         {
             var random = new Random();
-            Camera.Position += new Vector3(random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size));
-            Camera.Rotation *= Rotation.From(new Angles(random.Float(0, lastScreenShake.Rotation), random.Float(0, lastScreenShake.Rotation), 0));
+            var randomPos = new Vector3(random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size));
+            var randomRot = Rotation.From(new Angles(random.Float(0, lastScreenShake.Rotation), random.Float(0, lastScreenShake.Rotation), 0));
+            Camera.Position += randomPos;
+            Camera.Rotation *= randomRot;
+
+            if (ActiveChild is WeaponBase weapon && weapon.ViewModelEntity != null && weapon.ViewModelEntity.IsValid)
+            {
+                weapon.ViewModelEntity.Position += randomPos;
+                weapon.ViewModelEntity.Rotation *= randomRot;
+            }
 
             nextShake = timeSinceShake + lastScreenShake.Delay;
         }
