@@ -27,7 +27,7 @@ public class Sight : OffsetAttachment
     public int ZoomWeaponFOV;
     private int oldZoomWeaponFOV;
 
-    /// <summary>The new weapon zoom FOV (-1 to use default player fov)</summary>
+    /// <summary>The new player zoom FOV (-1 to use default player fov)</summary>
     public int ZoomPlayerFOV;
     private int oldZoomPlayerFOV;
 
