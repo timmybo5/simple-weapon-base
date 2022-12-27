@@ -114,6 +114,7 @@ public class DEAGLE : WeaponBase
                     new ReflexSight
                     {
                         ZoomWeaponFOV = 50,
+                        ZoomPlayerFOV = 70,
                         ZoomAnimData = new AngPos {
                             Angle = new Angles(-0.18f, 5.08f, 0f),
                             Pos = new Vector3(-4.946f, -5.1f, 1.417f)

@@ -19,7 +19,7 @@ public partial class WeaponInfo : BaseNetworkable
     [Net] public int ZoomInFOVSpeed { get; set; } = 1;
 
     /// <summary>FOV zoom out speed</summary>
-    [Net] public int ZoomOutFOVSpeed { get; set; } = 10;
+    [Net] public int ZoomOutFOVSpeed { get; set; } = 1;
 
     // Other //
 

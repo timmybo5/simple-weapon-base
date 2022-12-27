@@ -37,6 +37,7 @@ public class L96A1 : WeaponBaseSniper
         {
             FOV = 90,
             ZoomPlayerFOV = 15,
+            ZoomOutFOVSpeed = 10,
             WalkAnimationSpeedMod = 0.8f,
             AimSensitivity = 0.25f,
 
