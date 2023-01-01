@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Sandbox;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
@@ -358,6 +359,21 @@ public partial class PlayerBase : AnimatedEntity
         {
             Deafen(To.Single(Client), info.Damage.LerpInverse(0, 60));
         }
+    }
+
+    public virtual void DoFallDamage(TimeSince timeSinceFalling, Vector3 velocity)
+    {
+        if (velocity.z > -600) return;
+
+        timeSinceFalling /= 2;
+        velocity /= 12;
+        var damageInfo = new DamageInfo()
+        {
+            Damage = Math.Abs(velocity.z) * (1 + timeSinceFalling),
+            Force = velocity
+        };
+
+        TakeDamage(damageInfo);
     }
 
     public override void OnChildAdded(Entity child)

@@ -1,5 +1,4 @@
-﻿
-using Sandbox;
+﻿using Sandbox;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
 
@@ -33,7 +32,6 @@ public partial class PlayerWalkController : PlayerBaseController
 
     public PlayerDuck Duck;
     public PlayerUnstuck Unstuck;
-
 
     public PlayerWalkController()
     {
@@ -236,7 +234,7 @@ public partial class PlayerWalkController : PlayerBaseController
             Velocity = Velocity.WithZ(0);
         }
 
-        // CheckFalling(); // fall damage etc
+        CheckFalling();
 
         // Land Sound
         // Swim Sounds
@@ -259,6 +257,32 @@ public partial class PlayerWalkController : PlayerBaseController
             DebugOverlay.ScreenText($"    WishVelocity: {WishVelocity}", lineOffset + 5);
         }
 
+    }
+
+    public bool IsFalling { get; private set; }
+    public Vector3 FallingVelocity { get; private set; }
+    public TimeSince TimeSinceFalling { get; private set; }
+
+    public virtual void CheckFalling()
+    {
+        if (GroundEntity == null)
+        {
+            if (!IsFalling)
+                TimeSinceFalling = 0;
+
+            IsFalling = true;
+            FallingVelocity = Velocity;
+        }
+        else if (GroundEntity != null && IsFalling)
+        {
+            IsFalling = false;
+
+            if (Game.IsServer)
+            {
+                var ply = Pawn as PlayerBase;
+                ply.DoFallDamage(TimeSinceFalling, FallingVelocity);
+            }
+        }
     }
 
     public virtual float GetWishSpeed()
