@@ -25,7 +25,7 @@ public partial class WeaponBaseSniper : WeaponBase
     /// <summary>EXPERIMENTAL - Use a render target instead of a full screen texture zoom</summary>
     public virtual bool UseRenderTarget => false;
 
-    private Panel SniperScopePanel;
+    protected Panel SniperScopePanel;
     private bool switchBackToThirdP = false;
     private float oldSpread = -1;
 
