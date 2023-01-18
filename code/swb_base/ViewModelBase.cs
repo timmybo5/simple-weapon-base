@@ -80,7 +80,7 @@ partial class ViewModelBase : BaseViewModel
         Rotation *= Rotation.From(finalVectorRot.x, finalVectorRot.y, finalVectorRot.z);
         Position += finalVectorPos.z * Rotation.Up + finalVectorPos.y * Rotation.Forward + finalVectorPos.x * Rotation.Right;
         Camera.FieldOfView = finalPlayerFOV;
-        Camera.Main.SetViewModelCamera(finalWeaponFOV, 0.01f, 1000.0f);
+        Camera.Main.SetViewModelCamera(finalWeaponFOV, 1, 1000.0f);
 
         // I'm sure there's something already that does this for me, but I spend an hour
         // searching through the wiki and a bunch of other garbage and couldn't find anything...
