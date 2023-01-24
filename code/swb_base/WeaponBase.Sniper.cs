@@ -122,7 +122,7 @@ public partial class WeaponBaseSniper : WeaponBase
             OnScopedStart();
         }
 
-        if (Input.Released(InputButton.SecondaryAttack) || (IsScoped && (IsRunning || shouldTuck)))
+        if (Input.Released(InputButton.SecondaryAttack) || (IsScoped && (IsRunning || shouldTuck || IsReloading)))
         {
             OnScopedEnd();
         }
