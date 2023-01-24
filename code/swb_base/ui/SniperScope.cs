@@ -1,4 +1,5 @@
-﻿using Sandbox;
+﻿using System;
+using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
@@ -6,16 +7,8 @@ namespace SWB_Base.UI;
 
 public class SniperScope : Panel
 {
-    Panel LensWrapper;
-    Panel ScopeWrapper;
-
-    Panel LeftBar;
-    Panel RightBar;
-    Panel TopBar;
-    Panel BottomBar;
-
-    Image Lens;
-    Image Scope;
+    Panel lensWrapper;
+    Panel scope;
 
     float lensRotation;
 
@@ -24,18 +17,18 @@ public class SniperScope : Panel
         StyleSheet.Load("/swb_base/ui/SniperScope.scss");
 
         if (scopeTexture != null)
-            LeftBar = Add.Panel("leftBar");
+            Add.Panel("leftBar");
 
-        LensWrapper = Add.Panel("lensWrapper");
-        Lens = LensWrapper.Add.Image(lensTexture, "lens");
+        lensWrapper = Add.Panel("lensWrapper");
+        lensWrapper.Add.Image(lensTexture, "lens");
 
         if (scopeTexture != null)
         {
-            Scope = LensWrapper.Add.Image(scopeTexture, "scope");
+            scope = lensWrapper.Add.Image(scopeTexture, "scope");
 
-            RightBar = Add.Panel("rightBar");
-            //TopBar = Add.Panel("topBar");
-            //BottomBar = Add.Panel("bottomBar");
+            Add.Panel("rightBar");
+            Add.Panel("topBar");
+            Add.Panel("bottomBar");
         }
     }
 
@@ -43,46 +36,41 @@ public class SniperScope : Panel
     {
         base.Tick();
 
-        var player = Game.LocalPawn as PlayerBase;
-        if (player == null) return;
+        if (Game.LocalPawn is not PlayerBase player) return;
         if (player.ActiveChild is not WeaponBase weapon) return;
 
-        // Scope
+        // Scope size
         var scopeSize = Screen.Height * ScaleFromScreen;
-        LensWrapper.Style.Width = Length.Pixels(scopeSize);
-        LensWrapper.Style.Height = Length.Pixels(scopeSize);
-        LensWrapper.Style.Dirty();
+        lensWrapper.Style.Width = Length.Pixels(scopeSize);
 
         // Show when zooming
         Style.Opacity = !weapon.IsScoped ? 0 : 1;
 
-        /*
         // Movement impact
-        var velocity = player.Velocity;
-        var velocityMove = (velocity.y + velocity.x) / 2;
+        var velocityJump = player.Velocity.z * 0.02f;
+        var velocityMove = (Math.Abs(player.Velocity.y) + Math.Abs(player.Velocity.x)) * 0.005f;
         var lensBob = 0f;
 
-        if (velocityMove != 0)
+        if (velocityJump != 0)
         {
-            lensBob += MathF.Sin(RealTime.Now * 20f) * 2f;
+            lensBob += velocityJump;
+        }
+        else if (velocityMove != 0)
+        {
+            lensBob += MathF.Sin(RealTime.Now * 17f) * velocityMove;
         }
 
-        this.Style.MarginTop = Length.Percent((velocity.z * 0.05f) + lensBob);
+        Style.MarginTop = Length.Percent(velocityJump + lensBob);
 
-        var targetRotation = 0f;
+        if (scope == null) return;
 
-        if (Input.Left != 0)
-        {
-            targetRotation = Input.Left * -5f;
-        }
-
+        // Rotation impact
+        var rightVector = player.EyeRotation.Right * player.Velocity;
+        var targetRotation = (rightVector.y + rightVector.x) * 0.015f;
         var rotateTransform = new PanelTransform();
-        lensRotation = MathUtil.FILerp(lensRotation, targetRotation, 5);
+        lensRotation = MathUtil.FILerp(lensRotation, targetRotation, 20);
         rotateTransform.AddRotation(0, 0, lensRotation);
 
-        this.Style.Transform = rotateTransform;
-        Style.Dirty();
-
-        */
+        scope.Style.Transform = rotateTransform;
     }
 }
