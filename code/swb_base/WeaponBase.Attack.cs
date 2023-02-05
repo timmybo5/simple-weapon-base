@@ -386,7 +386,7 @@ public partial class WeaponBase
         if (!string.IsNullOrEmpty(shootAnim))
         {
             ViewModelEntity?.SetAnimParameter(shootAnim, true);
-            crosshair?.CreateEvent("fire", (60f / Primary.RPM));
+            crosshair?.CreateEvent("fire", GetRealRPM(Primary.RPM));
         }
     }
 }
