@@ -26,6 +26,9 @@ public partial class WeaponBase
     [ConVar.ClientData("swb_cl_showhud", Help = "Enable HUD", Saved = true)]
     public static int ShowHudCL { get; set; } = 1;
 
+    [ConVar.ClientData("swb_cl_enable_zoomsens", Help = "Enable zoom sensitivity changes", Saved = true)]
+    public static int EnableZoomSens { get; set; } = 1;
+
     /// <summary>
     /// Gets a console variable and returns it with a specific type
     /// </summary>

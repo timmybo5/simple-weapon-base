@@ -235,10 +235,12 @@ public partial class WeaponBase : CarriableBase
     {
         if (Owner is not PlayerBase player) return;
 
+        var enableZoomSens = ConsoleSystem.GetValue("swb_cl_enable_zoomsens");
+
         // Mouse sensitivity
-        if (IsZooming)
+        if (IsZooming && enableZoomSens == "1")
         {
-            player.ViewAngles = MathUtil.FILerp(player.OriginalViewAngles, player.ViewAngles, General.AimSensitivity * 90);
+            player.ViewAngles = Angles.Lerp(player.OriginalViewAngles, player.ViewAngles, General.AimSensitivity);
         }
 
         // Recoil
