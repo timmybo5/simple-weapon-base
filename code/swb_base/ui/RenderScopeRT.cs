@@ -49,7 +49,7 @@ public class RenderScopeRT : Panel
     {
         Log.Info("Drawing");
 
-        var player = Game.LocalPawn as PlayerBase;
+        var player = Game.LocalPawn as ISWBPlayer;
         if (player == null || sceneObject == null) return;
         if (player.ActiveChild is not WeaponBase weapon) return;
 

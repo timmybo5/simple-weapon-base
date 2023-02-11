@@ -87,7 +87,7 @@ public partial class WeaponBaseEntity : WeaponBase
         if (!string.IsNullOrEmpty(EntityModel))
             firedEntity.SetModel(EntityModel);
 
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
 
         firedEntity.Owner = Owner;
         firedEntity.Position = MathUtil.RelativeAdd(Position, EntitySpawnOffset, player.EyeRotation);
@@ -144,7 +144,7 @@ public partial class WeaponBaseEntity : WeaponBase
         // Play pre-fire animation
         ShootEffects(null, null, GetShootAnimation(clipInfo));
 
-        var owner = Owner as PlayerBase;
+        var owner = Owner as ISWBPlayer;
         if (owner == null) return;
         var activeWeapon = owner.ActiveChild;
         var instanceID = InstanceID;

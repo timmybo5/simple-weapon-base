@@ -176,7 +176,7 @@ public partial class WeaponBase : CarriableBase
                 _ = AsyncBoltBack(General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle);
         }
 
-        if (Owner is PlayerBase player)
+        if (Owner is ISWBPlayer player)
         {
             if (player.AmmoCount(Primary.AmmoType) <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve)
                 return;
@@ -201,7 +201,7 @@ public partial class WeaponBase : CarriableBase
             return;
         }
 
-        if (Owner is PlayerBase player)
+        if (Owner is ISWBPlayer player)
         {
             var ammo = player.TakeAmmo(Primary.AmmoType, maxClipSize - Primary.Ammo);
 
@@ -233,7 +233,7 @@ public partial class WeaponBase : CarriableBase
 
     public override void BuildInput()
     {
-        if (Owner is not PlayerBase player) return;
+        if (Owner is not ISWBPlayer player) return;
 
         var enableZoomSens = ConsoleSystem.GetValue("swb_cl_enable_zoomsens");
 
@@ -297,7 +297,7 @@ public partial class WeaponBase : CarriableBase
 
         if (Primary.ClipSize == -1)
         {
-            if (Owner is PlayerBase player)
+            if (Owner is ISWBPlayer player)
             {
                 return player.TakeAmmo(Primary.AmmoType, amount) > 0;
             }
@@ -339,7 +339,7 @@ public partial class WeaponBase : CarriableBase
         }
     }
 
-    public override void SimulateAnimator(PlayerBaseAnimator anim)
+    public override void SimulateAnimator(AnimatedEntity anim)
     {
         anim.SetAnimParameter("holdtype", (int)HoldType);
         anim.SetAnimParameter("aim_body_weight", 1.0f);

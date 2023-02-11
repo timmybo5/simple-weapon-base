@@ -170,7 +170,7 @@ public partial class WeaponBase
         // Play pre-fire animation
         ShootEffects(null, null, GetShootAnimation(clipInfo));
 
-        if (Owner is not PlayerBase owner) return;
+        if (Owner is not ISWBPlayer owner) return;
         var activeWeapon = owner.ActiveChild;
         var instanceID = InstanceID;
 
@@ -267,7 +267,7 @@ public partial class WeaponBase
     /// </summary>
     public virtual void ShootBullet(float spread, float force, float damage, float bulletSize, bool isPrimary)
     {
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
 
         // Spread
         var forward = player.EyeRotation.Forward;
@@ -295,7 +295,7 @@ public partial class WeaponBase
     [ClientRpc]
     public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
     {
-        if (Owner is not PlayerBase player) return;
+        if (Owner is not ISWBPlayer player) return;
 
         if (isPrimary)
         {
@@ -312,7 +312,7 @@ public partial class WeaponBase
     /// </summary>
     async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackTime, float boltBackEjectDelay, string bulletEjectParticle, bool force = false)
     {
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
         var activeWeapon = player.ActiveChild;
         var instanceID = InstanceID;
         InBoltBack = force;

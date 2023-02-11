@@ -3,7 +3,7 @@ using Deathmatch.Hud;
 using Sandbox;
 using SWB_Base;
 
-public partial class ExamplePlayer : PlayerBase
+public partial class ExamplePlayer : PlayerBase, ISWBPlayer
 {
     public bool SupressPickupNotices { get; set; }
     TimeSince timeSinceDropped;
@@ -65,6 +65,28 @@ public partial class ExamplePlayer : PlayerBase
         SupressPickupNotices = false;
     }
 
+    bool DesiresThirdPerson = false;
+
+    public void OnScopeStart()
+    {
+        if (!Game.IsServer) return;
+
+        if (CameraMode is ThirdPersonCamera)
+        {
+            CameraMode = new FirstPersonCamera();
+        }
+    }
+
+    public void OnScopeEnd()
+    {
+        if (!Game.IsServer) return;
+
+        if (DesiresThirdPerson)
+        {
+            CameraMode = new ThirdPersonCamera();
+        }
+    }
+
     public override void Simulate(IClient cl)
     {
         base.Simulate(cl);
@@ -75,10 +97,12 @@ public partial class ExamplePlayer : PlayerBase
         {
             if (CameraMode is ThirdPersonCamera)
             {
+                DesiresThirdPerson = false;
                 CameraMode = new FirstPersonCamera();
             }
             else
             {
+                DesiresThirdPerson = true;
                 CameraMode = new ThirdPersonCamera();
             }
         }

@@ -36,7 +36,7 @@ public class SniperScope : Panel
     {
         base.Tick();
 
-        if (Game.LocalPawn is not PlayerBase player) return;
+        if (Game.LocalPawn is not ISWBPlayer player) return;
         if (player.ActiveChild is not WeaponBase weapon) return;
 
         // Scope size

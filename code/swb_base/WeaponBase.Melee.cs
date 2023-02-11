@@ -70,7 +70,7 @@ public partial class WeaponBaseMelee : WeaponBase
         TimeSincePrimaryAttack = 0;
         TimeSinceSecondaryAttack = 0;
 
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
         var hitEntity = true;
         var pos = player.EyePosition;
         var forward = player.EyeRotation.Forward;

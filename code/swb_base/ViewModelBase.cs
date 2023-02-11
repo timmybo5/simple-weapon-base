@@ -9,7 +9,7 @@ partial class ViewModelBase : BaseViewModel
     public float EditorFOV;
 
     private WeaponBase weapon;
-    private PlayerBase player;
+    private ISWBPlayer player;
 
     private float animSpeed;
     private float playerFOVSpeed;
@@ -42,7 +42,7 @@ partial class ViewModelBase : BaseViewModel
     public ViewModelBase(WeaponBase weapon)
     {
         this.weapon = weapon;
-        player = weapon.Owner as PlayerBase;
+        player = weapon.Owner as ISWBPlayer;
     }
 
     public override void PlaceViewmodel()
@@ -94,7 +94,7 @@ partial class ViewModelBase : BaseViewModel
         targetWeaponFOV = weapon.General.FOV;
 
         // Model editor
-        if (Owner is PlayerBase player && (player.IsModelEditing() || player.IsAttachmentEditing()))
+        if (Owner is ISWBPlayer player && (player.IsModelEditing() || player.IsAttachmentEditing()))
         {
             if (EditorOffset != AngPos.Zero)
             {

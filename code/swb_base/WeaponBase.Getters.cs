@@ -47,7 +47,7 @@ public partial class WeaponBase
     // Pass the active child from before the delay
     protected bool IsAsyncValid(Entity activeChild, int instanceID)
     {
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
 
         return player != null && activeChild == player.ActiveChild && instanceID == InstanceID;
     }
@@ -104,13 +104,13 @@ public partial class WeaponBase
     /// </summary>
     public int GetAvailableAmmo()
     {
-        if (Owner is not PlayerBase owner) return 0;
+        if (Owner is not ISWBPlayer player) return 0;
 
         // Show clipsize as the available ammo
         if (Primary.InfiniteAmmo == InfiniteAmmoType.reserve)
             return Primary.ClipSize;
 
-        return owner.AmmoCount(Primary.AmmoType);
+        return player.AmmoCount(Primary.AmmoType);
     }
 
     /// <summary>
@@ -123,9 +123,9 @@ public partial class WeaponBase
 
         if (Primary.ClipSize == -1)
         {
-            if (Owner is PlayerBase player)
+            if (Owner is ISWBPlayer player)
             {
-                return player.HasAmmo(Primary.AmmoType);
+                return player.AmmoCount(Primary.AmmoType) > 0;
             }
             return true;
         }

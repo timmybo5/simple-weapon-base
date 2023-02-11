@@ -14,14 +14,14 @@ public partial class WeaponBase
         if (TuckRange == -1)
             return -1;
 
-        if (Owner is not PlayerBase player) return -1;
+        if (Owner is not ISWBPlayer player) return -1;
 
         var pos = player.EyePosition;
         var forward = player.EyeRotation.Forward;
         var trace = Trace.Ray(pos, pos + forward * TuckRange)
             .WithTag("solid")
             .Ignore(this)
-            .Ignore(player)
+            .Ignore(Owner)
             .Run();
 
         if (trace.Entity == null)

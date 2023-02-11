@@ -49,7 +49,7 @@ public partial class WeaponBaseShotty : WeaponBase
 
     public async Task EjectShell(string bulletEjectParticle)
     {
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
         var activeWeapon = player.ActiveChild;
         var instanceID = InstanceID;
 
@@ -77,7 +77,7 @@ public partial class WeaponBaseShotty : WeaponBase
         if (Primary.Ammo >= Primary.ClipSize)
             return;
 
-        if (Owner is PlayerBase player)
+        if (Owner is ISWBPlayer player)
         {
             var hasInfiniteReserve = Primary.InfiniteAmmo == InfiniteAmmoType.reserve;
             var ammo = hasInfiniteReserve ? 1 : player.TakeAmmo(Primary.AmmoType, 1);
@@ -102,7 +102,7 @@ public partial class WeaponBaseShotty : WeaponBase
 
     public async Task FinishReload()
     {
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
         var activeWeapon = player.ActiveChild;
         var instanceID = InstanceID;
 
