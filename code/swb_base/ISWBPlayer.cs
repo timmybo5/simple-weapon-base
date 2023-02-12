@@ -7,7 +7,6 @@ public interface ISWBPlayer
     public Entity ActiveChild { get; set; }
     public Vector3 EyePosition { get; }
     public Rotation EyeRotation { get; }
-    public Angles OriginalViewAngles { get; }
     public Angles ViewAngles { get; set; }
     public BulletSimulator BulletSimulator { get; }
     public void ScreenShake(ScreenShakeStruct screenShake);

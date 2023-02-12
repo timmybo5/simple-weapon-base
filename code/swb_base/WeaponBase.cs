@@ -6,7 +6,7 @@
 
 namespace SWB_Base;
 
-public partial class WeaponBase : CarriableBase
+public partial class WeaponBase : CarriableBase, ISWBWeapon
 {
     public override void Spawn()
     {
@@ -234,14 +234,6 @@ public partial class WeaponBase : CarriableBase
     public override void BuildInput()
     {
         if (Owner is not ISWBPlayer player) return;
-
-        var enableZoomSens = ConsoleSystem.GetValue("swb_cl_enable_zoomsens");
-
-        // Mouse sensitivity
-        if (IsZooming && enableZoomSens == "1")
-        {
-            player.ViewAngles = Angles.Lerp(player.OriginalViewAngles, player.ViewAngles, General.AimSensitivity);
-        }
 
         // Recoil
         if (doRecoil)
