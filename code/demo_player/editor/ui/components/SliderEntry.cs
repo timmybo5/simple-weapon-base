@@ -45,7 +45,7 @@ public class SliderEntry : Panel
 
     public SliderEntry()
     {
-        StyleSheet.Load("/swb_base/editor/ui/components/SliderEntry.scss");
+        StyleSheet.Load("/demo_player/editor/ui/components/SliderEntry.scss");
 
         Slider = AddChild<Slider>();
         TextEntry = AddChild<TextEntry>();

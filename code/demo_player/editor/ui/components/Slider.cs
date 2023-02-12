@@ -35,7 +35,7 @@ public class Slider : Panel
 
     public Slider()
     {
-        StyleSheet.Load("/swb_base/editor/ui/components/Slider.scss");
+        StyleSheet.Load("/demo_player/editor/ui/components/Slider.scss");
 
         Name = Add.Label(null, "name");
 

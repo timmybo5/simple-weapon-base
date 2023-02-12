@@ -23,7 +23,7 @@ public class AmmoDisplay : Panel
 
     public AmmoDisplay(UISettings uiSettings)
     {
-        StyleSheet.Load("/swb_base/ui/AmmoDisplay.scss");
+        StyleSheet.Load("/demo_player/ui/AmmoDisplay.scss");
 
         if (uiSettings.ShowAmmoCount)
         {

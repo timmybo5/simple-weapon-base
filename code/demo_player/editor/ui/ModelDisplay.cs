@@ -19,7 +19,7 @@ public class ModelDisplay : Panel
 
     public ModelDisplay(string modelPath, bool canMouseDrag = false)
     {
-        StyleSheet.Load("/swb_base/editor/ui/ModelDisplay.scss");
+        StyleSheet.Load("/demo_player/editor/ui/ModelDisplay.scss");
 
         this.canMouseDrag = canMouseDrag;
         SetMouseCapture(canMouseDrag);
