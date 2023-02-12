@@ -6,7 +6,7 @@
 
 namespace SWB_Base;
 
-public partial class WeaponBase : CarriableBase, ISWBWeapon
+public partial class WeaponBase : CarriableBase
 {
     public override void Spawn()
     {

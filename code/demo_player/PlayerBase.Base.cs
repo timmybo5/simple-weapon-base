@@ -224,7 +224,7 @@ public partial class PlayerBase : AnimatedEntity
         ViewAngles = viewAngles.Normal;
 
         // Adjust mouse sensitivity based on weapon suggestion
-        if (ActiveChild is ISWBWeapon weapon)
+        if (ActiveChild is WeaponBase weapon)
         {
             var enableZoomSens = ConsoleSystem.GetValue("swb_cl_enable_zoomsens");
             if (weapon.IsZooming && enableZoomSens == "1")
