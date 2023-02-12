@@ -231,19 +231,10 @@ public partial class WeaponBase : CarriableBase
         // TODO - player third person model reload
     }
 
-    public override void BuildInput()
+    public Angles GetRecoilAngles()
     {
-        if (Owner is not ISWBPlayer player) return;
-
-        // Recoil
-        if (doRecoil)
-        {
-            doRecoil = false;
-            //var random = new Random(); -> might making aiming too difficult
-            //var randVal = random.Next(-5, 5) / 10f;
-            var recoilAngles = new Angles(IsZooming ? -Primary.Recoil * 0.4f : -Primary.Recoil, 0, 0);
-            player.ViewAngles += recoilAngles;
-        }
+        var recoilAngles = new Angles(IsZooming ? -Primary.Recoil * 0.4f : -Primary.Recoil, 0, 0);
+        return recoilAngles;
     }
 
     public virtual void UpdateCamera() { }

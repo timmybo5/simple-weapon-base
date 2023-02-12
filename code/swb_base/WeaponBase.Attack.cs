@@ -149,8 +149,10 @@ public partial class WeaponBase
             }
         }
 
-        // Recoil
-        doRecoil = true;
+        if (Owner is ISWBPlayer player)
+        {
+            player.OnRecoil();
+        }
     }
 
     /// <summary>

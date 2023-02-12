@@ -234,6 +234,7 @@ public partial class PlayerBase : AnimatedEntity
         }
 
         ActiveChild?.BuildInput();
+        DoWeaponRecoil();
 
         GetActiveController()?.BuildInput();
 
@@ -243,6 +244,22 @@ public partial class PlayerBase : AnimatedEntity
             return;
 
         GetActiveAnimator()?.BuildInput();
+    }
+
+    bool shouldRecoil = false;
+    public void OnRecoil()
+    {
+        shouldRecoil = true;
+    }
+
+    private void DoWeaponRecoil()
+    {
+        if (!shouldRecoil) return;
+        if (ActiveChild is not WeaponBase weapon) return;
+
+        var recoilAngle = weapon.GetRecoilAngles();
+        ViewAngles += recoilAngle;
+        shouldRecoil = false;
     }
 
     /// <summary>
