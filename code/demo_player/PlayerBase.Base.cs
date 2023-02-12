@@ -227,6 +227,8 @@ public partial class PlayerBase : AnimatedEntity
 
         GetActiveController()?.BuildInput();
 
+        HandleFlinch();
+
         if (Input.StopProcessing)
             return;
 

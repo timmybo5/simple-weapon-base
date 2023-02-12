@@ -51,7 +51,7 @@ partial class ScreenUtil
         foreach (var obj in objects)
         {
             // Player check
-            if (!obj.IsValid() || obj is not ISWBPlayer ply)
+            if (!obj.IsValid() || obj is not ModelEntity ply)
                 continue;
 
             // Distance check

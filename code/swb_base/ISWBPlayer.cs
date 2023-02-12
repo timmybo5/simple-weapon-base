@@ -9,10 +9,7 @@ public interface ISWBPlayer
     public Rotation EyeRotation { get; }
     public Angles OriginalViewAngles { get; }
     public Angles ViewAngles { get; set; }
-    public Vector3 Velocity { get; }
-    public PhysicsBody PhysicsBody { get; }
     public BulletSimulator BulletSimulator { get; }
-    public bool IsFirstPersonMode { get; }
     public void ScreenShake(ScreenShakeStruct screenShake);
     public bool IsModelEditing();
     public bool IsAttachmentEditing();

@@ -110,7 +110,7 @@ public class Crosshair : Panel
         {
             wasZooming = true;
 
-            if (player.IsFirstPersonMode)
+            if (Game.LocalPawn.IsFirstPersonMode)
             {
                 CenterDot.Style.Opacity = 0;
                 HideBarLines();
