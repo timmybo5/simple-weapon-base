@@ -9,8 +9,8 @@ namespace SWB_Base;
 public class PlayerDuck : BaseNetworkable
 {
     public PlayerBaseController Controller;
-
-    public bool IsActive; // replicate
+    public bool IsActive;
+    public float HeightMod;
 
     public PlayerDuck(PlayerBaseController controller)
     {
@@ -27,11 +27,12 @@ public class PlayerDuck : BaseNetworkable
             else TryUnDuck();
         }
 
+        var targetHeightMod = IsActive ? 0.5f : 1;
+        HeightMod = MathX.Lerp(HeightMod, targetHeightMod, Time.Delta * 10f);
+        Controller.EyeLocalPosition *= HeightMod;
+
         if (IsActive)
-        {
             Controller.SetTag("ducked");
-            Controller.EyeLocalPosition *= 0.5f;
-        }
     }
 
     protected virtual void TryDuck()
