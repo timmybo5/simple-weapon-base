@@ -65,7 +65,7 @@ partial class ScreenUtil
             rotation *= distanceMul;
             size *= distanceMul;
 
-            ShakeRPC(To.Single(obj), delay, speed, size, rotation);
+            ShakeRPC(To.Single(ply), delay, speed, size, rotation);
         }
     }
 
