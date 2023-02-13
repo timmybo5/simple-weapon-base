@@ -21,7 +21,7 @@ public class Crosshair : Panel
 
     public Crosshair()
     {
-        StyleSheet.Load("/demo_player/ui/Crosshair.scss");
+        StyleSheet.Load("/swb_player/ui/Crosshair.scss");
 
         CenterDot = Add.Panel("centerDot");
         LeftBar = Add.Panel("leftBar");

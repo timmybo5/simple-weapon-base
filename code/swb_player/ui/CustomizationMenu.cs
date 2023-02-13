@@ -27,7 +27,7 @@ public class CustomizationMenu : Panel
 
     public CustomizationMenu()
     {
-        StyleSheet.Load("/demo_player/ui/CustomizationMenu.scss");
+        StyleSheet.Load("/swb_player/ui/CustomizationMenu.scss");
 
         if (Game.LocalPawn is not ISWBPlayer player) return;
 

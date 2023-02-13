@@ -35,8 +35,6 @@ public class SniperScope : Panel
     public override void Tick()
     {
         base.Tick();
-
-        if (Game.LocalPawn is not Entity ent) return;
         if (Game.LocalPawn is not ISWBPlayer player) return;
         if (player.ActiveChild is not WeaponBase weapon) return;
 
@@ -48,8 +46,8 @@ public class SniperScope : Panel
         Style.Opacity = !weapon.IsScoped ? 0 : 1;
 
         // Movement impact
-        var velocityJump = ent.Velocity.z * 0.02f;
-        var velocityMove = (Math.Abs(ent.Velocity.y) + Math.Abs(ent.Velocity.x)) * 0.005f;
+        var velocityJump = player.Velocity.z * 0.02f;
+        var velocityMove = (Math.Abs(player.Velocity.y) + Math.Abs(player.Velocity.x)) * 0.005f;
         var lensBob = 0f;
 
         if (velocityJump != 0)
@@ -66,7 +64,7 @@ public class SniperScope : Panel
         if (scope == null) return;
 
         // Rotation impact
-        var rightVector = player.EyeRotation.Right * ent.Velocity;
+        var rightVector = player.EyeRotation.Right * player.Velocity;
         var targetRotation = (rightVector.y + rightVector.x) * 0.015f;
         var rotateTransform = new PanelTransform();
         lensRotation = MathUtil.FILerp(lensRotation, targetRotation, 20);

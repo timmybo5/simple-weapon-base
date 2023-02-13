@@ -11,7 +11,7 @@ public class Hitmarker : Panel
 
     public Hitmarker()
     {
-        StyleSheet.Load("/demo_player/ui/Hitmarker.scss");
+        StyleSheet.Load("/swb_player/ui/Hitmarker.scss");
         Current = this;
     }
 

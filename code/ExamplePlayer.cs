@@ -65,7 +65,7 @@ public partial class ExamplePlayer : PlayerBase, ISWBPlayer
         SupressPickupNotices = false;
     }
 
-    bool DesiresThirdPerson = false;
+    bool desiresThirdPerson = false;
 
     public void OnScopeStart()
     {
@@ -81,7 +81,7 @@ public partial class ExamplePlayer : PlayerBase, ISWBPlayer
     {
         if (!Game.IsServer) return;
 
-        if (DesiresThirdPerson)
+        if (desiresThirdPerson)
         {
             CameraMode = new ThirdPersonCamera();
         }
@@ -97,12 +97,12 @@ public partial class ExamplePlayer : PlayerBase, ISWBPlayer
         {
             if (CameraMode is ThirdPersonCamera)
             {
-                DesiresThirdPerson = false;
+                desiresThirdPerson = false;
                 CameraMode = new FirstPersonCamera();
             }
             else
             {
-                DesiresThirdPerson = true;
+                desiresThirdPerson = true;
                 CameraMode = new ThirdPersonCamera();
             }
         }

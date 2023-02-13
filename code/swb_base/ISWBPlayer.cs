@@ -2,7 +2,7 @@
 
 namespace SWB_Base;
 
-public interface ISWBPlayer
+public interface ISWBPlayer : IEntity
 {
     /// <summary>
     /// The entity that the pawn is current holding/using
