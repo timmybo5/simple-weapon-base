@@ -51,11 +51,11 @@ partial class ScreenUtil
         foreach (var obj in objects)
         {
             // Player check
-            if (!obj.IsValid() || obj is not ModelEntity ply)
+            if (!obj.IsValid() || obj is not ISWBPlayer ply)
                 continue;
 
             // Distance check
-            var targetPos = ply.PhysicsBody.MassCenter;
+            var targetPos = ply.Position;
             var dist = Vector3.DistanceBetween(origin, targetPos);
             if (dist > radius)
                 continue;
@@ -65,7 +65,7 @@ partial class ScreenUtil
             rotation *= distanceMul;
             size *= distanceMul;
 
-            ShakeRPC(To.Single(ply), delay, speed, size, rotation);
+            ShakeRPC(To.Single(ply.Client), delay, speed, size, rotation);
         }
     }
 
