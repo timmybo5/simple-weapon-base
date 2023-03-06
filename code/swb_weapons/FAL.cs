@@ -35,13 +35,13 @@ public class FAL : WeaponBase
 
         Primary = new ClipInfo
         {
-            Ammo = 20,
+            Ammo = 30,
             AmmoType = AmmoTypes.Rifle,
-            ClipSize = 20,
+            ClipSize = 30,
 
             BulletSize = 3f,
             BulletType = new RifleBullet(),
-            Damage = 20f,
+            Damage = 17f,
             Force = 3f,
             HitFlinch = 2f,
             Spread = 0.1f,
