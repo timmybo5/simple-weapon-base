@@ -13,7 +13,7 @@ public class Bayonet : WeaponBaseMelee
     public override AngPos ViewModelOffset => new()
     {
         Angle = new Angles(0, -15, 0),
-        Pos = new Vector3(-4, 0, 0)
+        Pos = new Vector3(-3, 0, 0)
     };
     public override string WorldModelPath => "weapons/swb/melee/bayonet/w_bayonet.vmdl";
     public override string Icon => "code/swb_weapons/textures/bayonet.png";
@@ -27,7 +27,7 @@ public class Bayonet : WeaponBaseMelee
     public override string MissSound => "bayonet.slash";
     public override string HitWorldSound => "bayonet.hitwall";
     public override float PrimarySpeed => 0.5f;
-    public override float SecondarySpeed => 1f;
+    public override float SecondarySpeed => 0.8f;
     public override float PrimaryDamage => 25f;
     public override float SecondaryDamage => 100f;
     public override float PrimaryForce => 25f;
@@ -39,8 +39,8 @@ public class Bayonet : WeaponBaseMelee
     {
         General = new WeaponInfo
         {
-            FOV = 75,
-            WalkAnimationSpeedMod = 1.25f,
+            FOV = 80,
+            WalkAnimationSpeedMod = 1.35f,
         };
 
         UISettings = new UISettings
