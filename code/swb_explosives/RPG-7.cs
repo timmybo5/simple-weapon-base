@@ -53,16 +53,16 @@ public class RPG7 : WeaponBaseEntity
             BulletSize = 5f,
             Damage = 15f,
             Force = 4f,
-            Spread = 0.2f,
-            Recoil = 0.7f,
-            RPM = 800,
+            Spread = 0.7f,
+            Recoil = 1.2f,
+            RPM = 750,
             FiringType = FiringType.semi,
             ScreenShake = new ScreenShake
             {
-                Length = 0.08f,
-                Delay = 0.02f,
-                Size = 2f,
-                Rotation = 0.2f
+                Length = 0.13f,
+                Delay = 0.03f,
+                Size = 1.94f,
+                Rotation = 0.22f
             },
 
             DryFireSound = "swb_lmg.empty",
@@ -91,10 +91,10 @@ public class RPG7 : WeaponBaseEntity
         var rocket = new Rocket();
         rocket.Weapon = this;
         rocket.ExplosionDelay = 3f;
-        rocket.ExplosionRadius = 400f;
-        rocket.ExplosionDamage = 300f;
+        rocket.ExplosionRadius = 320f;
+        rocket.ExplosionDamage = 350f;
         rocket.ExplosionForce = 500f;
-        rocket.Inaccuracy = 75;
+        rocket.Inaccuracy = 70;
         rocket.ExplosionSound = "swb_explosion_random";
         rocket.ExplosionEffect = "weapons/swb/explosives/rpg-7/temp_particles/grenade_he_explosion.vpcf";
         rocket.RocketSound = "swb_explosives_rpg7.rocketloop";
