@@ -6,7 +6,10 @@
 
 partial class ExamplePlayer
 {
-    static EntityLimit RagdollLimit = new EntityLimit { MaxTotal = 20 };
+    //==============================================
+    //REDUCED ENTITY LIMIT TO 10 AS IT CAUSES LAG
+    //==============================================
+    static EntityLimit RagdollLimit = new EntityLimit { MaxTotal = 10 };
 
     [ClientRpc]
     void BecomeRagdollOnClient(Vector3 force, int forceBone)
