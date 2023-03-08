@@ -6,9 +6,7 @@
 
 partial class ExamplePlayer
 {
-    //==============================================
-    //REDUCED ENTITY LIMIT TO 10 AS IT CAUSES LAG
-    //==============================================
+    // Can create lag, be cautious setting this too high
     static EntityLimit RagdollLimit = new EntityLimit { MaxTotal = 10 };
 
     [ClientRpc]
