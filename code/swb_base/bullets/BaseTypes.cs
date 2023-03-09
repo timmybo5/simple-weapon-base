@@ -18,7 +18,7 @@ public class DeagleBullet : PhysicalBulletBase
 {
     public override float Mass => 19f;
     public override float Drag => 0.15f;
-    public override float Velocity => 470f;
+    public override float Velocity => 480f;
 }
 
 // 12 gauge
@@ -49,6 +49,6 @@ public class RifleBullet : PhysicalBulletBase
 public class SniperBullet : PhysicalBulletBase
 {
     public override float Mass => 16f;
-    public override float Drag => 0.15f;
-    public override float Velocity => 750f;
+    public override float Drag => 0.10f;
+    public override float Velocity => 800f;
 }
