@@ -34,13 +34,9 @@ public interface ISWBPlayer : IEntity
     public void ScreenShake(ScreenShakeStruct screenShake);
 
     /// <summary>
-    /// Whether the player is model editing
+    /// Whether the player is looking at their gun (as if model or attachment editting.)
     /// </summary>
-    public bool IsModelEditing();
-    /// <summary>
-    /// Whether the player is editing attachments
-    /// </summary>
-    public bool IsAttachmentEditing();
+    public bool IsLookingAtGun { get; }
 
     /// <summary>
     /// Called when the weapon wants to know how much ammo is available

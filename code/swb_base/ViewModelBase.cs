@@ -94,7 +94,7 @@ partial class ViewModelBase : BaseViewModel
         targetWeaponFOV = weapon.General.FOV;
 
         // Model editor
-        if (Owner is ISWBPlayer player && (player.IsModelEditing() || player.IsAttachmentEditing()))
+        if (Owner is ISWBPlayer player && (player.IsLookingAtGun))
         {
             if (EditorOffset != AngPos.Zero)
             {
