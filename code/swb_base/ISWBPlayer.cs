@@ -36,7 +36,7 @@ public interface ISWBPlayer : IEntity
     /// <summary>
     /// Whether the player is looking at their gun (as if model or attachment editting.)
     /// </summary>
-    public bool IsLookingAtGun { get; }
+    public bool IsEditingWeapon { get; }
 
     /// <summary>
     /// Called when the weapon wants to know how much ammo is available

@@ -2,11 +2,11 @@
 
 public partial class PlayerBase
 {
-    public bool IsLookingAtGun
-    {
-        get
-        {
-            return attachmentEditor != null || modelEditor != null;
-        }
-    }
+	public bool IsEditingWeapon
+	{
+		get
+		{
+			return attachmentEditor != null || modelEditor != null;
+		}
+	}
 }
