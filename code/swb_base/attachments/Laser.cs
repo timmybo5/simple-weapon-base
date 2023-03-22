@@ -96,7 +96,7 @@ public class Laser : OffsetAttachment
     public void OnFrame()
     {
         // Destroy laser when dropped or if weapon owner switches weapon
-        if (weapon != null && (weapon.Owner == null || (weapon.Owner != null && weapon.Owner != Game.LocalPawn && weapon.Owner is PlayerBase player && player.ActiveChild != weapon)))
+        if (weapon != null && (weapon.Owner == null || (weapon.Owner != null && weapon.Owner != Game.LocalPawn && weapon.Owner is ISWBPlayer player && player.ActiveChild != weapon)))
         {
             this.weapon = null;
             DestroyParticle();
@@ -194,8 +194,8 @@ public class Laser : OffsetAttachment
             //LogUtil.Info(laserTrans.Rotation);
             //LogUtil.Info(laserTrans.Rotation.Forward);
 
-            var ownerPly = owner as PlayerBase;
-            var localPly = Game.LocalPawn as PlayerBase;
+            var ownerPly = owner as ISWBPlayer;
+            var localPly = Game.LocalPawn as ISWBPlayer;
             var eyePos = isOwner ? localPly.EyePosition : ownerPly.EyePosition;
             var eyeRot = isOwner ? localPly.EyeRotation : ownerPly.EyeRotation;
             Vector3 fromPos;

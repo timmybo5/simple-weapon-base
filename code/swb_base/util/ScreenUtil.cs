@@ -13,7 +13,7 @@ partial class ScreenUtil
 
     public static void Shake(float length = 0, float delay = 0, float size = 0, float rotation = 0)
     {
-        if (Game.LocalPawn is PlayerBase player)
+        if (Game.LocalPawn is ISWBPlayer player)
         {
             var screenShake = new ScreenShakeStruct
             {
@@ -51,11 +51,11 @@ partial class ScreenUtil
         foreach (var obj in objects)
         {
             // Player check
-            if (obj is not PlayerBase ply || !ply.IsValid())
+            if (!obj.IsValid() || obj is not ISWBPlayer ply)
                 continue;
 
             // Distance check
-            var targetPos = ply.PhysicsBody.MassCenter;
+            var targetPos = ply.Position;
             var dist = Vector3.DistanceBetween(origin, targetPos);
             if (dist > radius)
                 continue;
@@ -65,7 +65,7 @@ partial class ScreenUtil
             rotation *= distanceMul;
             size *= distanceMul;
 
-            ShakeRPC(To.Single(ply), delay, speed, size, rotation);
+            ShakeRPC(To.Single(ply.Client), delay, speed, size, rotation);
         }
     }
 

@@ -26,7 +26,7 @@ public class Grenade : FiredEntity
 
     protected override void OnPhysicsCollision(CollisionEventData eventData)
     {
-        if (eventData.Other.Entity is not PlayerBase && eventData.Speed > 50 && !string.IsNullOrEmpty(BounceSound))
+        if (eventData.Other.Entity is not ISWBPlayer && eventData.Speed > 50 && !string.IsNullOrEmpty(BounceSound))
             PlaySound(BounceSound);
     }
 

@@ -132,7 +132,7 @@ public class BulletEntity : Entity
             startPos = Position;
         }
 
-        if (Owner is PlayerBase player)
+        if (Owner is ISWBPlayer player)
         {
             var simulator = player.BulletSimulator;
             simulator?.Add(this);

@@ -26,7 +26,7 @@ public partial class StatsDisplay : Panel
 
     public override void Tick()
     {
-        if (Game.LocalPawn is not PlayerBase) return;
+        if (Game.LocalPawn is not ISWBPlayer) return;
 
         if (weapon == null)
         {

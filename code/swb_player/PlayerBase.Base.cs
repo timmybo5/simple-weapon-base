@@ -223,14 +223,43 @@ public partial class PlayerBase : AnimatedEntity
         viewAngles.roll = 0f;
         ViewAngles = viewAngles.Normal;
 
+        // Adjust mouse sensitivity based on weapon suggestion
+        if (ActiveChild is WeaponBase weapon)
+        {
+            var enableZoomSens = ConsoleSystem.GetValue("swb_cl_enable_zoomsens");
+            if (weapon.IsZooming && enableZoomSens == "1")
+            {
+                ViewAngles = Angles.Lerp(OriginalViewAngles, ViewAngles, weapon.General.AimSensitivity);
+            }
+        }
+
         ActiveChild?.BuildInput();
+        DoWeaponRecoil();
 
         GetActiveController()?.BuildInput();
+
+        HandleFlinch();
 
         if (Input.StopProcessing)
             return;
 
         GetActiveAnimator()?.BuildInput();
+    }
+
+    bool shouldRecoil = false;
+    public void OnRecoil()
+    {
+        shouldRecoil = true;
+    }
+
+    private void DoWeaponRecoil()
+    {
+        if (!shouldRecoil) return;
+        if (ActiveChild is not WeaponBase weapon) return;
+
+        var recoilAngle = weapon.GetRecoilAngles();
+        ViewAngles += recoilAngle;
+        shouldRecoil = false;
     }
 
     /// <summary>

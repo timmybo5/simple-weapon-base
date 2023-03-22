@@ -199,7 +199,7 @@ public partial class WeaponBase
             return;
         }
 
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
         var activeWeapon = player.ActiveChild;
         await GameTask.DelaySeconds(0.05f);
         if (!IsAsyncValid(activeWeapon, instanceID)) return;
@@ -308,7 +308,7 @@ public partial class WeaponBase
             return;
         }
 
-        var player = Owner as PlayerBase;
+        var player = Owner as ISWBPlayer;
         var activeWeapon = player.ActiveChild;
 
         await GameTask.DelaySeconds(0.05f);

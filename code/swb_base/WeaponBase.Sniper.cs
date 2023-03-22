@@ -50,16 +50,8 @@ public partial class WeaponBaseSniper : WeaponBase
 
         Primary.Spread = 0;
 
-        if (Game.IsServer)
-        {
-            var player = Owner as PlayerBase;
-
-            if (player.CameraMode is ThirdPersonCamera)
-            {
-                switchBackToThirdP = true;
-                player.CameraMode = new FirstPersonCamera();
-            }
-        }
+        var player = Owner as ISWBPlayer;
+        player.OnScopeStart();
 
         if (IsLocalPawn)
         {
@@ -85,13 +77,8 @@ public partial class WeaponBaseSniper : WeaponBase
         IsScoped = false;
         Primary.Spread = oldSpread;
 
-        if (Game.IsServer && switchBackToThirdP)
-        {
-            var player = Owner as PlayerBase;
-
-            switchBackToThirdP = false;
-            player.CameraMode = new ThirdPersonCamera();
-        }
+        var player = Owner as ISWBPlayer;
+        player.OnScopeEnd();
 
         if (IsLocalPawn)
         {

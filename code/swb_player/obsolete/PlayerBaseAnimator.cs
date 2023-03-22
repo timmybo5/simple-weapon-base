@@ -61,7 +61,7 @@ public class PlayerBaseAnimator : PlayerPawnAnimator
 
         if (player != null && player.ActiveChild is CarriableBase carry)
         {
-            carry.SimulateAnimator(this);
+            carry.SimulateAnimator(player);
         }
         else
         {

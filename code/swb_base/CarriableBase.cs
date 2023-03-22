@@ -26,13 +26,9 @@ public class CarriableBase : AnimatedEntity
 
         EnableDrawing = true;
 
-        if (ent is PlayerBase player)
+        if (ent is AnimatedEntity animatedEntity)
         {
-            var animator = player.GetActiveAnimator();
-            if (animator != null)
-            {
-                SimulateAnimator(animator);
-            }
+            SimulateAnimator(animatedEntity);
         }
 
         //
@@ -99,7 +95,7 @@ public class CarriableBase : AnimatedEntity
         }
     }
 
-    public virtual void SimulateAnimator(PlayerBaseAnimator anim)
+    public virtual void SimulateAnimator(AnimatedEntity anim)
     {
         anim.SetAnimParameter("holdtype", 1);
         anim.SetAnimParameter("aim_body_weight", 1.0f);

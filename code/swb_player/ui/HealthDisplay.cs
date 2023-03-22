@@ -14,7 +14,7 @@ public class HealthDisplay : Panel
 
     public HealthDisplay(UISettings uiSettings)
     {
-        StyleSheet.Load("/swb_base/ui/HealthDisplay.scss");
+        StyleSheet.Load("/swb_player/ui/HealthDisplay.scss");
 
         healthWrapper = Add.Panel("healthWrapper");
 

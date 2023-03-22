@@ -28,9 +28,7 @@ public partial class PlayerBase
             EyeRotation = ThirdPersonCamera.GetEyeRotation(this);
         }
     }
-
-    [Event.Client.BuildInput]
-    public virtual void ProcessClientInput()
+    private void HandleFlinch()
     {
         if (!Alive())
         {

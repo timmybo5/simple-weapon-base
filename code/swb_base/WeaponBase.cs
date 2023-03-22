@@ -176,7 +176,7 @@ public partial class WeaponBase : CarriableBase
                 _ = AsyncBoltBack(General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle);
         }
 
-        if (Owner is PlayerBase player)
+        if (Owner is ISWBPlayer player)
         {
             if (player.AmmoCount(Primary.AmmoType) <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve)
                 return;
@@ -201,7 +201,7 @@ public partial class WeaponBase : CarriableBase
             return;
         }
 
-        if (Owner is PlayerBase player)
+        if (Owner is ISWBPlayer player)
         {
             var ammo = player.TakeAmmo(Primary.AmmoType, maxClipSize - Primary.Ammo);
 
@@ -231,27 +231,10 @@ public partial class WeaponBase : CarriableBase
         // TODO - player third person model reload
     }
 
-    public override void BuildInput()
+    public Angles GetRecoilAngles()
     {
-        if (Owner is not PlayerBase player) return;
-
-        var enableZoomSens = ConsoleSystem.GetValue("swb_cl_enable_zoomsens");
-
-        // Mouse sensitivity
-        if (IsZooming && enableZoomSens == "1")
-        {
-            player.ViewAngles = Angles.Lerp(player.OriginalViewAngles, player.ViewAngles, General.AimSensitivity);
-        }
-
-        // Recoil
-        if (doRecoil)
-        {
-            doRecoil = false;
-            //var random = new Random(); -> might making aiming too difficult
-            //var randVal = random.Next(-5, 5) / 10f;
-            var recoilAngles = new Angles(IsZooming ? -Primary.Recoil * 0.4f : -Primary.Recoil, 0, 0);
-            player.ViewAngles += recoilAngles;
-        }
+        var recoilAngles = new Angles(IsZooming ? -Primary.Recoil * 0.4f : -Primary.Recoil, 0, 0);
+        return recoilAngles;
     }
 
     public virtual void UpdateCamera() { }
@@ -297,7 +280,7 @@ public partial class WeaponBase : CarriableBase
 
         if (Primary.ClipSize == -1)
         {
-            if (Owner is PlayerBase player)
+            if (Owner is ISWBPlayer player)
             {
                 return player.TakeAmmo(Primary.AmmoType, amount) > 0;
             }
@@ -339,7 +322,7 @@ public partial class WeaponBase : CarriableBase
         }
     }
 
-    public override void SimulateAnimator(PlayerBaseAnimator anim)
+    public override void SimulateAnimator(AnimatedEntity anim)
     {
         anim.SetAnimParameter("holdtype", (int)HoldType);
         anim.SetAnimParameter("aim_body_weight", 1.0f);

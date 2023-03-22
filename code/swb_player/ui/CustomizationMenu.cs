@@ -27,9 +27,9 @@ public class CustomizationMenu : Panel
 
     public CustomizationMenu()
     {
-        StyleSheet.Load("/swb_base/ui/CustomizationMenu.scss");
+        StyleSheet.Load("/swb_player/ui/CustomizationMenu.scss");
 
-        if (Game.LocalPawn is not PlayerBase player) return;
+        if (Game.LocalPawn is not ISWBPlayer player) return;
 
         activeWeapon = player.ActiveChild as WeaponBase;
 
@@ -377,7 +377,7 @@ public class CustomizationMenu : Panel
 
     public override void Tick()
     {
-        var player = Game.LocalPawn as PlayerBase;
+        var player = Game.LocalPawn as ISWBPlayer;
         if (player == null) return;
 
         if (activeWeapon == null || activeWeapon != player.ActiveChild as WeaponBase)
