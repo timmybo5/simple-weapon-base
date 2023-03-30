@@ -2,9 +2,9 @@
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using SWB_Base;
+using SWB_Player;
 
-namespace SWB_Player.UI;
+namespace SWB_HUD;
 
 public class HealthDisplay : Panel
 {
@@ -13,17 +13,13 @@ public class HealthDisplay : Panel
     Image healthIcon;
     Label healthLabel;
 
-    public HealthDisplay(UISettings uiSettings)
+    public HealthDisplay()
     {
-        StyleSheet.Load("/swb_player/ui/HealthDisplay.scss");
+        StyleSheet.Load("/swb_hud/HealthDisplay.scss");
 
         healthWrapper = Add.Panel("healthWrapper");
-
-        if (uiSettings.ShowHealthIcon)
-            healthIcon = healthWrapper.Add.Image("/materials/swb/hud/health.png", "healthIcon");
-
-        if (uiSettings.ShowHealthCount)
-            healthLabel = healthWrapper.Add.Label("", "healthLabel");
+        healthIcon = healthWrapper.Add.Image("/materials/swb/hud/health.png", "healthIcon");
+        healthLabel = healthWrapper.Add.Label("", "healthLabel");
     }
 
     public override void Tick()

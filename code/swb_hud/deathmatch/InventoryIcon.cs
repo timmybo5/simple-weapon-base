@@ -3,7 +3,7 @@ using Sandbox;
 using Sandbox.UI;
 using SWB_Base;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 class InventoryIcon : Panel
 {

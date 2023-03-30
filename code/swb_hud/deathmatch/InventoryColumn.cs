@@ -4,7 +4,7 @@ using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB_Base;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 public class InventoryColumn : Panel
 {

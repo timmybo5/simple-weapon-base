@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 public partial class KillFeed : Panel
 {
@@ -10,7 +10,7 @@ public partial class KillFeed : Panel
     public KillFeed()
     {
         Current = this;
-        StyleSheet.Load("deathmatch_hud/ui/KillFeed.scss");
+        StyleSheet.Load("swb_hud/deathmatch/KillFeed.scss");
     }
 
     public virtual Panel AddEntry(long lsteamid, string left, long rsteamid, string right, string icon)

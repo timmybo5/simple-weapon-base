@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Sandbox;
 using Sandbox.UI;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 public partial class DamageIndicator : Panel
 {
@@ -12,7 +12,7 @@ public partial class DamageIndicator : Panel
     public DamageIndicator()
     {
         Current = this;
-        StyleSheet.Load("deathmatch_hud/ui/DamageIndicator.scss");
+        StyleSheet.Load("swb_hud/deathmatch/DamageIndicator.scss");
     }
 
     public void OnHit(Vector3 pos)

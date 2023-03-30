@@ -1,13 +1,13 @@
 ﻿using Sandbox.UI.Construct;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 public class Scoreboard : Sandbox.UI.Scoreboard<ScoreboardEntry>
 {
 
     public Scoreboard()
     {
-        StyleSheet.Load("deathmatch_hud/ui/Scoreboard.scss");
+        StyleSheet.Load("swb_hud/deathmatch/Scoreboard.scss");
     }
 
     protected override void AddHeader()

@@ -1,9 +1,8 @@
 ﻿using System;
 using Sandbox;
 using Sandbox.UI;
-using SWB_Base;
 
-namespace SWB_Player.UI;
+namespace SWB_Base.UI;
 
 public partial class StatsDisplay : Panel
 {

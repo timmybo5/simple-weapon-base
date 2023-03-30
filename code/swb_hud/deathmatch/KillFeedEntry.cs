@@ -2,7 +2,7 @@
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 public partial class KillFeedEntry : Panel
 {

@@ -1,16 +1,16 @@
-﻿using Deathmatch.Hud;
-using Sandbox;
+﻿using Sandbox;
+using SWB_HUD;
 
 [Library("swb")]
 public partial class ExampleGame : GameManager
 {
-    public DeathmatchHud UI;
+    public HUD UI;
 
     public ExampleGame()
     {
         if (Game.IsServer)
         {
-            UI = new DeathmatchHud();
+            UI = new HUD();
         }
     }
 

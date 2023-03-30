@@ -4,7 +4,7 @@ using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB_Player;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 /// <summary>
 /// When a player is within radius of the camera we add this to their entity.
@@ -45,7 +45,7 @@ internal class NameTagComponent : EntityComponent<PlayerBase>
     public static void SystemUpdate()
     {
         // Check if deathmatch hud is active
-        var hasDeathmatchHud = Sandbox.Entity.All.OfType<DeathmatchHud>().Count() > 0;
+        var hasDeathmatchHud = Sandbox.Entity.All.OfType<HUD>().Count() > 0;
 
         if (!hasDeathmatchHud) return;
 
@@ -85,7 +85,7 @@ public class NameTag : WorldPanel
 
     internal NameTag(string title, long? steamid)
     {
-        StyleSheet.Load("deathmatch_hud/ui/Nametags.scss");
+        StyleSheet.Load("swb_hud/deathmatch/Nametags.scss");
 
         if (steamid != null)
         {

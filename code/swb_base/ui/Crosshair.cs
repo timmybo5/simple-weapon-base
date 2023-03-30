@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Sandbox;
 using Sandbox.UI;
-using SWB_Base;
 
-namespace SWB_Player.UI;
+namespace SWB_Base.UI;
 
 public class Crosshair : Panel
 {
@@ -22,7 +21,7 @@ public class Crosshair : Panel
 
     public Crosshair()
     {
-        StyleSheet.Load("/swb_player/ui/Crosshair.scss");
+        StyleSheet.Load("/swb_base/ui/Crosshair.scss");
 
         CenterDot = Add.Panel("centerDot");
         LeftBar = Add.Panel("leftBar");

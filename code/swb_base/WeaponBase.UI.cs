@@ -1,19 +1,12 @@
 ﻿using Sandbox;
 using Sandbox.UI;
-using SWB_Player.UI;
-
-/* 
- * Weapon base UI
-*/
+using SWB_Base.UI;
 
 namespace SWB_Base;
 
 public partial class WeaponBase
 {
-    protected Panel healthDisplay;
-    protected Panel ammoDisplay;
     protected Panel customizationMenu;
-
     protected Panel hitmarker;
     protected Panel crosshair;
 
@@ -34,46 +27,33 @@ public partial class WeaponBase
 
         if (UISettings.ShowHitmarker)
         {
-            hitmarker = new Hitmarker
-            {
-                Parent = Game.RootPanel
-            };
-        }
-
-        if (UISettings.ShowHealthCount || UISettings.ShowHealthIcon)
-        {
-            healthDisplay = new HealthDisplay(UISettings)
-            {
-                Parent = Game.RootPanel
-            };
-        }
-
-        if (UISettings.ShowAmmoCount || UISettings.ShowWeaponIcon || UISettings.ShowFireMode)
-        {
-            ammoDisplay = new AmmoDisplay(UISettings)
-            {
-                Parent = Game.RootPanel
-            };
+            hitmarker = CreateHitmarker();
+            hitmarker.Parent = Game.RootPanel;
         }
     }
 
+    /// <summary>Override to use custom crosshair</summary>
     public virtual Panel CreateCrosshair()
     {
         return new Crosshair();
     }
 
+    /// <summary>Override to use custom hitmarkers</summary>
+    public virtual Panel CreateHitmarker()
+    {
+        return new Hitmarker();
+    }
+
     public override void DestroyHudElements()
     {
-        healthDisplay?.Delete(true);
-        ammoDisplay?.Delete(true);
         hitmarker?.Delete(true);
         crosshair?.Delete(true);
         customizationMenu?.Delete();
     }
 
-    public void UISimulate(IClient player)
+    public virtual void UISimulate(IClient player)
     {
-        // Cutomization menu
+        // Customization menu
         if (EnableCustomizationSV > 0 && Input.Pressed(InputButton.Menu) && AttachmentCategories != null)
         {
             if (customizationMenu == null)

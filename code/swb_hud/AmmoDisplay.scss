@@ -1,6 +1,5 @@
 ﻿AmmoDisplay {
     position: absolute;
-    display: flex;
     flex-direction: column;
     bottom: 2%;
     right: 5%;
@@ -10,8 +9,12 @@
     font-family: Elronmonospace;
     letter-spacing: -1px;
 
+    &.hideAmmoDisplay,
+    .hideAmmoDisplay {
+        display: none;
+    }
+
     .ammoWrapper {
-        display: flex;
         align-items: center;
         justify-content: center;
         align-content: center;
@@ -33,7 +36,6 @@
     }
 
     .iconWrapper {
-        display: flex;
         flex-direction: column;
         align-items: flex-end;
         align-self: flex-end;
@@ -52,7 +54,6 @@
         .fireModeWrapper {
             position: absolute;
             bottom: 20px;
-            display: flex;
             align-self: flex-start;
             flex-direction: row;
 
@@ -68,9 +69,5 @@
                 margin-left: -8px;
             }
         }
-    }
-
-    &.hideAmmoDisplay {
-        display: none;
     }
 }

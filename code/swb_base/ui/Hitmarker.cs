@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Sandbox.UI;
 
-namespace SWB_Player.UI;
+namespace SWB_Base.UI;
 
 public class Hitmarker : Panel
 {
@@ -10,7 +10,7 @@ public class Hitmarker : Panel
 
     public Hitmarker()
     {
-        StyleSheet.Load("/swb_player/ui/Hitmarker.scss");
+        StyleSheet.Load("/swb_base/ui/Hitmarker.scss");
         Current = this;
     }
 

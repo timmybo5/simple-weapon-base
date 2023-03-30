@@ -2,20 +2,24 @@
 using Sandbox;
 using Sandbox.UI;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 [Library]
-public partial class DeathmatchHud : HudEntity<RootPanel>
+public partial class HUD : HudEntity<RootPanel>
 {
     KillFeed killFeed;
 
-    public DeathmatchHud()
+    public HUD()
     {
         if (!Game.IsClient)
             return;
 
-        RootPanel.StyleSheet.Load("deathmatch_hud/ui/DeathmatchHud.scss");
+        RootPanel.StyleSheet.Load("swb_hud/HUD.scss");
 
+        RootPanel.AddChild<HealthDisplay>();
+        RootPanel.AddChild<AmmoDisplay>();
+
+        // Deatmatch
         RootPanel.AddChild<DamageIndicator>();
 
         RootPanel.AddChild<InventoryBar>();

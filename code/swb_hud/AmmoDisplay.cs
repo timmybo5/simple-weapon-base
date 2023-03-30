@@ -3,8 +3,9 @@ using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB_Base;
+using SWB_Player;
 
-namespace SWB_Player.UI;
+namespace SWB_HUD;
 
 public class AmmoDisplay : Panel
 {
@@ -22,29 +23,20 @@ public class AmmoDisplay : Panel
     Color reserveColor = new Color32(200, 200, 200).ToColor();
     Color emptyColor = new Color32(175, 175, 175, 200).ToColor();
 
-    public AmmoDisplay(UISettings uiSettings)
+    public AmmoDisplay()
     {
-        StyleSheet.Load("/swb_player/ui/AmmoDisplay.scss");
+        StyleSheet.Load("/swb_hud/AmmoDisplay.scss");
 
-        if (uiSettings.ShowAmmoCount)
-        {
-            ammoWrapper = Add.Panel("ammoWrapper");
-            clipLabel = ammoWrapper.Add.Label("", "clipLabel");
-            reserveLabel = ammoWrapper.Add.Label("", "reserveLabel");
-        }
+        ammoWrapper = Add.Panel("ammoWrapper");
+        clipLabel = ammoWrapper.Add.Label("", "clipLabel");
+        reserveLabel = ammoWrapper.Add.Label("", "reserveLabel");
 
-        if (uiSettings.ShowWeaponIcon)
-        {
-            iconWrapper = Add.Panel("iconWrapper");
-            weaponIcon = iconWrapper.Add.Image("", "weaponIcon");
-        }
+        iconWrapper = Add.Panel("iconWrapper");
+        weaponIcon = iconWrapper.Add.Image("", "weaponIcon");
 
-        if (uiSettings.ShowFireMode)
-        {
-            fireModeWrapper = iconWrapper.Add.Panel("fireModeWrapper");
-            semiFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_1.png", "fireModeIcon");
-            autoFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_3.png", "fireModeIcon");
-        }
+        fireModeWrapper = iconWrapper.Add.Panel("fireModeWrapper");
+        semiFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_1.png", "fireModeIcon");
+        autoFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_3.png", "fireModeIcon");
     }
 
     public override void Tick()
@@ -58,6 +50,10 @@ public class AmmoDisplay : Panel
         SetClass("hideAmmoDisplay", !isValidWeapon);
 
         if (!isValidWeapon) return;
+
+        ammoWrapper.SetClass("hideAmmoDisplay", !weapon.UISettings.ShowAmmoCount);
+        iconWrapper.SetClass("hideAmmoDisplay", !weapon.UISettings.ShowWeaponIcon);
+        fireModeWrapper.SetClass("hideAmmoDisplay", !weapon.UISettings.ShowFireMode);
 
         if (ammoWrapper != null)
         {

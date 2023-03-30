@@ -5,12 +5,6 @@ public class UISettings
     /// <summary>Hide all HUD elements</summary>
     public bool HideAll { get; set; } = false;
 
-    /// <summary>Show health icon</summary>
-    public bool ShowHealthIcon { get; set; } = true;
-
-    /// <summary>Show health counter</summary>
-    public bool ShowHealthCount { get; set; } = true;
-
     /// <summary>Show ammo counter</summary>
     public bool ShowAmmoCount { get; set; } = true;
 

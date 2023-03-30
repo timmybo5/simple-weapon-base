@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Deathmatch.Hud;
 using Sandbox;
 using SWB_Base;
+using SWB_HUD;
 using SWB_Player;
 
 public class ExampleInventory : InventoryBase

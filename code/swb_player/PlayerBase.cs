@@ -1,7 +1,7 @@
 ﻿using System;
 using Sandbox;
 using SWB_Base;
-using SWB_Player.UI;
+using SWB_Base.UI;
 
 namespace SWB_Player;
 

@@ -2,10 +2,9 @@
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using SWB_Base;
 using SWB_Base.Translations;
 
-namespace SWB_Player.UI;
+namespace SWB_Base.UI;
 
 public class CustomizationMenu : Panel
 {
@@ -28,7 +27,7 @@ public class CustomizationMenu : Panel
 
     public CustomizationMenu()
     {
-        StyleSheet.Load("/swb_player/ui/CustomizationMenu.scss");
+        StyleSheet.Load("/swb_base/ui/CustomizationMenu.scss");
 
         if (Game.LocalPawn is not ISWBPlayer player) return;
 

@@ -4,7 +4,7 @@ using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 public partial class PickupFeed : Panel
 {
@@ -13,7 +13,7 @@ public partial class PickupFeed : Panel
     public PickupFeed()
     {
         Current = this;
-        StyleSheet.Load("deathmatch_hud/ui/PickupFeed.scss");
+        StyleSheet.Load("swb_hud/deathmatch/PickupFeed.scss");
     }
 
     /// <summary>

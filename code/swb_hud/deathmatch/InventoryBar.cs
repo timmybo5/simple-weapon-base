@@ -6,7 +6,7 @@ using Sandbox.UI;
 using SWB_Base;
 using SWB_Player;
 
-namespace Deathmatch.Hud;
+namespace SWB_HUD;
 
 /// <summary>
 /// The main inventory panel, top left of the screen.
@@ -21,7 +21,7 @@ public class InventoryBar : Panel
 
     public InventoryBar()
     {
-        StyleSheet.Load("deathmatch_hud/ui/InventoryBar.scss");
+        StyleSheet.Load("swb_hud/deathmatch/InventoryBar.scss");
 
         for (int i = 0; i < 6; i++)
         {

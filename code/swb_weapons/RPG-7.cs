@@ -17,7 +17,7 @@ public class RPG7 : WeaponBaseEntity
         Pos = new Vector3(0, -7, 0)
     };
     public override string WorldModelPath => "weapons/swb/explosives/rpg-7/swb_w_rpg7.vmdl";
-    public override string Icon => "code/swb_explosives/textures/ui/icon_rpg7.png";
+    public override string Icon => "code/swb_weapons/textures/rpg7.png";
     public override bool BulletCocking => false;
 
     public override Func<ClipInfo, bool, FiredEntity> CreateEntity => CreateRocketEntity;
