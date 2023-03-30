@@ -52,7 +52,7 @@ public partial class ExamplePlayer : PlayerBase, ISWBPlayer
         Inventory.Add(new SWB_WEAPONS.FAL());
         Inventory.Add(new SWB_WEAPONS.L96A1());
 
-        Inventory.Add(new SWB_EXPLOSIVES.RPG7());
+        Inventory.Add(new SWB_WEAPONS.RPG7());
 
         GiveAmmo(AmmoTypes.SMG, 100);
         GiveAmmo(AmmoTypes.Pistol, 60);

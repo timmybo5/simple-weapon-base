@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Sandbox;
 using SWB_Base;
 
-namespace SWB_EXPLOSIVES;
+namespace SWB_WEAPONS;
 
-[Library("swb_explosives_rpg7", Title = "RPG-7")]
+[Library("swb_rpg7", Title = "RPG-7")]
 public class RPG7 : WeaponBaseEntity
 {
     public override int Bucket => 4;
