@@ -5,7 +5,7 @@ using Sandbox.Html;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 /// <summary>
 /// A UI control which provides multiple options via a dropdown box

@@ -3,7 +3,7 @@ using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 [Library("swb_Popup")]
 public partial class Popup : Panel

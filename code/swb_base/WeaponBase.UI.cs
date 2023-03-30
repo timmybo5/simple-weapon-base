@@ -1,6 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
-using SWB_Base.UI;
+using SWB_Player.UI;
 
 /* 
  * Weapon base UI

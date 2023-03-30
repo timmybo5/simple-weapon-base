@@ -1,6 +1,7 @@
 ﻿using Sandbox;
+using SWB_Player;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 internal class Commands
 {

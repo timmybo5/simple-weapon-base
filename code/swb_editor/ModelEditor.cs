@@ -1,8 +1,8 @@
 ﻿using Sandbox;
 using Sandbox.UI;
-using SWB_Base.Editor;
+using SWB_Editor;
 
-namespace SWB_Base;
+namespace SWB_Player;
 
 partial class PlayerBase
 {

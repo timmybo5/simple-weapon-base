@@ -1,7 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 /// <summary>
 /// A button that opens a popup panel.

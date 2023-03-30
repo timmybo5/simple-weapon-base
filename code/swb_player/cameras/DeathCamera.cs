@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using SWB_Player;
 
 namespace SWB_Base;
 

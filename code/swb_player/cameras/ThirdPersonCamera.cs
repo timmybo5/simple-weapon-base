@@ -1,6 +1,6 @@
 ﻿using Sandbox;
 
-namespace SWB_Base;
+namespace SWB_Player;
 
 public class ThirdPersonCamera : CameraMode
 {

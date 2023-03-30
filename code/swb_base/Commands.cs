@@ -10,7 +10,7 @@ internal class Commands
 
         if (client != null)
         {
-            var player = client.Pawn as PlayerBase;
+            var player = client.Pawn as ISWBPlayer;
 
             if (player.ActiveChild is not WeaponBase activeWeapon)
                 return;

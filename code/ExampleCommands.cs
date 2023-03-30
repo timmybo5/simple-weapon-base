@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using SWB_Base;
+using SWB_Player;
 
 internal class ExampleCommands
 {

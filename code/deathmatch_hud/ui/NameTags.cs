@@ -2,7 +2,7 @@
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using SWB_Base;
+using SWB_Player;
 
 namespace Deathmatch.Hud;
 

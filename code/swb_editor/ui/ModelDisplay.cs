@@ -1,8 +1,9 @@
 ﻿using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
+using SWB_Base;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 public class ModelDisplay : Panel
 {

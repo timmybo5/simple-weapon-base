@@ -2,7 +2,7 @@
 
 using Sandbox;
 
-namespace SWB_Base;
+namespace SWB_Player;
 
 [Library]
 public class PlayerNoclipController : PlayerBaseController

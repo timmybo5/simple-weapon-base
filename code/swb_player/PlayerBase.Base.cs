@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using Sandbox;
+using SWB_Base;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
 
-namespace SWB_Base;
+namespace SWB_Player;
 
 [Title("Player"), Icon("emoji_people")]
 public partial class PlayerBase : AnimatedEntity

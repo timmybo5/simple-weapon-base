@@ -3,7 +3,7 @@ using Sandbox;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
 
-namespace SWB_Base;
+namespace SWB_Player;
 
 [Library]
 public class PlayerDuck : BaseNetworkable

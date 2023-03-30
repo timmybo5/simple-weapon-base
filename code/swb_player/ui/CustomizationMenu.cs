@@ -2,9 +2,10 @@
 using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
+using SWB_Base;
 using SWB_Base.Translations;
 
-namespace SWB_Base.UI;
+namespace SWB_Player.UI;
 
 public class CustomizationMenu : Panel
 {

@@ -1,7 +1,7 @@
 ﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 /// <summary>
 /// A horizontal slider with a text entry on the right

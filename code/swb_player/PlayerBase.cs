@@ -1,8 +1,9 @@
 ﻿using System;
 using Sandbox;
-using SWB_Base.UI;
+using SWB_Base;
+using SWB_Player.UI;
 
-namespace SWB_Base;
+namespace SWB_Player;
 
 public partial class PlayerBase
 {

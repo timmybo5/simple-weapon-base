@@ -1,9 +1,11 @@
 ﻿using System;
 using Sandbox;
 using Sandbox.UI;
+using SWB_Base;
 using SWB_Base.Attachments;
+using SWB_Player;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 public enum DragMode
 {

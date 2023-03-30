@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Sandbox;
+using SWB_Base;
 
-namespace SWB_Base;
+namespace SWB_Player;
 
 public class InventoryBase : IInventoryBase
 {

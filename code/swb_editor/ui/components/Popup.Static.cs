@@ -3,7 +3,7 @@ using System.Linq;
 using Sandbox;
 using Sandbox.UI;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 public partial class Popup
 {

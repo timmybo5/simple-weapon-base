@@ -4,6 +4,7 @@ using Sandbox;
 using Sandbox.Diagnostics;
 using Sandbox.UI;
 using SWB_Base;
+using SWB_Player;
 
 namespace Deathmatch.Hud;
 

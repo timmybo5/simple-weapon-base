@@ -1,6 +1,7 @@
 ﻿using Sandbox;
+using SWB_Base;
 
-namespace SWB_Base;
+namespace SWB_Player;
 
 public class FirstPersonCamera : CameraMode
 {

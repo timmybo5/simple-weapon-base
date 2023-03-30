@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Sandbox;
 using Sandbox.UI;
+using SWB_Base;
+using SWB_Player;
 
-namespace SWB_Base.Editor;
+namespace SWB_Editor;
 
 public partial class AttachmentEditorMenu
 {
