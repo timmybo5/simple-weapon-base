@@ -35,13 +35,11 @@ The `swb_editor_model` command opens a model editor that can be used to easily c
 * Zooming
 
 ### Built-in HUD
-* Modular Health Display
-* Modular Ammo Display
 * Dynamic Crosshair
 * Dynamic Hitmarkers
 
 ### Bullet Types
-* Hitscan
+* Hitscan (instant)
 * Physical (bullet drop & drag)
 
 ### Bases
@@ -69,9 +67,6 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 * More base-included entities (e.g. bomb)
 * More attachments
 * Worldmodel clipping shader
-
-## Deathmatch HUD
-Some basic HUD elements from the DM98 gamemode are included but are not required for the base to work.
 
 ## Installing
 If you want to test out the base just drag and drop simple-weapon-base-master into your addons folder.
