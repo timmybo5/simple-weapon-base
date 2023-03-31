@@ -334,19 +334,20 @@ public partial class PlayerBase : AnimatedEntity
     /// </summary>
     public virtual void SimulateActiveChild(IClient cl, Entity child)
     {
-        if (LastActiveChild != child)
+        if (Prediction.FirstTime)
         {
-            OnActiveChildChanged(LastActiveChild, child);
-            LastActiveChild = child;
+            if (LastActiveChild != child)
+            {
+                OnActiveChildChanged(LastActiveChild, child);
+                LastActiveChild = child;
+            }
         }
 
         if (!LastActiveChild.IsValid())
             return;
 
         if (LastActiveChild.IsAuthority)
-        {
             LastActiveChild.Simulate(cl);
-        }
     }
 
     /// <summary>
