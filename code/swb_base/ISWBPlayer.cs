@@ -13,12 +13,14 @@ public interface ISWBPlayer : IEntity
     /// The eye position of the pawn, networked
     /// </summary>
     public Vector3 EyePosition { get; }
+
     /// <summary>
     /// The eye (view) rotation of the pawn, networked
     /// </summary>
     public Rotation EyeRotation { get; }
+
     /// <summary>
-    /// The local plaers view angles, comes from client input, local/client only
+    /// The local player's view angles, comes from client input, local/client only
     /// </summary>
     public Angles ViewAngles { get; set; }
 
@@ -44,6 +46,7 @@ public interface ISWBPlayer : IEntity
     /// <param name="type">The type of ammo</param>
     /// <returns>How much ammo is available</returns>
     public int AmmoCount(AmmoType type);
+
     /// <summary>
     /// Called when the weapon is trying to take ammo.
     /// </summary>
@@ -56,6 +59,7 @@ public interface ISWBPlayer : IEntity
     /// Called when the (sniper) is zoomed in
     /// </summary>
     public void OnScopeStart();
+
     /// <summary>
     /// Called when the (sniper) is no longer zoomed in.
     /// </summary>
@@ -66,5 +70,4 @@ public interface ISWBPlayer : IEntity
     /// Call `WeaponBase.GetRecoilAngles()` to get the suggested recoil angle.
     /// </summary>
     public void OnRecoil();
-
 }
