@@ -142,7 +142,7 @@ partial class ViewModelBase : BaseViewModel
         targetVectorRot -= new Vector3(MathF.Cos(breatheTime / 5.0f), MathF.Cos(breatheTime / 4.0f), MathF.Cos(breatheTime / 7.0f));
 
         // Crouching animation
-        if (Input.Down(InputButton.Duck))
+        if (Input.Down(InputButton.Duck) && Owner.GroundEntity != null)
             targetVectorPos += new Vector3(-1.0f, -1.0f, 0.5f);
     }
 

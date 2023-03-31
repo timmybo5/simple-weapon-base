@@ -27,7 +27,7 @@ public class PlayerDuck : BaseNetworkable
             else TryUnDuck();
         }
 
-        var targetHeightMod = IsActive ? 0.5f : 1;
+        var targetHeightMod = IsActive && Controller.GroundEntity != null ? 0.5f : 1;
         HeightMod = MathX.Lerp(HeightMod, targetHeightMod, Time.Delta * 10f);
         Controller.EyeLocalPosition *= HeightMod;
 
