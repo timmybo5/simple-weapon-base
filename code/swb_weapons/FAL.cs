@@ -28,7 +28,7 @@ public class FAL : WeaponBase
             FOV = 90,
             WalkAnimationSpeedMod = 0.85f,
 
-            DrawTime = 0.7f,
+            DrawTime = 1f,
             ReloadTime = 1.93f,
             ReloadEmptyTime = 2.67f
         };

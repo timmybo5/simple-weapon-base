@@ -29,6 +29,7 @@ public partial class WeaponBaseShotty : WeaponBase
     private void CancelReload()
     {
         IsReloading = false;
+        ViewModelEntity?.SetAnimParameter(General.ReloadAnim, false);
     }
 
     public override void AttackPrimary()
@@ -60,7 +61,7 @@ public partial class WeaponBaseShotty : WeaponBase
 
     public override void Reload()
     {
-        General.ReloadTime = ShellReloadTimeStart;
+        General.ReloadTime = ShellReloadTimeStart + ShellReloadTimeInsert;
         base.Reload();
     }
 
@@ -94,20 +95,8 @@ public partial class WeaponBaseShotty : WeaponBase
             }
             else
             {
-                StartReloadEffects(false, General.ReloadAnim);
-                _ = FinishReload();
+                CancelReload();
             }
         }
-    }
-
-    public async Task FinishReload()
-    {
-        var player = Owner as ISWBPlayer;
-        var activeWeapon = player.ActiveChild;
-        var instanceID = InstanceID;
-
-        await GameTask.DelaySeconds(ShellEjectDelay);
-        if (!IsAsyncValid(activeWeapon, instanceID)) return;
-        StartReloadEffects(false, ReloadFinishAnim);
     }
 }

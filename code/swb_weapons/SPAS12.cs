@@ -42,7 +42,7 @@ public class SPAS12 : WeaponBaseShotty
             HitFlinch = 2.5f,
             Spread = 0.2f,
             Recoil = 2f,
-            RPM = 80,
+            RPM = 60,
             FiringType = FiringType.semi,
             ScreenShake = new ScreenShake
             {
