@@ -5,7 +5,6 @@ code/*.csproj
 config/
 
 # Uncompiled models/sounds/textures
-*.vmdl
 *.vmat
 *.sound
 *.wav

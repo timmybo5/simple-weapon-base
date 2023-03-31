@@ -1,0 +1,168 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "hold_R"
+						origin = [ 0.0, 0.0, 0.0 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						do_not_discard = true
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "fal.vmat"
+								to = "weapons/swb/rifles/fal/textures/v_fal.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "fal"
+						relative_origin = [ 0.009456, 1.839902, 40.230286 ]
+						relative_angles = [ -90.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "ejection_point"
+						parent_bone = "clip"
+						relative_origin = [ -0.944495, 1.658133, 1.143681 ]
+						relative_angles = [ -180.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "weapons/swb/rifles/fal/fixed_3ds/fal_wm.smd"
+						import_translation = [ 6.0, 0.0, 0.0 ]
+						import_rotation = [ -10.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "BoundsCenter"
+						align_origin_y_type = "BoundsCenter"
+						align_origin_z_type = "BoundsCenter"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "fal"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.0
+						point0 = [ -0.058973, 1.693346, 26.858545 ]
+						point1 = [ 0.041074, 1.693975, 39.671043 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "fal"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.472878
+						point0 = [ -0.073837, 2.244598, -1.900212 ]
+						point1 = [ 0.028975, 2.280671, 26.750092 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "fal"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.176087
+						point0 = [ 0.069968, 1.512494, 8.532314 ]
+						point1 = [ -0.097815, -5.780735, 8.497787 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "fal"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.322505
+						point0 = [ 0.023757, 0.969181, -14.459007 ]
+						point1 = [ -0.072813, 2.244957, -1.614863 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "fal"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.297813
+						point0 = [ -0.031285, -3.144143, -13.670276 ]
+						point1 = [ -0.016312, 1.309948, -1.707824 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "fal"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.294616
+						point0 = [ 0.036872, -4.0898, -1.096884 ]
+						point1 = [ 0.216693, 0.589017, 2.70449 ]
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+	}
+}

@@ -1,0 +1,167 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "hold_R"
+						origin = [ 0.0, 0.0, 0.0 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						do_not_discard = true
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "sniper.vmat"
+								to = "weapons/swb/snipers/l96a1/textures/v_l96a1.vmat"
+							},
+							{
+								from = "scopereticle.vmat"
+								to = "materials/black_matte.vmat"
+							},
+							{
+								from = "lens.vmat"
+								to = "weapons/swb/snipers/l96a1/textures/v_l96a1_scope.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "sniper"
+						relative_origin = [ 0.118821, 1.253322, 47.263687 ]
+						relative_angles = [ -89.999992, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "ejection_point"
+						parent_bone = "base"
+						relative_origin = [ -0.913659, 1.283506, 8.411445 ]
+						relative_angles = [ -0.000026, -179.999985, 179.999924 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "weapons/swb/snipers/l96a1/fixed_3ds/w_l96a1.smd"
+						import_translation = [ 6.0, 0.0, -0.5 ]
+						import_rotation = [ -15.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "sniper"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.229651
+						point0 = [ 0.06123, -0.087483, -12.601381 ]
+						point1 = [ -0.005772, 0.617319, 23.224901 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "sniper"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.229651
+						point0 = [ -0.095268, -4.02666, -12.894661 ]
+						point1 = [ -0.111317, -3.66727, -3.638705 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "sniper"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 0.928643
+						point0 = [ -0.303991, 0.932278, 23.432459 ]
+						point1 = [ -0.043682, 1.073686, 46.745232 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "sniper"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.229651
+						point0 = [ -0.128824, -3.275231, 6.458097 ]
+						point1 = [ -0.135203, -3.13238, 10.137171 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "sniper"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 0.835482
+						point0 = [ 0.061343, -4.845405, 0.849338 ]
+						point1 = [ -0.017419, -2.15458, 1.569511 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "sniper"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 0.852513
+						point0 = [ 0.020279, -4.554238, -12.708488 ]
+						point1 = [ 0.023903, 0.249424, -12.503326 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "sniper"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.666207
+						point0 = [ -0.13741, 3.807491, 2.14624 ]
+						point1 = [ -0.090217, 4.020741, 20.17057 ]
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+	}
+}

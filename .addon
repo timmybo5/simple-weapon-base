@@ -17,6 +17,7 @@
   ],
   "HasCode": true,
   "CodePath": "code",
+  "PackageReferences": [],
   "Metadata": {
     "MapList": [
       "facepunch.construct"

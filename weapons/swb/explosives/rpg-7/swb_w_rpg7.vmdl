@@ -1,0 +1,279 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "BoneMarkupList"
+				bone_cull_type = "None"
+			},
+			{
+				_class = "WeightListList"
+				children = 
+				[
+					{
+						_class = "WeightList"
+						name = "bonemask_default"
+						default_weight = 0.0
+						weights = 
+						[
+							{
+								bone = "r_hand"
+								weight = 1.0
+							},
+						]
+						master_morph_weight = -1.0
+						morph_weights = [  ]
+					},
+				]
+			},
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "hold_R"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "attach_muzzle"
+								origin = [ 14.69726, 2.250761, 1.739328 ]
+								angles = [ 24.247974, 13.830058, 103.14283 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ -0.450457, -0.42996, -5.600441 ]
+						angles = [ -26.2742, -99.118896, -8.02541 ]
+						do_not_discard = true
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "weapon_w_rpg_dm_is_unused.vmat"
+								to = "weapons/swb/explosives/rpg-7/textures/swb_explosives_w_rpg7.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsBodyMarkupList"
+				children = 
+				[
+					{
+						_class = "PhysicsBodyMarkup"
+						target_body = ""
+						mass_override = 85.0
+						inertia_scale = 1.0
+						linear_damping = 0.5
+						angular_damping = 2.5
+						use_mass_center_override = false
+						mass_center_override = [ 0.0, 0.0, 0.0 ]
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "hold_R"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.804255
+						point0 = [ -17.886227, 0.168101, 0.400458 ]
+						point1 = [ 29.142715, -0.013505, 6.381351 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "hold_R"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 0.913947
+						point0 = [ 4.180365, 0.061181, -5.396612 ]
+						point1 = [ 3.637424, 0.164916, 1.440098 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "hold_R"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 0.829704
+						point0 = [ -2.999984, 1.963779, -3.521001 ]
+						point1 = [ -3.543787, 1.824366, 0.198637 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "hold_R"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 3.313474
+						point0 = [ -30.566029, 0.150006, -1.225788 ]
+						point1 = [ -29.944944, 0.214667, -1.133108 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "hold_R"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 2.595556
+						point0 = [ 19.614388, 0.023289, 5.169586 ]
+						point1 = [ 23.518875, 0.008212, 5.666141 ]
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "1"
+						parent_bone = "attach_muzzle"
+						relative_origin = [ 0.0, 0.0, 0.0 ]
+						relative_angles = [ -0.0, -0.000002, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "0"
+						parent_bone = "attach_muzzle"
+						relative_origin = [ 0.0, 0.0, 0.0 ]
+						relative_angles = [ -0.0, -0.000002, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "missile"
+						parent_bone = "attach_muzzle"
+						relative_origin = [ 0.0, 0.0, 0.0 ]
+						relative_angles = [ -0.0, -0.000002, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "attach_muzzle"
+						relative_origin = [ -3.091236, 1.681336, 1.410641 ]
+						relative_angles = [ 0.0, 20.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "HitboxSetList"
+				children = 
+				[
+					{
+						_class = "HitboxSet"
+						name = "default"
+						children = 
+						[
+							{
+								_class = "Hitbox"
+								parent_bone = "r_hand"
+								surface_property = "weapon"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -24.414183, -9.64465, -4.964775 ]
+								hitbox_maxs = [ 28.334232, 6.108578, 21.680277 ]
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "w_ins2rpg7_bg_studio_lod0"
+						filename = "weapons/swb/explosives/rpg-7/swb_w_rpg7_refs/mesh/w_ins2rpg7_bg_studio_lod0.dmx"
+						import_translation = [ 0.0, 0.0, 0.2 ]
+						import_rotation = [ 0.0, 90.0, -7.0 ]
+						import_scale = 1.1
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "hold_R"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "AnimFile"
+						name = "idle"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = "bonemask_default"
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_w_rpg7_refs/anim/_idle_0.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "@idle_0"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_w_rpg7_refs/anim/_idle_0.dmx"
+						start_frame = 0
+						end_frame = 0
+						framerate = 30.0
+						reverse = false
+					},
+				]
+				default_root_bone_name = ""
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+	}
+}

@@ -1,0 +1,1239 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "BoneMarkupList"
+				bone_cull_type = "None"
+			},
+			{
+				_class = "WeightListList"
+				children = 
+				[
+					{
+						_class = "WeightList"
+						name = "bonemask_default"
+						default_weight = 0.0
+						weights = 
+						[
+							{
+								bone = "v_weapon"
+								weight = 1.0
+							},
+							{
+								bone = "v_weapon_left_arm"
+								weight = 1.0
+							},
+							{
+								bone = "v_weapon_right_arm"
+								weight = 1.0
+							},
+							{
+								bone = "v_weapon_right_middle02"
+								weight = 1.0
+							},
+							{
+								bone = "v_weapon_right_ring02"
+								weight = 1.0
+							},
+							{
+								bone = "v_weapon_right_thumb01"
+								weight = 1.0
+							},
+						]
+						master_morph_weight = -1.0
+						morph_weights = [  ]
+					},
+				]
+			},
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "v_weapon_right_arm"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "v_weapon_r_wrist_helper"
+								origin = [ 8.543635, 0.0, 0.0 ]
+								angles = [ -27.413439, 96.386108, -179.303284 ]
+								do_not_discard = true
+							},
+							{
+								_class = "Bone"
+								name = "v_weapon_right_hand"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "v_weapon_right_index01"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "v_weapon_right_index02"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "v_weapon_right_index03"
+														origin = [ 0.752465, 0.0, 0.0 ]
+														angles = [ -0.000001, 14.58899, -0.000003 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 1.292971, 0.0, -0.0 ]
+												angles = [ -0.000002, -20.395868, -0.000003 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 2.924268, 0.659884, 0.067215 ]
+										angles = [ 17.972942, -1.749299, 95.140854 ]
+										do_not_discard = true
+									},
+									{
+										_class = "Bone"
+										name = "v_weapon_right_middle01"
+										origin = [ 3.013524, -0.0, 0.0 ]
+										angles = [ 22.624905, -3.730528, 93.522484 ]
+										do_not_discard = true
+									},
+									{
+										_class = "Bone"
+										name = "v_weapon_right_ring01"
+										origin = [ 2.904998, -0.607961, -0.044204 ]
+										angles = [ 30.223581, -5.459431, 93.692177 ]
+										do_not_discard = true
+									},
+									{
+										_class = "Bone"
+										name = "v_weapon_right_pinky01"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "v_weapon_right_pinky02"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "v_weapon_right_pinky03"
+														origin = [ 0.614691, 0.000002, 0.0 ]
+														angles = [ -0.000002, -2.108316, -0.000003 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 0.996222, -0.000001, 0.0 ]
+												angles = [ -0.0, -10.519282, -0.000003 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 2.53372, -1.191699, -0.061835 ]
+										angles = [ 29.817989, -10.988531, 89.232452 ]
+										do_not_discard = true
+									},
+									{
+										_class = "Bone"
+										name = "v_weapon_m249"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "v_weapon_trigger"
+												origin = [ 0.056707, -1.395791, 2.675755 ]
+												angles = [ -0.0, -0.000002, -0.000001 ]
+												do_not_discard = true
+											},
+											{
+												_class = "Bone"
+												name = "v_weapon_receiver"
+												origin = [ 0.022371, 1.787713, 6.744241 ]
+												angles = [ -89.999977, 89.999985, 0.0 ]
+												do_not_discard = true
+											},
+											{
+												_class = "Bone"
+												name = "v_weapon_handle"
+												origin = [ 0.090652, 1.015073, 7.992082 ]
+												angles = [ -0.0, -0.000002, 89.999985 ]
+												do_not_discard = true
+											},
+											{
+												_class = "Bone"
+												name = "v_weapon_ammobox"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "v_weapon_bullet1"
+														children = 
+														[
+															{
+																_class = "Bone"
+																name = "v_weapon_bullet2"
+																children = 
+																[
+																	{
+																		_class = "Bone"
+																		name = "v_weapon_bullet3"
+																		children = 
+																		[
+																			{
+																				_class = "Bone"
+																				name = "v_weapon_bullet4"
+																				children = 
+																				[
+																					{
+																						_class = "Bone"
+																						name = "v_weapon_bullet5"
+																						children = 
+																						[
+																							{
+																								_class = "Bone"
+																								name = "v_weapon_bullet6"
+																								children = 
+																								[
+																									{
+																										_class = "Bone"
+																										name = "v_weapon_bullet7"
+																										children = 
+																										[
+																											{
+																												_class = "Bone"
+																												name = "v_weapon_bullet8"
+																												children = 
+																												[
+																													{
+																														_class = "Bone"
+																														name = "v_weapon_bullet9"
+																														children = 
+																														[
+																															{
+																																_class = "Bone"
+																																name = "v_weapon_bullet10"
+																																origin = [ -0.332779, 0.0, -0.067441 ]
+																																angles = [ -0.000002, 0.0, 0.000001 ]
+																																do_not_discard = true
+																															},
+																														]
+																														origin = [ -0.150077, 0.0, -0.300219 ]
+																														angles = [ -0.000002, 0.0, 0.000001 ]
+																														do_not_discard = true
+																													},
+																												]
+																												origin = [ -0.0261, -0.0, -0.328501 ]
+																												angles = [ -0.000002, 0.0, 0.000001 ]
+																												do_not_discard = true
+																											},
+																										]
+																										origin = [ -0.015225, -0.0, -0.330676 ]
+																										angles = [ -0.000002, 0.0, 0.000001 ]
+																										do_not_discard = true
+																									},
+																								]
+																								origin = [ -0.03045, 0.0, -0.337204 ]
+																								angles = [ -0.000002, 0.0, 0.000001 ]
+																								do_not_discard = true
+																							},
+																						]
+																						origin = [ -0.069601, 0.0, -0.32415 ]
+																						angles = [ -0.000002, 0.0, 0.000001 ]
+																						do_not_discard = true
+																					},
+																				]
+																				origin = [ -0.215328, -0.000001, -0.252358 ]
+																				angles = [ -0.000002, 0.0, 0.000001 ]
+																				do_not_discard = true
+																			},
+																		]
+																		origin = [ -0.269703, 0.0, -0.184917 ]
+																		angles = [ -0.000002, 0.0, 0.000001 ]
+																		do_not_discard = true
+																	},
+																]
+																origin = [ -0.089176, -0.0, -0.317624 ]
+																angles = [ -0.000002, 0.0, 0.000001 ]
+																do_not_discard = true
+															},
+														]
+														origin = [ 1.709456, 2.443063, 0.12083 ]
+														angles = [ -0.0, -0.000002, 89.999985 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 0.056707, -3.4, 5.216804 ]
+												angles = [ -0.0, -0.000002, -0.000001 ]
+												do_not_discard = true
+											},
+											{
+												_class = "Bone"
+												name = "v_weapon_attachment2"
+												origin = [ -1.591176, 1.371838, 6.712955 ]
+												angles = [ -0.0, -0.000002, -0.000001 ]
+												do_not_discard = true
+											},
+											{
+												_class = "Bone"
+												name = "v_weapon_attachment1"
+												origin = [ 0.056707, 1.028996, 23.229544 ]
+												angles = [ -0.0, -0.000002, -0.000001 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ -7.700244, -5.751357, -3.515127 ]
+										angles = [ 81.522087, -172.850616, -170.374557 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ 8.543636, 0.0, 0.0 ]
+								angles = [ -1.029376, 8.907545, -62.264988 ]
+								do_not_discard = true
+							},
+							{
+								_class = "Bone"
+								name = "v_weapon_eff18"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "v_weapon_root23"
+										origin = [ 0.000002, -0.0, 0.0 ]
+										angles = [ 2.205257, -2.907073, -62.617741 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ 8.543634, 0.0, 0.0 ]
+								angles = [ -0.0, -0.0, 0.0 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ -4.767597, -0.712384, -1.415279 ]
+						angles = [ 0.677179, -89.984978, 153.47374 ]
+						do_not_discard = true
+					},
+					{
+						_class = "Bone"
+						name = "v_weapon_left_arm"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "v_weapon_left_hand"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "v_weapon_left_thumb01"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "v_weapon_left_thumb02"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "v_weapon_left_thumb03"
+														origin = [ 1.001873, 0.0, 0.0 ]
+														angles = [ -6.677651, -21.427706, 0.342518 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 1.887209, 0.000001, -0.0 ]
+												angles = [ 0.0, -25.645651, 0.000003 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 0.369252, -0.365557, -0.324764 ]
+										angles = [ 23.513786, -54.788395, 171.806259 ]
+										do_not_discard = true
+									},
+									{
+										_class = "Bone"
+										name = "v_weapon_left_index01"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "v_weapon_left_index02"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "v_weapon_left_index03"
+														origin = [ 0.749373, -0.000001, 0.0 ]
+														angles = [ -0.02796, -6.786229, 0.000001 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 1.280972, 0.000001, 0.0 ]
+												angles = [ -0.023835, 16.849714, -0.010141 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 2.93283, -0.657726, 0.062875 ]
+										angles = [ 14.466266, -4.351442, -97.429634 ]
+										do_not_discard = true
+									},
+									{
+										_class = "Bone"
+										name = "v_weapon_left_middle01"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "v_weapon_left_middle02"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "v_weapon_left_middle03"
+														origin = [ 0.932634, -0.000002, 0.0 ]
+														angles = [ 0.13665, -10.038737, 0.003898 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 1.250577, 0.000001, 0.0 ]
+												angles = [ 0.049561, 27.346987, 0.031342 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 3.026593, 0.000001, 0.0 ]
+										angles = [ 13.071858, -0.883559, -96.16494 ]
+										do_not_discard = true
+									},
+									{
+										_class = "Bone"
+										name = "v_weapon_left_ring01"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "v_weapon_left_ring02"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "v_weapon_left_ring03"
+														origin = [ 0.763066, 0.000002, 0.0 ]
+														angles = [ 0.059416, 3.325565, 0.008136 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 1.208234, -0.000001, 0.0 ]
+												angles = [ 0.048129, 14.038043, 0.015471 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 2.899944, 0.620189, -0.039313 ]
+										angles = [ 23.079542, -0.219442, -94.831902 ]
+										do_not_discard = true
+									},
+									{
+										_class = "Bone"
+										name = "v_weapon_left_pinky01"
+										children = 
+										[
+											{
+												_class = "Bone"
+												name = "v_weapon_left_pinky02"
+												children = 
+												[
+													{
+														_class = "Bone"
+														name = "v_weapon_left_pinky03"
+														origin = [ 0.632003, 0.000002, -0.000001 ]
+														angles = [ 0.144731, 15.670342, 0.02922 ]
+														do_not_discard = true
+													},
+												]
+												origin = [ 0.963853, 0.0, 0.0 ]
+												angles = [ -0.520932, -0.658615, -0.134359 ]
+												do_not_discard = true
+											},
+										]
+										origin = [ 2.574906, 1.213948, -0.058023 ]
+										angles = [ 30.303787, 8.00462, -79.603134 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ 8.563286, 0.000001, 0.0 ]
+								angles = [ 8.394175, -0.119462, -150.949524 ]
+								do_not_discard = true
+							},
+							{
+								_class = "Bone"
+								name = "v_weapon_l_wrist_helper"
+								origin = [ 8.563284, 0.0, 0.0 ]
+								angles = [ 62.225361, 100.195274, -168.353485 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ 6.720219, -0.481652, 1.302325 ]
+						angles = [ 0.593242, -90.596146, 153.885925 ]
+						do_not_discard = true
+					},
+					{
+						_class = "Bone"
+						name = "v_weapon_right_thumb01"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "v_weapon_right_thumb02"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "v_weapon_right_thumb03"
+										origin = [ 0.982429, -0.0, 0.0 ]
+										angles = [ -0.000002, 24.710869, -0.000001 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ 1.978475, 0.0, 0.0 ]
+								angles = [ -0.0, 31.899258, 0.000001 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ -4.512034, -9.637435, -1.178102 ]
+						angles = [ -52.414356, -61.057137, -102.203064 ]
+						do_not_discard = true
+					},
+					{
+						_class = "Bone"
+						name = "v_weapon_right_middle02"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "v_weapon_right_middle03"
+								origin = [ 0.943234, 0.0, -0.0 ]
+								angles = [ 0.0, -2.398113, -0.0 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ -4.894839, -13.456013, -1.407135 ]
+						angles = [ -0.527751, -62.578049, -174.630432 ]
+						do_not_discard = true
+					},
+					{
+						_class = "Bone"
+						name = "v_weapon_right_ring02"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "v_weapon_right_ring03"
+								origin = [ 0.741943, 0.0, 0.0 ]
+								angles = [ -0.0, -4.887502, 0.0 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ -4.684031, -13.280299, -2.043386 ]
+						angles = [ 0.932718, -59.208778, -173.309021 ]
+						do_not_discard = true
+					},
+					{
+						_class = "Bone"
+						name = "v_weapon"
+						children = 
+						[
+							{
+								_class = "Bone"
+								name = "v_weapon_hands_parent"
+								children = 
+								[
+									{
+										_class = "Bone"
+										name = "v_weapon_root36"
+										origin = [ -4.71089, -1.415278, 3.807291 ]
+										angles = [ 32.39999, -180.0, 132.692947 ]
+										do_not_discard = true
+									},
+								]
+								origin = [ -0.547196, -5.838511, -7.912906 ]
+								angles = [ -0.0, 0.0, 0.0 ]
+								do_not_discard = true
+							},
+						]
+						origin = [ 0.0, 0.0, 0.0 ]
+						angles = [ -0.0, 0.0, 89.999985 ]
+						do_not_discard = true
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "v_weapon_attachment1"
+						relative_origin = [ 17.857857, 3.902749, -22.574841 ]
+						relative_angles = [ 0.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "HitboxSetList"
+				children = 
+				[
+					{
+						_class = "HitboxSet"
+						name = "default"
+						children = 
+						[
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_right_arm"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.402365, -1.436797, -1.575875 ]
+								hitbox_maxs = [ 8.874321, 1.387257, 1.609276 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_left_arm"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.318574, -1.832792, -1.433753 ]
+								hitbox_maxs = [ 8.563284, 1.491285, 1.707562 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_left_hand"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.997761, -1.61017, -1.460233 ]
+								hitbox_maxs = [ 3.655047, 1.901434, 1.020708 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_left_thumb01"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ 0.0, -0.920939, -0.925498 ]
+								hitbox_maxs = [ 2.208559, 0.893947, 0.688583 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_left_thumb02"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.438699, -0.799505, -0.863324 ]
+								hitbox_maxs = [ 1.784516, 0.312459, 0.540903 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_left_ring01"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.037167, -0.398158, -0.613978 ]
+								hitbox_maxs = [ 1.497967, 0.635798, 0.41319 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_left_pinky01"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.562797, -0.521905, -0.679654 ]
+								hitbox_maxs = [ 1.253389, 1.426151, 0.5178 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_l_wrist_helper"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.805087, -6.917892, -1.161488 ]
+								hitbox_maxs = [ 1.744943, 0.0, 2.128091 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_r_wrist_helper"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.174937, -7.124032, -1.587271 ]
+								hitbox_maxs = [ 1.829241, 0.932636, 2.02851 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_right_thumb01"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.813209, -1.075081, -1.300124 ]
+								hitbox_maxs = [ 2.389937, 1.116039, 0.852223 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_right_thumb02"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ 0.0, -0.149893, -0.978528 ]
+								hitbox_maxs = [ 1.857962, 0.958489, 0.49738 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_right_hand"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -7.700243, -5.751359, -3.515126 ]
+								hitbox_maxs = [ 3.638247, 1.715422, 0.913165 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_right_middle01"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.048461, -0.68904, -0.475223 ]
+								hitbox_maxs = [ 1.376282, 0.372483, 0.545004 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_right_ring01"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.252335, -0.647668, -0.542165 ]
+								hitbox_maxs = [ 1.311896, 0.423455, 0.472671 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_right_pinky01"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.807328, -1.403431, -0.538706 ]
+								hitbox_maxs = [ 1.12437, 0.487756, 0.691468 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_m249"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.591176, -4.449282, -2.155644 ]
+								hitbox_maxs = [ 1.217195, 2.946674, 23.229542 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_receiver"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -8.102238, -0.903164, -1.156641 ]
+								hitbox_maxs = [ 0.19984, 0.752454, 0.461505 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_handle"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.422389, -0.516804, -3.541848 ]
+								hitbox_maxs = [ 0.374522, 2.462477, 0.336783 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_ammobox"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.95964, -1.607298, -1.178104 ]
+								hitbox_maxs = [ 2.328068, 3.08399, 1.322535 ]
+							},
+							{
+								_class = "Hitbox"
+								parent_bone = "v_weapon_hands_parent"
+								surface_property = "default"
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -4.71089, -1.415279, 0.0 ]
+								hitbox_maxs = [ 0.0, 0.0, 3.807291 ]
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "swb_v_rpg7_hands"
+						children = 
+						[
+							{
+								_class = "MeshSortOptions"
+								per_material_options = 
+								[
+									{
+										material_name = "weapons/swb/explosives/rpg-7/textures/swb_explosives_v_rpg7_sleeves.vmat"
+										inside_out_sort = true
+										make_two_sided = true
+									},
+								]
+							},
+						]
+						filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/mesh/swb_v_rpg7_hands.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "swb_v_rpg7_he"
+						filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/mesh/swb_v_rpg7_he.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "swb_v_rpg7_heat"
+						filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/mesh/swb_v_rpg7_heat.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"swb_v_rpg7_heat",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "swb_v_rpg7_hv"
+						filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/mesh/swb_v_rpg7_hv.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"swb_v_rpg7_hv",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "swb_v_rpg7_hvat"
+						filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/mesh/swb_v_rpg7_hvat.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"swb_v_rpg7_hvat",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "swb_v_rpg7_reference"
+						children = 
+						[
+							{
+								_class = "MeshSortOptions"
+								per_material_options = 
+								[
+									{
+										material_name = ""
+										inside_out_sort = false
+										make_two_sided = false
+									},
+									{
+										material_name = ""
+										inside_out_sort = false
+										make_two_sided = false
+									},
+									{
+										material_name = "weapons/swb/explosives/rpg-7/textures/swb_explosives_v_rpg7.vmat"
+										inside_out_sort = true
+										make_two_sided = true
+									},
+								]
+							},
+						]
+						filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/mesh/swb_v_rpg7_reference.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "swb_v_rpg7_reference2"
+						filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/mesh/swb_v_rpg7_reference2.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"swb_v_rpg7_reference2",
+							]
+						}
+					},
+					{
+						_class = "RenderPrimitiveSphere"
+						name = "rpg_backside"
+						parent_bone = "rpg_body"
+						material_name = "dev/helper/testgrid.vmat"
+						origin = [ 0.0, 11.6, 0.0 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						max_u = 1.0
+						max_v = 1.0
+						radius = 0.82
+						segments_u = 16
+						segments_v = 16
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "AnimFile"
+						name = "swb_v_rpg7_base_draw"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/anim/swb_v_rpg7_base_draw.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swb_v_rpg7_base_fire"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/anim/swb_v_rpg7_base_fire.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swb_v_rpg7_base_idle"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/anim/swb_v_rpg7_base_idle.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swb_v_rpg7_base_reload"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 15
+								event_keys = 
+								{
+									name = "swb_explosives_rpg7.fetch"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 77
+								event_keys = 
+								{
+									name = "swb_explosives_rpg7.load1"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 97
+								event_keys = 
+								{
+									name = "swb_explosives_rpg7.load2"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 135
+								event_keys = 
+								{
+									name = "swb_explosives_rpg7.endgrab"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/anim/swb_v_rpg7_base_reload.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swb_v_rpg7_iron_fire"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/anim/swb_v_rpg7_iron_fire.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swb_v_rpg7_warhead_base"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/anim/swb_v_rpg7_warhead_base.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swb_v_rpg7_warhead_empty"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/anim/swb_v_rpg7_warhead_empty.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "swb_v_rpg7_base_fire_empty"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/swb/explosives/rpg-7/swb_v_rpg7_refs/anim/swb_v_rpg7_base_fire_empty.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+				]
+				default_root_bone_name = ""
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "v_hands.vmat"
+								to = "weapons/swb/explosives/rpg-7/temp_hands/swb_css_hands_gloves_carbon.vmat"
+							},
+							{
+								from = "v_rpg_dm.vmat"
+								to = "weapons/swb/explosives/rpg-7/textures/swb_explosives_v_rpg7.vmat"
+							},
+							{
+								from = "us_sleeve_vip.vmat"
+								to = "weapons/swb/explosives/rpg-7/textures/swb_explosives_v_rpg7_sleeves.vmat"
+							},
+							{
+								from = "dev/helper/testgrid.vmat"
+								to = "weapons/swb/explosives/rpg-7/textures/swb_explosives_v_rpg7_backside.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_Translate"
+						translation = [ 10.0, -3.0, 0.0 ]
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = "weapons/swb/explosives/rpg-7/swb_v_rpg7.vanmgrph"
+	}
+}

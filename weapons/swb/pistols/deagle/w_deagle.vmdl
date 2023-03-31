@@ -1,0 +1,132 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "hold_R"
+						origin = [ 3.847754, -1.95651, -0.941366 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						do_not_discard = true
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "talon.vmat"
+								to = "weapons/swb/pistols/deagle/textures/v_deagle.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "talon"
+						relative_origin = [ 1.039346, 4.292005, 11.312875 ]
+						relative_angles = [ -90.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "ejection_point"
+						parent_bone = "talon"
+						relative_origin = [ 0.174422, 4.062927, 1.832014 ]
+						relative_angles = [ -180.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "weapons/swb/pistols/deagle/fixed_3ds/w_deagle.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 10.0 ]
+						import_scale = 1.2
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "talon"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.149874
+						point0 = [ 1.003958, -2.451774, -1.892107 ]
+						point1 = [ 0.980844, 4.515806, -0.140374 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "talon"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.149874
+						point0 = [ 0.890356, -2.458746, -0.078857 ]
+						point1 = [ 0.994663, 4.481951, 0.924058 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "talon"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.149874
+						point0 = [ 0.934552, 4.27863, -1.901787 ]
+						point1 = [ 0.822174, 4.380525, 10.466045 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "talon"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.149874
+						point0 = [ 1.04211, 2.879366, -2.309205 ]
+						point1 = [ 1.045655, 3.293758, 10.401004 ]
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+	}
+}

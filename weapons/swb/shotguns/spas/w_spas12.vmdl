@@ -1,0 +1,132 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "hold_R"
+						origin = [ 0.0, 0.0, 0.0 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						do_not_discard = true
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "shotgun.vmat"
+								to = "weapons/swb/shotguns/spas/textures/v_spas12.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "shotgun"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.233838
+						point0 = [ 0.047657, -2.502659, -1.180831 ]
+						point1 = [ 0.030266, 1.464076, 0.811509 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "shotgun"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.233838
+						point0 = [ 0.096684, 3.434938, -1.001341 ]
+						point1 = [ -0.318881, 3.349294, 31.935659 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "shotgun"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 0.485178
+						point0 = [ 0.113187, 4.878585, 9.549229 ]
+						point1 = [ -0.016228, 4.919327, 14.326303 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "shotgun"
+						surface_prop = "default"
+						collision_prop = "default"
+						radius = 1.080007
+						point0 = [ 0.157367, 1.279695, 1.844813 ]
+						point1 = [ 0.116304, 1.870487, 24.642019 ]
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "shotgun"
+						relative_origin = [ 0.017815, 3.880253, 32.755634 ]
+						relative_angles = [ -90.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "ejection_point"
+						parent_bone = "shotgun"
+						relative_origin = [ -0.755067, 3.874581, 7.484343 ]
+						relative_angles = [ -180.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "weapons/swb/shotguns/spas/fixed_3ds/w_spas12.smd"
+						import_translation = [ -2.5, 0.0, -5.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+	}
+}
