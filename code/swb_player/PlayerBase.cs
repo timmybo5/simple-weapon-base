@@ -19,7 +19,7 @@ public partial class PlayerBase : ISWBPlayer
     private float targetFlinch;
     private float flinchSpeed;
 
-    private bool scopeOutToThirdperson;
+    private bool scopeOutToThirdPerson;
 
     public override void Simulate(IClient client)
     {
@@ -135,7 +135,7 @@ public partial class PlayerBase : ISWBPlayer
 
         if (CameraMode is ThirdPersonCamera)
         {
-            scopeOutToThirdperson = true;
+            scopeOutToThirdPerson = true;
             CameraMode = new FirstPersonCamera();
         }
     }
@@ -144,9 +144,9 @@ public partial class PlayerBase : ISWBPlayer
     {
         if (!Game.IsServer) return;
 
-        if (scopeOutToThirdperson)
+        if (scopeOutToThirdPerson)
         {
-            scopeOutToThirdperson = false;
+            scopeOutToThirdPerson = false;
             CameraMode = new ThirdPersonCamera();
         }
     }
