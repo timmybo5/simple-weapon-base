@@ -5,7 +5,7 @@ using SWB_Base.UI;
 
 namespace SWB_Player;
 
-public partial class PlayerBase
+public partial class PlayerBase : ISWBPlayer
 {
     public BulletSimulator BulletSimulator { get; private set; } = new();
     public DamageInfo LastDamage;
@@ -18,6 +18,8 @@ public partial class PlayerBase
     private float currFlinch;
     private float targetFlinch;
     private float flinchSpeed;
+
+    private bool scopeOutToThirdperson;
 
     public override void Simulate(IClient client)
     {
@@ -125,6 +127,28 @@ public partial class PlayerBase
     public virtual bool Alive()
     {
         return Health > 0;
+    }
+
+    public virtual void OnScopeStart()
+    {
+        if (!Game.IsServer) return;
+
+        if (CameraMode is ThirdPersonCamera)
+        {
+            scopeOutToThirdperson = true;
+            CameraMode = new FirstPersonCamera();
+        }
+    }
+
+    public virtual void OnScopeEnd()
+    {
+        if (!Game.IsServer) return;
+
+        if (scopeOutToThirdperson)
+        {
+            scopeOutToThirdperson = false;
+            CameraMode = new ThirdPersonCamera();
+        }
     }
 
     [ClientRpc]

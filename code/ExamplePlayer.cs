@@ -4,7 +4,7 @@ using SWB_Base;
 using SWB_HUD;
 using SWB_Player;
 
-public partial class ExamplePlayer : PlayerBase, ISWBPlayer
+public partial class ExamplePlayer : PlayerBase
 {
     public bool SupressPickupNotices { get; set; }
     TimeSince timeSinceDropped;
@@ -66,28 +66,6 @@ public partial class ExamplePlayer : PlayerBase, ISWBPlayer
         SupressPickupNotices = false;
     }
 
-    bool desiresThirdPerson = false;
-
-    public void OnScopeStart()
-    {
-        if (!Game.IsServer) return;
-
-        if (CameraMode is ThirdPersonCamera)
-        {
-            CameraMode = new FirstPersonCamera();
-        }
-    }
-
-    public void OnScopeEnd()
-    {
-        if (!Game.IsServer) return;
-
-        if (desiresThirdPerson)
-        {
-            CameraMode = new ThirdPersonCamera();
-        }
-    }
-
     public override void Simulate(IClient cl)
     {
         base.Simulate(cl);
@@ -98,12 +76,10 @@ public partial class ExamplePlayer : PlayerBase, ISWBPlayer
         {
             if (CameraMode is ThirdPersonCamera)
             {
-                desiresThirdPerson = false;
                 CameraMode = new FirstPersonCamera();
             }
             else
             {
-                desiresThirdPerson = true;
                 CameraMode = new ThirdPersonCamera();
             }
         }
