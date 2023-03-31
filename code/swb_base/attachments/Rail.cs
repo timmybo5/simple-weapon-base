@@ -13,7 +13,7 @@ public class Rail : OffsetAttachment
     {
     };
 
-    public override StatModifier StatModifier => new StatModifier
+    public override StatModifier StatModifier { get; set; } = new StatModifier
     {
     };
 

@@ -204,7 +204,7 @@ public abstract class AttachmentBase : IComparable<AttachmentBase>
     public virtual string EffectAttachment => "";
 
     /// <summary>Weapon stats changer</summary>
-    public virtual StatModifier StatModifier => null;
+    public virtual StatModifier StatModifier { get; set; }
 
     /// <summary>Depends on another attachment (e.g. rail/mount)</summary>
     public string RequiresAttachmentWithName { get; set; }

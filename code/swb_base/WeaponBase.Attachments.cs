@@ -33,10 +33,22 @@ public partial class WeaponBase
 
                     // Adding to ActiveAttachments on client will not work since server overrides it
                     ActiveAttachments.Add(activeAttachment);
-                }
 
-                // One attachment per category
-                break;
+                    if (!string.IsNullOrEmpty(attachment.RequiresAttachmentWithName))
+                    {
+                        var reqAttachment = new ActiveAttachment
+                        {
+                            Name = attachment.RequiresAttachmentWithName,
+                            Category = GetAttachmentCategoryName(attachment.RequiresAttachmentWithName),
+                            Forced = true,
+                        };
+
+                        ActiveAttachments.Add(reqAttachment);
+                    }
+
+                    // One attachment per category
+                    break;
+                }
             }
         }
     }
@@ -258,14 +270,6 @@ public partial class WeaponBase
 
             // Networked list bug workaround, changing the list too fast will corrupt it on client
             await GameTask.DelaySeconds(0.01f);
-        }
-
-        // Wait for initialized stats
-        if (InitialStats == null)
-        {
-            await GameTask.DelaySeconds(0.1f);
-            await EquipAttachmentSV(name);
-            return;
         }
 
         ToggleRequiredAttachment(name, true);

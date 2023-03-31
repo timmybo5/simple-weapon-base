@@ -15,7 +15,7 @@ public class Laser : OffsetAttachment
         "Visibible to enemies"
     };
 
-    public override StatModifier StatModifier => new StatModifier
+    public override StatModifier StatModifier { get; set; } = new StatModifier
     {
         Spread = -0.05f,
     };

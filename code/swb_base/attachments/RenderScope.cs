@@ -16,7 +16,7 @@ public class RenderScope : Sight
     {
     };
 
-    public override StatModifier StatModifier => new StatModifier
+    public override StatModifier StatModifier { get; set; } = new StatModifier
     {
     };
 

@@ -45,7 +45,7 @@ public partial class WeaponBase
     }
 
     // Pass the active child from before the delay
-    protected bool IsAsyncValid(Entity activeChild, int instanceID)
+    public bool IsAsyncValid(Entity activeChild, int instanceID)
     {
         var player = Owner as ISWBPlayer;
 

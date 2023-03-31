@@ -14,7 +14,7 @@ public class Sight : OffsetAttachment
     {
     };
 
-    public override StatModifier StatModifier => new StatModifier
+    public override StatModifier StatModifier { get; set; } = new StatModifier
     {
         Spread = -0.05f,
     };

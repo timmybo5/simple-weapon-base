@@ -8,7 +8,6 @@ namespace SWB_Base;
 
 public abstract class BulletBase : BaseNetworkable
 {
-
     /// <summary>
     /// Shoot the bullet on server
     /// </summary>
