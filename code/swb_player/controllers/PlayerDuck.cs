@@ -19,7 +19,7 @@ public class PlayerDuck : BaseNetworkable
 
     public virtual void PreTick()
     {
-        bool wants = Input.Down(InputButton.Duck);
+        bool wants = Controller.GroundEntity != null && Input.Down(InputButton.Duck);
 
         if (wants != IsActive)
         {
