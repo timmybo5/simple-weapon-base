@@ -25,7 +25,7 @@ public partial class Popup : Panel
 
     public Popup(Panel sourcePanel, PositionMode position, float offset)
     {
-        StyleSheet.Load("/swb_player/editor/ui/components/Popup.scss");
+        StyleSheet.Load("/swb_editor/ui/components/Popup.scss");
 
         Parent = sourcePanel.FindPopupPanel();
         PopupSource = sourcePanel;

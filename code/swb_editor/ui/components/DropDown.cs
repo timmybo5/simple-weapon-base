@@ -53,7 +53,7 @@ public class DropDown : PopupButton
 
     public DropDown()
     {
-        StyleSheet.Load("/swb_player/editor/ui/components/DropDown.scss");
+        StyleSheet.Load("/swb_editor/ui/components/DropDown.scss");
 
         AddClass("dropdown");
         DropdownIndicator = Add.Icon("expand_more", "dropdown_indicator");
