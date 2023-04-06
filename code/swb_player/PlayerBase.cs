@@ -164,6 +164,6 @@ public partial class PlayerBase : ISWBPlayer
         Hitmarker.Current?.Create(isKill);
 
         if (playSound)
-            PlaySound("swb_hitmarker");
+            PlaySound("hitmarker");
     }
 }
