@@ -30,6 +30,30 @@
 								from = "talon.vmat"
 								to = "weapons/swb/pistols/deagle/textures/v_deagle.vmat"
 							},
+							{
+								from = "usp_rail_adapter.vmat"
+								to = "attachments/swb/rail/rail_single/textures/rail_single.vmat"
+							},
+							{
+								from = "material.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
+							{
+								from = "glass.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex_dot_shader.vmat"
+							},
+							{
+								from = "lens.vmat"
+								to = "weapons/swb/snipers/l96a1/textures/v_l96a1_scope.vmat"
+							},
+							{
+								from = "scopereticle.vmat"
+								to = "materials/black_matte.vmat"
+							},
+							{
+								from = "sniper.vmat"
+								to = "weapons/swb/snipers/l96a1/textures/v_l96a1.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -80,6 +104,57 @@
 							exception_list = [  ]
 						}
 					},
+					{
+						_class = "RenderMeshFile"
+						name = "rail"
+						filename = "attachments/swb/rail/rail_single/w_rail_single.smd"
+						import_translation = [ 0.5, 2.4, 3.4 ]
+						import_rotation = [ 90.0, 0.0, 90.0 ]
+						import_scale = 2.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "talon"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ 0.25, 1.3, 1.3 ]
+						import_rotation = [ -90.0, 0.0, -90.0 ]
+						import_scale = 4.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "talon"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "scope"
+						filename = "attachments/swb/sight/scope_hunter/w_scope_hunter.smd"
+						import_translation = [ 1.25, 1.6, 4.2 ]
+						import_rotation = [ -90.0, 0.0, -90.0 ]
+						import_scale = 0.8
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "talon"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
 				]
 			},
 			{
@@ -90,7 +165,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "talon"
 						surface_prop = "default"
-						collision_prop = "default"
+						collision_tags = "solid"
 						radius = 1.149874
 						point0 = [ 1.003958, -2.451774, -1.892107 ]
 						point1 = [ 0.980844, 4.515806, -0.140374 ]
@@ -99,7 +174,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "talon"
 						surface_prop = "default"
-						collision_prop = "default"
+						collision_tags = "solid"
 						radius = 1.149874
 						point0 = [ 0.890356, -2.458746, -0.078857 ]
 						point1 = [ 0.994663, 4.481951, 0.924058 ]
@@ -108,7 +183,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "talon"
 						surface_prop = "default"
-						collision_prop = "default"
+						collision_tags = "solid"
 						radius = 1.149874
 						point0 = [ 0.934552, 4.27863, -1.901787 ]
 						point1 = [ 0.822174, 4.380525, 10.466045 ]
@@ -117,10 +192,46 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "talon"
 						surface_prop = "default"
-						collision_prop = "default"
+						collision_tags = "solid"
 						radius = 1.149874
 						point0 = [ 1.04211, 2.879366, -2.309205 ]
 						point1 = [ 1.045655, 3.293758, 10.401004 ]
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = [  ]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+									"rail",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "scope"
+								meshes = 
+								[
+									"scope",
+									"rail",
+								]
+							},
+						]
+						hidden_in_tools = false
 					},
 				]
 			},
@@ -128,5 +239,6 @@
 		model_archetype = ""
 		primary_associated_entity = ""
 		anim_graph_name = ""
+		base_model_name = ""
 	}
 }

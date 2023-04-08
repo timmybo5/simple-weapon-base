@@ -85,24 +85,6 @@ public class DEAGLE : WeaponBase
         };
 
         // Attachments //
-        var singleRail = new SingleRail
-        {
-            ViewParentBone = "talon",
-            ViewTransform = new Transform
-            {
-                Position = new Vector3(0f, 3.3f, 5f),
-                Rotation = Rotation.From(new Angles(90f, 0f, 90f)),
-                Scale = 1.9f
-            },
-            WorldParentBone = "talon",
-            WorldTransform = new Transform
-            {
-                Position = new Vector3(1f, 5f, 5.6f),
-                Rotation = Rotation.From(new Angles(90f, 0f, 90f)),
-                Scale = 2f
-            },
-        };
-
         AttachmentCategories = new List<AttachmentCategory>()
         {
             new AttachmentCategory
@@ -111,27 +93,20 @@ public class DEAGLE : WeaponBase
                 BoneOrAttachment = "muzzle",
                 Attachments = new List<AttachmentBase>()
                 {
-                    new ReflexSight
+                    new ReflexSightBG
                     {
                         ZoomWeaponFOV = 50,
                         ZoomPlayerFOV = 70,
-                        ZoomAnimData = new AngPos {
-                            Angle = new Angles(-0.18f, 5.08f, 0f),
-                            Pos = new Vector3(-4.946f, -5.1f, 1.417f)
-                        },
-                        RequiresAttachmentWithName = singleRail.Name,
-                        ViewParentBone = "talon",
-                        ViewTransform = new Transform {
-                            Position = new Vector3(0f, 4.12f, 4f),
-                            Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
-                            Scale = 4f
-                        },
-                        WorldParentBone = "talon",
-                        WorldTransform = new Transform {
-                            Position = new Vector3(1f, 5.828f, 4.55f),
-                            Rotation = Rotation.From(new Angles(-90f, 0f, -90f)),
-                            Scale = 4f
-                        },
+                        AimSensitivity = 0.5f,
+                        ZoomAnimData = new AngPos { Angle = new Angles(-0.14f, 5.2f, 0f), Pos = new Vector3(-4.917f, 0f, 1.368f) },
+                    },
+                    new HunterScope2D
+                    {
+                        ZoomPlayerFOV = 15,
+                        ZoomOutFOVSpeed = 10,
+                        AimSensitivity = 0.25f,
+                        ZoomSpreadMod = 0.05f,
+                        ZoomAnimData = new AngPos { Angle = new Angles(-0.14f, 5.2f, 0f), Pos = new Vector3(-4.917f, 0f, 1.368f) },
                     }
                 }
             },
@@ -231,16 +206,6 @@ public class DEAGLE : WeaponBase
                             Scale = 5f
                         },
                     },
-                }
-            },
-            new AttachmentCategory
-            {
-                Name = AttachmentCategoryName.Rail,
-                Selectable = false,
-                BoneOrAttachment = "",
-                Attachments = new List<AttachmentBase>()
-                {
-                    singleRail
                 }
             }
         };

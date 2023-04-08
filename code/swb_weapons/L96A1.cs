@@ -121,7 +121,7 @@ public class L96A1 : WeaponBase
                 BoneOrAttachment = "sight",
                 Attachments = new List<AttachmentBase>()
                 {
-                    new SniperReflexSight
+                    new ReflexSightBG
                     {
                         ZoomWeaponFOV = 70,
                         ZoomPlayerFOV = 70,

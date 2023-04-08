@@ -79,7 +79,7 @@ public class BodyGroupSight : BodyGroupAttachment
     }
 }
 
-public class SniperReflexSight : BodyGroupSight
+public class ReflexSightBG : BodyGroupSight
 {
     public override string Name => "Walther MRS Reflex";
     public override string IconPath => "attachments/swb/sight/reflex/ui/icon.png";
