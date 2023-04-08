@@ -118,7 +118,7 @@ public partial class WeaponBase
     /// <summary>If the weapon is being zoomed</summary>
     public bool IsZooming { get; set; }
 
-    /// <summary>If the weapon is being scope</summary>
+    /// <summary>If the weapon is being scoped</summary>
     public bool IsScoped { get; set; }
 
     /// <summary>If the weapon is being ran with</summary>
@@ -146,10 +146,14 @@ public partial class WeaponBase
     /// <summary>Bullet velocity modifier (phys bullets only)</summary>
     public float BulletVelocityMod = 1;
 
-    // Private
-    private bool doRecoil = false;
-    private int burstCount = 0;
+    /// <summary>Can be used to save extra values</summary>
+    public Dictionary<string, object> ExtraValues { get; set; } = new();
 
+    // Private
+    private bool wasZooming = false;
+
+    private int burstCount = 0;
     private int barrelHeat = 0;
+
     private TimeSince timeSinceFired;
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace SWB_Base.Attachments;
 
-public class Rail : OffsetAttachment
+public class OffsetRail : OffsetAttachment
 {
     public override string Name => "Rail";
     public override string Description => "Used by other attachments to be able to attach to the weapon.";
@@ -26,14 +26,14 @@ public class Rail : OffsetAttachment
     }
 }
 
-public class QuadRail : Rail
+public class QuadRail : OffsetRail
 {
     public override string Name => "UTG Quad-Rail";
     public override string IconPath => "attachments/swb/rail/rail_quad/ui/icon.png";
     public override string ModelPath => "attachments/swb/rail/rail_quad/w_rail_quad.vmdl";
 }
 
-public class SingleRail : Rail
+public class SingleRail : OffsetRail
 {
     public override string Name => "UTG Single-Rail";
     public override string IconPath => "attachments/swb/rail/rail_single/ui/icon.png";
@@ -41,7 +41,7 @@ public class SingleRail : Rail
 }
 
 
-public class SideTopRail : Rail
+public class SideTopRail : OffsetRail
 {
     public override string Name => "Leapers UTG";
     public override string IconPath => "attachments/swb/rail/side_rail_top/ui/icon.png";

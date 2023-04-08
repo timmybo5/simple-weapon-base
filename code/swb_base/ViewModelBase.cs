@@ -111,8 +111,7 @@ partial class ViewModelBase : BaseViewModel
         };
 
         // Tucking
-        float tuckDist;
-        if (weapon.RunAnimData != AngPos.Zero && weapon.ShouldTuck(out tuckDist))
+        if (weapon.RunAnimData != AngPos.Zero && weapon.ShouldTuck(out var tuckDist))
         {
             var animationCompletion = Math.Min(1, ((weapon.TuckRange - tuckDist) / weapon.TuckRange) + 0.5f);
             targetVectorPos = weapon.RunAnimData.Pos * animationCompletion;

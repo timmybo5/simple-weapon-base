@@ -96,6 +96,7 @@ public abstract class OffsetAttachment : AttachmentBase
             StatModifier.Apply(weapon);
         }
 
+        CreateHudElements();
         OnEquip(weapon, attachmentModel);
         return attachmentModel;
     }
@@ -112,6 +113,7 @@ public abstract class OffsetAttachment : AttachmentBase
             StatModifier.Remove(weapon);
         }
 
+        DestroyHudElements();
         OnUnequip(weapon);
     }
 }
@@ -160,6 +162,9 @@ public abstract class BodyGroupAttachment : AttachmentBase
             StatModifier.Apply(weapon);
         }
 
+        CreateHudElements();
+
+        // We pass null because BodyGroups don't have model references
         OnEquip(weapon, null);
         return null;
     }
@@ -175,6 +180,7 @@ public abstract class BodyGroupAttachment : AttachmentBase
             StatModifier.Remove(weapon);
         }
 
+        DestroyHudElements();
         OnUnequip(weapon);
     }
 }
@@ -245,6 +251,19 @@ public abstract class AttachmentBase : IComparable<AttachmentBase>
     /// </summary>
     /// <param name="weapon">Weapon the attachment was attached to</param>
     public abstract void OnUnequip(WeaponBase weapon);
+
+    /// <summary>
+    /// Gets called once when zooming starts
+    /// </summary>
+    public virtual void OnZoomStart(WeaponBase weapon) { }
+
+    /// <summary>
+    /// Gets called once when zooming ends
+    /// </summary>
+    public virtual void OnZoomEnd(WeaponBase weapon) { }
+
+    public virtual void CreateHudElements() { }
+    public virtual void DestroyHudElements() { }
 
     public int CompareTo(AttachmentBase obj)
     {

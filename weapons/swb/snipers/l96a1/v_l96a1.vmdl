@@ -29,6 +29,14 @@
 								from = "lens.vmat"
 								to = "weapons/swb/snipers/l96a1/textures/v_l96a1_scope.vmat"
 							},
+							{
+								from = "material.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
+							{
+								from = "glass.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex_dot_shader.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -41,6 +49,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
+						disabled = true
 						filename = "weapons/swb/snipers/l96a1/fixed_3ds/v_l96a1.smd"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -49,6 +58,57 @@
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
 						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "l96a1"
+						filename = "weapons/swb/snipers/l96a1/fixed_3ds/v_l96a1_no_scope.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "scope"
+						filename = "weapons/swb/snipers/l96a1/fixed_3ds/v_l96a1_scope.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ -2.91, 2.7, 2.2 ]
+						import_rotation = [ -90.0, -90.0, 0.0 ]
+						import_scale = 5.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "base"
 						import_filter = 
 						{
 							exclude_by_default = false
@@ -323,9 +383,44 @@
 					},
 				]
 			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = [  ]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "scope"
+								meshes = 
+								[
+									"scope",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+				]
+			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
 		anim_graph_name = "weapons/swb/snipers/l96a1/v_l96a1.vanmgrph"
+		base_model_name = ""
 	}
 }

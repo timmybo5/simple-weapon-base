@@ -26,7 +26,6 @@ public partial class WeaponBaseSniper : WeaponBase
     public virtual bool UseRenderTarget => false;
 
     protected Panel SniperScopePanel;
-    private bool switchBackToThirdP = false;
     private float oldSpread = -1;
 
     public override void ActiveStart(Entity ent)
@@ -41,79 +40,70 @@ public partial class WeaponBaseSniper : WeaponBase
         SniperScopePanel?.Delete();
     }
 
-    public virtual void OnScopedStart()
+    public override void OnZoomStart()
     {
-        IsScoped = true;
+        OnScopeStart(this, ZoomInSound);
+    }
 
-        if (oldSpread == -1)
-            oldSpread = Primary.Spread;
+    public override void OnZoomEnd()
+    {
+        OnScopeEnd(this, ZoomOutSound);
+    }
 
-        Primary.Spread = 0;
+    public static void OnScopeStart(WeaponBase weapon, string zoomInSound)
+    {
+        weapon.IsScoped = true;
 
-        var player = Owner as ISWBPlayer;
+        if (!weapon.ExtraValues.ContainsKey("oldSpread"))
+            weapon.ExtraValues["oldSpread"] = weapon.Primary.Spread;
+
+        weapon.Primary.Spread = 0;
+
+        var player = weapon.Owner as ISWBPlayer;
         player.OnScopeStart();
 
-        if (IsLocalPawn)
+        if (weapon.IsLocalPawn)
         {
-            ViewModelEntity.RenderColor = Color.Transparent;
+            weapon.ViewModelEntity.RenderColor = Color.Transparent;
 
-            foreach (var child in ViewModelEntity.Children)
+            foreach (var child in weapon.ViewModelEntity.Children)
             {
                 (child as ModelEntity).RenderColor = Color.Transparent;
             }
 
-            if (HandsModel != null)
-            {
-                HandsModel.RenderColor = Color.Transparent;
-            }
+            if (weapon.HandsModel != null)
+                weapon.HandsModel.RenderColor = Color.Transparent;
 
-            if (!string.IsNullOrEmpty(ZoomInSound))
-                PlaySound(ZoomInSound);
+            if (!string.IsNullOrEmpty(zoomInSound))
+                weapon.PlaySound(zoomInSound);
         }
     }
 
-    public virtual void OnScopedEnd()
+    public static void OnScopeEnd(WeaponBase weapon, string zoomOutSound)
     {
-        IsScoped = false;
-        Primary.Spread = oldSpread;
+        weapon.IsScoped = false;
+        weapon.Primary.Spread = (float)weapon.ExtraValues["oldSpread"];
 
-        var player = Owner as ISWBPlayer;
+        var player = weapon.Owner as ISWBPlayer;
         player.OnScopeEnd();
 
-        if (IsLocalPawn)
+        if (weapon.IsLocalPawn)
         {
-            ViewModelEntity.RenderColor = Color.White;
+            weapon.ViewModelEntity.RenderColor = Color.White;
 
-            foreach (var child in ViewModelEntity.Children)
+            foreach (var child in weapon.ViewModelEntity.Children)
             {
                 (child as ModelEntity).RenderColor = Color.White;
             }
 
-            if (HandsModel != null)
-            {
-                HandsModel.RenderColor = Color.White;
-            }
+            if (weapon.HandsModel != null)
+                weapon.HandsModel.RenderColor = Color.White;
 
-            if (!string.IsNullOrEmpty(ZoomOutSound))
-                PlaySound(ZoomOutSound);
+            if (!string.IsNullOrEmpty(zoomOutSound))
+                weapon.PlaySound(zoomOutSound);
         }
     }
 
-    public override void Simulate(IClient owner)
-    {
-        base.Simulate(owner);
-        var shouldTuck = ShouldTuck();
-
-        if (((Input.Pressed(InputButton.SecondaryAttack) && !IsReloading && !IsRunning) || (IsZooming && !IsScoped)) && !shouldTuck)
-        {
-            OnScopedStart();
-        }
-
-        if (Input.Released(InputButton.SecondaryAttack) || (IsScoped && (IsRunning || shouldTuck || IsReloading)))
-        {
-            OnScopedEnd();
-        }
-    }
     public override void CreateHudElements()
     {
         base.CreateHudElements();

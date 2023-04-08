@@ -1,7 +1,7 @@
 ﻿
 namespace SWB_Base.Attachments;
 
-public class Silencer : OffsetAttachment
+public class OffsetSilencer : OffsetAttachment
 {
     public override string Name => "Silencer";
     public override string Description => "Reduces the acoustic intensity of the muzzle report and the recoil when a gun is discharged by modulating the speed and pressure of the propellant gas from the muzzle.";
@@ -48,28 +48,28 @@ public class Silencer : OffsetAttachment
     }
 }
 
-public class PistolSilencer : Silencer
+public class PistolSilencer : OffsetSilencer
 {
     public override string Name => "SR8 Silencer";
     public override string IconPath => "attachments/swb/muzzle/silencer_pistol/ui/icon.png";
     public override string ModelPath => "attachments/swb/muzzle/silencer_pistol/silencer_pistol.vmdl";
 }
 
-public class RifleSilencer : Silencer
+public class RifleSilencer : OffsetSilencer
 {
     public override string Name => "ATS4 Silencer";
     public override string IconPath => "attachments/swb/muzzle/silencer_rifle/ui/icon.png";
     public override string ModelPath => "attachments/swb/muzzle/silencer_rifle/silencer_rifle.vmdl";
 }
 
-public class SniperSilencer : Silencer
+public class SniperSilencer : OffsetSilencer
 {
     public override string Name => "ATS5 Silencer";
     public override string IconPath => "attachments/swb/muzzle/silencer_sniper/ui/icon.png";
     public override string ModelPath => "attachments/swb/muzzle/silencer_sniper/silencer_sniper.vmdl";
 }
 
-public class ShotgunSilencer : Silencer
+public class ShotgunSilencer : OffsetSilencer
 {
     public override string Name => "Salvo 12G Silencer";
     public override string IconPath => "attachments/swb/muzzle/silencer_shotgun/ui/icon.png";

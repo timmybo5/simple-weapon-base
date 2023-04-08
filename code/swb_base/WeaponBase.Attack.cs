@@ -138,7 +138,7 @@ public partial class WeaponBase
         }
         else
         {
-            realSpread = IsZooming ? clipInfo.Spread / 4 : clipInfo.Spread;
+            realSpread = IsZooming ? clipInfo.Spread * General.ZoomSpreadMod : clipInfo.Spread;
         }
 
         if (Game.IsServer)

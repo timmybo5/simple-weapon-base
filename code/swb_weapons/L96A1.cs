@@ -7,7 +7,7 @@ using SWB_Base.Bullets;
 namespace SWB_WEAPONS;
 
 [Library("swb_l96a1", Title = "L96a1")]
-public class L96A1 : WeaponBaseSniper
+public class L96A1 : WeaponBase
 {
     public override int Bucket => 5;
     public override HoldType HoldType => HoldType.Rifle;
@@ -21,11 +21,6 @@ public class L96A1 : WeaponBaseSniper
     public override string WorldModelPath => "weapons/swb/snipers/l96a1/w_l96a1.vmdl";
     public override string Icon => "code/swb_weapons/textures/l96a1.png";
 
-    public override string LensTexture => "/materials/swb/scopes/swb_lens_hunter.png";
-    public override string ScopeTexture => "/materials/swb/scopes/swb_scope_hunter.png";
-    public override string ZoomInSound => "swb_sniper.zoom_in";
-    public override bool UseRenderTarget => false;
-
     public L96A1()
     {
         UISettings = new UISettings
@@ -36,10 +31,10 @@ public class L96A1 : WeaponBaseSniper
         General = new WeaponInfo
         {
             FOV = 90,
-            ZoomPlayerFOV = 15,
-            ZoomOutFOVSpeed = 10,
+            ZoomWeaponFOV = 80,
             WalkAnimationSpeedMod = 0.8f,
-            AimSensitivity = 0.25f,
+            AimSensitivity = 0.7f,
+            ZoomSpreadMod = 0.05f,
 
             DrawTime = 0.5f,
             ReloadTime = 1.8f,
@@ -58,8 +53,8 @@ public class L96A1 : WeaponBaseSniper
             Damage = 100f,
             Force = 7f,
             HitFlinch = 5f,
-            Spread = 0.75f,
-            Recoil = 2f,
+            Spread = 0.5f,
+            Recoil = 3f,
             RPM = 125,
             FiringType = FiringType.semi,
             ScreenShake = new ScreenShake
@@ -82,8 +77,8 @@ public class L96A1 : WeaponBaseSniper
 
         ZoomAnimData = new AngPos
         {
-            Angle = new Angles(0f, 2.5f, -2f),
-            Pos = new Vector3(-6f, 4f, -2f)
+            Angle = new Angles(-0.35f, 4.99f, 0f),
+            Pos = new Vector3(-5.017f, 0f, 1.675f)
         };
 
         RunAnimData = new AngPos
@@ -120,6 +115,28 @@ public class L96A1 : WeaponBaseSniper
 
         AttachmentCategories = new List<AttachmentCategory>()
         {
+            new AttachmentCategory
+            {
+                Name = AttachmentCategoryName.Sight,
+                BoneOrAttachment = "sight",
+                Attachments = new List<AttachmentBase>()
+                {
+                    new SniperReflexSight
+                    {
+                        ZoomWeaponFOV = 70,
+                        ZoomPlayerFOV = 70,
+                        AimSensitivity = 0.5f,
+                        ZoomAnimData = new AngPos { Angle = new Angles(0.06f, 4.99f, 0f), Pos = new Vector3(-5.004f, 0f, 0.678f) },
+                    },
+                    new HunterScope2D
+                    {
+                        ZoomPlayerFOV = 15,
+                        ZoomOutFOVSpeed = 10,
+                        AimSensitivity = 0.25f,
+                        ZoomAnimData = new AngPos { Angle = new Angles(0.06f, 4.99f, 0f), Pos = new Vector3(-5.004f, 0f, 0.678f) },
+                    }
+                }
+            },
             new AttachmentCategory
             {
                 Name = AttachmentCategoryName.Muzzle,

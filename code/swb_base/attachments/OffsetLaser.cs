@@ -2,7 +2,7 @@
 
 namespace SWB_Base.Attachments;
 
-public class Laser : OffsetAttachment
+public class OffsetLaser : OffsetAttachment
 {
     public override string Name => "Laser";
     public override string Description => "Aids target acquisition by projecting a beam onto the target that provides a visual reference point.";
@@ -42,12 +42,12 @@ public class Laser : OffsetAttachment
     private WeaponBase weapon;
     private float rainbowI;
 
-    public Laser()
+    public OffsetLaser()
     {
         Event.Register(this);
     }
 
-    ~Laser()
+    ~OffsetLaser()
     {
         Event.Unregister(this);
     }
@@ -231,7 +231,7 @@ public class Laser : OffsetAttachment
     }
 }
 
-public class SmallLaser : Laser
+public class SmallLaser : OffsetLaser
 {
     public override string Name => "CMR-207 Laser";
     public override string IconPath => "attachments/swb/tactical/laser_small/ui/icon.png";
@@ -259,7 +259,7 @@ public class SmallLaserRainbow : SmallLaser
     public override string IconPath => "attachments/swb/tactical/laser_small/ui/icon_rainbow.png";
 }
 
-public class RifleLaser : Laser
+public class RifleLaser : OffsetLaser
 {
     public override string Name => "PEQ-15 Laser";
     public override string IconPath => "attachments/swb/tactical/laser_rifle/ui/icon.png";

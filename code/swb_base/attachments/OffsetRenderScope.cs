@@ -4,10 +4,12 @@ using SWB_Base.UI;
 
 namespace SWB_Base.Attachments;
 
-public class RenderScope : Sight
+// This is a work in progress, does not work yet!
+
+public class OffsetRenderScope : OffsetSight
 {
     public override string Name => "Render Scope";
-    public override string Description => "Used by other attachments to be able to attach to the weapon.";
+    public override string Description => "";
     public override string[] Positives => new string[]
     {
     };
@@ -42,9 +44,9 @@ public class RenderScope : Sight
     }
 }
 
-public class HunterScope : RenderScope
-{
-    public override string Name => "Hunter Scope x12";
-    public override string IconPath => "attachments/swb/sight/scope_hunter/ui/icon.png";
-    public override string ModelPath => "attachments/swb/sight/scope_hunter/w_scope_hunter.vmdl";
-}
+//public class HunterScope : OffsetRenderScope
+//{
+//    public override string Name => "Hunter Scope x12";
+//    public override string IconPath => "attachments/swb/sight/scope_hunter/ui/icon.png";
+//    public override string ModelPath => "attachments/swb/sight/scope_hunter/w_scope_hunter.vmdl";
+//}

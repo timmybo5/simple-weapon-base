@@ -2,7 +2,6 @@
 using Sandbox;
 using Sandbox.UI;
 using SWB_Base;
-using SWB_Base.Attachments;
 using SWB_Player;
 
 namespace SWB_Editor;
@@ -29,7 +28,6 @@ public partial class ModelEditorMenu
     public int FOV { get; set; } = 75;
 
     public Label DragModeLabel { get; set; }
-    public Button AttachmentAnimDataButton { get; set; }
 
     private DragMode dragMode = DragMode.pos;
 
@@ -55,20 +53,6 @@ public partial class ModelEditorMenu
         var weapon = player.ActiveChild as WeaponBase;
         var activeAttach = weapon.GetActiveAttachmentFromCategory(AttachmentCategoryName.Sight);
         FOV = weapon.General.FOV;
-
-        if (activeAttach != null && AttachmentAnimDataButton != null)
-        {
-            var attach = weapon.GetAttachment(activeAttach.Name);
-            if (attach is Sight sight)
-            {
-                showButton = true;
-                AttachmentAnimDataButton.Text = sight.Name;
-                sightAttachmentAnimData = sight.ZoomAnimData;
-            }
-        }
-
-        if (!showButton && AttachmentAnimDataButton != null)
-            AttachmentAnimDataButton.Delete();
     }
 
     public virtual void OnReset()

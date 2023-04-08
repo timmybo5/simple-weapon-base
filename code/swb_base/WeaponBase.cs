@@ -130,7 +130,40 @@ public partial class WeaponBase : CarriableBase
         IsRunning = Owner.GroundEntity != null && Input.Down(InputButton.Run) && RunAnimData != AngPos.Zero && Owner.Velocity.Length >= 200;
 
         if (Secondary == null && ZoomAnimData != AngPos.Zero && this is not WeaponBaseMelee)
-            IsZooming = Input.Down(InputButton.SecondaryAttack) && !IsRunning && !IsReloading;
+            IsZooming = Input.Down(InputButton.SecondaryAttack) && !IsRunning && !IsReloading && !ShouldTuck();
+
+        if (!wasZooming && IsZooming)
+        {
+            OnZoomStart();
+        }
+
+        if (wasZooming && !IsZooming)
+        {
+            OnZoomEnd();
+        }
+
+        // Call OnZoomStart & OnZoomEnd for active attachments
+        if ((!wasZooming && IsZooming) || (wasZooming && !IsZooming))
+        {
+            foreach (var activeAttachment in ActiveAttachments)
+            {
+                var attachment = GetAttachment(activeAttachment.Name);
+
+                if (attachment == null) continue;
+
+                if (!wasZooming && IsZooming)
+                {
+                    attachment.OnZoomStart(this);
+                }
+
+                if (wasZooming && !IsZooming)
+                {
+                    attachment.OnZoomEnd(this);
+                }
+            }
+        }
+
+        wasZooming = IsZooming;
 
         if (TimeSinceDeployed < General.DrawTime)
             return;
@@ -154,6 +187,16 @@ public partial class WeaponBase : CarriableBase
             UISimulate(client);
         }
     }
+
+    /// <summary>
+    /// Gets called once when zooming starts
+    /// </summary>
+    public virtual void OnZoomStart() { }
+
+    /// <summary>
+    /// Gets called once when zooming ends
+    /// </summary>
+    public virtual void OnZoomEnd() { }
 
     public virtual void Reload()
     {

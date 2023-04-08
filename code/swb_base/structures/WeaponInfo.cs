@@ -29,6 +29,9 @@ public partial class WeaponInfo : BaseNetworkable
     /// <summary>Procedural animation speed (lower is slower)</summary>
     [Net] public float WalkAnimationSpeedMod { get; set; } = 1;
 
+    /// <summary>Spread modifier while zooming (1 = no effect)</summary>
+    [Net] public float ZoomSpreadMod { get; set; } = 0.25f;
+
     // Animations // 
 
     /// <summary>Duration of the draw animation</summary>
