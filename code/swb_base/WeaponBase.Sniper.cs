@@ -22,6 +22,9 @@ public partial class WeaponBaseSniper : WeaponBase
     /// <summary>Sound to play when zooming out</summary>
     public virtual string ZoomOutSound => "";
 
+    /// <summary>Delay between zooming and scoping in ms</summary>
+    public virtual int ZoomInDelay => 200;
+
     /// <summary>EXPERIMENTAL - Use a render target instead of a full screen texture zoom</summary>
     public virtual bool UseRenderTarget => false;
 
@@ -42,7 +45,7 @@ public partial class WeaponBaseSniper : WeaponBase
 
     public override void OnZoomStart()
     {
-        OnScopeStart(this, ZoomInSound);
+        OnScopeStart(this, ZoomInSound, ZoomInDelay);
     }
 
     public override void OnZoomEnd()
@@ -50,14 +53,12 @@ public partial class WeaponBaseSniper : WeaponBase
         OnScopeEnd(this, ZoomOutSound);
     }
 
-    public static void OnScopeStart(WeaponBase weapon, string zoomInSound)
+    public static async void OnScopeStart(WeaponBase weapon, string zoomInSound, int zoomInDelay)
     {
+        await GameTask.Delay(zoomInDelay);
+        if (!weapon.IsZooming) return;
+
         weapon.IsScoped = true;
-
-        if (!weapon.ExtraValues.ContainsKey("oldSpread"))
-            weapon.ExtraValues["oldSpread"] = weapon.Primary.Spread;
-
-        weapon.Primary.Spread = 0;
 
         var player = weapon.Owner as ISWBPlayer;
         player.OnScopeStart();
@@ -81,8 +82,9 @@ public partial class WeaponBaseSniper : WeaponBase
 
     public static void OnScopeEnd(WeaponBase weapon, string zoomOutSound)
     {
+        if (!weapon.IsScoped) return;
+
         weapon.IsScoped = false;
-        weapon.Primary.Spread = (float)weapon.ExtraValues["oldSpread"];
 
         var player = weapon.Owner as ISWBPlayer;
         player.OnScopeEnd();

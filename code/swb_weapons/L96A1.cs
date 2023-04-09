@@ -130,10 +130,11 @@ public class L96A1 : WeaponBase
                     },
                     new HunterScope2D
                     {
-                        ZoomPlayerFOV = 15,
+                        ScopedPlayerFOV = 15,
                         ZoomOutFOVSpeed = 10,
                         AimSensitivity = 0.25f,
-                        ZoomAnimData = new AngPos { Angle = new Angles(0.06f, 4.99f, 0f), Pos = new Vector3(-5.004f, 0f, 0.678f) },
+                        ZoomSpreadMod = 0,
+                        ZoomAnimData = new AngPos { Angle = new Angles(0.06f, 4.99f, 0f), Pos = new Vector3(-4.997f, -5.299f, 0.227f) },
                     }
                 }
             },

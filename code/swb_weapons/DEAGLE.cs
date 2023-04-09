@@ -102,11 +102,11 @@ public class DEAGLE : WeaponBase
                     },
                     new HunterScope2D
                     {
-                        ZoomPlayerFOV = 15,
+                        ScopedPlayerFOV = 15,
                         ZoomOutFOVSpeed = 10,
                         AimSensitivity = 0.25f,
-                        ZoomSpreadMod = 0.05f,
-                        ZoomAnimData = new AngPos { Angle = new Angles(-0.14f, 5.2f, 0f), Pos = new Vector3(-4.917f, 0f, 1.368f) },
+                        ZoomSpreadMod = 0,
+                        ZoomAnimData = new AngPos { Angle = new Angles(-0.14f, 5.2f, 0f), Pos = new Vector3(-4.987f, -11.228f, 1.052f) },
                     }
                 }
             },

@@ -31,6 +31,10 @@ public class OffsetSight : OffsetAttachment
     public int ZoomPlayerFOV;
     private int oldZoomPlayerFOV;
 
+    /// <summary>The new player scoped FOV (-1 to use default player fov)</summary>
+    public int ScopedPlayerFOV;
+    private int oldScopedPlayerFOV;
+
     /// <summary>The new aim sensitivity</summary>
     public float AimSensitivity;
     private float oldAimSensitivity;
@@ -40,7 +44,7 @@ public class OffsetSight : OffsetAttachment
     private int oldZoomOutFOVSpeed;
 
     /// <summary>The new zoom spread modifier</summary>
-    public float ZoomSpreadMod;
+    public float ZoomSpreadMod = -1;
     private float oldZoomSpreadMod;
 
     public override void OnEquip(WeaponBase weapon, AttachmentModel attachmentModel)
@@ -48,6 +52,7 @@ public class OffsetSight : OffsetAttachment
         oldZoomAnimData = weapon.ZoomAnimData;
         oldZoomWeaponFOV = weapon.General.ZoomWeaponFOV;
         oldZoomPlayerFOV = weapon.General.ZoomPlayerFOV;
+        oldScopedPlayerFOV = weapon.General.ScopedPlayerFOV;
         oldAimSensitivity = weapon.General.AimSensitivity;
         oldZoomOutFOVSpeed = weapon.General.ZoomOutFOVSpeed;
         oldZoomSpreadMod = weapon.General.ZoomSpreadMod;
@@ -60,13 +65,16 @@ public class OffsetSight : OffsetAttachment
         if (ZoomPlayerFOV > 0)
             weapon.General.ZoomPlayerFOV = ZoomPlayerFOV;
 
+        if (ScopedPlayerFOV > 0)
+            weapon.General.ScopedPlayerFOV = ScopedPlayerFOV;
+
         if (AimSensitivity > 0)
             weapon.General.AimSensitivity = AimSensitivity;
 
         if (ZoomOutFOVSpeed > 0)
             weapon.General.ZoomOutFOVSpeed = ZoomOutFOVSpeed;
 
-        if (ZoomSpreadMod > 0)
+        if (ZoomSpreadMod > -1)
             weapon.General.ZoomSpreadMod = ZoomSpreadMod;
     }
 
@@ -78,6 +86,7 @@ public class OffsetSight : OffsetAttachment
         weapon.General.AimSensitivity = oldAimSensitivity;
         weapon.General.ZoomOutFOVSpeed = oldZoomOutFOVSpeed;
         weapon.General.ZoomSpreadMod = oldZoomSpreadMod;
+        weapon.General.ScopedPlayerFOV = oldScopedPlayerFOV;
     }
 }
 

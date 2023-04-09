@@ -146,7 +146,7 @@ public partial class WeaponBase
     /// <summary>Bullet velocity modifier (phys bullets only)</summary>
     public float BulletVelocityMod = 1;
 
-    /// <summary>Can be used to save extra values</summary>
+    /// <summary>Can be used to keep extra values</summary>
     public Dictionary<string, object> ExtraValues { get; set; } = new();
 
     // Private

@@ -220,6 +220,9 @@ partial class ViewModelBase : BaseViewModel
             if (weapon.General.ZoomPlayerFOV > 0)
                 targetPlayerFOV = weapon.General.ZoomPlayerFOV;
 
+            if (weapon.General.ScopedPlayerFOV > 0 && weapon.IsScoped)
+                targetPlayerFOV = weapon.General.ScopedPlayerFOV;
+
             if (weapon.General.ZoomWeaponFOV > 0)
                 targetWeaponFOV = weapon.General.ZoomWeaponFOV;
 
