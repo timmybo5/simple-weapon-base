@@ -34,8 +34,12 @@ public class BodyGroupSight : BodyGroupAttachment
     private int oldScopedPlayerFOV;
 
     /// <summary>The new aim sensitivity</summary>
-    public float AimSensitivity;
+    public float AimSensitivity = -1;
     private float oldAimSensitivity;
+
+    /// <summary>The new scoped aim sensitivity</summary>
+    public float ScopedAimSensitivity = -1;
+    private float oldScopedAimSensitivity;
 
     /// <summary>The new zoom out speed</summary>
     public int ZoomOutFOVSpeed;
@@ -54,6 +58,7 @@ public class BodyGroupSight : BodyGroupAttachment
         oldAimSensitivity = weapon.General.AimSensitivity;
         oldZoomOutFOVSpeed = weapon.General.ZoomOutFOVSpeed;
         oldZoomSpreadMod = weapon.General.ZoomSpreadMod;
+        oldScopedAimSensitivity = weapon.General.ScopedAimSensitivity;
 
         weapon.ZoomAnimData = ZoomAnimData;
 
@@ -66,8 +71,11 @@ public class BodyGroupSight : BodyGroupAttachment
         if (ScopedPlayerFOV > 0)
             weapon.General.ScopedPlayerFOV = ScopedPlayerFOV;
 
-        if (AimSensitivity > 0)
+        if (AimSensitivity > -1)
             weapon.General.AimSensitivity = AimSensitivity;
+
+        if (ScopedAimSensitivity > -1)
+            weapon.General.ScopedAimSensitivity = ScopedAimSensitivity;
 
         if (ZoomOutFOVSpeed > 0)
             weapon.General.ZoomOutFOVSpeed = ZoomOutFOVSpeed;
@@ -82,6 +90,7 @@ public class BodyGroupSight : BodyGroupAttachment
         weapon.General.ZoomWeaponFOV = oldZoomWeaponFOV;
         weapon.General.ZoomPlayerFOV = oldZoomPlayerFOV;
         weapon.General.AimSensitivity = oldAimSensitivity;
+        weapon.General.ScopedAimSensitivity = oldScopedAimSensitivity;
         weapon.General.ZoomOutFOVSpeed = oldZoomOutFOVSpeed;
         weapon.General.ZoomSpreadMod = oldZoomSpreadMod;
         weapon.General.ScopedPlayerFOV = oldScopedPlayerFOV;

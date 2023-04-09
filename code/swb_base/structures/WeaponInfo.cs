@@ -26,8 +26,11 @@ public partial class WeaponInfo : BaseNetworkable
 
     // Other //
 
-    /// <summary>Aim sensitivity while zooming (lower is slower)</summary>
+    /// <summary>Aim sensitivity while zooming (lower is slower, 0 to disable)</summary>
     [Net] public float AimSensitivity { get; set; } = 0.85f;
+
+    /// <summary>Aim sensitivity while scoping (lower is slower, 0 to use AimSensitivity while scoped)</summary>
+    [Net] public float ScopedAimSensitivity { get; set; } = 0;
 
     /// <summary>Procedural animation speed (lower is slower)</summary>
     [Net] public float WalkAnimationSpeedMod { get; set; } = 1;

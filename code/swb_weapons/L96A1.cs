@@ -132,7 +132,8 @@ public class L96A1 : WeaponBase
                     {
                         ScopedPlayerFOV = 15,
                         ZoomOutFOVSpeed = 10,
-                        AimSensitivity = 0.25f,
+                        AimSensitivity = 0,
+                        ScopedAimSensitivity = 0.25f,
                         ZoomSpreadMod = 0,
                         ZoomAnimData = new AngPos { Angle = new Angles(0.06f, 4.99f, 0f), Pos = new Vector3(-4.997f, -5.299f, 0.227f) },
                     }

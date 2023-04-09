@@ -228,9 +228,16 @@ public partial class PlayerBase : AnimatedEntity
         if (ActiveChild is WeaponBase weapon)
         {
             var enableZoomSens = ConsoleSystem.GetValue("swb_cl_enable_zoomsens");
-            if (weapon.IsZooming && enableZoomSens == "1")
+            if (enableZoomSens == "1")
             {
-                ViewAngles = Angles.Lerp(OriginalViewAngles, ViewAngles, weapon.General.AimSensitivity);
+                if (weapon.IsScoped && weapon.General.ScopedAimSensitivity > 0)
+                {
+                    ViewAngles = Angles.Lerp(OriginalViewAngles, ViewAngles, weapon.General.ScopedAimSensitivity);
+                }
+                else if (weapon.IsZooming && weapon.General.AimSensitivity > 0)
+                {
+                    ViewAngles = Angles.Lerp(OriginalViewAngles, ViewAngles, weapon.General.AimSensitivity);
+                }
             }
         }
 
