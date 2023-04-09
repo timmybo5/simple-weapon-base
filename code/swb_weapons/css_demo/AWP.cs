@@ -32,9 +32,11 @@ public class AWP : WeaponBaseSniper
         {
             FOV = 75,
             ScopedPlayerFOV = 15,
+            ZoomSpreadMod = 0,
+            ZoomOutFOVSpeed = 10,
             WalkAnimationSpeedMod = 0.8f,
             AimSensitivity = 0,
-            ScopedAimSensitivity = 0.25f,
+            ScopedAimSensitivity = 0.2f,
 
             ReloadTime = 3.67f
         };
