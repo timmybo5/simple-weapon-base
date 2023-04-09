@@ -29,7 +29,6 @@ public partial class WeaponBaseSniper : WeaponBase
     public virtual bool UseRenderTarget => false;
 
     protected Panel SniperScopePanel;
-    private float oldSpread = -1;
 
     public override void ActiveStart(Entity ent)
     {
