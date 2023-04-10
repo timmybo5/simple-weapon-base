@@ -184,6 +184,7 @@ public class OffsetLaser : OffsetAttachment
 
             var tr = Trace.Ray(laserStartPos, laserStartPos + laserTrans.Rotation.Forward * Range * rangeMultiplier)
                             .Size(0.1f)
+                            .WithoutTags("trigger")
                             .Ignore(owner)
                             .UseHitboxes()
                             .Run();
@@ -222,6 +223,7 @@ public class OffsetLaser : OffsetAttachment
 
             TraceResult trDot = Trace.Ray(fromPos, toPos)
                                 .Size(0.1f)
+                                .WithoutTags("trigger")
                                 .Ignore(owner)
                                 .UseHitboxes()
                                 .Run();
