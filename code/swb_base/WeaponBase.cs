@@ -274,15 +274,13 @@ public partial class WeaponBase : CarriableBase
         // TODO - player third person model reload
     }
 
-    public Angles GetRecoilAngles()
+    public virtual Angles GetRecoilAngles()
     {
         var recoilAngles = new Angles(IsZooming ? -Primary.Recoil * 0.4f : -Primary.Recoil, 0, 0);
         return recoilAngles;
     }
 
-    public virtual void UpdateCamera() { }
-
-    public virtual void UpdateViewmodelCamera()
+    public virtual void UpdateCamera()
     {
         if (ViewModelEntity is ViewModelBase viewModel)
         {

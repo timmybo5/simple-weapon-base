@@ -21,7 +21,6 @@ public class FirstPersonCamera : CameraMode
 
         if (player.ActiveChild is WeaponBase weapon)
         {
-            weapon.UpdateViewmodelCamera();
             weapon.UpdateCamera();
         }
     }
