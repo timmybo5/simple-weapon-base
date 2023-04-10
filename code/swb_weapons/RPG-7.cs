@@ -32,6 +32,7 @@ public class RPG7 : WeaponBaseEntity
     {
         UISettings = new UISettings
         {
+            ShowCrosshair = false,
             ShowFireMode = false,
         };
 
