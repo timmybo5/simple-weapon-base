@@ -7,7 +7,7 @@ A community managed simple to use weapon base for S&amp;Box.
 [Skeleton version here](https://github.com/timmybo5/swb-skeleton)
 
 ## Demonstration
-[![Watch the video](https://img.youtube.com/vi/EmdQRybRiu0/maxresdefault.jpg)](https://www.youtube.com/watch?v=EmdQRybRiu0)
+[![Watch the video](https://img.youtube.com/vi/24ge3uU8lJ0/maxresdefault.jpg)](https://www.youtube.com/watch?v=24ge3uU8lJ0)
 
 ## Goal
 During the lifetime of garrysmod many weapon bases consisting of poor quality were created, and it would be a shame to see the same in S&box. The goal is to offer an easy to use yet very configurable weapon base maintained by the community for the community.
