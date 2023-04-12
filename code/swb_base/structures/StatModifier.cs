@@ -1,6 +1,4 @@
-﻿using Sandbox;
-
-namespace SWB_Base;
+﻿namespace SWB_Base;
 
 public class StatModifier
 {
@@ -13,22 +11,10 @@ public class StatModifier
     public static readonly StatModifier Zero = new();
 
     private bool applied;
-    private int applyTries;
 
-    public async void Apply(WeaponBase weapon)
+    public void Apply(WeaponBase weapon)
     {
-        if (applied || applyTries > 10) return;
-        if (weapon.InitialStats == null)
-        {
-            var instanceID = weapon.InstanceID;
-            applyTries++;
-
-            await GameTask.DelaySeconds(0.1f);
-            if (weapon != null && weapon.IsValid && weapon.IsAsyncValid(weapon, instanceID))
-                Apply(weapon);
-
-            return;
-        }
+        if (applied) return;
 
         Apply(weapon.Primary, weapon.InitialStats);
         Apply(weapon.Secondary, weapon.InitialStats);

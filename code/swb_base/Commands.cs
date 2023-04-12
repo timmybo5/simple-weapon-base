@@ -18,7 +18,7 @@ internal class Commands
             if (enabled && activeWeapon.GetAttachment(name) != null)
             {
                 // Attach
-                _ = activeWeapon.EquipAttachmentSV(name);
+                activeWeapon.EquipAttachmentSV(name);
             }
             else if (!enabled && activeWeapon.GetActiveAttachment(name) != null)
             {

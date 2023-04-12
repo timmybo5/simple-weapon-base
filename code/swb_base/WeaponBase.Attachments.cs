@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Sandbox;
 
 /* 
@@ -174,7 +173,7 @@ public partial class WeaponBase
     {
         var activeAttachment = GetActiveAttachment(name);
 
-        if (Game.IsServer && activeAttachment != null)
+        if (activeAttachment != null)
         {
             ActiveAttachments.Remove(activeAttachment);
         }
@@ -195,11 +194,24 @@ public partial class WeaponBase
     [ClientRpc]
     protected void EquipAttachmentCL(string name)
     {
+        // Handle EquipBeforeActive, will be initialized by HandleAttachments when WeaponBase.ActiveStart gets called
+        if (InitialStats == null)
+        {
+            var activeAtt = new ActiveAttachment
+            {
+                Name = name,
+                Category = GetAttachmentCategoryName(name),
+            };
+
+            ActiveAttachments.Add(activeAtt);
+            return;
+        }
+
         var instanceID = InstanceID;
-        _ = TryEquipAttachmentCL(name, instanceID);
+        TryEquipAttachmentCL(name, instanceID);
     }
 
-    async Task TryEquipAttachmentCL(string name, int instanceID)
+    protected async void TryEquipAttachmentCL(string name, int instanceID)
     {
         Game.AssertClient();
 
@@ -215,7 +227,7 @@ public partial class WeaponBase
         var activeWeapon = player.ActiveChild;
         await GameTask.DelaySeconds(0.05f);
         if (!IsAsyncValid(activeWeapon, instanceID)) return;
-        _ = TryEquipAttachmentCL(name, instanceID);
+        TryEquipAttachmentCL(name, instanceID);
     }
 
     /// <summary>
@@ -230,7 +242,7 @@ public partial class WeaponBase
         var activeAttach = GetActiveAttachment(attach.RequiresAttachmentWithName);
         if (toggle && activeAttach == null)
         {
-            _ = EquipAttachmentSV(attach.RequiresAttachmentWithName);
+            EquipAttachmentSV(attach.RequiresAttachmentWithName);
         }
         else if (!toggle && activeAttach != null)
         {
@@ -259,8 +271,16 @@ public partial class WeaponBase
     /// <summary>
     /// Request server to equip an attachment.
     /// </summary>
-    public async Task EquipAttachmentSV(string name)
+    public async void EquipAttachmentSV(string name)
     {
+        // HandleAttachments should take care of attachment if equipped before ActiveStart
+        if (InitialStats == null)
+        {
+            var attach = GetAttachment(name);
+            attach.EquipBeforeActive = true;
+            return;
+        }
+
         // Unequip same category attachment
         var cat = GetAttachmentCategoryName(name);
         var catAtt = GetActiveAttachmentFromCategory(cat);
@@ -299,10 +319,10 @@ public partial class WeaponBase
     protected void HandleAttachmentsRecheckCL()
     {
         var instanceID = InstanceID;
-        _ = TryHandleAttachmentsCL(instanceID);
+        TryHandleAttachmentsCL(instanceID);
     }
 
-    async Task TryHandleAttachmentsCL(int instanceID)
+    protected async void TryHandleAttachmentsCL(int instanceID)
     {
         Game.AssertClient();
 
@@ -317,7 +337,7 @@ public partial class WeaponBase
 
         await GameTask.DelaySeconds(0.05f);
         if (!IsAsyncValid(activeWeapon, instanceID)) return;
-        _ = TryHandleAttachmentsCL(instanceID);
+        TryHandleAttachmentsCL(instanceID);
     }
 
     /// <summary>
@@ -353,6 +373,25 @@ public partial class WeaponBase
                 else
                 {
                     attachment.Unequip(this);
+                }
+            }
+
+            // Handle EquipBeforeActive
+            if (Game.IsServer)
+            {
+                foreach (var attachmentCategory in AttachmentCategories)
+                {
+                    foreach (var attachment in attachmentCategory.Attachments)
+                    {
+                        if (attachment.EquipBeforeActive)
+                        {
+                            attachment.EquipBeforeActive = false;
+                            EquipAttachmentSV(attachment.Name);
+
+                            // Only 1 attachment per category
+                            break;
+                        }
+                    }
                 }
             }
         }

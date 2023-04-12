@@ -84,36 +84,37 @@ public abstract class OffsetAttachment : AttachmentBase
 
     public override AttachmentModel Equip(WeaponBase weapon, bool createModel = true)
     {
+        if (Equipped) return null;
+        Equipped = true;
+
         // Model
         if (createModel)
-        {
             attachmentModel = CreateModel(weapon);
-        }
 
         // Stats
-        if (StatModifier != null)
-        {
-            StatModifier.Apply(weapon);
-        }
+        StatModifier?.Apply(weapon);
 
-        CreateHudElements();
+        if (Game.IsClient)
+            CreateHudElements();
+
         OnEquip(weapon, attachmentModel);
         return attachmentModel;
     }
 
     public override void Unequip(WeaponBase weapon)
     {
+        if (!Equipped) return;
+        Equipped = false;
+
         // Model
-        if (attachmentModel != null)
-            attachmentModel.Delete();
+        attachmentModel?.Delete();
 
         // Stats
-        if (StatModifier != null)
-        {
-            StatModifier.Remove(weapon);
-        }
+        StatModifier?.Remove(weapon);
 
-        DestroyHudElements();
+        if (Game.IsClient)
+            DestroyHudElements();
+
         OnUnequip(weapon);
     }
 }
@@ -150,19 +151,18 @@ public abstract class BodyGroupAttachment : AttachmentBase
 
     public override AttachmentModel Equip(WeaponBase weapon, bool createModel = true)
     {
+        if (Equipped) return null;
+        Equipped = true;
+
         // Model
         if (createModel)
-        {
             SetBodyGroup(weapon, BodyGroupChoice);
-        }
 
         // Stats
-        if (StatModifier != null)
-        {
-            StatModifier.Apply(weapon);
-        }
+        StatModifier?.Apply(weapon);
 
-        CreateHudElements();
+        if (Game.IsClient)
+            CreateHudElements();
 
         // We pass null because BodyGroups don't have model references
         OnEquip(weapon, null);
@@ -171,16 +171,18 @@ public abstract class BodyGroupAttachment : AttachmentBase
 
     public override void Unequip(WeaponBase weapon)
     {
+        if (!Equipped) return;
+        Equipped = false;
+
         // Model
         SetBodyGroup(weapon, BodyGroupDefault);
 
         // Stats
-        if (StatModifier != null)
-        {
-            StatModifier.Remove(weapon);
-        }
+        StatModifier?.Remove(weapon);
 
-        DestroyHudElements();
+        if (Game.IsClient)
+            DestroyHudElements();
+
         OnUnequip(weapon);
     }
 }
@@ -217,6 +219,12 @@ public abstract class AttachmentBase : IComparable<AttachmentBase>
 
     /// <summary>Will be auto-equipped on first deploy</summary>
     public bool Enabled { get; set; }
+
+    /// <summary>If already equipped</summary>
+    public bool Equipped { get; set; }
+
+    /// <summary>If tried to equip before WeaponBase.ActiveStart was called</summary>
+    public bool EquipBeforeActive { get; set; }
 
     /// <summary>
     /// Equips the attachment
@@ -281,17 +289,13 @@ public partial class ActiveAttachment : BaseNetworkable
     public AttachmentModel ViewAttachmentModel { get; set; }
 
     /// <summary>The worldmodel attachment model</summary>
-    [Net]
-    public AttachmentModel WorldAttachmentModel { get; set; }
+    [Net] public AttachmentModel WorldAttachmentModel { get; set; }
 
-    [Net]
-    public string Name { get; set; }
-    [Net]
-    public AttachmentCategoryName Category { get; set; }
+    [Net] public string Name { get; set; }
+    [Net] public AttachmentCategoryName Category { get; set; }
 
     /// <summary>If the attachment was equipped automatically</summary>
-    [Net]
-    public bool Forced { get; set; }
+    [Net] public bool Forced { get; set; }
 
     public override string ToString()
     {
