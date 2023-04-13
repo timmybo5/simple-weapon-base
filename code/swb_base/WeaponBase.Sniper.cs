@@ -54,7 +54,7 @@ public partial class WeaponBaseSniper : WeaponBase
 
     public static async void OnScopeStart(WeaponBase weapon, string zoomInSound, int zoomInDelay)
     {
-        await GameTask.Delay(zoomInDelay);
+        await GameTask.DelayRealtime(zoomInDelay);
         if (!weapon.IsZooming) return;
 
         weapon.IsScoped = true;
