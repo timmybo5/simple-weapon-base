@@ -15,7 +15,7 @@ public enum FiringType
 public partial class ClipInfo : BaseNetworkable
 {
     /// <summary>Amount of ammo in the clip</summary>
-    [Net, Predicted] public int Ammo { get; set; } = 10;
+    [Net] public int Ammo { get; set; } = 10;
 
     /// <summary>Type of ammo</summary>
     [Net] public AmmoType AmmoType { get; set; } = AmmoTypes.Pistol;
