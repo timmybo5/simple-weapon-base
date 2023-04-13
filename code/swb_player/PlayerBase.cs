@@ -11,7 +11,7 @@ public partial class PlayerBase : ISWBPlayer
     public DamageInfo LastDamage;
 
     private ScreenShakeStruct lastScreenShake;
-    private TimeSince timeSinceShake;
+    private RealTimeSince timeSinceShake;
     private float nextShake;
 
     private bool isLoweringFlinch;
