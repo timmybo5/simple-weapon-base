@@ -9,17 +9,17 @@ namespace SWB_Base;
 
 public class HitScanBullet : BulletBase
 {
-    public override void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
+    public override void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
-        Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+        Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
     }
 
-    public override void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
+    public override void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
-        Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+        Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
     }
 
-    private void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary, int refireCount = 0)
+    private void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary, int refireCount = 0)
     {
         var tr = weapon.TraceBullet(startPos, endPos, bulletSize);
         var isValidEnt = tr.Entity.IsValid();
@@ -38,9 +38,9 @@ public class HitScanBullet : BulletBase
             if (!string.IsNullOrEmpty(tracerParticle))
             {
                 var random = new Random();
-                var randVal = random.Next(0, 2);
+                var randVal = random.NextDouble();
 
-                if (randVal == 0)
+                if (randVal < bulletTracerChance)
                     TracerEffects(weapon, tracerParticle, tr.EndPosition);
             }
         }
@@ -65,7 +65,7 @@ public class HitScanBullet : BulletBase
             if (refireCount > 100) return;
             refireCount++;
 
-            Fire(weapon, tr.HitPosition + tr.Direction * 10, endPos, forward, spread, force, damage, bulletSize, isPrimary, refireCount);
+            Fire(weapon, tr.HitPosition + tr.Direction * 10, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary, refireCount);
         }
     }
 

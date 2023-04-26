@@ -145,7 +145,7 @@ public partial class WeaponBase
         {
             for (int i = 0; i < clipInfo.Bullets; i++)
             {
-                ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, isPrimary);
+                ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, clipInfo.BulletTracerChance, isPrimary);
             }
         }
 
@@ -198,7 +198,7 @@ public partial class WeaponBase
         {
             for (int i = 0; i < clipInfo.Bullets; i++)
             {
-                ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, isPrimary);
+                ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, clipInfo.BulletTracerChance, isPrimary);
             }
         }
     }
@@ -267,7 +267,7 @@ public partial class WeaponBase
     /// <summary>
     /// Shoot a single bullet (server only)
     /// </summary>
-    public virtual void ShootBullet(float spread, float force, float damage, float bulletSize, bool isPrimary)
+    public virtual void ShootBullet(float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
         var player = Owner as ISWBPlayer;
 
@@ -280,32 +280,32 @@ public partial class WeaponBase
         // Server Bullet
         if (isPrimary)
         {
-            Primary.BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+            Primary.BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
         }
         else
         {
-            Secondary.BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+            Secondary.BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
         }
 
         // Client bullet
-        ShootClientBullet(player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+        ShootClientBullet(player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
     }
 
     /// <summary>
     /// Shoot a single bullet (client only)
     /// </summary>
     [ClientRpc]
-    public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
+    public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
         if (Owner is not ISWBPlayer player) return;
 
         if (isPrimary)
         {
-            Primary.BulletType.FireCL(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+            Primary.BulletType.FireCL(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
         }
         else
         {
-            Secondary.BulletType.FireCL(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, isPrimary);
+            Secondary.BulletType.FireCL(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
         }
     }
 

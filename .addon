@@ -18,6 +18,7 @@
   "HasCode": true,
   "CodePath": "code",
   "PackageReferences": [],
+  "EditorReferences": null,
   "Metadata": {
     "MapList": [
       "facepunch.construct"

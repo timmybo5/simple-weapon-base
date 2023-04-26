@@ -34,6 +34,9 @@ public partial class ClipInfo : BaseNetworkable
     /// <summary>Bullet type (Hitscan/Physical)</summary>
     [Net] public BulletBase BulletType { get; set; } = new HitScanBullet();
 
+    /// <summary>Chance the BulletTracerParticle is created (0-1)</summary>
+    [Net] public float BulletTracerChance { get; set; } = 0.33f;
+
     /// <summary>Damage per bullet</summary>  
     [Net] public float Damage { get; set; } = 5;
 

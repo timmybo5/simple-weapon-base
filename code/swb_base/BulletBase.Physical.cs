@@ -19,14 +19,14 @@ public abstract class PhysicalBulletBase : BulletBase
     /// <summary>Initial bullet velocity (m/s)</summary>
     public virtual float Velocity => 1000;
 
-    public override void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
+    public override void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
         // Server bullet for damage (from eyePos)
         var bullet = new BulletEntity();
-        bullet?.Fire(startPos, forward, weapon, this, damage, force, bulletSize);
+        bullet?.Fire(startPos, forward, weapon, this, damage, force, bulletSize, bulletTracerChance);
     }
 
-    public override void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, bool isPrimary)
+    public override void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
         // Client bullet for effects (from muzzle)
         ModelEntity firingViewModel = weapon.GetEffectModel();
@@ -41,7 +41,7 @@ public abstract class PhysicalBulletBase : BulletBase
         var posDiff = startPos - muzzlePos;
 
         var bullet = new BulletEntity();
-        bullet?.Fire(muzzlePos, forward, weapon, this, damage, force, bulletSize, tracerParticle, posDiff);
+        bullet?.Fire(muzzlePos, forward, weapon, this, damage, force, bulletSize, bulletTracerChance, tracerParticle, posDiff);
     }
 }
 
@@ -93,7 +93,7 @@ public class BulletEntity : Entity
     }
 
     public void Fire(Vector3 position, Vector3 direction, WeaponBase weapon, PhysicalBulletBase ammoType,
-        float damage, float force, float bulletSize, string tracerParticle = "", Vector3 posDiff = new Vector3())
+        float damage, float force, float bulletSize, float bulletTracerChance, string tracerParticle = "", Vector3 posDiff = new Vector3())
     {
         Position = position;
         Owner = weapon.Owner;
@@ -114,12 +114,13 @@ public class BulletEntity : Entity
         timeSinceFire = 0;
 
         var random = new Random();
-        createParticle = random.Next(0, 2) == 0;
+        var randVal = random.NextDouble();
+        createParticle = randVal < bulletTracerChance;
 
         if (createParticle)
         {
-            var randVal = random.Float(0.15f);
-            particleDelay = randVal;
+            var randDelay = random.Float(0.15f);
+            particleDelay = randDelay;
         }
 
         if (Game.IsClient)
