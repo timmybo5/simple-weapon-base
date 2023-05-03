@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using SWB_Base;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
 
@@ -161,7 +162,7 @@ public partial class PlayerWalkController : PlayerBaseController
 
         // if ( underwater ) do underwater movement
 
-        if ((AutoJump || Swimming) ? Input.Down(InputButton.Jump) : Input.Pressed(InputButton.Jump))
+        if ((AutoJump || Swimming) ? Input.Down(InputButtonHelper.Jump) : Input.Pressed(InputButtonHelper.Jump))
         {
             CheckJumpButton();
         }
@@ -299,8 +300,8 @@ public partial class PlayerWalkController : PlayerBaseController
         var ws = Duck.GetWishSpeed();
         if (ws >= 0) return ws;
 
-        if (Input.Down(InputButton.Run)) return SprintSpeed;
-        if (Input.Down(InputButton.Walk)) return WalkSpeed;
+        if (Input.Down(InputButtonHelper.Run)) return SprintSpeed;
+        if (Input.Down(InputButtonHelper.Walk)) return WalkSpeed;
 
         return DefaultSpeed;
     }
@@ -598,7 +599,7 @@ public partial class PlayerWalkController : PlayerBaseController
 
         if (IsTouchingLadder)
         {
-            if (Input.Pressed(InputButton.Jump))
+            if (Input.Pressed(InputButtonHelper.Jump))
             {
                 Velocity = LadderNormal * 100.0f;
                 IsTouchingLadder = false;

@@ -63,10 +63,10 @@ public class M4A1 : WeaponBase
         {
             new AnimatedAction
             {
-                ActionButtons = new List<InputButton>
+                ActionButtons = new List<string>
                 {
-                    InputButton.Use,
-                    InputButton.Reload
+                    InputButtonHelper.Use,
+                    InputButtonHelper.Reload
                 },
                 OnAnimation = "add_silencer",
                 OnAnimationDuration = 2f,

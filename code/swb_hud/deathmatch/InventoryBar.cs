@@ -51,7 +51,7 @@ public class InventoryBar : Panel
     /// IClientInput implementation, calls during the client input build.
     /// You can both read and write to input, to affect what happens down the line.
     /// </summary>
-    [Event.Client.BuildInput]
+    [GameEvent.Client.BuildInput]
     public void ProcessClientInput()
     {
         var player = Game.LocalPawn as PlayerBase;
@@ -62,12 +62,12 @@ public class InventoryBar : Panel
         // If we're not open, maybe this input has something that will 
         // make us want to start being open?
         wantOpen = wantOpen || Input.MouseWheel != 0;
-        wantOpen = wantOpen || Input.Pressed(InputButton.Slot1);
-        wantOpen = wantOpen || Input.Pressed(InputButton.Slot2);
-        wantOpen = wantOpen || Input.Pressed(InputButton.Slot3);
-        wantOpen = wantOpen || Input.Pressed(InputButton.Slot4);
-        wantOpen = wantOpen || Input.Pressed(InputButton.Slot5);
-        wantOpen = wantOpen || Input.Pressed(InputButton.Slot6);
+        wantOpen = wantOpen || Input.Pressed(InputButtonHelper.Slot1);
+        wantOpen = wantOpen || Input.Pressed(InputButtonHelper.Slot2);
+        wantOpen = wantOpen || Input.Pressed(InputButtonHelper.Slot3);
+        wantOpen = wantOpen || Input.Pressed(InputButtonHelper.Slot4);
+        wantOpen = wantOpen || Input.Pressed(InputButtonHelper.Slot5);
+        wantOpen = wantOpen || Input.Pressed(InputButtonHelper.Slot6);
 
         if (Weapons.Count == 0)
         {
@@ -88,9 +88,9 @@ public class InventoryBar : Panel
         //
         // Fire pressed when we're open - select the weapon and close.
         //
-        if (Input.Down(InputButton.PrimaryAttack))
+        if (Input.Down(InputButtonHelper.PrimaryAttack))
         {
-            Input.SuppressButton(InputButton.PrimaryAttack);
+            Input.ReleaseAction(InputButtonHelper.SecondaryAttack);
             player.ActiveChildInput = SelectedWeapon;
             IsOpen = false;
             Sound.FromScreen("dm.ui_select");
@@ -125,12 +125,12 @@ public class InventoryBar : Panel
     {
         var columninput = -1;
 
-        if (Input.Pressed(InputButton.Slot1)) columninput = 0;
-        if (Input.Pressed(InputButton.Slot2)) columninput = 1;
-        if (Input.Pressed(InputButton.Slot3)) columninput = 2;
-        if (Input.Pressed(InputButton.Slot4)) columninput = 3;
-        if (Input.Pressed(InputButton.Slot5)) columninput = 4;
-        if (Input.Pressed(InputButton.Slot6)) columninput = 5;
+        if (Input.Pressed(InputButtonHelper.Slot1)) columninput = 0;
+        if (Input.Pressed(InputButtonHelper.Slot2)) columninput = 1;
+        if (Input.Pressed(InputButtonHelper.Slot3)) columninput = 2;
+        if (Input.Pressed(InputButtonHelper.Slot4)) columninput = 3;
+        if (Input.Pressed(InputButtonHelper.Slot5)) columninput = 4;
+        if (Input.Pressed(InputButtonHelper.Slot6)) columninput = 5;
 
         if (columninput == -1) return SelectedIndex;
 

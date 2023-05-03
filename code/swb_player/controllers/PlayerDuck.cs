@@ -1,5 +1,6 @@
 ﻿
 using Sandbox;
+using SWB_Base;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
 
@@ -19,7 +20,7 @@ public class PlayerDuck : BaseNetworkable
 
     public virtual void PreTick()
     {
-        bool wants = Controller.GroundEntity != null && Input.Down(InputButton.Duck);
+        bool wants = Controller.GroundEntity != null && Input.Down(InputButtonHelper.Duck);
 
         if (wants != IsActive)
         {

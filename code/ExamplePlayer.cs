@@ -72,7 +72,7 @@ public partial class ExamplePlayer : PlayerBase
 
         TickPlayerUse();
 
-        if (Input.Pressed(InputButton.View))
+        if (Input.Pressed(InputButtonHelper.View))
         {
             if (CameraMode is ThirdPersonCamera)
             {
@@ -84,7 +84,7 @@ public partial class ExamplePlayer : PlayerBase
             }
         }
 
-        if (Input.Pressed(InputButton.Drop))
+        if (Input.Pressed(InputButtonHelper.Drop))
         {
             var dropped = Inventory.DropActive();
             if (dropped != null)

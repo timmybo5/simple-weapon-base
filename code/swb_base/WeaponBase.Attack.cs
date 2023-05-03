@@ -13,7 +13,7 @@ public partial class WeaponBase
     /// <param name="lastAttackTime">Time since this attack</param>
     /// <param name="inputButton">The input button for this attack</param>
     /// <returns></returns>
-    public virtual bool CanAttack(ClipInfo clipInfo, TimeSince lastAttackTime, InputButton inputButton)
+    public virtual bool CanAttack(ClipInfo clipInfo, TimeSince lastAttackTime, string inputButton)
     {
         if (IsAnimating || InBoltBack) return false;
         if (clipInfo == null || !Owner.IsValid() || !Input.Down(inputButton)) return false;
@@ -62,7 +62,7 @@ public partial class WeaponBase
     /// </summary>
     public virtual bool CanPrimaryAttack()
     {
-        return CanAttack(Primary, TimeSincePrimaryAttack, InputButton.PrimaryAttack);
+        return CanAttack(Primary, TimeSincePrimaryAttack, InputButtonHelper.PrimaryAttack);
     }
 
     /// <summary>
@@ -70,7 +70,7 @@ public partial class WeaponBase
     /// </summary>
     public virtual bool CanSecondaryAttack()
     {
-        return CanAttack(Secondary, TimeSinceSecondaryAttack, InputButton.SecondaryAttack);
+        return CanAttack(Secondary, TimeSinceSecondaryAttack, InputButtonHelper.SecondaryAttack);
     }
 
     /// <summary>

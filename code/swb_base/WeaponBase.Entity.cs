@@ -52,10 +52,8 @@ public class FiredEntity : ModelEntity
         }
     }
 
-    [Event.Tick.Server]
-    public virtual void Tick()
-    {
-    }
+    [GameEvent.Tick.Server]
+    public virtual void Tick() { }
 }
 
 public partial class WeaponBaseEntity : WeaponBase

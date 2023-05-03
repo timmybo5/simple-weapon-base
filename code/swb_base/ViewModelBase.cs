@@ -141,7 +141,7 @@ partial class ViewModelBase : BaseViewModel
         targetVectorRot -= new Vector3(MathF.Cos(breatheTime / 5.0f), MathF.Cos(breatheTime / 4.0f), MathF.Cos(breatheTime / 7.0f));
 
         // Crouching animation
-        if (Input.Down(InputButton.Duck) && Owner.GroundEntity != null)
+        if (Input.Down(InputButtonHelper.Duck) && Owner.GroundEntity != null)
             targetVectorPos += new Vector3(-1.0f, -1.0f, 0.5f);
     }
 
@@ -272,7 +272,7 @@ partial class ViewModelBase : BaseViewModel
         }
 
         // If we jumped, start the animation
-        if (Input.Down(InputButton.Jump) && jumpTime == 0.0f)
+        if (Input.Down(InputButtonHelper.Jump) && jumpTime == 0.0f)
         {
             jumpTime = RealTime.Now + 0.31f;
             landTime = 0.0f;

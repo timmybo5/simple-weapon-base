@@ -92,7 +92,7 @@ public class OffsetLaser : OffsetAttachment
         }
     }
 
-    [Event.Client.Frame]
+    [GameEvent.Client.Frame]
     public void OnFrame()
     {
         // Destroy laser when dropped or if weapon owner switches weapon

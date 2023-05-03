@@ -103,7 +103,7 @@ public partial class WeaponBaseMelee : WeaponBase
         }
     }
 
-    private bool CanMelee(TimeSince lastAttackTime, float attackSpeed, InputButton inputButton)
+    private bool CanMelee(TimeSince lastAttackTime, float attackSpeed, string inputButton)
     {
         if (IsAnimating) return false;
         if (!Owner.IsValid() || !Input.Down(inputButton)) return false;
@@ -113,12 +113,12 @@ public partial class WeaponBaseMelee : WeaponBase
 
     public override bool CanPrimaryAttack()
     {
-        return CanMelee(TimeSincePrimaryAttack, PrimarySpeed, InputButton.PrimaryAttack);
+        return CanMelee(TimeSincePrimaryAttack, PrimarySpeed, InputButtonHelper.PrimaryAttack);
     }
 
     public override bool CanSecondaryAttack()
     {
-        return CanMelee(TimeSincePrimaryAttack, SecondarySpeed, InputButton.SecondaryAttack);
+        return CanMelee(TimeSincePrimaryAttack, SecondarySpeed, InputButtonHelper.SecondaryAttack);
     }
 
     public override void AttackPrimary()

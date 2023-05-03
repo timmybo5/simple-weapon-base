@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using SWB_Base;
 
 /* Result from Pain Day 4, this will be here temporarily until it is clear how templates work */
 
@@ -19,7 +20,7 @@ public partial class PlayerBase
         // Turn prediction off
         using (Prediction.Off())
         {
-            if (Input.Pressed(InputButton.Use))
+            if (Input.Pressed(InputButtonHelper.Use))
             {
                 Using = FindUsable();
 
@@ -30,7 +31,7 @@ public partial class PlayerBase
                 }
             }
 
-            if (!Input.Down(InputButton.Use))
+            if (!Input.Down(InputButtonHelper.Use))
             {
                 StopUsing();
                 return;

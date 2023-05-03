@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sandbox.Html;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
@@ -157,40 +156,5 @@ public class DropDown : PopupButton
         Value = value;
 
         Select(Options.FirstOrDefault(x => string.Equals(x.Value.ToString(), value, StringComparison.OrdinalIgnoreCase)), triggerChange);
-    }
-
-
-    /// <summary>
-    /// Give support for option elements in html template
-    /// </summary>
-    public override bool OnTemplateElement(INode element)
-    {
-        Options.Clear();
-
-        foreach (var child in element.Children)
-        {
-            if (!child.IsElement) continue;
-
-            //
-            // 	<select> <-- this DropDown control
-            //		<option value="#f00">Red</option> <-- option
-            //		<option value="#ff0">Yellow</option> <-- option
-            //		<option value="#0f0">Green</option> <-- option
-            // </select>
-            //
-            if (child.Name.Equals("option", StringComparison.OrdinalIgnoreCase))
-            {
-                var o = new Option();
-
-                o.Title = child.InnerHtml;
-                o.Value = child.GetAttribute("value", o.Title);
-                o.Icon = child.GetAttribute("icon", null);
-
-                Options.Add(o);
-            }
-        }
-
-        Select(Value);
-        return true;
     }
 }

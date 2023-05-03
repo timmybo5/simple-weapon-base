@@ -6,7 +6,7 @@ namespace SWB_Base
 {
     public class AnimatedAction
     {
-        public List<InputButton> ActionButtons { get; set; }
+        public List<string> ActionButtons { get; set; }
         public string OnAnimation { get; set; }
         public float OnAnimationDuration { get; set; } = 2f;
         public string OffAnimation { get; set; }
@@ -60,7 +60,7 @@ namespace SWB_Base
                     return false;
 
                 // Reload will fuck with animations, IsReload is still false here
-                if (ActionButtons[i] == InputButton.Reload && weaponBase.Primary.Ammo < weaponBase.Primary.ClipSize)
+                if (ActionButtons[i] == InputButtonHelper.Reload && weaponBase.Primary.Ammo < weaponBase.Primary.ClipSize)
                     return false;
             }
 

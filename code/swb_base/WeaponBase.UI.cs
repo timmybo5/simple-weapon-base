@@ -54,7 +54,7 @@ public partial class WeaponBase
     public virtual void UISimulate(IClient player)
     {
         // Customization menu
-        if (EnableCustomizationSV > 0 && Input.Pressed(InputButton.Menu) && AttachmentCategories != null)
+        if (EnableCustomizationSV > 0 && Input.Pressed(InputButtonHelper.Menu) && AttachmentCategories != null)
         {
             if (customizationMenu == null)
             {

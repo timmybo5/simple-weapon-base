@@ -52,7 +52,7 @@ public partial class WeaponBase
         barrelHeat += 1;
     }
 
-    [Event.Tick.Server]
+    [GameEvent.Tick.Server]
     public void BarrelHeatCheck()
     {
         if (timeSinceFired > 3)
@@ -62,7 +62,7 @@ public partial class WeaponBase
     }
 
     // Burst Fire
-    public virtual void ResetBurstFireCount(ClipInfo clipInfo, InputButton inputButton)
+    public virtual void ResetBurstFireCount(ClipInfo clipInfo, string inputButton)
     {
         if (clipInfo == null || clipInfo.FiringType != FiringType.burst) return;
 

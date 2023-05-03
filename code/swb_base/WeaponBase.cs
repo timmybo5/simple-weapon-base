@@ -81,7 +81,7 @@ public partial class WeaponBase : CarriableBase
     // BaseSimulate
     public void BaseSimulate(IClient player)
     {
-        if (Input.Down(InputButton.Reload))
+        if (Input.Down(InputButtonHelper.Reload))
         {
             Reload();
         }
@@ -127,10 +127,10 @@ public partial class WeaponBase : CarriableBase
             }
         }
 
-        IsRunning = Owner.GroundEntity != null && Input.Down(InputButton.Run) && RunAnimData != AngPos.Zero && Owner.Velocity.Length >= 200;
+        IsRunning = Owner.GroundEntity != null && Input.Down(InputButtonHelper.Run) && RunAnimData != AngPos.Zero && Owner.Velocity.Length >= 200;
 
         if (Secondary == null && ZoomAnimData != AngPos.Zero && this is not WeaponBaseMelee)
-            IsZooming = Input.Down(InputButton.SecondaryAttack) && !IsRunning && !IsReloading && !ShouldTuck();
+            IsZooming = Input.Down(InputButtonHelper.SecondaryAttack) && !IsRunning && !IsReloading && !ShouldTuck();
 
         if (!wasZooming && IsZooming)
         {
@@ -169,8 +169,8 @@ public partial class WeaponBase : CarriableBase
             return;
 
         // Burst fire
-        ResetBurstFireCount(Primary, InputButton.PrimaryAttack);
-        ResetBurstFireCount(Secondary, InputButton.SecondaryAttack);
+        ResetBurstFireCount(Primary, InputButtonHelper.PrimaryAttack);
+        ResetBurstFireCount(Secondary, InputButtonHelper.SecondaryAttack);
 
         if (!IsReloading || this is WeaponBaseShotty)
         {
