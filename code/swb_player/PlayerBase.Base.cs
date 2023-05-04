@@ -288,15 +288,24 @@ public partial class PlayerBase : AnimatedEntity
         if (!Game.IsClient)
             return;
 
-        if (timeSinceLastFootstep < 0.2f)
+        // Walk
+        var stepDelay = 0.25f;
+
+        if (Velocity.WithZ(0).Length >= 200)
+        {
+            // Running
+            stepDelay = 0.2f;
+        }
+        else if (Controller is PlayerWalkController walkController && walkController.Duck.IsActive)
+        {
+            // Ducking
+            stepDelay = 0.4f;
+        }
+
+        if (timeSinceLastFootstep < stepDelay)
             return;
 
         volume *= FootstepVolume();
-
-        timeSinceLastFootstep = 0;
-
-        //DebugOverlay.Box( 1, pos, -1, 1, Color.Red );
-        //DebugOverlay.Text( pos, $"{volume}", Color.White, 5 );
 
         var tr = Trace.Ray(pos, pos + Vector3.Down * 20)
             .Radius(1)
@@ -305,12 +314,16 @@ public partial class PlayerBase : AnimatedEntity
 
         if (!tr.Hit) return;
 
+        //DebugOverlay.Sphere(pos, 5, Color.Red, 1);
+        //DebugOverlay.Text($"{volume}", pos, Color.White, 5);
+
         tr.Surface.DoFootstep(this, tr, foot, volume);
+        timeSinceLastFootstep = 0;
     }
 
     public virtual float FootstepVolume()
     {
-        return Velocity.WithZ(0).Length.LerpInverse(0.0f, 200.0f) * 0.2f;
+        return Velocity.WithZ(0).Length.LerpInverse(0.0f, 200.0f) * 5f;
     }
 
     public override void StartTouch(Entity other)
