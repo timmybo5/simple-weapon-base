@@ -30,8 +30,8 @@ public class L96A1 : WeaponBase
 
         General = new WeaponInfo
         {
-            FOV = 90,
-            ZoomWeaponFOV = 80,
+            FOV = 65,
+            ZoomWeaponFOV = 45,
             WalkAnimationSpeedMod = 0.8f,
             AimSensitivity = 0.7f,
             ZoomSpreadMod = 0.05f,
@@ -123,14 +123,14 @@ public class L96A1 : WeaponBase
                 {
                     new ReflexSightBG
                     {
-                        ZoomWeaponFOV = 70,
-                        ZoomPlayerFOV = 70,
+                        ZoomWeaponFOV = 40,
+                        ZoomPlayerFOV = 50,
                         AimSensitivity = 0.5f,
                         ZoomAnimData = new AngPos { Angle = new Angles(0.06f, 4.99f, 0f), Pos = new Vector3(-5.004f, 0f, 0.678f) },
                     },
                     new HunterScope2D
                     {
-                        ScopedPlayerFOV = 15,
+                        ScopedPlayerFOV = 8,
                         ZoomOutFOVSpeed = 10,
                         AimSensitivity = 0,
                         ScopedAimSensitivity = 0.25f,

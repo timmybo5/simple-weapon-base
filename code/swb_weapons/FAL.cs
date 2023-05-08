@@ -25,7 +25,7 @@ public class FAL : WeaponBase
     {
         General = new WeaponInfo
         {
-            FOV = 90,
+            FOV = 60,
             WalkAnimationSpeedMod = 0.85f,
 
             DrawTime = 1f,
@@ -113,8 +113,8 @@ public class FAL : WeaponBase
                 {
                     new ReflexSight
                     {
-                        ZoomWeaponFOV = 70,
-                        ZoomPlayerFOV = 70,
+                        ZoomWeaponFOV = 40,
+                        ZoomPlayerFOV = 50,
                         ZoomAnimData = new AngPos { Angle = new Angles(-0.53f, 4.99f, 0f), Pos = new Vector3(-4.989f, -4.8f, 0.093f) },
                         RequiresAttachmentWithName = sideTopRail.Name,
                         ViewParentBone = "fal",

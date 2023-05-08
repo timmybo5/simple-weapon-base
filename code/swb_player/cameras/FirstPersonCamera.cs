@@ -15,9 +15,9 @@ public class FirstPersonCamera : CameraMode
         Camera.ZFar = 25000.0f;
         Camera.Rotation = player.ViewAngles.ToRotation();
         Camera.Position = player.EyePosition;
-        Camera.FieldOfView = Game.Preferences.FieldOfView;
+        Camera.FieldOfView = Screen.CreateVerticalFieldOfView(Game.Preferences.FieldOfView);
         Camera.FirstPersonViewer = player;
-        Camera.Main.SetViewModelCamera(Camera.FieldOfView, 1, 1000.0f);
+        Camera.Main.SetViewModelCamera(Screen.CreateVerticalFieldOfView(70), 1, 1000.0f);
 
         if (player.ActiveChild is WeaponBase weapon)
         {

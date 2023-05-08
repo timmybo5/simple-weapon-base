@@ -39,7 +39,7 @@ public class Bayonet : WeaponBaseMelee
     {
         General = new WeaponInfo
         {
-            FOV = 80,
+            FOV = 50,
             WalkAnimationSpeedMod = 1.35f,
         };
 

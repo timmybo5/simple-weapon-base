@@ -20,9 +20,9 @@ public class UMP45 : WeaponBase
     {
         General = new WeaponInfo
         {
-            FOV = 90,
+            FOV = 65,
             WalkAnimationSpeedMod = 1f,
-            ZoomWeaponFOV = 70,
+            ZoomWeaponFOV = 40,
 
             DrawTime = 1.2f,
             ReloadTime = 1.6f,
@@ -109,7 +109,7 @@ public class UMP45 : WeaponBase
                 {
                     new ReflexSight
                     {
-                        ZoomPlayerFOV = 70,
+                        ZoomPlayerFOV = 50,
                         ZoomAnimData = new AngPos {
                             Angle = new Angles(0f, 0f, 0f),
                             Pos = new Vector3(-9.973f, -8.12f, 2.197f)

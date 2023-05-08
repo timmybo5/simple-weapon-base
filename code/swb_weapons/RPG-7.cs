@@ -38,7 +38,7 @@ public class RPG7 : WeaponBaseEntity
 
         General = new WeaponInfo
         {
-            FOV = 75,
+            FOV = 45,
             WalkAnimationSpeedMod = 0.7f,
 
             ReloadTime = 4f,

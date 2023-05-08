@@ -25,8 +25,8 @@ public class DEAGLE : WeaponBase
     {
         General = new WeaponInfo
         {
-            FOV = 90,
-            ZoomWeaponFOV = 70,
+            FOV = 60,
+            ZoomWeaponFOV = 40,
 
             DrawTime = 1f,
             ReloadTime = 1.8f,
@@ -95,14 +95,14 @@ public class DEAGLE : WeaponBase
                 {
                     new ReflexSightBG
                     {
-                        ZoomWeaponFOV = 50,
-                        ZoomPlayerFOV = 70,
+                        ZoomWeaponFOV = 40,
+                        ZoomPlayerFOV = 50,
                         AimSensitivity = 0.5f,
                         ZoomAnimData = new AngPos { Angle = new Angles(-0.14f, 5.2f, 0f), Pos = new Vector3(-4.917f, 0f, 1.368f) },
                     },
                     new HunterScope2D
                     {
-                        ScopedPlayerFOV = 15,
+                        ScopedPlayerFOV = 8,
                         ZoomOutFOVSpeed = 10,
                         AimSensitivity = 0.25f,
                         ZoomSpreadMod = 0,

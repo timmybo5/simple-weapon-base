@@ -24,7 +24,8 @@ public class SPAS12 : WeaponBaseShotty
     {
         General = new WeaponInfo
         {
-            FOV = 90,
+            FOV = 60,
+            ZoomWeaponFOV = 50,
             WalkAnimationSpeedMod = 0.9f
         };
 
