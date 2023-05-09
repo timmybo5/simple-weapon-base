@@ -75,20 +75,21 @@ public partial class WeaponBaseShotty : WeaponBase
             TimeSinceSecondaryAttack = 0;
         }
 
-        if (Primary.Ammo >= Primary.ClipSize)
-            return;
-
         if (Owner is ISWBPlayer player)
         {
             var hasInfiniteReserve = Primary.InfiniteAmmo == InfiniteAmmoType.reserve;
             var ammo = hasInfiniteReserve ? 1 : player.TakeAmmo(Primary.AmmoType, 1);
 
+            // Workaround since ammo is not predicted
+            var localAmmo = Primary.Ammo;
+
             if (ammo != 0)
             {
                 Primary.Ammo += 1;
+                localAmmo += 1;
             }
 
-            if (ammo != 0 && Primary.Ammo < Primary.ClipSize)
+            if (ammo != 0 && localAmmo < Primary.ClipSize)
             {
                 General.ReloadTime = ShellReloadTimeInsert;
                 base.Reload();
