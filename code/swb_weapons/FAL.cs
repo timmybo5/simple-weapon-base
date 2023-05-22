@@ -115,7 +115,7 @@ public class FAL : WeaponBase
                     {
                         ZoomWeaponFOV = 40,
                         ZoomPlayerFOV = 50,
-                        ZoomAnimData = new AngPos { Angle = new Angles(-0.53f, 4.99f, 0f), Pos = new Vector3(-4.989f, -4.8f, 0.093f) },
+                        ZoomAnimData = new AngPos { Angle = new Angles(-0.09f, 4.9f, 0f), Pos = new Vector3(-5.003f, -4.8f, 0.168f) },
                         RequiresAttachmentWithName = sideTopRail.Name,
                         ViewParentBone = "fal",
                         ViewTransform = new Transform {
