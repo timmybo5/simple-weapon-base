@@ -66,9 +66,9 @@ public class AWP : WeaponBaseSniper
             DryFireSound = "swb_sniper.empty",
             ShootSound = "css_awp.fire",
 
-            BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-            MuzzleFlashParticle = "particles/swb/muzzle/flash_large.vpcf",
-            BulletTracerParticle = "particles/swb/tracer/tracer_large.vpcf",
+            BulletEjectParticle = new("particles/pistol_ejectbrass.vpcf"),
+            MuzzleFlashParticle = new("particles/swb/muzzle/flash.vpcf"),
+            BulletTracerParticle = new("particles/swb/tracer/tracer.vpcf"),
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };

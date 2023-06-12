@@ -61,7 +61,7 @@ public partial class ClipInfo : BaseNetworkable
     /// <summary>Screenshake per shot</summary>
     [Net] public ScreenShake ScreenShake { get; set; }
 
-    // Strings //
+    // Animations //
 
     /// <summary>Animation used for shooting</summary>
     [Net] public string ShootAnim { get; set; } = "fire";
@@ -72,23 +72,27 @@ public partial class ClipInfo : BaseNetworkable
     /// <summary>Animation used for shooting while zoooming</summary>
     [Net] public string ShootZoomedAnim { get; set; }
 
+    // Sounds //
+
     /// <summary>Firing sound when clip is empty</summary>
     [Net] public string DryFireSound { get; set; }
 
     /// <summary>Firing sound</summary>
     [Net] public string ShootSound { get; set; }
 
+    // Particles //
+
     /// <summary>Particle used for bullet ejection</summary>
-    [Net] public string BulletEjectParticle { get; set; }
+    [Net] public ParticleData BulletEjectParticle { get; set; }
 
     /// <summary>Particle used for the muzzle flash</summary>
-    [Net] public string MuzzleFlashParticle { get; set; }
+    [Net] public ParticleData MuzzleFlashParticle { get; set; }
 
     /// <summary>Particle used for the barrel smoke</summary>
-    [Net] public string BarrelSmokeParticle { get; set; } = "particles/swb/muzzle/barrel_smoke.vpcf";
+    [Net] public ParticleData BarrelSmokeParticle { get; set; } = new("particles/swb/muzzle/barrel_smoke.vpcf");
 
     /// <summary>Particle used for the barrel smoke</summary>
-    [Net] public string BulletTracerParticle { get; set; } = "particles/swb/tracer/tracer_medium.vpcf";
+    [Net] public ParticleData BulletTracerParticle { get; set; } = new("particles/swb/tracer/tracer.vpcf");
 
     // Extra // 
 

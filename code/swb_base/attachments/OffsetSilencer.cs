@@ -34,16 +34,16 @@ public class OffsetSilencer : OffsetAttachment
 
     public override void OnEquip(WeaponBase weapon, AttachmentModel attachmentModel)
     {
-        oldMuzzleFlashParticle = weapon.Primary.MuzzleFlashParticle;
+        oldMuzzleFlashParticle = weapon.Primary.MuzzleFlashParticle.Path;
         oldShootSound = weapon.Primary.ShootSound;
 
-        weapon.Primary.MuzzleFlashParticle = MuzzleFlashParticle;
+        weapon.Primary.MuzzleFlashParticle.Path = MuzzleFlashParticle;
         weapon.Primary.ShootSound = ShootSound;
     }
 
     public override void OnUnequip(WeaponBase weapon)
     {
-        weapon.Primary.MuzzleFlashParticle = oldMuzzleFlashParticle;
+        weapon.Primary.MuzzleFlashParticle.Path = oldMuzzleFlashParticle;
         weapon.Primary.ShootSound = oldShootSound;
     }
 }

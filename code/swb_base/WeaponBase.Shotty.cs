@@ -48,15 +48,17 @@ public partial class WeaponBaseShotty : WeaponBase
         base.AttackSecondary();
     }
 
-    public async Task EjectShell(string bulletEjectParticle)
+    public async Task EjectShell(ParticleData bulletEjectParticle)
     {
+        Game.AssertServer();
+
         var player = Owner as ISWBPlayer;
         var activeWeapon = player.ActiveChild;
         var instanceID = InstanceID;
 
         await GameTask.DelaySeconds(ShellEjectDelay);
         if (!IsAsyncValid(activeWeapon, instanceID)) return;
-        ShootEffects(null, bulletEjectParticle, null);
+        DoBullectEjectEffect(bulletEjectParticle.Path, bulletEjectParticle.VMScale, bulletEjectParticle.WMScale);
     }
 
     public override void Reload()

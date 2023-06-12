@@ -63,9 +63,9 @@ public class M249HE : WeaponBaseEntity
             DryFireSound = "swb_lmg.empty",
             ShootSound = "css_m249.fire",
 
-            BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-            MuzzleFlashParticle = "particles/swb/muzzle/flash_large.vpcf",
-            BulletTracerParticle = "",
+            BulletEjectParticle = new("particles/pistol_ejectbrass.vpcf"),
+            MuzzleFlashParticle = new("particles/swb/muzzle/flash.vpcf"),
+            BulletTracerParticle = null,
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };

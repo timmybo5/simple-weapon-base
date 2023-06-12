@@ -51,9 +51,9 @@ public class MAC10 : WeaponBase
             DryFireSound = "swb_smg.empty",
             ShootSound = "css_mac10.fire",
 
-            BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-            MuzzleFlashParticle = "particles/swb/muzzle/flash_small.vpcf",
-            BulletTracerParticle = "particles/swb/tracer/tracer_medium.vpcf",
+            BulletEjectParticle = new("particles/pistol_ejectbrass.vpcf"),
+            MuzzleFlashParticle = new("particles/swb/muzzle/flash.vpcf"),
+            BulletTracerParticle = new("particles/swb/tracer/tracer.vpcf"),
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };

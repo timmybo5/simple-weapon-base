@@ -90,21 +90,20 @@ public partial class WeaponBase
         TakeAmmo();
 
         // Boltback
-        var bulletEjectParticle = General.BoltBackTime > -1 ? "" : clipInfo.BulletEjectParticle;
+        var bulletEjectParticle = General.BoltBackTime > -1 ? null : clipInfo.BulletEjectParticle;
 
-        if (clipInfo.Ammo > 0 && General.BoltBackTime > -1)
+        if (Game.IsServer && clipInfo.Ammo > 0 && General.BoltBackTime > -1)
         {
-            if (Game.IsServer)
-                _ = AsyncBoltBack(GetRealRPM(clipInfo.RPM), General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, clipInfo.BulletEjectParticle, true);
+            _ = AsyncBoltBack(GetRealRPM(clipInfo.RPM), General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, clipInfo.BulletEjectParticle, true);
         }
 
         // Shotgun
         if (this is WeaponBaseShotty shotty)
         {
-            if (Game.IsServer)
+            if (Game.IsServer && !string.IsNullOrEmpty(bulletEjectParticle?.Path))
                 _ = shotty.EjectShell(bulletEjectParticle);
 
-            bulletEjectParticle = "";
+            bulletEjectParticle = null;
         }
 
         // Player anim
@@ -114,15 +113,16 @@ public partial class WeaponBase
         if (IsLocalPawn)
             ScreenUtil.Shake(clipInfo.ScreenShake);
 
-        ShootEffects(clipInfo.MuzzleFlashParticle, bulletEjectParticle, GetShootAnimation(clipInfo));
+        if (Game.IsServer)
+            ShootEffectsSV(clipInfo.MuzzleFlashParticle?.Serialize(), bulletEjectParticle?.Serialize(), GetShootAnimation(clipInfo));
 
         // Barrel smoke
-        if (Game.IsServer && BarrelSmoking)
+        if (Game.IsServer && BarrelSmoking && !string.IsNullOrEmpty(clipInfo.BarrelSmokeParticle?.Path))
         {
             AddBarrelHeat();
             if (barrelHeat >= clipInfo.ClipSize * 0.75)
             {
-                ShootEffects(clipInfo.BarrelSmokeParticle, null, null);
+                DoMuzzleEffect(clipInfo.BarrelSmokeParticle.Path, clipInfo.BarrelSmokeParticle.VMScale, clipInfo.BarrelSmokeParticle.WMScale);
             }
         }
 
@@ -170,7 +170,8 @@ public partial class WeaponBase
         (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
         // Play pre-fire animation
-        ShootEffects(null, null, GetShootAnimation(clipInfo));
+        if (Game.IsServer)
+            ShootEffectsSV(null, null, GetShootAnimation(clipInfo));
 
         if (Owner is not ISWBPlayer owner) return;
         var activeWeapon = owner.ActiveChild;
@@ -188,7 +189,8 @@ public partial class WeaponBase
         if (IsLocalPawn)
             ScreenUtil.Shake(clipInfo.ScreenShake);
 
-        ShootEffects(clipInfo.MuzzleFlashParticle, clipInfo.BulletEjectParticle, null);
+        if (Game.IsServer)
+            ShootEffectsSV(clipInfo.MuzzleFlashParticle?.Serialize(), clipInfo.BulletEjectParticle?.Serialize(), null);
 
         if (clipInfo.ShootSound != null)
             PlaySound(clipInfo.ShootSound);
@@ -312,8 +314,10 @@ public partial class WeaponBase
     /// <summary>
     /// Plays the bolt back animation
     /// </summary>
-    async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackTime, float boltBackEjectDelay, string bulletEjectParticle, bool force = false)
+    async Task AsyncBoltBack(float boltBackDelay, string boltBackAnim, float boltBackTime, float boltBackEjectDelay, ParticleData bulletEjectParticle, bool force = false)
     {
+        Game.AssertServer();
+
         var player = Owner as ISWBPlayer;
         var activeWeapon = player.ActiveChild;
         var instanceID = InstanceID;
@@ -327,7 +331,7 @@ public partial class WeaponBase
         // Eject shell
         await GameTask.DelaySeconds(boltBackEjectDelay);
         if (!IsAsyncValid(activeWeapon, instanceID)) return;
-        ShootEffects(null, bulletEjectParticle, null);
+        DoBullectEjectEffect(bulletEjectParticle.Path, bulletEjectParticle.VMScale, bulletEjectParticle.WMScale);
 
         // Finished
         await GameTask.DelaySeconds(boltBackTime - boltBackEjectDelay);
@@ -365,30 +369,68 @@ public partial class WeaponBase
     }
 
     /// <summary>
-    /// Shows shooting effects
+    /// Networks shooting effects
     /// </summary>
     [ClientRpc]
-    protected virtual void ShootEffects(string muzzleFlashParticle, string bulletEjectParticle, string shootAnim)
+    protected virtual void ShootEffectsSV(byte[] muzzleFlashData, byte[] bulletEjectData, string shootAnim)
+    {
+        var muzzleFlashParticle = ParticleData.Deserialize(muzzleFlashData);
+        var bulletEjectParticle = ParticleData.Deserialize(bulletEjectData);
+
+        ShootEffectsCL(muzzleFlashParticle, bulletEjectParticle, shootAnim);
+    }
+
+    /// <summary>
+    /// Handles shooting effects
+    /// </summary>
+    protected virtual void ShootEffectsCL(ParticleDataS muzzleFlashParticle, ParticleDataS bulletEjectParticle, string shootAnim)
     {
         Game.AssertClient();
 
-        ModelEntity firingViewModel = GetEffectModel();
+        if (!string.IsNullOrEmpty(muzzleFlashParticle?.Path))
+            DoMuzzleEffect(muzzleFlashParticle.Path, muzzleFlashParticle.VMScale, muzzleFlashParticle.WMScale);
 
-        if (firingViewModel == null) return;
-
-        if (!string.IsNullOrEmpty(muzzleFlashParticle))
-        {
-            var effectData = GetMuzzleEffectData(firingViewModel);
-            Particles.Create(muzzleFlashParticle, effectData.Item1, effectData.Item2);
-        }
-
-        if (!string.IsNullOrEmpty(bulletEjectParticle))
-            Particles.Create(bulletEjectParticle, firingViewModel, "ejection_point");
+        if (!string.IsNullOrEmpty(bulletEjectParticle?.Path))
+            DoBullectEjectEffect(bulletEjectParticle.Path, bulletEjectParticle.VMScale, bulletEjectParticle.WMScale);
 
         if (!string.IsNullOrEmpty(shootAnim))
         {
             ViewModelEntity?.SetAnimParameter(shootAnim, true);
             crosshair?.CreateEvent("fire", GetRealRPM(Primary.RPM));
         }
+    }
+
+    [ClientRpc]
+    protected virtual void DoMuzzleEffect(string effect, float vmScale = 1f, float wmScale = 1f)
+    {
+        ModelEntity firingViewModel = GetEffectModel();
+        if (firingViewModel == null) return;
+
+        var isViewModel = IsLocalPawn && IsFirstPersonMode;
+        var effectData = GetMuzzleEffectData(firingViewModel);
+        var particle = Particles.Create(effect, effectData.Item1, effectData.Item2);
+        var scale = isViewModel ? vmScale : wmScale;
+
+        particle.Set("scale", scale);
+    }
+
+    [ClientRpc]
+    protected virtual void DoBullectEjectEffect(string effect, float vmScale = 1f, float wmScale = 1f)
+    {
+        DoEffect(effect, "ejection_point", vmScale, wmScale);
+    }
+
+
+    [ClientRpc]
+    protected virtual void DoEffect(string effect, string attachment, float vmScale = 1f, float wmScale = 1f)
+    {
+        ModelEntity firingViewModel = GetEffectModel();
+        if (firingViewModel == null) return;
+
+        var isViewModel = IsLocalPawn && IsFirstPersonMode;
+        var scale = isViewModel ? vmScale : wmScale;
+        var particle = Particles.Create(effect, firingViewModel, attachment);
+
+        particle.Set("scale", scale);
     }
 }

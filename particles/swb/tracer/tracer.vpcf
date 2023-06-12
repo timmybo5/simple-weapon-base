@@ -325,12 +325,12 @@
 		{
 			_class = "C_INIT_CreateSequentialPathV2"
 			m_flNumToAssign = 0.0
-			m_bLoop = false
 			m_PathParams = 
 			{
 				m_nStartControlPointNumber = 1
 				m_nEndControlPointNumber = 2
 			}
+			m_bLoop = false
 		},
 		{
 			_class = "C_INIT_MoveBetweenPoints"
@@ -445,9 +445,10 @@
 			_class = "C_OP_RenderTrails"
 			m_flRadiusScale = 
 			{
-				m_nType = "PF_TYPE_LITERAL"
-				m_nMapType = "PF_MAP_TYPE_DIRECT"
-				m_flLiteralValue = 0.5
+				m_nType = "PF_TYPE_NAMED_VALUE"
+				m_nMapType = "PF_MAP_TYPE_MULT"
+				m_NamedValue = "scale"
+				m_flLiteralValue = 0.35
 				m_nControlPoint = 0
 				m_nScalarAttribute = 3
 				m_nVectorAttribute = 6
@@ -473,7 +474,7 @@
 				m_flNoiseImgPreviewScale = 1.0
 				m_bNoiseImgPreviewLive = true
 				m_nInputMode = "PF_INPUT_MODE_CLAMPED"
-				m_flMultFactor = 1.0
+				m_flMultFactor = 0.35
 				m_flInput0 = 0.0
 				m_flInput1 = 1.0
 				m_flOutput0 = 0.0

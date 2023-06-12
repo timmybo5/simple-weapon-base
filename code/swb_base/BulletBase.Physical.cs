@@ -69,7 +69,7 @@ public class BulletEntity : Entity
     private PhysicalBulletBase ammoType;
     private TimeSince timeSinceFire;
     private Particles bulletTracer;
-    private string tracerParticle;
+    private ParticleData tracerParticle;
     private float particleDelay;
     private bool createParticle;
 
@@ -93,7 +93,7 @@ public class BulletEntity : Entity
     }
 
     public void Fire(Vector3 position, Vector3 direction, WeaponBase weapon, PhysicalBulletBase ammoType,
-        float damage, float force, float bulletSize, float bulletTracerChance, string tracerParticle = "", Vector3 posDiff = new Vector3())
+        float damage, float force, float bulletSize, float bulletTracerChance, ParticleData tracerParticle = null, Vector3 posDiff = new Vector3())
     {
         Position = position;
         Owner = weapon.Owner;
@@ -168,9 +168,12 @@ public class BulletEntity : Entity
 
     private void CreateTracer()
     {
-        if (!string.IsNullOrEmpty(tracerParticle))
+        if (!string.IsNullOrEmpty(tracerParticle?.Path))
         {
-            bulletTracer = Particles.Create(tracerParticle, this);
+            var isViewModel = weapon.IsLocalPawn && weapon.IsFirstPersonMode;
+            var scale = isViewModel ? tracerParticle.VMScale : tracerParticle.WMScale;
+            bulletTracer = Particles.Create(tracerParticle.Path, this);
+            bulletTracer.Set("scale", scale);
             UpdateTracer();
         }
     }

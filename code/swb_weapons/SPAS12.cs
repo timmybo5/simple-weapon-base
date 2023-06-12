@@ -56,9 +56,10 @@ public class SPAS12 : WeaponBaseShotty
             DryFireSound = "swb_shotty.empty",
             ShootSound = "spas12.fire",
 
-            BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-            MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
-            BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
+            BulletEjectParticle = new("particles/pistol_ejectbrass.vpcf"),
+            MuzzleFlashParticle = new("particles/swb/muzzle/flash.vpcf", 3f, 2f),
+            BarrelSmokeParticle = new("particles/swb/muzzle/barrel_smoke.vpcf", 3f, 2f),
+            BulletTracerParticle = new("particles/swb/tracer/phys_tracer.vpcf"),
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };
@@ -92,7 +93,7 @@ public class SPAS12 : WeaponBaseShotty
                 {
                     new ShotgunSilencer
                     {
-                        MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
+                        MuzzleFlashParticle = "particles/swb/muzzle/flash_silenced.vpcf",
                         ShootSound = "swb_shotgun.silenced.fire",
                         ViewParentBone = "shotgun",
                         ViewTransform = new Transform {

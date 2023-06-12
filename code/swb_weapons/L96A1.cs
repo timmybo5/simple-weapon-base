@@ -68,9 +68,10 @@ public class L96A1 : WeaponBase
             DryFireSound = "swb_sniper.empty",
             ShootSound = "l96a1.fire",
 
-            BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-            MuzzleFlashParticle = "particles/swb/muzzle/flash_large.vpcf",
-            BulletTracerParticle = "particles/swb/tracer/phys_tracer_large.vpcf",
+            BulletEjectParticle = new("particles/pistol_ejectbrass.vpcf"),
+            MuzzleFlashParticle = new("particles/swb/muzzle/flash.vpcf", 4f, 2f),
+            BarrelSmokeParticle = new("particles/swb/muzzle/barrel_smoke.vpcf", 4f, 2f),
+            BulletTracerParticle = new("particles/swb/tracer/phys_tracer.vpcf", 2f),
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };
@@ -148,7 +149,7 @@ public class L96A1 : WeaponBase
                     new SniperSilencer
                     {
                         Enabled = false,
-                        MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
+                        MuzzleFlashParticle = "particles/swb/muzzle/flash_silenced.vpcf",
                         ShootSound = "swb_sniper.silenced.fire",
                         ViewParentBone = "sniper",
                         ViewTransform = new Transform {

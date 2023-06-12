@@ -59,9 +59,10 @@ public class DEAGLE : WeaponBase
             DryFireSound = "swb_pistol.empty",
             ShootSound = "deagle.fire",
 
-            BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-            MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
-            BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
+            BulletEjectParticle = new("particles/pistol_ejectbrass.vpcf"),
+            MuzzleFlashParticle = new("particles/swb/muzzle/flash.vpcf", 1.5f, 1f),
+            BarrelSmokeParticle = new("particles/swb/muzzle/barrel_smoke.vpcf", 1.5f, 1f),
+            BulletTracerParticle = new("particles/swb/tracer/phys_tracer.vpcf"),
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };
@@ -118,7 +119,7 @@ public class DEAGLE : WeaponBase
                 {
                     new PistolSilencer
                     {
-                        MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
+                        MuzzleFlashParticle = "particles/swb/muzzle/flash_silenced.vpcf",
                         ShootSound = "swb_heavy.silenced.fire",
                         ViewParentBone = "talon",
                         ViewTransform = new Transform

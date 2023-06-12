@@ -69,7 +69,7 @@ public class RPG7 : WeaponBaseEntity
             DryFireSound = "swb_lmg.empty",
             ShootSound = "swb_explosives_rpg7.fire",
 
-            MuzzleFlashParticle = "particles/swb/smoke/swb_smokepuff_1.vpcf",
+            MuzzleFlashParticle = new("particles/swb/smoke/swb_smokepuff_1.vpcf"),
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };

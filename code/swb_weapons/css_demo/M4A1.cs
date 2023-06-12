@@ -52,9 +52,9 @@ public class M4A1 : WeaponBase
             DryFireSound = "swb_rifle.empty",
             ShootSound = "css_m4a1.fire",
 
-            BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-            MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
-            BulletTracerParticle = "particles/swb/tracer/tracer_medium.vpcf",
+            BulletEjectParticle = new("particles/pistol_ejectbrass.vpcf"),
+            MuzzleFlashParticle = new("particles/swb/muzzle/flash.vpcf"),
+            BulletTracerParticle = new("particles/swb/tracer/tracer.vpcf"),
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };

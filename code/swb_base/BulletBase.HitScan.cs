@@ -35,7 +35,7 @@ public class HitScanBullet : BulletBase
             var tracerParticle = isPrimary ? weapon.Primary.BulletTracerParticle : weapon.Secondary.BulletTracerParticle;
 
             // Tracer
-            if (!string.IsNullOrEmpty(tracerParticle))
+            if (!string.IsNullOrEmpty(tracerParticle?.Path))
             {
                 var random = new Random();
                 var randVal = random.NextDouble();
@@ -69,16 +69,19 @@ public class HitScanBullet : BulletBase
         }
     }
 
-    private void TracerEffects(WeaponBase weapon, string tracerParticle, Vector3 endPos)
+    private void TracerEffects(WeaponBase weapon, ParticleData tracerParticle, Vector3 endPos)
     {
         ModelEntity firingViewModel = weapon.GetEffectModel();
 
         if (firingViewModel == null) return;
 
+        var isViewModel = weapon.IsLocalPawn && weapon.IsFirstPersonMode;
+        var scale = isViewModel ? tracerParticle.VMScale : tracerParticle.WMScale;
         var effectData = weapon.GetMuzzleEffectData(firingViewModel);
         var effectEntity = effectData.Item1;
         var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
-        var tracer = Particles.Create(tracerParticle);
+        var tracer = Particles.Create(tracerParticle.Path);
+        tracer.Set("scale", scale);
         tracer.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
         tracer.SetPosition(2, endPos);
     }

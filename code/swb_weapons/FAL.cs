@@ -59,9 +59,10 @@ public class FAL : WeaponBase
             DryFireSound = "swb_rifle.empty",
             ShootSound = "fal.fire",
 
-            BulletEjectParticle = "particles/pistol_ejectbrass.vpcf",
-            MuzzleFlashParticle = "particles/swb/muzzle/flash_medium.vpcf",
-            BulletTracerParticle = "particles/swb/tracer/phys_tracer_medium.vpcf",
+            BulletEjectParticle = new("particles/pistol_ejectbrass.vpcf"),
+            MuzzleFlashParticle = new("particles/swb/muzzle/flash.vpcf", 3f, 1f),
+            BarrelSmokeParticle = new("particles/swb/muzzle/barrel_smoke.vpcf", 3f, 1f),
+            BulletTracerParticle = new("particles/swb/tracer/phys_tracer.vpcf"),
 
             InfiniteAmmo = InfiniteAmmoType.reserve
         };
@@ -154,7 +155,7 @@ public class FAL : WeaponBase
                     new RifleSilencer
                     {
                         Enabled = false,
-                        MuzzleFlashParticle = "particles/swb/muzzle/flash_medium_silenced.vpcf",
+                        MuzzleFlashParticle = "particles/swb/muzzle/flash_silenced.vpcf",
                         ShootSound = "swb_rifle.silenced.fire",
                         ViewParentBone = "fal",
                         ViewTransform = new Transform {
