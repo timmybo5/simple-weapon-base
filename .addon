@@ -7,14 +7,8 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "ResourcePaths": [
-    "/attachments/*",
-    "/fonts/*",
-    "/weapons/*",
-    "/materials/*",
-    "/code/*",
-    "/sounds/*"
-  ],
+  "Resources": null,
+  "MenuResources": null,
   "HasCode": true,
   "CodePath": "code",
   "PackageReferences": [],
