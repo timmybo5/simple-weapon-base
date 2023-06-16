@@ -7,7 +7,7 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "Resources": null,
+  "Resources": "attachments/*\nfonts/*\nmaterials/*\nshaders/*\nsounds/*\nweapons/*\nswb_base/*\nswb_editor/*\nswb_hud/*\nswb_weapons/*\n",
   "MenuResources": null,
   "HasCode": true,
   "CodePath": "code",
