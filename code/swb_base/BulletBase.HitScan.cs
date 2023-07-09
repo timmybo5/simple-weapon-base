@@ -30,7 +30,8 @@ public class HitScanBullet : BulletBase
         if (Game.IsClient)
         {
             // Impact
-            tr.Surface.DoBulletImpact(tr);
+            if (!SurfaceUtil.IsSkybox(tr.Tags))
+                tr.Surface.DoBulletImpact(tr);
 
             var tracerParticle = isPrimary ? weapon.Primary.BulletTracerParticle : weapon.Secondary.BulletTracerParticle;
 

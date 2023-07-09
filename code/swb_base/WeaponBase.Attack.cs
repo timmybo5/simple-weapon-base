@@ -250,7 +250,7 @@ public partial class WeaponBase
     public virtual TraceResult TraceBullet(Vector3 start, Vector3 end, float radius = 2.0f)
     {
         var startsInWater = SurfaceUtil.IsPointWater(start);
-        List<string> withoutTags = new() { "trigger" };
+        List<string> withoutTags = new() { "trigger", "playerclip", "passbullets" };
 
         if (startsInWater)
             withoutTags.Add("water");
@@ -262,6 +262,9 @@ public partial class WeaponBase
                 .Ignore(this)
                 .Size(radius)
                 .Run();
+
+        //Log.Info("entity: " + tr.Entity.Name);
+        //Log.Info("> tags: " + string.Join(", ", tr.Tags));
 
         return tr;
     }

@@ -257,10 +257,8 @@ public class BulletEntity : Entity
 
         if (isValidEnt || canPenetrate)
         {
-            if (Game.IsClient)
-            {
+            if (Game.IsClient && !SurfaceUtil.IsSkybox(tr.Tags))
                 tr.Surface.DoBulletImpact(tr);
-            }
 
             if (Game.IsServer && isValidEnt)
             {
