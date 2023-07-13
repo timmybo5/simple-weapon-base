@@ -15,6 +15,8 @@ public partial class PlayerWalkController : PlayerBaseController
     [Net] public float AirAcceleration { get; set; } = 50.0f;
     [Net] public float FallSoundZ { get; set; } = -30.0f;
     [Net] public float GroundFriction { get; set; } = 4.0f;
+    [Net] public float JumpHeightModifier { get; set; } = 1.2f;
+    [Net] public float JumpLandVelocityModifier { get; set; } = 1f;
     [Net] public float StopSpeed { get; set; } = 100.0f;
     [Net] public float Size { get; set; } = 20.0f;
     [Net] public float DistEpsilon { get; set; } = 0.03125f;
@@ -285,7 +287,9 @@ public partial class PlayerWalkController : PlayerBaseController
         }
         else if (GroundEntity != null && IsFalling)
         {
+            // Landing on ground
             IsFalling = false;
+            Velocity *= JumpLandVelocityModifier;
 
             if (Game.IsServer)
             {
@@ -495,11 +499,11 @@ public partial class PlayerWalkController : PlayerBaseController
 
             // play swimming sound
             //  if ( player->m_flSwimSoundTime <= 0 )
-            {
-                // Don't play sound again for 1 second
-                //   player->m_flSwimSoundTime = 1000;
-                //   PlaySwimSound();
-            }
+            //{
+            // Don't play sound again for 1 second
+            //   player->m_flSwimSoundTime = 1000;
+            //   PlaySwimSound();
+            //}
 
             return;
         }
@@ -526,19 +530,17 @@ public partial class PlayerWalkController : PlayerBaseController
 
         float flGroundFactor = 1.0f;
         //if ( player->m_pSurfaceData )
-        {
-            //   flGroundFactor = g_pPhysicsQuery->GetGameSurfaceproperties( player->m_pSurfaceData )->m_flJumpFactor;
-        }
+        //{
+        //   flGroundFactor = g_pPhysicsQuery->GetGameSurfaceproperties( player->m_pSurfaceData )->m_flJumpFactor;
+        //}
 
-        float flMul = 268.3281572999747f * 1.2f;
-
+        float flMul = 268.3281572999747f * JumpHeightModifier;
         float startz = Velocity.z;
 
         if (Duck.IsActive)
             flMul *= 0.8f;
 
         Velocity = Velocity.WithZ(startz + flMul * flGroundFactor);
-
         Velocity -= new Vector3(0, 0, Gravity * 0.5f) * Time.Delta;
 
         // mv->m_outJumpVel.z += mv->m_vecVelocity[2] - startz;
@@ -548,7 +550,6 @@ public partial class PlayerWalkController : PlayerBaseController
         //mv->m_nOldButtons |= IN_JUMP;
 
         AddEvent("jump");
-
     }
 
     public virtual void AirMove()
