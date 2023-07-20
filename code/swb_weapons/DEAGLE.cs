@@ -19,7 +19,7 @@ public class DEAGLE : WeaponBase
         Pos = new Vector3(-5, 0, 0)
     };
     public override string WorldModelPath => "weapons/swb/pistols/deagle/w_deagle.vmdl";
-    public override string Icon => "code/swb_weapons/textures/deagle.png";
+    public override string Icon => "materials/swb/weapons/deagle.png";
 
     public DEAGLE()
     {

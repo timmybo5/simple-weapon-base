@@ -14,7 +14,7 @@ public class UMP45 : WeaponBase
     public override string HandsModelPath => "weapons/swb/hands/police/v_hands_police.vmdl";
     public override string ViewModelPath => "weapons/swb/smgs/ump45/v_ump45.vmdl";
     public override string WorldModelPath => "weapons/swb/smgs/ump45/w_ump45.vmdl";
-    public override string Icon => "code/swb_weapons/textures/ump45.png";
+    public override string Icon => "materials/swb/weapons/ump45.png";
 
     public UMP45()
     {

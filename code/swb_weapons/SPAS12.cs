@@ -14,7 +14,7 @@ public class SPAS12 : WeaponBaseShotty
     public override string HandsModelPath => "weapons/swb/hands/swat/v_hands_swat.vmdl";
     public override string ViewModelPath => "weapons/swb/shotguns/spas/v_spas12.vmdl";
     public override string WorldModelPath => "weapons/swb/shotguns/spas/w_spas12.vmdl";
-    public override string Icon => "code/swb_weapons/textures/spas12.png";
+    public override string Icon => "materials/swb/weapons/spas12.png";
 
     public override float ShellReloadTimeStart => 0.4f;
     public override float ShellReloadTimeInsert => 0.65f;

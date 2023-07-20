@@ -19,7 +19,7 @@ public class L96A1 : WeaponBase
         Pos = new Vector3(-5, -2, 0)
     };
     public override string WorldModelPath => "weapons/swb/snipers/l96a1/w_l96a1.vmdl";
-    public override string Icon => "code/swb_weapons/textures/l96a1.png";
+    public override string Icon => "materials/swb/weapons/l96a1.png";
 
     public L96A1()
     {

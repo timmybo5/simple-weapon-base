@@ -19,7 +19,7 @@ public class FAL : WeaponBase
         Pos = new Vector3(-5, 0, 0)
     };
     public override string WorldModelPath => "weapons/swb/rifles/fal/w_fal.vmdl";
-    public override string Icon => "code/swb_weapons/textures/fal.png";
+    public override string Icon => "materials/swb/weapons/fal.png";
 
     public FAL()
     {

@@ -16,7 +16,7 @@ public class Bayonet : WeaponBaseMelee
         Pos = new Vector3(-3, 0, 0)
     };
     public override string WorldModelPath => "weapons/swb/melee/bayonet/w_bayonet.vmdl";
-    public override string Icon => "code/swb_weapons/textures/bayonet.png";
+    public override string Icon => "materials/swb/weapons/bayonet.png";
 
     public override string PrimaryHitAnimation => "swing";
     public override string PrimaryMissAnimation => "swing_miss";
