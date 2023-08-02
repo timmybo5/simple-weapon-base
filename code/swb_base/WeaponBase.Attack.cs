@@ -279,7 +279,7 @@ public partial class WeaponBase
         var endPos = player.EyePosition + forward * 999999;
 
         // Server Bullet
-        (isPrimary ? Primary : Secondary).BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
+        (isPrimary ? Primary : Secondary).BulletType.Fire(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
 
     }
 
