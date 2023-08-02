@@ -142,6 +142,7 @@ public partial class WeaponBase
 
         for (int i = 0; i < clipInfo.Bullets; i++)
         {
+            Game.SetRandomSeed(Time.Tick + i);
             ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, clipInfo.BulletTracerChance, isPrimary);
         }
 
@@ -196,6 +197,7 @@ public partial class WeaponBase
         {
             for (int i = 0; i < clipInfo.Bullets; i++)
             {
+                Game.SetRandomSeed(Time.Tick + i);
                 ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, clipInfo.BulletTracerChance, isPrimary);
             }
         }
