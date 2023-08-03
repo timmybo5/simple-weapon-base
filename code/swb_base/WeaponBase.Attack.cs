@@ -167,7 +167,7 @@ public partial class WeaponBase
         (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
         // Play pre-fire animation
-        
+
         ShootEffects(null, null, GetShootAnimation(clipInfo));
 
         if (Owner is not ISWBPlayer owner) return;
@@ -186,7 +186,7 @@ public partial class WeaponBase
         if (IsLocalPawn)
             ScreenUtil.Shake(clipInfo.ScreenShake);
 
-        
+
         ShootEffects(clipInfo.MuzzleFlashParticle?.Serialize(), clipInfo.BulletEjectParticle?.Serialize(), null);
 
         if (clipInfo.ShootSound != null)
@@ -268,7 +268,7 @@ public partial class WeaponBase
     }
 
     /// <summary>
-    /// Shoot a single bullet (server only)
+    /// Shoot a single bullet (shared)
     /// </summary>
     public virtual void ShootBullet(float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
@@ -280,9 +280,8 @@ public partial class WeaponBase
         forward = forward.Normal;
         var endPos = player.EyePosition + forward * 999999;
 
-        // Server Bullet
+        // Bullet
         (isPrimary ? Primary : Secondary).BulletType.Fire(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
-
     }
 
 
