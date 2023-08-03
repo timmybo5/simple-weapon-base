@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Sandbox;
 
@@ -281,7 +282,24 @@ public partial class WeaponBase
         var endPos = player.EyePosition + forward * 999999;
 
         // Bullet
-        (isPrimary ? Primary : Secondary).BulletType.Fire(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
+        var clipInfo = isPrimary ? Primary : Secondary;
+        clipInfo.BulletType.Fire(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
+
+        // Other players
+        if (Game.IsServer)
+        {
+            var targets = Entity.All.OfType<IClient>().Where(ply => ply != Owner.Client);
+            ShootClientBullet(To.Multiple(targets), player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
+        }
+    }
+
+    [ClientRpc]
+    public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
+    {
+        if (Owner is not ISWBPlayer player) return;
+
+        var clipInfo = isPrimary ? Primary : Secondary;
+        clipInfo.BulletType.Fire(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
     }
 
 
