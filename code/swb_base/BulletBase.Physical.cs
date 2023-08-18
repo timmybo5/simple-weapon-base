@@ -19,29 +19,30 @@ public abstract class PhysicalBulletBase : BulletBase
     /// <summary>Initial bullet velocity (m/s)</summary>
     public virtual float Velocity => 1000;
 
-    public override void FireSV(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
+    public override void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
         // Server bullet for damage (from eyePos)
-        var bullet = new BulletEntity();
-        bullet?.Fire(startPos, forward, weapon, this, damage, force, bulletSize, bulletTracerChance);
-    }
+        ParticleData tracerParticle = null;
+        Vector3 posDiff = default;
+        Vector3 bulletPos = startPos;
 
-    public override void FireCL(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
-    {
         // Client bullet for effects (from muzzle)
-        ModelEntity firingViewModel = weapon.GetEffectModel();
+        if (Game.IsClient)
+        {
+            ModelEntity firingViewModel = weapon.GetEffectModel();
 
-        if (firingViewModel == null) return;
+            if (firingViewModel == null) return;
 
-        var tracerParticle = isPrimary ? weapon.Primary.BulletTracerParticle : weapon.Secondary.BulletTracerParticle;
-        var effectData = weapon.GetMuzzleEffectData(firingViewModel);
-        var effectEntity = effectData.Item1;
-        var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
-        var muzzlePos = muzzleAttach.GetValueOrDefault().Position;
-        var posDiff = startPos - muzzlePos;
+            tracerParticle = isPrimary ? weapon.Primary.BulletTracerParticle : weapon.Secondary.BulletTracerParticle;
+            var effectData = weapon.GetMuzzleEffectData(firingViewModel);
+            var effectEntity = effectData.Item1;
+            var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
+            bulletPos = muzzleAttach.GetValueOrDefault().Position;
+            posDiff = startPos - bulletPos;
+        }
 
         var bullet = new BulletEntity();
-        bullet?.Fire(muzzlePos, forward, weapon, this, damage, force, bulletSize, bulletTracerChance, tracerParticle, posDiff);
+        bullet?.Fire(bulletPos, forward, weapon, this, damage, force, bulletSize, bulletTracerChance, tracerParticle, posDiff);
     }
 }
 
@@ -150,7 +151,6 @@ public class BulletEntity : Entity
             .UseHitboxes()
             .Ignore(Owner)
             .WithoutTags(BulletTag)
-            .WorldAndEntities()
             .Size(bulletSize)
             .Run();
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Sandbox;
 
@@ -113,8 +114,7 @@ public partial class WeaponBase
         if (IsLocalPawn)
             ScreenUtil.Shake(clipInfo.ScreenShake);
 
-        if (Game.IsServer)
-            ShootEffectsSV(clipInfo.MuzzleFlashParticle?.Serialize(), bulletEjectParticle?.Serialize(), GetShootAnimation(clipInfo));
+        ShootEffects(clipInfo.MuzzleFlashParticle?.Serialize(), bulletEjectParticle?.Serialize(), GetShootAnimation(clipInfo));
 
         // Barrel smoke
         if (Game.IsServer && BarrelSmoking && !string.IsNullOrEmpty(clipInfo.BarrelSmokeParticle?.Path))
@@ -141,12 +141,10 @@ public partial class WeaponBase
             realSpread = IsZooming ? clipInfo.Spread * General.ZoomSpreadMod : clipInfo.Spread;
         }
 
-        if (Game.IsServer)
+        for (int i = 0; i < clipInfo.Bullets; i++)
         {
-            for (int i = 0; i < clipInfo.Bullets; i++)
-            {
-                ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, clipInfo.BulletTracerChance, isPrimary);
-            }
+            Game.SetRandomSeed(Time.Tick + i);
+            ShootBullet(realSpread, clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, clipInfo.BulletTracerChance, isPrimary);
         }
 
         if (Owner is ISWBPlayer player)
@@ -170,8 +168,8 @@ public partial class WeaponBase
         (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
         // Play pre-fire animation
-        if (Game.IsServer)
-            ShootEffectsSV(null, null, GetShootAnimation(clipInfo));
+
+        ShootEffects(null, null, GetShootAnimation(clipInfo));
 
         if (Owner is not ISWBPlayer owner) return;
         var activeWeapon = owner.ActiveChild;
@@ -189,8 +187,8 @@ public partial class WeaponBase
         if (IsLocalPawn)
             ScreenUtil.Shake(clipInfo.ScreenShake);
 
-        if (Game.IsServer)
-            ShootEffectsSV(clipInfo.MuzzleFlashParticle?.Serialize(), clipInfo.BulletEjectParticle?.Serialize(), null);
+
+        ShootEffects(clipInfo.MuzzleFlashParticle?.Serialize(), clipInfo.BulletEjectParticle?.Serialize(), null);
 
         if (clipInfo.ShootSound != null)
             PlaySound(clipInfo.ShootSound);
@@ -200,6 +198,7 @@ public partial class WeaponBase
         {
             for (int i = 0; i < clipInfo.Bullets; i++)
             {
+                Game.SetRandomSeed(Time.Tick + i);
                 ShootBullet(GetRealSpread(clipInfo.Spread), clipInfo.Force, clipInfo.Damage, clipInfo.BulletSize, clipInfo.BulletTracerChance, isPrimary);
             }
         }
@@ -270,7 +269,7 @@ public partial class WeaponBase
     }
 
     /// <summary>
-    /// Shoot a single bullet (server only)
+    /// Shoot a single bullet (shared)
     /// </summary>
     public virtual void ShootBullet(float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
@@ -282,37 +281,27 @@ public partial class WeaponBase
         forward = forward.Normal;
         var endPos = player.EyePosition + forward * 999999;
 
-        // Server Bullet
-        if (isPrimary)
-        {
-            Primary.BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
-        }
-        else
-        {
-            Secondary.BulletType.FireSV(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
-        }
+        // Bullet
+        var clipInfo = isPrimary ? Primary : Secondary;
+        clipInfo.BulletType.Fire(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
 
-        // Client bullet
-        ShootClientBullet(player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
+        // Other players
+        if (Game.IsServer)
+        {
+            var targets = Entity.All.OfType<IClient>().Where(ply => ply != Owner.Client);
+            ShootClientBullet(To.Multiple(targets), player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
+        }
     }
 
-    /// <summary>
-    /// Shoot a single bullet (client only)
-    /// </summary>
     [ClientRpc]
     public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
         if (Owner is not ISWBPlayer player) return;
 
-        if (isPrimary)
-        {
-            Primary.BulletType.FireCL(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
-        }
-        else
-        {
-            Secondary.BulletType.FireCL(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
-        }
+        var clipInfo = isPrimary ? Primary : Secondary;
+        clipInfo.BulletType.Fire(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
     }
+
 
     /// <summary>
     /// Plays the bolt back animation
@@ -374,21 +363,10 @@ public partial class WeaponBase
     /// <summary>
     /// Networks shooting effects
     /// </summary>
-    [ClientRpc]
-    protected virtual void ShootEffectsSV(byte[] muzzleFlashData, byte[] bulletEjectData, string shootAnim)
+    protected virtual void ShootEffects(byte[] muzzleFlashData, byte[] bulletEjectData, string shootAnim)
     {
         var muzzleFlashParticle = ParticleData.Deserialize(muzzleFlashData);
         var bulletEjectParticle = ParticleData.Deserialize(bulletEjectData);
-
-        ShootEffectsCL(muzzleFlashParticle, bulletEjectParticle, shootAnim);
-    }
-
-    /// <summary>
-    /// Handles shooting effects
-    /// </summary>
-    protected virtual void ShootEffectsCL(ParticleDataS muzzleFlashParticle, ParticleDataS bulletEjectParticle, string shootAnim)
-    {
-        Game.AssertClient();
 
         if (!string.IsNullOrEmpty(muzzleFlashParticle?.Path))
             DoMuzzleEffect(muzzleFlashParticle.Path, muzzleFlashParticle.VMScale, muzzleFlashParticle.WMScale);
@@ -397,10 +375,18 @@ public partial class WeaponBase
             DoBullectEjectEffect(bulletEjectParticle.Path, bulletEjectParticle.VMScale, bulletEjectParticle.WMScale);
 
         if (!string.IsNullOrEmpty(shootAnim))
-        {
-            ViewModelEntity?.SetAnimParameter(shootAnim, true);
-            crosshair?.CreateEvent("fire", GetRealRPM(Primary.RPM));
-        }
+            DoShootAnimation(shootAnim);
+    }
+
+    /// <summary>
+    /// Handles shooting effects
+    /// </summary>
+    [ClientRpc]
+    protected virtual void DoShootAnimation(string shootAnim)
+    {
+        Game.AssertClient();
+        ViewModelEntity?.SetAnimParameter(shootAnim, true);
+        crosshair?.CreateEvent("fire", GetRealRPM(Primary.RPM));
     }
 
     [ClientRpc]

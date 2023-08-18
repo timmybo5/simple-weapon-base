@@ -117,8 +117,8 @@ public partial class WeaponBaseEntity : WeaponBase
         if (IsLocalPawn)
             ScreenUtil.Shake(clipInfo.ScreenShake);
 
-        if (Game.IsServer)
-            ShootEffectsSV(clipInfo.MuzzleFlashParticle?.Serialize(), clipInfo.BulletEjectParticle?.Serialize(), GetShootAnimation(clipInfo));
+        
+        ShootEffects(clipInfo.MuzzleFlashParticle?.Serialize(), clipInfo.BulletEjectParticle?.Serialize(), GetShootAnimation(clipInfo));
 
         if (!string.IsNullOrEmpty(clipInfo.ShootSound))
             PlaySound(clipInfo.ShootSound);
@@ -141,8 +141,8 @@ public partial class WeaponBaseEntity : WeaponBase
         (Owner as AnimatedEntity).SetAnimParameter("b_attack", true);
 
         // Play pre-fire animation
-        if (Game.IsServer)
-            ShootEffectsSV(null, null, GetShootAnimation(clipInfo));
+        
+        ShootEffects(null, null, GetShootAnimation(clipInfo));
 
         var owner = Owner as ISWBPlayer;
         if (owner == null) return;
@@ -161,8 +161,8 @@ public partial class WeaponBaseEntity : WeaponBase
         if (IsLocalPawn)
             ScreenUtil.Shake(clipInfo.ScreenShake);
 
-        if (Game.IsServer)
-            ShootEffectsSV(clipInfo.MuzzleFlashParticle?.Serialize(), clipInfo.BulletEjectParticle?.Serialize(), null);
+
+        ShootEffects(clipInfo.MuzzleFlashParticle?.Serialize(), clipInfo.BulletEjectParticle?.Serialize(), null);
 
         if (clipInfo.ShootSound != null)
             PlaySound(clipInfo.ShootSound);
