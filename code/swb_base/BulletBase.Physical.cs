@@ -173,7 +173,7 @@ public class BulletEntity : Entity
             var isViewModel = weapon.IsLocalPawn && weapon.IsFirstPersonMode;
             var scale = isViewModel ? tracerParticle.VMScale : tracerParticle.WMScale;
             bulletTracer = Particles.Create(tracerParticle.Path, this);
-            bulletTracer.Set("scale", scale);
+            bulletTracer?.Set("scale", scale);
             UpdateTracer();
         }
     }

@@ -296,12 +296,11 @@ public partial class WeaponBase
     [ClientRpc]
     public virtual void ShootClientBullet(Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
-        if (Owner is not ISWBPlayer player) return;
+        if (Owner is not ISWBPlayer player || !this.IsValid) return;
 
         var clipInfo = isPrimary ? Primary : Secondary;
         clipInfo.BulletType.Fire(this, player.EyePosition, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
     }
-
 
     /// <summary>
     /// Plays the bolt back animation

@@ -12,7 +12,7 @@ public class HitScanBullet : BulletBase
     public override void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
     {
         Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
-    } 
+    }
 
     private void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary, int refireCount = 0)
     {
@@ -75,10 +75,14 @@ public class HitScanBullet : BulletBase
         var scale = isViewModel ? tracerParticle.VMScale : tracerParticle.WMScale;
         var effectData = weapon.GetMuzzleEffectData(firingViewModel);
         var effectEntity = effectData.Item1;
+        if (effectEntity == null) return;
+
         var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
+        if (muzzleAttach == null) return;
+
         var tracer = Particles.Create(tracerParticle.Path);
-        tracer.Set("scale", scale);
-        tracer.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
-        tracer.SetPosition(2, endPos);
+        tracer?.Set("scale", scale);
+        tracer?.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
+        tracer?.SetPosition(2, endPos);
     }
 }
