@@ -90,6 +90,7 @@ public class InventoryBar : Panel
         //
         if (Input.Down(InputButtonHelper.PrimaryAttack))
         {
+            Input.ReleaseAction(InputButtonHelper.PrimaryAttack);
             Input.ReleaseAction(InputButtonHelper.SecondaryAttack);
             player.ActiveChildInput = SelectedWeapon;
             IsOpen = false;
