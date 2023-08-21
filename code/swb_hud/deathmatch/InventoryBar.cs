@@ -39,7 +39,7 @@ public class InventoryBar : Panel
         if (Game.LocalPawn is not PlayerBase player) return;
 
         Weapons.Clear();
-        Weapons.AddRange(player.Children.Select(x => x as WeaponBase).Where(x => x.IsValid() && x.IsUsable()));
+        Weapons.AddRange(player.Children.Select(x => x as WeaponBase).Where(x => x.IsValid() && x.IsUsable()).OrderBy(x => x.Bucket));
 
         foreach (var weapon in Weapons)
         {
