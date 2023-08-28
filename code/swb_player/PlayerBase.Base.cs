@@ -211,19 +211,6 @@ public partial class PlayerBase : AnimatedEntity
         if (Input.StopProcessing)
             return;
 
-        var look = Input.AnalogLook;
-
-        if (ViewAngles.pitch > 90f || ViewAngles.pitch < -90f)
-        {
-            look = look.WithYaw(look.yaw * -1f);
-        }
-
-        var viewAngles = ViewAngles;
-        viewAngles += look;
-        viewAngles.pitch = viewAngles.pitch.Clamp(-89f, 89f);
-        viewAngles.roll = 0f;
-        ViewAngles = viewAngles.Normal;
-
         // Adjust mouse sensitivity based on weapon suggestion
         if (ActiveChild is WeaponBase weapon)
         {
@@ -232,25 +219,30 @@ public partial class PlayerBase : AnimatedEntity
             {
                 if (weapon.IsScoped && weapon.General.ScopedAimSensitivity > 0)
                 {
-                    ViewAngles = Angles.Lerp(OriginalViewAngles, ViewAngles, weapon.General.ScopedAimSensitivity);
+                    Input.AnalogLook *= weapon.General.ScopedAimSensitivity;
                 }
                 else if (weapon.IsZooming && weapon.General.AimSensitivity > 0)
                 {
-                    ViewAngles = Angles.Lerp(OriginalViewAngles, ViewAngles, weapon.General.AimSensitivity);
+                    Input.AnalogLook *= weapon.General.AimSensitivity;
                 }
             }
         }
 
+        var look = Input.AnalogLook;
+
+        if (ViewAngles.pitch > 90f || ViewAngles.pitch < -90f)
+            look = look.WithYaw(look.yaw * -1f);
+
+        var viewAngles = ViewAngles;
+        viewAngles += look;
+        viewAngles.pitch = viewAngles.pitch.Clamp(-89f, 89f);
+        viewAngles.roll = 0f;
+        ViewAngles = viewAngles.Normal;
+
         ActiveChild?.BuildInput();
         DoWeaponRecoil();
-
         GetActiveController()?.BuildInput();
-
         HandleFlinch();
-
-        if (Input.StopProcessing)
-            return;
-
         GetActiveAnimator()?.BuildInput();
     }
 
