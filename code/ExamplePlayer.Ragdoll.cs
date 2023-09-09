@@ -21,6 +21,8 @@ partial class ExamplePlayer
 
         ent.SetModel(GetModelName());
         ent.CopyBonesFrom(this);
+        ent.CopyBodyGroups(this);
+        ent.CopyMaterialGroup(this);
         ent.TakeDecalsFrom(this);
         ent.SetRagdollVelocityFrom(this);
         ent.DeleteAsync(20.0f);
@@ -28,16 +30,17 @@ partial class ExamplePlayer
         // Copy the clothes over
         foreach (var child in Children)
         {
-            if (child is ModelEntity e)
-            {
-                var model = e.GetModelName();
-                if (model != null && !model.Contains("clothes"))
-                    continue;
+            if (!child.Tags.Has("clothes")) continue;
+            if (child is not ModelEntity e) continue;
 
-                var clothing = new ModelEntity();
-                clothing.SetModel(model);
-                clothing.SetParent(ent, true);
-            }
+            var model = e.GetModelName();
+
+            var clothing = new ModelEntity();
+            clothing.SetModel(model);
+            clothing.SetParent(ent, true);
+            clothing.RenderColor = e.RenderColor;
+            clothing.CopyBodyGroups(e);
+            clothing.CopyMaterialGroup(e);
         }
 
         ent.PhysicsGroup.AddVelocity(force);
