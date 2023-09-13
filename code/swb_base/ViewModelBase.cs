@@ -170,7 +170,7 @@ partial class ViewModelBase : BaseViewModel
         else if (localVel.x < 0.0f)
             yaw = 3.0f * (localVel.x / maxWalkSpeed);
 
-        // Check if firing
+        // Check if ADS & firing
         if (weapon.IsZooming && weapon.TimeSincePrimaryAttack < 0.1f)
         {
             targetVectorRot -= new Vector3(0, 0, roll);

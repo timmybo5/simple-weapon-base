@@ -45,6 +45,10 @@ public class SniperScope : Panel
         // Show when zooming
         Style.Opacity = !weapon.IsScoped ? 0 : 1;
 
+        // Check if ADS & firing
+        if (weapon.IsZooming && weapon.TimeSincePrimaryAttack < 0.1f)
+            return;
+
         // Movement impact
         var velocityJump = player.Velocity.z * 0.02f;
         var velocityMove = (Math.Abs(player.Velocity.y) + Math.Abs(player.Velocity.x)) * 0.005f;
