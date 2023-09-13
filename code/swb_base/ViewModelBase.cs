@@ -170,6 +170,13 @@ partial class ViewModelBase : BaseViewModel
         else if (localVel.x < 0.0f)
             yaw = 3.0f * (localVel.x / maxWalkSpeed);
 
+        // Check if firing
+        if (weapon.IsZooming && weapon.TimeSincePrimaryAttack < 0.1f)
+        {
+            targetVectorRot -= new Vector3(0, 0, roll);
+            return;
+        }
+
         // Perform walk cycle
         targetVectorPos -= new Vector3((-MathF.Cos(breatheTime / 2.0f) / 5.0f) * walkSpeed / maxWalkSpeed - yaw / 4.0f, 0.0f, 0.0f);
         targetVectorRot -= new Vector3((Math.Clamp(MathF.Cos(breatheTime), -0.3f, 0.3f) * 2.0f) * walkSpeed / maxWalkSpeed, (-MathF.Cos(breatheTime / 2.0f) * 1.2f) * walkSpeed / maxWalkSpeed - yaw * 1.5f, roll);
