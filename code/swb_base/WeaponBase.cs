@@ -69,6 +69,7 @@ public partial class WeaponBase : CarriableBase
     {
         // Attachments
         HandleAttachments(false);
+        wasZooming = false;
 
         base.ActiveEnd(ent, dropped);
     }

@@ -27,6 +27,12 @@ public class HunterScope2D : BodyGroupSight
         "100% accurate while scoped in"
     };
 
+    public override void OnUnequip(WeaponBase weapon)
+    {
+        base.OnUnequip(weapon);
+        OnZoomEnd(weapon);
+    }
+
     public override void OnZoomStart(WeaponBase weapon)
     {
         WeaponBaseSniper.OnScopeStart(weapon, ZoomInSound, ZoomInDelay);
