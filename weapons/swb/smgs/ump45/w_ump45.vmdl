@@ -44,10 +44,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "smg45"
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 1.457195
 						point0 = [ 0.03441, 5.605608, -3.069248 ]
 						point1 = [ 0.056696, 5.810529, 13.750269 ]
@@ -56,10 +53,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "smg45"
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 1.457195
 						point0 = [ -0.0768, 3.181011, -2.713428 ]
 						point1 = [ -0.017176, 3.400688, 14.081916 ]
@@ -68,10 +62,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "smg45"
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 1.181602
 						point0 = [ 0.074996, 1.836672, 11.508204 ]
 						point1 = [ 0.056776, -1.670656, 11.70808 ]
@@ -80,10 +71,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "smg45"
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 1.491476
 						point0 = [ -0.1635, 1.387306, 6.394087 ]
 						point1 = [ -0.187847, -6.484888, 8.066999 ]
@@ -92,10 +80,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "smg45"
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 1.491476
 						point0 = [ 0.123549, 1.62443, 0.203475 ]
 						point1 = [ 0.327941, -1.86643, -1.535424 ]
@@ -104,10 +89,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "smg45"
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 0.894525
 						point0 = [ -0.035482, 4.321072, -4.440929 ]
 						point1 = [ -0.115265, 4.475997, -13.782917 ]
@@ -116,10 +98,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "smg45"
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 0.894525
 						point0 = [ -0.030693, 3.240793, -4.44285 ]
 						point1 = [ 0.01993, 0.520469, -13.533673 ]
@@ -128,10 +107,7 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "smg45"
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 0.894525
 						point0 = [ -0.107628, 4.028255, -13.603543 ]
 						point1 = [ 0.013058, 0.709446, -13.537438 ]
@@ -153,7 +129,7 @@
 					},
 					{
 						_class = "Attachment"
-						name = "bullet_eject"
+						name = "ejection_point"
 						parent_bone = "smg45"
 						relative_origin = [ -0.887981, 3.988497, 5.216214 ]
 						relative_angles = [ -0.000492, -179.999985, 179.999741 ]
@@ -188,5 +164,6 @@
 		model_archetype = ""
 		primary_associated_entity = ""
 		anim_graph_name = ""
+		base_model_name = ""
 	}
 }

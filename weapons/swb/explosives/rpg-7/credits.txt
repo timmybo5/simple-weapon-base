@@ -1,3 +1,0 @@
-NWI - Model, texture, sounds & animations
-Zombie Extinguisher - Porting to source 2
-Source: https://steamcommunity.com/sharedfiles/filedetails/?id=1085054315

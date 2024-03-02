@@ -7,31 +7,26 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "Resources": "attachments/*\nfonts/*\nmaterials/*\nshaders/*\nsounds/*\nweapons/*\nswb_base/*\nswb_editor/*\nswb_hud/*\nswb_weapons/*\n",
+  "Resources": "*",
   "MenuResources": null,
   "HasCode": true,
-  "CodePath": "code",
+  "CodePath": "/code/",
   "PackageReferences": [],
   "EditorReferences": null,
   "Metadata": {
-    "MapList": [
-      "facepunch.construct"
-    ],
-    "PerMapRanking": false,
-    "LeaderboardType": "None",
-    "RankType": "None",
-    "MapSelect": "Unrestricted",
-    "GameNetworkType": "Multiplayer",
     "MaxPlayers": 64,
     "MinPlayers": 1,
-    "GameCategory": "Shooter",
-    "DefaultLeaderboards": null,
-    "Summary": "Experience SWB first hand with a handful of demo weapons!",
-    "Description": "This is a demonstration of the Simple Weapon Base, a variety of weapons can be used. Who doesn\u0027t like to shoot weapons and rocket launchers :)\r\n\r\nPlease report bugs on github: https://github.com/timmybo5/simple-weapon-base\r\n\r\nLooking for base official weapon modelers!",
-    "Public": true,
-    "ReplaceTags": "pvp weapons techdemo shooter",
+    "TickRate": 50,
+    "GameNetworkType": "Multiplayer",
+    "MapSelect": "Unrestricted",
+    "MapList": [
+      "facepunch.flatgrass"
+    ],
+    "RankType": "None",
+    "PerMapRanking": false,
+    "LeaderboardType": "None",
     "CsProjName": "",
-    "HttpAllowList": null,
-    "TickRate": 50
+    "StartupScene": "scenes/minimal.scene",
+    "ProjectTemplate": null
   }
 }

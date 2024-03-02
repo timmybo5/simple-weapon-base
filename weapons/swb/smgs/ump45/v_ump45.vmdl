@@ -91,6 +91,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						enable_scale = false
 						source_filename = "weapons/swb/smgs/ump45/fixed_3ds/v_ump45_animations.smd"
 						start_frame = -1
 						end_frame = 6
@@ -163,6 +164,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						enable_scale = false
 						source_filename = "weapons/swb/smgs/ump45/fixed_3ds/v_ump45_animations.smd"
 						start_frame = 7
 						end_frame = 81
@@ -211,6 +213,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						enable_scale = false
 						source_filename = "weapons/swb/smgs/ump45/fixed_3ds/v_ump45_animations.smd"
 						start_frame = 81
 						end_frame = 129
@@ -232,6 +235,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						enable_scale = false
 						source_filename = "weapons/swb/smgs/ump45/fixed_3ds/v_ump45_animations.smd"
 						start_frame = 129
 						end_frame = 140
@@ -268,6 +272,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						enable_scale = false
 						source_filename = "weapons/swb/smgs/ump45/fixed_3ds/v_ump45_animations.smd"
 						start_frame = 140
 						end_frame = 176
@@ -289,6 +294,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						enable_scale = false
 						source_filename = "weapons/swb/smgs/ump45/fixed_3ds/v_ump45_animations.smd"
 						start_frame = 215
 						end_frame = 234
@@ -313,5 +319,6 @@
 		model_archetype = ""
 		primary_associated_entity = ""
 		anim_graph_name = "weapons/swb/smgs/ump45/v_ump45.vanmgrph"
+		base_model_name = ""
 	}
 }

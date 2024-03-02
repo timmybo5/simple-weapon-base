@@ -1,88 +1,24 @@
-﻿using System;
-using Sandbox;
+﻿using SWB.Player;
+using SWB.Shared;
 
-/* 
- * Base for hitscan bullets, instantly hitting targets without physics calculations
-*/
+namespace SWB.Base;
 
-namespace SWB_Base;
-
-public class HitScanBullet : BulletBase
+public class HitScanBullet : IBulletBase
 {
-    public override void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
-    {
-        Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
-    }
+	public void Shoot( Weapon weapon, ShootInfo shootInfo )
+	{
+		var player = weapon.Owner;
+		var forward = player.EyeAngles.Forward;
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * shootInfo.Spread * 0.25f;
+		forward = forward.Normal;
+		var endPos = player.EyePos + forward * 999999;
+		var bulletTr = weapon.TraceBullet( player.EyePos, endPos );
+		var hitObj = bulletTr.GameObject;
 
-    private void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary, int refireCount = 0)
-    {
-        var tr = weapon.TraceBullet(startPos, endPos, bulletSize);
-        var isValidEnt = tr.Entity.IsValid();
-        var canPenetrate = SurfaceUtil.CanPenetrate(tr.Surface);
-
-        if (!isValidEnt && !canPenetrate) return;
-
-        if (Game.IsClient)
-        {
-            // Impact
-            if (!SurfaceUtil.IsSkybox(tr.Tags))
-                tr.Surface.DoBulletImpact(tr);
-
-            var tracerParticle = isPrimary ? weapon.Primary.BulletTracerParticle : weapon.Secondary.BulletTracerParticle;
-
-            // Tracer
-            if (!string.IsNullOrEmpty(tracerParticle?.Path))
-            {
-                var random = new Random();
-                var randVal = random.NextDouble();
-
-                if (randVal < bulletTracerChance)
-                    TracerEffects(weapon, tracerParticle, tr.EndPosition);
-            }
-        }
-
-        if (Game.IsServer && isValidEnt)
-        {
-            using (Prediction.Off())
-            {
-                // Damage
-                var damageInfo = DamageInfo.FromBullet(tr.EndPosition, forward * 25 * force, damage)
-                    .UsingTraceResult(tr)
-                    .WithAttacker(weapon.Owner)
-                    .WithWeapon(weapon);
-
-                tr.Entity.TakeDamage(damageInfo);
-            }
-        }
-
-        // Re-run the trace if we can penetrate
-        if (canPenetrate)
-        {
-            if (refireCount > 100) return;
-            refireCount++;
-
-            Fire(weapon, tr.HitPosition + tr.Direction * 10, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary, refireCount);
-        }
-    }
-
-    private void TracerEffects(WeaponBase weapon, ParticleData tracerParticle, Vector3 endPos)
-    {
-        ModelEntity firingViewModel = weapon.GetEffectModel();
-
-        if (firingViewModel == null) return;
-
-        var isViewModel = weapon.IsLocalPawn && weapon.IsFirstPersonMode;
-        var scale = isViewModel ? tracerParticle.VMScale : tracerParticle.WMScale;
-        var effectData = weapon.GetMuzzleEffectData(firingViewModel);
-        var effectEntity = effectData.Item1;
-        if (effectEntity == null) return;
-
-        var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
-        if (muzzleAttach == null) return;
-
-        var tracer = Particles.Create(tracerParticle.Path);
-        tracer?.Set("scale", scale);
-        tracer?.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
-        tracer?.SetPosition(2, endPos);
-    }
+		if ( hitObj.Tags.Has( TagsHelper.Player ) )
+		{
+			var target = hitObj.Components.GetInAncestorsOrSelf<PlayerBase>();
+			target?.TakeDamage( Shared.DamageInfo.FromBullet( shootInfo.Damage, forward * 25 * shootInfo.Force ) );
+		}
+	}
 }

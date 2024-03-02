@@ -1,0 +1,384 @@
+{
+  "Id": "9f832399-4887-46b0-8f21-2ee284f538e2",
+  "GameObjects": [
+    {
+      "Id": "c5c1918c-9604-4d49-a40f-a28dc70a7ac0",
+      "Name": "Map",
+      "Position": "125.0372,120.9534,-133.1576",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "MapInstance",
+          "MapName": "facepunch.flatgrass",
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
+          "UseMapFromLaunch": true
+        }
+      ],
+      "Children": []
+    },
+    {
+      "Id": "9318758b-1419-4d49-9e5d-991d863b4964",
+      "Name": "Environment",
+      "Children": [
+        {
+          "Id": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
+          "Name": "Sun",
+          "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
+          "Tags": "light_directional,light",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "DirectionalLight",
+              "FogMode": "Enabled",
+              "FogStrength": 1,
+              "LightColor": "0.94419,0.97767,1,1",
+              "Shadows": true,
+              "SkyColor": "0.2532,0.32006,0.35349,1"
+            }
+          ]
+        },
+        {
+          "Id": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
+          "Name": "2D Skybox",
+          "Tags": "skybox",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "SkyBox2D",
+              "SkyMaterial": "materials/skybox/light_test_sky_sunny03.vmat",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "EnvmapProbe",
+              "Bounds": {
+                "Mins": "-512,-512,-512",
+                "Maxs": "512,512,512"
+              },
+              "Feathering": 0.02,
+              "Projection": "Sphere",
+              "Texture": "textures/cubemaps/default2.vtex",
+              "TintColor": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "Id": "6ad70641-3c6c-4402-9c85-9a4969af4764",
+          "Name": "Plane",
+          "Scale": "13.09961,14.53646,5",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/default.vmat",
+              "Model": "models/dev/plane.vmdl",
+              "RenderType": "On",
+              "Tint": "0.39546,0.51163,0.27128,1"
+            },
+            {
+              "__type": "BoxCollider",
+              "Center": "0,0,-5",
+              "IsTrigger": false,
+              "Scale": "100,100,10",
+              "Static": false,
+              "Surface": null
+            }
+          ]
+        },
+        {
+          "Id": "3c2490ef-54a0-49bb-8f13-490e40aa51d1",
+          "Name": "Cube",
+          "Position": "106.3166,135.0241,14.17619",
+          "Rotation": "0.000002976795,-0.000007906739,0.2982059,0.9545016",
+          "Scale": "0.5632889,0.5632889,0.5632889",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/default.vmat",
+              "Model": "models/dev/box.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "BoxCollider",
+              "Center": "0,0,0",
+              "IsTrigger": false,
+              "Scale": "50,50,50",
+              "Static": false,
+              "Surface": null
+            },
+            {
+              "__type": "Rigidbody",
+              "AngularDamping": 0,
+              "Gravity": true,
+              "LinearDamping": 0,
+              "Locking": {},
+              "MassOverride": 0,
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
+            }
+          ]
+        },
+        {
+          "Id": "70be23ad-9cda-4dd6-8142-99c7a9f69a92",
+          "Name": "Long Cube",
+          "Position": "-223.7912,249.1929,49.96741",
+          "Rotation": "-0.01588935,-0.004894807,0.3824361,0.9238324",
+          "Scale": "0.5632889,0.5632889,1.97564",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/default.vmat",
+              "Model": "models/dev/box.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "BoxCollider",
+              "Center": "0,0,0",
+              "IsTrigger": false,
+              "Scale": "50,50,50",
+              "Static": true,
+              "Surface": null
+            },
+            {
+              "__type": "Rigidbody",
+              "AngularDamping": 0,
+              "Gravity": false,
+              "LinearDamping": 0,
+              "Locking": {},
+              "MassOverride": 0,
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
+            }
+          ]
+        },
+        {
+          "Id": "8463f994-fc03-4478-8cc5-8663c0dd38d8",
+          "Name": "Long Cube (1)",
+          "Position": "-179.8882,174.0877,50.27879",
+          "Rotation": "0.01091752,-0.02698293,0.442313,0.8963884",
+          "Scale": "0.5632889,0.5632889,1.97564",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/default.vmat",
+              "Model": "models/dev/box.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "BoxCollider",
+              "Center": "0,0,0",
+              "IsTrigger": false,
+              "Scale": "50,50,50",
+              "Static": true,
+              "Surface": null
+            },
+            {
+              "__type": "Rigidbody",
+              "AngularDamping": 0,
+              "Gravity": false,
+              "LinearDamping": 0,
+              "Locking": {},
+              "MassOverride": 0,
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
+            }
+          ]
+        },
+        {
+          "Id": "f373bc8b-8230-43b3-b1d0-7d9d318b1520",
+          "Name": "Long Cube (2)",
+          "Position": "-180.215,206.8841,58.73539",
+          "Rotation": "0.6312017,0.2930965,0.3396897,0.6326846",
+          "Scale": "0.4871052,0.5632889,1.816077",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/default.vmat",
+              "Model": "models/dev/box.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "BoxCollider",
+              "Center": "0,0,0",
+              "IsTrigger": false,
+              "Scale": "50,50,50",
+              "Static": true,
+              "Surface": null
+            },
+            {
+              "__type": "Rigidbody",
+              "AngularDamping": 0,
+              "Gravity": false,
+              "LinearDamping": 0,
+              "Locking": {},
+              "MassOverride": 0,
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
+            }
+          ]
+        },
+        {
+          "Id": "523e3e8f-a4ec-4ec1-af9a-d86ffc9c17e1",
+          "Name": "Cube (1)",
+          "Position": "118.522,113.5585,37.78748",
+          "Rotation": "-0.3422784,-0.1094723,0.2794239,0.890384",
+          "Scale": "0.5632889,0.5632889,0.5632889",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/default.vmat",
+              "Model": "models/dev/box.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "BoxCollider",
+              "Center": "0,0,0",
+              "IsTrigger": false,
+              "Scale": "50,50,50",
+              "Static": false,
+              "Surface": null
+            },
+            {
+              "__type": "Rigidbody",
+              "AngularDamping": 0,
+              "Gravity": true,
+              "LinearDamping": 0,
+              "Locking": {},
+              "MassOverride": 0,
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
+            }
+          ]
+        },
+        {
+          "Id": "5b483a09-bbf2-4949-98c7-a73b789d0ee7",
+          "Name": "Cube (2)",
+          "Position": "129.9087,91.38236,14.18267",
+          "Rotation": "-0.00007207559,0.0002271165,0.3022816,0.9532187",
+          "Scale": "0.5632889,0.5632889,0.5632889",
+          "Enabled": true,
+          "Components": [
+            {
+              "__type": "ModelRenderer",
+              "BodyGroups": 18446744073709551615,
+              "MaterialGroup": null,
+              "MaterialOverride": "materials/default.vmat",
+              "Model": "models/dev/box.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            },
+            {
+              "__type": "BoxCollider",
+              "Center": "0,0,0",
+              "IsTrigger": false,
+              "Scale": "50,50,50",
+              "Static": false,
+              "Surface": null
+            },
+            {
+              "__type": "Rigidbody",
+              "AngularDamping": 0,
+              "Gravity": true,
+              "LinearDamping": 0,
+              "Locking": {},
+              "MassOverride": 0,
+              "RigidbodyFlags": 0,
+              "StartAsleep": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "ac515aae-1c47-4808-b1d3-630ea9d4daeb",
+      "Name": "Player",
+      "Tags": "player",
+      "__Prefab": "code/swb_player/prefabs/player.prefab"
+    },
+    {
+      "Id": "8b3cd142-6acb-47f1-b4e0-6b00f75f7355",
+      "Name": "WeaponRegistry",
+      "Position": "94.58017,127.1334,73.5171",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "WeaponRegistry",
+          "WeaponPrefabs": [
+            {
+              "_type": "gameobject",
+              "prefab": "code/swb_weapons/testweapon.prefab"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "c988658d-a998-405a-b169-e1711fe59578",
+      "Name": "ExampleNetworkManager",
+      "Position": "73.25323,515.2476,-156.4206",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "NetworkManager",
+          "PlayerPrefab": {
+            "_type": "gameobject",
+            "prefab": "code/swb_player/prefabs/player.prefab"
+          }
+        }
+      ]
+    },
+    {
+      "Id": "9779b8a4-d7b7-4666-8e18-e97718e45e7e",
+      "Name": "TestWeapon",
+      "Tags": "weapon",
+      "__Prefab": "code/swb_weapons/testweapon.prefab"
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "Lerping": true,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 60,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "LastSaved": "2024-02-29T20:33:17.9630592\u002B02:00",
+  "__references": []
+}

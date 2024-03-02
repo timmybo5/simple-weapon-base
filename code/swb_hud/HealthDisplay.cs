@@ -1,46 +1,36 @@
-﻿using System;
-using Sandbox;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
-using SWB_Player;
+using SWB.Player;
 
-namespace SWB_HUD;
+namespace SWB.HUD;
 
 public class HealthDisplay : Panel
 {
-    Panel healthWrapper;
+	PlayerBase player;
+	Label healthLabel;
 
-    Image healthIcon;
-    Label healthLabel;
+	public HealthDisplay( PlayerBase player )
+	{
+		this.player = player;
+		StyleSheet.Load( "/swb_hud/HealthDisplay.cs.scss" );
 
-    public HealthDisplay()
-    {
-        StyleSheet.Load("/swb_hud/HealthDisplay.scss");
+		Add.Label( "health", "name" );
+		healthLabel = Add.Label( "", "health" );
+	}
 
-        healthWrapper = Add.Panel("healthWrapper");
-        healthIcon = healthWrapper.Add.Image("/materials/swb/hud/health.png", "healthIcon");
-        healthLabel = healthWrapper.Add.Label("", "healthLabel");
-    }
+	public override void Tick()
+	{
+		var isAlive = player.IsAlive;
+		SetClass( "hide", !isAlive );
 
-    public override void Tick()
-    {
-        if (Game.LocalPawn is not PlayerBase player) return;
+		if ( !isAlive ) return;
 
-        var isAlive = player.Alive();
-        SetClass("hideHealthDisplay", !isAlive);
+		var healthPer = ((float)player.Health) / 100f;
 
-        if (!isAlive) return;
-
-        var health = Math.Round(player.Health);
-        var healthPer = ((float)health) / 100f;
-
-        if (healthIcon != null)
-            healthIcon.Style.Opacity = 1; // healthPer
-
-        if (healthLabel != null)
-        {
-            healthLabel.SetText(health.ToString());
-            healthLabel.Style.FontColor = new Color(1, 1 * healthPer, 1 * healthPer);
-        }
-    }
+		if ( healthLabel is not null )
+		{
+			healthLabel.Text = player.Health.ToString();
+			healthLabel.Style.FontColor = new Color( 1, 1 * healthPer, 1 * healthPer );
+		}
+	}
 }
