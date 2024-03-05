@@ -14,7 +14,7 @@ public partial class Weapon
 	/// <returns></returns>
 	public virtual bool CanShoot( ShootInfo shootInfo, TimeSince lastAttackTime, string inputButton )
 	{
-		if ( shootInfo is null || !Owner.IsValid() || !Input.Down( inputButton ) ) return false;
+		if ( shootInfo is null || !Owner.IsValid() || !Input.Down( inputButton ) || (IsRunning && Secondary is null) ) return false;
 
 		if ( !HasAmmo() )
 		{
@@ -83,6 +83,9 @@ public partial class Weapon
 		// Particles
 		HandleShootEffects( isPrimary );
 
+		// UI
+		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
+
 		// Bullet
 		shootInfo.BulletType.Shoot( this, shootInfo );
 	}
@@ -116,7 +119,7 @@ public partial class Weapon
 
 		// Weapon
 		var shootInfo = GetShootInfo( isPrimary );
-		var scale = CanSeeViewModel() ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
+		var scale = CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
 
 		if ( shootInfo.MuzzleFlashParticle is not null )
 			CreateParticle( shootInfo.MuzzleFlashParticle, "muzzle", scale );
@@ -125,7 +128,7 @@ public partial class Weapon
 			CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
 	}
 
-	/// <summary> Create a weapon particle</summary>
+	/// <summary>Create a weapon particle</summary>
 	public virtual void CreateParticle( ParticleSystem particle, string attachment, float scale )
 	{
 		var effectRenderer = GetEffectRenderer();
@@ -140,6 +143,10 @@ public partial class Weapon
 		particles?.SetControlPoint( 0, transform.Value.Position );
 		particles?.SetControlPoint( 0, transform.Value.Rotation );
 		particles?.SetNamedValue( "scale", scale );
+
+		if ( CanSeeViewModel )
+			particles.Tags.Add( TagsHelper.ViewModel );
+
 		particles?.PlayUntilFinished( Task );
 	}
 }

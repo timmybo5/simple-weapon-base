@@ -21,17 +21,25 @@ public partial class Weapon : Component
 
 	protected override void OnEnabled()
 	{
-		base.OnEnabled();
+
 	}
 
 	protected override void OnDisabled()
 	{
-		base.OnDisabled();
+		if ( !IsProxy )
+		{
+			DestroyUI();
+		}
 	}
 
 	protected override void OnStart()
 	{
 		Owner = Components.GetInAncestors<PlayerBase>();
+
+		if ( !IsProxy )
+		{
+			CreateUI();
+		}
 
 		CreateModels();
 	}
@@ -119,7 +127,7 @@ public partial class Weapon : Component
 	void PlaySound( int resourceID )
 	{
 		var sound = ResourceLibrary.Get<SoundEvent>( resourceID );
-		var isScreenSound = CanSeeViewModel();
+		var isScreenSound = CanSeeViewModel;
 		sound.UI = isScreenSound;
 
 		if ( isScreenSound )

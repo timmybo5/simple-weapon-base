@@ -78,7 +78,7 @@ public partial class PlayerBase
 	{
 		var gravity = Scene.PhysicsWorld.Gravity;
 
-		if ( CharacterController.IsOnGround )
+		if ( IsOnGround )
 		{
 			// Friction / Acceleration
 			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
@@ -96,7 +96,7 @@ public partial class PlayerBase
 		CharacterController.Move();
 
 		// Second half of gravity after movement (to stay accurate)
-		if ( CharacterController.IsOnGround )
+		if ( IsOnGround )
 		{
 			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
 		}
@@ -119,7 +119,7 @@ public partial class PlayerBase
 
 	void Jump()
 	{
-		if ( !CharacterController.IsOnGround ) return;
+		if ( !IsOnGround ) return;
 
 		CharacterController.Punch( Vector3.Up * JumpForce );
 		AnimationHelper?.TriggerJump();
@@ -132,7 +132,7 @@ public partial class PlayerBase
 		AnimationHelper.WithWishVelocity( WishVelocity );
 		AnimationHelper.WithVelocity( CharacterController.Velocity );
 		AnimationHelper.AimAngle = EyeAngles.ToRotation();
-		AnimationHelper.IsGrounded = CharacterController.IsOnGround;
+		AnimationHelper.IsGrounded = IsOnGround;
 		AnimationHelper.WithLook( EyeAngles.ToRotation().Forward, 1f, 0.75f, 0.5f );
 		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 		AnimationHelper.DuckLevel = IsCrouching ? 1 : 0;
@@ -140,7 +140,7 @@ public partial class PlayerBase
 
 	void UpdateCrouch()
 	{
-		if ( Input.Down( InputButtonHelper.Duck ) && !IsCrouching && CharacterController.IsOnGround )
+		if ( Input.Down( InputButtonHelper.Duck ) && !IsCrouching && IsOnGround )
 		{
 			IsCrouching = true;
 			CharacterController.Height /= 2f;

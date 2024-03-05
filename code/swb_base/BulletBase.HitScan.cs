@@ -9,7 +9,8 @@ public class HitScanBullet : IBulletBase
 	{
 		var player = weapon.Owner;
 		var forward = player.EyeAngles.Forward;
-		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * shootInfo.Spread * 0.25f;
+		var spread = weapon.GetRealSpread( shootInfo.Spread );
+		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
 		forward = forward.Normal;
 		var endPos = player.EyePos + forward * 999999;
 		var bulletTr = weapon.TraceBullet( player.EyePos, endPos );

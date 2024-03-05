@@ -67,12 +67,20 @@ public partial class Weapon
 	/// <summary>Time since the last secondary attack</summary>
 	public TimeSince TimeSinceSecondaryShoot { get; set; }
 
-	/// <summary>If the weapon is being aimed</summary>
-	public bool IsAiming { get; set; }
+	public bool IsCustomizing { get; set; }
 
-	/// <summary>If the player is running </summary>
+	/// <summary>If the player is running</summary>
 	public bool IsRunning => Owner.IsRunning;
+
+	/// <summary>If the player is crouching</summary>
+	public bool IsCrouching => Owner.IsCrouching;
+
+	/// <summary>Is the view model visible</summary>
+	public bool CanSeeViewModel => !IsProxy && Owner.IsFirstPerson;
 
 	/// <summary>If the weapon is being reloaded</summary>
 	[Sync] public bool IsReloading { get; set; }
+
+	/// <summary>If the weapon is being aimed</summary>
+	[Sync] public bool IsAiming { get; set; }
 }

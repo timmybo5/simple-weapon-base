@@ -8,15 +8,10 @@ public partial class Weapon
 	{
 		SkinnedModelRenderer effectModel = WorldModelRenderer;
 
-		if ( CanSeeViewModel() )
+		if ( CanSeeViewModel )
 			effectModel = ViewModelRenderer;
 
 		return effectModel;
-	}
-
-	public virtual bool CanSeeViewModel()
-	{
-		return !IsProxy && Owner.IsFirstPerson;
 	}
 
 	/// <summary>
@@ -78,5 +73,34 @@ public partial class Weapon
 	public static float GetRealRPM( int rpm )
 	{
 		return 60f / rpm;
+	}
+
+	public virtual float GetRealSpread( float baseSpread = -1 )
+	{
+		if ( !Owner.IsValid() ) return 0;
+
+		float spread = baseSpread != -1 ? baseSpread : Primary.Spread;
+		float floatMod = 1f;
+
+		// Ducking
+		if ( IsCrouching && !IsAiming )
+			floatMod -= 0.25f;
+
+		// Aiming
+		if ( IsAiming /*&& this is not WeaponBaseShotty*/ )
+			floatMod /= 4;
+
+		if ( !Owner.IsOnGround )
+		{
+			// Jumping
+			floatMod += 0.75f;
+		}
+		else if ( Owner.Velocity.Length > 100 )
+		{
+			// Moving 
+			floatMod += 0.25f;
+		}
+
+		return spread * floatMod;
 	}
 }
