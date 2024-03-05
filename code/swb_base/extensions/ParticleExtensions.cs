@@ -2,7 +2,7 @@
 
 namespace SWB.Base;
 
-public static class Extensions
+public static class ParticleExtensions
 {
 	public static async void PlayUntilFinished( this SceneParticles particles, TaskSource source )
 	{

@@ -87,6 +87,13 @@ public partial class Weapon
 		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
 
 		// Bullet
+		ShootBullet( isPrimary );
+	}
+
+	[Broadcast]
+	public virtual void ShootBullet( bool isPrimary )
+	{
+		var shootInfo = GetShootInfo( isPrimary );
 		shootInfo.BulletType.Shoot( this, shootInfo );
 	}
 
@@ -126,6 +133,44 @@ public partial class Weapon
 
 		if ( shootInfo.BulletEjectParticle is not null )
 			CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
+	}
+
+	/// <summary>Create a bullet impact effect</summary>
+	public virtual void CreateBulletImpact( SceneTraceResult tr )
+	{
+		// Sound
+		tr.Surface.PlayCollisionSound( tr.HitPosition );
+
+		// Particles
+		if ( tr.Surface.ImpactEffects.Bullet is not null )
+		{
+			var effectPath = Game.Random.FromArray( tr.Surface.ImpactEffects.Bullet );
+			var p = new SceneParticles( Scene.SceneWorld, effectPath );
+			p.SetControlPoint( 0, tr.HitPosition );
+			p.SetControlPoint( 0, Rotation.LookAt( tr.Normal ) );
+			p.PlayUntilFinished( TaskSource.Create() );
+		}
+
+		// Decal
+		if ( tr.Surface.ImpactEffects.BulletDecal is not null )
+		{
+			var decalPath = Game.Random.FromArray( tr.Surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
+
+			if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalDef ) )
+			{
+				var decalEntry = Game.Random.FromList( decalDef.Decals );
+
+				var gameObject = Scene.CreateObject();
+				gameObject.Transform.Position = tr.HitPosition;
+				gameObject.Transform.Rotation = Rotation.LookAt( -tr.Normal );
+
+				var decalRenderer = gameObject.Components.Create<DecalRenderer>();
+				decalRenderer.Material = decalEntry.Material;
+				decalRenderer.Size = new( decalEntry.Height.GetValue(), decalEntry.Height.GetValue(), decalEntry.Depth.GetValue() );
+
+				gameObject.DestroyAsync( 30f );
+			}
+		}
 	}
 
 	/// <summary>Create a weapon particle</summary>

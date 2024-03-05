@@ -16,7 +16,11 @@ public class HitScanBullet : IBulletBase
 		var bulletTr = weapon.TraceBullet( player.EyePos, endPos );
 		var hitObj = bulletTr.GameObject;
 
-		if ( hitObj.Tags.Has( TagsHelper.Player ) )
+		if ( SurfaceUtil.IsSkybox( bulletTr.Surface ) ) return;
+
+		weapon.CreateBulletImpact( bulletTr );
+
+		if ( !weapon.IsProxy && hitObj.Tags.Has( TagsHelper.Player ) )
 		{
 			var target = hitObj.Components.GetInAncestorsOrSelf<PlayerBase>();
 			target?.TakeDamage( Shared.DamageInfo.FromBullet( shootInfo.Damage, forward * 25 * shootInfo.Force ) );

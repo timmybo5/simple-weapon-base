@@ -1,6 +1,5 @@
 ﻿using SWB.Shared;
 using System.Collections.Generic;
-using System.Linq;
 
 /* 
  * Util class for checking surface properties
@@ -41,8 +40,8 @@ public static class SurfaceUtil
 		return tr.Hit;
 	}
 
-	public static bool IsSkybox( string[] tags )
+	public static bool IsSkybox( Surface surface )
 	{
-		return tags.Contains( TagsHelper.World ) && !tags.Contains( TagsHelper.Solid );
+		return surface.HasTag( TagsHelper.World ) && !surface.HasTag( TagsHelper.Solid );
 	}
 }
