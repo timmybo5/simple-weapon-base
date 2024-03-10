@@ -1,6 +1,4 @@
-﻿using SWB.Player;
-
-namespace SWB.Base;
+﻿namespace SWB.Base;
 
 public partial class Weapon
 {
@@ -43,11 +41,7 @@ public partial class Weapon
 
 		if ( Primary.ClipSize == -1 )
 		{
-			if ( Owner is PlayerBase player )
-			{
-				return player.AmmoCount( Primary.AmmoType ) > 0;
-			}
-			return true;
+			return Owner.AmmoCount( Primary.AmmoType ) > 0;
 		}
 
 		if ( Primary.Ammo == 0 )

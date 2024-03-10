@@ -15,11 +15,6 @@
         "EyesWeight": 1,
         "HeadWeight": 1,
         "Height": 1,
-        "IkLeftFoot": null,
-        "IkLeftHand": null,
-        "IkRightFoot": null,
-        "IkRightHand": null,
-        "LookAt": null,
         "LookAtEnabled": false,
         "Target": {
           "_type": "component",
@@ -80,12 +75,9 @@
         "Components": [
           {
             "__type": "SkinnedModelRenderer",
-            "AnimationGraph": null,
             "BodyGroups": 341,
-            "BoneMergeTarget": null,
             "CreateBoneObjects": true,
             "MaterialGroup": "default",
-            "MaterialOverride": null,
             "Model": "models/citizen/citizen.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
@@ -96,8 +88,7 @@
             "IsTrigger": false,
             "Radius": 11.639994,
             "Start": "1.5,0,11.70724",
-            "Static": false,
-            "Surface": null
+            "Static": false
           }
         ],
         "Children": [

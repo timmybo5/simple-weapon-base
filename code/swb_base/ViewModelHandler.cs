@@ -1,5 +1,4 @@
-﻿using SWB.Player;
-using SWB.Shared;
+﻿using SWB.Shared;
 using System;
 
 namespace SWB.Base;
@@ -10,7 +9,7 @@ public class ViewModelHandler : Component
 	public SkinnedModelRenderer ViewModelHandsRenderer { get; set; }
 	public Weapon Weapon { get; set; }
 	public CameraComponent Camera { get; set; }
-	PlayerBase player => Weapon.Owner;
+	IPlayerBase player => Weapon.Owner;
 
 	float animSpeed = 1;
 	float playerFOVSpeed = 1;

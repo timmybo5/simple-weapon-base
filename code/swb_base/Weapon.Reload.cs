@@ -23,11 +23,8 @@ public partial class Weapon
 		//		_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle );
 		//}
 
-		//if ( Owner is ISWBPlayer player )
-		//{
 		if ( Owner.AmmoCount( Primary.AmmoType ) <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
 			return;
-		//}
 
 		IsReloading = true;
 
@@ -55,8 +52,6 @@ public partial class Weapon
 			return;
 		}
 
-		//if ( Owner is ISWBPlayer player )
-		//{
 		var ammo = Owner.TakeAmmo( Primary.AmmoType, maxClipSize - Primary.Ammo );
 
 		if ( ammo == 0 )

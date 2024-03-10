@@ -1,11 +1,11 @@
 using Sandbox.UI;
-using SWB.Player;
+using SWB.Shared;
 
 namespace SWB.Base.UI;
 
 public class RootWeaponDisplay : PanelComponent
 {
-	public PlayerBase Player { get; set; }
+	public IPlayerBase Player { get; set; }
 	public Weapon Weapon { get; set; }
 
 	protected override void OnStart()

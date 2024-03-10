@@ -1,5 +1,4 @@
-﻿using SWB.Player;
-using SWB.Shared;
+﻿using SWB.Shared;
 using System.Linq;
 
 namespace SWB.Base;
@@ -8,7 +7,7 @@ namespace SWB.Base;
 [Title( "Weapon" )]
 public partial class Weapon : Component
 {
-	public PlayerBase Owner { get; set; }
+	public IPlayerBase Owner { get; set; }
 	public ViewModelHandler ViewModelHandler { get; set; }
 	public SkinnedModelRenderer ViewModelRenderer { get; private set; }
 	public SkinnedModelRenderer ViewModelHandsRenderer { get; private set; }
@@ -34,7 +33,7 @@ public partial class Weapon : Component
 
 	protected override void OnStart()
 	{
-		Owner = Components.GetInAncestors<PlayerBase>();
+		Owner = Components.GetInAncestors<IPlayerBase>();
 
 		if ( !IsProxy )
 		{

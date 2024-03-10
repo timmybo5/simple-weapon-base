@@ -1,4 +1,5 @@
 using SWB.Base;
+using SWB.Shared;
 using System;
 using System.Linq;
 
@@ -6,7 +7,7 @@ namespace SWB.Player;
 
 [Group( "SWB" )]
 [Title( "PlayerBase" )]
-public partial class PlayerBase : Component, Component.INetworkSpawn
+public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBase
 {
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Body { get; set; }
@@ -14,7 +15,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn
 	[Property] public CameraComponent Camera { get; set; }
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 
-	public Inventory Inventory;
+	public IInventory Inventory { get; set; }
 	public bool IsFirstPerson => cameraMovement.IsFirstPerson;
 	public float InputSensitivity
 	{
@@ -26,7 +27,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn
 
 	protected override void OnAwake()
 	{
-		Inventory = new( this );
+		Inventory = new Inventory( this );
 		cameraMovement = Components.GetInChildren<CameraMovement>();
 
 		OnMovementAwake();

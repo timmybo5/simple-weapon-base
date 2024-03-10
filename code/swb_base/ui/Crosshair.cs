@@ -1,12 +1,12 @@
 ﻿using Sandbox.UI;
-using SWB.Player;
+using SWB.Shared;
 using System.Threading.Tasks;
 
 namespace SWB.Base.UI;
 
 public class Crosshair : Panel
 {
-	PlayerBase player;
+	IPlayerBase player;
 	Weapon weapon;
 
 	Panel centerDot;
@@ -21,7 +21,7 @@ public class Crosshair : Panel
 
 	bool wasZooming = false;
 
-	public Crosshair( PlayerBase player, Weapon weapon )
+	public Crosshair( IPlayerBase player, Weapon weapon )
 	{
 		this.player = player;
 		this.weapon = weapon;

@@ -1,5 +1,4 @@
-﻿using SWB.Player;
-using SWB.Shared;
+﻿using SWB.Shared;
 
 namespace SWB.Base;
 
@@ -22,7 +21,7 @@ public class HitScanBullet : IBulletBase
 
 		if ( !weapon.IsProxy && hitObj.Tags.Has( TagsHelper.Player ) )
 		{
-			var target = hitObj.Components.GetInAncestorsOrSelf<PlayerBase>();
+			var target = hitObj.Components.GetInAncestorsOrSelf<IPlayerBase>();
 			target?.TakeDamage( Shared.DamageInfo.FromBullet( shootInfo.Damage, forward * 25 * shootInfo.Force ) );
 		}
 	}

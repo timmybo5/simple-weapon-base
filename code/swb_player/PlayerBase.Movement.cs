@@ -24,8 +24,8 @@ public partial class PlayerBase
 	public Vector3 Velocity => CharacterController.Velocity;
 	public Vector3 EyePos => Head.Transform.Position;
 
-	public CharacterController CharacterController;
-	public CitizenAnimationHelper AnimationHelper;
+	public CharacterController CharacterController { get; set; }
+	public CitizenAnimationHelper AnimationHelper { get; set; }
 
 	void OnMovementAwake()
 	{

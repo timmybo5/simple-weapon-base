@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using SWB.Shared;
+using System.Collections.Generic;
 
 namespace SWB.Player;
 
-public class Inventory
+public class Inventory : IInventory
 {
 	public List<GameObject> Items { get; set; } = new();
-	public GameObject Active { get; private set; }
+	public GameObject Active { get; set; }
 
 	PlayerBase player;
 
