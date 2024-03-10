@@ -38,12 +38,12 @@ public class CameraMovement : Component
 		// Set the current camera offset
 		var targetOffset = Vector3.Zero;
 		if ( Player.IsCrouching ) targetOffset += Vector3.Down * 32f;
-		CurrentOffset = Vector3.Lerp( CurrentOffset, targetOffset, Time.Delta * 10f );
+		Player.EyeOffset = Vector3.Lerp( Player.EyeOffset, targetOffset, Time.Delta * 10f );
 
 		// Set position of the camera
 		if ( Scene.Camera is not null )
 		{
-			var camPos = Player.EyePos + CurrentOffset;
+			var camPos = Player.EyePos;
 			if ( !IsFirstPerson )
 			{
 				// Perform a trace backwards to see where we can safely place the camera
