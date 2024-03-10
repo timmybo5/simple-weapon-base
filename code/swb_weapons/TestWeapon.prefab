@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "Id": "3df905f6-9e61-455e-8d34-3bb1ff5208f1",
+    "Id": "8b6382c7-42e8-4e8c-b638-b96f1b670c69",
     "Name": "testweapon",
     "Tags": "weapon",
     "Enabled": true,
@@ -17,21 +17,28 @@
         "AimPlayerFOV": -1,
         "AimSensitivity": 0.85,
         "AnimSpeed": 1,
+        "BulletCocking": true,
         "ClassName": "swb_testweapon",
         "DisplayName": "Test Weapon",
+        "DrawAnim": "deploy",
+        "DrawEmptyAnim": "",
+        "DrawEmptyTime": -1,
+        "DrawTime": 1.2,
         "FOV": 65,
         "HoldType": "Rifle",
-        "Icon": null,
         "Primary": {
           "_type": "component",
-          "go": "3df905f6-9e61-455e-8d34-3bb1ff5208f1",
+          "go": "8b6382c7-42e8-4e8c-b638-b96f1b670c69",
           "component_type": "ShootInfo"
         },
+        "ReloadAnim": "reload",
+        "ReloadEmptyAnim": "reload_empty",
+        "ReloadEmptyTime": -1,
+        "ReloadTime": 1.6,
         "RunAnimData": {
           "Angle": "8.41,36.54,0",
           "Pos": "9.937,0,1.137"
         },
-        "Secondary": null,
         "ViewModel": "weapons/swb/smgs/ump45/v_ump45.vmdl",
         "ViewModelHands": "weapons/swb/hands/police/v_hands_police.vmdl",
         "WorldModel": "weapons/swb/smgs/ump45/w_ump45.vmdl"
@@ -56,7 +63,6 @@
         "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
         "Recoil": 0.35,
         "RPM": 600,
-        "ShootAimedAnim": null,
         "ShootAnim": "fire",
         "ShootEmptyAnim": "",
         "ShootSound": "weapons/swb/smgs/ump45/sounds/ump45.fire.sound",

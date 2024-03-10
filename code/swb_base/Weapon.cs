@@ -67,6 +67,15 @@ public partial class Weapon : Component
 				TimeSinceSecondaryShoot = 0;
 				Shoot( Secondary, false );
 			}
+			else if ( Input.Down( InputButtonHelper.Reload ) )
+			{
+				Reload();
+			}
+
+			if ( IsReloading && TimeSinceReload >= 0 )
+			{
+				OnReloadFinish();
+			}
 		}
 	}
 

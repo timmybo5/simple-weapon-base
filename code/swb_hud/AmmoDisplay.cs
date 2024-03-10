@@ -36,7 +36,7 @@ public class AmmoDisplay : Panel
 		if ( !isAlive || weapon is null ) return;
 
 		var hasClipSize = weapon.Primary.ClipSize > 0;
-		var reserveAmmo = 0;//Math.Min( player.AmmoCount( weapon.Primary.AmmoType ), 999 );
+		var reserveAmmo = Math.Min( player.AmmoCount( weapon.Primary.AmmoType ), 999 );
 		var hasAmmo = weapon.Primary.Ammo > 0;
 
 		if ( weapon.Primary.InfiniteAmmo != InfiniteAmmoType.clip )

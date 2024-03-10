@@ -53,8 +53,11 @@ public partial class PlayerBase : Component, Component.INetworkSpawn
 		if ( !IsProxy )
 		{
 			var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
-			var testWeapon = weaponRegistery.Get( "swb_testweapon" );
-			Inventory.AddClone( testWeapon );
+			var weaponObj = weaponRegistery.Get( "swb_testweapon" );
+			var weapon = weaponObj.Components.Get<Weapon>( true );
+			Inventory.AddClone( weaponObj );
+
+			SetAmmo( weapon.Primary.AmmoType, 360 );
 		}
 	}
 

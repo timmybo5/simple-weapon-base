@@ -14,7 +14,7 @@ public partial class Weapon
 	/// <returns></returns>
 	public virtual bool CanShoot( ShootInfo shootInfo, TimeSince lastAttackTime, string inputButton )
 	{
-		if ( shootInfo is null || !Owner.IsValid() || !Input.Down( inputButton ) || (IsRunning && Secondary is null) ) return false;
+		if ( shootInfo is null || !Owner.IsValid() || IsReloading || !Input.Down( inputButton ) || (IsRunning && Secondary is null) ) return false;
 
 		if ( !HasAmmo() )
 		{
@@ -72,6 +72,9 @@ public partial class Weapon
 
 	public virtual void Shoot( ShootInfo shootInfo, bool isPrimary )
 	{
+		// Ammo
+		shootInfo.Ammo -= 1;
+
 		// Animations
 		var shootAnim = GetShootAnimation( shootInfo );
 		if ( !string.IsNullOrEmpty( shootAnim ) )

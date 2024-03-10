@@ -45,8 +45,7 @@ public partial class Weapon
 		{
 			if ( Owner is PlayerBase player )
 			{
-				//return player.AmmoCount( Primary.AmmoType ) > 0;
-				return true;
+				return player.AmmoCount( Primary.AmmoType ) > 0;
 			}
 			return true;
 		}
