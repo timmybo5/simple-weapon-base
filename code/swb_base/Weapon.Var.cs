@@ -115,4 +115,8 @@ public partial class Weapon
 
 	/// <summary>If the weapon is being aimed</summary>
 	[Sync] public bool IsAiming { get; set; }
+
+	// Private
+	int burstCount = 0;
+	int barrelHeat = 0;
 }

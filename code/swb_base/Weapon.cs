@@ -56,6 +56,10 @@ public partial class Weapon : Component
 			if ( IsAiming )
 				Owner.InputSensitivity = AimSensitivity;
 
+			ResetBurstFireCount( Primary, InputButtonHelper.PrimaryAttack );
+			ResetBurstFireCount( Secondary, InputButtonHelper.SecondaryAttack );
+			BarrelHeatCheck();
+
 			if ( CanPrimaryShoot() )
 			{
 				TimeSincePrimaryShoot = 0;

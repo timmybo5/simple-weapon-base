@@ -1,4 +1,5 @@
 ﻿using SWB.Shared;
+using System;
 using System.Collections.Generic;
 
 namespace SWB.Base;
@@ -20,7 +21,8 @@ public partial class Weapon
 		{
 			if ( Input.Pressed( inputButton ) )
 			{
-				PlaySound( shootInfo.DryShootSound.ResourceId );
+				if ( shootInfo.DryShootSound is not null )
+					PlaySound( shootInfo.DryShootSound.ResourceId );
 
 				// Check for auto reloading
 				//if ( AutoReloadSV > 0 )
@@ -36,18 +38,18 @@ public partial class Weapon
 		}
 
 		if ( shootInfo.FiringType == FiringType.semi && !Input.Pressed( inputButton ) ) return false;
-		//if ( shootInfo.FiringType == FiringType.burst )
-		//{
-		//	if ( burstCount > 2 ) return false;
+		if ( shootInfo.FiringType == FiringType.burst )
+		{
+			if ( burstCount > 2 ) return false;
 
-		//	if ( Input.Down( inputButton ) && lastAttackTime > GetRealRPM( shootInfo.RPM ) )
-		//	{
-		//		burstCount++;
-		//		return true;
-		//	}
+			if ( Input.Down( inputButton ) && lastAttackTime > GetRealRPM( shootInfo.RPM ) )
+			{
+				burstCount++;
+				return true;
+			}
 
-		//	return false;
-		//};
+			return false;
+		};
 
 		if ( shootInfo.RPM <= 0 ) return true;
 
@@ -81,10 +83,14 @@ public partial class Weapon
 			ViewModelRenderer.Set( shootAnim, true );
 
 		// Sound
-		PlaySound( shootInfo.ShootSound.ResourceId );
+		if ( shootInfo.ShootSound is not null )
+			PlaySound( shootInfo.ShootSound.ResourceId );
 
 		// Particles
 		HandleShootEffects( isPrimary );
+
+		// Barrel smoke
+		barrelHeat += 1;
 
 		// UI
 		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
@@ -130,12 +136,34 @@ public partial class Weapon
 		// Weapon
 		var shootInfo = GetShootInfo( isPrimary );
 		var scale = CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
+		var muzzleTransform = GetMuzzleTransform();
 
-		if ( shootInfo.MuzzleFlashParticle is not null )
-			CreateParticle( shootInfo.MuzzleFlashParticle, "muzzle", scale );
-
+		// Bullet eject
 		if ( shootInfo.BulletEjectParticle is not null )
 			CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
+
+		if ( !muzzleTransform.HasValue ) return;
+
+		// Muzzle flash
+		if ( shootInfo.MuzzleFlashParticle is not null )
+			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, scale );
+
+		// Barrel smoke
+		if ( !IsProxy && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
+			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, scale, ( particles ) =>
+			{
+				var transform = GetMuzzleTransform();
+
+				if ( transform.HasValue )
+				{
+					particles?.SetControlPoint( 0, transform.Value.Position );
+					particles?.SetControlPoint( 0, transform.Value.Rotation );
+				}
+				else
+				{
+					particles.Delete();
+				}
+			} );
 	}
 
 	/// <summary>Create a bullet impact effect</summary>
@@ -177,7 +205,7 @@ public partial class Weapon
 	}
 
 	/// <summary>Create a weapon particle</summary>
-	public virtual void CreateParticle( ParticleSystem particle, string attachment, float scale )
+	public virtual void CreateParticle( ParticleSystem particle, string attachment, float scale, Action<SceneParticles> OnFrame = null )
 	{
 		var effectRenderer = GetEffectRenderer();
 
@@ -185,16 +213,21 @@ public partial class Weapon
 
 		var transform = effectRenderer.SceneModel.GetAttachment( attachment );
 
-		if ( transform is null ) return;
+		if ( !transform.HasValue ) return;
 
+		CreateParticle( particle, transform.Value, scale, OnFrame );
+	}
+
+	public virtual void CreateParticle( ParticleSystem particle, Transform transform, float scale, Action<SceneParticles> OnFrame = null )
+	{
 		SceneParticles particles = new( Scene.SceneWorld, particle );
-		particles?.SetControlPoint( 0, transform.Value.Position );
-		particles?.SetControlPoint( 0, transform.Value.Rotation );
+		particles?.SetControlPoint( 0, transform.Position );
+		particles?.SetControlPoint( 0, transform.Rotation );
 		particles?.SetNamedValue( "scale", scale );
 
 		if ( CanSeeViewModel )
 			particles.Tags.Add( TagsHelper.ViewModel );
 
-		particles?.PlayUntilFinished( Task );
+		particles?.PlayUntilFinished( Task, OnFrame );
 	}
 }
