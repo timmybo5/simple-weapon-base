@@ -97,6 +97,15 @@ public class ViewModelHandler : Component
 		var eyeRot = player.EyeAngles.ToRotation();
 		localVel = new Vector3( eyeRot.Right.Dot( player.Velocity ), eyeRot.Forward.Dot( player.Velocity ), player.Velocity.z );
 
+		// Tucking
+		if ( Weapon.RunAnimData != AngPos.Zero && Weapon.ShouldTuck( out var tuckDist ) )
+		{
+			var animationCompletion = Math.Min( 1, ((Weapon.TuckRange - tuckDist) / Weapon.TuckRange) + 0.5f );
+			targetVectorPos = Weapon.RunAnimData.Pos * animationCompletion;
+			targetVectorRot = MathUtil.ToVector3( Weapon.RunAnimData.Angle * animationCompletion );
+			return;
+		}
+
 		HandleIdleAnimation();
 		HandleWalkAnimation();
 		HandleSwayAnimation();
@@ -183,7 +192,7 @@ public class ViewModelHandler : Component
 
 	void HandleIronAnimation()
 	{
-		if ( Weapon.IsAiming )
+		if ( Weapon.IsAiming && Weapon.AimAnimData != AngPos.Zero )
 		{
 			float speedMod = 1;
 			if ( aimTime == 0 )

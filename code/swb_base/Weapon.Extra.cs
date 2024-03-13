@@ -1,4 +1,6 @@
-﻿namespace SWB.Base;
+﻿using SWB.Shared;
+
+namespace SWB.Base;
 
 public partial class Weapon
 {
@@ -20,5 +22,34 @@ public partial class Weapon
 		{
 			barrelHeat = 0;
 		}
+	}
+
+	// Tucking
+	public virtual float GetTuckDist()
+	{
+		if ( TuckRange == -1 )
+			return -1;
+
+		if ( Owner is not IPlayerBase player ) return -1;
+
+		var pos = player.EyePos;
+		var forward = player.EyeAngles.ToRotation().Forward;
+		var trace = TraceBullet( player.EyePos, pos + forward * TuckRange );
+
+		if ( !trace.Hit )
+			return -1;
+
+		return trace.Distance;
+	}
+
+	public bool ShouldTuck()
+	{
+		return GetTuckDist() != -1;
+	}
+
+	public bool ShouldTuck( out float dist )
+	{
+		dist = GetTuckDist();
+		return dist != -1;
 	}
 }

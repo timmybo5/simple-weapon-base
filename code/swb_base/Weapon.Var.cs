@@ -32,21 +32,24 @@ public partial class Weapon
 	/// <summary>Can bullets be cocked in the barrel? (clip ammo + 1)</summary>
 	[Property, Group( "General" )] public bool BulletCocking { get; set; } = true;
 
+	/// <summary>Range that tucking should be enabled (-1 to disable tucking)</summary>
+	[Property, Group( "General" )] public float TuckRange { get; set; } = 30f;
+
 
 	/// <summary>Default weapon field of view</summary>
-	[Property, Group( "FOV" )] public float FOV { get; set; } = 70;
+	[Property, Group( "FOV" )] public float FOV { get; set; } = 70f;
 
 	/// <summary>Weapon FOV while aiming (-1 to use default weapon fov)</summary>
-	[Property, Group( "FOV" )] public float AimFOV { get; set; } = -1;
+	[Property, Group( "FOV" )] public float AimFOV { get; set; } = -1f;
 
 	/// <summary>Player FOV while aiming (-1 to use default player fov)</summary>
 	[Property, Group( "FOV" )] public int AimPlayerFOV { get; set; } = -1;
 
 	/// <summary>FOV aim in speed</summary>
-	[Property, Group( "FOV" ), Title( "Aim in FOV speed" )] public float AimInFOVSpeed { get; set; } = 1;
+	[Property, Group( "FOV" ), Title( "Aim in FOV speed" )] public float AimInFOVSpeed { get; set; } = 1f;
 
 	/// <summary>FOV aim out speed</summary>
-	[Property, Group( "FOV" ), Title( "Aim out FOV speed" )] public float AimOutFOVSpeed { get; set; } = 1;
+	[Property, Group( "FOV" ), Title( "Aim out FOV speed" )] public float AimOutFOVSpeed { get; set; } = 1f;
 
 
 	/// <summary>Procedural animation speed (lower is slower)</summary>

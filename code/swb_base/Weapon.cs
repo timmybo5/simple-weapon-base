@@ -60,12 +60,14 @@ public partial class Weapon : Component
 			ResetBurstFireCount( Secondary, InputButtonHelper.SecondaryAttack );
 			BarrelHeatCheck();
 
-			if ( CanPrimaryShoot() )
+			var shouldTuck = ShouldTuck();
+
+			if ( CanPrimaryShoot() && !shouldTuck )
 			{
 				TimeSincePrimaryShoot = 0;
 				Shoot( Primary, true );
 			}
-			else if ( CanSecondaryShoot() )
+			else if ( CanSecondaryShoot() && !shouldTuck )
 			{
 				TimeSinceSecondaryShoot = 0;
 				Shoot( Secondary, false );
