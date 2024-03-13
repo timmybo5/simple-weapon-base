@@ -38,6 +38,7 @@ public class ViewModelHandler : Component
 
 	// Helpful values
 	Vector3 localVel;
+	bool isAiming;
 
 	protected override void OnStart()
 	{
@@ -97,17 +98,20 @@ public class ViewModelHandler : Component
 		var eyeRot = player.EyeAngles.ToRotation();
 		localVel = new Vector3( eyeRot.Right.Dot( player.Velocity ), eyeRot.Forward.Dot( player.Velocity ), player.Velocity.z );
 
+		HandleIdleAnimation();
+		HandleWalkAnimation();
+
 		// Tucking
-		if ( Weapon.RunAnimData != AngPos.Zero && Weapon.ShouldTuck( out var tuckDist ) )
+		var shouldTuck = Weapon.ShouldTuck( out var tuckDist );
+		isAiming = !shouldTuck && Weapon.IsAiming;
+		if ( Weapon.RunAnimData != AngPos.Zero && shouldTuck )
 		{
 			var animationCompletion = Math.Min( 1, ((Weapon.TuckRange - tuckDist) / Weapon.TuckRange) + 0.5f );
-			targetVectorPos = Weapon.RunAnimData.Pos * animationCompletion;
-			targetVectorRot = MathUtil.ToVector3( Weapon.RunAnimData.Angle * animationCompletion );
+			targetVectorPos += Weapon.RunAnimData.Pos * animationCompletion;
+			targetVectorRot += MathUtil.ToVector3( Weapon.RunAnimData.Angle * animationCompletion );
 			return;
 		}
 
-		HandleIdleAnimation();
-		HandleWalkAnimation();
 		HandleSwayAnimation();
 		HandleIronAnimation();
 		HandleSprintAnimation();
@@ -117,7 +121,7 @@ public class ViewModelHandler : Component
 	void HandleIdleAnimation()
 	{
 		// No swaying if aiming
-		if ( Weapon.IsAiming )
+		if ( isAiming )
 			return;
 
 		// Perform a "breathing" animation
@@ -151,13 +155,13 @@ public class ViewModelHandler : Component
 		}
 
 		// Check for sideways velocity to sway the gun slightly
-		if ( Weapon.IsAiming || localVel.x > 0.0f )
+		if ( isAiming || localVel.x > 0.0f )
 			roll = -7.0f * (localVel.x / maxWalkSpeed);
 		else if ( localVel.x < 0.0f )
 			yaw = 3.0f * (localVel.x / maxWalkSpeed);
 
 		// Check if ADS & firing
-		if ( Weapon.IsAiming && Weapon.TimeSincePrimaryShoot < 0.1f )
+		if ( isAiming && Weapon.TimeSincePrimaryShoot < 0.1f )
 		{
 			targetVectorRot -= new Vector3( 0, 0, roll );
 			return;
@@ -174,7 +178,7 @@ public class ViewModelHandler : Component
 		int swayspeed = 5;
 
 		// Fix the sway faster if we're ironsighting
-		if ( Weapon.IsAiming )
+		if ( isAiming )
 			swayspeed = 20;
 
 		// Lerp the eye position
@@ -192,7 +196,7 @@ public class ViewModelHandler : Component
 
 	void HandleIronAnimation()
 	{
-		if ( Weapon.IsAiming && Weapon.AimAnimData != AngPos.Zero )
+		if ( isAiming && Weapon.AimAnimData != AngPos.Zero )
 		{
 			float speedMod = 1;
 			if ( aimTime == 0 )
@@ -277,7 +281,7 @@ targetVectorRot += MathUtil.ToVector3( Weapon.CustomizeAnimData.Angle );
 		}
 
 		// If we're not ironsighting, do a fancy jump animation
-		if ( !Weapon.IsAiming )
+		if ( !isAiming )
 		{
 			if ( jumpTime > RealTime.Now )
 			{
