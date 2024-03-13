@@ -12,11 +12,15 @@ public class CameraMovement : Component
 	[Property] public GameObject Head { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
 	public float InputSensitivity { get; set; } = 1f;
-
-	private Vector3 CurrentOffset = Vector3.Zero;
 	public bool IsFirstPerson => Distance == 0f;
 
 	protected override void OnAwake() { }
+
+	protected override void OnStart()
+	{
+		if ( Player.IsBot )
+			Enabled = false;
+	}
 
 	protected override void OnUpdate()
 	{

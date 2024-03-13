@@ -94,12 +94,8 @@ public class ViewModelHandler : Component
 		// I'm sure there's something already that does this for me, but I spend an hour
 		// searching through the wiki and a bunch of other garbage and couldn't find anything...
 		// So I'm doing it manually. Problem solved.
-		var test = player.EyeAngles.ToRotation();
-		localVel = new Vector3( test.Right.Dot( player.Velocity ), test.Forward.Dot( player.Velocity ), player.Velocity.z );
-		//localVel = player.GameObject.
-		//localVel = new Vector3( player.Transform.Rotation.Inverse.x, player.Transform.Rotation.Inverse.y, player.Velocity.z );
-		//localVel = player.Velocity.Inverse;
-
+		var eyeRot = player.EyeAngles.ToRotation();
+		localVel = new Vector3( eyeRot.Right.Dot( player.Velocity ), eyeRot.Forward.Dot( player.Velocity ), player.Velocity.z );
 
 		HandleIdleAnimation();
 		HandleWalkAnimation();
@@ -154,8 +150,8 @@ public class ViewModelHandler : Component
 		// Check if ADS & firing
 		if ( Weapon.IsAiming && Weapon.TimeSincePrimaryShoot < 0.1f )
 		{
-			//targetVectorRot -= new Vector3( 0, 0, roll );
-			//return;
+			targetVectorRot -= new Vector3( 0, 0, roll );
+			return;
 		}
 
 		// Perform walk cycle

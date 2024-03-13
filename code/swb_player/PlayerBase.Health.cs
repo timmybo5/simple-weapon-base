@@ -11,12 +11,15 @@ public partial class PlayerBase
 	[Broadcast]
 	public virtual void TakeDamage( Shared.DamageInfo info )
 	{
-		if ( IsProxy )
+		if ( IsProxy || !IsAlive )
 			return;
 
 		Health -= (int)info.Damage;
 
 		if ( Health <= 0 )
+		{
+			Ragdoll( info.Force );
 			Respawn();
+		}
 	}
 }

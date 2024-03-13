@@ -1,4 +1,5 @@
 using Sandbox.Network;
+using SWB.Player;
 
 namespace Facepunch.Arena;
 
@@ -24,5 +25,12 @@ public class NetworkManager : Component, Component.INetworkListener
 		var player = PlayerPrefab.Clone();
 		player.Name = "Player";
 		player.NetworkSpawn( connection );
+
+
+		var botGO = PlayerPrefab.Clone();
+		var botPlayer = botGO.Components.Get<PlayerBase>();
+		botPlayer.IsBot = true;
+		botGO.Name = "Bot";
+		botGO.NetworkSpawn();
 	}
 }

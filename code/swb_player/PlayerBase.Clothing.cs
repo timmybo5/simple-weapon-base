@@ -38,7 +38,7 @@ public partial class PlayerBase
 			} );
 		}
 
-		if ( !IsProxy && IsFirstPerson )
+		if ( !IsProxy && IsAlive && IsFirstPerson )
 		{
 			BodyRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
 		}

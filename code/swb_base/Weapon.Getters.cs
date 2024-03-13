@@ -13,6 +13,36 @@ public partial class Weapon
 	}
 
 	/// <summary>
+	/// Gets the info on where to show the muzzle effect
+	/// </summary>
+	public virtual Transform? GetMuzzleTransform()
+	{
+		//var activeAttachment = GetActiveAttachmentFromCategory( AttachmentCategoryName.Muzzle );
+		var effectRenderer = GetEffectRenderer();
+		var attachment = "muzzle";
+
+		//if ( activeAttachment != null )
+		//{
+		//	var attachment = GetAttachment( activeAttachment.Name );
+		//	particleAttachment = attachment.EffectAttachment;
+
+		//	if ( attachment is OffsetAttachment )
+		//	{
+		//		if ( CanSeeViewModel() )
+		//		{
+		//			effectEntity = activeAttachment.ViewAttachmentModel;
+		//		}
+		//		else
+		//		{
+		//			effectEntity = activeAttachment.WorldAttachmentModel;
+		//		}
+		//	}
+		//}
+
+		return effectRenderer?.GetAttachment( attachment );
+	}
+
+	/// <summary>
 	/// Gets the correct shoot animation
 	/// </summary>
 	/// <param name="shootInfo">Info used for the current attack</param>

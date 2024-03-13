@@ -15,6 +15,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Property] public CameraComponent Camera { get; set; }
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 
+	public bool IsBot { get; set; }
+
 	public IInventory Inventory { get; set; }
 	public bool IsFirstPerson => cameraMovement.IsFirstPerson;
 	public float InputSensitivity
@@ -29,6 +31,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		Inventory = new Inventory( this );
 		cameraMovement = Components.GetInChildren<CameraMovement>();
+
+		if ( IsBot ) return;
 
 		OnMovementAwake();
 	}
@@ -45,11 +49,20 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	protected override void OnStart()
 	{
-		if ( IsProxy )
+		if ( IsProxy || IsBot )
 		{
 			Camera.Enabled = false;
 			ViewModelCamera.Enabled = false;
 		}
+
+		if ( IsBot )
+		{
+			var screenPanel = Components.GetInChildrenOrSelf<ScreenPanel>();
+			screenPanel.Enabled = false;
+			return;
+		}
+
+		if ( IsBot ) return;
 
 		if ( !IsProxy )
 		{
@@ -64,6 +77,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public virtual void Respawn()
 	{
+		Unragdoll();
 		Health = MaxHealth;
 
 		var spawnLocation = GetSpawnLocation();
@@ -85,16 +99,18 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	protected override void OnUpdate()
 	{
-		if ( !IsProxy ) ViewModelCamera.Enabled = IsFirstPerson;
+		if ( IsBot ) return;
+		if ( !IsProxy ) ViewModelCamera.Enabled = IsFirstPerson && IsAlive;
 
-		OnMovementUpdate();
+		if ( IsAlive )
+			OnMovementUpdate();
+
 		UpdateClothes();
 	}
 
 	protected override void OnFixedUpdate()
 	{
+		if ( !IsAlive || IsBot ) return;
 		OnMovementFixedUpdate();
 	}
-
-
 }
