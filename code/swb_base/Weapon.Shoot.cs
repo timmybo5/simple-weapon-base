@@ -150,7 +150,7 @@ public partial class Weapon
 
 		// Barrel smoke
 		if ( !IsProxy && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
-			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, scale, ( particles ) =>
+			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, shootInfo.VMParticleScale, ( particles ) =>
 			{
 				var transform = GetMuzzleTransform();
 
@@ -161,7 +161,7 @@ public partial class Weapon
 				}
 				else
 				{
-					particles.Delete();
+					particles?.Delete();
 				}
 			} );
 	}
