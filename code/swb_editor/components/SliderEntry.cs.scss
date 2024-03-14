@@ -1,0 +1,19 @@
+﻿SliderEntry {
+    font-family: Poppins;
+
+    Slider {
+        width: 80%;
+    }
+
+    .TextEntry {
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        width: 60px;
+        border-radius: 12px;
+        margin-right: 10px;
+        background-color: rgba( black, 0.5 );
+        color: white;
+        font-size: 14px;
+    }
+}

@@ -9,6 +9,12 @@ public class ViewModelHandler : Component
 	public SkinnedModelRenderer ViewModelHandsRenderer { get; set; }
 	public Weapon Weapon { get; set; }
 	public CameraComponent Camera { get; set; }
+
+	// Editor
+	public bool EditorMode { get; set; }
+	public AngPos EditorOffset { get; set; }
+	public float EditorFOV { get; set; }
+
 	IPlayerBase player => Weapon.Owner;
 
 	float animSpeed = 1;
@@ -91,6 +97,15 @@ public class ViewModelHandler : Component
 		// targetPlayerFOV = Game.Preferences.FieldOfView;
 		targetPlayerFOV = 90;
 		targetWeaponFOV = Weapon.FOV;
+
+		// Editor mode
+		if ( EditorMode )
+		{
+			targetVectorRot += MathUtil.ToVector3( EditorOffset.Angle );
+			targetVectorPos += EditorOffset.Pos;
+			targetWeaponFOV = EditorFOV;
+			return;
+		}
 
 		// I'm sure there's something already that does this for me, but I spend an hour
 		// searching through the wiki and a bunch of other garbage and couldn't find anything...

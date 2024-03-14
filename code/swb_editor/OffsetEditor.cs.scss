@@ -1,0 +1,159 @@
+﻿$dragMode: #e67e22;
+
+OffsetEditor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    pointer-events: all;
+
+    .canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+
+        & > .dot {
+            background-color: red;
+            margin: 2px 0 0 2px;
+            width: 2px;
+            height: 2px;
+            box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.4);
+        }
+    }
+
+    .hint {
+        position: absolute;
+        flex-direction: column;
+        top: 25%;
+        right: 50%;
+        transform: translate(50%,-50%);
+        font-family: Poppins;
+        text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+
+        text {
+            &.highlight {
+                color: $dragMode;
+            }
+        }
+
+        .title {
+            font-size: 34px;
+            color: white;
+        }
+
+        .subTitle {
+            font-size: 24px;
+            text-align: center;
+            color: $dragMode;
+
+            label {
+                width: 100%;
+            }
+        }
+    }
+
+    .menu {
+        flex-direction: column;
+        width: 400px;
+        height: 800px;
+        background-color: rgb(31, 31, 31);
+        top: 10px;
+        left: 10px;
+        font-family: Poppins;
+        border-radius: 4px;
+        color: white;
+
+        label {
+            text-align: center;
+        }
+
+        .title {
+            font-size: 50px;
+            height: 75px;
+            text-align: center;
+            margin-bottom: 10px;
+
+            label {
+                width: 100%;
+            }
+        }
+
+        .subTitle {
+            font-size: 20px;
+            margin: 20px 0 10px 0;
+            width: 100%;
+            text-align: center;
+
+            label {
+                width: 100%;
+            }
+        }
+
+        button {
+            cursor: pointer;
+            color: white;
+            text-align: center;
+            width: 120px;
+            margin: 0 25px 0 25px;
+            border: 2px;
+            height: 30px;
+            border-color: transparent;
+            border-radius: 4px;
+            align-items: center;
+
+            label {
+                width: 100%;
+                font-size: 18px;
+                font-weight: bold;
+                transition: font-size 0.05s ease-in-out;
+
+                &:active {
+                    font-size: 24px;
+                }
+            }
+
+            &:hover {
+                border-color: white;
+            }
+
+            &:active {
+                border-color: transparent;
+            }
+        }
+
+        .dataButtons {
+            justify-content: center;
+            align-items: center;
+            margin-top: 0px;
+            height: 20px;
+            flex-wrap: wrap;
+
+            button {
+                margin: 8px;
+                width: 180px;
+
+                &.large {
+                    width: 240px;
+                }
+
+                label {
+                    font-size: 16px;
+
+                    &:active {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+
+        .buttonContainer {
+            justify-content: center;
+            align-items: center;
+            margin-top: 80px;
+            height: 60px;
+        }
+    }
+}
