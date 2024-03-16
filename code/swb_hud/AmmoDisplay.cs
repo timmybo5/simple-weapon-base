@@ -29,10 +29,8 @@ public class AmmoDisplay : Panel
 	public override void Tick()
 	{
 		var isAlive = player.IsAlive;
-		SetClass( "hide", !isAlive );
-
 		var weapon = player.Inventory.Active?.Components.Get<Weapon>();
-
+		SetClass( "hide", !isAlive || weapon is null );
 		if ( !isAlive || weapon is null ) return;
 
 		var hasClipSize = weapon.Primary.ClipSize > 0;

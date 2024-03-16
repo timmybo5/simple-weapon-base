@@ -8,4 +8,5 @@ public interface IInventory
 	public void AddClone( GameObject gamePrefab, bool makeActive = true );
 	public bool Has( GameObject gameObject );
 	public void SetActive( GameObject gameObject );
+	public void Clear();
 }

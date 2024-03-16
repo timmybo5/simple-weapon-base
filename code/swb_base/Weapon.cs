@@ -18,17 +18,23 @@ public partial class Weapon : Component
 		Tags.Add( TagsHelper.Weapon );
 	}
 
+	protected override void OnDestroy()
+	{
+		ViewModelRenderer?.GameObject?.Destroy();
+	}
+
 	protected override void OnEnabled()
 	{
-
+		if ( IsProxy ) return;
+		if ( ViewModelRenderer?.GameObject is not null )
+			ViewModelRenderer.GameObject.Enabled = true;
 	}
 
 	protected override void OnDisabled()
 	{
-		if ( !IsProxy )
-		{
-			DestroyUI();
-		}
+		if ( IsProxy ) return;
+		if ( ViewModelRenderer?.GameObject is not null )
+			ViewModelRenderer.GameObject.Enabled = false;
 	}
 
 	protected override void OnStart()

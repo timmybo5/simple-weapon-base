@@ -1,7 +1,7 @@
 using Sandbox.Network;
 using SWB.Player;
 
-namespace Facepunch.Arena;
+namespace SWB.Demo;
 
 [Group( "SWB" )]
 [Title( "Example NetworkManager" )]

@@ -1,6 +1,4 @@
-﻿using SWB.Shared;
-
-namespace SWB.Base;
+﻿namespace SWB.Base;
 
 public partial class Weapon
 {
@@ -30,11 +28,11 @@ public partial class Weapon
 		if ( TuckRange == -1 )
 			return -1;
 
-		if ( Owner is not IPlayerBase player ) return -1;
+		if ( !Owner.IsValid ) return -1;
 
-		var pos = player.EyePos;
-		var forward = player.EyeAngles.ToRotation().Forward;
-		var trace = TraceBullet( player.EyePos, pos + forward * TuckRange );
+		var pos = Owner.EyePos;
+		var forward = Owner.EyeAngles.ToRotation().Forward;
+		var trace = TraceBullet( Owner.EyePos, pos + forward * TuckRange );
 
 		if ( !trace.Hit )
 			return -1;

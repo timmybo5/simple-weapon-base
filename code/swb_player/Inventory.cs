@@ -51,4 +51,15 @@ public class Inventory : IInventory
 
 		gameObject.Enabled = true;
 	}
+
+	public void Clear()
+	{
+		Items.ForEach( ( item ) =>
+		{
+			item.Destroy();
+		} );
+
+		Items.Clear();
+		Active = null;
+	}
 }

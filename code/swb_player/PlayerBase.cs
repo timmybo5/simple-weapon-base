@@ -40,11 +40,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public void OnNetworkSpawn( Connection connection )
 	{
 		ApplyClothes( connection );
-
-		if ( !IsProxy )
-		{
-			Respawn();
-		}
 	}
 
 	protected override void OnStart()
@@ -59,20 +54,20 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		{
 			var screenPanel = Components.GetInChildrenOrSelf<ScreenPanel>();
 			screenPanel.Enabled = false;
-			return;
 		}
-
-		if ( IsBot ) return;
 
 		if ( !IsProxy )
 		{
-			var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
-			var weaponObj = weaponRegistery.Get( "swb_revolver" );
-			var weapon = weaponObj.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponObj );
-
-			SetAmmo( weapon.Primary.AmmoType, 360 );
+			Respawn();
 		}
+	}
+
+	public virtual void OnDeath( Shared.DamageInfo info )
+	{
+		CharacterController.Velocity = 0;
+		Ragdoll( info.Force );
+		Inventory.Clear();
+		//Respawn();
 	}
 
 	public virtual void Respawn()
@@ -83,6 +78,17 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		var spawnLocation = GetSpawnLocation();
 		Transform.Position = spawnLocation.Position;
 		Transform.Rotation = spawnLocation.Rotation;
+
+		// Give weapon
+		if ( !IsBot )
+		{
+			var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
+			var weaponObj = weaponRegistery.Get( "swb_revolver" );
+			var weapon = weaponObj.Components.Get<Weapon>( true );
+			Inventory.AddClone( weaponObj );
+
+			SetAmmo( weapon.Primary.AmmoType, 360 );
+		}
 	}
 
 	public virtual Transform GetSpawnLocation()

@@ -25,7 +25,7 @@ Layer0
 	g_bFogEnabled "1"
 
 	//---- Metalness ----
-	g_flMetalness "0.000"
+	g_flMetalness "0.100"
 
 	//---- Normal ----
 	TextureNormal "weapons/swb/revolver/textures/revolver_normal.png"

@@ -18,8 +18,7 @@ public partial class PlayerBase
 
 		if ( Health <= 0 )
 		{
-			Ragdoll( info.Force );
-			Respawn();
+			OnDeath( info );
 		}
 	}
 }
