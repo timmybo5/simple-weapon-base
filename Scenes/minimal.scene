@@ -361,6 +361,10 @@
             {
               "_type": "gameobject",
               "prefab": "code/swb_weapons/scarh.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "code/swb_weapons/revolver.prefab"
             }
           ]
         }
@@ -404,6 +408,14 @@
           "Tags": "weapon",
           "NetworkMode": 2,
           "__Prefab": "code/swb_weapons/scarh.prefab"
+        },
+        {
+          "__guid": "83e30f50-cc0a-486c-93ed-fa06bc1ae007",
+          "Name": "swb_revolver",
+          "Position": "-205.4098,-172.8566,497.7671",
+          "Tags": "weapon",
+          "NetworkMode": 2,
+          "__Prefab": "code/swb_weapons/revolver.prefab"
         }
       ]
     }
@@ -431,7 +443,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-15T23:12:42.6693904\u002B02:00",
+  "LastSaved": "2024-03-16T19:51:36.2305314\u002B02:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

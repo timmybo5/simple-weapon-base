@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "ecd936e1-0a53-4e8f-af52-13810b21b80f",
+    "__guid": "1df8e3f8-ae62-4316-a1af-61bb8d6db56e",
     "Name": "scarh",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "dfe8fd4a-1469-4a7f-9c19-743e10fb3f52",
+        "__guid": "2dc15ee2-3559-48b8-80d7-f3e46c58bb13",
         "AimAnimData": {
           "Angle": "-0.1,0.33,3.9",
           "Pos": "-2.146,0.36,0.383"
@@ -20,7 +20,7 @@
         "AnimSpeed": 1,
         "BulletCocking": true,
         "ClassName": "swb_scarh",
-        "DisplayName": "Test Weapon",
+        "DisplayName": "Scar-H",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
         "DrawEmptyTime": -1,
@@ -29,8 +29,8 @@
         "HoldType": "Rifle",
         "Primary": {
           "_type": "component",
-          "component_id": "a3e8e1bb-36a5-4a42-8ab3-434b24367302",
-          "go": "ecd936e1-0a53-4e8f-af52-13810b21b80f",
+          "component_id": "081938d7-a83b-48f9-9898-99660894280e",
+          "go": "1df8e3f8-ae62-4316-a1af-61bb8d6db56e",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -47,7 +47,7 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "a3e8e1bb-36a5-4a42-8ab3-434b24367302",
+        "__guid": "081938d7-a83b-48f9-9898-99660894280e",
         "Ammo": 30,
         "AmmoType": "smg",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -62,7 +62,7 @@
         "FiringType": "auto",
         "Force": 3,
         "HitFlinch": 1.25,
-        "InfiniteAmmo": "disabled",
+        "InfiniteAmmo": "reserve",
         "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
         "Recoil": 0.35,
         "RPM": 600,

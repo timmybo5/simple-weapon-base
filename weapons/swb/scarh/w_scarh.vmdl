@@ -65,7 +65,7 @@
 						_class = "PhysicsMeshFile"
 						name = "scar"
 						parent_bone = ""
-						surface_prop = "default"
+						surface_prop = "metal"
 						collision_tags = "solid"
 						recenter_on_parent_bone = false
 						offset_origin = [ -8.5, 3.0, -29.0 ]

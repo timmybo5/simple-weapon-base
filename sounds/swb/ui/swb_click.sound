@@ -1,0 +1,13 @@
+{
+	"sounds":
+	[
+		"sounds/swb/ui/swb_click.vsnd"
+	],
+	"ui": true,
+	"volume": 0.100000,
+	"volumerandom": 0.000000,
+	"pitch": 1.000000,
+	"pitchrandom": 0.000000,
+	"distancemax": 1000.000000,
+	"selectionmode": "3"
+}

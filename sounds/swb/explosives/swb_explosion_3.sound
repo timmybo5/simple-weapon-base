@@ -1,0 +1,15 @@
+{
+	"UI": false,
+	"Volume": 1,
+	"VolumeRandom": 0,
+	"Pitch": 1,
+	"PitchRandom": 0,
+	"Decibels": 170,
+	"Sounds":
+	[
+		"sounds/swb/explosives/swb_explosion_3.vsnd"
+	],
+	"SelectionMode": "Random",
+	"MaximumDistance": 6590.138000,
+	"MinimumDistance": 329.506930
+}

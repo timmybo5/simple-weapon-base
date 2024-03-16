@@ -1,0 +1,85 @@
+{
+  "RootObject": {
+    "__guid": "b3451dda-23de-47ea-b950-7065527337e7",
+    "Name": "revolver",
+    "Tags": "weapon",
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Weapon",
+        "__guid": "1e54daf9-d3db-45bd-a206-b916e249305b",
+        "AimAnimData": {
+          "Angle": "0.94,-0.03,0",
+          "Pos": "-2.797,0,0.848"
+        },
+        "AimFOV": 35,
+        "AimInFOVSpeed": 1,
+        "AimOutFOVSpeed": 1,
+        "AimPlayerFOV": -1,
+        "AimSensitivity": 0.85,
+        "AnimSpeed": 1,
+        "BulletCocking": false,
+        "ClassName": "swb_revolver",
+        "DisplayName": "Raging Bull",
+        "DrawAnim": "deploy",
+        "DrawEmptyAnim": "",
+        "DrawEmptyTime": -1,
+        "DrawTime": 0.8,
+        "FOV": 65,
+        "HoldType": "Pistol",
+        "Primary": {
+          "_type": "component",
+          "component_id": "54c509bf-c8a8-40b9-bd93-8431e8fbd580",
+          "go": "b3451dda-23de-47ea-b950-7065527337e7",
+          "component_type": "ShootInfo"
+        },
+        "ReloadAnim": "reload",
+        "ReloadEmptyAnim": "reload_empty",
+        "ReloadEmptyTime": -1,
+        "ReloadTime": 3.67,
+        "RunAnimData": {
+          "Angle": "-34.06,-15,0",
+          "Pos": "0.123,0,-5.678"
+        },
+        "TuckRange": 30,
+        "ViewModel": "weapons/swb/revolver/v_revolver.vmdl",
+        "WorldModel": "weapons/swb/revolver/w_revolver.vmdl"
+      },
+      {
+        "__type": "ShootInfo",
+        "__guid": "54c509bf-c8a8-40b9-bd93-8431e8fbd580",
+        "Ammo": 6,
+        "AmmoType": "smg",
+        "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
+        "Bullets": 1,
+        "BulletSize": 2,
+        "BulletTracerChance": 0.33,
+        "BulletTracerParticle": "particles/swb/tracer/tracer.vpcf",
+        "ClipSize": 6,
+        "Damage": 50,
+        "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",
+        "FiringType": "semi",
+        "Force": 3,
+        "HitFlinch": 1.25,
+        "InfiniteAmmo": "reserve",
+        "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
+        "Recoil": 0.35,
+        "RPM": 100,
+        "ShootAimedAnim": "",
+        "ShootAnim": "fire",
+        "ShootEmptyAnim": "",
+        "ShootSound": "weapons/swb/revolver/sounds/revolver.fire.sound",
+        "Spread": 0.08,
+        "VMParticleScale": 1.3,
+        "WMParticleScale": 1.8
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

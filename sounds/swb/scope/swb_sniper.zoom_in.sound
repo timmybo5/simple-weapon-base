@@ -1,0 +1,12 @@
+{
+	"sounds":
+	[
+		"sounds/swb/scope/swb_sniper.zoom_in.vsnd"
+	],
+	"UI": false,
+	"Volume": 1.000000,
+	"VolumeRandom": 0.000000,
+	"Pitch": 1.000000,
+	"PitchRandom": 0.000000,
+	"DistanceMax": 1000.000000
+}
