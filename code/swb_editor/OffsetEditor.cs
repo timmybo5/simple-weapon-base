@@ -73,7 +73,7 @@ public partial class OffsetEditor
 	{
 		Log.Info( "-- " + weapon.DisplayName );
 		Log.Info( String.Format( "Angle = {0:0.###}f, {1:0.###}f, {2:0.###}f", Pitch, Yaw, Roll ) );
-		Log.Info( String.Format( "Pos = {0:0.###}f, {1:0.###}f, {2:0.###}f", Pitch, Yaw, Roll ) );
+		Log.Info( String.Format( "Pos = {0:0.###}f, {1:0.###}f, {2:0.###}f", X, Y, Z ) );
 		Log.Info( String.Format( "FOV = {0:0.###}f", FOV ) );
 		Log.Info( "--" );
 	}

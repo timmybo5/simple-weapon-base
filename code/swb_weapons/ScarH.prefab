@@ -1,0 +1,88 @@
+{
+  "RootObject": {
+    "__guid": "ecd936e1-0a53-4e8f-af52-13810b21b80f",
+    "Name": "scarh",
+    "Tags": "weapon",
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Weapon",
+        "__guid": "dfe8fd4a-1469-4a7f-9c19-743e10fb3f52",
+        "AimAnimData": {
+          "Angle": "-0.1,0.33,3.9",
+          "Pos": "-2.146,0.36,0.383"
+        },
+        "AimFOV": 35,
+        "AimInFOVSpeed": 1,
+        "AimOutFOVSpeed": 1,
+        "AimPlayerFOV": -1,
+        "AimSensitivity": 0.85,
+        "AnimSpeed": 1,
+        "BulletCocking": true,
+        "ClassName": "swb_scarh",
+        "DisplayName": "Test Weapon",
+        "DrawAnim": "deploy",
+        "DrawEmptyAnim": "",
+        "DrawEmptyTime": -1,
+        "DrawTime": 0.75,
+        "FOV": 65,
+        "HoldType": "Rifle",
+        "Primary": {
+          "_type": "component",
+          "component_id": "a3e8e1bb-36a5-4a42-8ab3-434b24367302",
+          "go": "ecd936e1-0a53-4e8f-af52-13810b21b80f",
+          "component_type": "ShootInfo"
+        },
+        "ReloadAnim": "reload",
+        "ReloadEmptyAnim": "reload_empty",
+        "ReloadEmptyTime": -1,
+        "ReloadTime": 4.38,
+        "RunAnimData": {
+          "Angle": "8.41,48.85,0",
+          "Pos": "3.263,4.46,-1.097"
+        },
+        "TuckRange": 30,
+        "ViewModel": "weapons/swb/scarh/v_scarh.vmdl",
+        "WorldModel": "weapons/swb/scarh/w_scarh.vmdl"
+      },
+      {
+        "__type": "ShootInfo",
+        "__guid": "a3e8e1bb-36a5-4a42-8ab3-434b24367302",
+        "Ammo": 30,
+        "AmmoType": "smg",
+        "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
+        "BulletEjectParticle": "models/weapons/sbox_ammo/9mm_bullet/9mm_ejectbrass.vpcf",
+        "Bullets": 1,
+        "BulletSize": 2,
+        "BulletTracerChance": 0.33,
+        "BulletTracerParticle": "particles/swb/tracer/tracer.vpcf",
+        "ClipSize": 30,
+        "Damage": 25,
+        "DryShootSound": "sounds/swb/clip/swb_rifle.empty.sound",
+        "FiringType": "auto",
+        "Force": 3,
+        "HitFlinch": 1.25,
+        "InfiniteAmmo": "disabled",
+        "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
+        "Recoil": 0.35,
+        "RPM": 600,
+        "ShootAimedAnim": "fireAimed",
+        "ShootAnim": "fire",
+        "ShootEmptyAnim": "",
+        "ShootSound": "weapons/swb/scarh/sounds/scar.fire.sound",
+        "Spread": 0.08,
+        "VMParticleScale": 1.3,
+        "WMParticleScale": 1
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": [
+    "facepunch.9mm_ejectbrass"
+  ]
+}

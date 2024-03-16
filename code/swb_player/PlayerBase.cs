@@ -67,7 +67,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		if ( !IsProxy )
 		{
 			var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
-			var weaponObj = weaponRegistery.Get( "swb_testweapon" );
+			var weaponObj = weaponRegistery.Get( "swb_scarh" );
 			var weapon = weaponObj.Components.Get<Weapon>( true );
 			Inventory.AddClone( weaponObj );
 

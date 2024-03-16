@@ -82,7 +82,7 @@ public class ShootInfo : Component
 	/// <summary>Animation used for shooting the last bullet</summary>
 	[Property, Group( "Animations" )] public string ShootEmptyAnim { get; set; } = "";
 
-	/// <summary>Animation used for shooting while zoooming</summary>
+	/// <summary>Animation used for shooting while zooming</summary>
 	[Property, Group( "Animations" )] public string ShootAimedAnim { get; set; }
 
 	// Sounds //

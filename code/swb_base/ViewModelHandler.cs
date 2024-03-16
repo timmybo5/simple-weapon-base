@@ -59,7 +59,9 @@ public class ViewModelHandler : Component
 	protected override void OnUpdate()
 	{
 		ViewModelRenderer.Enabled = player.IsFirstPerson;
-		ViewModelHandsRenderer.Enabled = player.IsFirstPerson;
+
+		if ( ViewModelHandsRenderer is not null )
+			ViewModelHandsRenderer.Enabled = player.IsFirstPerson;
 
 		if ( !player.IsFirstPerson ) return;
 
@@ -211,7 +213,7 @@ public class ViewModelHandler : Component
 
 	void HandleIronAnimation()
 	{
-		if ( isAiming && Weapon.AimAnimData != AngPos.Zero )
+		if ( isAiming && !Weapon.IsReloading && Weapon.AimAnimData != AngPos.Zero )
 		{
 			float speedMod = 1;
 			if ( aimTime == 0 )
