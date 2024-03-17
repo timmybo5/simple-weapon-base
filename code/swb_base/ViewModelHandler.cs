@@ -117,6 +117,7 @@ public class ViewModelHandler : Component
 
 		HandleIdleAnimation();
 		HandleWalkAnimation();
+		HandleJumpAnimation();
 
 		// Tucking
 		var shouldTuck = Weapon.ShouldTuck( out var tuckDist );
@@ -132,7 +133,6 @@ public class ViewModelHandler : Component
 		HandleSwayAnimation();
 		HandleIronAnimation();
 		HandleSprintAnimation();
-		HandleJumpAnimation();
 	}
 
 	void HandleIdleAnimation()

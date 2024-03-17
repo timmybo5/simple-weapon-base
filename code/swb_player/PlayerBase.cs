@@ -83,10 +83,14 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		if ( !IsBot )
 		{
 			var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
-			var weaponObj = weaponRegistery.Get( "swb_revolver" );
-			var weapon = weaponObj.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponObj );
+			var weaponGO = weaponRegistery.Get( "swb_revolver" );
+			var weapon = weaponGO.Components.Get<Weapon>( true );
+			Inventory.AddClone( weaponGO );
+			SetAmmo( weapon.Primary.AmmoType, 360 );
 
+			weaponGO = weaponRegistery.Get( "swb_scarh" );
+			weapon = weaponGO.Components.Get<Weapon>( true );
+			Inventory.AddClone( weaponGO );
 			SetAmmo( weapon.Primary.AmmoType, 360 );
 		}
 	}

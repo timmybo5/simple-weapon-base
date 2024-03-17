@@ -8,7 +8,7 @@ internal class Commands
 {
 	static OffsetEditor offsetEditor;
 
-	private static PlayerBase GetPlayer()
+	public static PlayerBase GetPlayer()
 	{
 		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
 		return players.First( ( player ) => player.Network.OwnerConnection == Connection.Local );

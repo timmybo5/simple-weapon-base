@@ -41,15 +41,31 @@ public class Inventory : IInventory
 
 	public void SetActive( GameObject gameObject )
 	{
-		if ( !Has( gameObject ) ) return;
-		Active = gameObject;
+		if ( !Has( gameObject ) || Active == gameObject ) return;
 
-		Items.ForEach( ( item ) =>
+		if ( Active is not null && Active.Components.TryGet<IInventoryItem>( out var oldActive ) )
 		{
-			item.Enabled = false;
-		} );
+			oldActive.OnCarryStop();
+		}
 
-		gameObject.Enabled = true;
+		if ( gameObject.Components.TryGet<IInventoryItem>( out var newActive, FindMode.DisabledInSelf ) )
+		{
+			newActive.OnCarryStart();
+		}
+
+		Active = gameObject;
+	}
+
+	public void SetActive( string name )
+	{
+		foreach ( var item in Items )
+		{
+			if ( item.Name == name )
+			{
+				SetActive( item );
+				break;
+			}
+		}
 	}
 
 	public void Clear()

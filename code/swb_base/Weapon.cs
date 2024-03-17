@@ -5,7 +5,7 @@ namespace SWB.Base;
 
 [Group( "SWB" )]
 [Title( "Weapon" )]
-public partial class Weapon : Component
+public partial class Weapon : Component, IInventoryItem
 {
 	public IPlayerBase Owner { get; set; }
 	public ViewModelHandler ViewModelHandler { get; set; }
@@ -35,6 +35,18 @@ public partial class Weapon : Component
 		if ( IsProxy ) return;
 		if ( ViewModelRenderer?.GameObject is not null )
 			ViewModelRenderer.GameObject.Enabled = false;
+	}
+
+	[Broadcast]
+	public void OnCarryStart()
+	{
+		GameObject.Enabled = true;
+	}
+
+	[Broadcast]
+	public void OnCarryStop()
+	{
+		GameObject.Enabled = false;
 	}
 
 	protected override void OnStart()

@@ -1,27 +1,25 @@
-﻿using SWB.Player;
-using System.Linq;
-
-namespace SWB.Demo;
+﻿namespace SWB.Demo;
 
 internal class Commands
 {
-	private static PlayerBase GetPlayer()
-	{
-		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
-		return players.First( ( player ) => player.Network.OwnerConnection == Connection.Local );
-	}
-
-	[ConCmd( "kill", Help = "Opens the offsets editor" )]
+	[ConCmd( "kill", Help = "Kills the player" )]
 	public static void Kill()
 	{
-		var player = GetPlayer();
+		var player = Editor.Commands.GetPlayer();
 		player?.TakeDamage( Shared.DamageInfo.FromBullet( 100, Vector3.Zero ) );
 	}
 
-	[ConCmd( "respawn", Help = "Opens the offsets editor" )]
+	[ConCmd( "respawn", Help = "Respawns the player" )]
 	public static void Respawn()
 	{
-		var player = GetPlayer();
+		var player = Editor.Commands.GetPlayer();
 		player?.Respawn();
+	}
+
+	[ConCmd( "setactive", Help = "Changes the active inventory item" )]
+	public static void ChangeWeapon( string className )
+	{
+		var player = Editor.Commands.GetPlayer();
+		player.Inventory.SetActive( className );
 	}
 }
