@@ -28,6 +28,8 @@ public partial class Weapon : Component, IInventoryItem
 		if ( IsProxy ) return;
 		if ( ViewModelRenderer?.GameObject is not null )
 			ViewModelRenderer.GameObject.Enabled = true;
+
+		CreateUI();
 	}
 
 	protected override void OnDisabled()
@@ -35,6 +37,8 @@ public partial class Weapon : Component, IInventoryItem
 		if ( IsProxy ) return;
 		if ( ViewModelRenderer?.GameObject is not null )
 			ViewModelRenderer.GameObject.Enabled = false;
+
+		DestroyUI();
 	}
 
 	[Broadcast]
@@ -52,11 +56,6 @@ public partial class Weapon : Component, IInventoryItem
 	protected override void OnStart()
 	{
 		Owner = Components.GetInAncestors<IPlayerBase>();
-
-		if ( !IsProxy )
-		{
-			CreateUI();
-		}
 
 		CreateModels();
 	}

@@ -6,7 +6,7 @@ namespace SWB.Base.UI;
 
 public class Crosshair : Panel
 {
-	IPlayerBase player;
+	IPlayerBase player => weapon.Owner;
 	Weapon weapon;
 
 	Panel centerDot;
@@ -21,9 +21,8 @@ public class Crosshair : Panel
 
 	bool wasZooming = false;
 
-	public Crosshair( IPlayerBase player, Weapon weapon )
+	public Crosshair( Weapon weapon )
 	{
-		this.player = player;
 		this.weapon = weapon;
 		StyleSheet.Load( "/swb_base/ui/Crosshair.scss" );
 
@@ -75,8 +74,6 @@ public class Crosshair : Panel
 
 	public override void Tick()
 	{
-		base.Tick();
-
 		bool isValidWeapon = weapon is not null;
 
 		var hideCrosshairDot = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairDot ||*/ weapon.IsCustomizing;

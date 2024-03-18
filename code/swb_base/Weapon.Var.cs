@@ -17,11 +17,9 @@ public partial class Weapon
 	/// <summary>Unique name that identifies the weapon</summary>
 	[Property, Group( "General" )] public string ClassName { get; set; }
 
-	/// <summary>Name that represent the weapon on the HUD</summary>
 	[Property, Group( "General" )] public string DisplayName { get; set; }
 
-	/// <summary>Image that represent the weapon on the HUD</summary>
-	[Property, Group( "General" )] public Texture Icon { get; set; }
+	[Property, Group( "General" ), ImageAssetPathAttribute] public string Icon { get; set; }
 
 	/// <summary>How the player holds the weapon in thirdperson</summary>
 	[Property, Group( "General" )] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.Pistol;
@@ -35,6 +33,7 @@ public partial class Weapon
 	/// <summary>Range that tucking should be enabled (-1 to disable tucking)</summary>
 	[Property, Group( "General" )] public float TuckRange { get; set; } = 30f;
 
+	[Property, Group( "General" )] public int Slot { get; set; } = 0;
 
 	/// <summary>Default weapon field of view</summary>
 	[Property, Group( "FOV" )] public float FOV { get; set; } = 70f;

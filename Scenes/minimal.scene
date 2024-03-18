@@ -356,10 +356,6 @@
           "WeaponPrefabs": [
             {
               "_type": "gameobject",
-              "prefab": "code/swb_weapons/testweapon.prefab"
-            },
-            {
-              "_type": "gameobject",
               "prefab": "code/swb_weapons/scarh.prefab"
             },
             {
@@ -393,14 +389,6 @@
       "Position": "149.995,149.995,-212.125",
       "NetworkMode": 2,
       "Children": [
-        {
-          "__guid": "9779b8a4-d7b7-4666-8e18-e97718e45e7e",
-          "Name": "TestWeapon",
-          "Position": "-55.41481,-22.86161,285.6421",
-          "Tags": "weapon",
-          "NetworkMode": 2,
-          "__Prefab": "code/swb_weapons/testweapon.prefab"
-        },
         {
           "__guid": "b0c564f3-acc2-4afb-b591-6550258c902c",
           "Name": "swb_scarh",
@@ -443,7 +431,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-16T21:51:30.8615872\u002B02:00",
+  "LastSaved": "2024-03-19T00:41:19.181915\u002B02:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

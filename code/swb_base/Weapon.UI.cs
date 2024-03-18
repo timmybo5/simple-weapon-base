@@ -14,7 +14,6 @@ public partial class Weapon
 		ScreenPanel.ZIndex = 1;
 
 		var rootPanel = Components.Create<RootWeaponDisplay>();
-		rootPanel.Player = Owner;
 		rootPanel.Weapon = this;
 		RootPanel = rootPanel;
 	}

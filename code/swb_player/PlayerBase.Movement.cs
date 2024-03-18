@@ -122,6 +122,7 @@ public partial class PlayerBase
 	{
 		if ( !IsOnGround ) return;
 
+		IsCrouching = false;
 		CharacterController.Punch( Vector3.Up * JumpForce );
 		AnimationHelper?.TriggerJump();
 	}
