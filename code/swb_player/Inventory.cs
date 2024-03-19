@@ -48,7 +48,7 @@ public class Inventory : IInventory
 			oldActive.OnCarryStop();
 		}
 
-		if ( gameObject.Components.TryGet<IInventoryItem>( out var newActive, FindMode.DisabledInSelf ) )
+		if ( gameObject.Components.TryGet<IInventoryItem>( out var newActive, FindMode.EverythingInSelf ) )
 		{
 			newActive.OnCarryStart();
 		}

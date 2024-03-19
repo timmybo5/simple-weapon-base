@@ -38,6 +38,11 @@ public partial class Weapon : Component, IInventoryItem
 		if ( ViewModelRenderer?.GameObject is not null )
 			ViewModelRenderer.GameObject.Enabled = false;
 
+		if ( ViewModelHandler is not null )
+			ViewModelHandler.ShouldDraw = false;
+
+		IsReloading = false;
+
 		DestroyUI();
 	}
 
@@ -51,6 +56,27 @@ public partial class Weapon : Component, IInventoryItem
 	public void OnCarryStop()
 	{
 		GameObject.Enabled = false;
+	}
+
+	public void OnDeploy()
+	{
+		var delay = 0f;
+
+		if ( Primary.Ammo == 0 && !string.IsNullOrEmpty( DrawEmptyAnim ) )
+		{
+			ViewModelRenderer?.Set( DrawEmptyAnim, true );
+			delay = DrawEmptyTime;
+		}
+		else if ( !string.IsNullOrEmpty( DrawAnim ) )
+		{
+			ViewModelRenderer?.Set( DrawAnim, true );
+			delay = DrawTime;
+		}
+
+		TimeSinceDeployed = -delay;
+
+		// Start drawing
+		ViewModelHandler.ShouldDraw = true;
 	}
 
 	protected override void OnStart()
@@ -68,6 +94,8 @@ public partial class Weapon : Component, IInventoryItem
 
 		if ( !IsProxy )
 		{
+			if ( TimeSinceDeployed < 0 ) return;
+
 			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack );
 
 			if ( IsAiming )
@@ -111,16 +139,22 @@ public partial class Weapon : Component, IInventoryItem
 
 	void CreateModels()
 	{
-		if ( !IsProxy && ViewModel is not null )
+		if ( !IsProxy && ViewModel is not null && ViewModelRenderer is null )
 		{
 			var viewModelGO = new GameObject( true, "Viewmodel" );
 			viewModelGO.SetParent( Owner.GameObject );
 			viewModelGO.Tags.Add( TagsHelper.ViewModel );
 
 			ViewModelRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
-			ViewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.Off;
 			ViewModelRenderer.Model = ViewModel;
 			ViewModelRenderer.AnimationGraph = ViewModel.AnimGraph;
+			ViewModelRenderer.Enabled = false;
+			ViewModelRenderer.OnComponentEnabled += () =>
+			{
+				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
+				ViewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
+				OnDeploy();
+			};
 
 			ViewModelHandler = viewModelGO.Components.Create<ViewModelHandler>();
 			ViewModelHandler.Weapon = this;
@@ -130,15 +164,19 @@ public partial class Weapon : Component, IInventoryItem
 			if ( ViewModelHands is not null )
 			{
 				ViewModelHandsRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
-				ViewModelHandsRenderer.RenderType = ModelRenderer.ShadowRenderType.Off;
 				ViewModelHandsRenderer.Model = ViewModelHands;
 				ViewModelHandsRenderer.BoneMergeTarget = ViewModelRenderer;
+				ViewModelHandsRenderer.OnComponentEnabled += () =>
+				{
+					// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
+					ViewModelHandsRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
+				};
 			}
 
 			ViewModelHandler.ViewModelHandsRenderer = ViewModelHandsRenderer;
 		}
 
-		if ( WorldModel is not null )
+		if ( WorldModel is not null && WorldModelRenderer is null )
 		{
 			WorldModelRenderer = Components.Create<SkinnedModelRenderer>();
 			WorldModelRenderer.Model = WorldModel;

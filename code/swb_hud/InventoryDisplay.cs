@@ -55,6 +55,8 @@ public class InventoryDisplay : Panel
 
 		items.ForEach( item =>
 		{
+			if ( itemPanels.ContainsKey( item.Slot ) ) return;
+
 			var itemP = Add.Panel( "item" );
 			itemP.Add.Label( item.DisplayName, "name" );
 			itemP.Add.Label( item.Slot.ToString(), "slot" );

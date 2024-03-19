@@ -24,7 +24,7 @@ public partial class Weapon
 	/// <summary>How the player holds the weapon in thirdperson</summary>
 	[Property, Group( "General" )] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.Pistol;
 
-	/// <summary>Aim sensitivity while zooming (lower is slower, 0 to disable)</summary>
+	/// <summary>Aim sensitivity while aiming (lower is slower, 0 to disable)</summary>
 	[Property, Group( "General" )] public float AimSensitivity { get; set; } = 0.85f;
 
 	/// <summary>Can bullets be cocked in the barrel? (clip ammo + 1)</summary>
@@ -97,6 +97,9 @@ public partial class Weapon
 
 	/// <summary>Time since the last secondary attack</summary>
 	public TimeSince TimeSinceSecondaryShoot { get; set; }
+
+	/// <summary>Time since deployment</summary>
+	public TimeSince TimeSinceDeployed { get; set; }
 
 	/// <summary>Time since the last reload</summary>
 	public TimeSince TimeSinceReload { get; set; }

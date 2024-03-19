@@ -9,6 +9,7 @@ public class ViewModelHandler : Component
 	public SkinnedModelRenderer ViewModelHandsRenderer { get; set; }
 	public Weapon Weapon { get; set; }
 	public CameraComponent Camera { get; set; }
+	public bool ShouldDraw { get; set; }
 
 	// Editor
 	public bool EditorMode { get; set; }
@@ -58,10 +59,15 @@ public class ViewModelHandler : Component
 
 	protected override void OnUpdate()
 	{
+		var renderType = ShouldDraw ? ModelRenderer.ShadowRenderType.Off : ModelRenderer.ShadowRenderType.ShadowsOnly;
 		ViewModelRenderer.Enabled = player.IsFirstPerson;
+		ViewModelRenderer.RenderType = renderType;
 
 		if ( ViewModelHandsRenderer is not null )
+		{
 			ViewModelHandsRenderer.Enabled = player.IsFirstPerson;
+			ViewModelHandsRenderer.RenderType = renderType;
+		}
 
 		if ( !player.IsFirstPerson ) return;
 
