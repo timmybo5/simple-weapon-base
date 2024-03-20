@@ -1,16 +1,16 @@
 {
   "RootObject": {
-    "__guid": "feb636f9-70d6-4596-be63-fc1c8d025a75",
+    "__guid": "d7567348-a179-44fb-9360-2025e7553351",
     "Name": "scarh",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "bd67cc2d-ae79-4dc7-a627-2b3faeb73efa",
+        "__guid": "67ab65ac-68fc-47f4-a5be-89b3c1ee4090",
         "AimAnimData": {
-          "Angle": "-0.1,0.33,3.9",
-          "Pos": "-2.146,0.36,0.383"
+          "Angle": "-0.1,0.34,3.9",
+          "Pos": "-2.163,0.36,0.233"
         },
         "AimFOV": 35,
         "AimInFOVSpeed": 1,
@@ -30,8 +30,8 @@
         "Icon": "weapons/swb/scarh/scarh.png",
         "Primary": {
           "_type": "component",
-          "component_id": "51babfe3-03e0-4260-83d7-770c70ad8a38",
-          "go": "feb636f9-70d6-4596-be63-fc1c8d025a75",
+          "component_id": "c3aa349b-7b9a-43f1-bf31-ea7bd14af161",
+          "go": "d7567348-a179-44fb-9360-2025e7553351",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -39,8 +39,8 @@
         "ReloadEmptyTime": -1,
         "ReloadTime": 4.38,
         "RunAnimData": {
-          "Angle": "8.41,48.85,0",
-          "Pos": "3.263,4.46,-1.097"
+          "Angle": "8.41,59.66,0",
+          "Pos": "4.29,-0.86,-1.1"
         },
         "Slot": 3,
         "TuckRange": 30,
@@ -49,7 +49,7 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "51babfe3-03e0-4260-83d7-770c70ad8a38",
+        "__guid": "c3aa349b-7b9a-43f1-bf31-ea7bd14af161",
         "Ammo": 30,
         "AmmoType": "smg",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",

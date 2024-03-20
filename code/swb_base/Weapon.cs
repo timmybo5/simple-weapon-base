@@ -142,8 +142,9 @@ public partial class Weapon : Component, IInventoryItem
 		if ( !IsProxy && ViewModel is not null && ViewModelRenderer is null )
 		{
 			var viewModelGO = new GameObject( true, "Viewmodel" );
-			viewModelGO.SetParent( Owner.GameObject );
+			viewModelGO.SetParent( Owner.GameObject, false );
 			viewModelGO.Tags.Add( TagsHelper.ViewModel );
+			viewModelGO.Flags |= GameObjectFlags.NotNetworked;
 
 			ViewModelRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
 			ViewModelRenderer.Model = ViewModel;

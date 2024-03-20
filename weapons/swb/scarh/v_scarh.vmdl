@@ -113,6 +113,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						disable_interpolation = false
 						enable_scale = false
 						source_filename = "weapons/swb/scarh/models/scar.fbx"
 						start_frame = -1
@@ -135,6 +136,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						disable_interpolation = false
 						enable_scale = false
 						source_filename = "weapons/swb/scarh/models/scar.fbx"
 						start_frame = -1
@@ -157,6 +159,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						disable_interpolation = false
 						enable_scale = false
 						source_filename = "weapons/swb/scarh/models/scar.fbx"
 						start_frame = -1
@@ -218,6 +221,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						disable_interpolation = false
 						enable_scale = false
 						source_filename = "weapons/swb/scarh/models/scar.fbx"
 						start_frame = -1
@@ -240,6 +244,7 @@
 						hidden = false
 						anim_markup_ordered = false
 						disable_compression = false
+						disable_interpolation = false
 						enable_scale = false
 						source_filename = "weapons/swb/scarh/models/scar.fbx"
 						start_frame = -1

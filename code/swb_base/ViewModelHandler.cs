@@ -47,16 +47,6 @@ public class ViewModelHandler : Component
 	Vector3 localVel;
 	bool isAiming;
 
-	protected override void OnStart()
-	{
-		// Replication bug?
-		if ( IsProxy )
-		{
-			this.GameObject.Destroy();
-			return;
-		}
-	}
-
 	protected override void OnUpdate()
 	{
 		var renderType = ShouldDraw ? ModelRenderer.ShadowRenderType.Off : ModelRenderer.ShadowRenderType.ShadowsOnly;
@@ -94,8 +84,9 @@ public class ViewModelHandler : Component
 		animSpeed = 10 * Weapon.AnimSpeed;
 
 		// Change the angles and positions of the viewmodel with the new vectors
-		Transform.Position += finalVectorPos.z * Transform.Rotation.Up + finalVectorPos.y * Transform.Rotation.Forward + finalVectorPos.x * Transform.Rotation.Right;
 		Transform.Rotation *= Rotation.From( finalVectorRot.x, finalVectorRot.y, finalVectorRot.z );
+		// Position has to be set after rotation!
+		Transform.Position += finalVectorPos.z * Transform.Rotation.Up + finalVectorPos.y * Transform.Rotation.Forward + finalVectorPos.x * Transform.Rotation.Right;
 		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
 		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
 
