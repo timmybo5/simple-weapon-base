@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "b3ece2fe-822e-4086-a2c0-aaa81028b0f5",
+    "__guid": "eef2de46-c3e9-4673-be4f-3af2de719784",
     "Name": "revolver",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "94d0f53a-5ada-44ad-a4d1-780bc6c1b4b3",
+        "__guid": "a51159b8-d194-4fe3-8465-423c665fe373",
         "AimAnimData": {
           "Angle": "0.94,-0.03,0",
           "Pos": "-2.797,0,0.848"
@@ -30,8 +30,8 @@
         "Icon": "weapons/swb/revolver/revolver.png",
         "Primary": {
           "_type": "component",
-          "component_id": "0ee357cd-df52-44b4-8da1-c2e7effbf6bc",
-          "go": "b3ece2fe-822e-4086-a2c0-aaa81028b0f5",
+          "component_id": "fb54e15d-34fb-4151-bbd2-9bffc54957e3",
+          "go": "eef2de46-c3e9-4673-be4f-3af2de719784",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -42,14 +42,14 @@
           "Angle": "-34.06,-15,0",
           "Pos": "0.123,0,-5.678"
         },
-        "Slot": 1,
+        "Slot": 2,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/revolver/v_revolver.vmdl",
         "WorldModel": "weapons/swb/revolver/w_revolver.vmdl"
       },
       {
         "__type": "ShootInfo",
-        "__guid": "0ee357cd-df52-44b4-8da1-c2e7effbf6bc",
+        "__guid": "fb54e15d-34fb-4151-bbd2-9bffc54957e3",
         "Ammo": 6,
         "AmmoType": "smg",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",

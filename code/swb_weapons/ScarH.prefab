@@ -42,7 +42,7 @@
           "Angle": "8.41,59.66,0",
           "Pos": "4.29,-0.86,-1.1"
         },
-        "Slot": 3,
+        "Slot": 4,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/scarh/v_scarh.vmdl",
         "WorldModel": "weapons/swb/scarh/w_scarh.vmdl"

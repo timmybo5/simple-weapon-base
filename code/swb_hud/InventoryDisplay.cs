@@ -2,6 +2,7 @@
 using Sandbox.UI.Construct;
 using SWB.Shared;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SWB.HUD;
 
@@ -10,6 +11,8 @@ public class InventoryDisplay : Panel
 	IPlayerBase player;
 	List<IInventoryItem> items = new();
 	Dictionary<int, Panel> itemPanels = new();
+	IInventoryItem activeItem;
+	RealTimeSince timeSinceChange;
 
 	public InventoryDisplay( IPlayerBase player )
 	{
@@ -35,7 +38,7 @@ public class InventoryDisplay : Panel
 			Rebuild();
 		}
 
-		var activeItem = player.Inventory.Active?.Components.Get<IInventoryItem>();
+		activeItem = player.Inventory.Active?.Components.Get<IInventoryItem>();
 
 		if ( activeItem is not null )
 		{
@@ -81,16 +84,51 @@ public class InventoryDisplay : Panel
 
 	void CheckInput()
 	{
+		if ( !activeItem.CanCarryStop() ) return;
 		if ( Input.Pressed( InputButtonHelper.Slot0 ) ) SwitchItem( 0 );
-		if ( Input.Pressed( InputButtonHelper.Slot1 ) ) SwitchItem( 1 );
-		if ( Input.Pressed( InputButtonHelper.Slot2 ) ) SwitchItem( 2 );
-		if ( Input.Pressed( InputButtonHelper.Slot3 ) ) SwitchItem( 3 );
-		if ( Input.Pressed( InputButtonHelper.Slot4 ) ) SwitchItem( 4 );
-		if ( Input.Pressed( InputButtonHelper.Slot5 ) ) SwitchItem( 5 );
-		if ( Input.Pressed( InputButtonHelper.Slot6 ) ) SwitchItem( 6 );
-		if ( Input.Pressed( InputButtonHelper.Slot7 ) ) SwitchItem( 7 );
-		if ( Input.Pressed( InputButtonHelper.Slot8 ) ) SwitchItem( 8 );
-		if ( Input.Pressed( InputButtonHelper.Slot9 ) ) SwitchItem( 9 );
+		else if ( Input.Pressed( InputButtonHelper.Slot1 ) ) SwitchItem( 1 );
+		else if ( Input.Pressed( InputButtonHelper.Slot2 ) ) SwitchItem( 2 );
+		else if ( Input.Pressed( InputButtonHelper.Slot3 ) ) SwitchItem( 3 );
+		else if ( Input.Pressed( InputButtonHelper.Slot4 ) ) SwitchItem( 4 );
+		else if ( Input.Pressed( InputButtonHelper.Slot5 ) ) SwitchItem( 5 );
+		else if ( Input.Pressed( InputButtonHelper.Slot6 ) ) SwitchItem( 6 );
+		else if ( Input.Pressed( InputButtonHelper.Slot7 ) ) SwitchItem( 7 );
+		else if ( Input.Pressed( InputButtonHelper.Slot8 ) ) SwitchItem( 8 );
+		else if ( Input.Pressed( InputButtonHelper.Slot9 ) ) SwitchItem( 9 );
+		else if ( Input.MouseWheel.y > 0 ) SwitchToNext();
+		else if ( Input.MouseWheel.y < 0 ) SwitchToPrev();
+	}
+
+	void SwitchToNext()
+	{
+		var sortedItems = items.OrderBy( i => i.Slot );
+		var maxSlotItem = sortedItems.Last();
+		var currSlot = maxSlotItem.Slot == activeItem.Slot ? -1 : activeItem.Slot;
+
+		foreach ( var item in sortedItems )
+		{
+			if ( item.Slot > currSlot )
+			{
+				SwitchItem( item.Slot );
+				break;
+			}
+		}
+	}
+
+	void SwitchToPrev()
+	{
+		var sortedItems = items.OrderByDescending( i => i.Slot );
+		var minSlotItem = sortedItems.Last();
+		var currSlot = minSlotItem.Slot == activeItem.Slot ? 10 : activeItem.Slot;
+
+		foreach ( var item in sortedItems )
+		{
+			if ( item.Slot < currSlot )
+			{
+				SwitchItem( item.Slot );
+				break;
+			}
+		}
 	}
 
 	void SwitchItem( int slot )
@@ -99,6 +137,9 @@ public class InventoryDisplay : Panel
 		if ( item is null ) return;
 
 		if ( item is Component component )
+		{
 			player.Inventory.SetActive( component.GameObject );
+			timeSinceChange = 0;
+		}
 	}
 }

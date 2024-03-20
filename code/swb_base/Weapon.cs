@@ -58,6 +58,11 @@ public partial class Weapon : Component, IInventoryItem
 		GameObject.Enabled = false;
 	}
 
+	public bool CanCarryStop()
+	{
+		return TimeSinceDeployed > 0;
+	}
+
 	public void OnDeploy()
 	{
 		var delay = 0f;

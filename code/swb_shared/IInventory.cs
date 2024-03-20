@@ -31,4 +31,7 @@ public interface IInventoryItem : IValid
 
 	/// <summary>Called when the GameObject stops being the active one (Broadcast for networked gameObjects!)</summary>
 	public void OnCarryStop();
+
+	/// <summary>Can the GameObject be switched out</summary>
+	public bool CanCarryStop();
 }

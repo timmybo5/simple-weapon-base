@@ -45,6 +45,7 @@ public class Inventory : IInventory
 
 		if ( Active is not null && Active.Components.TryGet<IInventoryItem>( out var oldActive ) )
 		{
+			if ( !oldActive.CanCarryStop() ) return;
 			oldActive.OnCarryStop();
 		}
 
