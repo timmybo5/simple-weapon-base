@@ -12,6 +12,7 @@ public class CameraMovement : Component
 	[Property] public GameObject Head { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
 	public float InputSensitivity { get; set; } = 1f;
+	public Angles EyeAnglesOffset { get; set; }
 	public bool IsFirstPerson => Distance == 0f;
 
 	protected override void OnAwake() { }
@@ -32,6 +33,8 @@ public class CameraMovement : Component
 		Input.AnalogLook *= InputSensitivity;
 		eyeAngles.pitch += Input.AnalogLook.pitch;
 		eyeAngles.yaw += Input.AnalogLook.yaw;
+		eyeAngles += EyeAnglesOffset;
+		EyeAnglesOffset = Angles.Zero;
 		InputSensitivity = 1;
 
 		eyeAngles.roll = 0;

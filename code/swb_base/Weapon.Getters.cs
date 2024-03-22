@@ -126,4 +126,12 @@ public partial class Weapon
 
 		return spread * floatMod;
 	}
+
+	public virtual Angles GetRecoilAngles( ShootInfo shootInfo )
+	{
+		var recoilX = IsAiming ? -shootInfo.Recoil * 0.4f : -shootInfo.Recoil;
+		var recoilY = Game.Random.NextFloat( -0.2f, 0.2f ) * recoilX;
+		var recoilAngles = new Angles( recoilX, recoilY, 0 );
+		return recoilAngles;
+	}
 }

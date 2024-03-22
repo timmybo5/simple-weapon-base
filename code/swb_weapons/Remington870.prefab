@@ -72,7 +72,7 @@
         "HitFlinch": 1.25,
         "InfiniteAmmo": "reserve",
         "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
-        "Recoil": 0.35,
+        "Recoil": 2,
         "RPM": 75,
         "ShootAimedAnim": "",
         "ShootAnim": "fire",

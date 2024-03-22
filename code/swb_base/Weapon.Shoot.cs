@@ -93,13 +93,17 @@ public partial class Weapon
 		// Barrel smoke
 		barrelHeat += 1;
 
+		// Recoil
+		Owner.EyeAnglesOffset = GetRecoilAngles( shootInfo );
+
 		// UI
 		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
 
 		// Bullet
 		for ( int i = 0; i < shootInfo.Bullets; i++ )
 		{
-			var spreadOffset = shootInfo.BulletType.GetRandomSpread( shootInfo.Spread );
+			var realSpread = GetRealSpread( shootInfo.Spread );
+			var spreadOffset = shootInfo.BulletType.GetRandomSpread( realSpread );
 			ShootBullet( isPrimary, spreadOffset );
 		}
 	}

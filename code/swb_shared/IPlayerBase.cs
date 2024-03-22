@@ -24,6 +24,9 @@ public interface IPlayerBase : IValid
 	/// <summary>Input sensitivity modifier</summary>
 	public float InputSensitivity { get; set; }
 
+	/// <summary>EyeAngles offset (should reset after being applied)</summary>
+	public Angles EyeAnglesOffset { get; set; }
+
 	/// <summary>View angles</summary>
 	public Angles EyeAngles { get; set; }
 

@@ -24,6 +24,11 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		get { return cameraMovement.InputSensitivity; }
 		set { cameraMovement.InputSensitivity = value; }
 	}
+	public Angles EyeAnglesOffset
+	{
+		get { return cameraMovement.EyeAnglesOffset; }
+		set { cameraMovement.EyeAnglesOffset = value; }
+	}
 
 	CameraMovement cameraMovement;
 
