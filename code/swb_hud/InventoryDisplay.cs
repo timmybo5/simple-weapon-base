@@ -55,8 +55,9 @@ public class InventoryDisplay : Panel
 	{
 		DeleteChildren();
 		itemPanels.Clear();
+		var sortedItems = items.OrderBy( i => i.Slot );
 
-		items.ForEach( item =>
+		foreach ( var item in sortedItems )
 		{
 			if ( itemPanels.ContainsKey( item.Slot ) ) return;
 
@@ -66,7 +67,7 @@ public class InventoryDisplay : Panel
 			itemP.Add.Image( item.Icon, "icon" );
 
 			itemPanels.Add( item.Slot, itemP );
-		} );
+		}
 	}
 
 	void GetInventoryItems()
@@ -84,7 +85,7 @@ public class InventoryDisplay : Panel
 
 	void CheckInput()
 	{
-		if ( !activeItem.CanCarryStop() ) return;
+		if ( activeItem is null || !activeItem.CanCarryStop() ) return;
 		if ( Input.Pressed( InputButtonHelper.Slot0 ) ) SwitchItem( 0 );
 		else if ( Input.Pressed( InputButtonHelper.Slot1 ) ) SwitchItem( 1 );
 		else if ( Input.Pressed( InputButtonHelper.Slot2 ) ) SwitchItem( 2 );

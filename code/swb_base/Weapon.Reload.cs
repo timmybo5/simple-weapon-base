@@ -29,13 +29,13 @@ public partial class Weapon
 		IsReloading = true;
 
 		// Anim
-		var shootAnim = ReloadAnim;
+		var reloadAnim = ReloadAnim;
 		if ( isEmptyReload && !string.IsNullOrEmpty( ReloadEmptyAnim ) )
 		{
-			shootAnim = ReloadEmptyAnim;
+			reloadAnim = ReloadEmptyAnim;
 		}
 
-		ViewModelRenderer.Set( shootAnim, true );
+		ViewModelRenderer?.Set( reloadAnim, true );
 
 		// Player anim
 		HandleReloadEffects();
@@ -58,7 +58,38 @@ public partial class Weapon
 			return;
 
 		Primary.Ammo += ammo;
-		//}
+	}
+
+	public virtual void CancelShellReload()
+	{
+		IsReloading = false;
+		ViewModelRenderer.Set( ReloadAnim, false );
+	}
+
+	public virtual void OnShellReload()
+	{
+		ReloadTime = ShellReloadStartTime + ShellReloadInsertTime;
+		Reload();
+	}
+
+	public virtual void OnShellReloadFinish()
+	{
+		IsReloading = false;
+
+		var hasInfiniteReserve = Primary.InfiniteAmmo == InfiniteAmmoType.reserve;
+		var ammo = hasInfiniteReserve ? 1 : Owner.TakeAmmo( Primary.AmmoType, 1 );
+
+		Primary.Ammo += 1;
+
+		if ( ammo != 0 && Primary.Ammo < Primary.ClipSize )
+		{
+			ReloadTime = ShellReloadInsertTime;
+			Reload();
+		}
+		else
+		{
+			CancelShellReload();
+		}
 	}
 
 	[Broadcast]

@@ -5,18 +5,18 @@ namespace SWB.Base;
 
 public class HitScanBullet : IBulletBase
 {
-	public void Shoot( Weapon weapon, ShootInfo shootInfo )
+	public void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
 	{
 		var player = weapon.Owner;
-		var forward = player.EyeAngles.Forward;
-		var spread = weapon.GetRealSpread( shootInfo.Spread );
-		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
+		var forward = player.EyeAngles.Forward + spreadOffset;
+		//forward += Game.Random.VectorInCube() * spread * 0.4f;
+
 		forward = forward.Normal;
 		var endPos = player.EyePos + forward * 999999;
 		var bulletTr = weapon.TraceBullet( player.EyePos, endPos );
 		var hitObj = bulletTr.GameObject;
 
-		if ( SurfaceUtil.IsSkybox( bulletTr.Surface ) ) return;
+		if ( SurfaceUtil.IsSkybox( bulletTr.Surface ) || bulletTr.HitPosition == Vector3.Zero ) return;
 
 		// Impact
 		weapon.CreateBulletImpact( bulletTr );
@@ -31,14 +31,18 @@ public class HitScanBullet : IBulletBase
 				TracerEffects( weapon, shootInfo, bulletTr.HitPosition );
 		}
 
-
 		// Damage
-		if ( !weapon.IsProxy && hitObj.Tags.Has( TagsHelper.Player ) )
+		if ( !weapon.IsProxy && hitObj is not null && hitObj.Tags.Has( TagsHelper.Player ) )
 		{
 			var target = hitObj.Components.GetInAncestorsOrSelf<IPlayerBase>();
 			target?.TakeDamage( Shared.DamageInfo.FromBullet( shootInfo.Damage, forward * 25 * shootInfo.Force ) );
 		}
 
+	}
+
+	public Vector3 GetRandomSpread( float spread )
+	{
+		return (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
 	}
 
 	void TracerEffects( Weapon weapon, ShootInfo shootInfo, Vector3 endPos )

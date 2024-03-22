@@ -19,7 +19,7 @@ public class Crosshair : Panel
 	int sprintOffset = 100;
 	int fireOffset = 50;
 
-	bool wasZooming = false;
+	bool wasAiming = false;
 
 	public Crosshair( Weapon weapon )
 	{
@@ -95,7 +95,7 @@ public class Crosshair : Panel
 		bottomBar.Style.MarginTop = screenOffset;
 
 		// Sprint spread offsets
-		if ( weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading )
+		if ( weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading || weapon.IsDeploying )
 		{
 			leftBar.Style.Left = -sprintOffset;
 			rightBar.Style.Left = sprintOffset - 5;
@@ -106,7 +106,7 @@ public class Crosshair : Panel
 		}
 		else if ( weapon.IsAiming )
 		{
-			wasZooming = true;
+			wasAiming = true;
 
 			if ( player.IsFirstPerson )
 			{
@@ -114,9 +114,9 @@ public class Crosshair : Panel
 				HideBarLines();
 			}
 		}
-		else if ( leftBar.Style.Left == -sprintOffset || wasZooming )
+		else if ( leftBar.Style.Left == -sprintOffset || wasAiming )
 		{
-			wasZooming = false;
+			wasAiming = false;
 			RestoreBarPositions();
 			RestoreCrosshairOpacity();
 		}

@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "eef2de46-c3e9-4673-be4f-3af2de719784",
+    "__guid": "a1556cba-2d75-46cd-9ab4-1696805abb81",
     "Name": "revolver",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "a51159b8-d194-4fe3-8465-423c665fe373",
+        "__guid": "d540daec-6c8b-4446-a95f-5080d3df0cb7",
         "AimAnimData": {
           "Angle": "0.94,-0.03,0",
           "Pos": "-2.797,0,0.848"
@@ -30,8 +30,8 @@
         "Icon": "weapons/swb/revolver/revolver.png",
         "Primary": {
           "_type": "component",
-          "component_id": "fb54e15d-34fb-4151-bbd2-9bffc54957e3",
-          "go": "eef2de46-c3e9-4673-be4f-3af2de719784",
+          "component_id": "138f5a84-dcb0-4144-a45a-3627814dde39",
+          "go": "a1556cba-2d75-46cd-9ab4-1696805abb81",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -49,9 +49,9 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "fb54e15d-34fb-4151-bbd2-9bffc54957e3",
+        "__guid": "138f5a84-dcb0-4144-a45a-3627814dde39",
         "Ammo": 6,
-        "AmmoType": "smg",
+        "AmmoType": "revolver",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
         "Bullets": 1,
         "BulletSize": 2,

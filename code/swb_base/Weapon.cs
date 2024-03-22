@@ -94,12 +94,11 @@ public partial class Weapon : Component, IInventoryItem
 	protected override void OnUpdate()
 	{
 		UpdateModels();
-
 		Owner.AnimationHelper.HoldType = HoldType;
 
 		if ( !IsProxy )
 		{
-			if ( TimeSinceDeployed < 0 ) return;
+			if ( IsDeploying ) return;
 
 			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack );
 
@@ -114,6 +113,9 @@ public partial class Weapon : Component, IInventoryItem
 
 			if ( CanPrimaryShoot() && !shouldTuck )
 			{
+				if ( IsReloading && ShellReloading && ShellReloadingShootCancel )
+					CancelShellReload();
+
 				TimeSincePrimaryShoot = 0;
 				Shoot( Primary, true );
 			}
@@ -124,12 +126,26 @@ public partial class Weapon : Component, IInventoryItem
 			}
 			else if ( Input.Down( InputButtonHelper.Reload ) )
 			{
-				Reload();
+				if ( ShellReloading )
+				{
+					OnShellReload();
+				}
+				else
+				{
+					Reload();
+				}
 			}
 
 			if ( IsReloading && TimeSinceReload >= 0 )
 			{
-				OnReloadFinish();
+				if ( ShellReloading )
+				{
+					OnShellReloadFinish();
+				}
+				else
+				{
+					OnReloadFinish();
+				}
 			}
 		}
 	}
@@ -159,6 +175,7 @@ public partial class Weapon : Component, IInventoryItem
 			{
 				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
 				ViewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
+				ResetViewModelAnimations();
 				OnDeploy();
 			};
 
@@ -196,6 +213,26 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.Transform.Position = holdBoneGO.Transform.Position;
 			WorldModelRenderer.Transform.Rotation = holdBoneGO.Transform.Rotation;
 		}
+	}
+
+	// Temp fix until https://github.com/Facepunch/sbox-issues/issues/5247 is fixed
+	void ResetViewModelAnimations()
+	{
+		ViewModelRenderer?.Set( Primary.ShootAnim, false );
+		ViewModelRenderer?.Set( Primary.ShootEmptyAnim, false );
+		ViewModelRenderer?.Set( Primary.ShootAimedAnim, false );
+
+		if ( Secondary is not null )
+		{
+			ViewModelRenderer?.Set( Secondary.ShootAnim, false );
+			ViewModelRenderer?.Set( Secondary.ShootEmptyAnim, false );
+			ViewModelRenderer?.Set( Secondary.ShootAimedAnim, false );
+		}
+
+		ViewModelRenderer?.Set( ReloadAnim, false );
+		ViewModelRenderer?.Set( ReloadEmptyAnim, false );
+		ViewModelRenderer?.Set( DrawAnim, false );
+		ViewModelRenderer?.Set( DrawEmptyAnim, false );
 	}
 
 	[Broadcast]

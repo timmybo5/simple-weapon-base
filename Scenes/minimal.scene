@@ -5,7 +5,6 @@
       "__guid": "c5c1918c-9604-4d49-a40f-a28dc70a7ac0",
       "Name": "Map",
       "Position": "125.0372,120.9534,-133.1576",
-      "Enabled": true,
       "NetworkMode": 2,
       "Components": [
         {
@@ -14,12 +13,12 @@
           "MapName": "facepunch.flatgrass",
           "UseMapFromLaunch": true
         }
-      ],
-      "Children": []
+      ]
     },
     {
       "__guid": "9318758b-1419-4d49-9e5d-991d863b4964",
       "Name": "Environment",
+      "Enabled": true,
       "NetworkMode": 2,
       "Children": [
         {
@@ -361,6 +360,10 @@
             {
               "_type": "gameobject",
               "prefab": "code/swb_weapons/revolver.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "code/swb_weapons/remington870.prefab"
             }
           ]
         }
@@ -404,6 +407,14 @@
           "Tags": "weapon",
           "NetworkMode": 2,
           "__Prefab": "code/swb_weapons/revolver.prefab"
+        },
+        {
+          "__guid": "07cb8209-2c02-4111-857a-3f5d1d941a06",
+          "Name": "swb_remington",
+          "Position": "-355.4048,-322.8516,709.8921",
+          "Tags": "weapon",
+          "NetworkMode": 2,
+          "__Prefab": "code/swb_weapons/remington870.prefab"
         }
       ]
     }
@@ -431,7 +442,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-19T00:41:19.181915\u002B02:00",
+  "LastSaved": "2024-03-22T19:21:18.8084925\u002B02:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

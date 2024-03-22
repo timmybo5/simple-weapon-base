@@ -15,7 +15,8 @@ public partial class Weapon
 	/// <returns></returns>
 	public virtual bool CanShoot( ShootInfo shootInfo, TimeSince lastAttackTime, string inputButton )
 	{
-		if ( shootInfo is null || !Owner.IsValid() || IsReloading || !Input.Down( inputButton ) || (IsRunning && Secondary is null) ) return false;
+		if ( IsReloading && !ShellReloading && !ShellReloadingShootCancel ) return false;
+		if ( shootInfo is null || !Owner.IsValid() || !Input.Down( inputButton ) || (IsRunning && Secondary is null) ) return false;
 
 		if ( !HasAmmo() )
 		{
@@ -96,14 +97,18 @@ public partial class Weapon
 		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
 
 		// Bullet
-		ShootBullet( isPrimary );
+		for ( int i = 0; i < shootInfo.Bullets; i++ )
+		{
+			var spreadOffset = shootInfo.BulletType.GetRandomSpread( shootInfo.Spread );
+			ShootBullet( isPrimary, spreadOffset );
+		}
 	}
 
 	[Broadcast]
-	public virtual void ShootBullet( bool isPrimary )
+	public virtual void ShootBullet( bool isPrimary, Vector3 spreadOffset )
 	{
 		var shootInfo = GetShootInfo( isPrimary );
-		shootInfo.BulletType.Shoot( this, shootInfo );
+		shootInfo.BulletType.Shoot( this, shootInfo, spreadOffset );
 	}
 
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
@@ -140,30 +145,47 @@ public partial class Weapon
 
 		// Bullet eject
 		if ( shootInfo.BulletEjectParticle is not null )
-			CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
+		{
+			if ( !ShellReloading || (ShellReloading && ShellEjectDelay == 0) )
+			{
+				CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
+			}
+			else
+			{
+				var delayedEject = async () =>
+				{
+					await GameTask.DelaySeconds( ShellEjectDelay );
+					CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
+				};
+				delayedEject();
+			}
+		}
 
 		if ( !muzzleTransform.HasValue ) return;
 
 		// Muzzle flash
 		if ( shootInfo.MuzzleFlashParticle is not null )
-			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, scale );
+			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, scale, ( particles ) => ParticleToMuzzlePos( particles ) );
 
 		// Barrel smoke
 		if ( !IsProxy && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
-			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, shootInfo.VMParticleScale, ( particles ) =>
-			{
-				var transform = GetMuzzleTransform();
+			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, shootInfo.VMParticleScale, ( particles ) => ParticleToMuzzlePos( particles ) );
+	}
 
-				if ( transform.HasValue )
-				{
-					particles?.SetControlPoint( 0, transform.Value.Position );
-					particles?.SetControlPoint( 0, transform.Value.Rotation );
-				}
-				else
-				{
-					particles?.Delete();
-				}
-			} );
+	void ParticleToMuzzlePos( SceneParticles particles )
+	{
+		var transform = GetMuzzleTransform();
+
+		if ( transform.HasValue )
+		{
+			// Apply velocity to prevent muzzle shift when moving fast
+			particles?.SetControlPoint( 0, transform.Value.Position + Owner.Velocity * 0.03f );
+			particles?.SetControlPoint( 0, transform.Value.Rotation );
+		}
+		else
+		{
+			particles?.Delete();
+		}
 	}
 
 	/// <summary>Create a bullet impact effect</summary>

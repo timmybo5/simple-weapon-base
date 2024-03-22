@@ -24,7 +24,7 @@ public partial class Weapon
 	/// <summary>How the player holds the weapon in thirdperson</summary>
 	[Property, Group( "General" )] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.Pistol;
 
-	/// <summary>Aim sensitivity while aiming (lower is slower, 0 to disable)</summary>
+	/// <summary>Mouse sensitivity while aiming (lower is slower, 0 to disable)</summary>
 	[Property, Group( "General" )] public float AimSensitivity { get; set; } = 0.85f;
 
 	/// <summary>Can bullets be cocked in the barrel? (clip ammo + 1)</summary>
@@ -85,10 +85,27 @@ public partial class Weapon
 	/// <summary>Draw animation when there is no ammo</summary>
 	[Property, Group( "Animations" )] public string DrawEmptyAnim { get; set; } = "";
 
+
+	/// <summary>Is the weapon reloading shells instead of a magazine?</summary>
+	[Property, Group( "Shell Reloading" )] public bool ShellReloading { get; set; } = false;
+
+	/// <summary>Can the weapon shoot while reloading to cancel the reload?</summary>
+	[Property, Group( "Shell Reloading" )] public bool ShellReloadingShootCancel { get; set; } = true;
+
+	/// <summary>Delay in fire animation to eject the shell</summary>
+	[Property, Group( "Shell Reloading" )] public float ShellEjectDelay { get; set; } = 0;
+
+	/// <summary>Duration of the shell reload start animation (animation is set with ReloadAnim)</summary>
+	[Property, Group( "Shell Reloading" )] public float ShellReloadStartTime { get; set; } = 0;
+
+	/// <summary>Duration of the shell reload insert animation (animation is set in animgraph)</summary>
+	[Property, Group( "Shell Reloading" )] public float ShellReloadInsertTime { get; set; } = 0;
+
+
 	/// <summary>Primary attack data</summary>
 	[Property, Group( "Firing" ), Title( "Primary ShootInfo (component)" )] public ShootInfo Primary { get; set; } = new();
 
-	/// <summary>Secondary attack data (setting this will disable weapon zooming)</summary>
+	/// <summary>Secondary attack data (setting this will disable weapon aiming)</summary>
 	[Property, Group( "Firing" ), Title( "Secondary ShootInfo (component)" )] public ShootInfo Secondary { get; set; }
 
 
@@ -120,6 +137,8 @@ public partial class Weapon
 
 	/// <summary>If the weapon is being aimed</summary>
 	[Sync] public bool IsAiming { get; set; }
+
+	public bool IsDeploying => TimeSinceDeployed < 0;
 
 	// Private
 	int burstCount = 0;

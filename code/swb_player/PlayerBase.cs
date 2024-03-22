@@ -64,6 +64,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public virtual void OnDeath( Shared.DamageInfo info )
 	{
+
 		CharacterController.Velocity = 0;
 		Ragdoll( info.Force );
 		Inventory.Clear();
@@ -92,19 +93,25 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			weapon = weaponGO.Components.Get<Weapon>( true );
 			Inventory.AddClone( weaponGO );
 			SetAmmo( weapon.Primary.AmmoType, 360 );
+
+			weaponGO = weaponRegistery.Get( "swb_remington" );
+			weapon = weaponGO.Components.Get<Weapon>( true );
+			Inventory.AddClone( weaponGO );
+			SetAmmo( weapon.Primary.AmmoType, 360 );
 		}
 	}
 
 	public virtual Transform GetSpawnLocation()
 	{
 		var spawnPoints = Scene.Components.GetAll<SpawnPoint>();
+
+		if ( !spawnPoints.Any() )
+			return new Transform();
+
 		var rand = new Random();
 		var randomSpawnPoint = spawnPoints.ElementAt( rand.Next( 0, spawnPoints.Count() - 1 ) );
 
-		if ( randomSpawnPoint is not null )
-			return randomSpawnPoint.Transform.World;
-
-		return new Transform();
+		return randomSpawnPoint.Transform.World;
 	}
 
 	protected override void OnUpdate()

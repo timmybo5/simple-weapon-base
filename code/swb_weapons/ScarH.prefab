@@ -51,7 +51,7 @@
         "__type": "ShootInfo",
         "__guid": "c3aa349b-7b9a-43f1-bf31-ea7bd14af161",
         "Ammo": 30,
-        "AmmoType": "smg",
+        "AmmoType": "rifle",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
         "BulletEjectParticle": "models/weapons/sbox_ammo/9mm_bullet/9mm_ejectbrass.vpcf",
         "Bullets": 1,

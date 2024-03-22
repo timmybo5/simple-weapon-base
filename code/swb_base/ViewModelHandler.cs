@@ -139,7 +139,7 @@ public class ViewModelHandler : Component
 			return;
 
 		// Perform a "breathing" animation
-		float breatheTime = RealTime.Now * 2.0f;
+		var breatheTime = RealTime.Now * 2.0f;
 		targetVectorPos -= new Vector3( MathF.Cos( breatheTime / 4.0f ) / 8.0f, 0.0f, -MathF.Cos( breatheTime / 4.0f ) / 32.0f );
 		targetVectorRot -= new Vector3( MathF.Cos( breatheTime / 5.0f ), MathF.Cos( breatheTime / 4.0f ), MathF.Cos( breatheTime / 7.0f ) );
 
@@ -151,11 +151,11 @@ public class ViewModelHandler : Component
 
 	void HandleWalkAnimation()
 	{
-		float breatheTime = RealTime.Now * 16.0f;
-		float walkSpeed = new Vector3( player.Velocity.x, player.Velocity.y, 0.0f ).Length;
-		float maxWalkSpeed = 200.0f;
-		float roll = 0.0f;
-		float yaw = 0.0f;
+		var breatheTime = RealTime.Now * 16.0f;
+		var walkSpeed = new Vector3( player.Velocity.x, player.Velocity.y, 0.0f ).Length;
+		var maxWalkSpeed = 200.0f;
+		var roll = 0.0f;
+		var yaw = 0.0f;
 
 		// Check if on the ground
 		if ( !player.IsOnGround )
@@ -189,7 +189,7 @@ public class ViewModelHandler : Component
 
 	void HandleSwayAnimation()
 	{
-		int swayspeed = 5;
+		var swayspeed = 5;
 
 		// Fix the sway faster if we're ironsighting
 		if ( isAiming )
@@ -199,7 +199,7 @@ public class ViewModelHandler : Component
 		lastEyeRot = Rotation.Lerp( lastEyeRot, player.Camera.Transform.Rotation, swayspeed * RealTime.Delta );
 
 		// Calculate the difference between our current eye angles and old (lerped) eye angles
-		Angles angDif = player.Camera.Transform.Rotation.Angles() - lastEyeRot.Angles();
+		var angDif = player.Camera.Transform.Rotation.Angles() - lastEyeRot.Angles();
 		angDif = new Angles( angDif.pitch, MathX.RadianToDegree( MathF.Atan2( MathF.Sin( MathX.DegreeToRadian( angDif.yaw ) ), MathF.Cos( MathX.DegreeToRadian( angDif.yaw ) ) ) ), 0 );
 
 		// Perform sway
@@ -212,7 +212,7 @@ public class ViewModelHandler : Component
 	{
 		if ( isAiming && !Weapon.IsReloading && Weapon.AimAnimData != AngPos.Zero )
 		{
-			float speedMod = 1;
+			var speedMod = 1;
 			if ( aimTime == 0 )
 			{
 				aimTime = RealTime.Now;
@@ -300,13 +300,13 @@ targetVectorRot += MathUtil.ToVector3( Weapon.CustomizeAnimData.Angle );
 			if ( jumpTime > RealTime.Now )
 			{
 				// If we jumped, do a curve upwards
-				float f = 0.31f - (jumpTime - RealTime.Now);
-				float xx = MathUtil.BezierY( f, 0.0f, -4.0f, 0.0f );
-				float yy = 0.0f;
-				float zz = MathUtil.BezierY( f, 0.0f, -2.0f, -5.0f );
-				float pt = MathUtil.BezierY( f, 0.0f, -4.36f, 10.0f );
-				float yw = xx;
-				float rl = MathUtil.BezierY( f, 0.0f, -10.82f, -5.0f );
+				var f = 0.31f - (jumpTime - RealTime.Now);
+				var xx = MathUtil.BezierY( f, 0.0f, -4.0f, 0.0f );
+				var yy = 0.0f;
+				var zz = MathUtil.BezierY( f, 0.0f, -2.0f, -5.0f );
+				var pt = MathUtil.BezierY( f, 0.0f, -4.36f, 10.0f );
+				var yw = xx;
+				var rl = MathUtil.BezierY( f, 0.0f, -10.82f, -5.0f );
 				targetVectorPos += new Vector3( xx, yy, zz ) / 4.0f;
 				targetVectorRot += new Vector3( pt, yw, rl ) / 4.0f;
 				animSpeed = 20.0f;
@@ -314,7 +314,7 @@ targetVectorRot += MathUtil.ToVector3( Weapon.CustomizeAnimData.Angle );
 			else if ( !player.IsOnGround )
 			{
 				// Shaking while falling
-				float breatheTime = RealTime.Now * 30.0f;
+				var breatheTime = RealTime.Now * 30.0f;
 				targetVectorPos += new Vector3( MathF.Cos( breatheTime / 2.0f ) / 16.0f, 0.0f, -5.0f + (MathF.Sin( breatheTime / 3.0f ) / 16.0f) ) / 4.0f;
 				targetVectorRot += new Vector3( 10.0f - (MathF.Sin( breatheTime / 3.0f ) / 4.0f), MathF.Cos( breatheTime / 2.0f ) / 4.0f, -5.0f ) / 4.0f;
 				animSpeed = 20.0f;
@@ -322,13 +322,13 @@ targetVectorRot += MathUtil.ToVector3( Weapon.CustomizeAnimData.Angle );
 			else if ( landTime > RealTime.Now )
 			{
 				// If we landed, do a fancy curve downwards
-				float f = landTime - RealTime.Now;
-				float xx = MathUtil.BezierY( f, 0.0f, -4.0f, 0.0f );
-				float yy = 0.0f;
-				float zz = MathUtil.BezierY( f, 0.0f, -2.0f, -5.0f );
-				float pt = MathUtil.BezierY( f, 0.0f, -4.36f, 10.0f );
-				float yw = xx;
-				float rl = MathUtil.BezierY( f, 0.0f, -10.82f, -5.0f );
+				var f = landTime - RealTime.Now;
+				var xx = MathUtil.BezierY( f, 0.0f, -4.0f, 0.0f );
+				var yy = 0.0f;
+				var zz = MathUtil.BezierY( f, 0.0f, -2.0f, -5.0f );
+				var pt = MathUtil.BezierY( f, 0.0f, -4.36f, 10.0f );
+				var yw = xx;
+				var rl = MathUtil.BezierY( f, 0.0f, -10.82f, -5.0f );
 				targetVectorPos += new Vector3( xx, yy, zz ) / 2.0f;
 				targetVectorRot += new Vector3( pt, yw, rl ) / 2.0f;
 				animSpeed = 20.0f;
