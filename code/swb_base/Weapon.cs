@@ -80,6 +80,10 @@ public partial class Weapon : Component, IInventoryItem
 
 		TimeSinceDeployed = -delay;
 
+		// Sound
+		if ( DeploySound is not null )
+			PlaySound( DeploySound.ResourceId );
+
 		// Start drawing
 		ViewModelHandler.ShouldDraw = true;
 	}

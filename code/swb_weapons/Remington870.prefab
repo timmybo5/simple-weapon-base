@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "34129087-f3ef-4951-8265-cf8070a157d2",
+    "__guid": "f7f71b86-3b2e-444f-887d-b3defb7badcc",
     "Name": "remington870",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "8dddf2f8-0280-49bc-94fc-b5f753e6afab",
+        "__guid": "67e6d19f-a348-4206-a8cf-0a84a79eb47a",
         "AimAnimData": {
           "Angle": "-1,0.41,0",
           "Pos": "-2.8,0,0.85"
@@ -20,6 +20,7 @@
         "AnimSpeed": 1,
         "BulletCocking": false,
         "ClassName": "swb_remington",
+        "DeploySound": "sounds/swb/animations/swb_deploy.sound",
         "DisplayName": "Remington 870",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
@@ -30,8 +31,8 @@
         "Icon": "weapons/swb/remington/remington.png",
         "Primary": {
           "_type": "component",
-          "component_id": "2eab94ef-8396-4d34-9a6d-759ab4cc5d20",
-          "go": "34129087-f3ef-4951-8265-cf8070a157d2",
+          "component_id": "52300d8f-88ea-4317-8c9b-fc52a8179bb2",
+          "go": "f7f71b86-3b2e-444f-887d-b3defb7badcc",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -54,7 +55,7 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "2eab94ef-8396-4d34-9a6d-759ab4cc5d20",
+        "__guid": "52300d8f-88ea-4317-8c9b-fc52a8179bb2",
         "Ammo": 6,
         "AmmoType": "shotgun",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",

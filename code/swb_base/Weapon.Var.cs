@@ -35,6 +35,10 @@ public partial class Weapon
 
 	[Property, Group( "General" )] public int Slot { get; set; } = 0;
 
+	/// <summary>Firing sound when clip is empty</summary>
+	[Property, Group( "Sounds" )] public SoundEvent DeploySound { get; set; }
+
+
 	/// <summary>Default weapon field of view</summary>
 	[Property, Group( "FOV" )] public float FOV { get; set; } = 70f;
 

@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "a1556cba-2d75-46cd-9ab4-1696805abb81",
+    "__guid": "d2f424d8-5a22-4716-b228-d6e268493e01",
     "Name": "revolver",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "d540daec-6c8b-4446-a95f-5080d3df0cb7",
+        "__guid": "b4fec973-f7c8-47d8-9223-e9c15aecdfdb",
         "AimAnimData": {
           "Angle": "0.94,-0.03,0",
           "Pos": "-2.797,0,0.848"
@@ -20,6 +20,7 @@
         "AnimSpeed": 1,
         "BulletCocking": false,
         "ClassName": "swb_revolver",
+        "DeploySound": "sounds/swb/animations/swb_deploy.sound",
         "DisplayName": "Raging Bull",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
@@ -30,8 +31,8 @@
         "Icon": "weapons/swb/revolver/revolver.png",
         "Primary": {
           "_type": "component",
-          "component_id": "138f5a84-dcb0-4144-a45a-3627814dde39",
-          "go": "a1556cba-2d75-46cd-9ab4-1696805abb81",
+          "component_id": "c1217cbb-e009-4173-962e-99af78ef8d9f",
+          "go": "d2f424d8-5a22-4716-b228-d6e268493e01",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -42,6 +43,11 @@
           "Angle": "-34.06,-15,0",
           "Pos": "0.123,0,-5.678"
         },
+        "ShellEjectDelay": 0,
+        "ShellReloading": false,
+        "ShellReloadingShootCancel": true,
+        "ShellReloadInsertTime": 0,
+        "ShellReloadStartTime": 0,
         "Slot": 2,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/revolver/v_revolver.vmdl",
@@ -49,7 +55,7 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "138f5a84-dcb0-4144-a45a-3627814dde39",
+        "__guid": "c1217cbb-e009-4173-962e-99af78ef8d9f",
         "Ammo": 6,
         "AmmoType": "revolver",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
