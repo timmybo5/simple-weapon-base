@@ -202,6 +202,13 @@ public partial class Weapon
 		if ( tr.Surface.ImpactEffects.Bullet is not null )
 		{
 			var effectPath = Game.Random.FromArray( tr.Surface.ImpactEffects.Bullet );
+
+			// Surface def for flesh has wrong blood particle linked
+			if ( effectPath.Contains( "impact.flesh" ) )
+			{
+				effectPath = "particles/impact.flesh.bloodpuff.vpcf";
+			}
+
 			var p = new SceneParticles( Scene.SceneWorld, effectPath );
 			p.SetControlPoint( 0, tr.HitPosition );
 			p.SetControlPoint( 0, Rotation.LookAt( tr.Normal ) );
@@ -218,13 +225,13 @@ public partial class Weapon
 				var decalEntry = Game.Random.FromList( decalDef.Decals );
 
 				var gameObject = Scene.CreateObject();
+				gameObject.SetParent( tr.GameObject, false );
 				gameObject.Transform.Position = tr.HitPosition;
 				gameObject.Transform.Rotation = Rotation.LookAt( -tr.Normal );
 
 				var decalRenderer = gameObject.Components.Create<DecalRenderer>();
 				decalRenderer.Material = decalEntry.Material;
 				decalRenderer.Size = new( decalEntry.Height.GetValue(), decalEntry.Height.GetValue(), decalEntry.Depth.GetValue() );
-
 				gameObject.DestroyAsync( 30f );
 			}
 		}
