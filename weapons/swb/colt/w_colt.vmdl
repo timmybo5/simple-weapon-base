@@ -1,0 +1,136 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "Skeleton"
+				children = 
+				[
+					{
+						_class = "Bone"
+						name = "hold_R"
+						origin = [ 0.0, 0.0, 0.0 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						do_not_discard = true
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "colt.vmat"
+								to = "weapons/swb/colt/textures/colt.vmat"
+							},
+							{
+								from = "glove_hardknuckle.vmat"
+								to = "glove_hardknuckle.vmat"
+							},
+							{
+								from = "sleeve_st6_generalist.vmat"
+								to = "sleeve_st6_generalist.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsMeshFile"
+						name = "revolver"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ -9.0, 3.0, -30.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "weapons/swb/colt/models/colt.fbx"
+						import_scale = 1.4
+						maxMeshVertices = 0
+						qemError = 0.0
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"sleeve",
+								"hardknuckle",
+								"Charger",
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "Base"
+						relative_origin = [ -1.115374, 0.991101, -11.545115 ]
+						relative_angles = [ 83.999939, -0.00005, -0.00009 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "ejection_point"
+						parent_bone = "Base"
+						relative_origin = [ -2.260543, 1.609489, -4.059369 ]
+						relative_angles = [ 20.000017, 89.999985, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "weapons/swb/colt/models/colt.fbx"
+						import_translation = [ -9.0, 3.0, -30.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.4
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"hardknuckle",
+								"sleeve",
+							]
+						}
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}

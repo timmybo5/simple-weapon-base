@@ -1,0 +1,96 @@
+{
+  "RootObject": {
+    "__guid": "0738552c-1dab-49e7-8db9-ab1b3064d917",
+    "Name": "colt",
+    "Tags": "weapon",
+    "NetworkMode": 2,
+    "Components": [
+      {
+        "__type": "Weapon",
+        "__guid": "590be842-381c-4011-aad1-63aa1d8b7d61",
+        "AimAnimData": {
+          "Angle": "-1.15,-0.09,18",
+          "Pos": "-0.82,0,1.855"
+        },
+        "AimFOV": 35,
+        "AimInFOVSpeed": 1,
+        "AimOutFOVSpeed": 1,
+        "AimPlayerFOV": -1,
+        "AimSensitivity": 0.85,
+        "AnimSpeed": 1,
+        "BulletCocking": false,
+        "ClassName": "swb_colt",
+        "DeploySound": "sounds/swb/animations/swb_deploy.sound",
+        "DisplayName": "Colt M1911",
+        "DrawAnim": "deploy",
+        "DrawEmptyAnim": "",
+        "DrawEmptyTime": -1,
+        "DrawTime": 0.4,
+        "FOV": 65,
+        "HoldType": "Pistol",
+        "Icon": "weapons/swb/colt/colt.png",
+        "Primary": {
+          "_type": "component",
+          "component_id": "d0cfc7e3-eef0-4a47-8d5a-15aabfca9b27",
+          "go": "0738552c-1dab-49e7-8db9-ab1b3064d917",
+          "component_type": "ShootInfo"
+        },
+        "ReloadAnim": "reload",
+        "ReloadEmptyAnim": "reload_empty",
+        "ReloadEmptyTime": -1,
+        "ReloadTime": 4.5,
+        "RunAnimData": {
+          "Angle": "13,41.51,0",
+          "Pos": "3.6,1.03,1.128"
+        },
+        "ShellEjectDelay": 0,
+        "ShellReloading": false,
+        "ShellReloadingShootCancel": true,
+        "ShellReloadInsertTime": 0,
+        "ShellReloadStartTime": 0,
+        "Slot": 1,
+        "TuckRange": 30,
+        "ViewModel": "weapons/swb/colt/v_colt.vmdl",
+        "WorldModel": "weapons/swb/colt/w_colt.vmdl"
+      },
+      {
+        "__type": "ShootInfo",
+        "__guid": "d0cfc7e3-eef0-4a47-8d5a-15aabfca9b27",
+        "Ammo": 7,
+        "AmmoType": "pistol",
+        "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
+        "BulletEjectParticle": "models/weapons/sbox_ammo/9mm_bullet/9mm_ejectbrass.vpcf",
+        "Bullets": 1,
+        "BulletSize": 2,
+        "BulletTracerChance": 0.33,
+        "BulletTracerParticle": "particles/swb/tracer/tracer.vpcf",
+        "ClipSize": 7,
+        "Damage": 25,
+        "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",
+        "FiringType": "semi",
+        "Force": 3,
+        "HitFlinch": 1.25,
+        "InfiniteAmmo": "reserve",
+        "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
+        "Recoil": 0.35,
+        "RPM": 700,
+        "ShootAimedAnim": "",
+        "ShootAnim": "fire",
+        "ShootEmptyAnim": "",
+        "ShootSound": "weapons/swb/colt/sounds/colt.fire.sound",
+        "Spread": 0.08,
+        "VMParticleScale": 1,
+        "WMParticleScale": 1
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": [
+    "facepunch.9mm_ejectbrass"
+  ]
+}

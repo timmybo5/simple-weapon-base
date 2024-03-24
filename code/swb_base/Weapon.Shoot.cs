@@ -225,7 +225,7 @@ public partial class Weapon
 				var decalEntry = Game.Random.FromList( decalDef.Decals );
 
 				var gameObject = Scene.CreateObject();
-				gameObject.SetParent( tr.GameObject, false );
+				//gameObject.SetParent( tr.GameObject, false );
 				gameObject.Transform.Position = tr.HitPosition;
 				gameObject.Transform.Rotation = Rotation.LookAt( -tr.Normal );
 

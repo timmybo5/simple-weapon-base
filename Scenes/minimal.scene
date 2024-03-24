@@ -364,6 +364,10 @@
             {
               "_type": "gameobject",
               "prefab": "code/swb_weapons/remington870.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "code/swb_weapons/colt.prefab"
             }
           ]
         }
@@ -409,6 +413,14 @@
           "__Prefab": "code/swb_weapons/revolver.prefab"
         },
         {
+          "__guid": "0738552c-1dab-49e7-8db9-ab1b3064d917",
+          "Name": "swb_colt",
+          "Position": "-355.4048,-322.8516,709.8921",
+          "Tags": "weapon",
+          "NetworkMode": 2,
+          "__Prefab": "code/swb_weapons/colt.prefab"
+        },
+        {
           "__guid": "07cb8209-2c02-4111-857a-3f5d1d941a06",
           "Name": "swb_remington",
           "Position": "-355.4048,-322.8516,709.8921",
@@ -442,7 +454,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-22T19:21:18.8084925\u002B02:00",
+  "LastSaved": "2024-03-24T17:35:24.982657\u002B02:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

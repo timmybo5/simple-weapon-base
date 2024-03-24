@@ -31,6 +31,7 @@ public class Inventory : IInventory
 		var gameObject = gamePrefab.Clone( player.GameObject, player.Transform.Position, player.Transform.Rotation, Vector3.One );
 		gameObject.Name = gamePrefab.Name;
 		gameObject.NetworkSpawn( player.Network.OwnerConnection );
+		gameObject.Enabled = false;
 		Add( gameObject, makeActive );
 	}
 

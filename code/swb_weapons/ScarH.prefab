@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "ec59aaf8-daca-448f-ac1e-4e5cc1c250d7",
+    "__guid": "02881a4d-68de-4b2f-982d-b60e17e809a5",
     "Name": "scarh",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "3f34d5ab-c430-4695-89b1-48721323553d",
+        "__guid": "dc48b36b-a88b-4a02-8088-939184c05fd3",
         "AimAnimData": {
           "Angle": "-0.1,0.34,3.9",
           "Pos": "-2.163,0.36,0.233"
@@ -21,7 +21,7 @@
         "BulletCocking": true,
         "ClassName": "swb_scarh",
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
-        "DisplayName": "Scar-H",
+        "DisplayName": "FN Scar H",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
         "DrawEmptyTime": -1,
@@ -31,8 +31,8 @@
         "Icon": "weapons/swb/scarh/scarh.png",
         "Primary": {
           "_type": "component",
-          "component_id": "3dc5928f-d4ea-4222-88bd-8cfed367b719",
-          "go": "ec59aaf8-daca-448f-ac1e-4e5cc1c250d7",
+          "component_id": "4e66b4f7-d90f-4352-858d-7524c876e62e",
+          "go": "02881a4d-68de-4b2f-982d-b60e17e809a5",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -55,7 +55,7 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "3dc5928f-d4ea-4222-88bd-8cfed367b719",
+        "__guid": "4e66b4f7-d90f-4352-858d-7524c876e62e",
         "Ammo": 30,
         "AmmoType": "rifle",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",

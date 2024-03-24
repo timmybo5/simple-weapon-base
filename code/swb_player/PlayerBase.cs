@@ -91,15 +91,20 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
 			var weaponGO = weaponRegistery.Get( "swb_revolver" );
 			var weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO );
+			Inventory.AddClone( weaponGO, false );
 			SetAmmo( weapon.Primary.AmmoType, 360 );
 
 			weaponGO = weaponRegistery.Get( "swb_scarh" );
 			weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO );
+			Inventory.AddClone( weaponGO, false );
 			SetAmmo( weapon.Primary.AmmoType, 360 );
 
 			weaponGO = weaponRegistery.Get( "swb_remington" );
+			weapon = weaponGO.Components.Get<Weapon>( true );
+			Inventory.AddClone( weaponGO, false );
+			SetAmmo( weapon.Primary.AmmoType, 360 );
+
+			weaponGO = weaponRegistery.Get( "swb_colt" );
 			weapon = weaponGO.Components.Get<Weapon>( true );
 			Inventory.AddClone( weaponGO );
 			SetAmmo( weapon.Primary.AmmoType, 360 );
