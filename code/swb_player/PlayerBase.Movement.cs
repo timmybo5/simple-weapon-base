@@ -5,7 +5,6 @@ namespace SWB.Player;
 
 public partial class PlayerBase
 {
-	// Movement Properties
 	[Property] public float GroundControl { get; set; } = 4.0f;
 	[Property] public float AirControl { get; set; } = 0.1f;
 	[Property] public float MaxForce { get; set; } = 50f;
@@ -14,7 +13,6 @@ public partial class PlayerBase
 	[Property] public float CrouchSpeed { get; set; } = 90f;
 	[Property] public float JumpForce { get; set; } = 350f;
 
-	// Member Variables
 	[Sync] public Vector3 WishVelocity { get; set; } = Vector3.Zero;
 	[Sync] public Angles EyeAngles { get; set; }
 	[Sync] public Vector3 EyeOffset { get; set; } = Vector3.Zero;
@@ -28,10 +26,15 @@ public partial class PlayerBase
 	public CharacterController CharacterController { get; set; }
 	public CitizenAnimationHelper AnimationHelper { get; set; }
 
+	TimeSince timeSinceLastFootstep = 0;
+
 	void OnMovementAwake()
 	{
 		CharacterController = Components.Get<CharacterController>();
 		AnimationHelper = Components.Get<CitizenAnimationHelper>();
+
+		if ( BodyRenderer is not null )
+			BodyRenderer.OnFootstepEvent += OnAnimEventFootstep;
 	}
 
 	void OnMovementUpdate()
@@ -160,5 +163,38 @@ public partial class PlayerBase
 				CharacterController.Height = targetHeight;
 			}
 		}
+	}
+
+	void OnAnimEventFootstep( SceneModel.FootstepEvent footstepEvent )
+	{
+		if ( !IsAlive || !IsOnGround ) return;
+
+		// Walk
+		var stepDelay = 0.25f;
+
+		// Running
+		if ( Velocity.WithZ( 0 ).Length >= 200 )
+		{
+			stepDelay = 0.2f;
+		}
+		// Crouching
+		else if ( IsCrouching )
+		{
+			stepDelay = 0.4f;
+		}
+
+		if ( timeSinceLastFootstep < stepDelay )
+			return;
+
+		var tr = Scene.Trace.Ray( footstepEvent.Transform.Position, footstepEvent.Transform.Position + Vector3.Down * 20 )
+			.Radius( 1 )
+			.IgnoreGameObject( this.GameObject )
+			.Run();
+
+		if ( !tr.Hit ) return;
+
+		var sound = tr.Surface.PlayCollisionSound( footstepEvent.Transform.Position );
+		sound.Volume = footstepEvent.Volume;
+		timeSinceLastFootstep = 0;
 	}
 }

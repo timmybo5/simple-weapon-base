@@ -5,6 +5,7 @@
       "__guid": "c5c1918c-9604-4d49-a40f-a28dc70a7ac0",
       "Name": "Map",
       "Position": "125.0372,120.9534,-133.1576",
+      "Enabled": true,
       "NetworkMode": 2,
       "Components": [
         {
@@ -466,7 +467,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-26T01:03:58.988981\u002B02:00",
+  "LastSaved": "2024-03-26T23:27:35.3583415\u002B02:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []
