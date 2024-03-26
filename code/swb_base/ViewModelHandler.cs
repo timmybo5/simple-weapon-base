@@ -212,19 +212,19 @@ public class ViewModelHandler : Component
 	{
 		if ( isAiming && !Weapon.IsReloading && Weapon.AimAnimData != AngPos.Zero )
 		{
-			var speedMod = 1;
+			var speedMod = 1f;
 			if ( aimTime == 0 )
 			{
 				aimTime = RealTime.Now;
 			}
 
-			// var timeDiff = RealTime.Now - aimTime;
+			var timeDiff = RealTime.Now - aimTime;
 
 			// Mod only while actively scoping
-			//if ( Weapon.IsScoped || (!Weapon.IsScoped && timeDiff < 0.2f) )
-			//{
-			//	speedMod = timeDiff * 10;
-			//}
+			if ( Weapon.IsScoping || (!Weapon.IsScoping && timeDiff < 0.2f) )
+			{
+				speedMod = timeDiff * 10;
+			}
 
 			animSpeed = 10 * Weapon.AnimSpeed * speedMod;
 			targetVectorPos += Weapon.AimAnimData.Pos;
@@ -233,8 +233,8 @@ public class ViewModelHandler : Component
 			if ( Weapon.AimPlayerFOV > 0 )
 				targetPlayerFOV = Weapon.AimPlayerFOV;
 
-			//if ( Weapon.General.ScopedPlayerFOV > 0 && Weapon.IsScoped )
-			//	targetPlayerFOV = Weapon.General.ScopedPlayerFOV;
+			if ( Weapon.IsScoping && Weapon.ScopeInfo.FOV > 0 )
+				targetPlayerFOV = Weapon.ScopeInfo.FOV;
 
 			if ( Weapon.AimFOV > 0 )
 				targetWeaponFOV = Weapon.AimFOV;

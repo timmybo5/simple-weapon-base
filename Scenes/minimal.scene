@@ -368,6 +368,10 @@
             {
               "_type": "gameobject",
               "prefab": "code/swb_weapons/colt.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "code/swb_weapons/l96a1.prefab"
             }
           ]
         }
@@ -413,6 +417,14 @@
           "__Prefab": "code/swb_weapons/revolver.prefab"
         },
         {
+          "__guid": "6c87c705-022e-49a8-8d20-078e8ebfd5db",
+          "Name": "swb_l96a1",
+          "Position": "-355.4048,-322.8516,709.8921",
+          "Tags": "weapon",
+          "NetworkMode": 2,
+          "__Prefab": "code/swb_weapons/l96a1.prefab"
+        },
+        {
           "__guid": "0738552c-1dab-49e7-8db9-ab1b3064d917",
           "Name": "swb_colt",
           "Position": "-355.4048,-322.8516,709.8921",
@@ -454,7 +466,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-24T17:35:24.982657\u002B02:00",
+  "LastSaved": "2024-03-26T01:03:58.988981\u002B02:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

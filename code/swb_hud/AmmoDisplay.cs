@@ -30,8 +30,9 @@ public class AmmoDisplay : Panel
 	{
 		var isAlive = player.IsAlive;
 		var weapon = player.Inventory.Active?.Components.Get<Weapon>();
-		SetClass( "hide", !isAlive || weapon is null );
-		if ( !isAlive || weapon is null ) return;
+		var hide = !isAlive || weapon is null;
+		SetClass( "hide", hide );
+		if ( hide ) return;
 
 		var hasClipSize = weapon.Primary.ClipSize > 0;
 		var reserveAmmo = Math.Min( player.AmmoCount( weapon.Primary.AmmoType ), 999 );

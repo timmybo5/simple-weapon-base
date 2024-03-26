@@ -15,7 +15,7 @@ public partial class Weapon
 	/// <returns></returns>
 	public virtual bool CanShoot( ShootInfo shootInfo, TimeSince lastAttackTime, string inputButton )
 	{
-		if ( (IsReloading && !ShellReloading) || (IsReloading && ShellReloading && !ShellReloadingShootCancel) ) return false;
+		if ( (IsReloading && !ShellReloading) || (IsReloading && ShellReloading && !ShellReloadingShootCancel) || InBoltBack ) return false;
 		if ( shootInfo is null || !Owner.IsValid() || !Input.Down( inputButton ) || (IsRunning && Secondary is null) ) return false;
 
 		if ( !HasAmmo() )
@@ -102,7 +102,7 @@ public partial class Weapon
 		// Bullet
 		for ( int i = 0; i < shootInfo.Bullets; i++ )
 		{
-			var realSpread = GetRealSpread( shootInfo.Spread );
+			var realSpread = IsScoping ? 0 : GetRealSpread( shootInfo.Spread );
 			var spreadOffset = shootInfo.BulletType.GetRandomSpread( realSpread );
 			ShootBullet( isPrimary, spreadOffset );
 		}
@@ -150,18 +150,25 @@ public partial class Weapon
 		// Bullet eject
 		if ( shootInfo.BulletEjectParticle is not null )
 		{
-			if ( !ShellReloading || (ShellReloading && ShellEjectDelay == 0) )
+			if ( !BoltBack )
 			{
-				CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
-			}
-			else
-			{
-				var delayedEject = async () =>
+				if ( !ShellReloading || (ShellReloading && ShellEjectDelay == 0) )
 				{
-					await GameTask.DelaySeconds( ShellEjectDelay );
 					CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
-				};
-				delayedEject();
+				}
+				else
+				{
+					var delayedEject = async () =>
+					{
+						await GameTask.DelaySeconds( ShellEjectDelay );
+						CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
+					};
+					delayedEject();
+				}
+			}
+			else if ( shootInfo.Ammo > 0 )
+			{
+				AsyncBoltBack( GetRealRPM( shootInfo.RPM ) );
 			}
 		}
 

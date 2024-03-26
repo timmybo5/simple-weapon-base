@@ -76,10 +76,10 @@ public class Crosshair : Panel
 	{
 		bool isValidWeapon = weapon is not null;
 
-		var hideCrosshairDot = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairDot ||*/ weapon.IsCustomizing;
+		var hideCrosshairDot = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairDot ||*/ weapon.IsScoping || weapon.IsCustomizing;
 		centerDot.SetClass( "hideCrosshair", hideCrosshairDot );
 
-		var hideCrosshairLines = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairLines ||*/ weapon.IsCustomizing;
+		var hideCrosshairLines = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairLines ||*/ weapon.IsScoping || weapon.IsCustomizing;
 		leftBar.SetClass( "hideCrosshair", hideCrosshairLines );
 		rightBar.SetClass( "hideCrosshair", hideCrosshairLines );
 		topBar.SetClass( "hideCrosshair", hideCrosshairLines );
@@ -95,7 +95,7 @@ public class Crosshair : Panel
 		bottomBar.Style.MarginTop = screenOffset;
 
 		// Sprint spread offsets
-		if ( weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading || weapon.IsDeploying )
+		if ( weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading || weapon.IsDeploying || weapon.InBoltBack )
 		{
 			leftBar.Style.Left = -sprintOffset;
 			rightBar.Style.Left = sprintOffset - 5;

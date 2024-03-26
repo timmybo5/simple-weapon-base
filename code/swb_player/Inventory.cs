@@ -24,6 +24,13 @@ public class Inventory : IInventory
 
 		if ( makeActive )
 			SetActive( gameObject );
+		else
+		{
+			if ( gameObject.Components.TryGet<IInventoryItem>( out var item ) )
+			{
+				item.OnCarryStop();
+			}
+		}
 	}
 
 	public void AddClone( GameObject gamePrefab, bool makeActive = true )
@@ -31,7 +38,7 @@ public class Inventory : IInventory
 		var gameObject = gamePrefab.Clone( player.GameObject, player.Transform.Position, player.Transform.Rotation, Vector3.One );
 		gameObject.Name = gamePrefab.Name;
 		gameObject.NetworkSpawn( player.Network.OwnerConnection );
-		gameObject.Enabled = false;
+
 		Add( gameObject, makeActive );
 	}
 

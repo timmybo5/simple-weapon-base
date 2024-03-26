@@ -2,7 +2,6 @@
     position: absolute;
     top: 40px;
     left: 60px;
-    height: 120px;
     font-family: Poppins;
 
     &.hide {
@@ -10,8 +9,8 @@
     }
 
     .item {
-        height: 140px;
-        width: 130px;
+        height: 120px;
+        width: 120px;
         justify-content: center;
         margin-right: 8px;
         background-color: rgba( #2222, 0.5 );
@@ -29,13 +28,16 @@
         }
 
         .icon {
-            height: 130px;
+            height: 100px;
             align-self: center;
+            margin-left: 6px;
             background-size: contain;
+            background-repeat: no-repeat;
         }
 
         .slot {
             position: absolute;
+            z-index: 3;
             top: 2px;
             font-size: 18px;
             color: #eccc68;

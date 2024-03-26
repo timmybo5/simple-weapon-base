@@ -42,6 +42,8 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelHandler.ShouldDraw = false;
 
 		IsReloading = false;
+		IsScoping = false;
+		IsAiming = false;
 
 		DestroyUI();
 	}
@@ -86,6 +88,10 @@ public partial class Weapon : Component, IInventoryItem
 
 		// Start drawing
 		ViewModelHandler.ShouldDraw = true;
+
+		// Boltback
+		if ( InBoltBack )
+			AsyncBoltBack( delay );
 	}
 
 	protected override void OnStart()
@@ -106,8 +112,18 @@ public partial class Weapon : Component, IInventoryItem
 
 			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack );
 
-			if ( IsAiming )
+			if ( IsScoping )
+				Owner.InputSensitivity = ScopeInfo.AimSensitivity;
+			else if ( IsAiming )
 				Owner.InputSensitivity = AimSensitivity;
+
+			if ( Scoping )
+			{
+				if ( IsAiming && !IsScoping )
+					OnScopeStart();
+				else if ( !IsAiming && IsScoping )
+					OnScopeEnd();
+			}
 
 			ResetBurstFireCount( Primary, InputButtonHelper.PrimaryAttack );
 			ResetBurstFireCount( Secondary, InputButtonHelper.SecondaryAttack );
@@ -131,25 +147,17 @@ public partial class Weapon : Component, IInventoryItem
 			else if ( Input.Down( InputButtonHelper.Reload ) )
 			{
 				if ( ShellReloading )
-				{
 					OnShellReload();
-				}
 				else
-				{
 					Reload();
-				}
 			}
 
 			if ( IsReloading && TimeSinceReload >= 0 )
 			{
 				if ( ShellReloading )
-				{
 					OnShellReloadFinish();
-				}
 				else
-				{
 					OnReloadFinish();
-				}
 			}
 		}
 	}

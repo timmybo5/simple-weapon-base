@@ -7,6 +7,7 @@ public partial class Weapon
 	public ScreenPanel ScreenPanel { get; set; }
 	public PanelComponent RootPanel { get; set; }
 
+	/// <summary>Override this if you want custom UI elements</summary>
 	public virtual void CreateUI()
 	{
 		ScreenPanel = Components.Create<ScreenPanel>();

@@ -106,7 +106,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 			weaponGO = weaponRegistery.Get( "swb_colt" );
 			weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO );
+			Inventory.AddClone( weaponGO, false );
+			SetAmmo( weapon.Primary.AmmoType, 360 );
+
+			weaponGO = weaponRegistery.Get( "swb_l96a1" );
+			weapon = weaponGO.Components.Get<Weapon>( true );
+			Inventory.AddClone( weaponGO, true );
 			SetAmmo( weapon.Primary.AmmoType, 360 );
 		}
 	}

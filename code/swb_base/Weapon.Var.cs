@@ -58,11 +58,11 @@ public partial class Weapon
 	/// <summary>Procedural animation speed (lower is slower)</summary>
 	[Property, Group( "Animations" )] public float AnimSpeed { get; set; } = 1;
 
-	/// <summary>Data used for setting the weapon to its aim position</summary>
-	[Property, Group( "Animations" )] public AngPos AimAnimData { get; set; }
+	/// <summary>Offset used for setting the weapon to its aim position</summary>
+	[Property, Group( "Animations" ), Title( "Aim Offset (swb_editor_offsets)" )] public AngPos AimAnimData { get; set; }
 
-	/// <summary>Data used for setting the weapon to its run position</summary>
-	[Property, Group( "Animations" )] public AngPos RunAnimData { get; set; }
+	/// <summary>Offset used for setting the weapon to its run position</summary>
+	[Property, Group( "Animations" ), Title( "Run Offset (swb_editor_offsets)" )] public AngPos RunAnimData { get; set; }
 
 
 	/// <summary>Duration of the reload animation</summary>
@@ -106,6 +106,24 @@ public partial class Weapon
 	[Property, Group( "Shell Reloading" )] public float ShellReloadInsertTime { get; set; } = 0;
 
 
+	/// <summary>Is this a bolt action weapon?</summary>
+	[Property, Group( "Bolt Action Reloading" ), Title( "Bolt Action" )] public bool BoltBack { get; set; } = false;
+
+	/// <summary>Duration of the boltback animation</summary>
+	[Property, Group( "Bolt Action Reloading" )] public float BoltBackTime { get; set; } = 0f;
+
+	/// <summary>Boltback animation</summary>
+	[Property, Group( "Bolt Action Reloading" )] public string BoltBackAnim { get; set; } = "boltback";
+
+	/// <summary>Bullet eject delay during the boltback animation (-1 to disable)</summary>
+	[Property, Group( "Bolt Action Reloading" )] public float BoltBackEjectDelay { get; set; } = 0f;
+
+	/// <summary>Enable scoping, renders a 2D scope on ADS</summary>
+	[Property, Group( "Scoping" )] public bool Scoping { get; set; } = false;
+
+	/// <summary>Scope Information</summary>
+	[Property, Group( "Scoping" )] public ScopeInfo ScopeInfo { get; set; } = new();
+
 	/// <summary>Primary attack data</summary>
 	[Property, Group( "Firing" ), Title( "Primary ShootInfo (component)" )] public ShootInfo Primary { get; set; } = new();
 
@@ -141,6 +159,12 @@ public partial class Weapon
 
 	/// <summary>If the weapon is being aimed</summary>
 	[Sync] public bool IsAiming { get; set; }
+
+	/// <summary>If the weapon is being scoped</summary>
+	[Sync] public bool IsScoping { get; set; }
+
+	/// <summary>If the weapon is being bolt back reloaded</summary>
+	[Sync] public bool InBoltBack { get; set; }
 
 	public bool IsDeploying => TimeSinceDeployed < 0;
 

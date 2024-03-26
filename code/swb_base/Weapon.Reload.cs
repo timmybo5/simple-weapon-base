@@ -4,7 +4,7 @@ public partial class Weapon
 {
 	public virtual void Reload()
 	{
-		if ( IsReloading || /*IsAnimating || InBoltBack ||*/ IsShooting() )
+		if ( IsReloading || /*IsAnimating ||*/  InBoltBack || IsShooting() )
 			return;
 
 		var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
@@ -14,14 +14,6 @@ public partial class Weapon
 
 		var isEmptyReload = ReloadEmptyTime > 0 && Primary.Ammo == 0;
 		TimeSinceReload = -(isEmptyReload ? ReloadEmptyTime : ReloadTime);
-
-		//if ( !isEmptyReload && Primary.Ammo == 0 && General.BoltBackTime > -1 )
-		//{
-		//	TimeSinceReload -= General.BoltBackTime;
-
-		//	if ( Game.IsServer )
-		//		_ = AsyncBoltBack( General.ReloadTime, General.BoltBackAnim, General.BoltBackTime, General.BoltBackEjectDelay, Primary.BulletEjectParticle );
-		//}
 
 		if ( Owner.AmmoCount( Primary.AmmoType ) <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
 			return;
@@ -39,6 +31,13 @@ public partial class Weapon
 
 		// Player anim
 		HandleReloadEffects();
+
+		//Boltback
+		if ( !isEmptyReload && Primary.Ammo == 0 && BoltBack )
+		{
+			TimeSinceReload -= BoltBackTime;
+			AsyncBoltBack( ReloadTime );
+		}
 	}
 
 	public virtual void OnReloadFinish()
@@ -90,6 +89,25 @@ public partial class Weapon
 		{
 			CancelShellReload();
 		}
+	}
+
+	async void AsyncBoltBack( float boltBackDelay )
+	{
+		InBoltBack = true;
+
+		// Start boltback
+		await GameTask.DelaySeconds( boltBackDelay );
+		if ( !IsProxy )
+			ViewModelRenderer?.Set( BoltBackAnim, true );
+
+		// Eject shell
+		await GameTask.DelaySeconds( BoltBackEjectDelay );
+		var scale = CanSeeViewModel ? Primary.VMParticleScale : Primary.WMParticleScale;
+		CreateParticle( Primary.BulletEjectParticle, "ejection_point", scale );
+
+		// Finished
+		await GameTask.DelaySeconds( BoltBackTime - BoltBackEjectDelay );
+		InBoltBack = false;
 	}
 
 	[Broadcast]

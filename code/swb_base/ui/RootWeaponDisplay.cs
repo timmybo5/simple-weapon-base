@@ -18,5 +18,11 @@ public class RootWeaponDisplay : PanelComponent
 
 		var crosshair = new Crosshair( Weapon );
 		Panel.AddChild( crosshair );
+
+		if ( Weapon.Scoping )
+		{
+			var sniperScope = new SniperScope( Weapon, Weapon.ScopeInfo.LensTexture, Weapon.ScopeInfo.ScopeTexture );
+			Panel.AddChild( sniperScope );
+		}
 	}
 }

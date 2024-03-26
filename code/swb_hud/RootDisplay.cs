@@ -1,4 +1,5 @@
 using Sandbox.UI;
+using SWB.Base;
 using SWB.Player;
 
 namespace SWB.HUD;
@@ -21,5 +22,13 @@ public class RootDisplay : PanelComponent
 		Panel.AddChild( new HealthDisplay( Player ) );
 		Panel.AddChild( new AmmoDisplay( Player ) );
 		Panel.AddChild( new InventoryDisplay( Player ) );
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( Player is null || !Player.IsValid ) return;
+
+		var weapon = Player.Inventory.Active?.Components.Get<Weapon>();
+		Panel.SetClass( "hide", weapon is null || weapon.IsScoping );
 	}
 }
