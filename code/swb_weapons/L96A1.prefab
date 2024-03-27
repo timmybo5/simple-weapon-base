@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "6b843c3e-db5f-4fd2-b84a-7e415c1fa991",
+    "__guid": "950fbd54-e785-4a74-a872-aaafd54dad7d",
     "Name": "l96a1",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "2de45f5a-f7d5-46d1-b845-80b0911bc51b",
+        "__guid": "87265d7a-ae54-4617-8aca-8f9bf470900f",
         "AimAnimData": {
           "Pos": "-4.996,-4.46,0.223"
         },
@@ -34,8 +34,8 @@
         "Icon": "weapons/swb/l96a1/l96a1.png",
         "Primary": {
           "_type": "component",
-          "component_id": "3a637045-967b-4822-b7bd-2b9491355e04",
-          "go": "6b843c3e-db5f-4fd2-b84a-7e415c1fa991",
+          "component_id": "4017f41f-5488-470e-95ce-389849bdd871",
+          "go": "950fbd54-e785-4a74-a872-aaafd54dad7d",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -68,16 +68,16 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "3a637045-967b-4822-b7bd-2b9491355e04",
-        "Ammo": 6,
-        "AmmoType": "revolver",
+        "__guid": "4017f41f-5488-470e-95ce-389849bdd871",
+        "Ammo": 5,
+        "AmmoType": "sniper",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
         "BulletEjectParticle": "models/weapons/sbox_ammo/9mm_bullet/9mm_ejectbrass.vpcf",
         "Bullets": 1,
         "BulletSize": 4,
         "BulletTracerChance": 0.33,
         "BulletTracerParticle": "particles/swb/tracer/tracer.vpcf",
-        "ClipSize": 6,
+        "ClipSize": 5,
         "Damage": 100,
         "DryShootSound": "sounds/swb/clip/swb_sniper.empty.sound",
         "FiringType": "semi",

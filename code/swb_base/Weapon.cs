@@ -215,6 +215,7 @@ public partial class Weapon : Component, IInventoryItem
 		{
 			WorldModelRenderer = Components.Create<SkinnedModelRenderer>();
 			WorldModelRenderer.Model = WorldModel;
+			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
 
 			var bodyRenderer = Owner.Body.Components.Get<SkinnedModelRenderer>();

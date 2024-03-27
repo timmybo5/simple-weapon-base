@@ -14,7 +14,8 @@
           "MapName": "facepunch.flatgrass",
           "UseMapFromLaunch": true
         }
-      ]
+      ],
+      "Children": []
     },
     {
       "__guid": "9318758b-1419-4d49-9e5d-991d863b4964",
@@ -373,6 +374,10 @@
             {
               "_type": "gameobject",
               "prefab": "code/swb_weapons/l96a1.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "code/swb_weapons/veresk.prefab"
             }
           ]
         }
@@ -408,6 +413,14 @@
           "Tags": "weapon",
           "NetworkMode": 2,
           "__Prefab": "code/swb_weapons/scarh.prefab"
+        },
+        {
+          "__guid": "c763add7-63b5-43a5-b930-4ca3c121e910",
+          "Name": "swb_veresk",
+          "Position": "-205.4098,-172.8566,497.7671",
+          "Tags": "weapon",
+          "NetworkMode": 2,
+          "__Prefab": "code/swb_weapons/veresk.prefab"
         },
         {
           "__guid": "83e30f50-cc0a-486c-93ed-fa06bc1ae007",
@@ -467,7 +480,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-26T23:27:35.3583415\u002B02:00",
+  "LastSaved": "2024-03-27T20:21:42.7687418\u002B02:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []
