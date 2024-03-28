@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "f7f71b86-3b2e-444f-887d-b3defb7badcc",
+    "__guid": "4f8b0165-9f5e-41af-a65d-cc7e563119ca",
     "Name": "remington870",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "67e6d19f-a348-4206-a8cf-0a84a79eb47a",
+        "__guid": "883c3387-72a2-47fc-832c-0f9992288693",
         "AimAnimData": {
           "Angle": "-1,0.41,0",
           "Pos": "-2.8,0,0.85"
@@ -18,6 +18,10 @@
         "AimPlayerFOV": -1,
         "AimSensitivity": 0.85,
         "AnimSpeed": 1,
+        "BoltBack": false,
+        "BoltBackAnim": "boltback",
+        "BoltBackEjectDelay": 0,
+        "BoltBackTime": 0,
         "BulletCocking": false,
         "ClassName": "swb_remington",
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
@@ -31,8 +35,8 @@
         "Icon": "weapons/swb/remington/remington.png",
         "Primary": {
           "_type": "component",
-          "component_id": "52300d8f-88ea-4317-8c9b-fc52a8179bb2",
-          "go": "f7f71b86-3b2e-444f-887d-b3defb7badcc",
+          "component_id": "9eb2dd3b-dff6-4ac2-b082-9cdfd3276ffc",
+          "go": "4f8b0165-9f5e-41af-a65d-cc7e563119ca",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -43,6 +47,14 @@
           "Angle": "11.34,48.19,0",
           "Pos": "3.2,-2.57,-1.182"
         },
+        "ScopeInfo": {
+          "LensTexture": "/materials/swb/scopes/swb_lens_hunter.png",
+          "ScopeTexture": "/materials/swb/scopes/swb_scope_hunter.png",
+          "ScopeInDelay": 0.2,
+          "FOV": 8,
+          "AimSensitivity": 0.25
+        },
+        "Scoping": false,
         "ShellEjectDelay": 0.67,
         "ShellReloading": true,
         "ShellReloadingShootCancel": true,
@@ -55,11 +67,11 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "52300d8f-88ea-4317-8c9b-fc52a8179bb2",
+        "__guid": "9eb2dd3b-dff6-4ac2-b082-9cdfd3276ffc",
         "Ammo": 6,
         "AmmoType": "shotgun",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
-        "BulletEjectParticle": "models/weapons/sbox_ammo/9mm_bullet/9mm_ejectbrass.vpcf",
+        "BulletEjectParticle": "particles/swb/bullet_hulls/12gauge_eject.vpcf",
         "Bullets": 10,
         "BulletSize": 2,
         "BulletTracerChance": 0.33,
@@ -90,7 +102,5 @@
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__version": 1,
-  "__references": [
-    "facepunch.9mm_ejectbrass"
-  ]
+  "__references": []
 }

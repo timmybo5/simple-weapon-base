@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "fdf8ebbb-40f5-4c15-afc3-d64e936ebab2",
+    "__guid": "d4ec14ed-7d04-474e-aab3-3ef652809de2",
     "Name": "scarh",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "5be5e59e-c9d7-49d0-a4cc-a6a43dabf8fb",
+        "__guid": "87f281d6-6a91-4077-8321-069ec06429cf",
         "AimAnimData": {
           "Angle": "-0.1,0.34,3.9",
           "Pos": "-2.163,0.36,0.233"
@@ -18,6 +18,10 @@
         "AimPlayerFOV": -1,
         "AimSensitivity": 0.85,
         "AnimSpeed": 1,
+        "BoltBack": false,
+        "BoltBackAnim": "boltback",
+        "BoltBackEjectDelay": 0,
+        "BoltBackTime": 0,
         "BulletCocking": true,
         "ClassName": "swb_scarh",
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
@@ -31,8 +35,8 @@
         "Icon": "weapons/swb/scarh/scarh.png",
         "Primary": {
           "_type": "component",
-          "component_id": "807e61b3-77ec-4d21-8496-739a5b82fc35",
-          "go": "fdf8ebbb-40f5-4c15-afc3-d64e936ebab2",
+          "component_id": "92793112-e688-47ea-8452-289a87dbe05a",
+          "go": "d4ec14ed-7d04-474e-aab3-3ef652809de2",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -43,6 +47,14 @@
           "Angle": "8.41,59.66,0",
           "Pos": "4.29,-0.86,-1.1"
         },
+        "ScopeInfo": {
+          "LensTexture": "/materials/swb/scopes/swb_lens_hunter.png",
+          "ScopeTexture": "/materials/swb/scopes/swb_scope_hunter.png",
+          "ScopeInDelay": 0.2,
+          "FOV": 8,
+          "AimSensitivity": 0.25
+        },
+        "Scoping": false,
         "ShellEjectDelay": 0,
         "ShellReloading": false,
         "ShellReloadingShootCancel": true,
@@ -55,11 +67,11 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "807e61b3-77ec-4d21-8496-739a5b82fc35",
+        "__guid": "92793112-e688-47ea-8452-289a87dbe05a",
         "Ammo": 30,
         "AmmoType": "rifle",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
-        "BulletEjectParticle": "models/weapons/sbox_ammo/9mm_bullet/9mm_ejectbrass.vpcf",
+        "BulletEjectParticle": "particles/swb/bullet_hulls/20mm_eject.vpcf",
         "Bullets": 1,
         "BulletSize": 2,
         "BulletTracerChance": 0.33,
@@ -90,7 +102,5 @@
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__version": 1,
-  "__references": [
-    "facepunch.9mm_ejectbrass"
-  ]
+  "__references": []
 }

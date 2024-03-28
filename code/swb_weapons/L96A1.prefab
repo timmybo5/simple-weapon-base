@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "950fbd54-e785-4a74-a872-aaafd54dad7d",
+    "__guid": "d3b85fda-92cf-4e60-a184-2a8ca31d7c89",
     "Name": "l96a1",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "87265d7a-ae54-4617-8aca-8f9bf470900f",
+        "__guid": "c4b759e1-3811-4253-9c00-09994ca692aa",
         "AimAnimData": {
           "Pos": "-4.996,-4.46,0.223"
         },
@@ -34,8 +34,8 @@
         "Icon": "weapons/swb/l96a1/l96a1.png",
         "Primary": {
           "_type": "component",
-          "component_id": "4017f41f-5488-470e-95ce-389849bdd871",
-          "go": "950fbd54-e785-4a74-a872-aaafd54dad7d",
+          "component_id": "b2e287c2-4057-4e09-8dea-8a81e7191016",
+          "go": "d3b85fda-92cf-4e60-a184-2a8ca31d7c89",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -68,11 +68,11 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "4017f41f-5488-470e-95ce-389849bdd871",
+        "__guid": "b2e287c2-4057-4e09-8dea-8a81e7191016",
         "Ammo": 5,
         "AmmoType": "sniper",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
-        "BulletEjectParticle": "models/weapons/sbox_ammo/9mm_bullet/9mm_ejectbrass.vpcf",
+        "BulletEjectParticle": "particles/swb/bullet_hulls/308_eject.vpcf",
         "Bullets": 1,
         "BulletSize": 4,
         "BulletTracerChance": 0.33,
@@ -103,7 +103,5 @@
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__version": 1,
-  "__references": [
-    "facepunch.9mm_ejectbrass"
-  ]
+  "__references": []
 }
