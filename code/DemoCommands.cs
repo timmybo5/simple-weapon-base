@@ -1,12 +1,12 @@
 ﻿namespace SWB.Demo;
 
-internal class Commands
+internal class DemoCommands
 {
 	[ConCmd( "kill", Help = "Kills the player" )]
 	public static void Kill()
 	{
 		var player = Editor.Commands.GetPlayer();
-		player?.TakeDamage( Shared.DamageInfo.FromBullet( 100, Vector3.Zero ) );
+		player?.TakeDamage( Shared.DamageInfo.FromBullet( 100, Vector3.Zero, System.Array.Empty<string>() ) );
 	}
 
 	[ConCmd( "respawn", Help = "Respawns the player" )]

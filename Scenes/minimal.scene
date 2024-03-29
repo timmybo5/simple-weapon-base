@@ -391,8 +391,8 @@
       "NetworkMode": 2,
       "Components": [
         {
-          "__type": "NetworkManager",
-          "__guid": "94eed029-317a-4440-903d-1f3524ec00ce",
+          "__type": "DemoNetworkManager",
+          "__guid": "2ed65343-f834-4b63-bf18-777ff7d180aa",
           "PlayerPrefab": {
             "_type": "gameobject",
             "prefab": "code/swb_player/prefabs/player.prefab"
@@ -480,7 +480,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-28T22:42:08.5670219\u002B02:00",
+  "LastSaved": "2024-03-29T17:18:21.0277789\u002B02:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []

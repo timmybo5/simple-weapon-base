@@ -1,5 +1,6 @@
 ﻿using SWB.Shared;
 using System;
+using System.Linq;
 
 namespace SWB.Base;
 
@@ -33,7 +34,12 @@ public class HitScanBullet : IBulletBase
 		if ( !weapon.IsProxy && hitObj is not null && hitObj.Tags.Has( TagsHelper.Player ) )
 		{
 			var target = hitObj.Components.GetInAncestorsOrSelf<IPlayerBase>();
-			target?.TakeDamage( Shared.DamageInfo.FromBullet( shootInfo.Damage, forward * 25 * shootInfo.Force ) );
+			var hitTags = Array.Empty<string>();
+
+			if ( bulletTr.Hitbox is not null )
+				hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
+
+			target?.TakeDamage( Shared.DamageInfo.FromBullet( shootInfo.Damage, forward * 25 * shootInfo.Force, hitTags ) );
 		}
 
 	}

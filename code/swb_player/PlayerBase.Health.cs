@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace SWB.Player;
 
 public partial class PlayerBase
@@ -13,6 +15,9 @@ public partial class PlayerBase
 	{
 		if ( IsProxy || !IsAlive )
 			return;
+
+		if ( Array.Exists( info.Tags, tag => tag == "head" ) )
+			info.Damage *= 2;
 
 		Health -= (int)info.Damage;
 

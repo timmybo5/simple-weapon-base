@@ -4,8 +4,8 @@ using SWB.Player;
 namespace SWB.Demo;
 
 [Group( "SWB" )]
-[Title( "Example NetworkManager" )]
-public class NetworkManager : Component, Component.INetworkListener
+[Title( "Demo NetworkManager" )]
+public class DemoNetworkManager : Component, Component.INetworkListener
 {
 	[Property] public PrefabScene PlayerPrefab { get; set; }
 

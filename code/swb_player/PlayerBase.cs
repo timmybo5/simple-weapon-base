@@ -73,7 +73,13 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		CharacterController.Velocity = 0;
 		Ragdoll( info.Force );
 		Inventory.Clear();
-		//Respawn();
+		RespawnWithDelay( 2 );
+	}
+
+	async void RespawnWithDelay( float delay )
+	{
+		await GameTask.DelaySeconds( delay );
+		Respawn();
 	}
 
 	public virtual void Respawn()
