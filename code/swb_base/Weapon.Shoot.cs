@@ -208,7 +208,7 @@ public partial class Weapon
 		// Particles
 		if ( tr.Surface.ImpactEffects.Bullet is not null )
 		{
-			var effectPath = Game.Random.FromArray( tr.Surface.ImpactEffects.Bullet );
+			var effectPath = Game.Random.FromList( tr.Surface.ImpactEffects.Bullet );
 
 			// Surface def for flesh has wrong blood particle linked
 			if ( effectPath.Contains( "impact.flesh" ) )
@@ -225,7 +225,7 @@ public partial class Weapon
 		// Decal
 		if ( tr.Surface.ImpactEffects.BulletDecal is not null )
 		{
-			var decalPath = Game.Random.FromArray( tr.Surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
+			var decalPath = Game.Random.FromList( tr.Surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
 
 			if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalDef ) )
 			{
