@@ -1,6 +1,7 @@
 using Sandbox.UI;
 using SWB.Base;
 using SWB.Player;
+using System;
 
 namespace SWB.HUD;
 
@@ -9,6 +10,7 @@ namespace SWB.HUD;
 public class RootDisplay : PanelComponent
 {
 	[Property] public PlayerBase Player { get; set; }
+	Killfeed killfeed;
 
 	protected override void OnStart()
 	{
@@ -22,13 +24,24 @@ public class RootDisplay : PanelComponent
 		Panel.AddChild( new HealthDisplay( Player ) );
 		Panel.AddChild( new AmmoDisplay( Player ) );
 		Panel.AddChild( new InventoryDisplay( Player ) );
+
+		killfeed = new Killfeed( Player );
+		Panel.AddChild( killfeed );
 	}
 
 	protected override void OnUpdate()
 	{
 		if ( Player is null || !Player.IsValid ) return;
 
+		// Hide UI when weapon is scoping
 		var weapon = Player.Inventory.Active?.Components.Get<Weapon>();
-		Panel.SetClass( "hide", weapon is null || weapon.IsScoping );
+
+		if ( weapon is not null )
+			Panel.SetClass( "hide", weapon.IsScoping );
+	}
+
+	public void AddToKillFeed( Guid attackerId, Guid victimId, string inflictor )
+	{
+		killfeed?.AddKillEntry( attackerId, victimId, inflictor );
 	}
 }

@@ -22,10 +22,9 @@ public class DemoNetworkManager : Component, Component.INetworkListener
 	// Called on host
 	void INetworkListener.OnActive( Connection connection )
 	{
-		var player = PlayerPrefab.Clone();
-		player.Name = "Player";
-		player.NetworkSpawn( connection );
-
+		var playerGO = PlayerPrefab.Clone();
+		playerGO.Name = "Player";
+		playerGO.NetworkSpawn( connection );
 
 		var botGO = PlayerPrefab.Clone();
 		var botPlayer = botGO.Components.Get<PlayerBase>();

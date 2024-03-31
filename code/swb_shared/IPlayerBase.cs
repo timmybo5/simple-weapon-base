@@ -1,4 +1,5 @@
 ﻿using Sandbox.Citizen;
+using System;
 
 namespace SWB.Shared;
 
@@ -20,6 +21,7 @@ public interface IPlayerBase : IValid
 	public bool IsAlive { get; }
 	public int MaxHealth { get; set; }
 	public int Health { get; set; }
+	public Guid Id { get; }
 
 	/// <summary>Input sensitivity modifier</summary>
 	public float InputSensitivity { get; set; }

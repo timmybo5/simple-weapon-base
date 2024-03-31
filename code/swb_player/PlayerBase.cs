@@ -1,4 +1,3 @@
-using SWB.Base;
 using SWB.Shared;
 using System;
 using System.Linq;
@@ -14,9 +13,9 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
 	[Property] public CameraComponent Camera { get; set; }
 	[Property] public CameraComponent ViewModelCamera { get; set; }
+	[Property] public PanelComponent RootDisplay { get; set; }
 
-	public bool IsBot { get; set; }
-
+	[Sync] public bool IsBot { get; set; }
 	public IInventory Inventory { get; set; }
 	public bool IsFirstPerson => cameraMovement.IsFirstPerson;
 	public float InputSensitivity
@@ -30,6 +29,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		set { cameraMovement.EyeAnglesOffset = value; }
 	}
 
+	Guid IPlayerBase.Id { get => GameObject.Id; }
 	CameraMovement cameraMovement;
 
 	protected override void OnAwake()
@@ -67,8 +67,10 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		}
 	}
 
+	[Broadcast]
 	public virtual void OnDeath( Shared.DamageInfo info )
 	{
+		if ( IsProxy ) return;
 
 		CharacterController.Velocity = 0;
 		Ragdoll( info.Force );
@@ -90,41 +92,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		var spawnLocation = GetSpawnLocation();
 		Transform.Position = spawnLocation.Position;
 		Transform.Rotation = spawnLocation.Rotation;
-
-		// Give weapon
-		if ( !IsBot )
-		{
-			var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
-			var weaponGO = weaponRegistery.Get( "swb_revolver" );
-			var weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO, false );
-			SetAmmo( weapon.Primary.AmmoType, 360 );
-
-			weaponGO = weaponRegistery.Get( "swb_scarh" );
-			weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO, false );
-			SetAmmo( weapon.Primary.AmmoType, 360 );
-
-			weaponGO = weaponRegistery.Get( "swb_remington" );
-			weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO, false );
-			SetAmmo( weapon.Primary.AmmoType, 360 );
-
-			weaponGO = weaponRegistery.Get( "swb_colt" );
-			weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO, false );
-			SetAmmo( weapon.Primary.AmmoType, 360 );
-
-			weaponGO = weaponRegistery.Get( "swb_l96a1" );
-			weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO, false );
-			SetAmmo( weapon.Primary.AmmoType, 360 );
-
-			weaponGO = weaponRegistery.Get( "swb_veresk" );
-			weapon = weaponGO.Components.Get<Weapon>( true );
-			Inventory.AddClone( weaponGO, true );
-			SetAmmo( weapon.Primary.AmmoType, 360 );
-		}
 	}
 
 	public virtual Transform GetSpawnLocation()
@@ -138,6 +105,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		var randomSpawnPoint = spawnPoints.ElementAt( rand.Next( 0, spawnPoints.Count() - 1 ) );
 
 		return randomSpawnPoint.Transform.World;
+	}
+
+	public static PlayerBase GetLocal()
+	{
+		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
+		return players.First( ( player ) => !player.IsProxy && !player.IsBot );
 	}
 
 	protected override void OnUpdate()

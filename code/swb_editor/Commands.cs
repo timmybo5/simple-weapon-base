@@ -1,6 +1,5 @@
 ﻿using SWB.Base;
 using SWB.Player;
-using System.Linq;
 
 namespace SWB.Editor;
 
@@ -8,16 +7,10 @@ internal class Commands
 {
 	static OffsetEditor offsetEditor;
 
-	public static PlayerBase GetPlayer()
-	{
-		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
-		return players.First( ( player ) => player.Network.OwnerConnection == Connection.Local );
-	}
-
 	[ConCmd( "swb_editor_offsets", Help = "Opens the offsets editor" )]
 	public static void OpenOffsetsEditor()
 	{
-		var player = GetPlayer();
+		var player = PlayerBase.GetLocal();
 		var weaponGO = player.Inventory.Active;
 		var weapon = weaponGO.Components.Get<Weapon>();
 

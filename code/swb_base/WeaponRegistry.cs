@@ -35,7 +35,7 @@ public class WeaponRegistry : Component
 		return weaponGO;
 	}
 
-	public Component GetWeapon( string className )
+	public Weapon GetWeapon( string className )
 	{
 		var weaponGO = Get( className );
 		if ( weaponGO is null ) return null;

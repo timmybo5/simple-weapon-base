@@ -39,9 +39,8 @@ public class HitScanBullet : IBulletBase
 			if ( bulletTr.Hitbox is not null )
 				hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
 
-			target?.TakeDamage( Shared.DamageInfo.FromBullet( shootInfo.Damage, forward * 25 * shootInfo.Force, hitTags ) );
+			target?.TakeDamage( Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, forward * 25 * shootInfo.Force, hitTags ) );
 		}
-
 	}
 
 	public Vector3 GetRandomSpread( float spread )
