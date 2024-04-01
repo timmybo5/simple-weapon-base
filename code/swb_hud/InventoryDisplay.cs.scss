@@ -9,8 +9,8 @@
     }
 
     .item {
-        height: 120px;
-        width: 120px;
+        height: 100px;
+        width: 100px;
         justify-content: center;
         margin-right: 8px;
         background-color: rgba( #2222, 0.5 );
@@ -28,7 +28,7 @@
         }
 
         .icon {
-            height: 100px;
+            height: 80px;
             align-self: center;
             margin-left: 6px;
             background-size: contain;
@@ -39,7 +39,7 @@
             position: absolute;
             z-index: 3;
             top: 2px;
-            font-size: 18px;
+            font-size: 16px;
             color: #eccc68;
             text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
             font-weight: bold;
@@ -52,7 +52,7 @@
             color: white;
             text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
             font-weight: 500;
-            font-size: 12px;
+            font-size: 10px;
             font-family: FONTSPRING DEMO - Integral CF;
         }
     }

@@ -249,7 +249,7 @@ public partial class Weapon
 	{
 		var effectRenderer = GetEffectRenderer();
 
-		if ( effectRenderer is null ) return;
+		if ( effectRenderer is null || effectRenderer.SceneModel is null ) return;
 
 		var transform = effectRenderer.SceneModel.GetAttachment( attachment );
 

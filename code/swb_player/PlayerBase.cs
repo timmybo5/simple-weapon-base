@@ -51,14 +51,19 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		if ( IsProxy || IsBot )
 		{
-			Camera.Enabled = false;
-			ViewModelCamera.Enabled = false;
+			if ( Camera is not null )
+				Camera.Enabled = false;
+
+			if ( ViewModelCamera is not null )
+				ViewModelCamera.Enabled = false;
 		}
 
 		if ( IsBot )
 		{
 			var screenPanel = Components.GetInChildrenOrSelf<ScreenPanel>();
-			screenPanel.Enabled = false;
+
+			if ( screenPanel is not null )
+				screenPanel.Enabled = false;
 		}
 
 		if ( !IsProxy )
