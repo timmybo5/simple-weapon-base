@@ -75,8 +75,17 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Broadcast]
 	public virtual void OnDeath( Shared.DamageInfo info )
 	{
+		var attackerGO = Scene.Directory.FindByGuid( info.AttackerId );
+
+		if ( attackerGO is not null && !attackerGO.IsProxy )
+		{
+			var attacker = attackerGO?.Components.Get<PlayerBase>();
+			attacker.Kills += 1;
+		}
+
 		if ( IsProxy ) return;
 
+		Deaths += 1;
 		CharacterController.Velocity = 0;
 		Ragdoll( info.Force );
 		Inventory.Clear();

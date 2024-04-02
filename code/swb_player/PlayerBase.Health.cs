@@ -7,6 +7,8 @@ public partial class PlayerBase
 {
 	[Property] public int MaxHealth { get; set; } = 100;
 	[Sync] public int Health { get; set; } = 100;
+	[Sync] public int Kills { get; set; }
+	[Sync] public int Deaths { get; set; }
 
 	public bool IsAlive => Health > 0;
 

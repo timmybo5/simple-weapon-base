@@ -25,6 +25,7 @@ public class RootDisplay : PanelComponent
 		Panel.AddChild( new HealthDisplay( Player ) );
 		Panel.AddChild( new AmmoDisplay( Player ) );
 		Panel.AddChild( new InventoryDisplay( Player ) );
+		Panel.AddChild( new Scoreboard() );
 
 		chatbox = new Chatbox( Player );
 		Panel.AddChild( chatbox );

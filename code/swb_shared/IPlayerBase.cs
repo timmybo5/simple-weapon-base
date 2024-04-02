@@ -21,6 +21,8 @@ public interface IPlayerBase : IValid
 	public bool IsAlive { get; }
 	public int MaxHealth { get; set; }
 	public int Health { get; set; }
+	public int Kills { get; set; }
+	public int Deaths { get; set; }
 	public Guid Id { get; }
 
 	/// <summary>Input sensitivity modifier</summary>

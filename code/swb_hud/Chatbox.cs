@@ -89,9 +89,7 @@ public class Chatbox : Panel
 	public override void Tick()
 	{
 		if ( Input.Pressed( InputButtonHelper.Chat ) )
-		{
 			Open();
-		}
 	}
 
 	[ConCmd( "say", Help = "Send a chat message" )]
