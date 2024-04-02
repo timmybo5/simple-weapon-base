@@ -24,7 +24,7 @@ public class Crosshair : Panel
 	public Crosshair( Weapon weapon )
 	{
 		this.weapon = weapon;
-		StyleSheet.Load( "/swb_base/ui/Crosshair.scss" );
+		StyleSheet.Load( "/swb_base/ui/Crosshair.cs.scss" );
 
 		centerDot = Add.Panel( "centerDot" );
 		leftBar = Add.Panel( "leftBar" );

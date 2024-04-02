@@ -18,7 +18,7 @@ public class SniperScope : Panel
 	public SniperScope( Weapon weapon, string lensTexture, string scopeTexture )
 	{
 		this.weapon = weapon;
-		StyleSheet.Load( "/swb_base/ui/SniperScope.scss" );
+		StyleSheet.Load( "/swb_base/ui/SniperScope.cs.scss" );
 
 		if ( scopeTexture != null )
 			Add.Panel( "leftBar" );
