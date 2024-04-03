@@ -94,7 +94,7 @@ public partial class Weapon
 		barrelHeat += 1;
 
 		// Recoil
-		Owner.EyeAnglesOffset = GetRecoilAngles( shootInfo );
+		Owner.EyeAnglesOffset += GetRecoilAngles( shootInfo );
 
 		// UI
 		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );

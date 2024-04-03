@@ -1,4 +1,5 @@
 ﻿
+using SWB.Base;
 using System;
 
 namespace SWB.Player;
@@ -22,6 +23,12 @@ public partial class PlayerBase
 			info.Damage *= 2;
 
 		Health -= (int)info.Damage;
+
+		// Flinch
+		var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
+		var weapon = weaponRegistery.GetWeapon( info.Inflictor );
+		if ( weapon is not null )
+			DoHitFlinch( weapon.Primary.HitFlinch );
 
 		if ( Health <= 0 )
 		{

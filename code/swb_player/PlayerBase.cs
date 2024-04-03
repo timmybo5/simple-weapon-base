@@ -135,6 +135,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		if ( IsAlive )
 			OnMovementUpdate();
 
+		HandleFlinch();
 		UpdateClothes();
 	}
 

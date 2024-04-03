@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "d4ec14ed-7d04-474e-aab3-3ef652809de2",
+    "__guid": "ec09ff81-d1ed-4ebf-889b-a35c920017f5",
     "Name": "scarh",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "87f281d6-6a91-4077-8321-069ec06429cf",
+        "__guid": "b20d90d7-7057-46aa-ba37-46462e939424",
         "AimAnimData": {
           "Angle": "-0.1,0.34,3.9",
           "Pos": "-2.163,0.36,0.233"
@@ -35,8 +35,8 @@
         "Icon": "weapons/swb/scarh/scarh.png",
         "Primary": {
           "_type": "component",
-          "component_id": "92793112-e688-47ea-8452-289a87dbe05a",
-          "go": "d4ec14ed-7d04-474e-aab3-3ef652809de2",
+          "component_id": "af450d9c-4352-4911-9888-f2f17188906c",
+          "go": "ec09ff81-d1ed-4ebf-889b-a35c920017f5",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -67,7 +67,7 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "92793112-e688-47ea-8452-289a87dbe05a",
+        "__guid": "af450d9c-4352-4911-9888-f2f17188906c",
         "Ammo": 30,
         "AmmoType": "rifle",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -81,7 +81,7 @@
         "DryShootSound": "sounds/swb/clip/swb_rifle.empty.sound",
         "FiringType": "auto",
         "Force": 3,
-        "HitFlinch": 1.25,
+        "HitFlinch": 2,
         "InfiniteAmmo": "reserve",
         "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
         "Recoil": 0.35,

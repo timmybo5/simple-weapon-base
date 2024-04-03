@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "8a2d5173-dad7-4d7a-bd8a-4f061ee68a12",
+    "__guid": "07b72f9a-3544-430f-82f7-ee7bd3041c01",
     "Name": "revolver",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "9f551c9e-c10b-49be-95a7-ffda1f90b276",
+        "__guid": "3e9d30cf-0cf9-4361-be8e-7129b8aa62a3",
         "AimAnimData": {
           "Angle": "0.94,-0.03,0",
           "Pos": "-2.797,0,0.848"
@@ -18,6 +18,10 @@
         "AimPlayerFOV": -1,
         "AimSensitivity": 0.85,
         "AnimSpeed": 1,
+        "BoltBack": false,
+        "BoltBackAnim": "boltback",
+        "BoltBackEjectDelay": 0,
+        "BoltBackTime": 0,
         "BulletCocking": false,
         "ClassName": "swb_revolver",
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
@@ -31,8 +35,8 @@
         "Icon": "weapons/swb/revolver/revolver.png",
         "Primary": {
           "_type": "component",
-          "component_id": "6ad7dcab-ecbb-40ef-a75f-1b122bb54612",
-          "go": "8a2d5173-dad7-4d7a-bd8a-4f061ee68a12",
+          "component_id": "6255830a-ebbd-41d5-9d1f-7455e6e91333",
+          "go": "07b72f9a-3544-430f-82f7-ee7bd3041c01",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -43,6 +47,14 @@
           "Angle": "-33.64,-8.93,0",
           "Pos": "0.12,0,-5.68"
         },
+        "ScopeInfo": {
+          "LensTexture": "/materials/swb/scopes/swb_lens_hunter.png",
+          "ScopeTexture": "/materials/swb/scopes/swb_scope_hunter.png",
+          "ScopeInDelay": 0.2,
+          "FOV": 8,
+          "AimSensitivity": 0.25
+        },
+        "Scoping": false,
         "ShellEjectDelay": 0,
         "ShellReloading": false,
         "ShellReloadingShootCancel": true,
@@ -55,7 +67,7 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "6ad7dcab-ecbb-40ef-a75f-1b122bb54612",
+        "__guid": "6255830a-ebbd-41d5-9d1f-7455e6e91333",
         "Ammo": 6,
         "AmmoType": "revolver",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -68,7 +80,7 @@
         "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",
         "FiringType": "semi",
         "Force": 3,
-        "HitFlinch": 1.25,
+        "HitFlinch": 3,
         "InfiniteAmmo": "reserve",
         "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
         "Recoil": 1,

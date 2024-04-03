@@ -110,7 +110,7 @@ public partial class Weapon
 			floatMod -= 0.25f;
 
 		// Aiming
-		if ( IsAiming /*&& this is not WeaponBaseShotty*/ )
+		if ( IsAiming && Primary.Bullets == 1 )
 			floatMod /= 4;
 
 		if ( !Owner.IsOnGround )

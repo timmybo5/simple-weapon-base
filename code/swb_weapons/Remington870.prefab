@@ -1,13 +1,13 @@
 {
   "RootObject": {
-    "__guid": "4f8b0165-9f5e-41af-a65d-cc7e563119ca",
+    "__guid": "50cef0b6-9cba-4a96-b1c5-b636fbede4af",
     "Name": "remington870",
     "Tags": "weapon",
     "NetworkMode": 2,
     "Components": [
       {
         "__type": "Weapon",
-        "__guid": "883c3387-72a2-47fc-832c-0f9992288693",
+        "__guid": "74f3f785-29ef-4a2c-86e7-66053b5fbf7e",
         "AimAnimData": {
           "Angle": "-1,0.41,0",
           "Pos": "-2.8,0,0.85"
@@ -35,8 +35,8 @@
         "Icon": "weapons/swb/remington/remington.png",
         "Primary": {
           "_type": "component",
-          "component_id": "9eb2dd3b-dff6-4ac2-b082-9cdfd3276ffc",
-          "go": "4f8b0165-9f5e-41af-a65d-cc7e563119ca",
+          "component_id": "e3dd442e-a63b-4716-9732-8c1c1f105b50",
+          "go": "50cef0b6-9cba-4a96-b1c5-b636fbede4af",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -67,7 +67,7 @@
       },
       {
         "__type": "ShootInfo",
-        "__guid": "9eb2dd3b-dff6-4ac2-b082-9cdfd3276ffc",
+        "__guid": "e3dd442e-a63b-4716-9732-8c1c1f105b50",
         "Ammo": 6,
         "AmmoType": "shotgun",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -81,7 +81,7 @@
         "DryShootSound": "sounds/swb/clip/swb_shotty.empty.sound",
         "FiringType": "semi",
         "Force": 3,
-        "HitFlinch": 1.25,
+        "HitFlinch": 2.5,
         "InfiniteAmmo": "reserve",
         "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
         "Recoil": 2,
