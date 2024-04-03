@@ -8,6 +8,7 @@ Scoreboard {
     font-family: Poppins;
     backdrop-filter: blur( 16px );
     display: none;
+    z-index: 10;
 
     &.open {
         display: flex;

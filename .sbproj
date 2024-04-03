@@ -26,6 +26,7 @@
     "LeaderboardType": "None",
     "CsProjName": "",
     "StartupScene": "scenes/minimal.scene",
-    "ProjectTemplate": null
+    "ProjectTemplate": null,
+    "LaunchMode": "Launcher"
   }
 }

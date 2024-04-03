@@ -20,7 +20,6 @@
     {
       "__guid": "9318758b-1419-4d49-9e5d-991d863b4964",
       "Name": "Environment",
-      "Enabled": true,
       "NetworkMode": 2,
       "Children": [
         {
@@ -480,7 +479,7 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-03-29T17:18:21.0277789\u002B02:00",
+  "LastSaved": "2024-04-03T20:34:04.0374593\u002B03:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": []
