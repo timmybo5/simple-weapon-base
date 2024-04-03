@@ -37,11 +37,11 @@ public class Killfeed : Panel
 
 		var entryP = Add.Panel( "entry" );
 
-		var attackerName = attacker.IsBot ? "Bot" : attacker.Network.OwnerConnection.DisplayName;
+		var attackerName = attacker.IsBot ? attackerGO.Name : attacker.Network.OwnerConnection.DisplayName;
 		entryP.Add.Label( attackerName, "name " + (!attackerGO.IsProxy && !attacker.IsBot ? "self" : "") );
 		entryP.Add.Image( weapon.Icon, "icon" );
 
-		var victimName = victim.IsBot ? "Bot" : victim.Network.OwnerConnection.DisplayName;
+		var victimName = victim.IsBot ? victimGO.Name : victim.Network.OwnerConnection.DisplayName;
 		entryP.Add.Label( victimName, "name " + (!victimGO.IsProxy && !victim.IsBot ? "self" : "") );
 		DeleteAsync( entryP );
 	}

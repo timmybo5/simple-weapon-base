@@ -1,5 +1,4 @@
 using Sandbox.Network;
-using SWB.Player;
 
 namespace SWB.Demo;
 
@@ -25,11 +24,5 @@ public class DemoNetworkManager : Component, Component.INetworkListener
 		var playerGO = PlayerPrefab.Clone();
 		playerGO.Name = "Player";
 		playerGO.NetworkSpawn( connection );
-
-		var botGO = PlayerPrefab.Clone();
-		var botPlayer = botGO.Components.Get<PlayerBase>();
-		botPlayer.IsBot = true;
-		botGO.Name = "Bot";
-		botGO.NetworkSpawn();
 	}
 }
