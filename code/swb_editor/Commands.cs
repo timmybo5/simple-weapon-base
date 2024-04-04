@@ -27,7 +27,7 @@ internal class Commands
 
 		if ( weapon is not null )
 		{
-			var screenPanel = weapon.RootPanel;
+			var screenPanel = player.RootDisplay;
 			offsetEditor = new OffsetEditor( weapon );
 			screenPanel.Panel.AddChild( offsetEditor );
 
