@@ -295,8 +295,8 @@
 						_class = "Attachment"
 						name = "ejection_point"
 						parent_bone = "Base"
-						relative_origin = [ 1.070167, 1.687726, -4.333819 ]
-						relative_angles = [ 20.0, 90.0, 0.0 ]
+						relative_origin = [ 1.083133, 1.816544, -4.357944 ]
+						relative_angles = [ 20.000027, 89.999985, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
 					},

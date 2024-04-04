@@ -27,6 +27,7 @@
     "CsProjName": "",
     "StartupScene": "scenes/minimal.scene",
     "ProjectTemplate": null,
-    "LaunchMode": "Launcher"
+    "LaunchMode": "Launcher",
+    "MapStartupScene": "scenes/minimal.scene"
   }
 }
