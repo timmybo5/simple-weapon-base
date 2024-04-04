@@ -1,0 +1,63 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base Library", "C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\base\code\Base Library.csproj", "{3CFCECAD-98E9-581B-90CF-75E5F2B140CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base Editor Library", "C:\Program Files (x86)\Steam\steamapps\common\sbox\addons\tools\\code\Base Editor Library.csproj", "{0DDD0665-950C-B4D6-56B9-A5A4C73C7423}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shader Graph", "C:\Program Files (x86)\Steam\steamapps\common\sbox\editor\ShaderGraph\Shader Graph.csproj", "{3696C4FE-B5DF-4E46-283A-A0E0E0468C82}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Action Graph", "C:\Program Files (x86)\Steam\steamapps\common\sbox\editor\ActionGraph\Action Graph.csproj", "{32B465D6-E4C5-4F1E-7A09-DC5C447B07AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "demo", "code\demo.csproj", "{112427CB-25F4-6D3B-CC88-5340D8144A6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{7E84B5F6-56F9-A3B2-F215-7A71616B85A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{91C47821-78DC-6EB2-D97E-14E2D5EF1C9F}"
+EndProject
+
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+			{3CFCECAD-98E9-581B-90CF-75E5F2B140CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CFCECAD-98E9-581B-90CF-75E5F2B140CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CFCECAD-98E9-581B-90CF-75E5F2B140CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CFCECAD-98E9-581B-90CF-75E5F2B140CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DDD0665-950C-B4D6-56B9-A5A4C73C7423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DDD0665-950C-B4D6-56B9-A5A4C73C7423}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DDD0665-950C-B4D6-56B9-A5A4C73C7423}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DDD0665-950C-B4D6-56B9-A5A4C73C7423}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3696C4FE-B5DF-4E46-283A-A0E0E0468C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3696C4FE-B5DF-4E46-283A-A0E0E0468C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3696C4FE-B5DF-4E46-283A-A0E0E0468C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3696C4FE-B5DF-4E46-283A-A0E0E0468C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32B465D6-E4C5-4F1E-7A09-DC5C447B07AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B465D6-E4C5-4F1E-7A09-DC5C447B07AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B465D6-E4C5-4F1E-7A09-DC5C447B07AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B465D6-E4C5-4F1E-7A09-DC5C447B07AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{112427CB-25F4-6D3B-CC88-5340D8144A6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{112427CB-25F4-6D3B-CC88-5340D8144A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{112427CB-25F4-6D3B-CC88-5340D8144A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{112427CB-25F4-6D3B-CC88-5340D8144A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+			{3CFCECAD-98E9-581B-90CF-75E5F2B140CA} = {7E84B5F6-56F9-A3B2-F215-7A71616B85A2}
+		{0DDD0665-950C-B4D6-56B9-A5A4C73C7423} = {91C47821-78DC-6EB2-D97E-14E2D5EF1C9F}
+		{3696C4FE-B5DF-4E46-283A-A0E0E0468C82} = {91C47821-78DC-6EB2-D97E-14E2D5EF1C9F}
+		{32B465D6-E4C5-4F1E-7A09-DC5C447B07AF} = {91C47821-78DC-6EB2-D97E-14E2D5EF1C9F}
+
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD1E2EC4-D69D-418D-8FBF-4CA3864E5C8C}
+	EndGlobalSection
+EndGlobal
+

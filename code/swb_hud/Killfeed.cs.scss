@@ -1,0 +1,46 @@
+Killfeed {
+    position: absolute;
+    flex-direction: column;
+    align-items: flex-end;
+    top: 40px;
+    right: 60px;
+    font-family: Poppins;
+
+    .entry {
+        flex-direction: row;
+        align-items: center;
+        color: white;
+        background-color: rgba( #2222, 0.5 );
+        backdrop-filter: blur( 16px );
+        border-radius: 4px;
+        margin-bottom: 4px;
+        transition: opacity 0.2s ease-in;
+
+
+        &:intro {
+            opacity: 0;
+        }
+
+        &:outro {
+            opacity: 0;
+        }
+
+        .name {
+            font-size: 14px;
+            font-weight: 500;
+            margin: 0 8px;
+            color: #ff5f5f;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            margin-top: 1px;
+
+            &.self {
+                color: #ffe35f;
+            }
+        }
+
+        .icon {
+            width: 34px;
+            height: 34px;
+        }
+    }
+}

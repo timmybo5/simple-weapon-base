@@ -1,0 +1,35 @@
+HealthDisplay {
+    position: absolute;
+    align-items: center;
+    bottom: 40px;
+    left: 60px;
+    height: 110px;
+    color: white;
+    font-family: Poppins;
+    padding: 32px 16px 16px 16px;
+    background-color: rgba( #2222, 0.5 );
+    backdrop-filter: blur( 16px );
+    border-radius: 4px;
+
+    .name {
+        position: absolute;
+        top: 4px;
+        left: 8px;
+        text-align: left;
+        font-size: 14px;
+        font-family: FONTSPRING DEMO - Integral CF;
+        text-transform: uppercase;
+    }
+
+    .health {
+        text-align: center;
+        font-size: 60px;
+        font-weight: bold;
+        width: 120px;
+        margin-left: 20px;
+    }
+
+    &.hide {
+        display: none;
+    }
+}

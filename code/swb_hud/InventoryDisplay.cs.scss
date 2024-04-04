@@ -1,0 +1,59 @@
+﻿InventoryDisplay {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    font-family: Poppins;
+
+    &.hide {
+        display: none;
+    }
+
+    .item {
+        height: 100px;
+        width: 100px;
+        justify-content: center;
+        margin-right: 8px;
+        background-color: rgba( #2222, 0.5 );
+        backdrop-filter: blur( 16px );
+        border-radius: 4px;
+        overflow: hidden;
+        padding: 2px;
+
+        &.active {
+            background: linear-gradient(transparent, rgba(orange, 0.1));
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .icon {
+            height: 80px;
+            align-self: center;
+            margin-left: 6px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .slot {
+            position: absolute;
+            z-index: 3;
+            top: 2px;
+            font-size: 16px;
+            color: #eccc68;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        .name {
+            position: absolute;
+            z-index: 3;
+            bottom: 6px;
+            color: white;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            font-weight: 500;
+            font-size: 10px;
+            font-family: FONTSPRING DEMO - Integral CF;
+        }
+    }
+}

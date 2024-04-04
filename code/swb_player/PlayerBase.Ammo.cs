@@ -1,64 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using Sandbox;
-using SWB_Base;
+using System;
 
-namespace SWB_Player;
+namespace SWB.Player;
 
-partial class PlayerBase
+public partial class PlayerBase
 {
-    [Net] public IList<int> Ammo { get; set; }
+	[Sync] public NetDictionary<string, int> Ammo { get; set; } = new();
 
-    public virtual void ClearAmmo()
-    {
-        Ammo.Clear();
-    }
+	public virtual int AmmoCount( string ammoType )
+	{
+		if ( Ammo.TryGetValue( ammoType, out var amount ) )
+		{
+			return amount;
+		}
 
-    public virtual int AmmoCount(AmmoType ammoType)
-    {
-        if (Ammo == null) return 0;
-        if (Ammo.Count <= ammoType.ID) return 0;
+		return 0;
+	}
 
-        return Ammo[ammoType.ID];
-    }
+	public virtual void SetAmmo( string ammoType, int amount )
+	{
+		Ammo[ammoType] = amount;
+	}
 
-    public virtual bool SetAmmo(AmmoType ammoType, int amount)
-    {
-        if (!Game.IsServer) return false;
-        if (Ammo == null) return false;
+	public virtual void GiveAmmo( string ammoType, int amount )
+	{
+		SetAmmo( ammoType, AmmoCount( ammoType ) + amount );
+	}
 
-        while (Ammo.Count <= ammoType.ID)
-        {
-            Ammo.Add(0);
-        }
+	public virtual int TakeAmmo( string ammoType, int amount )
+	{
+		var available = AmmoCount( ammoType );
+		amount = Math.Min( available, amount );
 
-        Ammo[ammoType.ID] = amount;
-        return true;
-    }
+		SetAmmo( ammoType, available - amount );
 
-    public virtual bool GiveAmmo(AmmoType ammoType, int amount)
-    {
-        if (!Game.IsServer) return false;
-        if (Ammo == null) return false;
+		return amount;
+	}
 
-        SetAmmo(ammoType, AmmoCount(ammoType) + amount);
-        return true;
-    }
-
-    public virtual int TakeAmmo(AmmoType ammoType, int amount)
-    {
-        if (Ammo == null) return 0;
-
-        var available = AmmoCount(ammoType);
-        amount = Math.Min(available, amount);
-
-        SetAmmo(ammoType, available - amount);
-
-        return amount;
-    }
-
-    public virtual bool HasAmmo(AmmoType ammoType)
-    {
-        return AmmoCount(ammoType) > 0;
-    }
+	public virtual bool HasAmmo( string ammoType )
+	{
+		return AmmoCount( ammoType ) > 0;
+	}
 }

@@ -1,31 +1,38 @@
-﻿using Sandbox;
-using SWB_Player;
+﻿using SWB.Base;
+using SWB.Player;
 
-namespace SWB_Editor;
+namespace SWB.Editor;
 
 internal class Commands
 {
-    [ConCmd.Server("swb_editor_model", Help = "Opens the model editor")]
-    public static void OpenModelEditor()
-    {
-        var client = ConsoleSystem.Caller;
+	static OffsetEditor offsetEditor;
 
-        if (client != null)
-        {
-            var player = client.Pawn as PlayerBase;
-            player.ToggleModelEditor();
-        }
-    }
+	[ConCmd( "swb_editor_offsets", Help = "Opens the offsets editor" )]
+	public static void OpenOffsetsEditor()
+	{
+		var player = PlayerBase.GetLocal();
+		var weaponGO = player.Inventory.Active;
+		var weapon = weaponGO.Components.Get<Weapon>();
 
-    [ConCmd.Server("swb_editor_attachment", Help = "Opens the attachment editor")]
-    public static void OpenAttachmentEditor()
-    {
-        var client = ConsoleSystem.Caller;
+		if ( offsetEditor is not null )
+		{
+			offsetEditor.Delete();
+			offsetEditor = null;
 
-        if (client != null)
-        {
-            var player = client.Pawn as PlayerBase;
-            player.ToggleAttachmentEditor();
-        }
-    }
+			if ( weapon.ViewModelHandler is not null )
+				weapon.ViewModelHandler.EditorMode = false;
+
+			return;
+		}
+
+		if ( weapon is not null )
+		{
+			var screenPanel = player.RootDisplay;
+			offsetEditor = new OffsetEditor( weapon );
+			screenPanel.Panel.AddChild( offsetEditor );
+
+			if ( weapon.ViewModelHandler is not null )
+				weapon.ViewModelHandler.EditorMode = true;
+		}
+	}
 }

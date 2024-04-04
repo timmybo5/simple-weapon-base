@@ -1,88 +1,64 @@
-﻿using System;
-using Sandbox;
+﻿using SWB.Shared;
+using System;
+using System.Linq;
 
-/* 
- * Base for hitscan bullets, instantly hitting targets without physics calculations
-*/
+namespace SWB.Base;
 
-namespace SWB_Base;
-
-public class HitScanBullet : BulletBase
+public class HitScanBullet : IBulletBase
 {
-    public override void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary)
-    {
-        Fire(weapon, startPos, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary);
-    }
+	public void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
+	{
+		var player = weapon.Owner;
+		var forward = player.EyeAngles.Forward + spreadOffset;
+		forward = forward.Normal;
+		var endPos = player.EyePos + forward * 999999;
+		var bulletTr = weapon.TraceBullet( player.EyePos, endPos );
+		var hitObj = bulletTr.GameObject;
 
-    private void Fire(WeaponBase weapon, Vector3 startPos, Vector3 endPos, Vector3 forward, float spread, float force, float damage, float bulletSize, float bulletTracerChance, bool isPrimary, int refireCount = 0)
-    {
-        var tr = weapon.TraceBullet(startPos, endPos, bulletSize);
-        var isValidEnt = tr.Entity.IsValid();
-        var canPenetrate = SurfaceUtil.CanPenetrate(tr.Surface);
+		if ( SurfaceUtil.IsSkybox( bulletTr.Surface ) || bulletTr.HitPosition == Vector3.Zero ) return;
 
-        if (!isValidEnt && !canPenetrate) return;
+		// Impact
+		weapon.CreateBulletImpact( bulletTr );
 
-        if (Game.IsClient)
-        {
-            // Impact
-            if (!SurfaceUtil.IsSkybox(tr.Tags))
-                tr.Surface.DoBulletImpact(tr);
+		// Tracer
+		if ( shootInfo.BulletTracerParticle is not null )
+		{
+			var random = new Random();
+			var randVal = random.NextDouble();
 
-            var tracerParticle = isPrimary ? weapon.Primary.BulletTracerParticle : weapon.Secondary.BulletTracerParticle;
+			if ( randVal < shootInfo.BulletTracerChance )
+				TracerEffects( weapon, shootInfo, bulletTr.HitPosition );
+		}
 
-            // Tracer
-            if (!string.IsNullOrEmpty(tracerParticle?.Path))
-            {
-                var random = new Random();
-                var randVal = random.NextDouble();
+		// Damage
+		if ( !weapon.IsProxy && hitObj is not null && hitObj.Tags.Has( TagsHelper.Player ) )
+		{
+			var target = hitObj.Components.GetInAncestorsOrSelf<IPlayerBase>();
+			var hitTags = Array.Empty<string>();
 
-                if (randVal < bulletTracerChance)
-                    TracerEffects(weapon, tracerParticle, tr.EndPosition);
-            }
-        }
+			if ( bulletTr.Hitbox is not null )
+				hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
 
-        if (Game.IsServer && isValidEnt)
-        {
-            using (Prediction.Off())
-            {
-                // Damage
-                var damageInfo = DamageInfo.FromBullet(tr.EndPosition, forward * 25 * force, damage)
-                    .UsingTraceResult(tr)
-                    .WithAttacker(weapon.Owner)
-                    .WithWeapon(weapon);
+			target?.TakeDamage( Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, forward * 25 * shootInfo.Force, hitTags ) );
+		}
+	}
 
-                tr.Entity.TakeDamage(damageInfo);
-            }
-        }
+	public Vector3 GetRandomSpread( float spread )
+	{
+		return (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
+	}
 
-        // Re-run the trace if we can penetrate
-        if (canPenetrate)
-        {
-            if (refireCount > 100) return;
-            refireCount++;
+	void TracerEffects( Weapon weapon, ShootInfo shootInfo, Vector3 endPos )
+	{
+		var scale = weapon.CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
+		var muzzleTransform = weapon.GetMuzzleTransform();
 
-            Fire(weapon, tr.HitPosition + tr.Direction * 10, endPos, forward, spread, force, damage, bulletSize, bulletTracerChance, isPrimary, refireCount);
-        }
-    }
+		if ( !muzzleTransform.HasValue ) return;
 
-    private void TracerEffects(WeaponBase weapon, ParticleData tracerParticle, Vector3 endPos)
-    {
-        ModelEntity firingViewModel = weapon.GetEffectModel();
-
-        if (firingViewModel == null) return;
-
-        var isViewModel = weapon.IsLocalPawn && weapon.IsFirstPersonMode;
-        var scale = isViewModel ? tracerParticle.VMScale : tracerParticle.WMScale;
-        var effectData = weapon.GetMuzzleEffectData(firingViewModel);
-        var effectEntity = effectData.Item1;
-        if (effectEntity == null) return;
-
-        var muzzleAttach = effectEntity.GetAttachment(effectData.Item2);
-        if (muzzleAttach == null) return;
-
-        var tracer = Particles.Create(tracerParticle.Path);
-        tracer?.Set("scale", scale);
-        tracer?.SetPosition(1, muzzleAttach.GetValueOrDefault().Position);
-        tracer?.SetPosition(2, endPos);
-    }
+		SceneParticles particles = new( weapon.Scene.SceneWorld, shootInfo.BulletTracerParticle );
+		particles?.SetControlPoint( 1, muzzleTransform.Value );
+		particles?.SetControlPoint( 2, endPos );
+		particles?.SetNamedValue( "scale", scale );
+		particles?.PlayUntilFinished( TaskSource.Create() );
+	}
 }

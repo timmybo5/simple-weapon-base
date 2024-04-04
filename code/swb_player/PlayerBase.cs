@@ -1,169 +1,147 @@
-﻿using System;
-using Sandbox;
-using SWB_Base;
-using SWB_Base.UI;
+using SWB.Shared;
+using System;
+using System.Linq;
 
-namespace SWB_Player;
+namespace SWB.Player;
 
-public partial class PlayerBase : ISWBPlayer
+[Group( "SWB" )]
+[Title( "PlayerBase" )]
+public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBase
 {
-    public BulletSimulator BulletSimulator { get; private set; } = new();
-    public DamageInfo LastDamage;
+	[Property] public GameObject Head { get; set; }
+	[Property] public GameObject Body { get; set; }
+	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
+	[Property] public CameraComponent Camera { get; set; }
+	[Property] public CameraComponent ViewModelCamera { get; set; }
+	[Property] public PanelComponent RootDisplay { get; set; }
 
-    private ScreenShakeStruct lastScreenShake;
-    private RealTimeSince timeSinceShake;
-    private float nextShake;
+	[Sync] public bool IsBot { get; set; }
+	public IInventory Inventory { get; set; }
+	public bool IsFirstPerson => cameraMovement.IsFirstPerson;
+	public float InputSensitivity
+	{
+		get { return cameraMovement.InputSensitivity; }
+		set { cameraMovement.InputSensitivity = value; }
+	}
+	public Angles EyeAnglesOffset
+	{
+		get { return cameraMovement.EyeAnglesOffset; }
+		set { cameraMovement.EyeAnglesOffset = value; }
+	}
 
-    private bool isLoweringFlinch;
-    private float currFlinch;
-    private float targetFlinch;
-    private float flinchSpeed;
+	Guid IPlayerBase.Id { get => GameObject.Id; }
+	CameraMovement cameraMovement;
 
-    private bool scopeOutToThirdPerson;
+	protected override void OnAwake()
+	{
+		Inventory = new Inventory( this );
+		cameraMovement = Components.GetInChildren<CameraMovement>();
 
-    public override void Simulate(IClient client)
-    {
-        SimulateBase(client);
-        BulletSimulator.Simulate();
+		if ( IsBot ) return;
 
-        if (CameraMode is ThirdPersonCamera)
-        {
-            EyeRotation = ThirdPersonCamera.GetEyeRotation(this);
-        }
-    }
-    private void HandleFlinch()
-    {
-        if (!Alive())
-        {
-            targetFlinch = 0;
-            isLoweringFlinch = false;
-            return;
-        }
+		OnMovementAwake();
+	}
 
-        if (currFlinch == targetFlinch)
-        {
-            targetFlinch = 0;
-            isLoweringFlinch = true;
-        }
-        else
-        {
-            currFlinch = currFlinch.Approach(targetFlinch, flinchSpeed);
-        }
+	public void OnNetworkSpawn( Connection connection )
+	{
+		ApplyClothes( connection );
+	}
 
-        if (currFlinch > 0)
-        {
-            var flinchAngles = new Angles(isLoweringFlinch ? currFlinch : -currFlinch, 0, 0);
-            ViewAngles += flinchAngles;
-        }
-    }
+	protected override void OnStart()
+	{
+		if ( IsProxy || IsBot )
+		{
+			if ( Camera is not null )
+				Camera.Enabled = false;
 
-    [ClientRpc]
-    public virtual void DoHitFlinch(float amount)
-    {
-        isLoweringFlinch = false;
-        flinchSpeed = amount / 4f;
-        targetFlinch = amount;
-    }
+			if ( ViewModelCamera is not null )
+				ViewModelCamera.Enabled = false;
+		}
 
-    public override void TakeDamage(DamageInfo info)
-    {
-        LastDamage = info;
+		if ( IsBot )
+		{
+			var screenPanel = Components.GetInChildrenOrSelf<ScreenPanel>();
 
-        var weapon = info.Weapon as WeaponBase;
+			if ( screenPanel is not null )
+				screenPanel.Enabled = false;
+		}
 
-        // Hit flinch
-        if (weapon != null && weapon.Primary.HitFlinch > 0)
-            DoHitFlinch(To.Single(this), weapon.Primary.HitFlinch);
+		if ( !IsProxy )
+		{
+			Respawn();
+		}
+	}
 
-        // Headshot double damage
-        if (info.Hitbox.HasTag("head"))
-        {
-            info.Damage *= 2.0f;
-        }
+	[Broadcast]
+	public virtual void OnDeath( Shared.DamageInfo info )
+	{
+		var attackerGO = Scene.Directory.FindByGuid( info.AttackerId );
 
-        TakeDamageBase(info);
+		if ( attackerGO is not null && !attackerGO.IsProxy )
+		{
+			var attacker = attackerGO?.Components.Get<PlayerBase>();
+			attacker.Kills += 1;
+		}
 
-        if (info.Attacker is PlayerBase attacker && attacker != this)
-        {
-            // Note - sending this only to the attacker!
-            attacker.DidDamage(To.Single(attacker), info.Position, info.Damage, Health, ((float)Health).LerpInverse(100, 0));
+		if ( IsProxy ) return;
 
-            // Hitmarker
-            var uiSettings = weapon.UISettings;
-            if (weapon != null && uiSettings.ShowHitmarker && !uiSettings.HideAll)
-                attacker.ShowHitmarker(To.Single(attacker), !Alive(), uiSettings.PlayHitmarkerSound);
-        }
-    }
+		Deaths += 1;
+		CharacterController.Velocity = 0;
+		Ragdoll( info.Force );
+		Inventory.Clear();
+		RespawnWithDelay( 2 );
+	}
 
-    public virtual void UpdateCamera()
-    {
-        if (timeSinceShake < lastScreenShake.Length && timeSinceShake > nextShake)
-        {
-            var random = new Random();
-            var randomPos = new Vector3(random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size), random.Float(0, lastScreenShake.Size));
-            var randomRot = Rotation.From(new Angles(random.Float(0, lastScreenShake.Rotation), random.Float(0, lastScreenShake.Rotation), 0));
-            Camera.Position += randomPos;
-            Camera.Rotation *= randomRot;
+	async void RespawnWithDelay( float delay )
+	{
+		await GameTask.DelaySeconds( delay );
+		Respawn();
+	}
 
-            // Make viewmodel 'follow' the shake
-            if (ActiveChild is WeaponBase weapon && weapon.ViewModelEntity != null && weapon.ViewModelEntity.IsValid)
-            {
-                weapon.ViewModelEntity.Position += randomPos;
-                weapon.ViewModelEntity.Rotation *= randomRot;
-            }
+	public virtual void Respawn()
+	{
+		Unragdoll();
+		Health = MaxHealth;
 
-            nextShake = timeSinceShake + lastScreenShake.Delay;
-        }
-    }
+		var spawnLocation = GetSpawnLocation();
+		Transform.Position = spawnLocation.Position;
+		Transform.Rotation = spawnLocation.Rotation;
+	}
 
-    public virtual void ScreenShake(ScreenShakeStruct screenShake)
-    {
-        lastScreenShake = screenShake;
-        timeSinceShake = 0;
-        nextShake = 0;
-    }
+	public virtual Transform GetSpawnLocation()
+	{
+		var spawnPoints = Scene.Components.GetAll<SpawnPoint>();
 
+		if ( !spawnPoints.Any() )
+			return new Transform();
 
-    public virtual bool Alive()
-    {
-        return Health > 0;
-    }
+		var rand = new Random();
+		var randomSpawnPoint = spawnPoints.ElementAt( rand.Next( 0, spawnPoints.Count() - 1 ) );
 
-    public virtual void OnScopeStart()
-    {
-        if (!Game.IsServer) return;
+		return randomSpawnPoint.Transform.World;
+	}
 
-        if (CameraMode is ThirdPersonCamera)
-        {
-            scopeOutToThirdPerson = true;
-            CameraMode = new FirstPersonCamera();
-        }
-    }
+	public static PlayerBase GetLocal()
+	{
+		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
+		return players.First( ( player ) => !player.IsProxy && !player.IsBot );
+	}
 
-    public virtual void OnScopeEnd()
-    {
-        if (!Game.IsServer) return;
+	protected override void OnUpdate()
+	{
+		if ( IsBot ) return;
+		if ( !IsProxy ) ViewModelCamera.Enabled = IsFirstPerson && IsAlive;
 
-        if (scopeOutToThirdPerson)
-        {
-            scopeOutToThirdPerson = false;
-            CameraMode = new ThirdPersonCamera();
-        }
-    }
+		if ( IsAlive )
+			OnMovementUpdate();
 
-    [ClientRpc]
-    public virtual void DidDamage(Vector3 pos, float amount, float health, float healthinv)
-    {
-        Sound.FromScreen("dm.ui_attacker")
-            .SetPitch(1 + healthinv * 1);
-    }
+		HandleFlinch();
+		UpdateClothes();
+	}
 
-    [ClientRpc]
-    public virtual void ShowHitmarker(bool isKill, bool playSound)
-    {
-        Hitmarker.Current?.Create(isKill);
-
-        if (playSound)
-            PlaySound("hitmarker");
-    }
+	protected override void OnFixedUpdate()
+	{
+		if ( !IsAlive || IsBot ) return;
+		OnMovementFixedUpdate();
+	}
 }

@@ -1,105 +1,77 @@
-﻿using System;
-using Sandbox;
-using Sandbox.UI;
+﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
-using SWB_Base;
-using SWB_Player;
+using SWB.Base;
+using SWB.Shared;
+using System;
 
-namespace SWB_HUD;
+namespace SWB.HUD;
 
 public class AmmoDisplay : Panel
 {
-    Panel ammoWrapper;
-    Panel iconWrapper;
-    Panel fireModeWrapper;
+	IPlayerBase player;
 
-    Image weaponIcon;
-    Image semiFireIcon;
-    Image autoFireIcon;
+	Label clipLabel;
+	Label reserveLabel;
 
-    Label clipLabel;
-    Label reserveLabel;
+	Color reserveColor = new Color32( 200, 200, 200 ).ToColor();
+	Color emptyColor = new Color32( 175, 175, 175, 200 ).ToColor();
 
-    Color reserveColor = new Color32(200, 200, 200).ToColor();
-    Color emptyColor = new Color32(175, 175, 175, 200).ToColor();
+	public AmmoDisplay( IPlayerBase player )
+	{
+		this.player = player;
+		StyleSheet.Load( "/swb_hud/AmmoDisplay.cs.scss" );
 
-    public AmmoDisplay()
-    {
-        StyleSheet.Load("/swb_hud/AmmoDisplay.scss");
+		Add.Label( "ammo", "name" );
+		clipLabel = Add.Label( "", "clip" );
+		reserveLabel = Add.Label( "", "reserve" );
+	}
 
-        ammoWrapper = Add.Panel("ammoWrapper");
-        clipLabel = ammoWrapper.Add.Label("", "clipLabel");
-        reserveLabel = ammoWrapper.Add.Label("", "reserveLabel");
+	public override void Tick()
+	{
+		var isAlive = player.IsAlive;
+		var weapon = player.Inventory.Active?.Components.Get<Weapon>();
+		var hide = !isAlive || weapon is null;
+		SetClass( "hide", hide );
+		if ( hide ) return;
 
-        iconWrapper = Add.Panel("iconWrapper");
-        weaponIcon = iconWrapper.Add.Image("", "weaponIcon");
+		var hasClipSize = weapon.Primary.ClipSize > 0;
+		var reserveAmmo = Math.Min( player.AmmoCount( weapon.Primary.AmmoType ), 999 );
+		var hasAmmo = weapon.Primary.Ammo > 0;
 
-        fireModeWrapper = iconWrapper.Add.Panel("fireModeWrapper");
-        semiFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_1.png", "fireModeIcon");
-        autoFireIcon = fireModeWrapper.Add.Image("/materials/swb/bullets/bullets_3.png", "fireModeIcon");
-    }
+		if ( weapon.Primary.InfiniteAmmo != InfiniteAmmoType.clip )
+		{
+			var clipAmmo = hasClipSize ? weapon.Primary.Ammo : reserveAmmo;
+			clipAmmo = Math.Min( clipAmmo, 999 );
 
-    public override void Tick()
-    {
-        var player = Game.LocalPawn as PlayerBase;
-        if (player == null) return;
+			clipLabel.Text = clipAmmo.ToString();
+			clipLabel.Style.FontColor = clipAmmo == 0 ? emptyColor : Color.White;
+		}
+		else
+		{
+			clipLabel.Text = "∞";
+			clipLabel.Style.FontColor = Color.White;
+		}
 
-        var weapon = player.ActiveChild as WeaponBase;
-        bool isValidWeapon = weapon != null;
-
-        SetClass("hideAmmoDisplay", !isValidWeapon);
-
-        if (!isValidWeapon) return;
-
-        ammoWrapper.SetClass("hideAmmoDisplay", !weapon.UISettings.ShowAmmoCount);
-        iconWrapper.SetClass("hideAmmoDisplay", !weapon.UISettings.ShowWeaponIcon);
-        fireModeWrapper.SetClass("hideAmmoDisplay", !weapon.UISettings.ShowFireMode);
-
-        if (ammoWrapper != null)
-        {
-            var hasClipSize = weapon.Primary.ClipSize > 0;
-            var reserveAmmo = Math.Min(player.AmmoCount(weapon.Primary.AmmoType), 999);
-
-            if (weapon.Primary.InfiniteAmmo != InfiniteAmmoType.clip)
-            {
-                var clipAmmo = hasClipSize ? weapon.Primary.Ammo : reserveAmmo;
-                clipAmmo = Math.Min(clipAmmo, 999);
-
-                clipLabel.SetText(clipAmmo.ToString());
-                clipLabel.Style.FontColor = clipAmmo == 0 ? emptyColor : Color.White;
-            }
-            else
-            {
-                clipLabel.SetText("∞");
-                clipLabel.Style.FontColor = Color.White;
-            }
-
-            if (hasClipSize)
-            {
-                if (weapon.Primary.InfiniteAmmo == 0)
-                {
-                    reserveLabel.SetText("|" + reserveAmmo);
-                    reserveLabel.Style.FontColor = reserveAmmo == 0 ? emptyColor : reserveColor;
-                }
-                else
-                {
-                    reserveLabel.SetText("|∞");
-                    reserveLabel.Style.FontColor = reserveColor;
-                }
-            }
-        }
-
-        if (iconWrapper != null)
-        {
-            weaponIcon.SetTexture(weapon.Icon);
-        }
-
-        if (fireModeWrapper != null)
-        {
-            var isSemiFire = weapon.Primary.FiringType == FiringType.semi;
-
-            semiFireIcon.Style.Opacity = isSemiFire ? 1 : 0.25f;
-            autoFireIcon.Style.Opacity = isSemiFire ? 0.25f : 1;
-        }
-    }
+		if ( hasClipSize )
+		{
+			if ( weapon.Primary.InfiniteAmmo == 0 )
+			{
+				reserveLabel.Text = "  /  " + reserveAmmo;
+				reserveLabel.Style.FontColor = reserveAmmo == 0 ? emptyColor : reserveColor;
+			}
+			else
+			{
+				reserveLabel.Text = "  /  ∞";
+				reserveLabel.Style.FontColor = reserveColor;
+			}
+		}
+		else if ( hasAmmo )
+		{
+			clipLabel.Text = weapon.Primary.Ammo.ToString();
+		}
+		else
+		{
+			reserveLabel.Text = "";
+		}
+	}
 }

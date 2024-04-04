@@ -1,147 +1,145 @@
-﻿using System.Threading.Tasks;
-using Sandbox;
-using Sandbox.UI;
+﻿using Sandbox.UI;
+using SWB.Shared;
+using System.Threading.Tasks;
 
-namespace SWB_Base.UI;
+namespace SWB.Base.UI;
 
 public class Crosshair : Panel
 {
+	IPlayerBase player => weapon.Owner;
+	Weapon weapon;
 
-    Panel CenterDot;
-    Panel LeftBar;
-    Panel RightBar;
-    Panel TopBar;
-    Panel BottomBar;
+	Panel centerDot;
+	Panel leftBar;
+	Panel rightBar;
+	Panel topBar;
+	Panel bottomBar;
 
-    private int spreadOffset = 400;
-    private int sprintOffset = 100;
-    private int fireOffset = 50;
+	int spreadOffset = 400;
+	int sprintOffset = 100;
+	int fireOffset = 50;
 
-    private bool wasZooming = false;
+	bool wasAiming = false;
 
-    public Crosshair()
-    {
-        StyleSheet.Load("/swb_base/ui/Crosshair.scss");
+	public Crosshair( Weapon weapon )
+	{
+		this.weapon = weapon;
+		StyleSheet.Load( "/swb_base/ui/Crosshair.cs.scss" );
 
-        CenterDot = Add.Panel("centerDot");
-        LeftBar = Add.Panel("leftBar");
-        RightBar = Add.Panel("rightBar");
-        TopBar = Add.Panel("topBar");
-        BottomBar = Add.Panel("bottomBar");
+		centerDot = Add.Panel( "centerDot" );
+		leftBar = Add.Panel( "leftBar" );
+		rightBar = Add.Panel( "rightBar" );
+		topBar = Add.Panel( "topBar" );
+		bottomBar = Add.Panel( "bottomBar" );
 
-        LeftBar.AddClass("sharedBarStyling");
-        RightBar.AddClass("sharedBarStyling");
-        TopBar.AddClass("sharedBarStyling");
-        BottomBar.AddClass("sharedBarStyling");
-    }
+		leftBar.AddClass( "sharedBarStyling" );
+		rightBar.AddClass( "sharedBarStyling" );
+		topBar.AddClass( "sharedBarStyling" );
+		bottomBar.AddClass( "sharedBarStyling" );
+	}
 
-    private void UpdateCrosshair()
-    {
-        CenterDot.Style.Dirty();
-        LeftBar.Style.Dirty();
-        RightBar.Style.Dirty();
-        TopBar.Style.Dirty();
-        BottomBar.Style.Dirty();
-    }
+	private void UpdateCrosshair()
+	{
+		centerDot.Style.Dirty();
+		leftBar.Style.Dirty();
+		rightBar.Style.Dirty();
+		topBar.Style.Dirty();
+		bottomBar.Style.Dirty();
+	}
 
-    private void RestoreBarPositions()
-    {
-        LeftBar.Style.Left = -16;
-        RightBar.Style.Left = 5;
-        TopBar.Style.Top = -16;
-        BottomBar.Style.Top = 5;
-    }
+	private void RestoreBarPositions()
+	{
+		leftBar.Style.Left = -16;
+		rightBar.Style.Left = 5;
+		topBar.Style.Top = -16;
+		bottomBar.Style.Top = 5;
+	}
 
-    private void RestoreCrosshairOpacity()
-    {
-        CenterDot.Style.Opacity = 1;
-        LeftBar.Style.Opacity = 1;
-        RightBar.Style.Opacity = 1;
-        TopBar.Style.Opacity = 1;
-        BottomBar.Style.Opacity = 1;
-    }
+	private void RestoreCrosshairOpacity()
+	{
+		centerDot.Style.Opacity = 1;
+		leftBar.Style.Opacity = 1;
+		rightBar.Style.Opacity = 1;
+		topBar.Style.Opacity = 1;
+		bottomBar.Style.Opacity = 1;
+	}
 
-    private void HideBarLines()
-    {
-        LeftBar.Style.Opacity = 0;
-        RightBar.Style.Opacity = 0;
-        TopBar.Style.Opacity = 0;
-        BottomBar.Style.Opacity = 0;
-    }
+	private void HideBarLines()
+	{
+		leftBar.Style.Opacity = 0;
+		rightBar.Style.Opacity = 0;
+		topBar.Style.Opacity = 0;
+		bottomBar.Style.Opacity = 0;
+	}
 
-    public override void Tick()
-    {
-        base.Tick();
+	public override void Tick()
+	{
+		bool isValidWeapon = weapon is not null;
 
-        if (Game.LocalPawn is not ISWBPlayer player) return;
+		var hideCrosshairDot = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairDot ||*/ weapon.IsScoping || weapon.IsCustomizing;
+		centerDot.SetClass( "hideCrosshair", hideCrosshairDot );
 
-        var weapon = player.ActiveChild as WeaponBase;
-        bool isValidWeapon = weapon != null;
+		var hideCrosshairLines = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairLines ||*/ weapon.IsScoping || weapon.IsCustomizing;
+		leftBar.SetClass( "hideCrosshair", hideCrosshairLines );
+		rightBar.SetClass( "hideCrosshair", hideCrosshairLines );
+		topBar.SetClass( "hideCrosshair", hideCrosshairLines );
+		bottomBar.SetClass( "hideCrosshair", hideCrosshairLines );
 
-        var hideCrosshairDot = !isValidWeapon || !weapon.UISettings.ShowCrosshairDot || weapon.IsCustomizing;
-        CenterDot.SetClass("hideCrosshair", hideCrosshairDot);
+		if ( !isValidWeapon ) return;
 
-        var hideCrosshairLines = !isValidWeapon || !weapon.UISettings.ShowCrosshairLines || weapon.IsCustomizing;
-        LeftBar.SetClass("hideCrosshair", hideCrosshairLines);
-        RightBar.SetClass("hideCrosshair", hideCrosshairLines);
-        TopBar.SetClass("hideCrosshair", hideCrosshairLines);
-        BottomBar.SetClass("hideCrosshair", hideCrosshairLines);
+		// Crosshair spread offset
+		var screenOffset = spreadOffset * weapon.GetRealSpread();
+		leftBar.Style.MarginLeft = -screenOffset;
+		rightBar.Style.MarginLeft = screenOffset;
+		topBar.Style.MarginTop = -screenOffset;
+		bottomBar.Style.MarginTop = screenOffset;
 
-        if (!isValidWeapon) return;
+		// Sprint spread offsets
+		if ( weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading || weapon.IsDeploying || weapon.InBoltBack )
+		{
+			leftBar.Style.Left = -sprintOffset;
+			rightBar.Style.Left = sprintOffset - 5;
+			topBar.Style.Top = -sprintOffset;
+			bottomBar.Style.Top = sprintOffset - 5;
 
-        // Crosshair spread offset
-        var screenOffset = spreadOffset * weapon.GetRealSpread();
-        LeftBar.Style.MarginLeft = -screenOffset;
-        RightBar.Style.MarginLeft = screenOffset;
-        TopBar.Style.MarginTop = -screenOffset;
-        BottomBar.Style.MarginTop = screenOffset;
+			HideBarLines();
+		}
+		else if ( weapon.IsAiming )
+		{
+			wasAiming = true;
 
-        // Sprint spread offsets
-        if (weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading)
-        {
-            LeftBar.Style.Left = -sprintOffset;
-            RightBar.Style.Left = sprintOffset - 5;
-            TopBar.Style.Top = -sprintOffset;
-            BottomBar.Style.Top = sprintOffset - 5;
+			if ( player.IsFirstPerson )
+			{
+				centerDot.Style.Opacity = 0;
+				HideBarLines();
+			}
+		}
+		else if ( leftBar.Style.Left == -sprintOffset || wasAiming )
+		{
+			wasAiming = false;
+			RestoreBarPositions();
+			RestoreCrosshairOpacity();
+		}
 
-            HideBarLines();
-        }
-        else if (weapon.IsZooming)
-        {
-            wasZooming = true;
+		UpdateCrosshair();
+	}
 
-            if (Game.LocalPawn.IsFirstPersonMode)
-            {
-                CenterDot.Style.Opacity = 0;
-                HideBarLines();
-            }
-        }
-        else if (LeftBar.Style.Left == -sprintOffset || wasZooming)
-        {
-            wasZooming = false;
-            RestoreBarPositions();
-            RestoreCrosshairOpacity();
-        }
+	[PanelEvent( "shoot" )]
+	public void ShootEvent( float fireDelay )
+	{
+		// Fire spread offsets
+		leftBar.Style.Left = -fireOffset;
+		rightBar.Style.Left = fireOffset - 5;
+		topBar.Style.Top = -fireOffset;
+		bottomBar.Style.Top = fireOffset - 5;
 
-        UpdateCrosshair();
-    }
+		_ = FireDelay( fireDelay / 2 );
+	}
 
-    [PanelEvent]
-    public void FireEvent(float fireDelay)
-    {
-        // Fire spread offsets
-        LeftBar.Style.Left = -fireOffset;
-        RightBar.Style.Left = fireOffset - 5;
-        TopBar.Style.Top = -fireOffset;
-        BottomBar.Style.Top = fireOffset - 5;
-
-        _ = FireDelay(fireDelay / 2);
-    }
-
-    private async Task FireDelay(float delay)
-    {
-        await GameTask.DelaySeconds(delay);
-        RestoreBarPositions();
-        RestoreCrosshairOpacity();
-    }
+	private async Task FireDelay( float delay )
+	{
+		await GameTask.DelaySeconds( delay );
+		RestoreBarPositions();
+		RestoreCrosshairOpacity();
+	}
 }

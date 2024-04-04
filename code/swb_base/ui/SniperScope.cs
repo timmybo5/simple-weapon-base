@@ -1,79 +1,81 @@
-﻿using System;
-using Sandbox;
-using Sandbox.UI;
+﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
+using SWB.Shared;
+using System;
 
-namespace SWB_Base.UI;
+namespace SWB.Base.UI;
 
 public class SniperScope : Panel
 {
-    Panel lensWrapper;
-    Panel scope;
+	IPlayerBase player => weapon.Owner;
+	Weapon weapon;
 
-    float lensRotation;
+	Panel lensWrapper;
+	Panel scope;
 
-    public SniperScope(string lensTexture, string scopeTexture)
-    {
-        StyleSheet.Load("/swb_base/ui/SniperScope.scss");
+	float lensRotation;
 
-        if (scopeTexture != null)
-            Add.Panel("leftBar");
+	public SniperScope( Weapon weapon, string lensTexture, string scopeTexture )
+	{
+		this.weapon = weapon;
+		StyleSheet.Load( "/swb_base/ui/SniperScope.cs.scss" );
 
-        lensWrapper = Add.Panel("lensWrapper");
-        lensWrapper.Add.Image(lensTexture, "lens");
+		if ( scopeTexture != null )
+			Add.Panel( "leftBar" );
 
-        if (scopeTexture != null)
-        {
-            scope = lensWrapper.Add.Image(scopeTexture, "scope");
+		lensWrapper = Add.Panel( "lensWrapper" );
+		lensWrapper.Add.Image( lensTexture, "lens" );
 
-            Add.Panel("rightBar");
-            Add.Panel("topBar");
-            Add.Panel("bottomBar");
-        }
-    }
+		if ( scopeTexture != null )
+		{
+			scope = lensWrapper.Add.Image( scopeTexture, "scope" );
 
-    public override void Tick()
-    {
-        base.Tick();
-        if (Game.LocalPawn is not ISWBPlayer player) return;
-        if (player.ActiveChild is not WeaponBase weapon) return;
+			Add.Panel( "rightBar" );
+			Add.Panel( "topBar" );
+			Add.Panel( "bottomBar" );
+		}
+	}
 
-        // Scope size
-        var scopeSize = Screen.Height * ScaleFromScreen;
-        lensWrapper.Style.Width = Length.Pixels(scopeSize);
+	public override void Tick()
+	{
+		if ( weapon is null ) return;
 
-        // Show when zooming
-        Style.Opacity = !weapon.IsScoped ? 0 : 1;
+		// Scope size
+		var scopeSize = Screen.Height * ScaleFromScreen;
+		lensWrapper.Style.Width = Length.Pixels( scopeSize );
 
-        // Check if ADS & firing
-        if (weapon.IsZooming && weapon.TimeSincePrimaryAttack < 0.1f)
-            return;
+		// Show when zooming
+		Style.Opacity = !weapon.IsScoping ? 0 : 1;
 
-        // Movement impact
-        var velocityJump = player.Velocity.z * 0.02f;
-        var velocityMove = (Math.Abs(player.Velocity.y) + Math.Abs(player.Velocity.x)) * 0.005f;
-        var lensBob = 0f;
+		// Check if ADS & firing
+		if ( weapon.IsAiming && weapon.TimeSincePrimaryShoot < 0.1f )
+			return;
 
-        if (velocityJump != 0)
-        {
-            lensBob += velocityJump;
-        }
-        else if (velocityMove != 0)
-        {
-            lensBob += MathF.Sin(RealTime.Now * 17f) * velocityMove;
-        }
+		// Movement impact
+		var velocityJump = player.Velocity.z * 0.02f;
+		var velocityMove = (Math.Abs( player.Velocity.y ) + Math.Abs( player.Velocity.x )) * 0.005f;
+		var lensBob = 0f;
 
-        Style.MarginTop = Length.Percent(velocityJump + lensBob);
+		if ( velocityJump != 0 )
+		{
+			lensBob += velocityJump;
+		}
+		else if ( velocityMove != 0 )
+		{
+			lensBob += MathF.Sin( RealTime.Now * 17f ) * velocityMove;
+		}
 
-        if (scope == null) return;
+		Style.MarginTop = Length.Percent( velocityJump + lensBob );
 
-        // Rotation impact
-        var rightVector = player.EyeRotation.Right * player.Velocity;
-        var targetRotation = (rightVector.y + rightVector.x) * 0.015f;
-        var rotateTransform = new PanelTransform();
-        lensRotation = MathUtil.FILerp(lensRotation, targetRotation, 20);
-        rotateTransform.AddRotation(0, 0, lensRotation);
+		if ( scope == null ) return;
 
-        scope.Style.Transform = rotateTransform;
-    }
+		// Rotation impact
+		var rightVector = player.EyeAngles.ToRotation().Right * player.Velocity;
+		var targetRotation = (rightVector.y + rightVector.x) * 0.015f;
+		var rotateTransform = new PanelTransform();
+		lensRotation = MathUtil.FILerp( lensRotation, targetRotation, 20 );
+		rotateTransform.AddRotation( 0, 0, lensRotation );
+
+		scope.Style.Transform = rotateTransform;
+	}
 }

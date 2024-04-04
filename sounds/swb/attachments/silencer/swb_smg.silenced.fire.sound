@@ -1,0 +1,13 @@
+{
+	"sounds":
+	[
+		"sounds/swb/attachments/silencer/swb_smg.silenced.fire.vsnd"
+	],
+	"ui": false,
+	"volume": 0.500000,
+	"volumerandom": 0.000000,
+	"pitch": 1.000000,
+	"pitchrandom": 0.000000,
+	"distancemax": 3000.000000,
+	"selectionmode": "3"
+}

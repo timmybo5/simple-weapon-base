@@ -1,0 +1,311 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "scar"
+						filename = "weapons/swb/scarh/models/scar.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"ironsights",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "ironsights"
+						filename = "weapons/swb/scarh/models/scar.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"frame",
+								"sleeve",
+								"hardknuckle",
+								"pin",
+								"mag",
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_Translate"
+						translation = [ -2.0, -0.5, -34.0 ]
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "sleeve_st6_generalist.vmat"
+								to = "weapons/swb/hands/textures/sleeves.vmat"
+							},
+							{
+								from = "glove_hardknuckle.vmat"
+								to = "weapons/swb/hands/textures/gloves.vmat"
+							},
+							{
+								from = "material.001.vmat"
+								to = "weapons/swb/scarh/textures/scar.vmat"
+							},
+							{
+								from = "material.vmat"
+								to = "weapons/swb/scarh/textures/scar.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "AnimFile"
+						name = "fire"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						disable_interpolation = false
+						enable_scale = false
+						source_filename = "weapons/swb/scarh/models/scar.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						take = 4
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "idle"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						disable_interpolation = false
+						enable_scale = false
+						source_filename = "weapons/swb/scarh/models/scar.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 1
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "deploy"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						disable_interpolation = false
+						enable_scale = false
+						source_filename = "weapons/swb/scarh/models/scar.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 5
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "reload"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 14
+								event_keys = 
+								{
+									name = "weapons/swb/scarh/sounds/scar.magout.sound"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 43
+								event_keys = 
+								{
+									name = "weapons/swb/scarh/sounds/scar.magin.sound"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 77
+								event_keys = 
+								{
+									name = "weapons/swb/scarh/sounds/scar.boltpull.sound"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						disable_interpolation = false
+						enable_scale = false
+						source_filename = "weapons/swb/scarh/models/scar.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 2
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "fireAimed"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						disable_interpolation = false
+						enable_scale = false
+						source_filename = "weapons/swb/scarh/models/scar.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						take = 7
+						reverse = false
+					},
+				]
+				default_root_bone_name = ""
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								name = "ironsights"
+								meshes = 
+								[
+									"ironsights",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "Base"
+						relative_origin = [ 2.523723, -0.31976, -19.394527 ]
+						relative_angles = [ 90.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "ejection_point"
+						parent_bone = "Base"
+						relative_origin = [ 1.083133, 1.816544, -4.357944 ]
+						relative_angles = [ 20.000027, 89.999985, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = "weapons/swb/scarh/v_scarh.vanmgrph"
+		base_model_name = ""
+	}
+}

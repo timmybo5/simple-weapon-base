@@ -1,0 +1,21 @@
+{
+  "UI": true,
+  "Volume": "1.00,1.00,0",
+  "Pitch": "1.00,1.00,0",
+  "Decibels": 70,
+  "SelectionMode": "RandomExclusive",
+  "Sounds": [
+    "sounds/swb/animations/swb_deploy3.vsnd",
+    "sounds/swb/animations/swb_deploy1.vsnd",
+    "sounds/swb/animations/swb_deploy3.vsnd"
+  ],
+  "Occlusion": true,
+  "Reflections": true,
+  "AirAbsorption": true,
+  "Transmission": true,
+  "OcclusionRadius": 64,
+  "DistanceAttenuation": true,
+  "ResourceVersion": 0,
+  "__version": 0,
+  "__references": []
+}
