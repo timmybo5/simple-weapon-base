@@ -29,7 +29,7 @@ The `swb_editor_model` command opens a model editor that can be used to easily c
 * Jumping
 * Idle
 * Sway
-* Zooming
+* ADS
 
 ### Built-in HUD
 * Dynamic Crosshair
