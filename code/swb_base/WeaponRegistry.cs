@@ -31,6 +31,8 @@ public class WeaponRegistry : Component
 
 	public GameObject Get( string className )
 	{
+		if ( className is null ) return null;
+
 		Weapons.TryGetValue( className, out var weaponGO );
 		return weaponGO;
 	}
