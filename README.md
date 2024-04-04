@@ -7,7 +7,7 @@ A community managed simple to use weapon base for S&amp;Box.
 [Skeleton version here](https://github.com/timmybo5/swb-skeleton)
 
 ## Demonstration
-[![Watch the video](https://img.youtube.com/vi/24ge3uU8lJ0/maxresdefault.jpg)](https://www.youtube.com/watch?v=24ge3uU8lJ0)
+[![Watch the video](https://img.youtube.com/vi/Rxt6uaDyAfI/maxresdefault.jpg)](https://www.youtube.com/watch?v=Rxt6uaDyAfI)
 
 ## Goal
 During the lifetime of garrysmod many weapon bases consisting of poor quality were created, and it would be a shame to see the same in S&box. The goal is to offer an easy to use yet very configurable weapon base maintained by the community for the community.
@@ -19,10 +19,7 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Highly configurable
 * Support for custom animations and actions
 
-### Attachment Editor ([Demo](https://www.youtube.com/watch?v=7BgAXlzTlCU))
-The `swb_editor_attachment` command opens an attachment editor that can be used to easily calculate offsets needed for the view and worldmodel.
-
-### Model Editor ([Demo](https://www.youtube.com/watch?v=OAYmOp3oJOE))
+### Offset Editor ([Demo](https://www.youtube.com/watch?v=j5jRZZDgej8))
 The `swb_editor_model` command opens a model editor that can be used to easily calculate offsets needed for running, zooming, and more.
 
 ### Built-in Animations
@@ -36,25 +33,24 @@ The `swb_editor_model` command opens a model editor that can be used to easily c
 
 ### Built-in HUD
 * Dynamic Crosshair
-* Dynamic Hitmarkers
 
 ### Bullet Types
 * Hitscan (instant)
-* Physical (bullet drop & drag)
+* ~Physical (bullet drop & drag)~ TODO
 
-### Bases
-* Magazine (default)
-* Shotgun (shell based reloading)
-* Sniper (scoped zooming)
-* Entity (grenades, arrows, props, ...)
-* Melee
+### Supports
+* Magazine Reloading (default)
+* Shell based Reloading
+* Sniper 2D scopes
+* ~Entity (grenades, arrows, props, ...)~ TODO
+* ~Melee~ TODO
 
-### Attachments
-* Customization menu (`q`)
-* Categorized
-* Localization
-* Stat modifiers
-* Easy to add
+### ~Attachments~ NEXT MAJOR UPDATE
+* ~Customization menu (`q`)~
+* ~Categorized~
+* ~Localization~
+* ~Stat modifiers~
+* ~Easy to add~
 
 ### Weapon Models
 * Properly licensed weapon models are included in the base
