@@ -20,7 +20,7 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 * Support for custom animations and actions
 
 ### Offset Editor ([Demo](https://www.youtube.com/watch?v=j5jRZZDgej8))
-The `swb_editor_model` command opens a model editor that can be used to easily calculate offsets needed for running, zooming, and more.
+The `swb_editor_offsets` command opens a model editor that can be used to easily calculate offsets needed for running, zooming, and more.
 
 ### Built-in Animations
 * Walking
