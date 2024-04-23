@@ -47,6 +47,12 @@ public class ViewModelHandler : Component
 	Vector3 localVel;
 	bool isAiming;
 
+	protected override void OnDestroy()
+	{
+		// Game.Preferences.FieldOfView;
+		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 90 );
+	}
+
 	protected override void OnUpdate()
 	{
 		var renderType = ShouldDraw ? ModelRenderer.ShadowRenderType.Off : ModelRenderer.ShadowRenderType.ShadowsOnly;
