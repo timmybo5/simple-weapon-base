@@ -33,7 +33,6 @@ public partial class OffsetEditor
 	float zOrigin;
 	float pitchOrigin;
 	float yawOrigin;
-	//AngPos sightAttachmentAnimData;
 
 	Weapon weapon;
 
@@ -47,12 +46,6 @@ public partial class OffsetEditor
 		if ( !firstTime ) return;
 
 		DragModeLabel.Text = "x/z";
-
-		// Get data from active sight attachment
-		//var showButton = false;
-		//var player = Game.LocalPawn as PlayerBase;
-		//var weapon = player.ActiveChild as WeaponBase;
-		//var activeAttach = weapon.GetActiveAttachmentFromCategory( AttachmentCategoryName.Sight );
 		FOV = weapon.FOV;
 	}
 
@@ -95,11 +88,6 @@ public partial class OffsetEditor
 	public void SetCustomizeAnimData()
 	{
 		SetFromAngPos( weapon.CustomizeAnimData );
-	}
-
-	public void SetSightAttachmentAnimData()
-	{
-		// SetFromAngPos( sightAttachmentAnimData );
 	}
 
 	private void SetFromAngPos( AngPos angPos )

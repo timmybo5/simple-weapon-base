@@ -62,17 +62,24 @@ public class SliderEntry : Panel
 	protected void OnValueChanged( object value )
 	{
 		float newValue = 0;
+		bool updateValue = true;
 		if ( value is float floatValue )
 		{
 			newValue = (float)Math.Round( floatValue, 2 );
 		}
 		else if ( value is string stringValue )
 		{
-			newValue = float.Parse( stringValue );
+			if ( stringValue.EndsWith( '.' ) || stringValue.EndsWith( ".0" ) || stringValue.EndsWith( ".00" ) )
+				updateValue = false;
+			else
+				updateValue = float.TryParse( stringValue, out newValue );
 		}
 
-		Value = newValue;
-		CreateValueEvent( "value", value );
+		if ( updateValue )
+		{
+			Value = newValue;
+			CreateValueEvent( "value", value );
+		}
 	}
 
 	/// <summary>
