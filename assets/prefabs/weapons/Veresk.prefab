@@ -1,13 +1,15 @@
 {
   "RootObject": {
-    "__guid": "e25c4e46-b42f-4d27-9232-c03a5e99ae19",
+    "__guid": "75517e2e-7846-4cb7-8425-fe52a50eb7a9",
+    "Flags": 0,
     "Name": "veresk",
     "Tags": "weapon",
     "NetworkMode": 2,
+    "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "Weapon",
-        "__guid": "76b16c70-6b0e-42c4-80ac-7ce53b95aece",
+        "__type": "SWB.Base.Weapon",
+        "__guid": "d18c1ef2-41e1-4457-a141-614c4d8f9d87",
         "AimAnimData": {
           "Angle": "-1.3,-0.02,0",
           "Pos": "-2.767,0,0.728"
@@ -24,6 +26,10 @@
         "BoltBackTime": 0,
         "BulletCocking": true,
         "ClassName": "swb_veresk",
+        "CustomizeAnimData": {
+          "Angle": "-6.06,42.56,10",
+          "Pos": "4.901,0,1.112"
+        },
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
         "DisplayName": "SR2 Veresk",
         "DrawAnim": "deploy",
@@ -35,8 +41,8 @@
         "Icon": "weapons/swb/veresk/veresk.png",
         "Primary": {
           "_type": "component",
-          "component_id": "88e71f8a-f20c-4d3f-b7b2-b4f8829658d8",
-          "go": "e25c4e46-b42f-4d27-9232-c03a5e99ae19",
+          "component_id": "963d2fa3-de8a-4659-9080-40f84f8d9c2a",
+          "go": "75517e2e-7846-4cb7-8425-fe52a50eb7a9",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -66,8 +72,8 @@
         "WorldModel": "weapons/swb/veresk/w_veresk.vmdl"
       },
       {
-        "__type": "ShootInfo",
-        "__guid": "88e71f8a-f20c-4d3f-b7b2-b4f8829658d8",
+        "__type": "SWB.Base.ShootInfo",
+        "__guid": "963d2fa3-de8a-4659-9080-40f84f8d9c2a",
         "Ammo": 30,
         "AmmoType": "smg",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -93,6 +99,27 @@
         "Spread": 0.08,
         "VMParticleScale": 0.8,
         "WMParticleScale": 1
+      },
+      {
+        "__type": "SWB.Demo.ReflexSightBG",
+        "__guid": "d4534b2c-20d4-4672-8977-bdfc4a3b4230",
+        "AimAnimData": {
+          "Angle": "0,-0.08,0",
+          "Pos": "-2.788,0,0.377"
+        },
+        "AimFOV": -1,
+        "AimInFOVSpeed": -1,
+        "AimOutFOVSpeed": -1,
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
+      },
+      {
+        "__type": "SWB.Demo.RifleSilencerBG",
+        "__guid": "a27e810f-3c9b-4876-b1f2-b8c8705a88e3",
+        "EffectAttachmentOrBone": "muzzle_silenced",
+        "ShootSound": "sounds/swb/attachments/silencer/swb_smg.silenced.fire.sound",
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
       }
     ],
     "Children": []
@@ -101,6 +128,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

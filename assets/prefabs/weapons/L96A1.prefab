@@ -1,15 +1,18 @@
 {
   "RootObject": {
-    "__guid": "d3b85fda-92cf-4e60-a184-2a8ca31d7c89",
+    "__guid": "8c2999b8-8919-4895-9952-dcdce1c38403",
+    "Flags": 0,
     "Name": "l96a1",
     "Tags": "weapon",
     "NetworkMode": 2,
+    "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "Weapon",
-        "__guid": "c4b759e1-3811-4253-9c00-09994ca692aa",
+        "__type": "SWB.Base.Weapon",
+        "__guid": "610b968e-fb5c-4971-8ff3-52db626fe9e0",
         "AimAnimData": {
-          "Pos": "-4.996,-4.46,0.223"
+          "Angle": "-0.81,-0.05,0",
+          "Pos": "-5.012,-4.46,1.572"
         },
         "AimFOV": 35,
         "AimInFOVSpeed": 1,
@@ -23,6 +26,10 @@
         "BoltBackTime": 1.6,
         "BulletCocking": false,
         "ClassName": "swb_l96a1",
+        "CustomizeAnimData": {
+          "Angle": "-1.38,45.26,12.34",
+          "Pos": "7.78,-4.46,2.36"
+        },
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
         "DisplayName": "L96a1",
         "DrawAnim": "deploy",
@@ -34,8 +41,8 @@
         "Icon": "weapons/swb/l96a1/l96a1.png",
         "Primary": {
           "_type": "component",
-          "component_id": "b2e287c2-4057-4e09-8dea-8a81e7191016",
-          "go": "d3b85fda-92cf-4e60-a184-2a8ca31d7c89",
+          "component_id": "a9a2accf-b60c-4ad6-a271-3d65cc06a6ee",
+          "go": "8c2999b8-8919-4895-9952-dcdce1c38403",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -54,7 +61,7 @@
           "FOV": 8,
           "AimSensitivity": 0.25
         },
-        "Scoping": true,
+        "Scoping": false,
         "ShellEjectDelay": 0,
         "ShellReloading": false,
         "ShellReloadingShootCancel": true,
@@ -67,8 +74,8 @@
         "WorldModel": "weapons/swb/l96a1/w_l96a1.vmdl"
       },
       {
-        "__type": "ShootInfo",
-        "__guid": "b2e287c2-4057-4e09-8dea-8a81e7191016",
+        "__type": "SWB.Base.ShootInfo",
+        "__guid": "a9a2accf-b60c-4ad6-a271-3d65cc06a6ee",
         "Ammo": 5,
         "AmmoType": "sniper",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -94,6 +101,57 @@
         "Spread": 0.3,
         "VMParticleScale": 4,
         "WMParticleScale": 2
+      },
+      {
+        "__type": "SWB.Demo.ReflexSightBG",
+        "__guid": "b234a4f2-cf2e-431e-83ab-9dfe1520e884",
+        "AimAnimData": {
+          "Angle": "0.05,-0.06,0",
+          "Pos": "-5.009,-4.46,0.68"
+        },
+        "AimFOV": -1,
+        "AimInFOVSpeed": -1,
+        "AimOutFOVSpeed": -1,
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
+      },
+      {
+        "__type": "SWB.Demo.HunterScope2DBG",
+        "__guid": "b06b304a-c267-41d9-b348-45d151f1f03f",
+        "AimAnimData": {
+          "Pos": "-4.996,-4.46,0.223"
+        },
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
+      },
+      {
+        "__type": "SWB.Demo.SniperSilencerBG",
+        "__guid": "c19a5302-22b5-4cf5-8386-0ba71065070a",
+        "EffectAttachmentOrBone": "muzzle_silenced",
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
+      },
+      {
+        "__type": "SWB.Demo.RifleLaserBG",
+        "__guid": "e82e0d87-bca8-4616-ba03-f063e45cf54f",
+        "BeamParticle": "particles/swb/laser/laser_small.vpcf",
+        "Color": "1,0,0,1",
+        "DotParticle": "particles/swb/laser/laser_dot.vpcf",
+        "EffectAttachmentOrBone": "laser_start",
+        "RequiresAttachment": {
+          "_type": "component",
+          "component_id": "33367dd0-559c-4454-a171-28d402ac7a3c",
+          "go": "8c2999b8-8919-4895-9952-dcdce1c38403",
+          "component_type": "SniperRailBG"
+        },
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
+      },
+      {
+        "__type": "SWB.Demo.SniperRailBG",
+        "__guid": "33367dd0-559c-4454-a171-28d402ac7a3c",
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
       }
     ],
     "Children": []
@@ -102,6 +160,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

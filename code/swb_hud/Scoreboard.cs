@@ -37,7 +37,7 @@ public class Scoreboard : Panel
 			if ( player.IsBot ) continue;
 
 			var connection = player.Network.OwnerConnection;
-			var ping = MathF.Round( connection.Ping );
+			var ping = MathF.Round( connection.Ping * 1000 );
 			var rowP = playerWrapper.Add.Panel( "row " + (isOdd ? "odd" : "") );
 			rowP.Add.Label( connection.DisplayName, "value name " + (!player.IsProxy ? "self" : "") );
 			rowP.Add.Label( player.Kills.ToString(), "value kills" );

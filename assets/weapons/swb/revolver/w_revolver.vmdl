@@ -30,6 +30,30 @@
 								from = "default_obj.001.vmat"
 								to = "weapons/swb/revolver/textures/revolver.vmat"
 							},
+							{
+								from = "sr8_mat.vmat"
+								to = "attachments/swb/muzzle/silencer_pistol/textures/sr8.vmat"
+							},
+							{
+								from = "sniper.vmat"
+								to = "weapons/swb/l96a1/textures/v_l96a1.vmat"
+							},
+							{
+								from = "scopereticle.vmat"
+								to = "materials/black_matte.vmat"
+							},
+							{
+								from = "reflex_mat.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
+							{
+								from = "lens.vmat"
+								to = "weapons/swb/l96a1/textures/v_l96a1_scope.vmat"
+							},
+							{
+								from = "reflex_glass.vmat"
+								to = "materials/tools/toolsinvisible.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -82,6 +106,15 @@
 						weight = 1.0
 						ignore_rotation = false
 					},
+					{
+						_class = "Attachment"
+						name = "muzzle_silenced"
+						parent_bone = "Base"
+						relative_origin = [ 1.597126, -1.320283, -30.029768 ]
+						relative_angles = [ 83.99987, -40.000275, -0.000131 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
 				]
 			},
 			{
@@ -108,6 +141,117 @@
 								"Charger",
 							]
 						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "silencer"
+						filename = "attachments/swb/muzzle/silencer_pistol/silencer_pistol.smd"
+						import_translation = [ 0.036, -0.03, -0.88 ]
+						import_rotation = [ 98.0, 139.600006, -40.0 ]
+						import_scale = 28.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ -0.34, 0.14, -1.3 ]
+						import_rotation = [ 98.0, 139.600006, -35.0 ]
+						import_scale = 5.6
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "scope"
+						filename = "attachments/swb/sight/scope_hunter/w_scope_hunter.smd"
+						import_translation = [ 3.0, 0.3, -5.0 ]
+						import_rotation = [ 97.0, 132.600006, -41.0 ]
+						import_scale = 1.12
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "muzzle"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "silencer"
+								meshes = 
+								[
+									"silencer",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "scope"
+								meshes = 
+								[
+									"scope",
+								]
+							},
+						]
+						hidden_in_tools = false
 					},
 				]
 			},

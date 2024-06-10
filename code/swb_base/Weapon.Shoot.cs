@@ -22,17 +22,23 @@ public partial class Weapon
 		{
 			if ( Input.Pressed( inputButton ) )
 			{
+				// Check for auto reloading
+				if ( Settings.AutoReload && lastAttackTime > GetRealRPM( shootInfo.RPM ) )
+				{
+					TimeSincePrimaryShoot = 999;
+					TimeSinceSecondaryShoot = 999;
+
+					if ( ShellReloading )
+						OnShellReload();
+					else
+						Reload();
+
+					return false;
+				}
+
+				// Dry fire
 				if ( shootInfo.DryShootSound is not null )
 					PlaySound( shootInfo.DryShootSound.ResourceId );
-
-				// Check for auto reloading
-				//if ( AutoReloadSV > 0 )
-				//{
-				//	TimeSincePrimaryAttack = 999;
-				//	TimeSinceSecondaryAttack = 999;
-				//	timeSinceFired = 999;
-				//	Reload();
-				//}
 			}
 
 			return false;

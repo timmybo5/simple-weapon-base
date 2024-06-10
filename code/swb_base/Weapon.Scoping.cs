@@ -5,7 +5,7 @@ public partial class Weapon
 	public async void OnScopeStart()
 	{
 		await GameTask.DelaySeconds( ScopeInfo.ScopeInDelay );
-		if ( !IsAiming || IsScoping ) return;
+		if ( !IsAiming || IsScoping || IsReloading ) return;
 
 		IsScoping = true;
 		ViewModelHandler.ShouldDraw = false;

@@ -35,6 +35,18 @@
 								from = "glove_hardknuckle.vmat"
 								to = "weapons/swb/hands/textures/gloves.vmat"
 							},
+							{
+								from = "ats4_mat.vmat"
+								to = "attachments/swb/muzzle/silencer_rifle/textures/ats4.vmat"
+							},
+							{
+								from = "reflex_mat.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
+							{
+								from = "reflex_glass.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex_dot_shader.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -63,6 +75,15 @@
 						weight = 1.0
 						ignore_rotation = false
 					},
+					{
+						_class = "Attachment"
+						name = "muzzle_silenced"
+						parent_bone = "Base"
+						relative_origin = [ 1.911804, -0.18047, -19.20392 ]
+						relative_angles = [ 84.999954, -30.000019, -0.000029 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
 				]
 			},
 			{
@@ -79,6 +100,40 @@
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
 						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "silencer"
+						filename = "attachments/swb/muzzle/silencer_rifle/silencer_rifle.smd"
+						import_translation = [ 0.14, 0.026, 0.742 ]
+						import_rotation = [ 98.0, 139.600006, -40.0 ]
+						import_scale = 25.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ 0.19, 0.715, 11.8 ]
+						import_rotation = [ 98.0, 139.600006, -40.0 ]
+						import_scale = 2.8
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
 						import_filter = 
 						{
 							exclude_by_default = false
@@ -224,6 +279,58 @@
 					},
 				]
 				default_root_bone_name = ""
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "muzzle"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "silencer"
+								meshes = 
+								[
+									"silencer",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+				]
 			},
 		]
 		model_archetype = ""

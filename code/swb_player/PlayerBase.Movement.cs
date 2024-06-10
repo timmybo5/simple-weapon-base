@@ -194,7 +194,9 @@ public partial class PlayerBase
 		if ( !tr.Hit ) return;
 
 		var sound = tr.Surface.PlayCollisionSound( footstepEvent.Transform.Position );
-		sound.Volume = footstepEvent.Volume;
+		if ( sound is not null )
+			sound.Volume = footstepEvent.Volume;
+
 		timeSinceLastFootstep = 0;
 	}
 }

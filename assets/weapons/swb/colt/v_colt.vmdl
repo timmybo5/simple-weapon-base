@@ -35,6 +35,22 @@
 								from = "colt.vmat"
 								to = "weapons/swb/colt/textures/colt.vmat"
 							},
+							{
+								from = "sr8_mat.vmat"
+								to = "attachments/swb/muzzle/silencer_pistol/textures/sr8.vmat"
+							},
+							{
+								from = "usp_rail_adapter.vmat"
+								to = "attachments/swb/rail/rail_single/textures/rail_single.vmat"
+							},
+							{
+								from = "reflex_glass.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex_dot_shader.vmat"
+							},
+							{
+								from = "reflex_mat.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -63,6 +79,15 @@
 						weight = 1.0
 						ignore_rotation = false
 					},
+					{
+						_class = "Attachment"
+						name = "muzzle_silenced"
+						parent_bone = "Base"
+						relative_origin = [ 0.083352, 0.644154, -16.155611 ]
+						relative_angles = [ 83.999939, -0.000111, -0.000187 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
 				]
 			},
 			{
@@ -79,6 +104,57 @@
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
 						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "silencer"
+						filename = "attachments/swb/muzzle/silencer_pistol/silencer_pistol.smd"
+						import_translation = [ -0.02, 0.058, 1.09 ]
+						import_rotation = [ 83.0, 0.0, 0.0 ]
+						import_scale = 20.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ -0.22, 0.0, 11.1 ]
+						import_rotation = [ 97.0, 180.0, 0.0 ]
+						import_scale = 3.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Up_end"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "rail"
+						filename = "attachments/swb/rail/rail_single/w_rail_single.smd"
+						import_translation = [ -0.65, 0.0, 34.5 ]
+						import_rotation = [ 83.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Up_end"
 						import_filter = 
 						{
 							exclude_by_default = false
@@ -224,6 +300,89 @@
 					},
 				]
 				default_root_bone_name = ""
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "scope"
+								meshes = 
+								[
+									"scope",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "muzzle"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "silencer"
+								meshes = 
+								[
+									"silencer",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "rail"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "single_rail"
+								meshes = 
+								[
+									"rail",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+				]
 			},
 		]
 		model_archetype = ""

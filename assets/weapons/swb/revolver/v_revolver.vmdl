@@ -35,6 +35,30 @@
 								from = "default_obj.001.vmat"
 								to = "weapons/swb/revolver/textures/revolver.vmat"
 							},
+							{
+								from = "sr8_mat.vmat"
+								to = "attachments/swb/muzzle/silencer_pistol/textures/sr8.vmat"
+							},
+							{
+								from = "reflex_mat.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
+							{
+								from = "reflex_glass.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex_dot_shader_scarh.vmat"
+							},
+							{
+								from = "lens.vmat"
+								to = "weapons/swb/l96a1/textures/v_l96a1_scope.vmat"
+							},
+							{
+								from = "scopereticle.vmat"
+								to = "materials/black_matte.vmat"
+							},
+							{
+								from = "sniper.vmat"
+								to = "weapons/swb/l96a1/textures/v_l96a1.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -54,6 +78,15 @@
 						weight = 1.0
 						ignore_rotation = false
 					},
+					{
+						_class = "Attachment"
+						name = "muzzle_silenced"
+						parent_bone = "Base"
+						relative_origin = [ 1.004398, -0.952784, -21.457188 ]
+						relative_angles = [ 83.999825, -40.00016, 0.000196 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
 				]
 			},
 			{
@@ -70,6 +103,57 @@
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
 						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "silencer"
+						filename = "attachments/swb/muzzle/silencer_pistol/silencer_pistol.smd"
+						import_translation = [ 0.03, -0.0065, 0.82 ]
+						import_rotation = [ 98.0, 139.600006, -40.0 ]
+						import_scale = 20.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ -0.34, 0.26, 7.1 ]
+						import_rotation = [ 98.0, 139.600006, -35.0 ]
+						import_scale = 4.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "scope"
+						filename = "attachments/swb/sight/scope_hunter/w_scope_hunter.smd"
+						import_translation = [ 3.0, 1.0, 38.0 ]
+						import_rotation = [ 97.0, 133.300003, -41.0 ]
+						import_scale = 0.8
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
 						import_filter = 
 						{
 							exclude_by_default = false
@@ -242,6 +326,66 @@
 					},
 				]
 				default_root_bone_name = ""
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "scope"
+								meshes = 
+								[
+									"scope",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "muzzle"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "silencer"
+								meshes = 
+								[
+									"silencer",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+				]
 			},
 		]
 		model_archetype = ""

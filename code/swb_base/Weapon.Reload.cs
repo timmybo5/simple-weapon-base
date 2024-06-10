@@ -4,7 +4,7 @@ public partial class Weapon
 {
 	public virtual void Reload()
 	{
-		if ( IsReloading || /*IsAnimating ||*/  InBoltBack || IsShooting() )
+		if ( IsReloading || InBoltBack || IsShooting() )
 			return;
 
 		var maxClipSize = BulletCocking ? Primary.ClipSize + 1 : Primary.ClipSize;
@@ -17,6 +17,9 @@ public partial class Weapon
 
 		if ( Owner.AmmoCount( Primary.AmmoType ) <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
 			return;
+
+		if ( IsScoping )
+			OnScopeEnd();
 
 		IsReloading = true;
 

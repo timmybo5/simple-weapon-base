@@ -1,4 +1,6 @@
-﻿using SWB.Shared;
+﻿using SWB.Base.Attachments;
+using SWB.Shared;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SWB.Base;
@@ -7,15 +9,22 @@ namespace SWB.Base;
 [Title( "Weapon" )]
 public partial class Weapon : Component, IInventoryItem
 {
-	public IPlayerBase Owner { get; set; }
-	public ViewModelHandler ViewModelHandler { get; set; }
+	public IPlayerBase Owner { get; private set; }
+	public ViewModelHandler ViewModelHandler { get; private set; }
 	public SkinnedModelRenderer ViewModelRenderer { get; private set; }
 	public SkinnedModelRenderer ViewModelHandsRenderer { get; private set; }
 	public SkinnedModelRenderer WorldModelRenderer { get; private set; }
+	public WeaponSettings Settings { get; private set; }
+	public List<Attachment> Attachments = new();
 
 	protected override void OnAwake()
 	{
 		Tags.Add( TagsHelper.Weapon );
+		Attachments = Components.GetAll<Attachment>( FindMode.EverythingInSelf ).OrderBy( att => att.Name ).ToList();
+
+		Settings = WeaponSettings.Instance;
+		InitialPrimaryStats = StatsModifier.FromShootInfo( Primary );
+		InitialSecondaryStats = StatsModifier.FromShootInfo( Primary );
 	}
 
 	protected override void OnDestroy()
@@ -44,6 +53,7 @@ public partial class Weapon : Component, IInventoryItem
 		IsReloading = false;
 		IsScoping = false;
 		IsAiming = false;
+		IsCustomizing = false;
 
 		DestroyUI();
 	}
@@ -97,8 +107,19 @@ public partial class Weapon : Component, IInventoryItem
 	protected override void OnStart()
 	{
 		Owner = Components.GetInAncestors<IPlayerBase>();
-
 		CreateModels();
+
+		// Attachments (load for clients joining late)
+		if ( IsProxy )
+		{
+			// Log.Info( "Checking -> " + Network.OwnerConnection.DisplayName + "'s " + DisplayName + " for attachments" );
+			Attachments.ForEach( att =>
+			{
+				// Log.Info( "[" + att.Name + "] equipped ->" + att.Equipped );
+				if ( att.Equipped )
+					att.Equip();
+			} );
+		}
 	}
 
 	protected override void OnUpdate()
@@ -109,6 +130,20 @@ public partial class Weapon : Component, IInventoryItem
 		if ( !IsProxy )
 		{
 			if ( IsDeploying ) return;
+
+			// Customization
+			if ( !IsScoping && !IsAiming && Input.Pressed( InputButtonHelper.Menu ) && Attachments.Count > 0 )
+			{
+				if ( !IsCustomizing )
+					OpenCustomizationMenu();
+				else
+					CloseCustomizationMenu();
+
+				IsCustomizing = !IsCustomizing;
+			}
+
+			// Don't cancel reload when customizing
+			if ( IsCustomizing && !IsReloading ) return;
 
 			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack );
 
@@ -182,6 +217,7 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
 			ViewModelRenderer.Model = ViewModel;
 			ViewModelRenderer.AnimationGraph = ViewModel.AnimGraph;
+			ViewModelRenderer.CreateBoneObjects = true;
 			ViewModelRenderer.Enabled = false;
 			ViewModelRenderer.OnComponentEnabled += () =>
 			{
@@ -219,12 +255,8 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.CreateBoneObjects = true;
 
 			var bodyRenderer = Owner.Body.Components.Get<SkinnedModelRenderer>();
-			var holdBone = bodyRenderer.Model.Bones.AllBones.FirstOrDefault( bone => bone.Name == "hold_R" );
-			var holdBoneGO = bodyRenderer.GetBoneObject( holdBone );
-
-			this.GameObject.SetParent( holdBoneGO );
-			WorldModelRenderer.Transform.Position = holdBoneGO.Transform.Position;
-			WorldModelRenderer.Transform.Rotation = holdBoneGO.Transform.Rotation;
+			ModelUtil.ParentToBone( GameObject, bodyRenderer, "hold_R" );
+			Network.ClearInterpolation();
 		}
 	}
 
@@ -252,6 +284,8 @@ public partial class Weapon : Component, IInventoryItem
 	void PlaySound( int resourceID )
 	{
 		var sound = ResourceLibrary.Get<SoundEvent>( resourceID );
+		if ( sound is null ) return;
+
 		var isScreenSound = CanSeeViewModel;
 		sound.UI = isScreenSound;
 

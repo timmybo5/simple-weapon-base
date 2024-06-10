@@ -75,17 +75,20 @@ public class Crosshair : Panel
 	public override void Tick()
 	{
 		bool isValidWeapon = weapon is not null;
+		var shouldHide = !isValidWeapon || weapon.IsScoping || weapon.IsCustomizing;
 
-		var hideCrosshairDot = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairDot ||*/ weapon.IsScoping || weapon.IsCustomizing;
-		centerDot.SetClass( "hideCrosshair", hideCrosshairDot );
+		SetClass( "hideCrosshair", shouldHide );
 
-		var hideCrosshairLines = !isValidWeapon || /*!weapon.UISettings.ShowCrosshairLines ||*/ weapon.IsScoping || weapon.IsCustomizing;
-		leftBar.SetClass( "hideCrosshair", hideCrosshairLines );
-		rightBar.SetClass( "hideCrosshair", hideCrosshairLines );
-		topBar.SetClass( "hideCrosshair", hideCrosshairLines );
-		bottomBar.SetClass( "hideCrosshair", hideCrosshairLines );
+		//var hideCrosshairDot = shouldHide  /*|| !weapon.UISettings.ShowCrosshairDot*/;
+		//centerDot.SetClass( "hideCrosshair", hideCrosshairDot );
 
-		if ( !isValidWeapon ) return;
+		//var hideCrosshairLines = shouldHide /*|| !weapon.UISettings.ShowCrosshairLines*/;
+		//leftBar.SetClass( "hideCrosshair", hideCrosshairLines );
+		//rightBar.SetClass( "hideCrosshair", hideCrosshairLines );
+		//topBar.SetClass( "hideCrosshair", hideCrosshairLines );
+		//bottomBar.SetClass( "hideCrosshair", hideCrosshairLines );
+
+		if ( shouldHide ) return;
 
 		// Crosshair spread offset
 		var screenOffset = spreadOffset * weapon.GetRealSpread();
@@ -95,7 +98,7 @@ public class Crosshair : Panel
 		bottomBar.Style.MarginTop = screenOffset;
 
 		// Sprint spread offsets
-		if ( weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading || weapon.IsDeploying || weapon.InBoltBack )
+		if ( weapon.IsRunning || weapon.ShouldTuck() || weapon.IsReloading || weapon.IsDeploying || (weapon.InBoltBack && !weapon.IsAiming) )
 		{
 			leftBar.Style.Left = -sprintOffset;
 			rightBar.Style.Left = sprintOffset - 5;

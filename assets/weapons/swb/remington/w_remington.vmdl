@@ -30,6 +30,18 @@
 								from = "material.001.vmat"
 								to = "weapons/swb/remington/textures/remington.vmat"
 							},
+							{
+								from = "reflex_mat.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
+							{
+								from = "reflex_glass.vmat"
+								to = "materials/tools/toolsinvisible.vmat"
+							},
+							{
+								from = "silencer.vmat"
+								to = "attachments/swb/muzzle/silencer_shotgun/textures/shotty_silencer.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -91,6 +103,15 @@
 						weight = 1.0
 						ignore_rotation = false
 					},
+					{
+						_class = "Attachment"
+						name = "muzzle_silenced"
+						parent_bone = "Base"
+						relative_origin = [ 4.467459, -1.793539, -48.840435 ]
+						relative_angles = [ 83.999878, -20.000481, -0.000531 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
 				]
 			},
 			{
@@ -117,6 +138,100 @@
 								"Cylinder",
 							]
 						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ -0.23, 0.28, -1.25 ]
+						import_rotation = [ 98.0, 146.0, -35.0 ]
+						import_scale = 5.6
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "silencer"
+						filename = "attachments/swb/muzzle/silencer_shotgun/silencer_shotgun.smd"
+						import_translation = [ 0.032, -0.009, -0.308 ]
+						import_rotation = [ 98.0, 146.0, -35.0 ]
+						import_scale = 140.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "scope"
+								meshes = 
+								[
+									"scope",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "muzzle"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "silencer"
+								meshes = 
+								[
+									"silencer",
+								]
+							},
+						]
+						hidden_in_tools = false
 					},
 				]
 			},

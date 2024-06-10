@@ -38,6 +38,30 @@
 								from = "lens.vmat"
 								to = "weapons/swb/l96a1/textures/v_l96a1_scope.vmat"
 							},
+							{
+								from = "ats5_mat_2.vmat"
+								to = "attachments/swb/muzzle/silencer_sniper/textures/ats5_2.vmat"
+							},
+							{
+								from = "ats5_mat.vmat"
+								to = "attachments/swb/muzzle/silencer_sniper/textures/ats5.vmat"
+							},
+							{
+								from = "rail.vmat"
+								to = "attachments/swb/rail/rail_quad/textures/rail.vmat"
+							},
+							{
+								from = "matpeq15.vmat"
+								to = "attachments/swb/tactical/laser_rifle/textures/laser_rifle.vmat"
+							},
+							{
+								from = "reflex_mat.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
+							{
+								from = "reflex_glass.vmat"
+								to = "materials/tools/toolsinvisible.vmat"
+							},
 						]
 						use_global_default = false
 						global_default_material = ""
@@ -63,6 +87,24 @@
 						parent_bone = "base"
 						relative_origin = [ -0.913659, 1.283506, 8.411445 ]
 						relative_angles = [ -0.000026, -179.999985, 179.999924 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "muzzle_silenced"
+						parent_bone = "sniper"
+						relative_origin = [ 0.019011, 1.194042, 49.89077 ]
+						relative_angles = [ -89.999947, -0.000285, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "laser_start"
+						parent_bone = "sniper"
+						relative_origin = [ 1.263849, 0.396567, 33.936508 ]
+						relative_angles = [ -89.999947, -0.000285, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
@@ -117,6 +159,74 @@
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
 						parent_bone = "hold_R"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ 0.0, 0.38, 1.4 ]
+						import_rotation = [ -90.0, -90.0, 0.0 ]
+						import_scale = 5.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "silencer"
+						filename = "attachments/swb/muzzle/silencer_sniper/silencer_sniper.smd"
+						import_translation = [ 0.0, 0.032, 1.1 ]
+						import_rotation = [ -90.0, 0.0, 0.0 ]
+						import_scale = 40.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "rail"
+						filename = "attachments/swb/rail/rail_quad/w_rail_quad.smd"
+						import_translation = [ 0.0, 0.36, 9.0 ]
+						import_rotation = [ -90.0, 0.0, 0.0 ]
+						import_scale = 3.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "laser"
+						filename = "attachments/swb/tactical/laser_rifle/w_laser_rifle.smd"
+						import_translation = [ -0.72, 0.36, 7.4 ]
+						import_rotation = [ 90.0, 0.0, 0.0 ]
+						import_scale = 3.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "base"
 						import_filter = 
 						{
 							exclude_by_default = false
@@ -196,7 +306,10 @@
 						[
 							{
 								_class = "BodyGroupChoice"
-								meshes = [  ]
+								meshes = 
+								[
+									"",
+								]
 							},
 							{
 								_class = "BodyGroupChoice"
@@ -217,8 +330,74 @@
 						]
 						hidden_in_tools = false
 					},
+					{
+						_class = "BodyGroup"
+						name = "muzzle"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "silencer"
+								meshes = 
+								[
+									"silencer",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "laser"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"laser",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "rail"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"rail",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
 				]
-				disabled = true
 			},
 		]
 		model_archetype = ""

@@ -11,4 +11,5 @@ public partial class TagsHelper
 	public static string Water => "water";
 	public static string World => "world";
 	public static string Solid => "solid";
+	public static string Attachment => "attachment";
 }

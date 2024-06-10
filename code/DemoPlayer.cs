@@ -1,6 +1,7 @@
 ﻿using SWB.Base;
 using SWB.HUD;
 using SWB.Player;
+using System.Linq;
 
 namespace SWB.Demo;
 
@@ -10,11 +11,19 @@ public class DemoPlayer : PlayerBase
 {
 	void GiveWeapon( string className, bool setActive = false )
 	{
-		var weaponRegistery = Scene.Components.GetInChildren<WeaponRegistry>();
-		var weaponGO = weaponRegistery.Get( className );
+		var weaponGO = WeaponRegistry.Instance.Get( className );
 		var weapon = weaponGO.Components.Get<Weapon>( true );
 		Inventory.AddClone( weaponGO, setActive );
 		SetAmmo( weapon.Primary.AmmoType, 360 );
+	}
+
+	Weapon GetWeapon( string className )
+	{
+		var weaponGO = Inventory.Items.First( x => x.Name == className );
+		if ( weaponGO is not null )
+			return weaponGO.Components.Get<Weapon>();
+
+		return null;
 	}
 
 	public override void Respawn()

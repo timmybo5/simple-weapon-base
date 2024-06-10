@@ -26,6 +26,7 @@
 							exception_list = 
 							[
 								"ironsights",
+								"Circle_001_low_100",
 							]
 						}
 					},
@@ -51,6 +52,40 @@
 								"pin",
 								"mag",
 							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ 0.318, 0.5, 8.8 ]
+						import_rotation = [ 98.0, 139.600006, -40.0 ]
+						import_scale = 3.8
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "silencer"
+						filename = "attachments/swb/muzzle/silencer_rifle/silencer_rifle.smd"
+						import_translation = [ 0.162, -0.004, 0.365 ]
+						import_rotation = [ 98.0, 139.600006, -40.0 ]
+						import_scale = 30.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
 						}
 					},
 				]
@@ -86,8 +121,16 @@
 								to = "weapons/swb/scarh/textures/scar.vmat"
 							},
 							{
-								from = "material.vmat"
-								to = "weapons/swb/scarh/textures/scar.vmat"
+								from = "ats4_mat.vmat"
+								to = "attachments/swb/muzzle/silencer_rifle/textures/ats4.vmat"
+							},
+							{
+								from = "reflex_glass.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex_dot_shader_scarh.vmat"
+							},
+							{
+								from = "reflex_mat.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
 							},
 						]
 						use_global_default = false
@@ -273,6 +316,37 @@
 									"ironsights",
 								]
 							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "muzzle"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "silencer"
+								meshes = 
+								[
+									"silencer",
+								]
+							},
 						]
 						hidden_in_tools = false
 					},
@@ -297,6 +371,15 @@
 						parent_bone = "Base"
 						relative_origin = [ 1.083133, 1.816544, -4.357944 ]
 						relative_angles = [ 20.000027, 89.999985, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "muzzle_silenced"
+						parent_bone = "Base"
+						relative_origin = [ 3.328336, -1.03716, -27.619392 ]
+						relative_angles = [ 89.999985, -0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
 					},

@@ -1,13 +1,15 @@
 {
   "RootObject": {
-    "__guid": "50cef0b6-9cba-4a96-b1c5-b636fbede4af",
+    "__guid": "90e1f323-4483-4cab-a02f-56d0ccf3fead",
+    "Flags": 0,
     "Name": "remington870",
     "Tags": "weapon",
     "NetworkMode": 2,
+    "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "Weapon",
-        "__guid": "74f3f785-29ef-4a2c-86e7-66053b5fbf7e",
+        "__type": "SWB.Base.Weapon",
+        "__guid": "61ada1b9-4036-4907-be9e-e774c0e4154a",
         "AimAnimData": {
           "Angle": "-1,0.41,0",
           "Pos": "-2.8,0,0.85"
@@ -24,6 +26,10 @@
         "BoltBackTime": 0,
         "BulletCocking": false,
         "ClassName": "swb_remington",
+        "CustomizeAnimData": {
+          "Angle": "-2.31,27.25,10",
+          "Pos": "4.45,0,0.61"
+        },
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
         "DisplayName": "Remington 870",
         "DrawAnim": "deploy",
@@ -35,8 +41,8 @@
         "Icon": "weapons/swb/remington/remington.png",
         "Primary": {
           "_type": "component",
-          "component_id": "e3dd442e-a63b-4716-9732-8c1c1f105b50",
-          "go": "50cef0b6-9cba-4a96-b1c5-b636fbede4af",
+          "component_id": "6c143f17-9226-4a53-bbb9-3473b4d013cc",
+          "go": "90e1f323-4483-4cab-a02f-56d0ccf3fead",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -66,8 +72,8 @@
         "WorldModel": "weapons/swb/remington/w_remington.vmdl"
       },
       {
-        "__type": "ShootInfo",
-        "__guid": "e3dd442e-a63b-4716-9732-8c1c1f105b50",
+        "__type": "SWB.Base.ShootInfo",
+        "__guid": "6c143f17-9226-4a53-bbb9-3473b4d013cc",
         "Ammo": 6,
         "AmmoType": "shotgun",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -93,6 +99,27 @@
         "Spread": 0.14,
         "VMParticleScale": 2,
         "WMParticleScale": 2.5
+      },
+      {
+        "__type": "SWB.Demo.ReflexSightBG",
+        "__guid": "28ba3396-e484-4425-9a37-cf6b2d976c27",
+        "AimAnimData": {
+          "Angle": "-0.07,0.48,-0.5",
+          "Pos": "-2.816,0,0.36"
+        },
+        "AimFOV": -1,
+        "AimInFOVSpeed": -1,
+        "AimOutFOVSpeed": -1,
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
+      },
+      {
+        "__type": "SWB.Demo.ShotgunSilencerBG",
+        "__guid": "9e2fc3a7-822a-416b-b095-3f404511517b",
+        "EffectAttachmentOrBone": "muzzle_silenced",
+        "ShootSound": "sounds/swb/attachments/silencer/swb_shotgun.silenced.fire.sound",
+        "ViewModelScale": "1,1,1",
+        "WorldModelScale": "1,1,1"
       }
     ],
     "Children": []
@@ -101,6 +128,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

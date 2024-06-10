@@ -31,12 +31,20 @@
 								to = "weapons/swb/colt/textures/colt.vmat"
 							},
 							{
-								from = "glove_hardknuckle.vmat"
-								to = "glove_hardknuckle.vmat"
+								from = "sr8_mat.vmat"
+								to = "attachments/swb/muzzle/silencer_pistol/textures/sr8.vmat"
 							},
 							{
-								from = "sleeve_st6_generalist.vmat"
-								to = "sleeve_st6_generalist.vmat"
+								from = "usp_rail_adapter.vmat"
+								to = "attachments/swb/rail/rail_single/textures/rail_single.vmat"
+							},
+							{
+								from = "reflex_mat.vmat"
+								to = "attachments/swb/sight/reflex/textures/reflex.vmat"
+							},
+							{
+								from = "reflex_glass.vmat"
+								to = "materials/tools/toolsinvisible.vmat"
 							},
 						]
 						use_global_default = false
@@ -99,6 +107,15 @@
 						weight = 1.0
 						ignore_rotation = false
 					},
+					{
+						_class = "Attachment"
+						name = "muzzle_silenced"
+						parent_bone = "Base"
+						relative_origin = [ 0.259088, 0.948308, -22.608494 ]
+						relative_angles = [ 83.999939, 0.0, -0.000039 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
 				]
 			},
 			{
@@ -124,6 +141,140 @@
 								"sleeve",
 							]
 						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "rail"
+						filename = "attachments/swb/rail/rail_single/w_rail_single.smd"
+						import_translation = [ -0.7, -0.48, 0.8 ]
+						import_rotation = [ 83.0, 0.0, 0.0 ]
+						import_scale = 1.4
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Up_end"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "reflex"
+						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						import_translation = [ -0.25, -0.17, -0.1 ]
+						import_rotation = [ 97.0, 180.0, 0.0 ]
+						import_scale = 4.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Up_end"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "silencer"
+						filename = "attachments/swb/muzzle/silencer_pistol/silencer_pistol.smd"
+						import_translation = [ -0.015, 0.035, -0.614 ]
+						import_rotation = [ 83.0, 0.0, 0.0 ]
+						import_scale = 28.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = "Base"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "sight"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "reflex"
+								meshes = 
+								[
+									"reflex",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "scope"
+								meshes = 
+								[
+									"scope",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "muzzle"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "silencer"
+								meshes = 
+								[
+									"silencer",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+					{
+						_class = "BodyGroup"
+						name = "rail"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								meshes = 
+								[
+									"",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "single_rail"
+								meshes = 
+								[
+									"rail",
+								]
+							},
+						]
+						hidden_in_tools = false
 					},
 				]
 			},

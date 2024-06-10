@@ -8,11 +8,19 @@ namespace SWB.Base;
  */
 
 [Group( "SWB" )]
-[Title( "WeaponRegistry" )]
+[Title( "Weapon Registry" )]
 public class WeaponRegistry : Component
 {
 	[Property] public List<PrefabScene> WeaponPrefabs { get; set; } = new();
 	public Dictionary<string, GameObject> Weapons { get; set; } = new();
+
+	static public WeaponRegistry Instance
+	{
+		get
+		{
+			return Game.ActiveScene.Components.GetInChildren<WeaponRegistry>();
+		}
+	}
 
 	protected override void OnAwake()
 	{

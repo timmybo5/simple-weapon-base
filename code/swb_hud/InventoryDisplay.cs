@@ -1,5 +1,6 @@
 ﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
+using SWB.Base;
 using SWB.Shared;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,6 @@ public class InventoryDisplay : Panel
 	List<IInventoryItem> items = new();
 	Dictionary<int, Panel> itemPanels = new();
 	IInventoryItem activeItem;
-	RealTimeSince timeSinceChange;
 
 	public InventoryDisplay( IPlayerBase player )
 	{
@@ -22,9 +22,11 @@ public class InventoryDisplay : Panel
 
 	public override void Tick()
 	{
-		var isAlive = player.IsAlive;
-		SetClass( "hide", !isAlive );
-		if ( !isAlive )
+		var isCustomizing = activeItem is Weapon weapon && weapon.IsCustomizing;
+		var hide = !player.IsAlive || isCustomizing;
+		SetClass( "hide", hide );
+
+		if ( !player.IsAlive )
 		{
 			if ( items.Count > 0 )
 				items.Clear();
@@ -140,7 +142,6 @@ public class InventoryDisplay : Panel
 		if ( item is Component component )
 		{
 			player.Inventory.SetActive( component.GameObject );
-			timeSinceChange = 0;
 		}
 	}
 }

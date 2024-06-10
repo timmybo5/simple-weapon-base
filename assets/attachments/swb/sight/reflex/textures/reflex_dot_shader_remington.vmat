@@ -1,0 +1,33 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/swb_sam_red_dot.shader"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Glass ----
+	g_flBlurAmount "0.000"
+	g_flIridescence "600.000"
+	g_flIridescenceScale "1.000"
+	g_flRefractionStrength "1.005"
+	g_flSightDistanceScale "3.000"
+	g_vSightLightColor "[1.000000 0.000000 0.000000 0.000000]"
+
+	//---- Material ----
+	g_flTintColor "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusion "materials/default/default_ao.tga"
+	TextureBlendMask "[1.000000 1.000000 1.000000 0.000000]"
+	TextureColor "materials/default/default_color.tga"
+	TextureMetalness "materials/default/default_metal.tga"
+	TextureNormal "materials/default/default_normal.tga"
+	TextureRoughness "materials/default/default_rough.tga"
+	TextureTintMask "[1.000000 1.000000 1.000000 0.000000]"
+	TextureTranslucency "materials/default/default_trans.tga"
+
+	//---- Sight Dot ----
+	RedDot "attachments/swb/sight/reflex/textures/red_dot_mask_remington.png"
+	RedDot2 "[0.000000 0.000000 0.000000 0.000000]"
+	RedDot3 "[0.000000 0.000000 0.000000 0.000000]"
+}

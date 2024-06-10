@@ -1,0 +1,303 @@
+﻿$item-width: 280px;
+$item-bg-full-dark: rgb(33, 33, 33);
+$item-bg-extra-dark: rgba(33, 33, 33,0.95);
+$item-bg-dark: rgba(33, 33, 33,0.8);
+
+$col-green: #2ecc71;
+$col-green-trans: #2ecc7196;
+$col-red: #e84118;
+
+CustomizationMenu {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    pointer-events: all;
+    align-items: flex-start; // Enables columns with diff heights
+    transition: opacity 0.2s ease-out 0s;
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.3);
+    gap: 4px;
+
+    &:intro {
+        opacity: 0.01;
+    }
+
+    .categoryWrapper {
+        flex-direction: column;
+
+        .weaponName {
+            min-width: $item-width;
+            align-items: center;
+            color: #eccc68;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            font-weight: 500;
+            font-size: 28px;
+            font-family: FONTSPRING DEMO - Integral CF;
+            padding: 0 12px 2px 12px;
+            border-radius: 2px;
+            min-height: 60px;
+            background-color: rgba( #2222, 0.75 );
+            backdrop-filter: blur( 16px );
+            margin-bottom: 4px;
+        }
+
+        .category {
+            margin-bottom: 4px;
+            width: $item-width;
+            border-radius: 4px;
+            cursor: pointer;
+            align-items: center;
+            min-height: 44px;
+            transition: all 0.1s ease-out 0s;
+            background-color: rgba( #2222, 0.5 );
+            backdrop-filter: blur( 16px );
+
+            &.active {
+                border-left: 3px solid $col-green;
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+
+                .name {
+                    color: $col-green;
+                }
+            }
+
+            &:hover {
+
+                .name {
+                    color: $col-green;
+                }
+
+                &.hasAttachment {
+                    .name {
+                        color: white;
+                    }
+
+                    .activeAttachment {
+                        .name {
+                            color: $col-green;
+                            transform: scale(1.04);
+                        }
+
+                        .iconWrapper {
+                            filter: drop-shadow(0px 0px 6px $col-green);
+
+                            .icon {
+                                height: 60px;
+                                width: 60px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.hasAttachment {
+                min-height: 60px;
+                overflow: hidden; // too long attach name
+
+                &.active {
+                    .name {
+                        color: white;
+                    }
+
+                    .activeAttachment {
+                        .name {
+                            color: $col-green;
+                        }
+                    }
+                }
+
+                .name {
+                    font-size: 16px;
+                    margin-bottom: auto;
+                    margin-top: 4px;
+                    color: rgb(200,200,200);
+                }
+
+                .activeAttachment {
+                    opacity: 1;
+                }
+            }
+
+            .name {
+                color: white;
+                font-family: Poppins;
+                font-size: 22px;
+                margin-left: 10px;
+                border-radius: 2px;
+                transition: font-size 0.05s ease;
+                pointer-events: none;
+                text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            }
+
+            .activeAttachment {
+                position: absolute;
+                width: $item-width;
+                height: 60px;
+                border-radius: 2px;
+                opacity: 0;
+                transition: all 0.1s ease-out 0s;
+                pointer-events: none;
+
+                .name {
+                    color: white;
+                    font-family: Poppins;
+                    font-size: 20px;
+                    margin: 28px 0 0 10px;
+                    transition: all 0.1s ease-out 0s;
+                }
+
+                .iconWrapper {
+                    height: 60px;
+                    width: 60px;
+                    border-radius: 2px;
+                    margin: 0 6px 0 auto;
+                    //margin-right: -1px;
+                    filter: drop-shadow(0px 0px 6px #eccc68);
+                    justify-content: center;
+                    align-items: center;
+                    transition: all 0.1s ease-out 0s;
+
+                    .icon {
+                        height: 56px;
+                        width: 56px;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        transition: all 0.1s ease-out 0s;
+                    }
+                }
+            }
+        }
+    }
+
+    .attachmentWrapper {
+        flex-direction: column;
+
+        .attachment {
+            margin-bottom: 4px;
+            width: 260px;
+            border-radius: 4px;
+            cursor: pointer;
+            align-items: center;
+            min-height: 40px;
+            transition: all 0.1s ease-out 0s;
+            background-color: rgba( #2222, 0.5 );
+            backdrop-filter: blur( 16px );
+
+            &:hover {
+                .name {
+                    color: $col-green;
+                }
+
+                .iconWrapper {
+                    filter: drop-shadow(0px 0px 6px $col-green);
+                }
+            }
+
+            &.active {
+                min-height: 46px;
+                border-left: 3px solid $col-green;
+                border-bottom-left-radius: 0;
+                border-top-left-radius: 0;
+
+                .name {
+                    color: $col-green;
+                    font-weight: bold;
+                }
+
+                .iconWrapper {
+                    filter: drop-shadow(0px 0px 6px $col-green);
+                    min-height: 46px;
+                    width: 62px;
+
+                    .icon {
+                        height: 46px;
+                        width: 46px;
+                    }
+                }
+            }
+
+            .name {
+                color: white;
+                font-family: Poppins;
+                font-size: 18px;
+                padding-top: 2px;
+                margin-left: 10px;
+                border-radius: 2px;
+                transition: font-size 0.05s ease;
+                pointer-events: none;
+                text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            }
+
+            .iconWrapper {
+                // height: 100% -> broken somehow
+                min-height: 40px;
+                width: 52px;
+                border-radius: 2px;
+                margin-left: auto;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.1s ease-out 0s;
+                pointer-events: none;
+                filter: drop-shadow(0px 0px 1px white);
+
+                .icon {
+                    height: 42px;
+                    width: 42px;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    transition: all 0.1s ease-out 0s;
+                }
+            }
+        }
+    }
+
+    .descriptionWrapper {
+        position: relative;
+        width: 400px;
+        margin-left: 4px;
+        flex-direction: column;
+        border-radius: 2px;
+        padding: 10px;
+        font-family: Poppins;
+        background-color: rgba( #2222, 0.5 );
+        backdrop-filter: blur( 16px );
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        font-size: 16px;
+
+        &:empty {
+            opacity: 0;
+        }
+
+        .description {
+            color: white;
+        }
+
+        .posWrapper {
+            margin-top: 10px;
+            padding-left: 4px;
+            flex-direction: column;
+            border-left: 2px solid $col-green;
+
+            .label {
+                color: $col-green;
+                font-weight: 500;
+            }
+        }
+
+        .negWrapper {
+            margin-top: 10px;
+            padding-left: 4px;
+            flex-direction: column;
+            border-left: 2px solid $col-red;
+
+            &:empty {
+                margin-top: 0;
+            }
+
+            .label {
+                color: $col-red;
+                font-weight: 500;
+            }
+        }
+    }
+}

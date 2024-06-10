@@ -9,14 +9,24 @@ internal class DemoCommands
 	public static void Kill()
 	{
 		var player = PlayerBase.GetLocal();
-		player?.TakeDamage( Shared.DamageInfo.FromBullet( player.GameObject.Id, null, 100, Vector3.Zero, System.Array.Empty<string>() ) );
+		player?.TakeDamage( Shared.DamageInfo.FromBullet( player.GameObject.Id, null, 99999, Vector3.Zero, System.Array.Empty<string>() ) );
 	}
 
-	[ConCmd( "respawn", Help = "Respawns the player" )]
+	[ConCmd( "respawn", Help = "Respawns the player (host only)" )]
 	public static void Respawn()
 	{
 		var player = PlayerBase.GetLocal();
+		if ( !player.Network.OwnerConnection.IsHost ) return;
 		player?.Respawn();
+	}
+
+	[ConCmd( "god", Help = "Toggles godmode (host only)" )]
+	public static void GodMode()
+	{
+		var player = PlayerBase.GetLocal();
+		if ( !player.Network.OwnerConnection.IsHost ) return;
+		player.GodMode = !player.GodMode;
+		Log.Info( (player.GodMode ? "Enabled" : "Disabled") + " Godmode" );
 	}
 
 	[ConCmd( "setactive", Help = "Changes the active inventory item" )]

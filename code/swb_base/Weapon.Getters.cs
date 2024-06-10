@@ -1,4 +1,6 @@
-﻿namespace SWB.Base;
+﻿using SWB.Base.Attachments;
+
+namespace SWB.Base;
 
 public partial class Weapon
 {
@@ -17,29 +19,30 @@ public partial class Weapon
 	/// </summary>
 	public virtual Transform? GetMuzzleTransform()
 	{
-		//var activeAttachment = GetActiveAttachmentFromCategory( AttachmentCategoryName.Muzzle );
+		var activeAttachment = GetActiveAttachmentForCategory( AttachmentCategory.Muzzle );
 		var effectRenderer = GetEffectRenderer();
-		var attachment = "muzzle";
+		var effectAttachment = "muzzle";
 
-		//if ( activeAttachment != null )
-		//{
-		//	var attachment = GetAttachment( activeAttachment.Name );
-		//	particleAttachment = attachment.EffectAttachment;
+		if ( activeAttachment is not null )
+		{
+			effectAttachment = activeAttachment.EffectAttachmentOrBone;
+			Transform? effectBoneTransform = null;
 
-		//	if ( attachment is OffsetAttachment )
-		//	{
-		//		if ( CanSeeViewModel() )
-		//		{
-		//			effectEntity = activeAttachment.ViewAttachmentModel;
-		//		}
-		//		else
-		//		{
-		//			effectEntity = activeAttachment.WorldAttachmentModel;
-		//		}
-		//	}
-		//}
+			// Custom models will not use attachments but bones instead to position effects
+			if ( CanSeeViewModel && activeAttachment.ViewModelRenderer is not null )
+			{
+				effectBoneTransform = activeAttachment.ViewModelRenderer.SceneModel.GetBoneWorldTransform( effectAttachment );
+			}
+			else if ( !CanSeeViewModel && activeAttachment.WorldModelRenderer is not null )
+			{
+				effectBoneTransform = activeAttachment.WorldModelRenderer.SceneModel.GetBoneWorldTransform( effectAttachment );
+			}
 
-		return effectRenderer?.GetAttachment( attachment );
+			if ( effectBoneTransform.HasValue )
+				return effectBoneTransform.Value;
+		}
+
+		return effectRenderer?.GetAttachment( effectAttachment );
 	}
 
 	/// <summary>

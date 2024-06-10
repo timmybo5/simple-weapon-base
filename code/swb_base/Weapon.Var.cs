@@ -46,7 +46,7 @@ public partial class Weapon
 	[Property, Group( "FOV" )] public float AimFOV { get; set; } = -1f;
 
 	/// <summary>Player FOV while aiming (-1 to use default player fov)</summary>
-	[Property, Group( "FOV" )] public int AimPlayerFOV { get; set; } = -1;
+	[Property, Group( "FOV" )] public float AimPlayerFOV { get; set; } = -1f;
 
 	/// <summary>FOV aim in speed</summary>
 	[Property, Group( "FOV" ), Title( "Aim in FOV speed" )] public float AimInFOVSpeed { get; set; } = 1f;
@@ -64,6 +64,8 @@ public partial class Weapon
 	/// <summary>Offset used for setting the weapon to its run position</summary>
 	[Property, Group( "Animations" ), Title( "Run Offset (swb_editor_offsets)" )] public AngPos RunAnimData { get; set; }
 
+	/// <summary>Offset used for setting the weapon to its run position</summary>
+	[Property, Group( "Animations" ), Title( "Customizing Offset (swb_editor_offsets)" )] public AngPos CustomizeAnimData { get; set; }
 
 	/// <summary>Duration of the reload animation</summary>
 	[Property, Group( "Animations" )] public float ReloadTime { get; set; } = 1f;
@@ -165,6 +167,9 @@ public partial class Weapon
 
 	/// <summary>If the weapon is being bolt back reloaded</summary>
 	[Sync] public bool InBoltBack { get; set; }
+
+	public StatsModifier InitialPrimaryStats { get; private set; }
+	public StatsModifier InitialSecondaryStats { get; private set; }
 
 	public bool IsDeploying => TimeSinceDeployed < 0;
 
