@@ -27,6 +27,7 @@ The `swb_editor_offsets` command opens a model editor that can be used to easily
 * Crouching
 * Running
 * Jumping
+* Tucking
 * Idle
 * Sway
 * ADS
@@ -45,12 +46,10 @@ The `swb_editor_offsets` command opens a model editor that can be used to easily
 * ~Entity (grenades, arrows, props, ...)~ TODO
 * ~Melee~ TODO
 
-### ~Attachments~ NEXT MAJOR UPDATE
-* ~Customization menu (`q`)~
-* ~Categorized~
-* ~Localization~
-* ~Stat modifiers~
-* ~Easy to add~
+### Attachments
+* Customization menu (`q`)
+* Change weapon stats + stacking
+* Easy to add
 
 ### Weapon Models
 * Properly licensed weapon models are included in the base
