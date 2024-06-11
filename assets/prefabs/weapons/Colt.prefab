@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "0370dc1a-5d11-4b52-8db0-708581a4fb0b",
+    "__guid": "75e8dbf9-98c5-4504-a879-6f6da3f32a1c",
     "Flags": 0,
     "Name": "colt",
     "Tags": "weapon",
@@ -9,7 +9,7 @@
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
-        "__guid": "c7aedb4b-a0ca-4b05-9c42-f27550eedd99",
+        "__guid": "3fd73b46-c377-4098-9b22-0e8ea33064c3",
         "AimAnimData": {
           "Angle": "-1.15,-0.09,18",
           "Pos": "-0.82,0,1.855"
@@ -41,8 +41,8 @@
         "Icon": "weapons/swb/colt/colt.png",
         "Primary": {
           "_type": "component",
-          "component_id": "67799f6a-c4e4-46cf-870f-4953671f0ca1",
-          "go": "0370dc1a-5d11-4b52-8db0-708581a4fb0b",
+          "component_id": "90aafa5d-7f73-4334-ac7f-78143bc61a57",
+          "go": "75e8dbf9-98c5-4504-a879-6f6da3f32a1c",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -73,7 +73,7 @@
       },
       {
         "__type": "SWB.Base.ShootInfo",
-        "__guid": "67799f6a-c4e4-46cf-870f-4953671f0ca1",
+        "__guid": "90aafa5d-7f73-4334-ac7f-78143bc61a57",
         "Ammo": 7,
         "AmmoType": "pistol",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -102,7 +102,7 @@
       },
       {
         "__type": "SWB.Demo.PistolSilencerBG",
-        "__guid": "02ba2e07-f700-4a51-9b85-932ef4acd52d",
+        "__guid": "b47568cc-132b-4d8b-ab59-139c0021e7d0",
         "EffectAttachmentOrBone": "muzzle_silenced",
         "ShootSound": "sounds/swb/attachments/silencer/swb_pistol.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
@@ -110,7 +110,7 @@
       },
       {
         "__type": "SWB.Demo.ReflexSightBG",
-        "__guid": "1d4b7905-c08a-4b75-8a71-994015579743",
+        "__guid": "028b2269-e020-401d-8a7f-6f0c1bfabba2",
         "AimAnimData": {
           "Angle": "-1.33,-0.06,18",
           "Pos": "-0.516,0,1.053"
@@ -120,8 +120,8 @@
         "AimOutFOVSpeed": -1,
         "RequiresAttachment": {
           "_type": "component",
-          "component_id": "2bd35027-d00c-4656-a278-8791358d77bb",
-          "go": "0370dc1a-5d11-4b52-8db0-708581a4fb0b",
+          "component_id": "e71954fa-6616-4c09-a171-34ce88d1860c",
+          "go": "75e8dbf9-98c5-4504-a879-6f6da3f32a1c",
           "component_type": "PistolRailBG"
         },
         "ViewModelScale": "1,1,1",
@@ -129,7 +129,7 @@
       },
       {
         "__type": "SWB.Demo.PistolRailBG",
-        "__guid": "2bd35027-d00c-4656-a278-8791358d77bb",
+        "__guid": "e71954fa-6616-4c09-a171-34ce88d1860c",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       }

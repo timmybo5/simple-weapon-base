@@ -54,7 +54,7 @@ public class SniperSilencerBG : SilencerAttachment
 
 	// Silencer
 	public override ParticleSystem MuzzleFlashParticle { get; set; } = ParticleSystem.Load( "particles/swb/muzzle/flash_silenced.vpcf" );
-	public override SoundEvent ShootSound { get; set; } = ResourceLibrary.Get<SoundEvent>( "sounds/swb/attachments/silencer/swb_sniper.silenced.fire.sound" );
+	[Property, Group( "Silencer" )] public override SoundEvent ShootSound { get; set; } = ResourceLibrary.Get<SoundEvent>( "sounds/swb/attachments/silencer/swb_sniper.silenced.fire.sound" );
 }
 
 [Title( "Silencer (rifle)" )]
@@ -62,9 +62,6 @@ public class RifleSilencerBG : SniperSilencerBG
 {
 	public override string Name => "ATS4 Silencer";
 	public override string IconPath => "attachments/swb/muzzle/silencer_rifle/ui/icon.png";
-
-	// Silencer
-	[Property, Group( "Silencer" )] public override SoundEvent ShootSound { get; set; } = ResourceLibrary.Get<SoundEvent>( "sounds/swb/attachments/silencer/swb_rifle.silenced.fire.sound" );
 }
 
 [Title( "Silencer (shotgun)" )]
@@ -72,9 +69,6 @@ public class ShotgunSilencerBG : SniperSilencerBG
 {
 	public override string Name => "Salvo 12G Silencer";
 	public override string IconPath => "attachments/swb/muzzle/silencer_shotgun/ui/icon.png";
-
-	// Silencer
-	[Property, Group( "Silencer" )] public override SoundEvent ShootSound { get; set; } = ResourceLibrary.Get<SoundEvent>( "sounds/swb/attachments/silencer/swb_shotgun.silenced.fire.sound" );
 }
 
 [Title( "Silencer (pistol)" )]
@@ -82,9 +76,6 @@ public class PistolSilencerBG : SniperSilencerBG
 {
 	public override string Name => "SR8 Silencer";
 	public override string IconPath => "attachments/swb/muzzle/silencer_pistol/ui/icon.png";
-
-	// Silencer
-	[Property, Group( "Silencer" )] public override SoundEvent ShootSound { get; set; } = ResourceLibrary.Get<SoundEvent>( "sounds/swb/attachments/silencer/swb_heavy.silenced.fire.sound" );
 }
 
 [Title( "Medium Laser" )]

@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "358a5ce4-2fb4-4dcc-af71-64e2031acf45",
+    "__guid": "a3b668c3-acfb-4043-8f7c-93b7df84b5c8",
     "Flags": 0,
     "Name": "scarh",
     "Tags": "weapon",
@@ -9,7 +9,7 @@
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
-        "__guid": "03736c4b-7a7a-4b9b-afc8-5cac1308a18d",
+        "__guid": "4d44110c-f7a1-4168-a9f3-dbeaa77a630a",
         "AimAnimData": {
           "Angle": "-0.1,0.34,3.9",
           "Pos": "-2.163,0.36,0.233"
@@ -41,8 +41,8 @@
         "Icon": "weapons/swb/scarh/scarh.png",
         "Primary": {
           "_type": "component",
-          "component_id": "7435c0a8-6116-4d99-a968-fed6840ee21a",
-          "go": "358a5ce4-2fb4-4dcc-af71-64e2031acf45",
+          "component_id": "ff1c8c67-10c8-4767-925a-0d606a3845ff",
+          "go": "a3b668c3-acfb-4043-8f7c-93b7df84b5c8",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -73,7 +73,7 @@
       },
       {
         "__type": "SWB.Base.ShootInfo",
-        "__guid": "7435c0a8-6116-4d99-a968-fed6840ee21a",
+        "__guid": "ff1c8c67-10c8-4767-925a-0d606a3845ff",
         "Ammo": 30,
         "AmmoType": "rifle",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -102,7 +102,7 @@
       },
       {
         "__type": "SWB.Demo.ReflexSightBG",
-        "__guid": "82801ead-45e7-4927-8e21-f873791e4810",
+        "__guid": "0db16e29-30e1-463f-8812-7df647458e7c",
         "AimAnimData": {
           "Angle": "-1.47,0.44,3.9",
           "Pos": "-2.181,0.36,0.596"
@@ -115,8 +115,9 @@
       },
       {
         "__type": "SWB.Demo.RifleSilencerBG",
-        "__guid": "f221c303-c36c-49df-91b5-e83f7c5c96a2",
+        "__guid": "6a2ee00f-5ba2-4b35-a74e-ceb5f3cda188",
         "EffectAttachmentOrBone": "muzzle_silenced",
+        "ShootSound": "sounds/swb/attachments/silencer/swb_rifle.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       }

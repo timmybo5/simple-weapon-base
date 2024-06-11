@@ -76,7 +76,9 @@ public class SniperScope : Panel
 		var rotateTransform = new PanelTransform();
 		lensRotation = MathUtil.FILerp( lensRotation, targetRotation, 20 );
 		rotateTransform.AddRotation( 0, 0, lensRotation );
-
 		scope.Style.Transform = rotateTransform;
+
+		// Movement blur
+		scope.Style.FilterBlur = Math.Abs( lensRotation * 2 + velocityJump + lensBob );
 	}
 }

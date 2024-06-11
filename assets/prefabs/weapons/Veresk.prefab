@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "75517e2e-7846-4cb7-8425-fe52a50eb7a9",
+    "__guid": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312",
     "Flags": 0,
     "Name": "veresk",
     "Tags": "weapon",
@@ -9,7 +9,7 @@
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
-        "__guid": "d18c1ef2-41e1-4457-a141-614c4d8f9d87",
+        "__guid": "fa5836e6-aaab-47fa-94ed-f9babf843cac",
         "AimAnimData": {
           "Angle": "-1.3,-0.02,0",
           "Pos": "-2.767,0,0.728"
@@ -41,8 +41,8 @@
         "Icon": "weapons/swb/veresk/veresk.png",
         "Primary": {
           "_type": "component",
-          "component_id": "963d2fa3-de8a-4659-9080-40f84f8d9c2a",
-          "go": "75517e2e-7846-4cb7-8425-fe52a50eb7a9",
+          "component_id": "e3f4237c-acdf-49fb-9246-507109d41bdc",
+          "go": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312",
           "component_type": "ShootInfo"
         },
         "ReloadAnim": "reload",
@@ -73,7 +73,7 @@
       },
       {
         "__type": "SWB.Base.ShootInfo",
-        "__guid": "963d2fa3-de8a-4659-9080-40f84f8d9c2a",
+        "__guid": "e3f4237c-acdf-49fb-9246-507109d41bdc",
         "Ammo": 30,
         "AmmoType": "smg",
         "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
@@ -102,7 +102,7 @@
       },
       {
         "__type": "SWB.Demo.ReflexSightBG",
-        "__guid": "d4534b2c-20d4-4672-8977-bdfc4a3b4230",
+        "__guid": "5d7983e9-072a-42bb-94af-68a7d806213c",
         "AimAnimData": {
           "Angle": "0,-0.08,0",
           "Pos": "-2.788,0,0.377"
@@ -115,7 +115,7 @@
       },
       {
         "__type": "SWB.Demo.RifleSilencerBG",
-        "__guid": "a27e810f-3c9b-4876-b1f2-b8c8705a88e3",
+        "__guid": "61e29911-7fb0-48d5-b660-fbc3e37f344e",
         "EffectAttachmentOrBone": "muzzle_silenced",
         "ShootSound": "sounds/swb/attachments/silencer/swb_smg.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
