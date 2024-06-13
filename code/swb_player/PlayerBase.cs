@@ -109,6 +109,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		Transform.Position = spawnLocation.Position;
 		EyeAngles = spawnLocation.Rotation.Angles();
 		Network.ClearInterpolation();
+
+		if ( IsBot )
+		{
+			Body.Transform.Rotation = new Angles( 0, EyeAngles.ToRotation().Yaw(), 0 ).ToRotation();
+			AnimationHelper.WithLook( EyeAngles.ToRotation().Forward, 1f, 0.75f, 0.5f );
+		}
 	}
 
 	public virtual Transform GetSpawnLocation()
