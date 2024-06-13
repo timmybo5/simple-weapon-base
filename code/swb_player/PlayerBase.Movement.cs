@@ -160,8 +160,6 @@ public partial class PlayerBase
 			var targetHeight = CharacterController.Height * 2f;
 			var upTrace = CharacterController.TraceDirection( Vector3.Up * targetHeight );
 
-			Log.Info( CharacterController.Height );
-
 			if ( !upTrace.Hit )
 			{
 				IsCrouching = false;
