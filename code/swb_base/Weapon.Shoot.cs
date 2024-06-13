@@ -216,8 +216,6 @@ public partial class Weapon
 		{
 			var effectPath = Game.Random.FromList( tr.Surface.ImpactEffects.Bullet, "particles/impact.generic.smokepuff.vpcf" );
 
-			Log.Info( effectPath + "_c" + " -> exists? -> " + FileSystem.Mounted.FileExists( effectPath + "_c" ) );
-
 			if ( effectPath is not null )
 			{
 				// Surface def for flesh has wrong blood particle linked
