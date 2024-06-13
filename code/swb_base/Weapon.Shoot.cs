@@ -216,16 +216,19 @@ public partial class Weapon
 		{
 			var effectPath = Game.Random.FromList( tr.Surface.ImpactEffects.Bullet );
 
-			// Surface def for flesh has wrong blood particle linked
-			if ( effectPath.Contains( "impact.flesh" ) )
+			if ( effectPath is not null )
 			{
-				effectPath = "particles/impact.flesh.bloodpuff.vpcf";
-			}
+				// Surface def for flesh has wrong blood particle linked
+				if ( effectPath.Contains( "impact.flesh" ) )
+				{
+					effectPath = "particles/impact.flesh.bloodpuff.vpcf";
+				}
 
-			var p = new SceneParticles( Scene.SceneWorld, effectPath );
-			p.SetControlPoint( 0, tr.HitPosition );
-			p.SetControlPoint( 0, Rotation.LookAt( tr.Normal ) );
-			p.PlayUntilFinished( TaskSource.Create() );
+				var p = new SceneParticles( Scene.SceneWorld, effectPath );
+				p.SetControlPoint( 0, tr.HitPosition );
+				p.SetControlPoint( 0, Rotation.LookAt( tr.Normal ) );
+				p.PlayUntilFinished( TaskSource.Create() );
+			}
 		}
 
 		// Decal
