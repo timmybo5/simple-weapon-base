@@ -214,7 +214,9 @@ public partial class Weapon
 		// Particles
 		if ( tr.Surface.ImpactEffects.Bullet is not null )
 		{
-			var effectPath = Game.Random.FromList( tr.Surface.ImpactEffects.Bullet );
+			var effectPath = Game.Random.FromList( tr.Surface.ImpactEffects.Bullet, "particles/impact.generic.smokepuff.vpcf" );
+
+			Log.Info( effectPath + "_c" + " -> exists? -> " + FileSystem.Mounted.FileExists( effectPath + "_c" ) );
 
 			if ( effectPath is not null )
 			{
@@ -222,6 +224,10 @@ public partial class Weapon
 				if ( effectPath.Contains( "impact.flesh" ) )
 				{
 					effectPath = "particles/impact.flesh.bloodpuff.vpcf";
+				}
+				else if ( effectPath.Contains( "impact.wood" ) )
+				{
+					effectPath = "particles/impact.generic.smokepuff.vpcf";
 				}
 
 				var p = new SceneParticles( Scene.SceneWorld, effectPath );
