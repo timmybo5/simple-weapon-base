@@ -116,7 +116,7 @@ public partial class Weapon : Component, IInventoryItem
 			Attachments.ForEach( att =>
 			{
 				// Log.Info( "[" + att.Name + "] equipped ->" + att.Equipped );
-				if ( att.Equipped )
+				if ( att is not null && att.Equipped )
 					att.Equip();
 			} );
 		}
