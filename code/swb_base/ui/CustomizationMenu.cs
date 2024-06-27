@@ -1,14 +1,12 @@
 ﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB.Base.Attachments;
-using SWB.Shared;
 using System.Collections.Generic;
 
 namespace SWB.Base.UI;
 
 public class CustomizationMenu : Panel
 {
-	IPlayerBase player => weapon.Owner;
 	Weapon weapon;
 
 	Panel categoryWrapper;
@@ -75,6 +73,8 @@ public class CustomizationMenu : Panel
 					activeCategoryP?.SetClass( "active", false );
 					categoryP.SetClass( "active", true );
 					activeCategoryP = categoryP;
+					selectedAttachment = null;
+					descriptionWrapper.DeleteChildren();
 					CreateAttachmentPanels( entry.Key );
 				}
 			} );
