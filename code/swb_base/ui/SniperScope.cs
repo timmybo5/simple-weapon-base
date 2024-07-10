@@ -19,7 +19,7 @@ public class SniperScope : Panel
 	{
 		this.weapon = weapon;
 		StyleSheet.Load( "/swb_base/ui/SniperScope.cs.scss" );
-		Style.Opacity = 0;
+		AddClass( "hide" );
 
 		if ( scopeTexture != null )
 			Add.Panel( "leftBar" );
@@ -46,7 +46,7 @@ public class SniperScope : Panel
 		lensWrapper.Style.Width = Length.Pixels( scopeSize );
 
 		// Show when zooming
-		Style.Opacity = !weapon.IsScoping ? 0 : 1;
+		SetClass( "hide", !weapon.IsScoping );
 
 		// Check if ADS & firing
 		if ( weapon.IsAiming && weapon.TimeSincePrimaryShoot < 0.1f )

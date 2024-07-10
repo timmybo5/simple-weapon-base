@@ -2,9 +2,12 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    transition: margin 0.1s ease-out 0s;
     overflow: visible;
 
+    &.hide {
+        display: none;
+    }
+    
     .lensWrapper {
         position: relative;
         width: 100%;
