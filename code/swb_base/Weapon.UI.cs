@@ -14,7 +14,7 @@ public partial class Weapon
 	{
 		ScreenPanel = Components.Create<ScreenPanel>();
 		ScreenPanel.Opacity = 1;
-		ScreenPanel.ZIndex = 101;
+		ScreenPanel.ZIndex = 1;
 
 		var rootPanel = Components.Create<RootWeaponDisplay>();
 		rootPanel.Weapon = this;

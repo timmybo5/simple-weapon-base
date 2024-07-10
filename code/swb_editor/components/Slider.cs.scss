@@ -3,6 +3,7 @@ $thumb: white;
 $primary-alt: white !default;
 
 Slider {
+    position: relative;
     align-items: center;
     margin: 0 0 10px 10px;
     font-family: Poppins;
@@ -18,6 +19,7 @@ Slider {
     }
 
     .sliderContainer {
+        position: relative;
         width: 100%;
         cursor: pointer;
         min-height: 30px;
