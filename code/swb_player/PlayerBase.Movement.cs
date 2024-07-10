@@ -127,7 +127,6 @@ public partial class PlayerBase
 	{
 		if ( !IsOnGround ) return;
 
-		IsCrouching = false;
 		CharacterController.Punch( Vector3.Up * JumpForce );
 		AnimationHelper?.TriggerJump();
 	}
@@ -154,7 +153,7 @@ public partial class PlayerBase
 			BodyCollider.End = BodyCollider.End.WithZ( BodyCollider.End.z / 2f );
 		}
 
-		if ( IsCrouching && !Input.Down( InputButtonHelper.Duck ) )
+		if ( IsCrouching && (!Input.Down( InputButtonHelper.Duck ) || !IsOnGround) )
 		{
 			// Check we have space to uncrouch
 			var targetHeight = CharacterController.Height * 2f;
