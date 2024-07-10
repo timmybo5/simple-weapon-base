@@ -171,7 +171,7 @@ PS
         {
             float4 vRefractionColor = 0;
 
-            float flDepthPs = RemapValClamped( Tex2DMS( g_tSceneDepth, i.vPositionSs.xy, 0 ).r, g_flViewportMinZ, g_flViewportMaxZ, 0.0, 1.0);
+            float flDepthPs = RemapValClamped( Tex2DMS( 1 - g_tSceneDepth, i.vPositionSs.xy, 0 ).r, g_flViewportMinZ, g_flViewportMaxZ, 0.0, 1.0);
             float3 vRefractionWs = RecoverWorldPosFromProjectedDepthAndRay(flDepthPs, normalize(i.vPositionWithOffsetWs.xyz)) - g_vCameraPositionWs;
             float flDistanceVs = distance(i.vPositionWithOffsetWs.xyz, vRefractionWs);
 
