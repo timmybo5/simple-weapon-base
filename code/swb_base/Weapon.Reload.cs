@@ -100,16 +100,19 @@ public partial class Weapon
 
 		// Start boltback
 		await GameTask.DelaySeconds( boltBackDelay );
+		if ( !IsValid ) return;
 		if ( !IsProxy )
 			ViewModelRenderer?.Set( BoltBackAnim, true );
 
 		// Eject shell
 		await GameTask.DelaySeconds( BoltBackEjectDelay );
+		if ( !IsValid ) return;
 		var scale = CanSeeViewModel ? Primary.VMParticleScale : Primary.WMParticleScale;
 		CreateParticle( Primary.BulletEjectParticle, "ejection_point", scale );
 
 		// Finished
 		await GameTask.DelaySeconds( BoltBackTime - BoltBackEjectDelay );
+		if ( !IsValid ) return;
 		InBoltBack = false;
 	}
 

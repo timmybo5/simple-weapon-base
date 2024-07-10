@@ -167,6 +167,7 @@ public partial class Weapon
 					var delayedEject = async () =>
 					{
 						await GameTask.DelaySeconds( ShellEjectDelay );
+						if ( !IsValid ) return;
 						CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
 					};
 					delayedEject();
