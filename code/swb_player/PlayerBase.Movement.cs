@@ -99,7 +99,8 @@ public partial class PlayerBase
 			CharacterController.ApplyFriction( AirControl );
 		}
 
-		CharacterController.Move();
+		if ( !(CharacterController.Velocity.IsNearZeroLength && WishVelocity.IsNearZeroLength) )
+			CharacterController.Move();
 
 		// Second half of gravity after movement (to stay accurate)
 		if ( IsOnGround )
