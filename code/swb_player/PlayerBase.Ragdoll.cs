@@ -7,7 +7,7 @@ public partial class PlayerBase
 	public bool IsRagdolled => RagdollPhysics.Enabled;
 
 	[Broadcast]
-	public virtual void Ragdoll( Vector3 force )
+	public virtual void Ragdoll( Vector3 force, Vector3 forceOrigin )
 	{
 		ToggleColliders( false );
 		RagdollPhysics.Enabled = true;
@@ -17,7 +17,7 @@ public partial class PlayerBase
 		foreach ( var body in RagdollPhysics.PhysicsGroup.Bodies )
 		{
 			//body.GetGameObject().Tags.Add( TagsHelper.Trigger );
-			body.ApplyImpulseAt( Transform.Position, force );
+			body.ApplyImpulseAt( forceOrigin, force );
 		}
 	}
 

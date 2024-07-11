@@ -31,8 +31,6 @@ public partial class PlayerBase
 			DoHitFlinch( weapon.Primary.HitFlinch );
 
 		if ( Health <= 0 )
-		{
 			OnDeath( info );
-		}
 	}
 }

@@ -41,7 +41,8 @@ public class HitScanBullet : IBulletBase
 			if ( bulletTr.Hitbox is not null )
 				hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
 
-			target?.TakeDamage( Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, forward * 25 * shootInfo.Force, hitTags ) );
+			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, bulletTr.HitPosition, forward * 100 * shootInfo.Force, hitTags );
+			target?.TakeDamage( dmgInfo );
 		}
 	}
 

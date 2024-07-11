@@ -9,7 +9,7 @@ internal class DemoCommands
 	public static void Kill()
 	{
 		var player = PlayerBase.GetLocal();
-		player?.TakeDamage( Shared.DamageInfo.FromBullet( player.GameObject.Id, null, 99999, Vector3.Zero, System.Array.Empty<string>() ) );
+		player?.TakeDamage( Shared.DamageInfo.FromBullet( player.GameObject.Id, null, 99999, Vector3.Zero, Vector3.Zero, System.Array.Empty<string>() ) );
 	}
 
 	[ConCmd( "respawn", Help = "Respawns the player (host only)" )]

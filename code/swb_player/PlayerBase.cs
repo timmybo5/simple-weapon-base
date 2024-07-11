@@ -87,7 +87,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 		Deaths += 1;
 		CharacterController.Velocity = 0;
-		Ragdoll( info.Force );
+		Ragdoll( info.Force, info.Origin );
 		Inventory.Clear();
 		RespawnWithDelay( 2 );
 	}
