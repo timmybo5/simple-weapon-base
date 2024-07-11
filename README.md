@@ -64,7 +64,8 @@ Anyone can contribute by creating a pull request to their branch. Contributors c
 * Worldmodel clipping shader
 
 ## Installing
-If you want to test out the base just drag and drop simple-weapon-base-master into your addons folder.
+If you want to test out the base drag and drop simple-weapon-base-master into your addons folder, open the editor and add as a new project.
+![image](https://github.com/timmybo5/simple-weapon-base/assets/4988198/f9e958f7-680c-4773-aa3a-5c0d3159e13e)
 
 ## Usage
 All information can be found in the [Wiki](https://github.com/timmybo5/simple-weapon-base/wiki)
