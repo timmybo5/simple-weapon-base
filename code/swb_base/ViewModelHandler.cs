@@ -49,8 +49,13 @@ public class ViewModelHandler : Component
 
 	protected override void OnDestroy()
 	{
-		// Game.Preferences.FieldOfView; -> new Preferences.FieldOfView 
-		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 90 );
+		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Preferences.FieldOfView );
+	}
+
+	protected override void OnDisabled()
+	{
+		// Reinitialize all target values when enabled
+		targetWeaponFOV = -1;
 	}
 
 	protected override void OnUpdate()
@@ -73,8 +78,8 @@ public class ViewModelHandler : Component
 
 		if ( targetWeaponFOV == -1 )
 		{
-			//finalPlayerFOV = Game.Preferences.FieldOfView;
-			finalPlayerFOV = 90;
+			targetPlayerFOV = Preferences.FieldOfView;
+			finalPlayerFOV = Preferences.FieldOfView;
 			targetWeaponFOV = Weapon.FOV;
 			finalWeaponFOV = Weapon.FOV;
 		}
@@ -99,8 +104,7 @@ public class ViewModelHandler : Component
 		// Initialize the target vectors for this frame
 		targetVectorPos = Vector3.Zero;
 		targetVectorRot = Vector3.Zero;
-		// targetPlayerFOV = Game.Preferences.FieldOfView;
-		targetPlayerFOV = 90;
+		targetPlayerFOV = Preferences.FieldOfView;
 		targetWeaponFOV = Weapon.FOV;
 
 		// Editor mode
