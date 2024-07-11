@@ -12,6 +12,7 @@ public class RootDisplay : PanelComponent
 	[Property] public PlayerBase Player { get; set; }
 	Chatbox chatbox;
 	Killfeed killfeed;
+	Hitmarker hitmarker;
 
 	protected override void OnStart()
 	{
@@ -33,6 +34,9 @@ public class RootDisplay : PanelComponent
 
 		killfeed = new Killfeed( Player );
 		Panel.AddChild( killfeed );
+
+		hitmarker = new Hitmarker();
+		Panel.AddChild( hitmarker );
 	}
 
 	protected override void OnUpdate()
@@ -54,5 +58,10 @@ public class RootDisplay : PanelComponent
 	public void AddChatEntry( Guid senderId, string msg )
 	{
 		chatbox.AddEntry( senderId, msg );
+	}
+
+	public void CreateHitmarker( bool isKill )
+	{
+		hitmarker.Create( isKill );
 	}
 }

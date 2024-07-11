@@ -49,4 +49,17 @@ public class DemoPlayer : PlayerBase
 		var display = localPly.RootDisplay as RootDisplay;
 		display.AddToKillFeed( info.AttackerId, GameObject.Id, info.Inflictor );
 	}
+
+	public override void TakeDamage( Shared.DamageInfo info )
+	{
+		base.TakeDamage( info );
+
+		// Attacker only
+		var localPly = PlayerBase.GetLocal();
+		if ( !localPly.IsAlive || localPly.GameObject.Id != info.AttackerId ) return;
+
+		var display = localPly.RootDisplay as RootDisplay;
+		display.CreateHitmarker( Health <= 0 );
+		Sound.Play( "hitmarker" );
+	}
 }

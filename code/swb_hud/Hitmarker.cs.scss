@@ -1,0 +1,58 @@
+hitmarker {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    .fadeOut {
+        opacity: 0;
+    }
+
+    marker {
+        opacity: 1;
+        transition: all 0.2s ease-in 0s;
+
+        .leftTopBar {
+            top: -10px;
+            left: -16px;
+            width: 10px;
+            height: 1px;
+            transform: rotate(45deg);
+        }
+
+        .leftBottomBar {
+            top: 10px;
+            left: -16px;
+            width: 10px;
+            height: 1px;
+            transform: rotate(-45deg);
+        }
+
+        .RightTopBar {
+            top: -10px;
+            left: 6px;
+            width: 10px;
+            height: 1px;
+            transform: rotate(-45deg);
+        }
+
+        .RightBottomBar {
+            top: 10px;
+            left: 6px;
+            width: 10px;
+            height: 1px;
+            transform: rotate(45deg);
+        }
+
+        .sharedBarStyling {
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.4);
+        }
+
+        .sharedBarStylingKill {
+            position: absolute;
+            background-color: #DC143C;
+            box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.4);
+        }
+    }
+}

@@ -70,8 +70,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			Respawn();
 	}
 
-
-
 	[Broadcast]
 	public virtual void OnDeath( Shared.DamageInfo info )
 	{

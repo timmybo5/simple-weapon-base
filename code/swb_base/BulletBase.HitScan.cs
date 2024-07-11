@@ -34,6 +34,8 @@ public class HitScanBullet : IBulletBase
 		if ( !weapon.IsProxy && hitObj is not null && hitObj.Tags.Has( TagsHelper.Player ) )
 		{
 			var target = hitObj.Components.GetInAncestorsOrSelf<IPlayerBase>();
+			if ( !target.IsAlive ) return;
+
 			var hitTags = Array.Empty<string>();
 
 			if ( bulletTr.Hitbox is not null )
