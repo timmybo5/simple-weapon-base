@@ -7,13 +7,14 @@
       "Name": "Map",
       "Position": "125.0372,120.9534,-133.1576",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "7abfb3b5-b870-4774-8b28-f2b3b3fc24d1",
+          "__version": 1,
+          "EnableCollision": true,
           "MapName": "facepunch.flatgrass",
+          "NoOrigin": true,
           "UseMapFromLaunch": true
         }
       ],
@@ -23,8 +24,6 @@
       "__guid": "9318758b-1419-4d49-9e5d-991d863b4964",
       "Flags": 0,
       "Name": "Environment",
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Children": [
         {
           "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
@@ -33,8 +32,6 @@
           "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
           "Tags": "light_directional,light",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.DirectionalLight",
@@ -53,13 +50,11 @@
           "Name": "2D Skybox",
           "Tags": "skybox",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.SkyBox2D",
               "__guid": "7f898c15-4d83-46b4-ad22-362d1936f026",
-              "SkyMaterial": "materials/error.vmat",
+              "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
               "Tint": "1,1,1,1"
             },
             {
@@ -89,8 +84,6 @@
           "Name": "Plane",
           "Scale": "13.09961,14.53646,5",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -119,8 +112,6 @@
           "Rotation": "0.000002976795,-0.000007906739,0.2982059,0.9545016",
           "Scale": "0.5632889,0.5632889,0.5632889",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -161,8 +152,6 @@
           "Rotation": "-0.01588935,-0.004894807,0.3824361,0.9238324",
           "Scale": "0.5632889,0.5632889,1.97564",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -203,8 +192,6 @@
           "Rotation": "0.01091752,-0.02698293,0.442313,0.8963884",
           "Scale": "0.5632889,0.5632889,1.97564",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -245,8 +232,6 @@
           "Rotation": "0.6312017,0.2930965,0.3396897,0.6326846",
           "Scale": "0.4871052,0.5632889,1.816077",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -287,8 +272,6 @@
           "Rotation": "-0.3422784,-0.1094723,0.2794239,0.890384",
           "Scale": "0.5632889,0.5632889,0.5632889",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -329,8 +312,6 @@
           "Rotation": "-0.00007207559,0.0002271165,0.3022816,0.9532187",
           "Scale": "0.5632889,0.5632889,0.5632889",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
           "Components": [
             {
               "__type": "Sandbox.ModelRenderer",
@@ -372,7 +353,6 @@
       "Position": "94.58017,127.1334,73.5171",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "SWB.Base.WeaponRegistry",
@@ -407,6 +387,7 @@
         {
           "__type": "SWB.Base.WeaponSettings",
           "__guid": "d464e175-fec1-4a51-bf7f-63307177df53",
+          "AutoReload": true,
           "Customization": true
         }
       ]
@@ -416,9 +397,8 @@
       "Flags": 0,
       "Name": "Player (just for editing)",
       "Tags": "player",
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/player.prefab"
+      "__Prefab": "prefabs/player.prefab",
+      "__PrefabVariables": {}
     },
     {
       "__guid": "c988658d-a998-405a-b169-e1711fe59578",
@@ -426,8 +406,6 @@
       "Name": "ExampleNetworkManager",
       "Position": "73.25323,515.2476,-156.4206",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "SWB.Demo.DemoNetworkManager",
@@ -444,8 +422,6 @@
       "Flags": 0,
       "Name": "Weapons (just for editing)",
       "Position": "149.995,149.995,-212.125",
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Children": [
         {
           "__guid": "6cb541bc-26e0-4bf8-9c45-9a62a51f8cb8",
@@ -454,9 +430,8 @@
           "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "__Prefab": "prefabs/weapons/colt.prefab"
+          "__Prefab": "prefabs/weapons/colt.prefab",
+          "__PrefabVariables": {}
         },
         {
           "__guid": "afe0261e-c31a-45ed-b212-376c2d2487a3",
@@ -465,9 +440,8 @@
           "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "__Prefab": "prefabs/weapons/l96a1.prefab"
+          "__Prefab": "prefabs/weapons/l96a1.prefab",
+          "__PrefabVariables": {}
         },
         {
           "__guid": "afc74f6d-c320-4154-9310-9223ac21c752",
@@ -476,9 +450,8 @@
           "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "__Prefab": "prefabs/weapons/remington870.prefab"
+          "__Prefab": "prefabs/weapons/remington870.prefab",
+          "__PrefabVariables": {}
         },
         {
           "__guid": "969eab4e-a34b-423f-86b3-3342ca4f7ce5",
@@ -487,9 +460,8 @@
           "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "__Prefab": "prefabs/weapons/revolver.prefab"
+          "__Prefab": "prefabs/weapons/revolver.prefab",
+          "__PrefabVariables": {}
         },
         {
           "__guid": "907a381c-07ce-418b-8bab-70346f931b91",
@@ -498,9 +470,8 @@
           "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "__Prefab": "prefabs/weapons/scarh.prefab"
+          "__Prefab": "prefabs/weapons/scarh.prefab",
+          "__PrefabVariables": {}
         },
         {
           "__guid": "8bf6f334-dca8-4129-9821-c513a9997166",
@@ -510,9 +481,8 @@
           "Rotation": "0,0.7071068,0,0.7071068",
           "Tags": "weapon",
           "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "__Prefab": "prefabs/weapons/veresk.prefab"
+          "__Prefab": "prefabs/weapons/veresk.prefab",
+          "__PrefabVariables": {}
         }
       ]
     }
@@ -540,7 +510,6 @@
   },
   "Title": "minimal",
   "Description": "",
-  "LastSaved": "2024-05-23T21:04:10.1991642\u002B03:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

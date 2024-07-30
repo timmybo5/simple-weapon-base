@@ -132,7 +132,7 @@ public partial class Weapon : Component, IInventoryItem
 			if ( IsDeploying ) return;
 
 			// Customization
-			if ( !IsScoping && !IsAiming && Input.Pressed( InputButtonHelper.Menu ) && Attachments.Count > 0 )
+			if ( WeaponSettings.Instance.Customization && !IsScoping && !IsAiming && Input.Pressed( InputButtonHelper.Menu ) && Attachments.Count > 0 )
 			{
 				if ( !IsCustomizing )
 					OpenCustomizationMenu();

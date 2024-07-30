@@ -21,6 +21,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public bool IsFirstPerson => cameraMovement.IsFirstPerson;
 	public string DisplayName => !IsBot ? Network.OwnerConnection.DisplayName : GameObject.Name;
 	public ulong SteamId => !IsBot ? Network.OwnerConnection.SteamId : 0;
+	public bool IsHost => !IsBot && Network.OwnerConnection.IsHost;
 	public float InputSensitivity
 	{
 		get { return cameraMovement.InputSensitivity; }

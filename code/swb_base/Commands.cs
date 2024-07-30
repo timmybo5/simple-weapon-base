@@ -8,7 +8,7 @@ public class Commands
 	public static void SetWeaponCustomization( int enable )
 	{
 		var player = PlayerBase.GetLocal();
-		if ( !player.Network.OwnerConnection.IsHost ) return;
+		if ( !player.IsHost ) return;
 
 		WeaponSettings.Instance.Customization = enable != 0;
 	}
@@ -17,7 +17,7 @@ public class Commands
 	public static void SetWeaponAutoReload( int enable )
 	{
 		var player = PlayerBase.GetLocal();
-		if ( !player.Network.OwnerConnection.IsHost ) return;
+		if ( !player.IsHost ) return;
 
 		WeaponSettings.Instance.AutoReload = enable != 0;
 	}
