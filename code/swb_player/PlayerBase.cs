@@ -1,5 +1,6 @@
 using SWB.Shared;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SWB.Player;
@@ -18,6 +19,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Sync] public bool IsBot { get; set; }
 	public IInventory Inventory { get; set; }
 	public bool IsFirstPerson => cameraMovement.IsFirstPerson;
+	public string DisplayName => !IsBot ? Network.OwnerConnection.DisplayName : GameObject.Name;
+	public ulong SteamId => !IsBot ? Network.OwnerConnection.SteamId : 0;
 	public float InputSensitivity
 	{
 		get { return cameraMovement.InputSensitivity; }
@@ -128,12 +131,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		return randomSpawnPoint.Transform.World;
 	}
 
-	public static PlayerBase GetLocal()
-	{
-		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
-		return players.First( ( player ) => !player.IsProxy && !player.IsBot );
-	}
-
 	protected override void OnUpdate()
 	{
 		if ( IsBot ) return;
@@ -150,5 +147,16 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		if ( !IsAlive || IsBot ) return;
 		OnMovementFixedUpdate();
+	}
+
+	public static PlayerBase GetLocal()
+	{
+		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
+		return players.First( ( player ) => !player.IsProxy && !player.IsBot );
+	}
+
+	public static IEnumerable<PlayerBase> GetAll()
+	{
+		return Game.ActiveScene.GetAllComponents<PlayerBase>();
 	}
 }

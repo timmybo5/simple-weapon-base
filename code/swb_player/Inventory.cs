@@ -33,13 +33,14 @@ public class Inventory : IInventory
 		}
 	}
 
-	public void AddClone( GameObject gamePrefab, bool makeActive = true )
+	public GameObject AddClone( GameObject gamePrefab, bool makeActive = true )
 	{
 		var gameObject = gamePrefab.Clone( player.GameObject, player.Transform.Position, player.Transform.Rotation, Vector3.One );
 		gameObject.Name = gamePrefab.Name;
 		gameObject.NetworkSpawn( player.Network.OwnerConnection );
 
 		Add( gameObject, makeActive );
+		return gameObject;
 	}
 
 	public bool Has( GameObject gameObject )
