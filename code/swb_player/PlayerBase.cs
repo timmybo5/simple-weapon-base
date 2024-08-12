@@ -77,6 +77,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Broadcast]
 	public virtual void OnDeath( Shared.DamageInfo info )
 	{
+		if ( !IsValid ) return;
 		var attackerGO = Scene.Directory.FindByGuid( info.AttackerId );
 
 		if ( attackerGO is not null && !attackerGO.IsProxy )
@@ -152,7 +153,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public static PlayerBase GetLocal()
 	{
-		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
+		var players = GetAll();
 		return players.First( ( player ) => !player.IsProxy && !player.IsBot );
 	}
 

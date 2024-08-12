@@ -9,6 +9,8 @@ public partial class PlayerBase
 	[Broadcast]
 	public virtual void Ragdoll( Vector3 force, Vector3 forceOrigin )
 	{
+		if ( !IsValid ) return;
+
 		ToggleColliders( false );
 		RagdollPhysics.Enabled = true;
 		//Body.Tags.Add( TagsHelper.Trigger );
@@ -34,6 +36,8 @@ public partial class PlayerBase
 	[Broadcast]
 	public virtual void Unragdoll()
 	{
+		if ( !IsValid || RagdollPhysics is null ) return;
+
 		RagdollPhysics.Renderer.Transform.LocalPosition = Vector3.Zero;
 		RagdollPhysics.Renderer.Transform.LocalRotation = Rotation.Identity;
 		RagdollPhysics.Enabled = false;

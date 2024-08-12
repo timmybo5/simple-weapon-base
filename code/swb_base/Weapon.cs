@@ -21,6 +21,7 @@ public partial class Weapon : Component, IInventoryItem
 	{
 		Tags.Add( TagsHelper.Weapon );
 		Attachments = Components.GetAll<Attachment>( FindMode.EverythingInSelf ).OrderBy( att => att.Name ).ToList();
+		Owner = Components.GetInAncestors<IPlayerBase>();
 
 		Settings = WeaponSettings.Instance;
 		InitialPrimaryStats = StatsModifier.FromShootInfo( Primary );
@@ -61,12 +62,14 @@ public partial class Weapon : Component, IInventoryItem
 	[Broadcast]
 	public void OnCarryStart()
 	{
+		if ( !IsValid ) return;
 		GameObject.Enabled = true;
 	}
 
 	[Broadcast]
 	public void OnCarryStop()
 	{
+		if ( !IsValid ) return;
 		GameObject.Enabled = false;
 	}
 
@@ -106,7 +109,6 @@ public partial class Weapon : Component, IInventoryItem
 
 	protected override void OnStart()
 	{
-		Owner = Components.GetInAncestors<IPlayerBase>();
 		CreateModels();
 
 		// Attachments (load for clients joining late)
@@ -283,6 +285,8 @@ public partial class Weapon : Component, IInventoryItem
 	[Broadcast]
 	void PlaySound( int resourceID )
 	{
+		if ( !IsValid ) return;
+
 		var sound = ResourceLibrary.Get<SoundEvent>( resourceID );
 		if ( sound is null ) return;
 

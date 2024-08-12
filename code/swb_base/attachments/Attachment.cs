@@ -140,6 +140,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	[Broadcast]
 	public virtual void EquipBroadCast()
 	{
+		if ( !IsValid ) return;
 		Equip();
 	}
 
@@ -147,7 +148,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	public virtual void Equip()
 	{
 		// Log.Info( "Trying to equip -> " + Name + ", info -> equippedOnClient: " + equippedOnClient + " equipTries: " + equipTries );
-		if ( equippedOnClient ) return;
+		if ( equippedOnClient || !IsValid || Weapon is null ) return;
 		if ( (!IsProxy && Weapon.ViewModelRenderer is null) || Weapon.WorldModelRenderer is null )
 		{
 			if ( equipTries > 10 ) return;
@@ -200,6 +201,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	[Broadcast]
 	public virtual void UnEquipBroadCast()
 	{
+		if ( !IsValid ) return;
 		Unequip();
 	}
 

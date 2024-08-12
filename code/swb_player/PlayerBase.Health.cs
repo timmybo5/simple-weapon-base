@@ -17,7 +17,7 @@ public partial class PlayerBase
 	[Broadcast]
 	public virtual void TakeDamage( Shared.DamageInfo info )
 	{
-		if ( IsProxy || !IsAlive || GodMode )
+		if ( !IsValid || IsProxy || !IsAlive || GodMode )
 			return;
 
 		if ( Array.Exists( info.Tags, tag => tag == "head" ) )

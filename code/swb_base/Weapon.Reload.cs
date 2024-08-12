@@ -120,6 +120,6 @@ public partial class Weapon
 	public virtual void HandleReloadEffects()
 	{
 		// Player
-		Owner.BodyRenderer.Set( "b_reload", true );
+		Owner?.BodyRenderer?.Set( "b_reload", true );
 	}
 }
