@@ -43,6 +43,13 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 		if ( IsBot ) return;
 
+		// Hide client until fully loaded in OnStart
+		if ( !IsProxy )
+		{
+			Transform.Position = new( 0, 0, -999999 );
+			Network.ClearInterpolation();
+		}
+
 		OnMovementAwake();
 	}
 

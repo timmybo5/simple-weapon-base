@@ -137,8 +137,10 @@
               "Gravity": true,
               "LinearDamping": 0,
               "Locking": {},
+              "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
+              "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
@@ -177,8 +179,10 @@
               "Gravity": false,
               "LinearDamping": 0,
               "Locking": {},
+              "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
+              "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
@@ -217,8 +221,10 @@
               "Gravity": false,
               "LinearDamping": 0,
               "Locking": {},
+              "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
+              "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
@@ -257,8 +263,10 @@
               "Gravity": false,
               "LinearDamping": 0,
               "Locking": {},
+              "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
+              "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
@@ -297,8 +305,10 @@
               "Gravity": true,
               "LinearDamping": 0,
               "Locking": {},
+              "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
+              "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
@@ -337,8 +347,10 @@
               "Gravity": true,
               "LinearDamping": 0,
               "Locking": {},
+              "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
+              "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
@@ -353,6 +365,7 @@
       "Position": "94.58017,127.1334,73.5171",
       "Enabled": true,
       "NetworkMode": 1,
+      "NetworkInterpolation": false,
       "Components": [
         {
           "__type": "SWB.Base.WeaponRegistry",
