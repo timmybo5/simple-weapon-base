@@ -8,7 +8,11 @@ public class HitScanBullet : IBulletBase
 {
 	public void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
 	{
+		if ( !weapon.IsValid ) return;
+
 		var player = weapon.Owner;
+		if ( player is null ) return;
+
 		var forward = player.EyeAngles.Forward + spreadOffset;
 		forward = forward.Normal;
 		var endPos = player.EyePos + forward * 999999;

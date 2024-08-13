@@ -146,10 +146,10 @@ public partial class Weapon
 	[Broadcast]
 	public virtual void HandleShootEffects( bool isPrimary )
 	{
-		if ( !IsValid ) return;
+		if ( !IsValid || Owner is null ) return;
 
 		// Player
-		Owner?.BodyRenderer?.Set( "b_attack", true );
+		Owner.BodyRenderer.Set( "b_attack", true );
 
 		// Weapon
 		var shootInfo = GetShootInfo( isPrimary );
