@@ -21,4 +21,13 @@ public class Commands
 
 		WeaponSettings.Instance.AutoReload = enable != 0;
 	}
+
+	[ConCmd( "swb_host_inventorydisplay", Help = "Enable the inventory display" )]
+	public static void SetInventoryDisplay( int enable )
+	{
+		var player = PlayerBase.GetLocal();
+		if ( !player.IsHost ) return;
+
+		WeaponSettings.Instance.InventoryDisplay = enable != 0;
+	}
 }

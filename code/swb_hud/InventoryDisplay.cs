@@ -23,7 +23,7 @@ public class InventoryDisplay : Panel
 	public override void Tick()
 	{
 		var isCustomizing = activeItem is Weapon weapon && weapon.IsCustomizing;
-		var hide = !player.IsAlive || isCustomizing;
+		var hide = !player.IsAlive || isCustomizing || WeaponSettings.Instance.InventoryDisplay == false;
 		SetClass( "hide", hide );
 
 		if ( !player.IsAlive )

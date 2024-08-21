@@ -1,5 +1,5 @@
 {
-  "__guid": "9f832399-4887-46b0-8f21-2ee284f538e2",
+  "__guid": "e1100bd7-aec2-418e-95ec-384c69aebc80",
   "GameObjects": [
     {
       "__guid": "c5c1918c-9604-4d49-a40f-a28dc70a7ac0",
@@ -401,7 +401,8 @@
           "__type": "SWB.Base.WeaponSettings",
           "__guid": "d464e175-fec1-4a51-bf7f-63307177df53",
           "AutoReload": true,
-          "Customization": true
+          "Customization": true,
+          "InventoryDisplay": true
         }
       ]
     },

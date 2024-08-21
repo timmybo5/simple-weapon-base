@@ -15,6 +15,9 @@ public class WeaponSettings : Component
 	/// <summary>Reload weapons automatically while shooting if clip is empty</summary>
 	[HostSync, Property] public bool AutoReload { get; set; } = true;
 
+	/// <summary>Whether or not inventory key display should show</summary>
+	[HostSync, Property] public bool InventoryDisplay { get; set; } = true;
+
 	protected override void OnAwake()
 	{
 		GameObject.NetworkMode = NetworkMode.Object;
