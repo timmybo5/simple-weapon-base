@@ -36,7 +36,7 @@ public class KeyDisplay : Panel
 		SetClass( "hide", !isValidWeapon );
 		if ( !isValidWeapon ) return;
 
-		var showKey = activeWeapon.Attachments.Count == 0 || activeWeapon.IsCustomizing;
-		SetClass( "hide", showKey );
+		var hideKey = activeWeapon.Attachments.Count == 0 || activeWeapon.IsCustomizing || !WeaponSettings.Instance.Customization;
+		SetClass( "hide", hideKey );
 	}
 }
