@@ -1,4 +1,6 @@
-﻿namespace SWB.Base;
+﻿using SWB.Shared;
+
+namespace SWB.Base;
 
 public enum FiringType
 {
@@ -68,11 +70,11 @@ public class ShootInfo : Component
 	/// <summary>Rate Per Minute, firing speed (higher is faster)</summary>
 	[Property, Group( "Bullets" )] public int RPM { get; set; } = 200;
 
+	/// <summary>Screenshake per shot</summary>
+	[Property, Group( "Bullets" )] public ScreenShake ScreenShake { get; set; }
+
 	/// <summary>Weapon firing type</summary>
 	[Property, Group( "Bullets" )] public FiringType FiringType { get; set; } = FiringType.semi;
-
-	/// <summary>Screenshake per shot</summary>
-	// public ScreenShake ScreenShake { get; set; }
 
 	// Animations //
 

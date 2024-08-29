@@ -4,8 +4,6 @@
     "Flags": 0,
     "Name": "l96a1",
     "Tags": "weapon",
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
@@ -94,6 +92,12 @@
         "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
         "Recoil": 3,
         "RPM": 125,
+        "ScreenShake": {
+          "Duration": 0.08,
+          "Delay": 0.02,
+          "Size": 2,
+          "Rotation": 0.2
+        },
         "ShootAimedAnim": "",
         "ShootAnim": "fire",
         "ShootEmptyAnim": "",
@@ -128,6 +132,7 @@
         "__type": "SWB.Demo.SniperSilencerBG",
         "__guid": "c19a5302-22b5-4cf5-8386-0ba71065070a",
         "EffectAttachmentOrBone": "muzzle_silenced",
+        "ShootSound": "sounds/swb/attachments/silencer/swb_sniper.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -154,7 +159,8 @@
         "WorldModelScale": "1,1,1"
       }
     ],
-    "Children": []
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

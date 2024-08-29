@@ -28,14 +28,14 @@ public interface IPlayerBase : IValid
 	/// <summary>Input sensitivity modifier</summary>
 	public float InputSensitivity { get; set; }
 
-	/// <summary>EyeAngles offset (should reset after being applied)</summary>
-	public Angles EyeAnglesOffset { get; set; }
-
 	/// <summary>View angles</summary>
 	public Angles EyeAngles { get; set; }
 
 	/// <summary>View position</summary>
 	public Vector3 EyePos { get; }
+
+	/// <summary>EyeAngles offset (Resets after being applied)</summary>
+	public Angles EyeAnglesOffset { get; set; }
 
 	/// <summary>
 	/// Called when the weapon wants to know how much ammo is available
@@ -57,4 +57,10 @@ public interface IPlayerBase : IValid
 	/// </summary>
 	/// <param name="info">Information about the damage</param>
 	public void TakeDamage( DamageInfo info );
+
+	/// <summary>
+	/// Shakes the camera
+	/// </summary>
+	/// <param name="screenShake">Information about the shake</param>
+	public void ShakeScreen( ScreenShake screenShake );
 }

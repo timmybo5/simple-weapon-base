@@ -12,7 +12,14 @@ public class CameraMovement : Component
 	[Property] public GameObject Head { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
 	public float InputSensitivity { get; set; } = 1f;
+
+	// Eye Offset (resets after applying)
 	public Angles EyeAnglesOffset { get; set; }
+
+	// Camera Offsets (resets after applying)
+	public Angles AnglesOffset { get; set; }
+	public Vector3 PosOffset { get; set; }
+
 	public bool IsFirstPerson => Distance == 0f;
 
 	protected override void OnAwake() { }
@@ -69,6 +76,13 @@ public class CameraMovement : Component
 					camPos = camTrace.EndPosition;
 				}
 			}
+
+			// Offsets
+			camPos += PosOffset;
+			PosOffset = Vector3.Zero;
+
+			eyeAngles += AnglesOffset;
+			AnglesOffset = Angles.Zero;
 
 			// Set the position of the camera to our calculated position
 			Player.Camera.Transform.Position = camPos;

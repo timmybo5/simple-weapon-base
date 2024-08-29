@@ -4,8 +4,6 @@
     "Flags": 0,
     "Name": "revolver",
     "Tags": "weapon",
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
@@ -91,6 +89,12 @@
         "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
         "Recoil": 1,
         "RPM": 100,
+        "ScreenShake": {
+          "Duration": 0.08,
+          "Delay": 0.02,
+          "Size": 2,
+          "Rotation": 0.1
+        },
         "ShootAimedAnim": "",
         "ShootAnim": "fire",
         "ShootEmptyAnim": "",
@@ -130,7 +134,8 @@
         "WorldModelScale": "1,1,1"
       }
     ],
-    "Children": []
+    "Children": [],
+    "__variables": []
   },
   "ShowInMenu": false,
   "MenuPath": null,

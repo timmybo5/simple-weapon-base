@@ -149,6 +149,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			OnMovementUpdate();
 
 		HandleFlinch();
+		HandleScreenShake();
 		UpdateClothes();
 	}
 

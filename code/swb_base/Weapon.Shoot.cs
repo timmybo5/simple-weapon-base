@@ -102,6 +102,10 @@ public partial class Weapon
 		// Recoil
 		Owner.EyeAnglesOffset += GetRecoilAngles( shootInfo );
 
+		// Screenshake
+		if ( shootInfo.ScreenShake is not null )
+			Owner.ShakeScreen( shootInfo.ScreenShake );
+
 		// UI
 		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
 
