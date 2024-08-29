@@ -48,6 +48,13 @@ public class DemoPlayer : PlayerBase
 		var localPly = PlayerBase.GetLocal();
 		var display = localPly.RootDisplay as RootDisplay;
 		display.AddToKillFeed( info.AttackerId, GameObject.Id, info.Inflictor );
+
+		// Leaderboards
+		if ( IsProxy && !IsBot && localPly.GameObject.Id == info.AttackerId )
+			Sandbox.Services.Stats.Increment( "kills", 1 );
+
+		if ( !IsProxy && !IsBot )
+			Sandbox.Services.Stats.Increment( "deaths", 1 );
 	}
 
 	public override void TakeDamage( Shared.DamageInfo info )
