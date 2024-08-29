@@ -8,6 +8,7 @@
   "Resources": "*.png\n*.ttf\n*.mp3\n*.wav\n*.config\n*.scss\n*.prefab\n*.fbx\n*.smd\n*credits*\nfonts/*",
   "PackageReferences": [],
   "EditorReferences": null,
+  "IsWhitelistDisabled": false,
   "Metadata": {
     "MaxPlayers": 64,
     "MinPlayers": 1,

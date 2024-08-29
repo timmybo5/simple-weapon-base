@@ -1,5 +1,6 @@
 ﻿using SWB.Base.Attachments;
 using SWB.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,9 +21,9 @@ public partial class Weapon : Component, IInventoryItem
 	protected override void OnAwake()
 	{
 		Tags.Add( TagsHelper.Weapon );
+
 		Attachments = Components.GetAll<Attachment>( FindMode.EverythingInSelf ).OrderBy( att => att.Name ).ToList();
 		Owner = Components.GetInAncestors<IPlayerBase>();
-
 		Settings = WeaponSettings.Instance;
 		InitialPrimaryStats = StatsModifier.FromShootInfo( Primary );
 		InitialSecondaryStats = StatsModifier.FromShootInfo( Primary );
@@ -109,6 +110,16 @@ public partial class Weapon : Component, IInventoryItem
 
 	protected override void OnStart()
 	{
+		// Debug: does this happen?
+		if ( Owner is null )
+		{
+			GameObject.Destroy();
+			var ply = Components.GetInAncestors<IPlayerBase>();
+			var errorMsg = "No owner found for weapon! Does owner exist now? -> " + ply;
+			Log.Error( errorMsg );
+			throw new NullReferenceException( errorMsg );
+		}
+
 		CreateModels();
 
 		// Attachments (load for clients joining late)
@@ -126,6 +137,8 @@ public partial class Weapon : Component, IInventoryItem
 
 	protected override void OnUpdate()
 	{
+		if ( Owner is null ) return;
+
 		UpdateModels();
 		Owner.AnimationHelper.HoldType = HoldType;
 

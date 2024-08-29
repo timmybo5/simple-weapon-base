@@ -34,12 +34,12 @@ public class Scoreboard : Panel
 
 		foreach ( var player in players )
 		{
-			if ( player.IsBot ) continue;
+			if ( player is null || !player.IsValid || player.IsBot ) continue;
 
 			var connection = player.Network.OwnerConnection;
-			var ping = MathF.Round( connection.Ping * 1000 );
+			var ping = MathF.Round( (connection?.Ping ?? 0) * 1000 );
 			var rowP = playerWrapper.Add.Panel( "row " + (isOdd ? "odd" : "") );
-			rowP.Add.Label( connection.DisplayName, "value name " + (!player.IsProxy ? "self" : "") );
+			rowP.Add.Label( player.DisplayName, "value name " + (!player.IsProxy ? "self" : "") );
 			rowP.Add.Label( player.Kills.ToString(), "value kills" );
 			rowP.Add.Label( player.Deaths.ToString(), "value deaths" );
 			rowP.Add.Label( ping.ToString(), "value ping" );
