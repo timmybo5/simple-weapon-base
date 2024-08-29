@@ -3,6 +3,7 @@ using Sandbox.UI.Construct;
 using SWB.Player;
 using SWB.Shared;
 using System;
+using System.Linq;
 
 namespace SWB.HUD;
 
@@ -29,7 +30,7 @@ public class Scoreboard : Panel
 	{
 		if ( isOpen ) return;
 		isOpen = true;
-		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
+		var players = Game.ActiveScene.GetAllComponents<PlayerBase>().OrderByDescending( p => p.Kills );
 		var isOdd = false;
 
 		foreach ( var player in players )
