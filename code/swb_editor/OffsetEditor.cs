@@ -77,20 +77,20 @@ public partial class OffsetEditor
 
 	public void SetAimAnimData()
 	{
-		SetFromAngPos( weapon.AimAnimData );
+		SetFromAngPos( weapon.AimAnimData, weapon.AimFOV );
 	}
 
 	public void SetRunAnimData()
 	{
-		SetFromAngPos( weapon.RunAnimData );
+		SetFromAngPos( weapon.RunAnimData, weapon.FOV );
 	}
 
 	public void SetCustomizeAnimData()
 	{
-		SetFromAngPos( weapon.CustomizeAnimData );
+		SetFromAngPos( weapon.CustomizeAnimData, weapon.FOV );
 	}
 
-	private void SetFromAngPos( AngPos angPos )
+	private void SetFromAngPos( AngPos angPos, float fov )
 	{
 		X = angPos.Pos.x;
 		Y = angPos.Pos.y;
@@ -98,7 +98,7 @@ public partial class OffsetEditor
 		Pitch = angPos.Angle.pitch;
 		Yaw = angPos.Angle.yaw;
 		Roll = angPos.Angle.roll;
-		this.FOV = weapon.FOV;
+		FOV = fov;
 	}
 
 	protected override void OnMouseMove( MousePanelEvent e )
