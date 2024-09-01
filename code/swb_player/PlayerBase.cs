@@ -15,6 +15,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Property] public CameraComponent Camera { get; set; }
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 	[Property] public PanelComponent RootDisplay { get; set; }
+	[Property] public Voice Voice { get; set; }
 
 	[Sync] public bool IsBot { get; set; }
 	public IInventory Inventory { get; set; }
@@ -22,6 +23,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public string DisplayName => !IsBot ? (Network.OwnerConnection?.DisplayName ?? "Disconnected") : GameObject.Name;
 	public ulong SteamId => !IsBot ? Network.OwnerConnection.SteamId : 0;
 	public bool IsHost => !IsBot && Network.OwnerConnection.IsHost;
+	public bool IsSpeaking => Voice.Amplitude > 0;
+
 	public float InputSensitivity
 	{
 		get { return cameraMovement.InputSensitivity; }
@@ -40,6 +43,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		Inventory = new Inventory( this );
 		cameraMovement = Components.GetInChildren<CameraMovement>();
+		Voice = Components.GetInChildren<Voice>();
 
 		if ( IsBot ) return;
 
@@ -110,9 +114,22 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		Respawn();
 	}
 
+	[Broadcast]
+	public void RespawnWithDelayBroadCast( float delay )
+	{
+		RespawnWithDelay( delay );
+	}
+
+	[Broadcast]
+	public void RespawnBroadCast()
+	{
+		Respawn();
+	}
+
 	public virtual void Respawn()
 	{
 		Unragdoll();
+		Inventory.Clear();
 		Health = MaxHealth;
 
 		var spawnLocation = GetSpawnLocation();

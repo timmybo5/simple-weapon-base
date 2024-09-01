@@ -18,6 +18,7 @@ public partial class PlayerBase
 	[Sync] public Vector3 EyeOffset { get; set; } = Vector3.Zero;
 	[Sync] public bool IsCrouching { get; set; } = false;
 	[Sync] public bool IsRunning { get; set; } = false;
+	[Sync] public bool CanMove { get; set; } = true;
 
 	public bool IsOnGround => CharacterController.IsOnGround;
 	public Vector3 Velocity => CharacterController.Velocity;
@@ -64,6 +65,8 @@ public partial class PlayerBase
 
 	void BuildWishVelocity()
 	{
+		if ( !CanMove ) return;
+
 		WishVelocity = 0;
 
 		var rot = EyeAngles.ToRotation();
