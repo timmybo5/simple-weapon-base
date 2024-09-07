@@ -57,31 +57,12 @@
 				children = 
 				[
 					{
-						_class = "PhysicsMeshFile"
-						name = "revolver"
+						_class = "PhysicsHullFromRender"
 						parent_bone = ""
-						surface_prop = "metal"
+						surface_prop = "default"
 						collision_tags = "solid"
-						recenter_on_parent_bone = false
-						offset_origin = [ -9.0, 3.0, -30.0 ]
-						offset_angles = [ 0.0, 0.0, 0.0 ]
-						align_origin_x_type = "None"
-						align_origin_y_type = "None"
-						align_origin_z_type = "None"
-						filename = "weapons/swb/colt/models/colt.fbx"
-						import_scale = 1.4
-						maxMeshVertices = 0
-						qemError = 0.0
-						import_filter = 
-						{
-							exclude_by_default = false
-							exception_list = 
-							[
-								"sleeve",
-								"hardknuckle",
-								"Charger",
-							]
-						}
+						faceMergeAngle = 20.0
+						maxHullVertices = 32
 					},
 				]
 			},

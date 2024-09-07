@@ -1,6 +1,6 @@
 {
   "UI": true,
-  "Volume": "1.00,1.00,0",
+  "Volume": "0.30,1.00,0",
   "Pitch": "1.00,1.00,0",
   "Decibels": 70,
   "SelectionMode": "Random",
@@ -8,12 +8,10 @@
     "weapons/swb/revolver/sounds/revolver.spin.vsnd"
   ],
   "Occlusion": true,
-  "Reflections": true,
   "AirAbsorption": true,
   "Transmission": true,
   "OcclusionRadius": 64,
   "DistanceAttenuation": true,
-  "ResourceVersion": 0,
-  "__version": 0,
-  "__references": []
+  "__references": [],
+  "__version": 0
 }

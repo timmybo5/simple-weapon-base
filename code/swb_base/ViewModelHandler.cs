@@ -1,4 +1,5 @@
 ﻿using SWB.Shared;
+using SWB.Shared;
 using System;
 
 namespace SWB.Base;
@@ -19,20 +20,17 @@ public class ViewModelHandler : Component
 	IPlayerBase player => Weapon.Owner;
 
 	float animSpeed = 1;
-	float playerFOVSpeed = 1;
 
 	// Target animation values
 	Vector3 targetVectorPos;
 	Vector3 targetVectorRot;
-	float targetPlayerFOV = -1;
 	float targetWeaponFOV = -1;
 
 	// Finalized animation values
 	Vector3 finalVectorPos;
 	Vector3 finalVectorRot;
-	float finalPlayerFOV;
 	float finalWeaponFOV;
-
+	float currFOVSpeed = 1;
 	// Sway
 	Rotation lastEyeRot;
 
@@ -78,8 +76,7 @@ public class ViewModelHandler : Component
 
 		if ( targetWeaponFOV == -1 )
 		{
-			targetPlayerFOV = Preferences.FieldOfView;
-			finalPlayerFOV = Preferences.FieldOfView;
+			
 			targetWeaponFOV = Weapon.FOV;
 			finalWeaponFOV = Weapon.FOV;
 		}
@@ -90,21 +87,22 @@ public class ViewModelHandler : Component
 		// Smoothly transition the vectors with the target values
 		finalVectorPos = finalVectorPos.LerpTo( targetVectorPos, animSpeed * RealTime.Delta );
 		finalVectorRot = finalVectorRot.LerpTo( targetVectorRot, animSpeed * RealTime.Delta );
-		finalPlayerFOV = MathX.LerpTo( finalPlayerFOV, targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
-		finalWeaponFOV = MathX.LerpTo( finalWeaponFOV, targetWeaponFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
-		animSpeed = 10 * Weapon.AnimSpeed;
+
+		
+        player.ApplyFov(targetWeaponFOV, animSpeed);
+
+
+        animSpeed = 10 * Weapon.AnimSpeed;
 
 		// Change the angles and positions of the viewmodel with the new vectors
 		Transform.Rotation *= Rotation.From( finalVectorRot.x, finalVectorRot.y, finalVectorRot.z );
 		// Position has to be set after rotation!
 		Transform.Position += finalVectorPos.z * Transform.Rotation.Up + finalVectorPos.y * Transform.Rotation.Forward + finalVectorPos.x * Transform.Rotation.Right;
-		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
-		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
+	
 
 		// Initialize the target vectors for this frame
 		targetVectorPos = Vector3.Zero;
 		targetVectorRot = Vector3.Zero;
-		targetPlayerFOV = Preferences.FieldOfView;
 		targetWeaponFOV = Weapon.FOV;
 
 		// Editor mode
@@ -115,6 +113,7 @@ public class ViewModelHandler : Component
 			targetWeaponFOV = EditorFOV;
 			return;
 		}
+
 
 		// I'm sure there's something already that does this for me, but I spend an hour
 		// searching through the wiki and a bunch of other garbage and couldn't find anything...
@@ -241,26 +240,21 @@ public class ViewModelHandler : Component
 			targetVectorPos += Weapon.AimAnimData.Pos;
 			targetVectorRot += MathUtil.ToVector3( Weapon.AimAnimData.Angle );
 
-			if ( Weapon.AimPlayerFOV > 0 )
-				targetPlayerFOV = Weapon.AimPlayerFOV;
+			
 
-			if ( Weapon.IsScoping && Weapon.ScopeInfo.FOV > 0 )
-				targetPlayerFOV = Weapon.ScopeInfo.FOV;
+			if ( Weapon.IsScoping)
+                targetWeaponFOV = Weapon.ScopeInfo.FOV;
 
-			if ( Weapon.AimFOV > 0 )
-				targetWeaponFOV = Weapon.AimFOV;
 
-			playerFOVSpeed = Weapon.AimInFOVSpeed;
+			targetWeaponFOV = Weapon.AimFOV;
+
+            currFOVSpeed = Weapon.AimInFOVSpeed;
 		}
 		else
 		{
 			aimTime = 0;
 			targetWeaponFOV = Weapon.FOV;
 
-			if ( finalPlayerFOV != Weapon.AimPlayerFOV )
-			{
-				playerFOVSpeed = Weapon.AimOutFOVSpeed;
-			}
 		}
 	}
 

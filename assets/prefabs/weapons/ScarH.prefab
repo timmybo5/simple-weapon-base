@@ -12,7 +12,7 @@
           "Angle": "-0.1,0.34,3.9",
           "Pos": "-2.163,0.36,0.233"
         },
-        "AimFOV": 35,
+        "AimFOV": -35,
         "AimInFOVSpeed": 1,
         "AimOutFOVSpeed": 1,
         "AimPlayerFOV": -1,
@@ -34,7 +34,7 @@
         "DrawEmptyAnim": "",
         "DrawEmptyTime": -1,
         "DrawTime": 0.6,
-        "FOV": 65,
+        "FOV": 0,
         "HoldType": "Rifle",
         "Icon": "weapons/swb/scarh/scarh.png",
         "Primary": {

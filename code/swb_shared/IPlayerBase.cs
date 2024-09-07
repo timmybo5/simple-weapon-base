@@ -5,7 +5,6 @@ namespace SWB.Shared;
 
 public interface IPlayerBase : IValid
 {
-	public CameraComponent ViewModelCamera { get; set; }
 	public CameraComponent Camera { get; set; }
 	public GameObject Body { get; set; }
 	public SkinnedModelRenderer BodyRenderer { get; set; }
@@ -57,6 +56,11 @@ public interface IPlayerBase : IValid
 	/// </summary>
 	/// <param name="info">Information about the damage</param>
 	public void TakeDamage( DamageInfo info );
+
+
+
+    public void ApplyFov(float plusFov, float speed);
+    
 
 	/// <summary>
 	/// Shakes the camera
