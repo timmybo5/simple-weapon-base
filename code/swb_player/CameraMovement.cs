@@ -1,15 +1,16 @@
-using SWB.Shared;
-using System;
-using static Sandbox.CursorSettings;
+﻿using SWB.Shared;
 
 namespace SWB.Player;
 
-public partial class PlayerBase
+[Group("SWB")]
+[Title("CameraMovement")]
+public class CameraMovement : Component
 {
-
     [Property] public float Distance { get; set; } = 0f;
-    
-
+    [Property] public PlayerBase Player { get; set; }
+    [Property] public GameObject Body { get; set; }
+    [Property] public GameObject Head { get; set; }
+    [Property] public SkinnedModelRenderer BodyRenderer { get; set; }
     public float InputSensitivity { get; set; } = 1f;
 
     // Eye Offset (resets after applying)
@@ -19,38 +20,45 @@ public partial class PlayerBase
     public Angles AnglesOffset { get; set; }
     public Vector3 PosOffset { get; set; }
 
-    public bool IsFirstPerson => Distance == 0f;
-
     //FOV {
         public float TargetFov { get; set; } = 0;
         private float fovSpeed = 10f;
         [Property] public float baseFovSpeed { get; set; } = 10f;
     //}
 
-    public void OnCameraAwake() {
+    public bool IsFirstPerson => Distance == 0f;
+
+    protected override void OnAwake() {
 
         if (IsProxy) return;
 
         fovSpeed = baseFovSpeed;
         TargetFov = Preferences.FieldOfView;
-        Camera.FieldOfView = TargetFov;
+        Player.Camera.FieldOfView = TargetFov;
     }
 
+    protected override void OnStart()
+    {
+        if (Player.IsBot)
+            Enabled = false;
+    }
 
     public void ApplyFov(float plusFov, float speed)
     {
         TargetFov += plusFov;
-        
+
         fovSpeed = speed;
     }
 
 
-    public void OnCameraUpdate()
+
+
+    protected override void OnUpdate()
     {
         if (IsProxy) return;
 
         // Rotate the head based on mouse movement
-        var eyeAngles = EyeAngles;
+        var eyeAngles = Player.EyeAngles;
 
         Input.AnalogLook *= InputSensitivity;
         eyeAngles.pitch += Input.AnalogLook.pitch;
@@ -62,18 +70,17 @@ public partial class PlayerBase
         eyeAngles.roll = 0;
         eyeAngles.pitch = eyeAngles.pitch.Clamp(-89.9f, 89.9f);
 
-        EyeAngles = eyeAngles;
+        Player.EyeAngles = eyeAngles;
 
         // Set the current camera offset
         var targetOffset = Vector3.Zero;
-
-        if (IsCrouching) targetOffset += Vector3.Down * 32f;
-        EyeOffset = Vector3.Lerp(EyeOffset, targetOffset, Time.Delta * 10f);
+        if (Player.IsCrouching) targetOffset += Vector3.Down * 32f;
+        Player.EyeOffset = Vector3.Lerp(Player.EyeOffset, targetOffset, Time.Delta * 10f);
 
         // Set position of the camera
         if (Scene.Camera is not null)
         {
-            var camPos = EyePos;
+            var camPos = Player.EyePos;
             if (!IsFirstPerson)
             {
                 // Perform a trace backwards to see where we can safely place the camera
@@ -94,13 +101,13 @@ public partial class PlayerBase
             }
 
             //Fov
-            Camera.FieldOfView = MathX.LerpTo(Camera.FieldOfView, TargetFov, fovSpeed * RealTime.Delta);
+            Player.Camera.FieldOfView = MathX.LerpTo(Player.Camera.FieldOfView, TargetFov, fovSpeed * RealTime.Delta);
 
             TargetFov = Preferences.FieldOfView;
             fovSpeed = baseFovSpeed;
 
             //Player run fow multiply
-            ApplyFov(Velocity.WithZ(0).Length / 60, 10);
+            ApplyFov(Player.Velocity.WithZ(0).Length / 60, 10);
 
 
 
@@ -111,10 +118,9 @@ public partial class PlayerBase
             eyeAngles += AnglesOffset;
             AnglesOffset = Angles.Zero;
 
-
             // Set the position of the camera to our calculated position
-            Camera.Transform.Position = camPos;
-            Camera.Transform.Rotation = eyeAngles.ToRotation();
+            Player.Camera.Transform.Position = camPos;
+            Player.Camera.Transform.Rotation = eyeAngles.ToRotation();
         }
     }
 }

@@ -297,7 +297,8 @@ public partial class Weapon : Component, IInventoryItem
 
 		if ( isScreenSound )
 		{
-			Sound.Play( sound );
+            sound.Volume = 0.2f;	
+            Sound.Play( sound );
 		}
 		else
 		{

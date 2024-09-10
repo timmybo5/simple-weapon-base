@@ -88,8 +88,8 @@ public class ViewModelHandler : Component
 		finalVectorPos = finalVectorPos.LerpTo( targetVectorPos, animSpeed * RealTime.Delta );
 		finalVectorRot = finalVectorRot.LerpTo( targetVectorRot, animSpeed * RealTime.Delta );
 
-		
-        player.ApplyFov(targetWeaponFOV, animSpeed);
+
+        player.cameraMovement.ApplyFov(targetWeaponFOV, animSpeed);
 
 
         animSpeed = 10 * Weapon.AnimSpeed;

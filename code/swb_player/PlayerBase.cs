@@ -15,23 +15,35 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Property] public CameraComponent Camera { get; set; }
 	[Property] public PanelComponent RootDisplay { get; set; }
 	[Property] public Voice Voice { get; set; }
+    [Property] public CameraMovement cameraMovement { get; set; }
 
-	[Sync] public bool IsBot { get; set; }
+
+    [Sync] public bool IsBot { get; set; }
 	public IInventory Inventory { get; set; }
-
-	public string DisplayName => !IsBot ? (Network.OwnerConnection?.DisplayName ?? "Disconnected") : GameObject.Name;
+    public bool IsFirstPerson => cameraMovement.IsFirstPerson;
+    public string DisplayName => !IsBot ? (Network.OwnerConnection?.DisplayName ?? "Disconnected") : GameObject.Name;
 	public ulong SteamId => !IsBot ? Network.OwnerConnection.SteamId : 0;
 	public bool IsHost => !IsBot && Network.OwnerConnection.IsHost;
 	public bool IsSpeaking => Voice.Amplitude > 0;
 
+    public float InputSensitivity
+    {
+        get { return cameraMovement.InputSensitivity; }
+        set { cameraMovement.InputSensitivity = value; }
+    }
+    public Angles EyeAnglesOffset
+    {
+        get { return cameraMovement.EyeAnglesOffset; }
+        set { cameraMovement.EyeAnglesOffset = value; }
+    }
 
-	Guid IPlayerBase.Id { get => GameObject.Id; }
+    
+    Guid IPlayerBase.Id { get => GameObject.Id; }
 
 	protected override void OnAwake()
 	{
 		Inventory = new Inventory( this );
 		Voice = Components.GetInChildren<Voice>();
-		OnCameraAwake();
 
         if ( IsBot ) return;
 
@@ -148,9 +160,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		if ( IsBot ) return;
 
-		OnCameraUpdate();
-
-
+		
         if ( IsAlive )
 			OnMovementUpdate();
 

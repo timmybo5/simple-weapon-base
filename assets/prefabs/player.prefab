@@ -57,8 +57,13 @@
           "go": "90f0756c-ed12-4063-b119-fb330a66a30f",
           "component_type": "CameraComponent"
         },
+        "cameraMovement": {
+          "_type": "component",
+          "component_id": "a9f8c0a9-8dbc-4a46-8954-a92db50e227d",
+          "go": "90f0756c-ed12-4063-b119-fb330a66a30f",
+          "component_type": "CameraMovement"
+        },
         "CrouchSpeed": 90,
-        "Distance": 0,
         "GroundControl": 4,
         "Head": {
           "_type": "gameobject",
@@ -1018,6 +1023,55 @@
             "Viewport": "0,0,1,1",
             "ZFar": 100000,
             "ZNear": 0.1
+          },
+          {
+            "__type": "SWB.Player.CameraMovement",
+            "__guid": "a9f8c0a9-8dbc-4a46-8954-a92db50e227d",
+            "baseFovSpeed": 10,
+            "Body": {
+              "_type": "gameobject",
+              "go": "55559241-6791-4c24-9635-07aceee3d8a4"
+            },
+            "BodyRenderer": {
+              "_type": "component",
+              "component_id": "fc51159a-2082-4de0-8c3e-5f44d049ed23",
+              "go": "55559241-6791-4c24-9635-07aceee3d8a4",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "Distance": 0,
+            "Head": {
+              "_type": "gameobject",
+              "go": "d8a09f79-a5a4-41e7-9522-ff9d3a8df4e8"
+            },
+            "Player": {
+              "_type": "component",
+              "component_id": "3e1e96c5-b788-4483-9ffd-7b59b02df678",
+              "go": "bf0f959a-8e13-4133-8fc5-edc7aa3d1b0c",
+              "component_type": "DemoPlayer"
+            }
+          },
+          {
+            "__type": "Sandbox.Vignette",
+            "__guid": "1987b692-2ecf-4ae4-a214-36a93d70ccaf",
+            "Center": "0.5,0.5",
+            "Color": "0,0,0,1",
+            "Intensity": 0.19,
+            "Roundness": 1,
+            "Smoothness": 1
+          },
+          {
+            "__type": "Sandbox.ColorAdjustments",
+            "__guid": "a072ed72-e945-42f0-aa66-bcf5b1c8e378",
+            "Brightness": 1,
+            "Contrast": 1,
+            "HueRotate": 0,
+            "Saturation": 1.2
+          },
+          {
+            "__type": "Sandbox.ChromaticAberration",
+            "__guid": "633e91b6-2b6b-4a15-9034-e12d20246f9f",
+            "Offset": "4,6,0",
+            "Scale": 0.35
           }
         ]
       },
