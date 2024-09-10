@@ -57,6 +57,12 @@
           "go": "90f0756c-ed12-4063-b119-fb330a66a30f",
           "component_type": "CameraComponent"
         },
+        "cameraMovement": {
+          "_type": "component",
+          "component_id": "a9f8c0a9-8dbc-4a46-8954-a92db50e227d",
+          "go": "90f0756c-ed12-4063-b119-fb330a66a30f",
+          "component_type": "CameraMovement"
+        },
         "CrouchSpeed": 90,
         "GroundControl": 4,
         "Head": {
@@ -79,12 +85,6 @@
           "component_type": "RootDisplay"
         },
         "RunSpeed": 290,
-        "ViewModelCamera": {
-          "_type": "component",
-          "component_id": "ea5e3826-bd2e-4f0c-a7c5-e1f93e741ca5",
-          "go": "63bec778-d863-4f1f-b7b8-5efdcf910f61",
-          "component_type": "CameraComponent"
-        },
         "WalkSpeed": 160
       }
     ],
@@ -703,7 +703,7 @@
                                             "__guid": "15b0bd0d-304d-4639-9e09-f92b4af7570a",
                                             "Flags": 4,
                                             "Name": "arm_elbow_helper_R",
-                                            "Position": "-0.00000667572,0.00003147125,-0.00005340576",
+                                            "Position": "0,0,0",
                                             "Rotation": "0.0000007692941,-0.0000002412072,-0.7577677,0.6525243",
                                             "Enabled": true
                                           }
@@ -998,33 +998,6 @@
         ]
       },
       {
-        "__guid": "63bec778-d863-4f1f-b7b8-5efdcf910f61",
-        "Flags": 0,
-        "Name": "ViewModelCamera",
-        "Position": "0,0,-9999",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.CameraComponent",
-            "__guid": "ea5e3826-bd2e-4f0c-a7c5-e1f93e741ca5",
-            "__enabled": false,
-            "BackgroundColor": "0.33333,0.46275,0.52157,1",
-            "ClearFlags": "Depth, Stencil",
-            "FieldOfView": 90,
-            "IsMainCamera": false,
-            "Orthographic": false,
-            "OrthographicHeight": 1204,
-            "Priority": 2,
-            "RenderExcludeTags": "",
-            "RenderTags": "viewmodel,light",
-            "TargetEye": "RightEye",
-            "Viewport": "0,0,1,1",
-            "ZFar": 10000,
-            "ZNear": 1
-          }
-        ]
-      },
-      {
         "__guid": "90f0756c-ed12-4063-b119-fb330a66a30f",
         "Flags": 0,
         "Name": "Camera",
@@ -1044,7 +1017,7 @@
             "Orthographic": false,
             "OrthographicHeight": 1204,
             "Priority": 1,
-            "RenderExcludeTags": "viewmodel",
+            "RenderExcludeTags": "",
             "RenderTags": "",
             "TargetEye": "None",
             "Viewport": "0,0,1,1",
@@ -1053,7 +1026,8 @@
           },
           {
             "__type": "SWB.Player.CameraMovement",
-            "__guid": "84ae349c-4ee9-458f-b68c-cce831247b4c",
+            "__guid": "a9f8c0a9-8dbc-4a46-8954-a92db50e227d",
+            "baseFovSpeed": 10,
             "Body": {
               "_type": "gameobject",
               "go": "55559241-6791-4c24-9635-07aceee3d8a4"
@@ -1075,6 +1049,29 @@
               "go": "bf0f959a-8e13-4133-8fc5-edc7aa3d1b0c",
               "component_type": "DemoPlayer"
             }
+          },
+          {
+            "__type": "Sandbox.Vignette",
+            "__guid": "1987b692-2ecf-4ae4-a214-36a93d70ccaf",
+            "Center": "0.5,0.5",
+            "Color": "0,0,0,1",
+            "Intensity": 0.19,
+            "Roundness": 1,
+            "Smoothness": 1
+          },
+          {
+            "__type": "Sandbox.ColorAdjustments",
+            "__guid": "a072ed72-e945-42f0-aa66-bcf5b1c8e378",
+            "Brightness": 1,
+            "Contrast": 1,
+            "HueRotate": 0,
+            "Saturation": 1.2
+          },
+          {
+            "__type": "Sandbox.ChromaticAberration",
+            "__guid": "633e91b6-2b6b-4a15-9034-e12d20246f9f",
+            "Offset": "4,6,0",
+            "Scale": 0.35
           }
         ]
       },

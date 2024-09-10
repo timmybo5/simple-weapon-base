@@ -12,7 +12,7 @@
           "Angle": "-0.81,-0.05,0",
           "Pos": "-5.012,-4.46,1.572"
         },
-        "AimFOV": 35,
+        "AimFOV": -35,
         "AimInFOVSpeed": 1,
         "AimOutFOVSpeed": 1,
         "AimPlayerFOV": -1,
@@ -34,7 +34,7 @@
         "DrawEmptyAnim": "",
         "DrawEmptyTime": -1,
         "DrawTime": 0.5,
-        "FOV": 65,
+        "FOV": 0,
         "HoldType": "Rifle",
         "Icon": "weapons/swb/l96a1/l96a1.png",
         "Primary": {

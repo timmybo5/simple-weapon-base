@@ -63,49 +63,12 @@
 				children = 
 				[
 					{
-						_class = "PhysicsShapeCapsule"
+						_class = "PhysicsHullFromRender"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 1.816555
-						point0 = [ -19.128941, -0.729053, -1.214483 ]
-						point1 = [ -8.207916, 0.078815, -0.432615 ]
-					},
-					{
-						_class = "PhysicsShapeCapsule"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						radius = 1.816555
-						point0 = [ -7.000618, -0.270468, 0.699913 ]
-						point1 = [ 12.296032, 1.165225, 1.922076 ]
-					},
-					{
-						_class = "PhysicsShapeCapsule"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						radius = 1.172535
-						point0 = [ -0.897558, -0.010402, 0.12183 ]
-						point1 = [ -0.504176, -1.902409, -6.96446 ]
-					},
-					{
-						_class = "PhysicsShapeCapsule"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						radius = 1.251605
-						point0 = [ 0.568915, 0.063276, 0.263861 ]
-						point1 = [ 0.632122, -1.194067, -5.254091 ]
-					},
-					{
-						_class = "PhysicsShapeCapsule"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_tags = "solid"
-						radius = 0.854464
-						point0 = [ 9.350156, 0.365089, 0.64961 ]
-						point1 = [ 9.688799, -0.6463, -3.353787 ]
+						faceMergeAngle = 20.0
+						maxHullVertices = 32
 					},
 				]
 			},

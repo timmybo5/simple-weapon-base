@@ -84,8 +84,8 @@ public partial class Weapon
 		// Ammo
 		shootInfo.Ammo -= 1;
 
-		// Animations
-		var shootAnim = GetShootAnimation( shootInfo );
+        // Animations
+        var shootAnim = GetShootAnimation( shootInfo );
 		if ( !string.IsNullOrEmpty( shootAnim ) )
 			ViewModelRenderer.Set( shootAnim, true );
 

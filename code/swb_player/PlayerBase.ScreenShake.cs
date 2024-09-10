@@ -25,7 +25,7 @@ public partial class PlayerBase
 			var randomRot = new Angles( random.Float( 0, lastScreenShake.Rotation ), random.Float( 0, lastScreenShake.Rotation ), 0 );
 
 			cameraMovement.AnglesOffset += randomRot;
-			cameraMovement.PosOffset += randomPos;
+            cameraMovement.PosOffset += randomPos;
 			nextShake = timeSinceShake + lastScreenShake.Delay;
 		}
 	}

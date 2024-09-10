@@ -13,39 +13,39 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Property] public GameObject Body { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
 	[Property] public CameraComponent Camera { get; set; }
-	[Property] public CameraComponent ViewModelCamera { get; set; }
 	[Property] public PanelComponent RootDisplay { get; set; }
 	[Property] public Voice Voice { get; set; }
+    [Property] public CameraMovement cameraMovement { get; set; }
 
-	[Sync] public bool IsBot { get; set; }
+
+    [Sync] public bool IsBot { get; set; }
 	public IInventory Inventory { get; set; }
-	public bool IsFirstPerson => cameraMovement.IsFirstPerson;
-	public string DisplayName => !IsBot ? (Network.OwnerConnection?.DisplayName ?? "Disconnected") : GameObject.Name;
+    public bool IsFirstPerson => cameraMovement.IsFirstPerson;
+    public string DisplayName => !IsBot ? (Network.OwnerConnection?.DisplayName ?? "Disconnected") : GameObject.Name;
 	public ulong SteamId => !IsBot ? Network.OwnerConnection.SteamId : 0;
 	public bool IsHost => !IsBot && Network.OwnerConnection.IsHost;
 	public bool IsSpeaking => Voice.Amplitude > 0;
 
-	public float InputSensitivity
-	{
-		get { return cameraMovement.InputSensitivity; }
-		set { cameraMovement.InputSensitivity = value; }
-	}
-	public Angles EyeAnglesOffset
-	{
-		get { return cameraMovement.EyeAnglesOffset; }
-		set { cameraMovement.EyeAnglesOffset = value; }
-	}
+    public float InputSensitivity
+    {
+        get { return cameraMovement.InputSensitivity; }
+        set { cameraMovement.InputSensitivity = value; }
+    }
+    public Angles EyeAnglesOffset
+    {
+        get { return cameraMovement.EyeAnglesOffset; }
+        set { cameraMovement.EyeAnglesOffset = value; }
+    }
 
-	Guid IPlayerBase.Id { get => GameObject.Id; }
-	CameraMovement cameraMovement;
+    
+    Guid IPlayerBase.Id { get => GameObject.Id; }
 
 	protected override void OnAwake()
 	{
 		Inventory = new Inventory( this );
-		cameraMovement = Components.GetInChildren<CameraMovement>();
 		Voice = Components.GetInChildren<Voice>();
 
-		if ( IsBot ) return;
+        if ( IsBot ) return;
 
 		// Hide client until fully loaded in OnStart
 		if ( !IsProxy )
@@ -64,13 +64,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	protected override void OnStart()
 	{
-		if ( IsProxy || IsBot )
+
+
+        if ( IsProxy || IsBot )
 		{
 			if ( Camera is not null )
 				Camera.Enabled = false;
-
-			if ( ViewModelCamera is not null )
-				ViewModelCamera.Enabled = false;
 		}
 
 		if ( IsBot )
@@ -160,9 +159,9 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	protected override void OnUpdate()
 	{
 		if ( IsBot ) return;
-		if ( !IsProxy ) ViewModelCamera.Enabled = IsFirstPerson && IsAlive;
 
-		if ( IsAlive )
+		
+        if ( IsAlive )
 			OnMovementUpdate();
 
 		HandleFlinch();

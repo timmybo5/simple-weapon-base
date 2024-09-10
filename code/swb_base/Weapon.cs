@@ -19,7 +19,7 @@ public partial class Weapon : Component, IInventoryItem
 
 	protected override void OnAwake()
 	{
-		Tags.Add( TagsHelper.Weapon );
+		Tags.Add(TagsHelper.Weapon);
 
 		Attachments = Components.GetAll<Attachment>( FindMode.EverythingInSelf ).OrderBy( att => att.Name ).ToList();
 		Settings = WeaponSettings.Instance;
@@ -234,7 +234,7 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelHandler = viewModelGO.Components.Create<ViewModelHandler>();
 			ViewModelHandler.Weapon = this;
 			ViewModelHandler.ViewModelRenderer = ViewModelRenderer;
-			ViewModelHandler.Camera = Owner.ViewModelCamera;
+			ViewModelHandler.Camera = Owner.Camera;
 
 			if ( ViewModelHands is not null )
 			{
@@ -297,7 +297,8 @@ public partial class Weapon : Component, IInventoryItem
 
 		if ( isScreenSound )
 		{
-			Sound.Play( sound );
+            sound.Volume = 0.2f;	
+            Sound.Play( sound );
 		}
 		else
 		{

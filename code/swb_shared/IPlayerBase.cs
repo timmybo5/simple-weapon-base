@@ -1,13 +1,15 @@
 ﻿using Sandbox.Citizen;
 using System;
+using SWB.Player;
+
 
 namespace SWB.Shared;
 
 public interface IPlayerBase : IValid
 {
-	public CameraComponent ViewModelCamera { get; set; }
 	public CameraComponent Camera { get; set; }
-	public GameObject Body { get; set; }
+    public CameraMovement cameraMovement { get; set; }
+    public GameObject Body { get; set; }
 	public SkinnedModelRenderer BodyRenderer { get; set; }
 	public CharacterController CharacterController { get; set; }
 	public CitizenAnimationHelper AnimationHelper { get; set; }
