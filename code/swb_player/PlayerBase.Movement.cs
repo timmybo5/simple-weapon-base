@@ -65,9 +65,8 @@ public partial class PlayerBase
 
 	void BuildWishVelocity()
 	{
-		if ( !CanMove ) return;
-
 		WishVelocity = 0;
+		if ( !CanMove ) return;
 
 		var rot = EyeAngles.ToRotation();
 		if ( Input.Down( InputButtonHelper.Forward ) ) WishVelocity += rot.Forward;
@@ -119,11 +118,11 @@ public partial class PlayerBase
 	void RotateBody()
 	{
 		var targetRot = new Angles( 0, EyeAngles.ToRotation().Yaw(), 0 ).ToRotation();
-		float rotateDiff = Body.Transform.Rotation.Distance( targetRot );
+		float rotateDiff = Body.WorldRotation.Distance( targetRot );
 
 		if ( rotateDiff > 20f || CharacterController.Velocity.Length > 10f )
 		{
-			Body.Transform.Rotation = Rotation.Lerp( Body.Transform.Rotation, targetRot, Time.Delta * 2f );
+			Body.WorldRotation = Rotation.Lerp( Body.WorldRotation, targetRot, Time.Delta * 2f );
 		}
 	}
 

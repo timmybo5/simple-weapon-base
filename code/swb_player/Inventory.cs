@@ -1,18 +1,17 @@
 ﻿using SWB.Shared;
-using System.Collections.Generic;
 
 namespace SWB.Player;
 
-public class Inventory : IInventory
+public class Inventory : Component, IInventory
 {
-	public List<GameObject> Items { get; set; } = new();
-	public GameObject Active { get; set; }
+	[Sync] public NetList<GameObject> Items { get; set; } = new();
+	[Sync] public new GameObject Active { get; set; }
 
 	PlayerBase player;
 
-	public Inventory( PlayerBase player )
+	protected override void OnAwake()
 	{
-		this.player = player;
+		player = Components.Get<PlayerBase>();
 	}
 
 	public void Add( GameObject gameObject, bool makeActive = false )
@@ -35,9 +34,9 @@ public class Inventory : IInventory
 
 	public GameObject AddClone( GameObject gamePrefab, bool makeActive = true )
 	{
-		var gameObject = gamePrefab.Clone( player.GameObject, player.Transform.Position, player.Transform.Rotation, Vector3.One );
+		var gameObject = gamePrefab.Clone( player.GameObject, player.WorldPosition, player.WorldRotation, Vector3.One );
 		gameObject.Name = gamePrefab.Name;
-		gameObject.NetworkSpawn( player.Network.OwnerConnection );
+		gameObject.NetworkSpawn( player.Network.Owner );
 
 		Add( gameObject, makeActive );
 		return gameObject;
@@ -80,10 +79,10 @@ public class Inventory : IInventory
 
 	public void Clear()
 	{
-		Items.ForEach( ( item ) =>
+		foreach ( var item in Items )
 		{
 			item.Destroy();
-		} );
+		}
 
 		Items.Clear();
 		Active = null;

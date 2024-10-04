@@ -114,7 +114,7 @@ public partial class Weapon : Component, IInventoryItem
 		// Attachments (load for clients joining late)
 		if ( IsProxy )
 		{
-			// Log.Info( "Checking -> " + Network.OwnerConnection.DisplayName + "'s " + DisplayName + " for attachments" );
+			// Log.Info( "Checking -> " + Network.Owner.DisplayName + "'s " + DisplayName + " for attachments" );
 			Attachments.ForEach( att =>
 			{
 				// Log.Info( "[" + att.Name + "] equipped ->" + att.Equipped );
@@ -301,7 +301,7 @@ public partial class Weapon : Component, IInventoryItem
 		}
 		else
 		{
-			Sound.Play( sound, Transform.Position );
+			Sound.Play( sound, WorldPosition );
 		}
 	}
 }

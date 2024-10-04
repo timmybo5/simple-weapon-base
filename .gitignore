@@ -3,6 +3,7 @@
 .vs/
 code/*.csproj
 config/
+.sbox/
 
 # Blender
 *.blend1

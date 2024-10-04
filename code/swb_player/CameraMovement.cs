@@ -85,8 +85,8 @@ public class CameraMovement : Component
 			AnglesOffset = Angles.Zero;
 
 			// Set the position of the camera to our calculated position
-			Player.Camera.Transform.Position = camPos;
-			Player.Camera.Transform.Rotation = eyeAngles.ToRotation();
+			Player.Camera.WorldPosition = camPos;
+			Player.Camera.WorldRotation = eyeAngles.ToRotation();
 		}
 	}
 }

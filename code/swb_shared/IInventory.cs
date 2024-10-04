@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace SWB.Shared;
+﻿namespace SWB.Shared;
 
 public interface IInventory
 {
-	public List<GameObject> Items { get; set; }
+	public NetList<GameObject> Items { get; set; }
 	public GameObject Active { get; set; }
 
 	public void Add( GameObject gameObject, bool makeActive = false );

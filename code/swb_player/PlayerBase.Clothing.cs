@@ -4,13 +4,14 @@ namespace SWB.Player;
 
 public partial class PlayerBase
 {
-	private ClothingContainer clothingContainer;
-	private List<SkinnedModelRenderer> clothingRenderers = new();
+	[Sync] public string clothingJSON { get; set; }
+	ClothingContainer clothingContainer;
+	List<SkinnedModelRenderer> clothingRenderers = new();
 
 	void ApplyClothes( Connection connection )
 	{
-		var clothesJSON = connection.GetUserData( "avatar" );
-		clothingContainer = ClothingContainer.CreateFromJson( clothesJSON );
+		clothingJSON = connection.GetUserData( "avatar" );
+		clothingContainer = ClothingContainer.CreateFromJson( clothingJSON );
 		clothingContainer.Apply( BodyRenderer );
 
 		BodyRenderer.GameObject.Children.ForEach( c =>
