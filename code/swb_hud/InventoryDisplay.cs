@@ -76,13 +76,13 @@ public class InventoryDisplay : Panel
 	{
 		items.Clear();
 
-		player.Inventory.Items.ForEach( itemGO =>
+		foreach ( var itemGO in player.Inventory.Items )
 		{
 			var item = itemGO.Components.Get<IInventoryItem>( true );
 
 			if ( item is not null )
 				items.Add( item );
-		} );
+		}
 	}
 
 	void CheckInput()
