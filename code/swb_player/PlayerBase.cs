@@ -47,7 +47,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 		if ( IsBot ) return;
 
-		// Hide client until fully loaded in OnStart
+		// Hack: Hide client until fully loaded in OnStart
 		if ( !IsProxy )
 		{
 			WorldPosition = new( 0, 0, -999999 );
@@ -128,7 +128,14 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public virtual void Respawn()
 	{
-		Unragdoll();
+		// Hack: Delaying with just 1ms fixes the 1 frame body at death position.
+		async void UnragdollWithDelay()
+		{
+			await GameTask.Delay( 1 );
+			Unragdoll();
+		}
+		UnragdollWithDelay();
+
 		Inventory.Clear();
 		Health = MaxHealth;
 

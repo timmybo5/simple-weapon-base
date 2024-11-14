@@ -1,4 +1,4 @@
-$scale: 2;
+$scale: 1.75;
 
 hitmarker {
     position: absolute;
@@ -65,14 +65,14 @@ hitmarker {
             position: absolute;
             background-color: white;
             box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.4);
-            transition: transform 0.2s ease-out 0s;
+            transition: transform 0.1s ease-out 0s;
         }
 
         .sharedBarStylingKill {
             position: absolute;
             background-color: #DC143C;
             box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.4);
-            transition: transform 0.2s ease-out 0s;
+            transition: transform 0.1s ease-out 0s;
         }
     }
 }
