@@ -12,6 +12,13 @@ public class DemoPlayer : PlayerBase
 	void GiveWeapon( string className, bool setActive = false )
 	{
 		var weaponGO = WeaponRegistry.Instance.Get( className );
+
+		if ( weaponGO is null )
+		{
+			Log.Error( $"[SWB Demo] {className} not found in WeaponRegistry!" );
+			return;
+		}
+
 		var weapon = weaponGO.Components.Get<Weapon>( true );
 		Inventory.AddClone( weaponGO, setActive );
 		SetAmmo( weapon.Primary.AmmoType, 360 );
@@ -32,7 +39,7 @@ public class DemoPlayer : PlayerBase
 
 		if ( IsBot ) return;
 
-		// Give weapon
+		// Give weapons
 		GiveWeapon( "swb_colt" );
 		GiveWeapon( "swb_revolver" );
 		GiveWeapon( "swb_remington" );

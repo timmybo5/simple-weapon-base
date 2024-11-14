@@ -2,6 +2,21 @@
   "__guid": "9f832399-4887-46b0-8f21-2ee284f538e2",
   "GameObjects": [
     {
+      "__guid": "1ea228de-bafc-4ae4-b2ad-e01a1cb839eb",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "118e898c-d3b9-4aa7-953c-b4444bae2187",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "minimal"
+        }
+      ]
+    },
+    {
       "__guid": "c5c1918c-9604-4d49-a40f-a28dc70a7ac0",
       "Flags": 0,
       "Name": "Map",
@@ -15,6 +30,8 @@
           "EnableCollision": true,
           "MapName": "facepunch.flatgrass",
           "NoOrigin": true,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
           "UseMapFromLaunch": true
         }
       ],
@@ -54,6 +71,7 @@
             {
               "__type": "Sandbox.SkyBox2D",
               "__guid": "7f898c15-4d83-46b4-ad22-362d1936f026",
+              "SkyIndirectLighting": true,
               "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
               "Tint": "1,1,1,1"
             },
@@ -69,6 +87,7 @@
               "Feathering": 0.02,
               "FrameInterval": 5,
               "MaxDistance": 512,
+              "MultiBounce": false,
               "Projection": "Sphere",
               "RenderDynamically": false,
               "TintColor": "1,1,1,1",
@@ -89,8 +108,15 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "6dd1575c-7bea-47a4-9132-80fde582c978",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "MaterialOverride": "materials/default.vmat",
               "Model": "models/dev/plane.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "0.39546,0.51163,0.27128,1"
             },
@@ -100,7 +126,8 @@
               "Center": "0,0,-5",
               "IsTrigger": false,
               "Scale": "100,100,10",
-              "Static": false
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             }
           ]
         },
@@ -117,8 +144,15 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "a223f448-a475-42c5-960e-e991b8441229",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "MaterialOverride": "materials/default.vmat",
               "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1"
             },
@@ -128,7 +162,8 @@
               "Center": "0,0,0",
               "IsTrigger": false,
               "Scale": "50,50,50",
-              "Static": false
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.Rigidbody",
@@ -159,8 +194,15 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "138bae94-f70e-4e32-8839-22f396b33944",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "MaterialOverride": "materials/default.vmat",
               "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1"
             },
@@ -170,7 +212,8 @@
               "Center": "0,0,0",
               "IsTrigger": false,
               "Scale": "50,50,50",
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.Rigidbody",
@@ -201,8 +244,15 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "58f78879-2d53-4370-af9a-4bfd79d1e7df",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "MaterialOverride": "materials/default.vmat",
               "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1"
             },
@@ -212,7 +262,8 @@
               "Center": "0,0,0",
               "IsTrigger": false,
               "Scale": "50,50,50",
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.Rigidbody",
@@ -243,8 +294,15 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "c5d74743-e4fa-4813-8f08-d19bd66341fb",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "MaterialOverride": "materials/default.vmat",
               "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1"
             },
@@ -254,7 +312,8 @@
               "Center": "0,0,0",
               "IsTrigger": false,
               "Scale": "50,50,50",
-              "Static": true
+              "Static": true,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.Rigidbody",
@@ -285,8 +344,15 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "a9ef2bf2-01d1-40b9-bd96-5f01783281c2",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "MaterialOverride": "materials/default.vmat",
               "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1"
             },
@@ -296,7 +362,8 @@
               "Center": "0,0,0",
               "IsTrigger": false,
               "Scale": "50,50,50",
-              "Static": false
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.Rigidbody",
@@ -327,8 +394,15 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "18bbef80-4357-4f24-a2df-108ee23a6000",
               "BodyGroups": 18446744073709551615,
+              "CreateAttachments": false,
               "MaterialOverride": "materials/default.vmat",
               "Model": "models/dev/box.vmdl",
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
               "RenderType": "On",
               "Tint": "1,1,1,1"
             },
@@ -338,7 +412,8 @@
               "Center": "0,0,0",
               "IsTrigger": false,
               "Scale": "50,50,50",
-              "Static": false
+              "Static": false,
+              "SurfaceVelocity": "0,0,0"
             },
             {
               "__type": "Sandbox.Rigidbody",
@@ -366,6 +441,7 @@
       "Enabled": true,
       "NetworkMode": 1,
       "NetworkInterpolation": false,
+      "NetworkOrphaned": 1,
       "Components": [
         {
           "__type": "SWB.Base.WeaponRegistry",
@@ -440,7 +516,6 @@
           "__guid": "6cb541bc-26e0-4bf8-9c45-9a62a51f8cb8",
           "Flags": 0,
           "Name": "swb_colt",
-          "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
           "__Prefab": "prefabs/weapons/colt.prefab",
@@ -450,7 +525,6 @@
           "__guid": "afe0261e-c31a-45ed-b212-376c2d2487a3",
           "Flags": 0,
           "Name": "swb_l96a1",
-          "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
           "__Prefab": "prefabs/weapons/l96a1.prefab",
@@ -460,7 +534,6 @@
           "__guid": "afc74f6d-c320-4154-9310-9223ac21c752",
           "Flags": 0,
           "Name": "swb_remington870",
-          "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
           "__Prefab": "prefabs/weapons/remington870.prefab",
@@ -470,7 +543,6 @@
           "__guid": "969eab4e-a34b-423f-86b3-3342ca4f7ce5",
           "Flags": 0,
           "Name": "swb_revolver",
-          "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
           "__Prefab": "prefabs/weapons/revolver.prefab",
@@ -480,7 +552,6 @@
           "__guid": "907a381c-07ce-418b-8bab-70346f931b91",
           "Flags": 0,
           "Name": "swb_scarh",
-          "Position": "0,0,0",
           "Tags": "weapon",
           "Enabled": true,
           "__Prefab": "prefabs/weapons/scarh.prefab",
@@ -490,7 +561,6 @@
           "__guid": "8bf6f334-dca8-4129-9821-c513a9997166",
           "Flags": 0,
           "Name": "swb_veresk",
-          "Position": "0,0,0",
           "Rotation": "0,0.7071068,0,0.7071068",
           "Tags": "weapon",
           "Enabled": true,
@@ -505,9 +575,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 60,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "minimal"
+    },
     "NavMesh": {
       "Enabled": false,
       "IncludeStaticBodies": true,
@@ -521,9 +595,9 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "minimal",
-  "Description": "",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }
