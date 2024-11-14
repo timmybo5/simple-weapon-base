@@ -27,10 +27,10 @@ public class Hitmarker : Panel
 		{
 			Parent = parent;
 
-			Panel leftTopBar = Add.Panel( "leftTopBar" );
-			Panel lefBottomBar = Add.Panel( "leftBottomBar" );
-			Panel rightTopBar = Add.Panel( "rightTopBar" );
-			Panel rightBottomBar = Add.Panel( "rightBottomBar" );
+			var leftTopBar = Add.Panel( "leftTopBar" );
+			var lefBottomBar = Add.Panel( "leftBottomBar" );
+			var rightTopBar = Add.Panel( "rightTopBar" );
+			var rightBottomBar = Add.Panel( "rightBottomBar" );
 
 			string sharedStyling = isKill ? "sharedBarStylingKill" : "sharedBarStyling";
 			leftTopBar.AddClass( sharedStyling );

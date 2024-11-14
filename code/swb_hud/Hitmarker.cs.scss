@@ -1,3 +1,5 @@
+$scale: 2;
+
 hitmarker {
     position: absolute;
     left: 50%;
@@ -9,7 +11,7 @@ hitmarker {
 
     marker {
         opacity: 1;
-        transition: all 0.2s ease-in 0s;
+        transition: opacity 0.2s ease-in 0s;
 
         .leftTopBar {
             top: -10px;
@@ -17,6 +19,10 @@ hitmarker {
             width: 10px;
             height: 1px;
             transform: rotate(45deg);
+
+            &:intro {
+                transform: scale($scale) rotate(45deg);
+            }
         }
 
         .leftBottomBar {
@@ -25,34 +31,48 @@ hitmarker {
             width: 10px;
             height: 1px;
             transform: rotate(-45deg);
+
+            &:intro {
+                transform: scale($scale) rotate(-45deg);
+            }
         }
 
-        .RightTopBar {
+        .rightTopBar {
             top: -10px;
             left: 6px;
             width: 10px;
             height: 1px;
             transform: rotate(-45deg);
+
+            &:intro {
+                transform: scale($scale) rotate(-45deg);
+            }
         }
 
-        .RightBottomBar {
+        .rightBottomBar {
             top: 10px;
             left: 6px;
             width: 10px;
             height: 1px;
             transform: rotate(45deg);
+
+            &:intro {
+                transform: scale($scale) rotate(45deg);
+            }
         }
 
         .sharedBarStyling {
             position: absolute;
             background-color: white;
             box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease-out 0s;
         }
 
         .sharedBarStylingKill {
             position: absolute;
             background-color: #DC143C;
             box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease-out 0s;
         }
     }
 }
