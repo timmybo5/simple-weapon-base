@@ -25,6 +25,13 @@ public partial class Weapon : Component, IInventoryItem
 		Settings = WeaponSettings.Instance;
 		InitialPrimaryStats = StatsModifier.FromShootInfo( Primary );
 		InitialSecondaryStats = StatsModifier.FromShootInfo( Primary );
+
+		// Hide weapon object until postion is set when creating world model
+		if ( !IsProxy )
+		{
+			WorldPosition = new( 0, 0, -999999 );
+			Network.ClearInterpolation();
+		}
 	}
 
 	protected override void OnDestroy()
@@ -253,14 +260,13 @@ public partial class Weapon : Component, IInventoryItem
 
 		if ( WorldModel is not null && WorldModelRenderer is null )
 		{
-			WorldModelRenderer = Components.Create<SkinnedModelRenderer>( false );
+			WorldModelRenderer = Components.Create<SkinnedModelRenderer>();
 			WorldModelRenderer.Model = WorldModel;
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
 
 			var bodyRenderer = Owner.Body.Components.Get<SkinnedModelRenderer>();
 			ModelUtil.ParentToBone( GameObject, bodyRenderer, "hold_R" );
-			WorldModelRenderer.Enabled = true;
 		}
 	}
 

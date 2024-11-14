@@ -17,5 +17,6 @@ public class ModelUtil
 		gameObject.SetParent( holdBoneGO );
 		gameObject.WorldPosition = holdBoneGO.WorldPosition;
 		gameObject.WorldRotation = holdBoneGO.WorldRotation;
+		gameObject.Transform.ClearInterpolation();
 	}
 }
