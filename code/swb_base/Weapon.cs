@@ -26,7 +26,7 @@ public partial class Weapon : Component, IInventoryItem
 		InitialPrimaryStats = StatsModifier.FromShootInfo( Primary );
 		InitialSecondaryStats = StatsModifier.FromShootInfo( Primary );
 
-		// Hack: Hide weapon object until postion is set when creating world model
+		// Hack: Hide weapon object until position is set when creating world model
 		if ( !IsProxy )
 		{
 			WorldPosition = new( 0, 0, -999999 );
