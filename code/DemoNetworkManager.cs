@@ -1,4 +1,3 @@
-using Sandbox.Network;
 using System.Threading.Tasks;
 
 namespace SWB.Demo;
@@ -11,10 +10,8 @@ public class DemoNetworkManager : Component, Component.INetworkListener
 
 	protected override Task OnLoad()
 	{
-		if ( !GameNetworkSystem.IsActive )
-		{
-			GameNetworkSystem.CreateLobby();
-		}
+		if ( !Networking.IsActive )
+			Networking.CreateLobby( new() );
 
 		return base.OnLoad();
 	}

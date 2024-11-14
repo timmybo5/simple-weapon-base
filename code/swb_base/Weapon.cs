@@ -253,14 +253,14 @@ public partial class Weapon : Component, IInventoryItem
 
 		if ( WorldModel is not null && WorldModelRenderer is null )
 		{
-			WorldModelRenderer = Components.Create<SkinnedModelRenderer>();
+			WorldModelRenderer = Components.Create<SkinnedModelRenderer>( false );
 			WorldModelRenderer.Model = WorldModel;
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
 
 			var bodyRenderer = Owner.Body.Components.Get<SkinnedModelRenderer>();
 			ModelUtil.ParentToBone( GameObject, bodyRenderer, "hold_R" );
-			Network.ClearInterpolation();
+			WorldModelRenderer.Enabled = true;
 		}
 	}
 

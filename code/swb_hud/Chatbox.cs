@@ -63,13 +63,13 @@ public class Chatbox : Panel
 		if ( sender is null ) return;
 
 		var msgP = history.Add.Panel( "msgWrapper" );
-		msgP.Add.Label( sender.Network.OwnerConnection.DisplayName + ":", "name " + (!sender.IsProxy ? "self" : "") );
+		msgP.Add.Label( sender.Network.Owner.DisplayName + ":", "name " + (!sender.IsProxy ? "self" : "") );
 		msgP.Add.Label( msg, "msg" );
 
 		AsyncMessageHide( msgP, 5000 );
 		AsyncScrollToBottom( 1 );
 
-		Log.Info( sender.Network.OwnerConnection.DisplayName + ": " + msg );
+		Log.Info( sender.Network.Owner.DisplayName + ": " + msg );
 	}
 
 	async void AsyncScrollToBottom( int delay )

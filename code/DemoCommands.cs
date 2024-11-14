@@ -16,7 +16,7 @@ internal class DemoCommands
 	public static void Respawn()
 	{
 		var player = PlayerBase.GetLocal();
-		if ( !player.Network.OwnerConnection.IsHost ) return;
+		if ( !player.Network.Owner.IsHost ) return;
 		player?.Respawn();
 	}
 
@@ -24,7 +24,7 @@ internal class DemoCommands
 	public static void GodMode()
 	{
 		var player = PlayerBase.GetLocal();
-		if ( !player.Network.OwnerConnection.IsHost ) return;
+		if ( !player.Network.Owner.IsHost ) return;
 		player.GodMode = !player.GodMode;
 		Log.Info( (player.GodMode ? "Enabled" : "Disabled") + " Godmode" );
 	}
@@ -40,7 +40,7 @@ internal class DemoCommands
 	public static void Bot()
 	{
 		var player = PlayerBase.GetLocal();
-		if ( !player.Network.OwnerConnection.IsHost ) return;
+		if ( !player.Network.Owner.IsHost ) return;
 
 		var networkManager = Game.ActiveScene.Components.Get<DemoNetworkManager>( FindMode.EnabledInSelfAndChildren );
 		var botGO = networkManager.PlayerPrefab.Clone();
