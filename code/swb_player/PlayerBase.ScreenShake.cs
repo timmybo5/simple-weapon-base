@@ -24,8 +24,8 @@ public partial class PlayerBase
 			var randomPos = new Vector3( random.Float( 0, lastScreenShake.Size ), random.Float( 0, lastScreenShake.Size ), random.Float( 0, lastScreenShake.Size ) );
 			var randomRot = new Angles( random.Float( 0, lastScreenShake.Rotation ), random.Float( 0, lastScreenShake.Rotation ), 0 );
 
-			cameraMovement.AnglesOffset += randomRot;
-			cameraMovement.PosOffset += randomPos;
+			CameraMovement.AnglesOffset += randomRot;
+			CameraMovement.PosOffset += randomPos;
 			nextShake = timeSinceShake + lastScreenShake.Delay;
 		}
 	}

@@ -115,14 +115,14 @@ public abstract class Attachment : Component, IComparable<Attachment>
 
 		if ( isViewModel )
 		{
-			attachmentRenderer.Transform.Scale = ViewModelScale;
+			attachmentRenderer.WorldScale = ViewModelScale;
 			ViewModelRenderer = attachmentRenderer;
 			attachmentGO.Flags |= GameObjectFlags.NotNetworked;
 			ModelUtil.ParentToBone( attachmentGO, Weapon.ViewModelRenderer, Bone );
 		}
 		else
 		{
-			attachmentRenderer.Transform.Scale = WorldModelScale;
+			attachmentRenderer.WorldScale = WorldModelScale;
 			WorldModelRenderer = attachmentRenderer;
 			ModelUtil.ParentToBone( attachmentGO, Weapon.WorldModelRenderer, Bone );
 		}

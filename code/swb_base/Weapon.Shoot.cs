@@ -255,9 +255,11 @@ public partial class Weapon
 				var decalEntry = Game.Random.FromList( decalDef.Decals );
 
 				var gameObject = Scene.CreateObject();
+				gameObject.Name = "Bullet Decal";
 				//gameObject.SetParent( tr.GameObject, false );
-				gameObject.Transform.Position = tr.HitPosition;
-				gameObject.Transform.Rotation = Rotation.LookAt( -tr.Normal );
+				gameObject.WorldPosition = tr.HitPosition;
+				gameObject.WorldRotation = Rotation.LookAt( -tr.Normal );
+				gameObject.NetworkMode = NetworkMode.Never;
 
 				var decalRenderer = gameObject.Components.Create<DecalRenderer>();
 				decalRenderer.Material = decalEntry.Material;

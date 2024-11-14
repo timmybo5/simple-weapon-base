@@ -73,8 +73,8 @@ public class ViewModelHandler : Component
 		if ( !player.IsFirstPerson ) return;
 
 		// For particles & lighting
-		Camera.Transform.Position = Scene.Camera.Transform.Position;
-		Camera.Transform.Rotation = Scene.Camera.Transform.Rotation;
+		Camera.WorldPosition = Scene.Camera.WorldPosition;
+		Camera.WorldRotation = Scene.Camera.WorldRotation;
 
 		if ( targetWeaponFOV == -1 )
 		{
@@ -84,8 +84,8 @@ public class ViewModelHandler : Component
 			finalWeaponFOV = Weapon.FOV;
 		}
 
-		Transform.Position = Camera.Transform.Position;
-		Transform.Rotation = Camera.Transform.Rotation;
+		WorldPosition = Camera.WorldPosition;
+		WorldRotation = Camera.WorldRotation;
 
 		// Smoothly transition the vectors with the target values
 		finalVectorPos = finalVectorPos.LerpTo( targetVectorPos, animSpeed * RealTime.Delta );
@@ -95,9 +95,9 @@ public class ViewModelHandler : Component
 		animSpeed = 10 * Weapon.AnimSpeed;
 
 		// Change the angles and positions of the viewmodel with the new vectors
-		Transform.Rotation *= Rotation.From( finalVectorRot.x, finalVectorRot.y, finalVectorRot.z );
+		WorldRotation *= Rotation.From( finalVectorRot.x, finalVectorRot.y, finalVectorRot.z );
 		// Position has to be set after rotation!
-		Transform.Position += finalVectorPos.z * Transform.Rotation.Up + finalVectorPos.y * Transform.Rotation.Forward + finalVectorPos.x * Transform.Rotation.Right;
+		WorldPosition += finalVectorPos.z * WorldRotation.Up + finalVectorPos.y * WorldRotation.Forward + finalVectorPos.x * WorldRotation.Right;
 		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
 		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
 
@@ -207,10 +207,10 @@ public class ViewModelHandler : Component
 			swayspeed = 20;
 
 		// Lerp the eye position
-		lastEyeRot = Rotation.Lerp( lastEyeRot, player.Camera.Transform.Rotation, swayspeed * RealTime.Delta );
+		lastEyeRot = Rotation.Lerp( lastEyeRot, player.Camera.WorldRotation, swayspeed * RealTime.Delta );
 
 		// Calculate the difference between our current eye angles and old (lerped) eye angles
-		var angDif = player.Camera.Transform.Rotation.Angles() - lastEyeRot.Angles();
+		var angDif = player.Camera.WorldRotation.Angles() - lastEyeRot.Angles();
 		angDif = new Angles( angDif.pitch, MathX.RadianToDegree( MathF.Atan2( MathF.Sin( MathX.DegreeToRadian( angDif.yaw ) ), MathF.Cos( MathX.DegreeToRadian( angDif.yaw ) ) ) ), 0 );
 
 		// Perform sway

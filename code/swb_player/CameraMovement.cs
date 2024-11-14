@@ -4,7 +4,7 @@ namespace SWB.Player;
 
 [Group( "SWB" )]
 [Title( "CameraMovement" )]
-public class CameraMovement : Component
+public class CameraMovement : Component, ICameraMovement
 {
 	[Property] public float Distance { get; set; } = 0f;
 	[Property] public PlayerBase Player { get; set; }
@@ -13,14 +13,20 @@ public class CameraMovement : Component
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
 	public float InputSensitivity { get; set; } = 1f;
 
-	// Eye Offset (resets after applying)
+	// <summary> Eye Offset (resets after applying)
 	public Angles EyeAnglesOffset { get; set; }
 
 	// Camera Offsets (resets after applying)
 	public Angles AnglesOffset { get; set; }
 	public Vector3 PosOffset { get; set; }
 
-	public bool IsFirstPerson => Distance == 0f;
+	public bool IsFirstPerson
+	{
+		get
+		{
+			return Distance == 0f;
+		}
+	}
 
 	protected override void OnAwake() { }
 
