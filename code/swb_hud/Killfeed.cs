@@ -26,7 +26,7 @@ public class Killfeed : Panel
 		var attacker = attackerGO?.Components.Get<PlayerBase>();
 		var victimGO = Scene.Directory.FindByGuid( victimId );
 		var victim = victimGO?.Components.Get<PlayerBase>();
-		var weapon = WeaponRegistry.Instance?.GetWeapon( inflictor );
+		var weapon = WeaponRegistry.Instance?.Get( inflictor );
 		if ( attacker is null || victim is null || weapon is null ) return;
 
 		if ( ChildrenCount >= 10 )

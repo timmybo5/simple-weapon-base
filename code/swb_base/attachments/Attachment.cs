@@ -35,6 +35,9 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	/// <summary>Only 1 active attachment per category, this is also used to determine what effect attachment to overide</summary>
 	public virtual AttachmentCategory Category => AttachmentCategory.None;
 
+	/// <summary>The category name</summary>
+	public string CategoryName => Enum.GetName( Category );
+
 	/// <summary>List of positive attributes</summary>
 	public virtual string[] Positives => Array.Empty<string>();
 

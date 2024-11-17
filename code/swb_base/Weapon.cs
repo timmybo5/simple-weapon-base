@@ -24,7 +24,11 @@ public partial class Weapon : Component, IInventoryItem
 		Attachments = Components.GetAll<Attachment>( FindMode.EverythingInSelf ).OrderBy( att => att.Name ).ToList();
 		Settings = WeaponSettings.Instance;
 		InitialPrimaryStats = StatsModifier.FromShootInfo( Primary );
-		InitialSecondaryStats = StatsModifier.FromShootInfo( Primary );
+
+		if ( Secondary is not null )
+			InitialSecondaryStats = StatsModifier.FromShootInfo( Secondary );
+		else
+			InitialSecondaryStats = StatsModifier.Zero;
 
 		// Hack: Hide weapon object until position is set when creating world model
 		if ( !IsProxy )
@@ -212,7 +216,20 @@ public partial class Weapon : Component, IInventoryItem
 	{
 		if ( !IsProxy && WorldModelRenderer is not null )
 		{
-			WorldModelRenderer.RenderType = Owner.IsFirstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
+			var worldModelRenderType = Owner.IsFirstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
+			WorldModelRenderer.RenderType = worldModelRenderType;
+
+			// Attachments
+			Attachments.ForEach( ( att ) =>
+			{
+				if ( !att.Equipped ) return;
+
+				if ( att.ViewModelRenderer is not null )
+					att.ViewModelRenderer.Enabled = Owner.IsFirstPerson;
+
+				if ( att.WorldModelRenderer is not null )
+					att.WorldModelRenderer.RenderType = worldModelRenderType;
+			} );
 		}
 	}
 

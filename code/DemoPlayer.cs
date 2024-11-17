@@ -11,16 +11,15 @@ public class DemoPlayer : PlayerBase
 {
 	void GiveWeapon( string className, bool setActive = false )
 	{
-		var weaponGO = WeaponRegistry.Instance.Get( className );
+		var weapon = WeaponRegistry.Instance.Get( className );
 
-		if ( weaponGO is null )
+		if ( weapon is null )
 		{
 			Log.Error( $"[SWB Demo] {className} not found in WeaponRegistry!" );
 			return;
 		}
 
-		var weapon = weaponGO.Components.Get<Weapon>( true );
-		Inventory.AddClone( weaponGO, setActive );
+		Inventory.AddClone( weapon.GameObject, setActive );
 		SetAmmo( weapon.Primary.AmmoType, 360 );
 	}
 

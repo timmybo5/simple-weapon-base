@@ -6,13 +6,12 @@ namespace SWB.Base;
  * Attach this component somewhere in the root of your scene.
  * Register all weapons that you want to use in here
  */
-
 [Group( "SWB" )]
 [Title( "Weapon Registry" )]
 public class WeaponRegistry : Component
 {
 	[Property] public List<PrefabScene> WeaponPrefabs { get; set; } = new();
-	public Dictionary<string, GameObject> Weapons { get; set; } = new();
+	public Dictionary<string, Weapon> Weapons { get; set; } = new();
 
 	static public WeaponRegistry Instance
 	{
@@ -26,30 +25,29 @@ public class WeaponRegistry : Component
 	{
 		WeaponPrefabs.ForEach( weaponPrefab =>
 		{
-			var weaponGO = weaponPrefab.Clone();
+			CloneConfig config = new()
+			{
+				StartEnabled = false
+			};
+
+			var weaponGO = weaponPrefab.Clone( config );
 			weaponGO.SetParent( this.GameObject );
-			weaponGO.Enabled = false;
+
+			// Makes it so we can clone this with additional components added at runtime
+			weaponGO.BreakFromPrefab();
 
 			var weapon = weaponGO.Components.Get<Weapon>( true );
-			Weapons.TryAdd( weapon.ClassName, weaponGO );
+			Weapons.TryAdd( weapon.ClassName, weapon );
 
 			weaponGO.Name = weapon.ClassName;
 		} );
 	}
 
-	public GameObject Get( string className )
+	public Weapon Get( string className )
 	{
 		if ( className is null ) return null;
 
-		Weapons.TryGetValue( className, out var weaponGO );
-		return weaponGO;
-	}
-
-	public Weapon GetWeapon( string className )
-	{
-		var weaponGO = Get( className );
-		if ( weaponGO is null ) return null;
-
-		return weaponGO.Components.Get<Weapon>( true );
+		Weapons.TryGetValue( className, out var weapon );
+		return weapon;
 	}
 }

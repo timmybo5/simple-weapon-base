@@ -34,8 +34,8 @@ public class Inventory : Component, IInventory
 
 	public GameObject AddClone( GameObject gamePrefab, bool makeActive = true )
 	{
-		var gameObject = gamePrefab.Clone( player.GameObject, player.WorldPosition, player.WorldRotation, Vector3.One );
-		gameObject.Name = gamePrefab.Name;
+		CloneConfig config = new( player.WorldTransform, player.GameObject, false, gamePrefab.Name );
+		var gameObject = gamePrefab.Clone( config );
 		gameObject.NetworkSpawn( player.Network.Owner );
 
 		Add( gameObject, makeActive );

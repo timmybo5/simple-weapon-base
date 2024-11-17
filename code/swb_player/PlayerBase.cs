@@ -95,13 +95,13 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		{
 			var attacker = attackerGO.Components.Get<PlayerBase>();
 
-			if ( attacker is not null )
-				attacker.Kills += 1;
+			if ( attacker is not null && attacker != this )
+				attacker.Kills++;
 		}
 
 		if ( IsProxy ) return;
 
-		Deaths += 1;
+		Deaths++;
 		CharacterController.Velocity = 0;
 		Ragdoll( info.Force, info.Origin );
 		Inventory.Clear();

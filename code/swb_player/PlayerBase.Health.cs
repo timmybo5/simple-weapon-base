@@ -26,7 +26,7 @@ public partial class PlayerBase
 		Health -= (int)info.Damage;
 
 		// Flinch
-		var weapon = WeaponRegistry.Instance.GetWeapon( info.Inflictor );
+		var weapon = WeaponRegistry.Instance.Get( info.Inflictor );
 		if ( weapon is not null )
 			DoHitFlinch( weapon.Primary.HitFlinch );
 
