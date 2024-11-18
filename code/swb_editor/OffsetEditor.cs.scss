@@ -67,19 +67,11 @@ OffsetEditor {
         border-radius: 4px;
         color: white;
 
-        label {
-            text-align: center;
-        }
-
         .title {
             font-size: 50px;
             height: 75px;
             text-align: center;
             margin-bottom: 10px;
-
-            label {
-                width: 100%;
-            }
         }
 
         .subTitle {
@@ -87,10 +79,6 @@ OffsetEditor {
             margin: 20px 0 10px 0;
             width: 100%;
             text-align: center;
-
-            label {
-                width: 100%;
-            }
         }
 
         button {
@@ -102,17 +90,17 @@ OffsetEditor {
             border: 2px;
             height: 30px;
             border-color: transparent;
+            border-width: 1px;
             border-radius: 4px;
             align-items: center;
 
-            label {
+            & > label {
                 width: 100%;
                 font-size: 18px;
                 font-weight: bold;
-                transition: font-size 0.05s ease-in-out;
 
                 &:active {
-                    font-size: 24px;
+                    font-size: 20px;
                 }
             }
 

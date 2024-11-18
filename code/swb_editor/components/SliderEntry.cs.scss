@@ -10,10 +10,15 @@
         align-items: center;
         height: 30px;
         width: 60px;
-        border-radius: 12px;
+        border-radius: 4px;
         margin-right: 10px;
         background-color: rgba( black, 0.5 );
         color: white;
+        padding: 4px;
         font-size: 14px;
+
+        & > label {
+            flex-grow: 0;
+        }
     }
 }
