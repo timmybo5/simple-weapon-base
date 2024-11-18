@@ -13,7 +13,9 @@ public class SniperScope : Panel
 	Panel lensWrapper;
 	Panel scope;
 
+	float lensBob;
 	float lensRotation;
+	bool wasInAir;
 
 	public SniperScope( Weapon weapon, string lensTexture, string scopeTexture )
 	{
@@ -55,18 +57,23 @@ public class SniperScope : Panel
 		// Movement impact
 		var velocityJump = player.Velocity.z * 0.02f;
 		var velocityMove = (Math.Abs( player.Velocity.y ) + Math.Abs( player.Velocity.x )) * 0.005f;
-		var lensBob = 0f;
+		var targetBob = 0f;
 
 		if ( velocityJump != 0 )
 		{
-			lensBob += velocityJump;
+			targetBob += velocityJump * 2;
 		}
 		else if ( velocityMove != 0 )
 		{
-			lensBob += MathF.Sin( RealTime.Now * 17f ) * velocityMove;
+			targetBob += MathF.Sin( RealTime.Now * 17f ) * velocityMove * 2;
 		}
 
-		Style.MarginTop = Length.Percent( velocityJump + lensBob );
+		if ( wasInAir && player.IsOnGround )
+			lensBob = 40;
+
+		lensBob = MathUtil.FILerp( lensBob, targetBob, 10 );
+		Style.MarginTop = Length.Percent( lensBob );
+		wasInAir = !player.IsOnGround;
 
 		if ( scope == null ) return;
 
