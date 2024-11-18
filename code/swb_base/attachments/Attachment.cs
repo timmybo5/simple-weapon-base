@@ -112,7 +112,8 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		var attachmentGO = new GameObject( true, "Attachment" );
 		attachmentGO.Tags.Add( TagsHelper.Attachment );
 
-		var attachmentRenderer = attachmentGO.Components.Create<SkinnedModelRenderer>();
+		// Hack: Setting to false fixes shaders not working correctly
+		var attachmentRenderer = attachmentGO.Components.Create<SkinnedModelRenderer>( false );
 		attachmentRenderer.Model = Model.Load( ModelPath );
 		attachmentRenderer.Enabled = true;
 
