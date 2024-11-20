@@ -271,7 +271,7 @@
 						source_filename = "weapons/swb/colt/models/colt.fbx"
 						start_frame = -1
 						end_frame = -1
-						framerate = 24.0
+						framerate = -1.0
 						take = 2
 						reverse = false
 					},
