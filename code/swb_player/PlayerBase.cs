@@ -186,7 +186,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public static PlayerBase GetLocal()
 	{
 		var players = GetAll();
-		return players.First( ( player ) => !player.IsProxy && !player.IsBot );
+		return players.FirstOrDefault( ( player ) => !player.IsProxy && !player.IsBot, null );
 	}
 
 	public static IEnumerable<PlayerBase> GetAll()

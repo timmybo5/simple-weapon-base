@@ -52,6 +52,8 @@ public class DemoPlayer : PlayerBase
 		base.OnDeath( info );
 
 		var localPly = PlayerBase.GetLocal();
+		if ( localPly is null ) return;
+
 		var display = localPly.RootDisplay as RootDisplay;
 		display.AddToKillFeed( info.AttackerId, GameObject.Id, info.Inflictor );
 
@@ -69,7 +71,7 @@ public class DemoPlayer : PlayerBase
 
 		// Attacker only
 		var localPly = PlayerBase.GetLocal();
-		if ( !localPly.IsAlive || localPly.GameObject.Id != info.AttackerId ) return;
+		if ( localPly is null || !localPly.IsAlive || localPly.GameObject.Id != info.AttackerId ) return;
 
 		var display = localPly.RootDisplay as RootDisplay;
 		display.CreateHitmarker( Health <= 0 );

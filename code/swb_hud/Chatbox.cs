@@ -103,6 +103,8 @@ public class Chatbox : Panel
 	public static void SendMsg( Guid senderId, string msg )
 	{
 		var player = PlayerBase.GetLocal();
+		if ( player is null ) return;
+
 		var rootDisplay = player.RootDisplay as RootDisplay;
 		rootDisplay.AddChatEntry( senderId, msg );
 	}
