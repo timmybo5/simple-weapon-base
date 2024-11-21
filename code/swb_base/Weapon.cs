@@ -122,6 +122,16 @@ public partial class Weapon : Component, IInventoryItem
 		Owner = Components.GetInAncestors<IPlayerBase>();
 		CreateModels();
 
+		// Attachments (enabled via property)
+		if ( !IsProxy )
+		{
+			Attachments.ForEach( att =>
+			{
+				if ( att.Enable && !att.Equipped )
+					att.EquipBroadCast();
+			} );
+		}
+
 		// Attachments (load for clients joining late)
 		if ( IsProxy )
 		{

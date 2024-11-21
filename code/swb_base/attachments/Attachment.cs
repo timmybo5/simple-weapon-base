@@ -59,6 +59,9 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	/// <summary>Hide this attachment in menus</summary>
 	public virtual bool Hide { get; set; } = false;
 
+	/// <summary>Equip this attachment by default (Only 1 attachment per category can be enabled by default!)</summary>
+	[Property] public bool Enable { get; set; }
+
 	/// <summary>Depends on another attachment (e.g. rail/mount)</summary>
 	[Property] public Attachment RequiresAttachment { get; set; }
 
