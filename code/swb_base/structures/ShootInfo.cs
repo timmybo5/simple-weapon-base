@@ -75,6 +75,10 @@ public class ShootInfo : Component
 
 	/// <summary>Weapon firing type</summary>
 	[Property, Group( "Bullets" )] public FiringType FiringType { get; set; } = FiringType.semi;
+ 
+ 	[Property, Group( "Bullets" )] public float BulletSpeed { get; set; } = 4000f;
+  
+	[Property, Group( "Bullets" )] public float BulletRange { get; set; } = 30000f;
 
 	// Animations //
 
