@@ -130,7 +130,7 @@ public partial class Weapon
 	public virtual SceneTraceResult TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
 	{
 		var startsInWater = SurfaceUtil.IsPointWater( start );
-		List<string> withoutTags = new() { TagsHelper.Trigger, TagsHelper.PlayerClip, TagsHelper.PassBullets, TagsHelper.ViewModel };
+		var withoutTags = new List<string>() { TagsHelper.Trigger, TagsHelper.PlayerClip, TagsHelper.PassBullets, TagsHelper.ViewModel };
 
 		if ( startsInWater )
 			withoutTags.Add( TagsHelper.Water );

@@ -24,6 +24,14 @@
         "BoltBackTime": 0,
         "BulletCocking": false,
         "ClassName": "swb_revolver",
+        "CrosshairSettings": {
+          "Enabled": true,
+          "ShowDot": true,
+          "ShowTop": false,
+          "ShowBottom": true,
+          "ShowLeft": true,
+          "ShowRight": true
+        },
         "CustomizeAnimData": {
           "Angle": "1.41,28.92,10",
           "Pos": "6.04,0,2.198"
@@ -55,6 +63,8 @@
           "LensTexture": "/materials/swb/scopes/swb_lens_hunter.png",
           "ScopeTexture": "/materials/swb/scopes/swb_scope_hunter.png",
           "ScopeInDelay": 0.2,
+          "ScopeInSound": null,
+          "ScopeOutSound": null,
           "FOV": 8,
           "AimSensitivity": 0.25
         },
@@ -107,8 +117,10 @@
         "__type": "SWB.Demo.HunterScope2DBG",
         "__guid": "e5c9fac6-4117-4efc-8242-35e489be5465",
         "AimAnimData": {
+          "Angle": "0,0,0",
           "Pos": "-2.85,-4.46,-0.584"
         },
+        "Enable": false,
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -122,6 +134,7 @@
         "AimFOV": -1,
         "AimInFOVSpeed": -1,
         "AimOutFOVSpeed": -1,
+        "Enable": false,
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -129,17 +142,42 @@
         "__type": "SWB.Demo.PistolSilencerBG",
         "__guid": "428f8cbb-3538-42a2-b2c2-c48ecdf4483e",
         "EffectAttachmentOrBone": "muzzle_silenced",
+        "Enable": false,
         "ShootSound": "sounds/swb/attachments/silencer/swb_heavy.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       }
     ],
     "Children": [],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

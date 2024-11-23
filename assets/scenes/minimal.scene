@@ -171,7 +171,14 @@
               "AngularDamping": 0,
               "Gravity": true,
               "LinearDamping": 0,
-              "Locking": {},
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
@@ -221,7 +228,14 @@
               "AngularDamping": 0,
               "Gravity": false,
               "LinearDamping": 0,
-              "Locking": {},
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
@@ -271,7 +285,14 @@
               "AngularDamping": 0,
               "Gravity": false,
               "LinearDamping": 0,
-              "Locking": {},
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
@@ -321,7 +342,14 @@
               "AngularDamping": 0,
               "Gravity": false,
               "LinearDamping": 0,
-              "Locking": {},
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
@@ -371,7 +399,14 @@
               "AngularDamping": 0,
               "Gravity": true,
               "LinearDamping": 0,
-              "Locking": {},
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
@@ -421,7 +456,14 @@
               "AngularDamping": 0,
               "Gravity": true,
               "LinearDamping": 0,
-              "Locking": {},
+              "Locking": {
+                "X": false,
+                "Y": false,
+                "Z": false,
+                "Pitch": false,
+                "Yaw": false,
+                "Roll": false
+              },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
               "MotionEnabled": true,
@@ -599,6 +641,5 @@
   "Title": "minimal",
   "Description": null,
   "__references": [],
-  "HasUnsavedChanges": false,
   "__version": 2
 }

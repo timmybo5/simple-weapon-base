@@ -61,6 +61,13 @@ public partial class Weapon : Component, IInventoryItem
 		if ( ViewModelHandler is not null )
 			ViewModelHandler.ShouldDraw = false;
 
+		// Attachments
+		Attachments.ForEach( ( att ) =>
+		{
+			if ( att.Equipped && att.ViewModelRenderer is not null )
+				att.ViewModelRenderer.Enabled = false;
+		} );
+
 		IsReloading = false;
 		IsScoping = false;
 		IsAiming = false;
@@ -70,25 +77,25 @@ public partial class Weapon : Component, IInventoryItem
 	}
 
 	[Broadcast]
-	public void OnCarryStart()
+	public virtual void OnCarryStart()
 	{
 		if ( !IsValid ) return;
 		GameObject.Enabled = true;
 	}
 
 	[Broadcast]
-	public void OnCarryStop()
+	public virtual void OnCarryStop()
 	{
 		if ( !IsValid ) return;
 		GameObject.Enabled = false;
 	}
 
-	public bool CanCarryStop()
+	public virtual bool CanCarryStop()
 	{
 		return TimeSinceDeployed > 0;
 	}
 
-	public void OnDeploy()
+	public virtual void OnDeploy()
 	{
 		var delay = 0f;
 
@@ -109,8 +116,14 @@ public partial class Weapon : Component, IInventoryItem
 		if ( DeploySound is not null )
 			PlaySound( DeploySound.ResourceId );
 
-		// Start drawing
-		ViewModelHandler.ShouldDraw = true;
+		// Start drawing (We delay by 1 frame to allow the animation to start first)
+		async void ShouldDrawDelayed()
+		{
+			await GameTask.Delay( 1 );
+			if ( ViewModelHandler.IsValid() )
+				ViewModelHandler.ShouldDraw = true;
+		}
+		ShouldDrawDelayed();
 
 		// Boltback
 		if ( InBoltBack )
@@ -235,7 +248,7 @@ public partial class Weapon : Component, IInventoryItem
 				if ( !att.Equipped ) return;
 
 				if ( att.ViewModelRenderer is not null )
-					att.ViewModelRenderer.Enabled = Owner.IsFirstPerson;
+					att.ViewModelRenderer.Enabled = Owner.IsFirstPerson && ViewModelHandler.ShouldDraw;
 
 				if ( att.WorldModelRenderer is not null )
 					att.WorldModelRenderer.RenderType = worldModelRenderType;
@@ -298,13 +311,16 @@ public partial class Weapon : Component, IInventoryItem
 	}
 
 	// Temp fix until https://github.com/Facepunch/sbox-issues/issues/5247 is fixed
-	void ResetViewModelAnimations()
+	public virtual void ResetViewModelAnimations()
 	{
-		ViewModelRenderer?.Set( Primary.ShootAnim, false );
-		ViewModelRenderer?.Set( Primary.ShootEmptyAnim, false );
-		ViewModelRenderer?.Set( Primary.ShootAimedAnim, false );
+		if ( Primary.IsValid() )
+		{
+			ViewModelRenderer?.Set( Primary?.ShootAnim, false );
+			ViewModelRenderer?.Set( Primary?.ShootEmptyAnim, false );
+			ViewModelRenderer?.Set( Primary?.ShootAimedAnim, false );
+		}
 
-		if ( Secondary is not null )
+		if ( Secondary.IsValid() )
 		{
 			ViewModelRenderer?.Set( Secondary.ShootAnim, false );
 			ViewModelRenderer?.Set( Secondary.ShootEmptyAnim, false );
@@ -318,7 +334,7 @@ public partial class Weapon : Component, IInventoryItem
 	}
 
 	[Broadcast]
-	void PlaySound( int resourceID )
+	public void PlaySound( int resourceID )
 	{
 		if ( !IsValid ) return;
 
