@@ -21,6 +21,10 @@ public class RootWeaponDisplay : PanelComponent
 
 		if ( Weapon.Scoping )
 		{
+			// Sight attachments should take care of their own scope hud elements
+			var attachment = Weapon.GetActiveAttachmentForCategory( Attachments.AttachmentCategory.Sight );
+			if ( attachment.IsValid() ) return;
+
 			var sniperScope = new SniperScope( Weapon, Weapon.ScopeInfo.LensTexture, Weapon.ScopeInfo.ScopeTexture );
 			Panel.AddChild( sniperScope );
 		}

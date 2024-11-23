@@ -19,6 +19,16 @@ public partial class Weapon
 		var rootPanel = Components.Create<RootWeaponDisplay>();
 		rootPanel.Weapon = this;
 		RootPanel = rootPanel;
+
+		// Attachments (HUD)
+		RootPanel.OnComponentStart += () =>
+		{
+			Attachments.ForEach( ( att ) =>
+			{
+				if ( att.Equipped && !att.CreatedUI )
+					att.CreateHudElements();
+			} );
+		};
 	}
 
 	public virtual void DestroyUI()

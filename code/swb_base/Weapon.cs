@@ -61,11 +61,17 @@ public partial class Weapon : Component, IInventoryItem
 		if ( ViewModelHandler is not null )
 			ViewModelHandler.ShouldDraw = false;
 
-		// Attachments
+		// Attachments (VM + HUD)
 		Attachments.ForEach( ( att ) =>
 		{
-			if ( att.Equipped && att.ViewModelRenderer is not null )
-				att.ViewModelRenderer.Enabled = false;
+			if ( att.Equipped )
+			{
+				if ( att.ViewModelRenderer is not null )
+					att.ViewModelRenderer.Enabled = false;
+
+				if ( att.CreatedUI )
+					att.DestroyHudElements();
+			}
 		} );
 
 		IsReloading = false;

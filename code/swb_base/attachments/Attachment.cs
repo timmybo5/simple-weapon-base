@@ -86,12 +86,13 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	/// <summary>If already equipped</summary>
 	[Sync] public bool Equipped { get; private set; }
 
+	public bool CreatedUI { get; private set; }
 	public Weapon Weapon { get; private set; }
 	public SkinnedModelRenderer ViewModelRenderer { get; private set; }
 	public SkinnedModelRenderer WorldModelRenderer { get; private set; }
 
-	private int equipTries = 0;
-	private bool equippedOnClient = false;
+	int equipTries = 0;
+	bool equippedOnClient = false;
 
 	protected override void OnAwake()
 	{
@@ -247,10 +248,16 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	public abstract void OnUnequip();
 
 	/// <summary>Gets called when the weapon is creating its HUD elements</summary>
-	public virtual void CreateHudElements() { }
+	public virtual void CreateHudElements()
+	{
+		CreatedUI = true;
+	}
 
 	/// <summary>Gets called when the weapon is destroying its HUD elements</summary>
-	public virtual void DestroyHudElements() { }
+	public virtual void DestroyHudElements()
+	{
+		CreatedUI = false;
+	}
 
 	public int CompareTo( Attachment obj )
 	{
