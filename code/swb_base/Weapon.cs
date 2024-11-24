@@ -138,7 +138,14 @@ public partial class Weapon : Component, IInventoryItem
 
 	protected override void OnStart()
 	{
-		Owner = Components.GetInAncestors<IPlayerBase>();
+		Owner = Components.GetInAncestors<IPlayerBase>( true );
+		if ( !Owner.IsValid() )
+		{
+			Log.Error( $"{ClassName} cannot find owner, destroying!" );
+			Destroy();
+			return;
+		}
+
 		CreateModels();
 
 		// Attachments (enabled via property)

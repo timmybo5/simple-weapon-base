@@ -1,4 +1,6 @@
-﻿namespace SWB.Player;
+﻿using SWB.Shared;
+
+namespace SWB.Player;
 
 public partial class PlayerBase
 {
@@ -11,6 +13,7 @@ public partial class PlayerBase
 	{
 		if ( !IsValid ) return;
 
+		Tags.Add( TagsHelper.DeadPlayer );
 		ToggleColliders( false );
 		RagdollPhysics.Enabled = true;
 		//Body.Tags.Add( TagsHelper.Trigger );
@@ -38,6 +41,7 @@ public partial class PlayerBase
 	{
 		if ( !IsValid || RagdollPhysics is null ) return;
 
+		Tags.Remove( TagsHelper.DeadPlayer );
 		RagdollPhysics.Renderer.LocalPosition = Vector3.Zero;
 		RagdollPhysics.Renderer.LocalRotation = Rotation.Identity;
 		RagdollPhysics.Enabled = false;
