@@ -45,7 +45,8 @@
         transition: all 0.1s ease-out 0s;
     }
 
-    & > .hideCrosshair {
+    & > .hideCrosshair,
+    &.hideCrosshair {
         display: none;
         box-shadow: none; // bug: still shows with display none
     }

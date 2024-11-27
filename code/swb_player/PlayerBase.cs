@@ -22,7 +22,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public ICameraMovement CameraMovement { get; set; }
 	public bool IsFirstPerson => CameraMovement.IsFirstPerson;
 	public string DisplayName => !IsBot ? (Network.Owner?.DisplayName ?? "Disconnected") : GameObject.Name;
-	public ulong SteamId => !IsBot ? Network.Owner.SteamId : 0;
+	public SteamId SteamId => !IsBot ? Network.Owner.SteamId : new( 0 );
 	public bool IsHost => !IsBot && Network.Owner.IsHost;
 	public bool IsSpeaking => Voice.Amplitude > 0;
 
@@ -83,6 +83,14 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 		if ( !IsProxy )
 			Respawn();
+	}
+
+	[Broadcast]
+	public void Kill()
+	{
+		if ( IsProxy ) return;
+		Health = 0;
+		OnDeath( new() { AttackerId = GameObject.Id } );
 	}
 
 	[Broadcast]
