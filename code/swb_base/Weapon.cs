@@ -82,14 +82,14 @@ public partial class Weapon : Component, IInventoryItem
 		DestroyUI();
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void OnCarryStart()
 	{
 		if ( !IsValid ) return;
 		GameObject.Enabled = true;
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void OnCarryStop()
 	{
 		if ( !IsValid ) return;
@@ -328,25 +328,25 @@ public partial class Weapon : Component, IInventoryItem
 	{
 		if ( Primary.IsValid() )
 		{
-			ViewModelRenderer?.Set( Primary?.ShootAnim, false );
-			ViewModelRenderer?.Set( Primary?.ShootEmptyAnim, false );
-			ViewModelRenderer?.Set( Primary?.ShootAimedAnim, false );
+			ViewModelRenderer?.Set( Primary.ShootAnim ?? "", false );
+			ViewModelRenderer?.Set( Primary.ShootEmptyAnim ?? "", false );
+			ViewModelRenderer?.Set( Primary.ShootAimedAnim ?? "", false );
 		}
 
 		if ( Secondary.IsValid() )
 		{
-			ViewModelRenderer?.Set( Secondary.ShootAnim, false );
-			ViewModelRenderer?.Set( Secondary.ShootEmptyAnim, false );
-			ViewModelRenderer?.Set( Secondary.ShootAimedAnim, false );
+			ViewModelRenderer?.Set( Secondary.ShootAnim ?? "", false );
+			ViewModelRenderer?.Set( Secondary.ShootEmptyAnim ?? "", false );
+			ViewModelRenderer?.Set( Secondary.ShootAimedAnim ?? "", false );
 		}
 
-		ViewModelRenderer?.Set( ReloadAnim, false );
-		ViewModelRenderer?.Set( ReloadEmptyAnim, false );
-		ViewModelRenderer?.Set( DrawAnim, false );
-		ViewModelRenderer?.Set( DrawEmptyAnim, false );
+		ViewModelRenderer?.Set( ReloadAnim ?? "", false );
+		ViewModelRenderer?.Set( ReloadEmptyAnim ?? "", false );
+		ViewModelRenderer?.Set( DrawAnim ?? "", false );
+		ViewModelRenderer?.Set( DrawEmptyAnim ?? "", false );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void PlaySound( int resourceID )
 	{
 		if ( !IsValid ) return;

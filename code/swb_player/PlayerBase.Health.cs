@@ -14,7 +14,7 @@ public partial class PlayerBase
 
 	public bool IsAlive => Health > 0;
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void TakeDamage( Shared.DamageInfo info )
 	{
 		if ( !IsValid || IsProxy || !IsAlive || GodMode )

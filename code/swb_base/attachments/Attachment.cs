@@ -145,7 +145,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	}
 
 	/// <summary>Equips the attachment for everyone</summary>
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void EquipBroadCast()
 	{
 		if ( !IsValid ) return;
@@ -206,7 +206,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	}
 
 	/// <summary>Unequips the attachment for everyone</summary>
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void UnEquipBroadCast()
 	{
 		if ( !IsValid ) return;

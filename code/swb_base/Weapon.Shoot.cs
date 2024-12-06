@@ -118,7 +118,7 @@ public partial class Weapon
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void ShootBullet( bool isPrimary, Vector3 spreadOffset )
 	{
 		if ( !IsValid ) return;
@@ -147,7 +147,7 @@ public partial class Weapon
 		return tr;
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void HandleShootEffects( bool isPrimary )
 	{
 		if ( !IsValid || Owner is null ) return;

@@ -116,7 +116,7 @@ public partial class Weapon
 		InBoltBack = false;
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void HandleReloadEffects()
 	{
 		// Player

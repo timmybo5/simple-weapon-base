@@ -99,7 +99,7 @@ public class Chatbox : Panel
 		SendMsg( player.GameObject.Id, msg );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public static void SendMsg( Guid senderId, string msg )
 	{
 		var player = PlayerBase.GetLocal();

@@ -85,15 +85,15 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			Respawn();
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void Kill()
 	{
-		if ( IsProxy ) return;
+		if ( IsProxy || !IsAlive ) return;
 		Health = 0;
 		OnDeath( new() { AttackerId = GameObject.Id } );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public virtual void OnDeath( Shared.DamageInfo info )
 	{
 		if ( !IsValid ) return;
@@ -122,13 +122,13 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		Respawn();
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void RespawnWithDelayBroadCast( float delay )
 	{
 		RespawnWithDelay( delay );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void RespawnBroadCast()
 	{
 		Respawn();
