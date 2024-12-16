@@ -129,7 +129,7 @@ public partial class Weapon
 	[Property, Group( "Scoping" )] public ScopeInfo ScopeInfo { get; set; } = new();
 
 	/// <summary>Primary attack data</summary>
-	[Property, Group( "Firing" ), Title( "Primary ShootInfo (component)" )] public ShootInfo Primary { get; set; } = new();
+	[Property, Group( "Firing" ), Title( "Primary ShootInfo (component)" ), RequireComponent] public ShootInfo Primary { get; set; }
 
 	/// <summary>Secondary attack data (setting this will disable weapon aiming)</summary>
 	[Property, Group( "Firing" ), Title( "Secondary ShootInfo (component)" )] public ShootInfo Secondary { get; set; }

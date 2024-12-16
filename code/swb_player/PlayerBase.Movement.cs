@@ -23,6 +23,7 @@ public partial class PlayerBase
 	public bool IsOnGround => CharacterController.IsOnGround;
 	public Vector3 Velocity => CharacterController.Velocity;
 	public Vector3 EyePos => Head.WorldPosition + EyeOffset;
+	public Angles EyeAnglesNormal => EyeAngles.Normal;
 
 	public CharacterController CharacterController { get; set; }
 	public CitizenAnimationHelper AnimationHelper { get; set; }

@@ -24,6 +24,14 @@
         "BoltBackTime": 0,
         "BulletCocking": true,
         "ClassName": "swb_veresk",
+        "CrosshairSettings": {
+          "Enabled": true,
+          "ShowDot": true,
+          "ShowTop": true,
+          "ShowBottom": true,
+          "ShowLeft": true,
+          "ShowRight": true
+        },
         "CustomizeAnimData": {
           "Angle": "-6.06,42.56,10",
           "Pos": "4.901,0,1.112"
@@ -55,6 +63,8 @@
           "LensTexture": "/materials/swb/scopes/swb_lens_hunter.png",
           "ScopeTexture": "/materials/swb/scopes/swb_scope_hunter.png",
           "ScopeInDelay": 0.2,
+          "ScopeInSound": null,
+          "ScopeOutSound": null,
           "FOV": 8,
           "AimSensitivity": 0.25
         },
@@ -114,6 +124,7 @@
         "AimFOV": -1,
         "AimInFOVSpeed": -1,
         "AimOutFOVSpeed": -1,
+        "Enable": false,
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -121,17 +132,42 @@
         "__type": "SWB.Demo.RifleSilencerBG",
         "__guid": "61e29911-7fb0-48d5-b660-fbc3e37f344e",
         "EffectAttachmentOrBone": "muzzle_silenced",
+        "Enable": false,
         "ShootSound": "sounds/swb/attachments/silencer/swb_smg.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       }
     ],
     "Children": [],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

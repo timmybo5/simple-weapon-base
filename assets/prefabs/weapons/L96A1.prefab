@@ -24,6 +24,14 @@
         "BoltBackTime": 1.6,
         "BulletCocking": false,
         "ClassName": "swb_l96a1",
+        "CrosshairSettings": {
+          "Enabled": true,
+          "ShowDot": true,
+          "ShowTop": true,
+          "ShowBottom": true,
+          "ShowLeft": true,
+          "ShowRight": true
+        },
         "CustomizeAnimData": {
           "Angle": "-1.38,45.26,12.34",
           "Pos": "7.78,-4.46,2.36"
@@ -56,6 +64,7 @@
           "ScopeTexture": "/materials/swb/scopes/swb_scope_hunter.png",
           "ScopeInDelay": 0.2,
           "ScopeInSound": "sounds/swb/scope/swb_sniper.zoom_in.sound",
+          "ScopeOutSound": null,
           "FOV": 8,
           "AimSensitivity": 0.25
         },
@@ -124,6 +133,7 @@
         "__type": "SWB.Demo.HunterScope2DBG",
         "__guid": "b06b304a-c267-41d9-b348-45d151f1f03f",
         "AimAnimData": {
+          "Angle": "0,0,0",
           "Pos": "-4.996,-4.46,0.223"
         },
         "Enable": true,
@@ -196,6 +206,5 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
-  "HasUnsavedChanges": false,
   "__version": 1
 }
