@@ -229,7 +229,7 @@ public partial class Weapon
 			if ( effectPath is not null )
 			{
 				// Surface def for flesh has wrong blood particle linked
-				if ( effectPath.Contains( "impact.flesh" ) )
+				if ( effectPath.Contains( "impact.flesh" ) || tr.Surface.ResourceName == "flesh" )
 				{
 					effectPath = "particles/impact.flesh.bloodpuff.vpcf";
 				}
