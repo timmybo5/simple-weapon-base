@@ -10,10 +10,10 @@
 public class WeaponSettings : Component
 {
 	/// <summary>Enable the weapon customization menu (Q)</summary>
-	[HostSync, Property] public bool Customization { get; set; } = true;
+	[Sync( SyncFlags.FromHost ), Property] public bool Customization { get; set; } = true;
 
 	/// <summary>Reload weapons automatically when trying to shoot if clip is empty</summary>
-	[HostSync, Property] public bool AutoReload { get; set; } = true;
+	[Sync( SyncFlags.FromHost ), Property] public bool AutoReload { get; set; } = true;
 
 	protected override void OnAwake()
 	{

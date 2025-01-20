@@ -85,12 +85,19 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			Respawn();
 	}
 
-	[Rpc.Broadcast]
+	[Rpc.Owner]
 	public void Kill()
 	{
-		if ( IsProxy || !IsAlive ) return;
+		if ( !IsAlive ) return;
 		Health = 0;
 		OnDeath( new() { AttackerId = GameObject.Id } );
+	}
+
+	[Rpc.Owner]
+	public void Kick( string reason )
+	{
+		Log.Info( reason );
+		Game.Disconnect();
 	}
 
 	[Rpc.Broadcast]
