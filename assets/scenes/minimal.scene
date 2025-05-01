@@ -11,7 +11,7 @@
           "__type": "Sandbox.SceneInformation",
           "__guid": "118e898c-d3b9-4aa7-953c-b4444bae2187",
           "Author": null,
-          "Changes": null,
+          "Changes": "",
           "Description": "",
           "Group": null,
           "OnComponentDestroy": null,
@@ -24,7 +24,8 @@
           "Title": "minimal",
           "Version": null
         }
-      ]
+      ],
+      "Children": []
     },
     {
       "__guid": "c5c1918c-9604-4d49-a40f-a28dc70a7ac0",
@@ -57,6 +58,7 @@
       "__guid": "9318758b-1419-4d49-9e5d-991d863b4964",
       "Flags": 0,
       "Name": "Environment",
+      "Components": [],
       "Children": [
         {
           "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
@@ -81,7 +83,8 @@
               "Shadows": true,
               "SkyColor": "0.2532,0.32006,0.35349,1"
             }
-          ]
+          ],
+          "Children": []
         },
         {
           "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
@@ -123,13 +126,15 @@
               "OnComponentUpdate": null,
               "Projection": "Sphere",
               "RenderDynamically": false,
+              "Resolution": "Small",
               "Texture": "textures/cubemaps/default2.vtex",
               "TintColor": "1,1,1,1",
               "UpdateStrategy": "OnEnabled",
               "ZFar": 4096,
               "ZNear": 16
             }
-          ]
+          ],
+          "Children": []
         },
         {
           "__guid": "6ad70641-3c6c-4402-9c85-9a4969af4764",
@@ -182,7 +187,8 @@
               "Surface": null,
               "SurfaceVelocity": "0,0,0"
             }
-          ]
+          ],
+          "Children": []
         },
         {
           "__guid": "3c2490ef-54a0-49bb-8f13-490e40aa51d1",
@@ -264,7 +270,8 @@
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
-          ]
+          ],
+          "Children": []
         },
         {
           "__guid": "70be23ad-9cda-4dd6-8142-99c7a9f69a92",
@@ -346,7 +353,8 @@
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
-          ]
+          ],
+          "Children": []
         },
         {
           "__guid": "8463f994-fc03-4478-8cc5-8663c0dd38d8",
@@ -428,7 +436,8 @@
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
-          ]
+          ],
+          "Children": []
         },
         {
           "__guid": "f373bc8b-8230-43b3-b1d0-7d9d318b1520",
@@ -510,7 +519,8 @@
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
-          ]
+          ],
+          "Children": []
         },
         {
           "__guid": "523e3e8f-a4ec-4ec1-af9a-d86ffc9c17e1",
@@ -592,7 +602,8 @@
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
-          ]
+          ],
+          "Children": []
         },
         {
           "__guid": "5b483a09-bbf2-4949-98c7-a73b789d0ee7",
@@ -674,7 +685,8 @@
               "RigidbodyFlags": 0,
               "StartAsleep": false
             }
-          ]
+          ],
+          "Children": []
         }
       ]
     },
@@ -736,13 +748,15 @@
           "OnComponentStart": null,
           "OnComponentUpdate": null
         }
-      ]
+      ],
+      "Children": []
     },
     {
       "__guid": "4944da2a-c921-497f-a68a-898f20007476",
       "Flags": 0,
       "Name": "Player (just for editing)",
       "Tags": "player",
+      "NetworkMode": 0,
       "__Prefab": "prefabs/player.prefab",
       "__PrefabVariables": {}
     },
@@ -767,13 +781,15 @@
             "prefab": "prefabs/player.prefab"
           }
         }
-      ]
+      ],
+      "Children": []
     },
     {
       "__guid": "d8c87df0-4ec6-4f9c-b6b7-621c43d3ad37",
       "Flags": 0,
       "Name": "Weapons (just for editing)",
       "Position": "149.995,149.995,-212.125",
+      "Components": [],
       "Children": [
         {
           "__guid": "6cb541bc-26e0-4bf8-9c45-9a62a51f8cb8",
@@ -834,14 +850,9 @@
     }
   ],
   "SceneProperties": {
-    "FixedUpdateFrequency": 50,
-    "MaxFixedUpdates": 5,
-    "NetworkFrequency": 60,
     "NetworkInterpolation": true,
-    "PhysicsSubSteps": 1,
-    "ThreadedAnimation": true,
     "TimeScale": 1,
-    "UseFixedUpdate": true,
+    "WantsSystemScene": true,
     "Metadata": {
       "Title": "minimal"
     },

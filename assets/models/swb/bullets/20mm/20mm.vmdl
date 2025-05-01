@@ -36,7 +36,7 @@
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
-						parent_bone = ""
+						parent_bone = "root"
 						import_filter = 
 						{
 							exclude_by_default = false
@@ -57,9 +57,9 @@
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 0.370935
-						point0 = [ -0.008265, -0.02113, 0.223412 ]
-						point1 = [ -0.01082, 0.026293, 2.687808 ]
+						radius = 0.349659
+						point0 = [ -0.006525, -0.053429, -1.455046 ]
+						point1 = [ -0.009165, -0.004433, 1.0911 ]
 					},
 				]
 			},
