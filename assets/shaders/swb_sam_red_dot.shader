@@ -22,7 +22,6 @@ FEATURES
 MODES
 {
     VrForward();                                               // Indicates this shader will be used for main rendering
-    ToolsVis( S_MODE_TOOLS_VIS );                                // Ability to see in the editor
     ToolsWireframe("vr_tools_wireframe.shader");               // Allows for mat_wireframe to work
     ToolsShadingComplexity("tools_shading_complexity.shader"); // Shows how expensive drawing is in debug view
     Depth( S_MODE_DEPTH );
@@ -245,11 +244,6 @@ PS
                 vDotColor = float4( flRedDot * vRedDotColor * vAlbedoTint, flRedDot );
                 m.Emission = lerp(m.Emission, vDotColor.rgb, vDotColor.a );
             }
-
-            #if S_MODE_TOOLS_VIS
-                m.Albedo = m.Emission;
-                m.Emission = 0;
-            #endif
         }
 
         #if S_RENDER_SIGHTS_ONLY
