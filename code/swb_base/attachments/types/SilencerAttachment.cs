@@ -25,8 +25,8 @@ public abstract class SilencerAttachment : Attachment
 	[Property, Group( "Silencer" )] public override string EffectAttachmentOrBone { get; set; } = "muzzle_silenced";
 
 	/// <summary>New particle used for the muzzle flash</summary>
-	[Property, Group( "Silencer" )] public virtual ParticleSystem MuzzleFlashParticle { get; set; }
-	ParticleSystem oldMuzzleFlashParticle;
+	[Property, Group( "Silencer" )] public virtual PrefabScene MuzzleFlashParticle { get; set; }
+	PrefabScene oldMuzzleFlashParticle;
 
 	/// <summary>New sound used for firing</summary>
 	[Property, Group( "Silencer" )] public virtual SoundEvent ShootSound { get; set; }

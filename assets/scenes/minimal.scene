@@ -206,6 +206,7 @@
               "CreateAttachments": false,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
+              "Materials": null,
               "Model": "models/dev/plane.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -227,6 +228,7 @@
               "__guid": "36adf6f9-d345-49f1-8587-093d992aa18c",
               "__enabled": true,
               "Center": "0,0,-5",
+              "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
               "OnComponentDestroy": null,
@@ -239,6 +241,7 @@
               "OnObjectTriggerExit": null,
               "OnTriggerEnter": null,
               "OnTriggerExit": null,
+              "RollingResistance": null,
               "Scale": "100,100,10",
               "Static": false,
               "Surface": null,
@@ -270,6 +273,7 @@
               "CreateAttachments": false,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
+              "Materials": null,
               "Model": "models/dev/box.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -291,6 +295,7 @@
               "__guid": "7ed98b9b-ea7b-4572-8ccb-0d54a3b49dad",
               "__enabled": true,
               "Center": "0,0,0",
+              "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
               "OnComponentDestroy": null,
@@ -303,6 +308,7 @@
               "OnObjectTriggerExit": null,
               "OnTriggerEnter": null,
               "OnTriggerExit": null,
+              "RollingResistance": null,
               "Scale": "50,50,50",
               "Static": false,
               "Surface": null,
@@ -362,6 +368,7 @@
               "CreateAttachments": false,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
+              "Materials": null,
               "Model": "models/dev/box.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -383,6 +390,7 @@
               "__guid": "aac8d6ab-a64d-4d9d-9007-ceb2354232c9",
               "__enabled": true,
               "Center": "0,0,0",
+              "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
               "OnComponentDestroy": null,
@@ -395,6 +403,7 @@
               "OnObjectTriggerExit": null,
               "OnTriggerEnter": null,
               "OnTriggerExit": null,
+              "RollingResistance": null,
               "Scale": "50,50,50",
               "Static": true,
               "Surface": null,
@@ -454,6 +463,7 @@
               "CreateAttachments": false,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
+              "Materials": null,
               "Model": "models/dev/box.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -475,6 +485,7 @@
               "__guid": "497aa671-314d-49e4-adf5-79962c195f28",
               "__enabled": true,
               "Center": "0,0,0",
+              "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
               "OnComponentDestroy": null,
@@ -487,6 +498,7 @@
               "OnObjectTriggerExit": null,
               "OnTriggerEnter": null,
               "OnTriggerExit": null,
+              "RollingResistance": null,
               "Scale": "50,50,50",
               "Static": true,
               "Surface": null,
@@ -546,6 +558,7 @@
               "CreateAttachments": false,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
+              "Materials": null,
               "Model": "models/dev/box.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -567,6 +580,7 @@
               "__guid": "c7c42dc7-e7d2-4b0f-be21-f4dd05a2d233",
               "__enabled": true,
               "Center": "0,0,0",
+              "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
               "OnComponentDestroy": null,
@@ -579,6 +593,7 @@
               "OnObjectTriggerExit": null,
               "OnTriggerEnter": null,
               "OnTriggerExit": null,
+              "RollingResistance": null,
               "Scale": "50,50,50",
               "Static": true,
               "Surface": null,
@@ -638,6 +653,7 @@
               "CreateAttachments": false,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
+              "Materials": null,
               "Model": "models/dev/box.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -659,6 +675,7 @@
               "__guid": "e4a516da-614d-4c3c-abfc-b0b9b4739455",
               "__enabled": true,
               "Center": "0,0,0",
+              "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
               "OnComponentDestroy": null,
@@ -671,6 +688,7 @@
               "OnObjectTriggerExit": null,
               "OnTriggerEnter": null,
               "OnTriggerExit": null,
+              "RollingResistance": null,
               "Scale": "50,50,50",
               "Static": false,
               "Surface": null,
@@ -730,6 +748,7 @@
               "CreateAttachments": false,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
+              "Materials": null,
               "Model": "models/dev/box.vmdl",
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -751,6 +770,7 @@
               "__guid": "116e4e83-c8fa-4d05-85e7-920f138a693d",
               "__enabled": true,
               "Center": "0,0,0",
+              "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
               "OnComponentDestroy": null,
@@ -763,6 +783,7 @@
               "OnObjectTriggerExit": null,
               "OnTriggerEnter": null,
               "OnTriggerExit": null,
+              "RollingResistance": null,
               "Scale": "50,50,50",
               "Static": false,
               "Surface": null,
@@ -1109,6 +1130,22 @@
                 },
                 "Property": "NetworkInterpolation",
                 "Value": false
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "90aafa5d-7f73-4334-ac7f-78143bc61a57"
+                },
+                "Property": "Ammo",
+                "Value": 0
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "90aafa5d-7f73-4334-ac7f-78143bc61a57"
+                },
+                "Property": "MuzzleFlashParticle",
+                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1153,6 +1190,22 @@
                 },
                 "Property": "NetworkInterpolation",
                 "Value": false
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "a9a2accf-b60c-4ad6-a271-3d65cc06a6ee"
+                },
+                "Property": "Ammo",
+                "Value": 0
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "a9a2accf-b60c-4ad6-a271-3d65cc06a6ee"
+                },
+                "Property": "MuzzleFlashParticle",
+                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1199,6 +1252,22 @@
                 },
                 "Property": "NetworkInterpolation",
                 "Value": false
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "6c143f17-9226-4a53-bbb9-3473b4d013cc"
+                },
+                "Property": "Ammo",
+                "Value": 0
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "6c143f17-9226-4a53-bbb9-3473b4d013cc"
+                },
+                "Property": "MuzzleFlashParticle",
+                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1242,6 +1311,22 @@
                 },
                 "Property": "NetworkInterpolation",
                 "Value": false
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "326ca902-04bc-4672-bb51-47b0eb358bae"
+                },
+                "Property": "Ammo",
+                "Value": 0
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "326ca902-04bc-4672-bb51-47b0eb358bae"
+                },
+                "Property": "MuzzleFlashParticle",
+                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1286,6 +1371,14 @@
                 },
                 "Property": "NetworkInterpolation",
                 "Value": false
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "ff1c8c67-10c8-4767-925a-0d606a3845ff"
+                },
+                "Property": "MuzzleFlashParticle",
+                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1337,6 +1430,22 @@
                 },
                 "Property": "NetworkInterpolation",
                 "Value": false
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "e3f4237c-acdf-49fb-9246-507109d41bdc"
+                },
+                "Property": "Ammo",
+                "Value": 0
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "e3f4237c-acdf-49fb-9246-507109d41bdc"
+                },
+                "Property": "MuzzleFlashParticle",
+                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1352,11 +1461,11 @@
       ]
     },
     {
-      "__guid": "3c0eadc2-e92a-47b4-8400-499f7ac450f0",
+      "__guid": "5516639b-0c2c-4614-a7cc-73703fc86f0e",
       "__version": 1,
       "Flags": 0,
-      "Name": "ParticleTest",
-      "Position": "-175.5998,646.5973,441.3229",
+      "Name": "Particles (just for editing)",
+      "Position": "115.9116,695.7281,435.9353",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -1368,197 +1477,187 @@
       "Components": [],
       "Children": [
         {
-          "__guid": "e082216b-679c-4a93-9e1c-542d991493cd",
+          "__guid": "e7c1c0c1-9e27-4b2f-a393-d93c42a72175",
           "__version": 1,
-          "Flags": 0,
-          "Name": "test1",
-          "Position": "0,0,0",
-          "Rotation": "0,0,0,1",
-          "Scale": "1,1,1",
-          "Tags": "particles",
-          "Enabled": true,
-          "NetworkMode": 2,
-          "NetworkInterpolation": true,
-          "NetworkOrphaned": 0,
-          "OwnerTransfer": 1,
-          "Components": [
-            {
-              "__type": "Sandbox.ParticleEffect",
-              "__guid": "2ec58da8-37da-4a21-b548-76ecfabdbe0a",
-              "__enabled": true,
-              "__version": 1,
-              "Alpha": 1,
-              "ApplyAlpha": false,
-              "ApplyColor": true,
-              "ApplyRotation": false,
-              "ApplyShape": false,
-              "Bounce": 1,
-              "Brightness": 1,
-              "Bumpiness": 0,
-              "Collision": false,
-              "CollisionIgnore": null,
-              "CollisionPrefab": null,
-              "CollisionPrefabAlign": false,
-              "CollisionPrefabChance": 1,
-              "CollisionPrefabRotation": 0,
-              "CollisionRadius": 1,
-              "Damping": 0,
-              "DieOnCollisionChance": 0,
-              "FollowerPrefab": null,
-              "FollowerPrefabChance": 1,
-              "FollowerPrefabKill": true,
-              "Force": false,
-              "ForceDirection": "0,0,0",
-              "ForceScale": 1,
-              "ForceSpace": "World",
-              "Friction": 1,
-              "Gradient": {
-                "Type": "Constant",
-                "Evaluation": "Life",
-                "GradientA": {
-                  "blend": "Linear",
-                  "color": [
-                    {
-                      "t": 0.5,
-                      "c": "1,1,1,1"
-                    }
-                  ],
-                  "alpha": []
+          "__Prefab": "prefabs/particles/muzzle/muzzleflash.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "e4aa3cd0-27bf-45d0-8efe-ead35e78b763"
                 },
-                "GradientB": {
-                  "blend": "Linear",
-                  "color": [
-                    {
-                      "t": 0.5,
-                      "c": "1,1,1,1"
-                    }
-                  ],
-                  "alpha": []
+                "Property": "Enabled",
+                "Value": false
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "e4aa3cd0-27bf-45d0-8efe-ead35e78b763": "e7c1c0c1-9e27-4b2f-a393-d93c42a72175",
+            "1a8076d4-8bf2-4025-ad8e-7e6e56b7f366": "ca8e0613-fc66-4b8e-9568-c7ebeaacae9b",
+            "d5800a35-ab16-4ce9-825f-7a83a91143a9": "f79f2bf8-465d-40dc-a05f-9a984a149b05",
+            "2de591f5-9d89-4670-b6a4-46f0addb69b6": "8482b3c1-d33a-4618-ba44-fe811ac47b30",
+            "30ddaa41-9349-405a-a436-2ce7d02a8fbd": "0ec28ae1-12b9-4428-9d3a-26735f7ea060",
+            "90670023-6207-4f12-af51-2c7cb54d1893": "2004688b-2676-4894-b4b6-6ab2a70dd013",
+            "0684c4ca-aac7-4668-b1a1-4813f2f59198": "84efd9a6-b023-4e32-b702-9295a28ae403",
+            "cb042a47-f116-4b7b-b6d4-c0f8c7f8cce4": "ee6f6c93-ab1f-4e07-8614-3bc845c45941",
+            "f7ae0c5c-aa7f-4604-b1f8-e7fa259f5c30": "bc0d6f23-173d-4b4a-9c16-1d0acf55df92",
+            "4112d269-60f7-498f-974d-a142b8959e35": "0257c5ca-88fe-48f7-8bd8-fd02374e395b",
+            "f981bdc1-ddc4-492d-8363-b78550bd8803": "145c811c-260a-44d9-8323-4d26330c6c81",
+            "c458e852-33cc-4564-a59e-df7b0ca822e2": "113bafae-9928-439f-9c5e-2437e5b82784",
+            "609d1225-a72a-43f3-87a0-029b73b5f875": "aeb1177c-fb21-486c-9d1a-d8a7dfb7258d",
+            "e9f196e5-3ae8-4d01-999c-69856440714c": "b5491abb-bc1e-45f8-9538-fb3b0991fa1a",
+            "184cf206-7fad-4f3a-879c-025e7d25a885": "f0d3361b-3461-4fc9-9af2-b87994fe9723",
+            "27111454-a63a-49fe-a7cc-2fd7ce3df0ba": "12d864e4-7505-42bd-a7a5-6bfcadd30611",
+            "c257797c-09b4-4d66-90bf-8110a980e5af": "d42c27c6-82ac-4ef8-b5dc-374a08e36a1e"
+          }
+        },
+        {
+          "__guid": "a06a84dc-7db1-45dc-b01d-0e365d4f79b3",
+          "__version": 1,
+          "__Prefab": "prefabs/particles/shell/shelleject_9mm.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "6f96bfcb-f67b-443e-9d81-2bf6dda7c359"
                 },
-                "ConstantA": "1,1,1,1",
-                "ConstantB": "1,1,1,1"
-              },
-              "Lifetime": 2,
-              "MaxParticles": 1000,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnParticleCreated": null,
-              "OnParticleDestroyed": null,
-              "OrbitalForce": {
-                "X": 0,
-                "Y": 0,
-                "Z": 0
-              },
-              "OrbitalPull": 0,
-              "PerParticleTimeScale": 1,
-              "Pitch": 0,
-              "PreWarm": 0,
-              "PushStrength": 0,
-              "Roll": 0,
-              "Scale": 1,
-              "SequenceId": 0,
-              "SequenceSpeed": 1,
-              "SequenceTime": 1,
-              "SheetSequence": false,
-              "Space": "World",
-              "StartDelay": 0,
-              "StartVelocity": 2,
-              "Stretch": 0,
-              "TimeScale": 1,
-              "Timing": "GameTime",
-              "Tint": "1,0,0,1",
-              "UsePrefabFeature": false,
-              "Yaw": 0
-            },
-            {
-              "__type": "Sandbox.ParticleSphereEmitter",
-              "__guid": "a1ad3c23-f754-4efd-8ae2-8b43c254eadf",
-              "__enabled": false,
-              "Burst": 100,
-              "Delay": 0,
-              "DestroyOnEnd": true,
-              "Duration": 1,
-              "Loop": true,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnEdge": false,
-              "Radius": 20,
-              "Rate": 0,
-              "RateOverDistance": 0,
-              "Velocity": 100
-            },
-            {
-              "__type": "Sandbox.ParticleConeEmitter",
-              "__guid": "d5642420-7165-49c9-9ab9-611bda5b0e56",
-              "__enabled": true,
-              "Burst": 10,
-              "CenterBias": 0,
-              "CenterBiasVelocity": 0,
-              "ConeAngle": 0,
-              "ConeFar": 10,
-              "ConeNear": 1,
-              "Delay": 0,
-              "DestroyOnEnd": true,
-              "Duration": 1,
-              "InVolume": false,
-              "Loop": true,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "OnEdge": false,
-              "Rate": 0,
-              "RateOverDistance": 0,
-              "VelocityMultiplier": 10,
-              "VelocityRandom": 0.33
-            },
-            {
-              "__type": "Sandbox.ParticleSpriteRenderer",
-              "__guid": "6330e678-15c2-4153-81bc-5c28c37be146",
-              "__enabled": true,
-              "Additive": false,
-              "Alignment": "LookAtCamera",
-              "BlurAmount": 0.5,
-              "BlurOpacity": 0.5,
-              "BlurSpacing": 0.5,
-              "DepthFeather": 0,
-              "FaceVelocity": false,
-              "FogStrength": 1,
-              "LeadingTrail": true,
-              "Lighting": false,
-              "MotionBlur": false,
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "Opaque": false,
-              "Pivot": "0.5,0.5",
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RotationOffset": 0,
-              "Scale": 1,
-              "Shadows": false,
-              "SortMode": "Unsorted",
-              "Texture": null
-            }
-          ],
-          "Children": []
+                "Property": "Enabled",
+                "Value": false
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "6f96bfcb-f67b-443e-9d81-2bf6dda7c359": "a06a84dc-7db1-45dc-b01d-0e365d4f79b3",
+            "749fa4a0-74f5-441f-8f9e-40522dab2ca7": "e8fd90e1-d3dc-4694-973a-39f16bcc96b1",
+            "5f3224c6-b83e-458a-95b9-26e4516eb767": "eca179e4-1ca2-4d72-a31e-d26792b4108a",
+            "8f465da2-2054-424f-98ec-b73c061e27b5": "0c3676b4-dab6-4e99-a352-eab4da701aeb",
+            "bb8efc76-5759-40e9-aa92-0adc67325387": "f856dfe9-3f74-4937-aa29-49c68f155818",
+            "9b0beb8d-54c2-4e73-bd99-510bc9381381": "957565a3-b04f-459f-af7e-ea28014153c9",
+            "50a16eb4-0004-44f7-baa7-f9f34199c576": "4e5e6aef-6fd4-486a-be03-c54f80ee8d90"
+          }
+        },
+        {
+          "__guid": "8679542f-7eb4-493a-944d-82c0dbcaefb7",
+          "__version": 1,
+          "__Prefab": "prefabs/particles/shell/shelleject_308.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "6f96bfcb-f67b-443e-9d81-2bf6dda7c359"
+                },
+                "Property": "Position",
+                "Value": "-115.9116,-695.7281,-435.9353"
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "6f96bfcb-f67b-443e-9d81-2bf6dda7c359": "8679542f-7eb4-493a-944d-82c0dbcaefb7",
+            "749fa4a0-74f5-441f-8f9e-40522dab2ca7": "3c456f26-0b22-43be-9c73-883fd951f418",
+            "5f3224c6-b83e-458a-95b9-26e4516eb767": "88ecffb1-1d42-4909-ba0e-304f84575fb3",
+            "8f465da2-2054-424f-98ec-b73c061e27b5": "99494877-8e4f-4bf3-be38-273680af2023",
+            "bb8efc76-5759-40e9-aa92-0adc67325387": "ce1534ac-7c1a-4cea-b992-008a09f692a8",
+            "9b0beb8d-54c2-4e73-bd99-510bc9381381": "bb8372f6-2d8a-4643-9599-62d2febe805d",
+            "50a16eb4-0004-44f7-baa7-f9f34199c576": "9635c922-82b9-4fbe-8cb5-146c9e1eaf7e"
+          }
+        },
+        {
+          "__guid": "be6424a8-a042-4e35-81a9-97c6c7d5a988",
+          "__version": 1,
+          "__Prefab": "prefabs/particles/shell/shelleject_20mm.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "6f96bfcb-f67b-443e-9d81-2bf6dda7c359"
+                },
+                "Property": "Position",
+                "Value": "-115.9116,-695.7281,-435.9353"
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "6f96bfcb-f67b-443e-9d81-2bf6dda7c359": "be6424a8-a042-4e35-81a9-97c6c7d5a988",
+            "749fa4a0-74f5-441f-8f9e-40522dab2ca7": "3af5a269-2b55-4457-90fb-965dfa4bdaa4",
+            "5f3224c6-b83e-458a-95b9-26e4516eb767": "5548ff8e-9cd7-416d-94f6-89fed89948b7",
+            "8f465da2-2054-424f-98ec-b73c061e27b5": "17ee9497-f3b0-4e49-b3df-14fbacc0e8cf",
+            "bb8efc76-5759-40e9-aa92-0adc67325387": "7f221d66-2246-487a-bf6a-77d50dc4dfa3",
+            "9b0beb8d-54c2-4e73-bd99-510bc9381381": "3e5bb105-1b3c-438d-96b4-d4b99092155e",
+            "50a16eb4-0004-44f7-baa7-f9f34199c576": "b5d738c0-8d20-4e9a-8cc8-f0a7b2afc260"
+          }
+        },
+        {
+          "__guid": "19bff5aa-5cca-4550-856f-7635e6e7a003",
+          "__version": 1,
+          "__Prefab": "prefabs/particles/shell/shelleject_12gauge.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "6f96bfcb-f67b-443e-9d81-2bf6dda7c359"
+                },
+                "Property": "Position",
+                "Value": "-115.9116,-695.7281,-435.9353"
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "6f96bfcb-f67b-443e-9d81-2bf6dda7c359": "19bff5aa-5cca-4550-856f-7635e6e7a003",
+            "749fa4a0-74f5-441f-8f9e-40522dab2ca7": "60a3201b-54ad-440a-948d-3f515c392e3a",
+            "5f3224c6-b83e-458a-95b9-26e4516eb767": "b2e99c2e-b60c-49f4-a2ae-4635251d93c7",
+            "8f465da2-2054-424f-98ec-b73c061e27b5": "11fbc72d-b626-4d07-aadb-5ed76a043706",
+            "bb8efc76-5759-40e9-aa92-0adc67325387": "e6537d0e-edd0-4256-8ba5-48aa10de7d0d",
+            "9b0beb8d-54c2-4e73-bd99-510bc9381381": "755cefa2-20c9-42c2-9303-8344074ed5e6",
+            "50a16eb4-0004-44f7-baa7-f9f34199c576": "00ba0185-8606-4e10-8eaa-97d33c2d1743"
+          }
+        },
+        {
+          "__guid": "bd860d1f-7f01-4935-a68d-6e98e31c795b",
+          "__version": 1,
+          "__Prefab": "prefabs/particles/muzzle/barrelsmoke.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "e4aa3cd0-27bf-45d0-8efe-ead35e78b763"
+                },
+                "Property": "Position",
+                "Value": "-115.9116,-695.7281,-435.9353"
+              }
+            ],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "e4aa3cd0-27bf-45d0-8efe-ead35e78b763": "bd860d1f-7f01-4935-a68d-6e98e31c795b",
+            "cb042a47-f116-4b7b-b6d4-c0f8c7f8cce4": "bf68e4b7-99f2-4c01-b268-35f23ef08657",
+            "e9f196e5-3ae8-4d01-999c-69856440714c": "78cff0a5-2061-4ff6-b3fa-ba33d9167b57",
+            "c257797c-09b4-4d66-90bf-8110a980e5af": "75820277-bec8-4216-aa5d-10c082a0ef2e",
+            "184cf206-7fad-4f3a-879c-025e7d25a885": "ab393ea3-a24e-4aaa-8168-8e81e693db01",
+            "27111454-a63a-49fe-a7cc-2fd7ce3df0ba": "765f2fb4-b4b6-4e9b-bfea-cc364f4a4c03"
+          }
         }
       ]
     }

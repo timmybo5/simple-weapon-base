@@ -1,13 +1,23 @@
 {
   "RootObject": {
     "__guid": "75e8dbf9-98c5-4504-a879-6f6da3f32a1c",
+    "__version": 1,
     "Flags": 0,
     "Name": "colt",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
     "Tags": "weapon",
+    "Enabled": false,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
         "__guid": "3fd73b46-c377-4098-9b22-0e8ea33064c3",
+        "__enabled": true,
         "AimAnimData": {
           "Angle": "-1.15,-0.09,18",
           "Pos": "-0.82,0,1.855"
@@ -45,6 +55,12 @@
         "FOV": 65,
         "HoldType": "Pistol",
         "Icon": "weapons/swb/colt/colt.png",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Primary": {
           "_type": "component",
           "component_id": "90aafa5d-7f73-4334-ac7f-78143bc61a57",
@@ -69,6 +85,7 @@
           "AimSensitivity": 0.25
         },
         "Scoping": false,
+        "Secondary": null,
         "ShellEjectDelay": 0,
         "ShellReloading": false,
         "ShellReloadingShootCancel": true,
@@ -77,19 +94,24 @@
         "Slot": 1,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/colt/v_colt.vmdl",
+        "ViewModelHands": null,
         "WorldModel": "weapons/swb/colt/w_colt.vmdl"
       },
       {
         "__type": "SWB.Base.ShootInfo",
         "__guid": "90aafa5d-7f73-4334-ac7f-78143bc61a57",
+        "__enabled": true,
         "Ammo": 7,
         "AmmoType": "pistol",
-        "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
-        "BulletEjectParticle": "particles/swb/bullet_hulls/9mm_eject.vpcf",
+        "BarrelSmokeParticle": null,
+        "BulletEjectParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/shell/shelleject_9mm.prefab"
+        },
         "Bullets": 1,
         "BulletSize": 2,
         "BulletTracerChance": 0.33,
-        "BulletTracerParticle": "particles/swb/tracer/tracer.vpcf",
+        "BulletTracerParticle": null,
         "ClipSize": 7,
         "Damage": 25,
         "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",
@@ -97,7 +119,16 @@
         "Force": 3,
         "HitFlinch": 1.25,
         "InfiniteAmmo": "reserve",
-        "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
+        "MuzzleFlashParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/muzzle/muzzleflash.prefab"
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Recoil": 0.35,
         "RPM": 700,
         "ScreenShake": {
@@ -117,8 +148,17 @@
       {
         "__type": "SWB.Demo.PistolSilencerBG",
         "__guid": "b47568cc-132b-4d8b-ab59-139c0021e7d0",
+        "__enabled": true,
+        "Bone": null,
         "EffectAttachmentOrBone": "muzzle_silenced",
         "Enable": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RequiresAttachment": null,
         "ShootSound": "sounds/swb/attachments/silencer/swb_pistol.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
@@ -126,6 +166,7 @@
       {
         "__type": "SWB.Demo.ReflexSightBG",
         "__guid": "028b2269-e020-401d-8a7f-6f0c1bfabba2",
+        "__enabled": true,
         "AimAnimData": {
           "Angle": "-1.33,-0.06,18",
           "Pos": "-0.516,0,1.053"
@@ -133,7 +174,14 @@
         "AimFOV": -1,
         "AimInFOVSpeed": -1,
         "AimOutFOVSpeed": -1,
+        "Bone": null,
         "Enable": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "RequiresAttachment": {
           "_type": "component",
           "component_id": "e71954fa-6616-4c09-a171-34ce88d1860c",
@@ -146,22 +194,25 @@
       {
         "__type": "SWB.Demo.PistolRailBG",
         "__guid": "e71954fa-6616-4c09-a171-34ce88d1860c",
+        "__enabled": true,
+        "Bone": null,
         "Enable": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RequiresAttachment": null,
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       }
     ],
     "Children": [],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -175,13 +226,14 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }

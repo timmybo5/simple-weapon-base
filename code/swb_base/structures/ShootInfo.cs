@@ -104,13 +104,13 @@ public class ShootInfo : Component
 	[Property, Title( "World Model Scale" ), Group( "Particles" )] public float WMParticleScale { get; set; } = 1f;
 
 	/// <summary>Particle used for bullet ejection</summary>
-	[Property, Group( "Particles" )] public ParticleSystem BulletEjectParticle { get; set; }
+	[Property, Group( "Particles" )] public PrefabScene BulletEjectParticle { get; set; } = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/particles/shell/shelleject_9mm.prefab" ) );
 
 	/// <summary>Particle used for the muzzle flash</summary>
-	[Property, Group( "Particles" )] public ParticleSystem MuzzleFlashParticle { get; set; }
+	[Property, Group( "Particles" )] public PrefabScene MuzzleFlashParticle { get; set; } = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/particles/muzzle/muzzleflash.prefab" ) );
 
 	/// <summary>Particle used for the barrel smoke</summary>
-	[Property, Group( "Particles" )] public ParticleSystem BarrelSmokeParticle { get; set; }
+	[Property, Group( "Particles" )] public PrefabScene BarrelSmokeParticle { get; set; } = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/particles/muzzle/barrelsmoke.prefab" ) );
 
 	/// <summary>Particle used for the barrel smoke</summary>
 	[Property, Group( "Particles" )] public ParticleSystem BulletTracerParticle { get; set; }

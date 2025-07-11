@@ -1,13 +1,23 @@
 {
   "RootObject": {
     "__guid": "12d1b3e8-b22c-4081-9f32-19f389397407",
+    "__version": 1,
     "Flags": 0,
     "Name": "revolver",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
     "Tags": "weapon",
+    "Enabled": false,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
         "__guid": "6151f2bf-b1a5-47dc-a3d1-5b6116a30ae9",
+        "__enabled": true,
         "AimAnimData": {
           "Angle": "0.94,-0.03,0",
           "Pos": "-2.797,0,0.848"
@@ -45,6 +55,12 @@
         "FOV": 65,
         "HoldType": "Pistol",
         "Icon": "weapons/swb/revolver/revolver.png",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Primary": {
           "_type": "component",
           "component_id": "326ca902-04bc-4672-bb51-47b0eb358bae",
@@ -69,6 +85,7 @@
           "AimSensitivity": 0.25
         },
         "Scoping": false,
+        "Secondary": null,
         "ShellEjectDelay": 0,
         "ShellReloading": false,
         "ShellReloadingShootCancel": true,
@@ -77,18 +94,21 @@
         "Slot": 2,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/revolver/v_revolver.vmdl",
+        "ViewModelHands": null,
         "WorldModel": "weapons/swb/revolver/w_revolver.vmdl"
       },
       {
         "__type": "SWB.Base.ShootInfo",
         "__guid": "326ca902-04bc-4672-bb51-47b0eb358bae",
+        "__enabled": true,
         "Ammo": 6,
         "AmmoType": "revolver",
-        "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
+        "BarrelSmokeParticle": null,
+        "BulletEjectParticle": null,
         "Bullets": 1,
         "BulletSize": 2,
         "BulletTracerChance": 0.33,
-        "BulletTracerParticle": "particles/swb/tracer/tracer.vpcf",
+        "BulletTracerParticle": null,
         "ClipSize": 6,
         "Damage": 50,
         "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",
@@ -96,7 +116,16 @@
         "Force": 3,
         "HitFlinch": 3,
         "InfiniteAmmo": "reserve",
-        "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
+        "MuzzleFlashParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/muzzle/muzzleflash.prefab"
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Recoil": 1,
         "RPM": 100,
         "ScreenShake": {
@@ -116,17 +145,27 @@
       {
         "__type": "SWB.Demo.HunterScope2DBG",
         "__guid": "e5c9fac6-4117-4efc-8242-35e489be5465",
+        "__enabled": true,
         "AimAnimData": {
           "Angle": "0,0,0",
           "Pos": "-2.85,-4.46,-0.584"
         },
+        "Bone": null,
         "Enable": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RequiresAttachment": null,
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
       {
         "__type": "SWB.Demo.ReflexSightBG",
         "__guid": "10ebda01-d668-40f8-8d5c-4f3f3b47ccdb",
+        "__enabled": true,
         "AimAnimData": {
           "Angle": "-2.35,-0.04,0",
           "Pos": "-2.798,0,-0.838"
@@ -134,31 +173,42 @@
         "AimFOV": -1,
         "AimInFOVSpeed": -1,
         "AimOutFOVSpeed": -1,
+        "Bone": null,
         "Enable": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RequiresAttachment": null,
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
       {
         "__type": "SWB.Demo.PistolSilencerBG",
         "__guid": "428f8cbb-3538-42a2-b2c2-c48ecdf4483e",
+        "__enabled": true,
+        "Bone": null,
         "EffectAttachmentOrBone": "muzzle_silenced",
         "Enable": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RequiresAttachment": null,
         "ShootSound": "sounds/swb/attachments/silencer/swb_heavy.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       }
     ],
     "Children": [],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -172,13 +222,14 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }

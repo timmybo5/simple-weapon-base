@@ -21,7 +21,7 @@ public class Chatbox : Panel
 		var msgArea = Add.Panel( "msgArea" );
 		history = msgArea.Add.Panel( "history" );
 
-		textEntry = Add.TextEntry();
+		textEntry = AddChild<TextEntry>();
 		textEntry.AddClass( "entry" );
 		textEntry.Placeholder = "Type here";
 		textEntry.AddEventListener( "onsubmit", () => Submit() );

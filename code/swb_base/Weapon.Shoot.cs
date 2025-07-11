@@ -56,7 +56,8 @@ public partial class Weapon
 			}
 
 			return false;
-		};
+		}
+		;
 
 		if ( shootInfo.RPM <= 0 ) return true;
 
@@ -192,27 +193,23 @@ public partial class Weapon
 
 		// Muzzle flash
 		if ( shootInfo.MuzzleFlashParticle is not null )
-			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, scale, ( particles ) => ParticleToMuzzlePos( particles ) );
+			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, scale, ( particle ) => ParticleToMuzzlePos( particle ) );
 
 		// Barrel smoke
 		if ( !IsProxy && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
 			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, shootInfo.VMParticleScale, ( particles ) => ParticleToMuzzlePos( particles ) );
 	}
 
-	void ParticleToMuzzlePos( SceneParticles particles )
+	void ParticleToMuzzlePos( GameObject particle )
 	{
-		var transform = GetMuzzleTransform();
-
-		if ( transform.HasValue )
+		if ( !particle.IsValid ) return;
+		var muzzleTransform = GetMuzzleTransform();
+		if ( !muzzleTransform.HasValue )
 		{
-			// Apply velocity to prevent muzzle shift when moving fast
-			particles?.SetControlPoint( 0, transform.Value.Position + Owner.Velocity * 0.03f );
-			particles?.SetControlPoint( 0, transform.Value.Rotation );
+			particle.Destroy();
+			return;
 		}
-		else
-		{
-			particles?.Delete();
-		}
+		particle.WorldPosition = muzzleTransform.Value.Position; // + Owner.Velocity * 0.03f;particles?.Delete();
 	}
 
 	/// <summary>Create a bullet impact effect</summary>
@@ -222,55 +219,56 @@ public partial class Weapon
 		tr.Surface.PlayCollisionSound( tr.HitPosition );
 
 		// Particles
-		if ( tr.Surface.ImpactEffects.Bullet is not null )
-		{
-			var effectPath = Game.Random.FromList( tr.Surface.ImpactEffects.Bullet, "particles/impact.generic.smokepuff.vpcf" );
+		// Search impact in cloud (facepunch has effects, just map them)
+		//if ( tr.Surface.ImpactEffects.Bullet is not null )
+		//{
+		//	var effectPath = Game.Random.FromList( tr.Surface.ImpactEffects.Bullet, "particles/impact.generic.smokepuff.vpcf" );
 
-			if ( effectPath is not null )
-			{
-				// Surface def for flesh has wrong blood particle linked
-				if ( effectPath.Contains( "impact.flesh" ) || tr.Surface.ResourceName == "flesh" )
-				{
-					effectPath = "particles/impact.flesh.bloodpuff.vpcf";
-				}
-				else if ( effectPath.Contains( "impact.wood" ) )
-				{
-					effectPath = "particles/impact.generic.smokepuff.vpcf";
-				}
+		//	if ( effectPath is not null )
+		//	{
+		//		// Surface def for flesh has wrong blood particle linked
+		//		if ( effectPath.Contains( "impact.flesh" ) || tr.Surface.ResourceName == "flesh" )
+		//		{
+		//			effectPath = "particles/impact.flesh.bloodpuff.vpcf";
+		//		}
+		//		else if ( effectPath.Contains( "impact.wood" ) )
+		//		{
+		//			effectPath = "particles/impact.generic.smokepuff.vpcf";
+		//		}
 
-				var p = new SceneParticles( Scene.SceneWorld, effectPath );
-				p.SetControlPoint( 0, tr.HitPosition );
-				p.SetControlPoint( 0, Rotation.LookAt( tr.Normal ) );
-				p.PlayUntilFinished( TaskSource.Create() );
-			}
-		}
+		//		var p = new SceneParticles( Scene.SceneWorld, effectPath );
+		//		p.SetControlPoint( 0, tr.HitPosition );
+		//		p.SetControlPoint( 0, Rotation.LookAt( tr.Normal ) );
+		//		p.PlayUntilFinished( TaskSource.Create() );
+		//	}
+		//}
 
 		// Decal
-		if ( tr.Surface.ImpactEffects.BulletDecal is not null )
-		{
-			var decalPath = Game.Random.FromList( tr.Surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
+		//if ( tr.Surface.ImpactEffects.BulletDecal is not null )
+		//{
+		//	var decalPath = Game.Random.FromList( tr.Surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
 
-			if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalDef ) )
-			{
-				var decalEntry = Game.Random.FromList( decalDef.Decals );
+		//	if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalDef ) )
+		//	{
+		//		var decalEntry = Game.Random.FromList( decalDef.Decals );
 
-				var gameObject = Scene.CreateObject();
-				gameObject.Name = "Bullet Decal";
-				//gameObject.SetParent( tr.GameObject, false );
-				gameObject.WorldPosition = tr.HitPosition;
-				gameObject.WorldRotation = Rotation.LookAt( -tr.Normal );
-				gameObject.NetworkMode = NetworkMode.Never;
+		//		var gameObject = Scene.CreateObject();
+		//		gameObject.Name = "Bullet Decal";
+		//		//gameObject.SetParent( tr.GameObject, false );
+		//		gameObject.WorldPosition = tr.HitPosition;
+		//		gameObject.WorldRotation = Rotation.LookAt( -tr.Normal );
+		//		gameObject.NetworkMode = NetworkMode.Never;
 
-				var decalRenderer = gameObject.Components.Create<DecalRenderer>();
-				decalRenderer.Material = decalEntry.Material;
-				decalRenderer.Size = new( decalEntry.Height.GetValue(), decalEntry.Height.GetValue(), decalEntry.Depth.GetValue() );
-				gameObject.DestroyAsync( 30f );
-			}
-		}
+		//		var decalRenderer = gameObject.Components.Create<DecalRenderer>();
+		//		decalRenderer.Material = decalEntry.Material;
+		//		decalRenderer.Size = new( decalEntry.Height.GetValue(), decalEntry.Height.GetValue(), decalEntry.Depth.GetValue() );
+		//		gameObject.DestroyAsync( 30f );
+		//	}
+		//}
 	}
 
 	/// <summary>Create a weapon particle</summary>
-	public virtual void CreateParticle( ParticleSystem particle, string attachment, float scale, Action<SceneParticles> OnFrame = null )
+	public virtual void CreateParticle( GameObject particle, string attachment, float scale, Action<GameObject> OnParticleCreated = null )
 	{
 		var effectRenderer = GetEffectRenderer();
 
@@ -280,19 +278,17 @@ public partial class Weapon
 
 		if ( !transform.HasValue ) return;
 
-		CreateParticle( particle, transform.Value, scale, OnFrame );
+		CreateParticle( particle, transform.Value, scale, OnParticleCreated );
 	}
 
-	public virtual void CreateParticle( ParticleSystem particle, Transform transform, float scale, Action<SceneParticles> OnFrame = null )
+	/// <summary>Create a weapon particle</summary>
+	public virtual void CreateParticle( GameObject particle, Transform transform, float scale, Action<GameObject> OnParticleCreated = null )
 	{
-		SceneParticles particles = new( Scene.SceneWorld, particle );
-		particles?.SetControlPoint( 0, transform.Position );
-		particles?.SetControlPoint( 0, transform.Rotation );
-		particles?.SetNamedValue( "scale", scale );
-
-		if ( CanSeeViewModel )
-			particles.Tags.Add( TagsHelper.ViewModel );
-
-		particles?.PlayUntilFinished( Task, OnFrame );
+		var go = particle.Clone( transform.WithScale( scale ) );
+		var p = go.GetComponentInChildren<ParticleEffect>();
+		p.OnParticleCreated += ( p ) =>
+		{
+			OnParticleCreated?.Invoke( go );
+		};
 	}
 }
