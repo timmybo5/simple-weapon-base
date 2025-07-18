@@ -1088,7 +1088,7 @@
       "__version": 1,
       "Flags": 0,
       "Name": "Weapons (just for editing)",
-      "Position": "149.995,149.995,-212.125",
+      "Position": "0,0,0",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -1377,8 +1377,11 @@
                   "Type": "Component",
                   "IdValue": "ff1c8c67-10c8-4767-925a-0d606a3845ff"
                 },
-                "Property": "MuzzleFlashParticle",
-                "Value": null
+                "Property": "BulletTracerParticle",
+                "Value": {
+                  "_type": "gameobject",
+                  "prefab": "prefabs/particles/tracer/tracer.prefab"
+                }
               }
             ],
             "MovedObjects": []
@@ -1465,7 +1468,7 @@
       "__version": 1,
       "Flags": 0,
       "Name": "Particles (just for editing)",
-      "Position": "115.9116,695.7281,435.9353",
+      "Position": "0,0,0",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -1551,16 +1554,7 @@
           "__PrefabInstancePatch": {
             "AddedObjects": [],
             "RemovedObjects": [],
-            "PropertyOverrides": [
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "6f96bfcb-f67b-443e-9d81-2bf6dda7c359"
-                },
-                "Property": "Position",
-                "Value": "-115.9116,-695.7281,-435.9353"
-              }
-            ],
+            "PropertyOverrides": [],
             "MovedObjects": []
           },
           "__PrefabIdToInstanceId": {
@@ -1580,16 +1574,7 @@
           "__PrefabInstancePatch": {
             "AddedObjects": [],
             "RemovedObjects": [],
-            "PropertyOverrides": [
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "6f96bfcb-f67b-443e-9d81-2bf6dda7c359"
-                },
-                "Property": "Position",
-                "Value": "-115.9116,-695.7281,-435.9353"
-              }
-            ],
+            "PropertyOverrides": [],
             "MovedObjects": []
           },
           "__PrefabIdToInstanceId": {
@@ -1609,16 +1594,7 @@
           "__PrefabInstancePatch": {
             "AddedObjects": [],
             "RemovedObjects": [],
-            "PropertyOverrides": [
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "6f96bfcb-f67b-443e-9d81-2bf6dda7c359"
-                },
-                "Property": "Position",
-                "Value": "-115.9116,-695.7281,-435.9353"
-              }
-            ],
+            "PropertyOverrides": [],
             "MovedObjects": []
           },
           "__PrefabIdToInstanceId": {
@@ -1657,6 +1633,26 @@
             "c257797c-09b4-4d66-90bf-8110a980e5af": "75820277-bec8-4216-aa5d-10c082a0ef2e",
             "184cf206-7fad-4f3a-879c-025e7d25a885": "ab393ea3-a24e-4aaa-8168-8e81e693db01",
             "27111454-a63a-49fe-a7cc-2fd7ce3df0ba": "765f2fb4-b4b6-4e9b-bfea-cc364f4a4c03"
+          }
+        },
+        {
+          "__guid": "240fdbf3-ffa4-459c-aa0e-13b70169e31f",
+          "__version": 1,
+          "__Prefab": "prefabs/particles/tracer/tracer.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "e4aa3cd0-27bf-45d0-8efe-ead35e78b763": "240fdbf3-ffa4-459c-aa0e-13b70169e31f",
+            "cb042a47-f116-4b7b-b6d4-c0f8c7f8cce4": "ce83f80b-88dc-4e03-8d0e-65440204e64a",
+            "0684c4ca-aac7-4668-b1a1-4813f2f59198": "ca4ff0d8-1ca3-493b-8e62-e685f46ec77a",
+            "f7ae0c5c-aa7f-4604-b1f8-e7fa259f5c30": "9b8f4b75-5f13-40d9-b807-327996aed287",
+            "4112d269-60f7-498f-974d-a142b8959e35": "953030b2-7f2f-48a1-972d-7eefe423f220",
+            "f981bdc1-ddc4-492d-8363-b78550bd8803": "b5848e58-5e77-4d21-a912-3c92144a704c",
+            "c458e852-33cc-4564-a59e-df7b0ca822e2": "11fbf921-df96-46b3-a488-65fe8963f198"
           }
         }
       ]

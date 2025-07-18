@@ -103,12 +103,18 @@
         "__enabled": true,
         "Ammo": 6,
         "AmmoType": "revolver",
-        "BarrelSmokeParticle": null,
+        "BarrelSmokeParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/muzzle/barrelsmoke.prefab"
+        },
         "BulletEjectParticle": null,
         "Bullets": 1,
         "BulletSize": 2,
         "BulletTracerChance": 0.33,
-        "BulletTracerParticle": null,
+        "BulletTracerParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/tracer/tracer.prefab"
+        },
         "ClipSize": 6,
         "Damage": 50,
         "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",

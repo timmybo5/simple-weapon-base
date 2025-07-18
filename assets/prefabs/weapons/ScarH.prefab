@@ -114,7 +114,10 @@
         "Bullets": 1,
         "BulletSize": 2,
         "BulletTracerChance": 0.33,
-        "BulletTracerParticle": null,
+        "BulletTracerParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/tracer/tracer.prefab"
+        },
         "ClipSize": 30,
         "Damage": 25,
         "DryShootSound": "sounds/swb/clip/swb_rifle.empty.sound",

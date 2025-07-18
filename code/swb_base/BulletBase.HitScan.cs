@@ -31,7 +31,7 @@ public class HitScanBullet : IBulletBase
 			var randVal = random.NextDouble();
 
 			if ( randVal < shootInfo.BulletTracerChance )
-				TracerEffects( weapon, shootInfo, bulletTr.HitPosition );
+				TracerEffects( weapon, shootInfo, bulletTr );
 		}
 
 		// Damage
@@ -55,17 +55,15 @@ public class HitScanBullet : IBulletBase
 		return (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
 	}
 
-	void TracerEffects( Weapon weapon, ShootInfo shootInfo, Vector3 endPos )
+	public virtual void TracerEffects( Weapon weapon, ShootInfo shootInfo, SceneTraceResult tr )
 	{
-		var scale = weapon.CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
 		var muzzleTransform = weapon.GetMuzzleTransform();
-
 		if ( !muzzleTransform.HasValue ) return;
 
-		SceneParticles particles = new( weapon.Scene.SceneWorld, shootInfo.BulletTracerParticle );
-		particles?.SetControlPoint( 1, muzzleTransform.Value );
-		particles?.SetControlPoint( 2, endPos );
-		particles?.SetNamedValue( "scale", scale );
-		particles?.PlayUntilFinished( TaskSource.Create() );
+		var scale = weapon.CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
+		var direction = (tr.HitPosition - muzzleTransform.Value.Position).Normal;
+		var rotation = Rotation.LookAt( direction );
+		var particleTransform = muzzleTransform.Value.WithRotation( rotation );
+		weapon.CreateParticle( shootInfo.BulletTracerParticle, particleTransform, scale );
 	}
 }

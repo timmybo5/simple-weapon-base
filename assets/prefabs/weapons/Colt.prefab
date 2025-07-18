@@ -103,7 +103,10 @@
         "__enabled": true,
         "Ammo": 7,
         "AmmoType": "pistol",
-        "BarrelSmokeParticle": null,
+        "BarrelSmokeParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/muzzle/barrelsmoke.prefab"
+        },
         "BulletEjectParticle": {
           "_type": "gameobject",
           "prefab": "prefabs/particles/shell/shelleject_9mm.prefab"
@@ -111,7 +114,10 @@
         "Bullets": 1,
         "BulletSize": 2,
         "BulletTracerChance": 0.33,
-        "BulletTracerParticle": null,
+        "BulletTracerParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/tracer/tracer.prefab"
+        },
         "ClipSize": 7,
         "Damage": 25,
         "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",

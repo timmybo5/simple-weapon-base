@@ -1,6 +1,4 @@
-﻿using SWB.Shared;
-
-namespace SWB.Base.Attachments;
+﻿namespace SWB.Base.Attachments;
 
 public abstract class LaserAttachment : Attachment
 {
@@ -8,8 +6,6 @@ public abstract class LaserAttachment : Attachment
 	public override AttachmentCategory Category => AttachmentCategory.Laser;
 	public override string Description => "Aids target acquisition by projecting a beam onto the target that provides a visual reference point.";
 
-	// Not easily possible atm, attachments and bones lag behind.
-	// Waiting for: https://github.com/Facepunch/sbox-issues/issues/5200
 	public override bool Hide => true;
 
 	public override string[] Positives => new string[]
@@ -27,6 +23,7 @@ public abstract class LaserAttachment : Attachment
 		Spread = -0.05f,
 	};
 
+	/*
 	/// <summary>New muzzle flash effect point</summary>
 	[Property, Group( "Laser" )] public override string EffectAttachmentOrBone { get; set; } = "laser_start";
 
@@ -40,6 +37,7 @@ public abstract class LaserAttachment : Attachment
 
 	SceneParticles beamParticles;
 	SceneParticles dotParticles;
+	*/
 
 	public override void OnEquip()
 	{
@@ -53,6 +51,7 @@ public abstract class LaserAttachment : Attachment
 
 	private void CreateParticles()
 	{
+		/*
 		DestroyParticles();
 
 		beamParticles = new( Weapon.Scene.SceneWorld, BeamParticle );
@@ -87,19 +86,23 @@ public abstract class LaserAttachment : Attachment
 
 		//laserDotParticle = Particles.Create( DotParticle );
 		//laserDotParticle?.SetPosition( 1, Color );
+		*/
 	}
 
 	private void DestroyParticles()
 	{
+		/*
 		beamParticles?.Delete();
 		beamParticles = null;
 
 		dotParticles?.Delete();
 		dotParticles = null;
+		*/
 	}
 
 	protected override void OnUpdate()
 	{
+		/*
 		if ( !Equipped ) return;
 
 		var startAttachment = Weapon.ViewModelRenderer.SceneModel.GetAttachment( EffectAttachmentOrBone );
@@ -115,5 +118,6 @@ public abstract class LaserAttachment : Attachment
 
 		beamParticles?.SetControlPoint( 0, startPos );
 		beamParticles?.SetControlPoint( 1, tr.EndPosition );
+		*/
 	}
 }

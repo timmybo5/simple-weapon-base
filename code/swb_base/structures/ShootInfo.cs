@@ -113,5 +113,5 @@ public class ShootInfo : Component
 	[Property, Group( "Particles" )] public PrefabScene BarrelSmokeParticle { get; set; } = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/particles/muzzle/barrelsmoke.prefab" ) );
 
 	/// <summary>Particle used for the barrel smoke</summary>
-	[Property, Group( "Particles" )] public ParticleSystem BulletTracerParticle { get; set; }
+	[Property, Group( "Particles" )] public PrefabScene BulletTracerParticle { get; set; } = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/particles/tracer/tracer.prefab" ) );
 }

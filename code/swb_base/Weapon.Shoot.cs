@@ -193,14 +193,14 @@ public partial class Weapon
 
 		// Muzzle flash
 		if ( shootInfo.MuzzleFlashParticle is not null )
-			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, scale, ( particle ) => ParticleToMuzzlePos( particle ) );
+			CreateParticle( shootInfo.MuzzleFlashParticle, scale, ( particle ) => ParticleToMuzzleTrans( particle ) );
 
 		// Barrel smoke
 		if ( !IsProxy && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
-			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, shootInfo.VMParticleScale, ( particles ) => ParticleToMuzzlePos( particles ) );
+			CreateParticle( shootInfo.BarrelSmokeParticle, shootInfo.VMParticleScale, ( particles ) => ParticleToMuzzleTrans( particles ) );
 	}
 
-	void ParticleToMuzzlePos( GameObject particle )
+	void ParticleToMuzzleTrans( GameObject particle )
 	{
 		if ( !particle.IsValid ) return;
 		var muzzleTransform = GetMuzzleTransform();
@@ -210,6 +210,7 @@ public partial class Weapon
 			return;
 		}
 		particle.WorldPosition = muzzleTransform.Value.Position; // + Owner.Velocity * 0.03f;particles?.Delete();
+		particle.WorldRotation = muzzleTransform.Value.Rotation;
 	}
 
 	/// <summary>Create a bullet impact effect</summary>
@@ -279,6 +280,12 @@ public partial class Weapon
 		if ( !transform.HasValue ) return;
 
 		CreateParticle( particle, transform.Value, scale, OnParticleCreated );
+	}
+
+	/// <summary>Create a weapon particle</summary>
+	public virtual void CreateParticle( GameObject particle, float scale, Action<GameObject> OnParticleCreated = null )
+	{
+		CreateParticle( particle, new Transform(), scale, OnParticleCreated );
 	}
 
 	/// <summary>Create a weapon particle</summary>

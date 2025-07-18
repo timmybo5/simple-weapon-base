@@ -103,7 +103,10 @@
         "__enabled": true,
         "Ammo": 5,
         "AmmoType": "sniper",
-        "BarrelSmokeParticle": null,
+        "BarrelSmokeParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/muzzle/barrelsmoke.prefab"
+        },
         "BulletEjectParticle": {
           "_type": "gameobject",
           "prefab": "prefabs/particles/shell/shelleject_308.prefab"
@@ -111,7 +114,10 @@
         "Bullets": 1,
         "BulletSize": 4,
         "BulletTracerChance": 0.33,
-        "BulletTracerParticle": null,
+        "BulletTracerParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/tracer/tracer.prefab"
+        },
         "ClipSize": 5,
         "Damage": 100,
         "DryShootSound": "sounds/swb/clip/swb_sniper.empty.sound",
@@ -210,11 +216,7 @@
         "__type": "SWB.Demo.RifleLaserBG",
         "__guid": "e82e0d87-bca8-4616-ba03-f063e45cf54f",
         "__enabled": true,
-        "BeamParticle": null,
         "Bone": null,
-        "Color": "1,0,0,1",
-        "DotParticle": null,
-        "EffectAttachmentOrBone": "laser_start",
         "Enable": false,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
