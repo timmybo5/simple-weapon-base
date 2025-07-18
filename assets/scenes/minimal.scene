@@ -1371,17 +1371,6 @@
                 },
                 "Property": "NetworkInterpolation",
                 "Value": false
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "ff1c8c67-10c8-4767-925a-0d606a3845ff"
-                },
-                "Property": "BulletTracerParticle",
-                "Value": {
-                  "_type": "gameobject",
-                  "prefab": "prefabs/particles/tracer/tracer.prefab"
-                }
               }
             ],
             "MovedObjects": []

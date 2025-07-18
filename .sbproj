@@ -26,6 +26,7 @@
     "StartupScene": "scenes/minimal.scene",
     "ProjectTemplate": null,
     "LaunchMode": "QuickPlay",
-    "MapStartupScene": "scenes/minimal.scene"
+    "MapStartupScene": "scenes/minimal.scene",
+    "DedicatedServerStartupScene": "scenes/minimal.scene"
   }
 }
