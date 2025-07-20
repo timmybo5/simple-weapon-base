@@ -219,53 +219,24 @@ public partial class Weapon
 		// Sound
 		tr.Surface.PlayCollisionSound( tr.HitPosition );
 
-		// Particles
-		// Search impact in cloud (facepunch has effects, just map them)
-		//if ( tr.Surface.ImpactEffects.Bullet is not null )
-		//{
-		//	var effectPath = Game.Random.FromList( tr.Surface.ImpactEffects.Bullet, "particles/impact.generic.smokepuff.vpcf" );
+		// Decal & Particles
+		var impactPrefab = tr.Surface.PrefabCollection.BulletImpact;
+		if ( impactPrefab is null ) return;
 
-		//	if ( effectPath is not null )
-		//	{
-		//		// Surface def for flesh has wrong blood particle linked
-		//		if ( effectPath.Contains( "impact.flesh" ) || tr.Surface.ResourceName == "flesh" )
-		//		{
-		//			effectPath = "particles/impact.flesh.bloodpuff.vpcf";
-		//		}
-		//		else if ( effectPath.Contains( "impact.wood" ) )
-		//		{
-		//			effectPath = "particles/impact.generic.smokepuff.vpcf";
-		//		}
-
-		//		var p = new SceneParticles( Scene.SceneWorld, effectPath );
-		//		p.SetControlPoint( 0, tr.HitPosition );
-		//		p.SetControlPoint( 0, Rotation.LookAt( tr.Normal ) );
-		//		p.PlayUntilFinished( TaskSource.Create() );
-		//	}
-		//}
-
-		// Decal
-		//if ( tr.Surface.ImpactEffects.BulletDecal is not null )
-		//{
-		//	var decalPath = Game.Random.FromList( tr.Surface.ImpactEffects.BulletDecal, "decals/bullethole.decal" );
-
-		//	if ( ResourceLibrary.TryGet<DecalDefinition>( decalPath, out var decalDef ) )
-		//	{
-		//		var decalEntry = Game.Random.FromList( decalDef.Decals );
-
-		//		var gameObject = Scene.CreateObject();
-		//		gameObject.Name = "Bullet Decal";
-		//		//gameObject.SetParent( tr.GameObject, false );
-		//		gameObject.WorldPosition = tr.HitPosition;
-		//		gameObject.WorldRotation = Rotation.LookAt( -tr.Normal );
-		//		gameObject.NetworkMode = NetworkMode.Never;
-
-		//		var decalRenderer = gameObject.Components.Create<DecalRenderer>();
-		//		decalRenderer.Material = decalEntry.Material;
-		//		decalRenderer.Size = new( decalEntry.Height.GetValue(), decalEntry.Height.GetValue(), decalEntry.Depth.GetValue() );
-		//		gameObject.DestroyAsync( 30f );
-		//	}
-		//}
+		var cloneConfig = new CloneConfig()
+		{
+			Name = "bullet_decal",
+			StartEnabled = true,
+			Transform = new()
+			{
+				Position = tr.HitPosition,
+				Rotation = Rotation.LookAt( -tr.Normal ),
+			},
+			//Parent = tr.GameObject,
+		};
+		var decalGO = tr.Surface.PrefabCollection.BulletImpact.Clone( cloneConfig );
+		decalGO.NetworkMode = NetworkMode.Never;
+		decalGO.DestroyAsync( 30f );
 	}
 
 	/// <summary>Create a weapon particle</summary>
