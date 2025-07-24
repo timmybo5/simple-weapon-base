@@ -202,7 +202,7 @@
             "Roll": {
               "Type": "Range",
               "Evaluation": "Seed",
-              "Constants": "170,190,0,0"
+              "Constants": "80,100,0,0"
             },
             "Scale": 1,
             "SequenceId": 0,
@@ -219,7 +219,7 @@
             "Yaw": {
               "Type": "Range",
               "Evaluation": "Seed",
-              "Constants": "40,60,0,0"
+              "Constants": "170,190,0,0"
             }
           },
           {

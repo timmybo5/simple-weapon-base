@@ -170,7 +170,7 @@ public partial class Weapon
 			{
 				if ( !ShellReloading || (ShellReloading && ShellEjectDelay == 0) )
 				{
-					CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
+					CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale, attachmentYawOnly: true );
 				}
 				else
 				{
@@ -178,7 +178,7 @@ public partial class Weapon
 					{
 						await GameTask.DelaySeconds( ShellEjectDelay );
 						if ( !IsValid ) return;
-						CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale );
+						CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale, attachmentYawOnly: true );
 					};
 					delayedEject();
 				}
@@ -240,15 +240,22 @@ public partial class Weapon
 	}
 
 	/// <summary>Create a weapon particle</summary>
-	public virtual void CreateParticle( GameObject particle, string attachment, float scale, Action<GameObject> OnParticleCreated = null )
+	public virtual void CreateParticle( GameObject particle, string attachment, float scale, Action<GameObject> OnParticleCreated = null, bool attachmentYawOnly = false )
 	{
 		var effectRenderer = GetEffectRenderer();
-
 		if ( effectRenderer is null || effectRenderer.SceneModel is null ) return;
 
 		var transform = effectRenderer.SceneModel.GetAttachment( attachment );
-
 		if ( !transform.HasValue ) return;
+
+		// Useful when creating model particles
+		if ( attachmentYawOnly )
+		{
+			var pitch = CanSeeViewModel ? ViewModelHandler.WorldRotation.Pitch() : WorldRotation.Pitch();
+			var yaw = transform.Value.Rotation.Yaw();
+			var newRot = Rotation.From( new Angles( 0, yaw, -pitch ) );
+			transform = transform.Value.WithRotation( newRot );
+		}
 
 		CreateParticle( particle, transform.Value, scale, OnParticleCreated );
 	}

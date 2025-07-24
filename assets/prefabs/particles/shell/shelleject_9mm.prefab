@@ -71,10 +71,15 @@
                   }
                 ]
               },
-              "CurveB": {
-                "rangex": "0,0",
-                "rangey": "0,0"
-              }
+              "CurveB": [
+                {
+                  "x": 0.5,
+                  "y": 0.5,
+                  "in": 0,
+                  "out": 0,
+                  "mode": "Mirrored"
+                }
+              ]
             },
             "ApplyAlpha": true,
             "ApplyColor": true,
@@ -197,7 +202,7 @@
             "Roll": {
               "Type": "Range",
               "Evaluation": "Seed",
-              "Constants": "50,70,0,0"
+              "Constants": "-10,10,0,0"
             },
             "Scale": 1,
             "SequenceId": 0,
@@ -214,7 +219,7 @@
             "Yaw": {
               "Type": "Range",
               "Evaluation": "Seed",
-              "Constants": "80,100,0,0"
+              "Constants": "-170,-190,0,0"
             }
           },
           {
