@@ -263,6 +263,10 @@ public partial class Weapon
 	public virtual void CreateParticle( GameObject particle, Transform transform, float scale, Action<GameObject> OnParticleCreated = null )
 	{
 		var go = particle.Clone( transform.WithScale( scale ) );
+
+		if ( CanSeeViewModel )
+			go.Tags.Add( TagsHelper.ViewModel );
+
 		var p = go.GetComponentInChildren<ParticleEffect>();
 		p.OnParticleCreated += ( p ) =>
 		{
