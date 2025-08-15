@@ -5,6 +5,8 @@ code/*.csproj
 config/
 .sbox/
 
+*.*_c
+
 # Blender
 *.blend1
 
