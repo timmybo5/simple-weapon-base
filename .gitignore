@@ -4,6 +4,9 @@
 code/*.csproj
 config/
 .sbox/
+demo.sln
+
+*.*_c
 
 # Blender
 *.blend1
