@@ -115,6 +115,12 @@
           "_type": "gameobject",
           "prefab": "prefabs/particles/tracer/tracer.prefab"
         },
+        "BulletType": {
+          "_type": "component",
+          "component_id": "43b1e8d6-22d6-4d0a-ac01-af136bdef245",
+          "go": "12d1b3e8-b22c-4081-9f32-19f389397407",
+          "component_type": "PhysicalBulletInfo"
+        },
         "ClipSize": 6,
         "Damage": 50,
         "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",
@@ -208,6 +214,22 @@
         "ShootSound": "sounds/swb/attachments/silencer/swb_heavy.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
+      },
+      {
+        "__type": "SWB.Base.PhysicalBulletInfo",
+        "__guid": "43b1e8d6-22d6-4d0a-ac01-af136bdef245",
+        "__enabled": true,
+        "BulletDrag": 0.01,
+        "BulletGravity": 65,
+        "BulletTracerChance": 0.5,
+        "BulletTracerPrefab": "prefabs/bullets/tracer_medium.prefab",
+        "BulletVelocity": 4500,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [],

@@ -1,13 +1,23 @@
 {
   "RootObject": {
     "__guid": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312",
+    "__version": 1,
     "Flags": 0,
     "Name": "veresk",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
     "Tags": "weapon",
+    "Enabled": false,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
         "__guid": "fa5836e6-aaab-47fa-94ed-f9babf843cac",
+        "__enabled": true,
         "AimAnimData": {
           "Angle": "-1.3,-0.02,0",
           "Pos": "-2.767,0,0.728"
@@ -45,6 +55,12 @@
         "FOV": 65,
         "HoldType": "Rifle",
         "Icon": "weapons/swb/veresk/veresk.png",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Primary": {
           "_type": "component",
           "component_id": "e3f4237c-acdf-49fb-9246-507109d41bdc",
@@ -69,6 +85,7 @@
           "AimSensitivity": 0.25
         },
         "Scoping": false,
+        "Secondary": null,
         "ShellEjectDelay": 0,
         "ShellReloading": false,
         "ShellReloadingShootCancel": true,
@@ -77,19 +94,36 @@
         "Slot": 4,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/veresk/v_veresk.vmdl",
+        "ViewModelHands": null,
         "WorldModel": "weapons/swb/veresk/w_veresk.vmdl"
       },
       {
         "__type": "SWB.Base.ShootInfo",
         "__guid": "e3f4237c-acdf-49fb-9246-507109d41bdc",
+        "__enabled": true,
         "Ammo": 30,
         "AmmoType": "smg",
-        "BarrelSmokeParticle": "particles/swb/muzzle/barrel_smoke.vpcf",
-        "BulletEjectParticle": "particles/swb/bullet_hulls/9mm_eject.vpcf",
+        "BarrelSmokeParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/muzzle/barrelsmoke.prefab"
+        },
+        "BulletEjectParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/shell/shelleject_9mm.prefab"
+        },
         "Bullets": 1,
         "BulletSize": 1,
         "BulletTracerChance": 0.33,
-        "BulletTracerParticle": "particles/swb/tracer/tracer.vpcf",
+        "BulletTracerParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/tracer/tracer.prefab"
+        },
+        "BulletType": {
+          "_type": "component",
+          "component_id": "532cd6e4-4da6-4c44-bd7b-427579015cd3",
+          "go": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312",
+          "component_type": "HitScanBulletInfo"
+        },
         "ClipSize": 30,
         "Damage": 12.5,
         "DryShootSound": "sounds/swb/clip/swb_smg.empty.sound",
@@ -97,7 +131,16 @@
         "Force": 3,
         "HitFlinch": 1.25,
         "InfiniteAmmo": "reserve",
-        "MuzzleFlashParticle": "particles/swb/muzzle/flash.vpcf",
+        "MuzzleFlashParticle": {
+          "_type": "gameobject",
+          "prefab": "prefabs/particles/muzzle/muzzleflash.prefab"
+        },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Recoil": 0.3,
         "RPM": 950,
         "ScreenShake": {
@@ -117,6 +160,7 @@
       {
         "__type": "SWB.Demo.ReflexSightBG",
         "__guid": "5d7983e9-072a-42bb-94af-68a7d806213c",
+        "__enabled": true,
         "AimAnimData": {
           "Angle": "0,-0.08,0",
           "Pos": "-2.788,0,0.377"
@@ -124,31 +168,53 @@
         "AimFOV": -1,
         "AimInFOVSpeed": -1,
         "AimOutFOVSpeed": -1,
+        "Bone": null,
         "Enable": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RequiresAttachment": null,
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
       {
         "__type": "SWB.Demo.RifleSilencerBG",
         "__guid": "61e29911-7fb0-48d5-b660-fbc3e37f344e",
+        "__enabled": true,
+        "Bone": null,
         "EffectAttachmentOrBone": "muzzle_silenced",
         "Enable": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RequiresAttachment": null,
         "ShootSound": "sounds/swb/attachments/silencer/swb_smg.silenced.fire.sound",
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
+      },
+      {
+        "__type": "SWB.Base.HitScanBulletInfo",
+        "__guid": "532cd6e4-4da6-4c44-bd7b-427579015cd3",
+        "__enabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null
       }
     ],
     "Children": [],
-    "__variables": [],
     "__properties": {
-      "FixedUpdateFrequency": 50,
-      "MaxFixedUpdates": 5,
-      "NetworkFrequency": 30,
       "NetworkInterpolation": true,
-      "PhysicsSubSteps": 1,
-      "ThreadedAnimation": true,
       "TimeScale": 1,
-      "UseFixedUpdate": true,
+      "WantsSystemScene": true,
       "Metadata": {},
       "NavMesh": {
         "Enabled": false,
@@ -162,13 +228,14 @@
         "ExcludedBodies": "",
         "IncludedBodies": ""
       }
-    }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
   "DontBreakAsTemplate": false,
-  "ResourceVersion": 1,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }

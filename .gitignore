@@ -4,6 +4,12 @@
 code/*.csproj
 config/
 .sbox/
+*.sln
+
+# S&Box Compiled Assets
+*.vmdl_c
+*.sound_c
+*.vmat_c
 
 # Blender
 *.blend1
