@@ -4,9 +4,11 @@ using System.Linq;
 
 namespace SWB.Base;
 
-public class HitScanBullet : IBulletBase
+[Group( "SWB" )]
+[Title( "HitScan Bullet Info" )]
+public class HitScanBulletInfo : BulletInfo
 {
-	public void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
+	public override void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
 	{
 		if ( !weapon.IsValid ) return;
 
@@ -48,11 +50,6 @@ public class HitScanBullet : IBulletBase
 			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, bulletTr.HitPosition, forward * 100 * shootInfo.Force, hitTags );
 			target?.TakeDamage( dmgInfo );
 		}
-	}
-
-	public Vector3 GetRandomSpread( float spread )
-	{
-		return (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
 	}
 
 	public virtual void TracerEffects( Weapon weapon, ShootInfo shootInfo, SceneTraceResult tr )
