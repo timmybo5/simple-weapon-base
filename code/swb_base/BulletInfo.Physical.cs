@@ -21,14 +21,11 @@ public class PhysicalBulletInfo : BulletInfo
 	[Property( Name = "Prefab" )]
 	public PrefabFile BulletTracerPrefab { get; set; }
 
-	[Property( Name = "Bullet Prefab" )]
-	public float BulletTracerChance { get; set; } = 0.5f;
-
-	private bool ShouldSpawnTracer()
+	private bool ShouldSpawnTracer( ShootInfo shootInfo )
 	{
 		var random = new Random();
 		var randVal = random.NextDouble();
-		return randVal < BulletTracerChance;
+		return randVal < shootInfo.BulletTracerChance;
 	}
 
 	public override void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
@@ -47,7 +44,7 @@ public class PhysicalBulletInfo : BulletInfo
 		var muzzleTransform = weapon.GetMuzzleTransform();
 		var originPosition = muzzleTransform.HasValue ? muzzleTransform.Value.Position : player.EyePos;
 
-		if ( BulletTracerPrefab is not null && ShouldSpawnTracer() )
+		if ( BulletTracerPrefab is not null && ShouldSpawnTracer( shootInfo ) )
 		{
 			bulletObject = GameObject.Clone( BulletTracerPrefab, new CloneConfig
 			{
