@@ -125,7 +125,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		{
 			attachmentRenderer.WorldScale = ViewModelScale;
 			ViewModelRenderer = attachmentRenderer;
-			attachmentGO.Flags |= GameObjectFlags.NotNetworked;
+			attachmentGO.NetworkMode = NetworkMode.Never;
 			ModelUtil.ParentToBone( attachmentGO, Weapon.ViewModelRenderer, Bone );
 		}
 		else
