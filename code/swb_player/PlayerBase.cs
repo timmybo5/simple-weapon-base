@@ -117,8 +117,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		if ( IsProxy ) return;
 
 		Deaths++;
-		CharacterController.Velocity = 0;
 		Ragdoll( info.Force, info.Origin );
+		CharacterController.Velocity = 0;
 		Inventory.Clear();
 		RespawnWithDelay( 2 );
 	}
@@ -143,14 +143,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public virtual void Respawn()
 	{
-		// Hack: Delaying with just 1ms fixes the 1 frame body at death position.
-		async void UnragdollWithDelay()
-		{
-			await GameTask.Delay( 1 );
-			Unragdoll();
-		}
-		UnragdollWithDelay();
-
 		Inventory.Clear();
 		Health = MaxHealth;
 
@@ -158,6 +150,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		WorldPosition = spawnLocation.Position;
 		EyeAngles = spawnLocation.Rotation.Angles();
 		Network.ClearInterpolation();
+		Unragdoll( WorldPosition );
 
 		if ( IsBot )
 		{
@@ -181,7 +174,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	protected override void OnUpdate()
 	{
-		if ( IsBot ) return;
+		if ( IsBot )
+		{
+			UpdateClothes();
+			return;
+		}
+
 		if ( !IsProxy ) ViewModelCamera.Enabled = IsFirstPerson && IsAlive;
 
 		if ( IsAlive )
