@@ -276,7 +276,7 @@ public partial class Weapon : Component, IInventoryItem
 			var viewModelGO = new GameObject( true, "Viewmodel" );
 			viewModelGO.SetParent( Owner.GameObject, false );
 			viewModelGO.Tags.Add( TagsHelper.ViewModel );
-			viewModelGO.Flags |= GameObjectFlags.NotNetworked;
+			viewModelGO.NetworkMode = NetworkMode.Never;
 
 			ViewModelRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
 			ViewModelRenderer.Model = ViewModel;
@@ -287,7 +287,7 @@ public partial class Weapon : Component, IInventoryItem
 			{
 				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
 				ViewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
-				ResetViewModelAnimations();
+				ViewModelRenderer.ClearParameters();
 				OnDeploy();
 			};
 
@@ -321,29 +321,6 @@ public partial class Weapon : Component, IInventoryItem
 			var bodyRenderer = Owner.Body.Components.Get<SkinnedModelRenderer>();
 			ModelUtil.ParentToBone( GameObject, bodyRenderer, "hold_R" );
 		}
-	}
-
-	// Temp fix until https://github.com/Facepunch/sbox-issues/issues/5247 is fixed
-	public virtual void ResetViewModelAnimations()
-	{
-		if ( Primary.IsValid() )
-		{
-			ViewModelRenderer?.Set( Primary.ShootAnim ?? "", false );
-			ViewModelRenderer?.Set( Primary.ShootEmptyAnim ?? "", false );
-			ViewModelRenderer?.Set( Primary.ShootAimedAnim ?? "", false );
-		}
-
-		if ( Secondary.IsValid() )
-		{
-			ViewModelRenderer?.Set( Secondary.ShootAnim ?? "", false );
-			ViewModelRenderer?.Set( Secondary.ShootEmptyAnim ?? "", false );
-			ViewModelRenderer?.Set( Secondary.ShootAimedAnim ?? "", false );
-		}
-
-		ViewModelRenderer?.Set( ReloadAnim ?? "", false );
-		ViewModelRenderer?.Set( ReloadEmptyAnim ?? "", false );
-		ViewModelRenderer?.Set( DrawAnim ?? "", false );
-		ViewModelRenderer?.Set( DrawEmptyAnim ?? "", false );
 	}
 
 	[Rpc.Broadcast]

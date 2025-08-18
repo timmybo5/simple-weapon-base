@@ -1,5 +1,4 @@
-﻿
-using SWB.Base;
+﻿using SWB.Base;
 using System;
 
 namespace SWB.Player;
