@@ -1,3 +1,4 @@
+using SWB.Shared;
 using System;
 
 namespace SWB.Base;
@@ -9,24 +10,14 @@ namespace SWB.Base;
 [Title( "Physical Bullet Info" )]
 public class PhysicalBulletInfo : BulletInfo
 {
-	[Property( Name = "Velocity" ), Range( 0, 10000, false, true ), Step( 500f )]
-	public float BulletVelocity { get; set; } = 4000f;
+	[Property, Range( 0, 20000, false, true ), Step( 500f )]
+	public float Velocity { get; set; } = 4000f;
 
-	[Property( Name = "Gravity" ), Range( 0, 200, false, true ), Step( 5f )]
-	public float BulletGravity { get; set; } = 65;
+	[Property, Range( 0, 1000, false, true ), Step( 5f )]
+	public float Gravity { get; set; } = 65;
 
-	[Property( Name = "Drag" ), Range( 0, 0.02f, false, true ), Step( 0.001f )]
-	public float BulletDrag { get; set; } = 0.01f;
-
-	[Property( Name = "Prefab" )]
-	public PrefabFile BulletTracerPrefab { get; set; }
-
-	private bool ShouldSpawnTracer( ShootInfo shootInfo )
-	{
-		var random = new Random();
-		var randVal = random.NextDouble();
-		return randVal < shootInfo.BulletTracerChance;
-	}
+	[Property, Range( 0, 0.04f, false, true ), Step( 0.001f )]
+	public float Drag { get; set; } = 0.01f;
 
 	public override void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
 	{
@@ -37,30 +28,30 @@ public class PhysicalBulletInfo : BulletInfo
 
 		var forward = player.EyeAngles.Forward + spreadOffset;
 		forward = forward.Normal;
-		var bulletVelocity = forward * BulletVelocity;
+		var bulletVelocity = forward * Velocity;
 
-		GameObject bulletObject;
+		GameObject bulletGO;
 
 		var muzzleTransform = weapon.GetMuzzleTransform();
 		var originPosition = muzzleTransform.HasValue ? muzzleTransform.Value.Position : player.EyePos;
+		var bulletTrans = new Transform( originPosition, player.EyeAngles );
 
-		if ( BulletTracerPrefab is not null && ShouldSpawnTracer( shootInfo ) )
+		if ( ShouldSpawnTracer( shootInfo ) )
 		{
-			bulletObject = GameObject.Clone( BulletTracerPrefab, new CloneConfig
+			bulletGO = shootInfo.BulletTracerParticle.Clone( new CloneConfig
 			{
-				Transform = new Transform( originPosition, player.EyeAngles ),
+				Transform = bulletTrans,
 			} );
 		}
 		else
 		{
-			bulletObject = Scene.CreateObject();
-			bulletObject.WorldTransform = new Transform( originPosition, player.EyeAngles );
+			bulletGO = Scene.CreateObject();
+			bulletGO.WorldTransform = bulletTrans;
 		}
 
-		bulletObject.GetOrAddComponent<PhysicalBulletMover>().Initialize( this, weapon, shootInfo, bulletVelocity );
-
-
-		bulletObject.NetworkSpawn();
+		bulletGO.Name = TagsHelper.PhysBullet;
+		bulletGO.Tags.Add( TagsHelper.PhysBullet );
+		bulletGO.GetOrAddComponent<PhysicalBulletMover>().Initialize( this, weapon, shootInfo, bulletVelocity );
+		bulletGO.NetworkSpawn();
 	}
 }
-

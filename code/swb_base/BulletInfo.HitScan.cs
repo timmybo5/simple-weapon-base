@@ -27,14 +27,8 @@ public class HitScanBulletInfo : BulletInfo
 		weapon.CreateBulletImpact( bulletTr );
 
 		// Tracer
-		if ( shootInfo.BulletTracerParticle is not null )
-		{
-			var random = new Random();
-			var randVal = random.NextDouble();
-
-			if ( randVal < shootInfo.BulletTracerChance )
-				TracerEffects( weapon, shootInfo, bulletTr );
-		}
+		if ( ShouldSpawnTracer( shootInfo ) )
+			TracerEffects( weapon, shootInfo, bulletTr );
 
 		// Damage
 		if ( !weapon.IsProxy && hitObj is not null && hitObj.Tags.Has( TagsHelper.Player ) )

@@ -4,8 +4,8 @@ root = true
 # C# files
 [*]
 indent_style = tab
-indent_size = 2
-tab_size = 2
+indent_size = 4
+tab_size = 4
 max_line_length = 120
 
 # New line preferences

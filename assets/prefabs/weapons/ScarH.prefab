@@ -120,9 +120,9 @@
         },
         "BulletType": {
           "_type": "component",
-          "component_id": "ad0ab7bd-b101-466e-8654-4f4e263d8ce8",
+          "component_id": "4bfd7500-4b75-47ff-9b9e-23980850714a",
           "go": "a3b668c3-acfb-4043-8f7c-93b7df84b5c8",
-          "component_type": "PhysicalBulletInfo"
+          "component_type": "HitScanBulletInfo"
         },
         "ClipSize": 30,
         "Damage": 25,
@@ -199,14 +199,9 @@
         "WorldModelScale": "1,1,1"
       },
       {
-        "__type": "SWB.Base.PhysicalBulletInfo",
-        "__guid": "ad0ab7bd-b101-466e-8654-4f4e263d8ce8",
+        "__type": "SWB.Base.HitScanBulletInfo",
+        "__guid": "4bfd7500-4b75-47ff-9b9e-23980850714a",
         "__enabled": true,
-        "BulletDrag": 0.001,
-        "BulletGravity": 65,
-        "BulletTracerChance": 1,
-        "BulletTracerPrefab": "prefabs/bullets/tracer_medium.prefab",
-        "BulletVelocity": 3999.9998,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,

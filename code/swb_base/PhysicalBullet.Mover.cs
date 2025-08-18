@@ -1,7 +1,6 @@
-
+using SWB.Shared;
 using System;
 using System.Linq;
-using SWB.Shared;
 
 namespace SWB.Base;
 
@@ -15,9 +14,9 @@ public class PhysicalBulletMover : Component
 	public ShootInfo ShootInfo { get; set; }
 	public PhysicalBulletInfo BulletInfo { get; set; }
 
-	public float BulletGravity => BulletInfo.BulletGravity;
+	public float BulletGravity => BulletInfo.Gravity;
 
-	public float BulletDrag => BulletInfo.BulletDrag;
+	public float BulletDrag => BulletInfo.Drag;
 
 	public bool HasImpacted { get; private set; } = false;
 
@@ -85,7 +84,7 @@ public class PhysicalBulletMover : Component
 			var forward = BulletVelocity.Normal;
 
 			// Assume force from shoot info is the force at firing
-			var force = BulletVelocity.Length.Remap( 0, BulletInfo.BulletVelocity, 0, ShootInfo.Force );
+			var force = BulletVelocity.Length.Remap( 0, BulletInfo.Velocity, 0, ShootInfo.Force );
 
 			var dmgInfo = Shared.DamageInfo.FromBullet( Weapon.Owner.Id, Weapon.ClassName, ShootInfo.Damage, traceResult.HitPosition, forward * 100 * force, hitTags );
 			target?.TakeDamage( dmgInfo );

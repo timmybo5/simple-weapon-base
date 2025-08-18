@@ -113,11 +113,11 @@
         "BulletTracerChance": 0.33,
         "BulletTracerParticle": {
           "_type": "gameobject",
-          "prefab": "prefabs/particles/tracer/tracer.prefab"
+          "prefab": "prefabs/particles/tracer/tracer_phys.prefab"
         },
         "BulletType": {
           "_type": "component",
-          "component_id": "43b1e8d6-22d6-4d0a-ac01-af136bdef245",
+          "component_id": "f5b62b4d-1e08-4181-9205-1564a6eb91c0",
           "go": "12d1b3e8-b22c-4081-9f32-19f389397407",
           "component_type": "PhysicalBulletInfo"
         },
@@ -217,19 +217,17 @@
       },
       {
         "__type": "SWB.Base.PhysicalBulletInfo",
-        "__guid": "43b1e8d6-22d6-4d0a-ac01-af136bdef245",
+        "__guid": "f5b62b4d-1e08-4181-9205-1564a6eb91c0",
         "__enabled": true,
-        "BulletDrag": 0.01,
-        "BulletGravity": 65,
-        "BulletTracerChance": 0.5,
-        "BulletTracerPrefab": "prefabs/bullets/tracer_medium.prefab",
-        "BulletVelocity": 4500,
+        "Drag": 0.010000001,
+        "Gravity": 85,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
-        "OnComponentUpdate": null
+        "OnComponentUpdate": null,
+        "Velocity": 7500
       }
     ],
     "Children": [],

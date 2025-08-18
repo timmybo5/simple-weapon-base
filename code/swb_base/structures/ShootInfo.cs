@@ -27,8 +27,7 @@ public enum InfiniteAmmoType
 public class ShootInfo : Component
 {
 	/// <summary>Bullet type (Hitscan/Physical)</summary>
-	[Property, Group( "Bullets" )]
-	public BulletInfo BulletType { get; set; }
+	[Property, Group( "Bullets" )] public BulletInfo BulletType { get; set; } = new HitScanBulletInfo();
 
 	/// <summary>Type of ammo</summary>
 	[Property, Group( "Ammo" )] public string AmmoType { get; set; } = "pistol";
