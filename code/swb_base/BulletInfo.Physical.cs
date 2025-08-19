@@ -30,28 +30,27 @@ public class PhysicalBulletInfo : BulletInfo
 		forward = forward.Normal;
 		var bulletVelocity = forward * Velocity;
 
-		GameObject bulletGO;
+		GameObject bulletObject;
 
 		var muzzleTransform = weapon.GetMuzzleTransform();
 		var originPosition = muzzleTransform.HasValue ? muzzleTransform.Value.Position : player.EyePos;
-		var bulletTrans = new Transform( originPosition, player.EyeAngles );
+		var bulletTransform = new Transform( originPosition, player.EyeAngles );
 
 		if ( ShouldSpawnTracer( shootInfo ) )
 		{
-			bulletGO = shootInfo.BulletTracerParticle.Clone( new CloneConfig
+			bulletObject = shootInfo.BulletTracerParticle.Clone( new CloneConfig
 			{
-				Transform = bulletTrans,
+				Transform = bulletTransform,
 			} );
 		}
 		else
 		{
-			bulletGO = Scene.CreateObject();
-			bulletGO.WorldTransform = bulletTrans;
+			bulletObject = Scene.CreateObject();
+			bulletObject.WorldTransform = bulletTransform;
 		}
 
-		bulletGO.Name = TagsHelper.PhysBullet;
-		bulletGO.Tags.Add( TagsHelper.PhysBullet );
-		bulletGO.GetOrAddComponent<PhysicalBulletMover>().Initialize( this, weapon, shootInfo, bulletVelocity );
-		bulletGO.NetworkSpawn();
+		bulletObject.Name = TagsHelper.PhysicalBullet;
+		bulletObject.Tags.Add( TagsHelper.PhysicalBullet );
+		bulletObject.GetOrAddComponent<PhysicalBulletMover>().Initialize( this, weapon, shootInfo, bulletVelocity );
 	}
 }
