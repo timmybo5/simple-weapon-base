@@ -117,7 +117,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		if ( IsProxy ) return;
 
 		Deaths++;
-		Ragdoll( info.Force, info.Origin );
+		Ragdoll( info.Force, info.Origin, CharacterController.Velocity );
 		CharacterController.Velocity = 0;
 		Inventory.Clear();
 		RespawnWithDelay( 2 );
@@ -150,7 +150,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		WorldPosition = spawnLocation.Position;
 		EyeAngles = spawnLocation.Rotation.Angles();
 		Network.ClearInterpolation();
-		Unragdoll( WorldPosition );
+		Unragdoll();
 
 		if ( IsBot )
 		{

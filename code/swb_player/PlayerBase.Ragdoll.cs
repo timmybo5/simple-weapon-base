@@ -8,14 +8,14 @@ public partial class PlayerBase
 	public bool IsRagdolled => RagdollGO.IsValid;
 
 	[Rpc.Broadcast]
-	public virtual void Ragdoll( Vector3 force, Vector3 forceOrigin )
+	public virtual void Ragdoll( Vector3 force, Vector3 forceOrigin, Vector3 velocity )
 	{
 		if ( !IsValid ) return;
-		CreateRagdoll( force, forceOrigin );
+		CreateRagdoll( force, forceOrigin, velocity );
 		Body.Enabled = false;
 	}
 
-	public virtual void CreateRagdoll( Vector3 force, Vector3 forceOrigin )
+	public virtual void CreateRagdoll( Vector3 force, Vector3 forceOrigin, Vector3 velocity )
 	{
 		RagdollGO = new GameObject( true, "Ragdoll" );
 		RagdollGO.Tags.Add( TagsHelper.DeadPlayer );
@@ -38,16 +38,19 @@ public partial class PlayerBase
 		physics.Model = renderer.Model;
 		physics.Renderer = renderer;
 		physics.CopyBonesFrom( BodyRenderer, true );
+
+		var forceMultiplier = IsOnGround ? 200 : 100;
+		velocity *= forceMultiplier;
+
 		foreach ( var body in physics.Bodies )
 		{
-			var forceMultiplier = IsOnGround ? 200 : 100;
-			body.Component.ApplyForceAt( renderer.SceneModel.Bounds.Center, Velocity * forceMultiplier );
+			body.Component.ApplyForceAt( renderer.SceneModel.Bounds.Center, velocity );
 			body.Component.ApplyImpulseAt( forceOrigin, force );
 		}
 	}
 
 	[Rpc.Broadcast]
-	public virtual void Unragdoll( Vector3 pos )
+	public virtual void Unragdoll()
 	{
 		if ( !IsValid ) return;
 		RagdollGO?.Destroy();
