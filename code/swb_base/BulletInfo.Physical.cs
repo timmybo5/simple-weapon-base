@@ -21,7 +21,7 @@ public class PhysicalBulletInfo : BulletInfo
 
 	public override void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
 	{
-		if ( !weapon.IsValid ) return;
+		if ( IsProxy || !weapon.IsValid ) return;
 
 		var player = weapon.Owner;
 		if ( player is null ) return;
@@ -52,6 +52,7 @@ public class PhysicalBulletInfo : BulletInfo
 		bulletObject.Name = TagsHelper.PhysicalBullet;
 		bulletObject.Tags.Add( TagsHelper.PhysicalBullet );
 		bulletObject.GetOrAddComponent<PhysicalBulletMover>().Initialize( this, weapon, shootInfo, bulletVelocity );
-		bulletObject.Enabled = true;
+		bulletObject.NetworkInterpolation = false;
+		bulletObject.NetworkSpawn();
 	}
 }

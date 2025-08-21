@@ -24,7 +24,7 @@ public class HitScanBulletInfo : BulletInfo
 		if ( SurfaceUtil.IsSkybox( bulletTr.Surface ) || bulletTr.HitPosition == Vector3.Zero ) return;
 
 		// Impact
-		weapon.CreateBulletImpact( bulletTr );
+		Weapon.CreateBulletImpact( bulletTr );
 
 		// Tracer
 		if ( ShouldSpawnTracer( shootInfo ) )
@@ -41,7 +41,8 @@ public class HitScanBulletInfo : BulletInfo
 			if ( bulletTr.Hitbox is not null )
 				hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
 
-			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, bulletTr.HitPosition, forward * 100 * shootInfo.Force, hitTags );
+			var force = forward * 100 * shootInfo.Force;
+			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, bulletTr.HitPosition, force, hitTags );
 			target?.TakeDamage( dmgInfo );
 		}
 	}

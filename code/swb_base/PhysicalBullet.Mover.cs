@@ -8,22 +8,20 @@ namespace SWB.Base;
 [Title( "Physical Bullet Mover" )]
 public class PhysicalBulletMover : Component
 {
+	public IPlayerBase Owner { get; set; }
+	public string ClassName { get; set; }
 	public Vector3 BulletVelocity { get; set; }
-
-	public Weapon Weapon { get; set; }
 	public ShootInfo ShootInfo { get; set; }
 	public PhysicalBulletInfo BulletInfo { get; set; }
-
 	public float BulletGravity => BulletInfo.Gravity;
-
 	public float BulletDrag => BulletInfo.Drag;
-
 	public bool HasImpacted { get; private set; } = false;
 
 	public void Initialize( PhysicalBulletInfo bulletInfo, Weapon weapon, ShootInfo shootInfo, Vector3 bulletVelocity )
 	{
 		BulletInfo = bulletInfo;
-		Weapon = weapon;
+		Owner = weapon.Owner;
+		ClassName = weapon.ClassName;
 		ShootInfo = shootInfo;
 		BulletVelocity = bulletVelocity;
 
@@ -33,7 +31,7 @@ public class PhysicalBulletMover : Component
 
 	protected override void OnFixedUpdate()
 	{
-		if ( HasImpacted ) return;
+		if ( IsProxy || HasImpacted || Owner is null ) return;
 
 		// Apply drag (before gravity so we aren't immediately dragging on gravity)
 		BulletVelocity *= 1 - BulletDrag;
@@ -44,7 +42,7 @@ public class PhysicalBulletMover : Component
 		var bulletMovement = BulletVelocity * Time.Delta;
 
 		// Trace along path to see if we hit anything
-		var bulletTrace = Weapon.TraceBullet( WorldPosition, WorldPosition + bulletMovement );
+		var bulletTrace = Weapon.TraceBullet( Owner.GameObject, WorldPosition, WorldPosition + bulletMovement );
 		if ( bulletTrace.Hit )
 		{
 			HandleImpact( bulletTrace );
@@ -68,10 +66,11 @@ public class PhysicalBulletMover : Component
 		if ( SurfaceUtil.IsSkybox( traceResult.Surface ) || traceResult.HitPosition == Vector3.Zero ) return;
 
 		// Impact
-		Weapon.CreateBulletImpact( traceResult );
+		var decal = Weapon.CreateBulletImpact( traceResult );
+		decal?.NetworkSpawn();
 
 		// Damage
-		if ( !Weapon.IsProxy && hitObject is not null && hitObject.Tags.Has( TagsHelper.Player ) )
+		if ( hitObject is not null && hitObject.Tags.Has( TagsHelper.Player ) )
 		{
 			var target = hitObject.Components.GetInAncestorsOrSelf<IPlayerBase>();
 			if ( !target.IsAlive ) return;
@@ -86,7 +85,7 @@ public class PhysicalBulletMover : Component
 			// Assume force from shoot info is the force at firing
 			var force = BulletVelocity.Length.Remap( 0, BulletInfo.Velocity, 0, ShootInfo.Force );
 
-			var dmgInfo = Shared.DamageInfo.FromBullet( Weapon.Owner.Id, Weapon.ClassName, ShootInfo.Damage, traceResult.HitPosition, forward * 100 * force, hitTags );
+			var dmgInfo = Shared.DamageInfo.FromBullet( Owner.Id, ClassName, ShootInfo.Damage, traceResult.HitPosition, forward * 100 * force, hitTags );
 			target?.TakeDamage( dmgInfo );
 		}
 	}
