@@ -26,6 +26,9 @@ public enum InfiniteAmmoType
 [Title( "ShootInfo" )]
 public class ShootInfo : Component
 {
+	/// <summary>Bullet type (Hitscan/Physical)</summary>
+	[Property, Group( "Bullets" )] public BulletInfo BulletType { get; set; }
+
 	/// <summary>Type of ammo</summary>
 	[Property, Group( "Ammo" )] public string AmmoType { get; set; } = "pistol";
 
@@ -45,9 +48,6 @@ public class ShootInfo : Component
 
 	/// <summary>Bullet size</summary>
 	[Property, Group( "Bullets" )] public float BulletSize { get; set; } = 0.1f;
-
-	/// <summary>Bullet type (Hitscan/Physical)</summary>
-	public IBulletBase BulletType { get; set; } = new HitScanBullet();
 
 	/// <summary>Chance the BulletTracerParticle is created (0-1)</summary>
 	[Property, Group( "Bullets" )] public float BulletTracerChance { get; set; } = 0.33f;

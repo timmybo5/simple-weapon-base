@@ -128,7 +128,7 @@ public partial class Weapon
 	}
 
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
-	public virtual SceneTraceResult TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
+	public static SceneTraceResult TraceBullet( GameObject toIgnoreGO, Vector3 start, Vector3 end, float radius = 2.0f )
 	{
 		var startsInWater = SurfaceUtil.IsPointWater( start );
 		var withoutTags = new List<string>() { TagsHelper.Trigger, TagsHelper.PlayerClip, TagsHelper.PassBullets, TagsHelper.ViewModel };
@@ -136,16 +136,22 @@ public partial class Weapon
 		if ( startsInWater )
 			withoutTags.Add( TagsHelper.Water );
 
-		var tr = Scene.Trace.Ray( start, end )
+		var tr = Game.ActiveScene.Trace.Ray( start, end )
 				.UseHitboxes()
 				.WithoutTags( withoutTags.ToArray() )
 				.Size( radius )
-				.IgnoreGameObjectHierarchy( Owner.GameObject )
+				.IgnoreGameObjectHierarchy( toIgnoreGO )
 				.Run();
 
 		// Log.Info( tr.GameObject );
 
 		return tr;
+	}
+
+	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
+	public virtual SceneTraceResult TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
+	{
+		return TraceBullet( Owner.GameObject, start, end, radius );
 	}
 
 	[Rpc.Broadcast]
@@ -214,14 +220,14 @@ public partial class Weapon
 	}
 
 	/// <summary>Create a bullet impact effect</summary>
-	public virtual void CreateBulletImpact( SceneTraceResult tr )
+	public static GameObject CreateBulletImpact( SceneTraceResult tr )
 	{
 		// Sound
 		tr.Surface.PlayCollisionSound( tr.HitPosition );
 
 		// Decal & Particles
 		var impactPrefab = tr.Surface.PrefabCollection.BulletImpact;
-		if ( impactPrefab is null || !impactPrefab.IsValid ) return;
+		if ( impactPrefab is null || !impactPrefab.IsValid ) return null;
 
 		var cloneConfig = new CloneConfig()
 		{
@@ -237,6 +243,7 @@ public partial class Weapon
 		var decalGO = impactPrefab.Clone( cloneConfig );
 		decalGO.NetworkMode = NetworkMode.Never;
 		decalGO.DestroyAsync( 30f );
+		return decalGO;
 	}
 
 	/// <summary>Create a weapon particle</summary>

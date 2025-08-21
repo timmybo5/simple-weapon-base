@@ -25,6 +25,13 @@ public partial class Weapon : Component, IInventoryItem
 		Settings = WeaponSettings.Instance;
 		InitialPrimaryStats = StatsModifier.FromShootInfo( Primary );
 
+		// Default BulletType
+		if ( Primary is not null && Primary.BulletType is null )
+			Primary.BulletType = Components.Create<HitScanBulletInfo>();
+		if ( Secondary is not null && Secondary.BulletType is null )
+			Secondary.BulletType = Components.Create<HitScanBulletInfo>();
+
+		// Stats
 		if ( Secondary is not null )
 			InitialSecondaryStats = StatsModifier.FromShootInfo( Secondary );
 		else

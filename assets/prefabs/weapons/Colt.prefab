@@ -118,6 +118,7 @@
           "_type": "gameobject",
           "prefab": "prefabs/particles/tracer/tracer.prefab"
         },
+        "BulletType": null,
         "ClipSize": 7,
         "Damage": 25,
         "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",

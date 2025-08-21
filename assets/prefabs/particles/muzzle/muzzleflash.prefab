@@ -433,10 +433,15 @@
                   }
                 ]
               },
-              "CurveB": {
-                "rangex": "0,0",
-                "rangey": "0,0"
-              }
+              "CurveB": [
+                {
+                  "x": 0.5,
+                  "y": 0.5,
+                  "in": 0,
+                  "out": 0,
+                  "mode": "Mirrored"
+                }
+              ]
             },
             "SequenceId": {
               "Type": "Range",
@@ -653,10 +658,15 @@
                   }
                 ]
               },
-              "CurveB": {
-                "rangex": "0,0",
-                "rangey": "0,0"
-              }
+              "CurveB": [
+                {
+                  "x": 0.5,
+                  "y": 0.5,
+                  "in": 0,
+                  "out": 0,
+                  "mode": "Mirrored"
+                }
+              ]
             },
             "DieOnCollisionChance": 0,
             "FollowerPrefab": null,
@@ -769,10 +779,15 @@
                   }
                 ]
               },
-              "CurveB": {
-                "rangex": "0,0",
-                "rangey": "0,0"
-              }
+              "CurveB": [
+                {
+                  "x": 0.5,
+                  "y": 0.5,
+                  "in": 0,
+                  "out": 0,
+                  "mode": "Mirrored"
+                }
+              ]
             },
             "SequenceId": 0,
             "SequenceSpeed": 1,
@@ -858,7 +873,7 @@
             "__type": "Sandbox.ParticleTrailRenderer",
             "__guid": "c458e852-33cc-4564-a59e-df7b0ca822e2",
             "__enabled": true,
-            "BlendMode": "Normal",
+            "BlendMode": "Lighten",
             "CastShadows": false,
             "Color": {
               "blend": "Linear",
@@ -897,6 +912,7 @@
             "ScaleFromParticle": true,
             "Texturing": {
               "Texture": null,
+              "Material": null,
               "WorldSpace": true,
               "UnitsPerTexture": 0,
               "Scale": 1,
@@ -927,7 +943,7 @@
             "Wireframe": false
           },
           {
-            "__type": "ParticleCount",
+            "__type": "SWB.Base.Particles.ParticleCount",
             "__guid": "609d1225-a72a-43f3-87a0-029b73b5f875",
             "__enabled": true,
             "Max": 3,

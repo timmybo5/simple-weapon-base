@@ -940,7 +940,6 @@
         "3e1e96c5-b788-4483-9ffd-7b59b02df678": "d3abc975-65f6-4a3c-89df-bbe69bce4e0a",
         "55559241-6791-4c24-9635-07aceee3d8a4": "d61880a9-7436-4bcb-b1ac-51e49353f455",
         "fc51159a-2082-4de0-8c3e-5f44d049ed23": "35056568-c9cf-4345-a1e4-afd484ae7dda",
-        "fb5d8b8c-8bc7-4ecb-be40-75cf5191cde1": "144bbff9-dd1c-4289-a9ec-76610874c989",
         "ca33f55a-55a2-461c-95d5-f476e03db53e": "ebe28253-1fa6-4078-ba5b-2a682521c472",
         "f485caf1-2fbd-46ed-a206-e62c28b048c3": "a5561a5d-bb99-4de4-9fec-7b9d19d2b02c",
         "ee5bdad6-10d0-481c-98e2-9e8861c969e7": "7d20207b-2589-43a4-9f3e-a617b0b20460",
@@ -1156,7 +1155,8 @@
             "90aafa5d-7f73-4334-ac7f-78143bc61a57": "ec5812f4-b363-49fb-8d5b-e1797827019f",
             "b47568cc-132b-4d8b-ab59-139c0021e7d0": "cab35533-6c9e-496a-939e-040663966cff",
             "028b2269-e020-401d-8a7f-6f0c1bfabba2": "8a5df194-8526-46a8-afa5-8b66fc12d574",
-            "e71954fa-6616-4c09-a171-34ce88d1860c": "45b90b7a-0853-4603-99a3-ac7b2b59d24e"
+            "e71954fa-6616-4c09-a171-34ce88d1860c": "45b90b7a-0853-4603-99a3-ac7b2b59d24e",
+            "a904baf8-5e8b-482d-b146-b3b27bdee98a": "84458b08-17b9-4d77-8e13-6a229cf7dd15"
           }
         },
         {
@@ -1206,6 +1206,14 @@
                 },
                 "Property": "MuzzleFlashParticle",
                 "Value": null
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "e43a4d21-2f1e-463f-b74b-0b294ed231fe"
+                },
+                "Property": "Gravity",
+                "Value": 200
               }
             ],
             "MovedObjects": []
@@ -1218,7 +1226,8 @@
             "b06b304a-c267-41d9-b348-45d151f1f03f": "bc1fe824-66a7-47a8-821f-95b13887033a",
             "c19a5302-22b5-4cf5-8386-0ba71065070a": "2a5c8a54-1d92-495a-b98e-b1321772c14d",
             "e82e0d87-bca8-4616-ba03-f063e45cf54f": "10e2104c-f8b7-4f30-982e-0270240594a7",
-            "33367dd0-559c-4454-a171-28d402ac7a3c": "646bddc2-3970-4a20-8745-10c9edf6bcb1"
+            "33367dd0-559c-4454-a171-28d402ac7a3c": "646bddc2-3970-4a20-8745-10c9edf6bcb1",
+            "e43a4d21-2f1e-463f-b74b-0b294ed231fe": "be6a7eb9-46ba-4d63-82e7-bcac07a79c20"
           }
         },
         {
@@ -1277,7 +1286,8 @@
             "61ada1b9-4036-4907-be9e-e774c0e4154a": "f5127420-66cf-4760-8f51-150507dfd4e1",
             "6c143f17-9226-4a53-bbb9-3473b4d013cc": "bc3dc9b8-9ac3-42dd-89f8-79fa7b4d2d92",
             "28ba3396-e484-4425-9a37-cf6b2d976c27": "fe67a361-014c-47f6-a89d-f5016af1abfc",
-            "9e2fc3a7-822a-416b-b095-3f404511517b": "7038bf13-8e61-4c44-81e9-92e421330bb7"
+            "9e2fc3a7-822a-416b-b095-3f404511517b": "7038bf13-8e61-4c44-81e9-92e421330bb7",
+            "b24cbcdc-c529-473f-b84b-11e89fd5ea60": "01d8786c-a9b7-4e80-988f-59a449f78ad9"
           }
         },
         {
@@ -1337,7 +1347,8 @@
             "326ca902-04bc-4672-bb51-47b0eb358bae": "1d471f58-af6f-47e2-90f1-4a3a90ae8d63",
             "e5c9fac6-4117-4efc-8242-35e489be5465": "80fe0616-554a-4be7-9c6b-df739529a2dd",
             "10ebda01-d668-40f8-8d5c-4f3f3b47ccdb": "56e76291-abf7-472e-b4da-1712a3b63602",
-            "428f8cbb-3538-42a2-b2c2-c48ecdf4483e": "fe5d752c-fe6d-4735-bcd6-ca784daeb62f"
+            "428f8cbb-3538-42a2-b2c2-c48ecdf4483e": "fe5d752c-fe6d-4735-bcd6-ca784daeb62f",
+            "f5b62b4d-1e08-4181-9205-1564a6eb91c0": "3ae7a91d-449d-429c-8985-a0cbf0f887eb"
           }
         },
         {
@@ -1380,7 +1391,8 @@
             "4d44110c-f7a1-4168-a9f3-dbeaa77a630a": "672902b3-c13f-4e5e-a426-27adfa95fbf0",
             "ff1c8c67-10c8-4767-925a-0d606a3845ff": "6fafcecf-870f-4d7c-ab73-c3e774e74d2a",
             "0db16e29-30e1-463f-8812-7df647458e7c": "0ec0c183-b073-4173-955e-3a1dc12aae0f",
-            "6a2ee00f-5ba2-4b35-a74e-ceb5f3cda188": "79272134-3c4e-4c7d-9e04-e5ac33b45e61"
+            "6a2ee00f-5ba2-4b35-a74e-ceb5f3cda188": "79272134-3c4e-4c7d-9e04-e5ac33b45e61",
+            "ad0ab7bd-b101-466e-8654-4f4e263d8ce8": "dda60129-bd3c-4b9f-9a7e-d66069bf18ff"
           }
         },
         {
@@ -1447,7 +1459,8 @@
             "fa5836e6-aaab-47fa-94ed-f9babf843cac": "54d15bbd-e836-4f0f-a153-4919b54fb2ac",
             "e3f4237c-acdf-49fb-9246-507109d41bdc": "5989efe6-918b-4153-b19f-48efce2d682a",
             "5d7983e9-072a-42bb-94af-68a7d806213c": "5b68a500-efc4-4095-864d-9c3442bc1440",
-            "61e29911-7fb0-48d5-b660-fbc3e37f344e": "ff71ae46-80cf-4138-864f-0bf1814f744b"
+            "61e29911-7fb0-48d5-b660-fbc3e37f344e": "ff71ae46-80cf-4138-864f-0bf1814f744b",
+            "532cd6e4-4da6-4c44-bd7b-427579015cd3": "4ed78806-98c5-4108-acd1-0b24dca95631"
           }
         }
       ]
@@ -1642,6 +1655,26 @@
             "4112d269-60f7-498f-974d-a142b8959e35": "953030b2-7f2f-48a1-972d-7eefe423f220",
             "f981bdc1-ddc4-492d-8363-b78550bd8803": "b5848e58-5e77-4d21-a912-3c92144a704c",
             "c458e852-33cc-4564-a59e-df7b0ca822e2": "11fbf921-df96-46b3-a488-65fe8963f198"
+          }
+        },
+        {
+          "__guid": "7a318ed7-5174-46da-9eb3-cf1d5fa9095a",
+          "__version": 1,
+          "__Prefab": "prefabs/particles/tracer/tracer_phys.prefab",
+          "__PrefabInstancePatch": {
+            "AddedObjects": [],
+            "RemovedObjects": [],
+            "PropertyOverrides": [],
+            "MovedObjects": []
+          },
+          "__PrefabIdToInstanceId": {
+            "2f4d3b5d-80ad-43a7-9fea-532e9f76569e": "7a318ed7-5174-46da-9eb3-cf1d5fa9095a",
+            "e88e384b-ccbd-4e23-8ab1-4e7494ca873e": "6f0fdda3-62fb-4cb1-bd75-e2a4ac946b84",
+            "2c1e74a8-a8ca-4bec-94e5-f647c9eaa203": "d6b0782f-9701-49a4-bbe9-dbe3174054c8",
+            "1c7a29cf-8020-43d3-bfaf-8adb70c8985b": "e24fe97b-aa07-428d-8239-ca1f517d8d38",
+            "4c4e2e33-1a92-4913-a451-78b6609f5c1e": "263a836c-cd1a-402b-884a-69471611d217",
+            "08f494c2-0536-465f-b6ac-e6400265dc8e": "e0fe0bb3-2701-435d-9179-c6cffe4d6aa8",
+            "c6afe629-efe6-44ff-bf80-b5d363943890": "8f76ecce-7ab3-4a14-a9ff-a35c2a875f3b"
           }
         }
       ]

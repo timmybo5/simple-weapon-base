@@ -4,9 +4,11 @@ using System.Linq;
 
 namespace SWB.Base;
 
-public class HitScanBullet : IBulletBase
+[Group( "SWB" )]
+[Title( "HitScan Bullet Info" )]
+public class HitScanBulletInfo : BulletInfo
 {
-	public void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
+	public override void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
 	{
 		if ( !weapon.IsValid ) return;
 
@@ -22,17 +24,11 @@ public class HitScanBullet : IBulletBase
 		if ( SurfaceUtil.IsSkybox( bulletTr.Surface ) || bulletTr.HitPosition == Vector3.Zero ) return;
 
 		// Impact
-		weapon.CreateBulletImpact( bulletTr );
+		Weapon.CreateBulletImpact( bulletTr );
 
 		// Tracer
-		if ( shootInfo.BulletTracerParticle is not null )
-		{
-			var random = new Random();
-			var randVal = random.NextDouble();
-
-			if ( randVal < shootInfo.BulletTracerChance )
-				TracerEffects( weapon, shootInfo, bulletTr );
-		}
+		if ( ShouldSpawnTracer( shootInfo ) )
+			TracerEffects( weapon, shootInfo, bulletTr );
 
 		// Damage
 		if ( !weapon.IsProxy && hitObj is not null && hitObj.Tags.Has( TagsHelper.Player ) )
@@ -45,14 +41,10 @@ public class HitScanBullet : IBulletBase
 			if ( bulletTr.Hitbox is not null )
 				hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
 
-			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, bulletTr.HitPosition, forward * 100 * shootInfo.Force, hitTags );
+			var force = forward * 100 * shootInfo.Force;
+			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, bulletTr.HitPosition, force, hitTags );
 			target?.TakeDamage( dmgInfo );
 		}
-	}
-
-	public Vector3 GetRandomSpread( float spread )
-	{
-		return (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
 	}
 
 	public virtual void TracerEffects( Weapon weapon, ShootInfo shootInfo, SceneTraceResult tr )

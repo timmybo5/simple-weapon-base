@@ -1,9 +1,9 @@
 {
   "RootObject": {
-    "__guid": "e4aa3cd0-27bf-45d0-8efe-ead35e78b763",
+    "__guid": "2f4d3b5d-80ad-43a7-9fea-532e9f76569e",
     "__version": 1,
     "Flags": 0,
-    "Name": "tracer",
+    "Name": "tracer_phys",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
@@ -16,7 +16,7 @@
     "Components": [
       {
         "__type": "TemporaryEffect",
-        "__guid": "cb042a47-f116-4b7b-b6d4-c0f8c7f8cce4",
+        "__guid": "e88e384b-ccbd-4e23-8ab1-4e7494ca873e",
         "__enabled": true,
         "DestroyAfterSeconds": 0,
         "OnComponentDestroy": null,
@@ -30,7 +30,7 @@
     ],
     "Children": [
       {
-        "__guid": "0684c4ca-aac7-4668-b1a1-4813f2f59198",
+        "__guid": "2c1e74a8-a8ca-4bec-94e5-f647c9eaa203",
         "__version": 1,
         "Flags": 0,
         "Name": "TracerParticle",
@@ -46,7 +46,7 @@
         "Components": [
           {
             "__type": "Sandbox.ParticleEffect",
-            "__guid": "f7ae0c5c-aa7f-4604-b1f8-e7fa259f5c30",
+            "__guid": "1c7a29cf-8020-43d3-bfaf-8adb70c8985b",
             "__enabled": true,
             "__version": 2,
             "Alpha": {
@@ -78,7 +78,7 @@
             "FollowerPrefab": null,
             "FollowerPrefabChance": 1,
             "FollowerPrefabKill": true,
-            "Force": true,
+            "Force": false,
             "ForceDirection": "200,0,0",
             "ForceScale": 500,
             "ForceSpace": "Local",
@@ -160,7 +160,7 @@
           },
           {
             "__type": "Sandbox.ParticleSpriteRenderer",
-            "__guid": "4112d269-60f7-498f-974d-a142b8959e35",
+            "__guid": "4c4e2e33-1a92-4913-a451-78b6609f5c1e",
             "__enabled": true,
             "Additive": false,
             "Alignment": "LookAtCamera",
@@ -196,7 +196,7 @@
           },
           {
             "__type": "Sandbox.ParticleConeEmitter",
-            "__guid": "f981bdc1-ddc4-492d-8363-b78550bd8803",
+            "__guid": "08f494c2-0536-465f-b6ac-e6400265dc8e",
             "__enabled": true,
             "Burst": 3,
             "CenterBias": 0,
@@ -227,7 +227,7 @@
           },
           {
             "__type": "Sandbox.ParticleTrailRenderer",
-            "__guid": "c458e852-33cc-4564-a59e-df7b0ca822e2",
+            "__guid": "c6afe629-efe6-44ff-bf80-b5d363943890",
             "__enabled": true,
             "BlendMode": "Lighten",
             "CastShadows": false,
