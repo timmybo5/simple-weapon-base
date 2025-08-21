@@ -227,7 +227,7 @@ public partial class Weapon
 
 		// Decal & Particles
 		var impactPrefab = tr.Surface.PrefabCollection.BulletImpact;
-		if ( impactPrefab is null || !impactPrefab.IsValid ) return;
+		if ( impactPrefab is null || !impactPrefab.IsValid ) return null;
 
 		var cloneConfig = new CloneConfig()
 		{
