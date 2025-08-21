@@ -229,7 +229,7 @@
             "__type": "Sandbox.ParticleTrailRenderer",
             "__guid": "c6afe629-efe6-44ff-bf80-b5d363943890",
             "__enabled": true,
-            "BlendMode": "Normal",
+            "BlendMode": "Lighten",
             "CastShadows": false,
             "Color": {
               "blend": "Linear",
