@@ -227,7 +227,7 @@ public partial class Weapon
 
 		// Decal & Particles
 		var impactPrefab = tr.Surface.PrefabCollection.BulletImpact;
-		if ( impactPrefab is null ) return null;
+		if ( impactPrefab is null || !impactPrefab.IsValid ) return;
 
 		var cloneConfig = new CloneConfig()
 		{
@@ -240,7 +240,7 @@ public partial class Weapon
 			},
 			//Parent = tr.GameObject,
 		};
-		var decalGO = tr.Surface.PrefabCollection.BulletImpact.Clone( cloneConfig );
+		var decalGO = impactPrefab.Clone( cloneConfig );
 		decalGO.NetworkMode = NetworkMode.Never;
 		decalGO.DestroyAsync( 30f );
 		return decalGO;
