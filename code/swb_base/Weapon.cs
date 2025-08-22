@@ -278,7 +278,7 @@ public partial class Weapon : Component, IInventoryItem
 
 	void CreateModels()
 	{
-		if ( !IsProxy && ViewModel is not null && ViewModelRenderer is null )
+		if ( !IsProxy && ViewModel is not null && ViewModelRenderer is null && Owner.ViewModelCamera is not null )
 		{
 			var viewModelGO = new GameObject( true, "Viewmodel" );
 			viewModelGO.SetParent( Owner.GameObject, false );
@@ -325,8 +325,7 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
 
-			var bodyRenderer = Owner.Body.Components.Get<SkinnedModelRenderer>();
-			ModelUtil.ParentToBone( GameObject, bodyRenderer, "hold_R" );
+			Owner.ParentWeaponToBone( GameObject, "hold_R" );
 		}
 	}
 

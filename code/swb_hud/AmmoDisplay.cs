@@ -8,7 +8,7 @@ namespace SWB.HUD;
 
 public class AmmoDisplay : Panel
 {
-	IPlayerBase player;
+	IHudPlayerBase player;
 
 	Label clipLabel;
 	Label reserveLabel;
@@ -16,7 +16,7 @@ public class AmmoDisplay : Panel
 	Color reserveColor = new Color32( 200, 200, 200 ).ToColor();
 	Color emptyColor = new Color32( 175, 175, 175, 200 ).ToColor();
 
-	public AmmoDisplay( IPlayerBase player )
+	public AmmoDisplay( IHudPlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/AmmoDisplay.cs.scss" );

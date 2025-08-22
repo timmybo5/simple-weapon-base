@@ -7,9 +7,9 @@ namespace SWB.HUD;
 
 public class KeyDisplay : Panel
 {
-	IPlayerBase player;
+	IHudPlayerBase player;
 
-	public KeyDisplay( IPlayerBase player )
+	public KeyDisplay( IHudPlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/KeyDisplay.cs.scss" );

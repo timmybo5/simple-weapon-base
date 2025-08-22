@@ -1,3 +1,5 @@
+using SWB.Base;
+using SWB.HUD;
 using SWB.Shared;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ namespace SWB.Player;
 
 [Group( "SWB" )]
 [Title( "PlayerBase" )]
-public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBase
+public partial class PlayerBase : Component, Component.INetworkSpawn, IHudPlayerBase
 {
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Body { get; set; }
@@ -196,6 +198,17 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		BodyRenderer.Set( animationName, true );
 	}
 
+	public void ApplyRecoilOffset( Angles recoilOffset )
+	{
+		CameraMovement.EyeAnglesOffset += recoilOffset;
+	}
+
+	public void ParentWeaponToBone( GameObject weaponObject, string boneName )
+	{
+		var bodyRenderer = Body.GetComponent<SkinnedModelRenderer>();
+		ModelUtil.ParentToBone( weaponObject, bodyRenderer, boneName );
+	}
+
 	public static PlayerBase GetLocal()
 	{
 		var players = GetAll();
@@ -207,8 +220,5 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		return Game.ActiveScene.GetAllComponents<PlayerBase>();
 	}
 
-	public void ApplyRecoilOffset( Angles recoilOffset )
-	{
-		CameraMovement.EyeAnglesOffset += recoilOffset;
-	}
+
 }

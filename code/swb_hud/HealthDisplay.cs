@@ -7,10 +7,10 @@ namespace SWB.HUD;
 
 public class HealthDisplay : Panel
 {
-	PlayerBase player;
+	IHudPlayerBase player;
 	Label healthLabel;
 
-	public HealthDisplay( PlayerBase player )
+	public HealthDisplay( IHudPlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/HealthDisplay.cs.scss" );
