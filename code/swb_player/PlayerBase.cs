@@ -196,6 +196,11 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		OnMovementFixedUpdate();
 	}
 
+	public void TriggerAnimation( string animationName )
+	{
+		BodyRenderer.Set( animationName, true );
+	}
+
 	public static PlayerBase GetLocal()
 	{
 		var players = GetAll();

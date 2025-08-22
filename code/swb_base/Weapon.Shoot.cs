@@ -160,7 +160,7 @@ public partial class Weapon
 		if ( !IsValid || Owner is null ) return;
 
 		// Player
-		Owner.BodyRenderer.Set( "b_attack", true );
+		Owner.TriggerAnimation( "b_attack" );
 
 		// Weapon
 		var shootInfo = GetShootInfo( isPrimary );
