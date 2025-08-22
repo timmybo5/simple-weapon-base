@@ -9,7 +9,6 @@ public interface IPlayerBase : IValid
 	public CameraComponent Camera { get; set; }
 	public GameObject Body { get; set; }
 	void TriggerAnimation( string animationName );
-	public CharacterController CharacterController { get; set; }
 	public CitizenAnimationHelper AnimationHelper { get; set; }
 	public GameObject GameObject { get; }
 	public IInventory Inventory { get; set; }
