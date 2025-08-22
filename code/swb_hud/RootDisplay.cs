@@ -9,7 +9,7 @@ namespace SWB.HUD;
 [Title( "RootDisplay" )]
 public class RootDisplay : PanelComponent
 {
-	[Property] public PlayerBase Player { get; set; }
+	[Property] public IHudPlayerBase Player { get; set; }
 	Chatbox chatbox;
 	Killfeed killfeed;
 	Hitmarker hitmarker;

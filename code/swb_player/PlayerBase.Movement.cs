@@ -27,6 +27,11 @@ public partial class PlayerBase
 
 	public CharacterController CharacterController { get; set; }
 	public CitizenAnimationHelper AnimationHelper { get; set; }
+	public void SetHoldType( CitizenAnimationHelper.HoldTypes holdType )
+	{
+		AnimationHelper.HoldType = holdType;
+	}
+
 	public CapsuleCollider BodyCollider { get; set; }
 
 	TimeSince timeSinceLastFootstep = 0;

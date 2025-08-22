@@ -1,15 +1,16 @@
 using Sandbox.UI;
 using Sandbox.UI.Construct;
+using SWB.Player;
 using SWB.Shared;
 
 namespace SWB.HUD;
 
 public class HealthDisplay : Panel
 {
-	IPlayerBase player;
+	IHudPlayerBase player;
 	Label healthLabel;
 
-	public HealthDisplay( IPlayerBase player )
+	public HealthDisplay( IHudPlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/HealthDisplay.cs.scss" );

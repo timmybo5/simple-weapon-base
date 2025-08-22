@@ -5,37 +5,47 @@ namespace SWB.Shared;
 
 public interface IPlayerBase : IValid
 {
-	public CameraComponent ViewModelCamera { get; set; }
-	public CameraComponent Camera { get; set; }
-	public GameObject Body { get; set; }
-	public SkinnedModelRenderer BodyRenderer { get; set; }
-	public CharacterController CharacterController { get; set; }
-	public CitizenAnimationHelper AnimationHelper { get; set; }
+	/// <summary>
+	/// The camera to use when renderering the weapon's view model on the client side
+	/// If none is provided then no view model will be rendered
+	/// </summary>
+	public CameraComponent? ViewModelCamera { get; }
+
+	/// <summary>
+	/// The camera used for rendering the player's view
+	/// </summary>
+	public CameraComponent Camera { get; }
+
+	/// <summary>
+	/// The game object which represents the player
+	/// </summary>
 	public GameObject GameObject { get; }
-	public IInventory Inventory { get; set; }
+
+	/// <summary>
+	/// Whether the player is in first person view
+	/// </summary>
 	public bool IsFirstPerson { get; }
+
+	/// <summary>
+	/// The player's current velocity
+	/// </summary>
 	public Vector3 Velocity { get; }
-	public bool IsCrouching { get; set; }
-	public bool IsRunning { get; set; }
+
+	public bool IsCrouching { get; }
+
+	public bool IsRunning { get; }
+
 	public bool IsOnGround { get; }
+
 	public bool IsAlive { get; }
-	public int MaxHealth { get; set; }
-	public int Health { get; set; }
-	public int Kills { get; set; }
-	public int Deaths { get; set; }
+
 	public Guid Id { get; }
 
-	/// <summary>Input sensitivity modifier</summary>
-	public float InputSensitivity { get; set; }
-
 	/// <summary>View angles</summary>
-	public Angles EyeAngles { get; set; }
+	public Angles EyeAngles { get; }
 
 	/// <summary>View position</summary>
 	public Vector3 EyePos { get; }
-
-	/// <summary>EyeAngles offset (Resets after being applied)</summary>
-	public Angles EyeAnglesOffset { get; set; }
 
 	/// <summary>
 	/// Called when the weapon wants to know how much ammo is available
@@ -43,6 +53,35 @@ public interface IPlayerBase : IValid
 	/// <param name="type">The type of ammo</param>
 	/// <returns>How much ammo is available</returns>
 	public int AmmoCount( string type );
+
+	/// <summary>Input sensitivity modifier</summary>
+	public float InputSensitivity { set; }
+
+	/// <summary>
+	/// Called when the weapon wants to trigger an animation
+	/// </summary>
+	/// <param name="animationName">The name of the animation to trigger, could be b_attack or b_reload</param>
+	void TriggerAnimation( string animationName );
+
+	/// <summary>
+	/// Called when the weapon wants to change the hold type of the player
+	/// </summary>
+	/// <param name="holdType">The new hold type to set</param>
+	void SetHoldType( CitizenAnimationHelper.HoldTypes holdType );
+
+	/// <summary>
+	/// Triggered when the weapon wants to an angular offset to the player's view
+	/// to simulate recoil. Called when a weapon is fired.
+	/// </summary>
+	/// <param name="recoilOffset">The suggested angular offset to apply</param>
+	public void ApplyRecoilOffset( Angles recoilOffset );
+
+	/// <summary>
+	/// Called when the weapon object should be attached/parented to the player's body
+	/// </summary>
+	/// <param name="weaponObject">The game object representing the weapon</param>
+	/// <param name="boneName">The suggested bone to parent to</param>
+	public void ParentWeaponToBone( GameObject weaponObject, string boneName );
 
 	/// <summary>
 	/// Called when the weapon is trying to take ammo.
