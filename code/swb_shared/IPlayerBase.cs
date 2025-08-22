@@ -5,36 +5,31 @@ namespace SWB.Shared;
 
 public interface IPlayerBase : IValid
 {
-	public CameraComponent ViewModelCamera { get; set; }
-	public CameraComponent Camera { get; set; }
-	public GameObject Body { get; set; }
+	public CameraComponent ViewModelCamera { get; }
+	public CameraComponent Camera { get; }
+	public GameObject Body { get; }
 	void TriggerAnimation( string animationName );
-	public CitizenAnimationHelper AnimationHelper { get; set; }
+	void SetHoldType( CitizenAnimationHelper.HoldTypes holdType );
 	public GameObject GameObject { get; }
-	public IInventory Inventory { get; set; }
+	public IInventory Inventory { get; }
 	public bool IsFirstPerson { get; }
 	public Vector3 Velocity { get; }
-	public bool IsCrouching { get; set; }
-	public bool IsRunning { get; set; }
+	public bool IsCrouching { get; }
+	public bool IsRunning { get; }
 	public bool IsOnGround { get; }
 	public bool IsAlive { get; }
-	public int MaxHealth { get; set; }
-	public int Health { get; set; }
-	public int Kills { get; set; }
-	public int Deaths { get; set; }
 	public Guid Id { get; }
 
 	/// <summary>Input sensitivity modifier</summary>
-	public float InputSensitivity { get; set; }
+	public float InputSensitivity { set; }
 
 	/// <summary>View angles</summary>
-	public Angles EyeAngles { get; set; }
+	public Angles EyeAngles { get; }
 
 	/// <summary>View position</summary>
 	public Vector3 EyePos { get; }
 
-	/// <summary>EyeAngles offset (Resets after being applied)</summary>
-	public Angles EyeAnglesOffset { get; set; }
+	public void ApplyRecoilOffset( Angles recoilOffset );
 
 	/// <summary>
 	/// Called when the weapon wants to know how much ammo is available

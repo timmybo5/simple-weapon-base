@@ -31,11 +31,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		get { return CameraMovement.InputSensitivity; }
 		set { CameraMovement.InputSensitivity = value; }
 	}
-	public Angles EyeAnglesOffset
-	{
-		get { return CameraMovement.EyeAnglesOffset; }
-		set { CameraMovement.EyeAnglesOffset = value; }
-	}
 
 	Guid IPlayerBase.Id { get => GameObject.Id; }
 
@@ -210,5 +205,10 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public static IEnumerable<PlayerBase> GetAll()
 	{
 		return Game.ActiveScene.GetAllComponents<PlayerBase>();
+	}
+
+	public void ApplyRecoilOffset( Angles recoilOffset )
+	{
+		CameraMovement.EyeAnglesOffset += recoilOffset;
 	}
 }

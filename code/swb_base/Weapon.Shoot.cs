@@ -101,7 +101,7 @@ public partial class Weapon
 		barrelHeat += 1;
 
 		// Recoil
-		Owner.EyeAnglesOffset += GetRecoilAngles( shootInfo );
+		Owner.ApplyRecoilOffset( GetRecoilAngles( shootInfo ) );
 
 		// Screenshake
 		if ( shootInfo.ScreenShake is not null )

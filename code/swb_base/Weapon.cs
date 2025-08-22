@@ -183,7 +183,7 @@ public partial class Weapon : Component, IInventoryItem
 		if ( Owner is null ) return;
 
 		UpdateModels();
-		Owner.AnimationHelper.HoldType = HoldType;
+		Owner.SetHoldType( HoldType );
 
 		if ( !IsProxy )
 		{

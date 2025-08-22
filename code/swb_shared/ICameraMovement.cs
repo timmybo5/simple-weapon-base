@@ -6,7 +6,7 @@ public interface ICameraMovement
 	public float InputSensitivity { get; set; }
 
 	// External influence on the camera offsets
-	public Angles EyeAnglesOffset { get; set; }
 	public Angles AnglesOffset { get; set; }
+	public Angles EyeAnglesOffset { get; set; }
 	public Vector3 PosOffset { get; set; }
 }
