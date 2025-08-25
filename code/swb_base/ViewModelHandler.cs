@@ -49,7 +49,8 @@ public class ViewModelHandler : Component
 
 	protected override void OnDestroy()
 	{
-		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Preferences.FieldOfView );
+		if ( !player.IsFirstPerson ) return;
+		player.FieldOfView = Screen.CreateVerticalFieldOfView( Preferences.FieldOfView );
 	}
 
 	protected override void OnDisabled()
@@ -99,7 +100,7 @@ public class ViewModelHandler : Component
 		// Position has to be set after rotation!
 		WorldPosition += finalVectorPos.z * WorldRotation.Up + finalVectorPos.y * WorldRotation.Forward + finalVectorPos.x * WorldRotation.Right;
 		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
-		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
+		player.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
 
 		// Initialize the target vectors for this frame
 		targetVectorPos = Vector3.Zero;
@@ -207,10 +208,10 @@ public class ViewModelHandler : Component
 			swayspeed = 20;
 
 		// Lerp the eye position
-		lastEyeRot = Rotation.Lerp( lastEyeRot, player.Camera.WorldRotation, swayspeed * RealTime.Delta );
+		lastEyeRot = Rotation.Lerp( lastEyeRot, player.FirstPersonCamera.WorldRotation, swayspeed * RealTime.Delta );
 
 		// Calculate the difference between our current eye angles and old (lerped) eye angles
-		var angDif = player.Camera.WorldRotation.Angles() - lastEyeRot.Angles();
+		var angDif = player.FirstPersonCamera.WorldRotation.Angles() - lastEyeRot.Angles();
 		angDif = new Angles( angDif.pitch, MathX.RadianToDegree( MathF.Atan2( MathF.Sin( MathX.DegreeToRadian( angDif.yaw ) ), MathF.Cos( MathX.DegreeToRadian( angDif.yaw ) ) ) ), 0 );
 
 		// Perform sway

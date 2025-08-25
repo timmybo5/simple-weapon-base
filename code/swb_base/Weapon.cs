@@ -323,7 +323,7 @@ public partial class Weapon : Component, IInventoryItem
 			}
 			ViewModelHandler.Camera = viewModelCamera;
 
-			Owner.Camera.RenderExcludeTags.Add( TagsHelper.ViewModel );
+			Owner.FirstPersonCamera.RenderExcludeTags.Add( TagsHelper.ViewModel );
 
 			if ( ViewModelHands is not null )
 			{

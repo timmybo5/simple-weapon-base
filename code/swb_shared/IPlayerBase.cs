@@ -28,10 +28,11 @@ public interface IPlayerBase : IValid
 	public CameraComponent? ViewModelCamera { get; set; }
 
 	/// <summary>
-	/// The camera used for rendering the player's view
-	/// The Render exclude tag "viewmodel" will also be automatically applied
+	/// The camera used for rendering the player's first person view
+	/// Used to calculate view model sway
+	/// The Render exclude tag "viewmodel" will be automatically applied to prevent render issues
 	/// </summary>
-	public CameraComponent Camera { get; }
+	public CameraComponent? FirstPersonCamera { get; }
 
 	/// <summary>
 	/// Whether the player is in first person view
@@ -78,6 +79,12 @@ public interface IPlayerBase : IValid
 	/// Input sensitivity modifier based on player ADS (aim down sights) state
 	/// </summary>
 	public float InputSensitivity { set; }
+
+	/// <summary>
+	/// The suggested FOV to be used by the player camera, affected by a weapon zoom
+	/// This assumes a first-person perspective and will default to `Preferences.FieldOfView`
+	/// </summary>
+	public float FieldOfView { set; }
 
 	/// <summary>
 	/// The Hold Type for the currently equipped weapon
