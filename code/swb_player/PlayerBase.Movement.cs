@@ -27,9 +27,9 @@ public partial class PlayerBase
 
 	public CharacterController CharacterController { get; set; }
 	public CitizenAnimationHelper AnimationHelper { get; set; }
-	public void SetHoldType( CitizenAnimationHelper.HoldTypes holdType )
+	public HoldTypes HoldType
 	{
-		AnimationHelper.HoldType = holdType;
+		set { AnimationHelper.HoldType = (CitizenAnimationHelper.HoldTypes)value; }
 	}
 
 	public CapsuleCollider BodyCollider { get; set; }

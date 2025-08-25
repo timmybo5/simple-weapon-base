@@ -120,6 +120,6 @@ public partial class Weapon
 	public virtual void HandleReloadEffects()
 	{
 		// Player
-		Owner?.TriggerAnimation( "b_reload" );
+		Owner?.TriggerAnimation( Shared.Animations.Reload );
 	}
 }

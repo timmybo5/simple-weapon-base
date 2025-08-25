@@ -1,13 +1,29 @@
-﻿using Sandbox.Citizen;
-using System;
+﻿using System;
 
 namespace SWB.Shared;
 
+
+
+/// <summary>
+/// Implement this interface on a `Component` to integrate with SWB
+/// </summary>
 public interface IPlayerBase : IValid
 {
 	/// <summary>
+	/// Unique identifier for the player
+	/// Typically implemented by `Component`
+	/// </summary>
+	public Guid Id { get; }
+
+	/// <summary>
+	/// The game object that owns this component
+	/// Typically implemented by `Component`
+	/// </summary>
+	public GameObject GameObject { get; }
+
+	/// <summary>
 	/// The camera to use when renderering the weapon's view model on the client side
-	/// If none is provided then no view model will be rendered
+	/// If none is provided and first person mode is enabled, then a camera will be created
 	/// </summary>
 	public CameraComponent? ViewModelCamera { get; }
 
@@ -15,11 +31,6 @@ public interface IPlayerBase : IValid
 	/// The camera used for rendering the player's view
 	/// </summary>
 	public CameraComponent Camera { get; }
-
-	/// <summary>
-	/// The game object which represents the player
-	/// </summary>
-	public GameObject GameObject { get; }
 
 	/// <summary>
 	/// Whether the player is in first person view
@@ -31,21 +42,46 @@ public interface IPlayerBase : IValid
 	/// </summary>
 	public Vector3 Velocity { get; }
 
+	/// <summary>
+	/// Whether the player is crouching, this will effect aim and recoil
+	/// </summary>
 	public bool IsCrouching { get; }
 
+	/// <summary>
+	/// Whether the player is running, this will effect aim and recoil
+	/// </summary>
 	public bool IsRunning { get; }
 
+	/// <summary>
+	/// Whether the player is on the ground, this will effect aim and recoil
+	/// </summary>
 	public bool IsOnGround { get; }
 
+	/// <summary>
+	/// Whether the player is alive.
+	/// Damage will not be dealt to dead players.
+	/// </summary>
 	public bool IsAlive { get; }
 
-	public Guid Id { get; }
-
-	/// <summary>View angles</summary>
+	/// <summary>
+	/// View angle of the player, used to determine the direction to shoot a bullet
+	/// </summary>
 	public Angles EyeAngles { get; }
 
-	/// <summary>View position</summary>
+	/// <summary>
+	/// View position of the player, used to determine the origin point of a fired bullet
+	/// </summary>
 	public Vector3 EyePos { get; }
+
+	/// <summary>
+	/// Input sensitivity modifier based on player ADS (aim down sights) state
+	/// </summary>
+	public float InputSensitivity { set; }
+
+	/// <summary>
+	/// The Hold Type for the currently equipped weapon
+	/// </summary>
+	public HoldTypes HoldType { set; }
 
 	/// <summary>
 	/// Called when the weapon wants to know how much ammo is available
@@ -54,24 +90,15 @@ public interface IPlayerBase : IValid
 	/// <returns>How much ammo is available</returns>
 	public int AmmoCount( string type );
 
-	/// <summary>Input sensitivity modifier</summary>
-	public float InputSensitivity { set; }
-
 	/// <summary>
-	/// Called when the weapon wants to trigger an animation
+	/// Called when the weapon wants to trigger an animation on the player object
 	/// </summary>
-	/// <param name="animationName">The name of the animation to trigger, could be b_attack or b_reload</param>
-	void TriggerAnimation( string animationName );
+	/// <param name="animation">The animation to trigger</param>
+	void TriggerAnimation( Animations animation );
 
 	/// <summary>
-	/// Called when the weapon wants to change the hold type of the player
-	/// </summary>
-	/// <param name="holdType">The new hold type to set</param>
-	void SetHoldType( CitizenAnimationHelper.HoldTypes holdType );
-
-	/// <summary>
-	/// Triggered when the weapon wants to an angular offset to the player's view
-	/// to simulate recoil. Called when a weapon is fired.
+	/// Triggered when the weapon wants to apply an angular offset to the player's view to simulate recoil.
+	/// Called when a weapon is fired.
 	/// </summary>
 	/// <param name="recoilOffset">The suggested angular offset to apply</param>
 	public void ApplyRecoilOffset( Angles recoilOffset );

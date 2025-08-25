@@ -9,7 +9,22 @@ namespace SWB.HUD;
 [Title( "RootDisplay" )]
 public class RootDisplay : PanelComponent
 {
-	[Property] public IHudPlayerBase Player { get; set; }
+	[Property]
+	public Component Player
+	{
+		get { return _player as Component; }
+		set
+		{
+			_player = value as IHudPlayerBase;
+			if ( _player is null )
+			{
+				Log.Warning( "RootDisplay: Assigned Player is not of type IHudPlayerBase. Searching ancestors." );
+				_player = value.Components.GetInAncestors<IHudPlayerBase>( true );
+			}
+		}
+	}
+	private IHudPlayerBase _player;
+
 	Chatbox chatbox;
 	Killfeed killfeed;
 	Hitmarker hitmarker;
@@ -22,17 +37,29 @@ public class RootDisplay : PanelComponent
 			return;
 		}
 
-		Panel.StyleSheet.Load( "/swb_hud/RootDisplay.cs.scss" );
-		Panel.AddChild( new HealthDisplay( Player ) );
-		Panel.AddChild( new AmmoDisplay( Player ) );
-		Panel.AddChild( new InventoryDisplay( Player ) );
-		Panel.AddChild( new Scoreboard() );
-		Panel.AddChild( new KeyDisplay( Player ) );
+		if ( _player is null || !_player.IsValid )
+		{
+			// Try to find a valid player
+			_player = Components.GetInAncestors<IHudPlayerBase>( true );
+		}
 
-		chatbox = new Chatbox( Player );
+		if ( _player is null || !_player.IsValid )
+		{
+			Log.Error( "RootDisplay: No valid IHudPlayerBase found in ancestors." );
+			return;
+		}
+
+		Panel.StyleSheet.Load( "/swb_hud/RootDisplay.cs.scss" );
+		Panel.AddChild( new HealthDisplay( _player ) );
+		Panel.AddChild( new AmmoDisplay( _player ) );
+		Panel.AddChild( new InventoryDisplay( _player ) );
+		Panel.AddChild( new Scoreboard() );
+		Panel.AddChild( new KeyDisplay( _player ) );
+
+		chatbox = new Chatbox( _player );
 		Panel.AddChild( chatbox );
 
-		killfeed = new Killfeed( Player );
+		killfeed = new Killfeed( _player );
 		Panel.AddChild( killfeed );
 
 		hitmarker = new Hitmarker();
@@ -44,7 +71,7 @@ public class RootDisplay : PanelComponent
 		if ( Player is null || !Player.IsValid ) return;
 
 		// Hide UI when weapon is scoping
-		var weapon = Player.Inventory.Active?.Components.Get<Weapon>();
+		var weapon = _player.Inventory.Active?.Components.Get<Weapon>();
 
 		if ( weapon is not null )
 			Panel.SetClass( "hide", weapon.IsScoping );

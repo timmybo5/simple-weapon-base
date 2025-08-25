@@ -86,6 +86,9 @@ public partial class Weapon : Component, IInventoryItem
 		IsAiming = false;
 		IsCustomizing = false;
 
+		if ( Owner is not null )
+			Owner.HoldType = HoldTypes.None;
+
 		DestroyUI();
 	}
 
@@ -183,7 +186,7 @@ public partial class Weapon : Component, IInventoryItem
 		if ( Owner is null ) return;
 
 		UpdateModels();
-		Owner.SetHoldType( HoldType );
+		Owner.HoldType = HoldType;
 
 		if ( !IsProxy )
 		{
@@ -278,7 +281,7 @@ public partial class Weapon : Component, IInventoryItem
 
 	void CreateModels()
 	{
-		if ( !IsProxy && ViewModel is not null && ViewModelRenderer is null && Owner.ViewModelCamera is not null )
+		if ( !IsProxy && ViewModel is not null && ViewModelRenderer is null )
 		{
 			var viewModelGO = new GameObject( true, "Viewmodel" );
 			viewModelGO.SetParent( Owner.GameObject, false );
@@ -301,7 +304,15 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelHandler = viewModelGO.Components.Create<ViewModelHandler>();
 			ViewModelHandler.Weapon = this;
 			ViewModelHandler.ViewModelRenderer = ViewModelRenderer;
-			ViewModelHandler.Camera = Owner.ViewModelCamera;
+			var viewModelCamera = Owner.ViewModelCamera ?? Owner.GameObject.AddComponent<CameraComponent>();
+			if ( Owner.ViewModelCamera is null )
+			{
+				// Setup the view model camera
+				viewModelCamera.ClearFlags = ClearFlags.Depth & ClearFlags.Stencil;
+				viewModelCamera.ZNear = 1;
+				viewModelCamera.Priority = 2;
+			}
+			ViewModelHandler.Camera = viewModelCamera;
 
 			if ( ViewModelHands is not null )
 			{

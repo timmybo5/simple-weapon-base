@@ -193,8 +193,16 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IHudPlayer
 		OnMovementFixedUpdate();
 	}
 
-	public void TriggerAnimation( string animationName )
+	public void TriggerAnimation( Animations animation )
 	{
+		string animationName = animation switch
+		{
+			Animations.Attack => "b_attack",
+			Animations.Reload => "b_reload",
+			_ => ""
+		};
+
+		if ( animationName == "" ) return;
 		BodyRenderer.Set( animationName, true );
 	}
 
