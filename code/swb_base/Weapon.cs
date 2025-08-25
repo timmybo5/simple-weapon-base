@@ -304,13 +304,22 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelHandler = viewModelGO.Components.Create<ViewModelHandler>();
 			ViewModelHandler.Weapon = this;
 			ViewModelHandler.ViewModelRenderer = ViewModelRenderer;
-			var viewModelCamera = Owner.ViewModelCamera ?? Owner.GameObject.AddComponent<CameraComponent>();
+			var viewModelCamera = Owner.ViewModelCamera;
 			if ( Owner.ViewModelCamera is null )
 			{
+				var viewModelCameraGameObject = Owner.GameObject.Scene.CreateObject( true );
+				viewModelCameraGameObject.Name = "ViewModelCamera";
+				viewModelCameraGameObject.SetParent( Owner.GameObject, false );
+
 				// Setup the view model camera
-				viewModelCamera.ClearFlags = ClearFlags.Depth & ClearFlags.Stencil;
+				viewModelCamera = viewModelCameraGameObject.Components.Create<CameraComponent>();
+				viewModelCamera.ClearFlags = ClearFlags.Depth | ClearFlags.Stencil;
 				viewModelCamera.ZNear = 1;
 				viewModelCamera.Priority = 2;
+				viewModelCamera.TargetEye = StereoTargetEye.RightEye;
+				viewModelCamera.RenderTags.Add( new TagSet() { "viewmodel", "light" } );
+
+				Owner.ViewModelCamera = viewModelCamera;
 			}
 			ViewModelHandler.Camera = viewModelCamera;
 

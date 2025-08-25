@@ -25,7 +25,7 @@ public interface IPlayerBase : IValid
 	/// The camera to use when renderering the weapon's view model on the client side
 	/// If none is provided and first person mode is enabled, then a camera will be created
 	/// </summary>
-	public CameraComponent? ViewModelCamera { get; }
+	public CameraComponent? ViewModelCamera { get; set; }
 
 	/// <summary>
 	/// The camera used for rendering the player's view
