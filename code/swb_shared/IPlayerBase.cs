@@ -29,6 +29,7 @@ public interface IPlayerBase : IValid
 
 	/// <summary>
 	/// The camera used for rendering the player's view
+	/// The Render exclude tag "viewmodel" will also be automatically applied
 	/// </summary>
 	public CameraComponent Camera { get; }
 

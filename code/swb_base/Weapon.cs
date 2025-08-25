@@ -317,11 +317,13 @@ public partial class Weapon : Component, IInventoryItem
 				viewModelCamera.ZNear = 1;
 				viewModelCamera.Priority = 2;
 				viewModelCamera.TargetEye = StereoTargetEye.RightEye;
-				viewModelCamera.RenderTags.Add( new TagSet() { "viewmodel", "light" } );
+				viewModelCamera.RenderTags.Add( new TagSet() { TagsHelper.ViewModel, TagsHelper.Light } );
 
 				Owner.ViewModelCamera = viewModelCamera;
 			}
 			ViewModelHandler.Camera = viewModelCamera;
+
+			Owner.Camera.RenderExcludeTags.Add( TagsHelper.ViewModel );
 
 			if ( ViewModelHands is not null )
 			{
