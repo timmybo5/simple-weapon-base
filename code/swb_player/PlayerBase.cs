@@ -1,3 +1,5 @@
+using SWB.Base;
+using SWB.HUD;
 using SWB.Shared;
 using System;
 using System.Collections.Generic;
@@ -7,12 +9,12 @@ namespace SWB.Player;
 
 [Group( "SWB" )]
 [Title( "PlayerBase" )]
-public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBase
+public partial class PlayerBase : Component, Component.INetworkSpawn, IHudPlayerBase
 {
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Body { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
-	[Property] public CameraComponent Camera { get; set; }
+	[Property] public CameraComponent FirstPersonCamera { get; set; }
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 	[Property] public PanelComponent RootDisplay { get; set; }
 	[Property] public Voice Voice { get; set; }
@@ -31,10 +33,13 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		get { return CameraMovement.InputSensitivity; }
 		set { CameraMovement.InputSensitivity = value; }
 	}
-	public Angles EyeAnglesOffset
+
+	public float FieldOfView
 	{
-		get { return CameraMovement.EyeAnglesOffset; }
-		set { CameraMovement.EyeAnglesOffset = value; }
+		set
+		{
+			FirstPersonCamera.FieldOfView = value;
+		}
 	}
 
 	Guid IPlayerBase.Id { get => GameObject.Id; }
@@ -66,8 +71,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		if ( IsProxy || IsBot )
 		{
-			if ( Camera is not null )
-				Camera.Enabled = false;
+			if ( FirstPersonCamera is not null )
+				FirstPersonCamera.Enabled = false;
 
 			if ( ViewModelCamera is not null )
 				ViewModelCamera.Enabled = false;
@@ -196,6 +201,30 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		OnMovementFixedUpdate();
 	}
 
+	public void TriggerAnimation( Animations animation )
+	{
+		string animationName = animation switch
+		{
+			Animations.Attack => "b_attack",
+			Animations.Reload => "b_reload",
+			_ => ""
+		};
+
+		if ( animationName == "" ) return;
+		BodyRenderer.Set( animationName, true );
+	}
+
+	public void ApplyRecoilOffset( Angles recoilOffset )
+	{
+		CameraMovement.EyeAnglesOffset += recoilOffset;
+	}
+
+	public void ParentWeaponToBone( GameObject weaponObject, string boneName )
+	{
+		var bodyRenderer = Body.GetComponent<SkinnedModelRenderer>();
+		ModelUtil.ParentToBone( weaponObject, bodyRenderer, boneName );
+	}
+
 	public static PlayerBase GetLocal()
 	{
 		var players = GetAll();
@@ -206,4 +235,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		return Game.ActiveScene.GetAllComponents<PlayerBase>();
 	}
+
+
 }

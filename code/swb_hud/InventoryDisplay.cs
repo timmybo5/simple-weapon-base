@@ -9,12 +9,12 @@ namespace SWB.HUD;
 
 public class InventoryDisplay : Panel
 {
-	IPlayerBase player;
+	IHudPlayerBase player;
 	List<IInventoryItem> items = new();
 	Dictionary<int, Panel> itemPanels = new();
 	IInventoryItem activeItem;
 
-	public InventoryDisplay( IPlayerBase player )
+	public InventoryDisplay( IHudPlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/InventoryDisplay.cs.scss" );
