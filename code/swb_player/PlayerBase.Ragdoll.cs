@@ -30,8 +30,9 @@ public partial class PlayerBase
 		renderer.Sequence.Name = "Eyes_Closed";
 
 		// Clothes
-		var clothingContainer = ClothingContainer.CreateFromJson( clothingJSON );
-		clothingContainer.Apply( renderer );
+		Dresser.BodyTarget = renderer;
+		Dresser.Apply();
+		Dresser.BodyTarget = BodyRenderer;
 
 		// Physics
 		var physics = RagdollGO.AddComponent<ModelPhysics>( true );

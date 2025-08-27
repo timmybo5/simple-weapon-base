@@ -43,7 +43,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		Inventory = Components.Create<Inventory>();
 		CameraMovement = Components.GetInChildren<CameraMovement>();
-		Voice = Components.GetInChildren<Voice>();
 
 		if ( IsBot ) return;
 
@@ -57,13 +56,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		OnMovementAwake();
 	}
 
-	public void OnNetworkSpawn( Connection connection )
-	{
-		ApplyClothes( connection );
-	}
+	public virtual void OnNetworkSpawn( Connection connection ) { }
 
 	protected override void OnStart()
 	{
+		ApplyClothes();
+
 		if ( IsProxy || IsBot )
 		{
 			if ( Camera is not null )
