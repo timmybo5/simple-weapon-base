@@ -37,7 +37,7 @@ The `swb_editor_offsets` command opens a model editor that can be used to easily
 
 ### Bullet Types
 * Hitscan (instant)
-* ~Physical (bullet drop & drag)~ TODO
+* Physical (bullet drop & drag)
 
 ### Supports
 * Magazine Reloading (default)
