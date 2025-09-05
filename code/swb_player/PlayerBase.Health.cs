@@ -13,13 +13,25 @@ public partial class PlayerBase
 
 	public bool IsAlive => Health > 0;
 
+	public void OnDamage( in DamageInfo info )
+	{
+		if ( info is not Shared.DamageInfo )
+		{
+			Log.Warning( "PlayerBase: OnDamage called with non-Shared.DamageInfo. Ignoring." );
+			return;
+		}
+		info.Shape = null; // Remove physics shape to avoid issues with networking
+		info.Hitbox = null; // Remove hitbox to avoid issues with networking
+		TakeDamage( info as Shared.DamageInfo );
+	}
+
 	[Rpc.Broadcast]
 	public virtual void TakeDamage( Shared.DamageInfo info )
 	{
 		if ( !IsValid || IsProxy || !IsAlive || GodMode )
 			return;
 
-		if ( Array.Exists( info.Tags, tag => tag == "head" ) )
+		if ( info.Tags.Has("head" ) )
 			info.Damage *= 2;
 
 		Health -= (int)info.Damage;

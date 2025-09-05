@@ -95,7 +95,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IHudPlayer
 	{
 		if ( !IsAlive ) return;
 		Health = 0;
-		OnDeath( new() { AttackerId = GameObject.Id } );
+		OnDeath( new() { Attacker = GameObject } );
 	}
 
 	[Rpc.Owner]
@@ -109,7 +109,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IHudPlayer
 	public virtual void OnDeath( Shared.DamageInfo info )
 	{
 		if ( !IsValid ) return;
-		var attackerGO = Scene.Directory.FindByGuid( info.AttackerId );
+		var attackerGO = info.Attacker;
 
 		if ( attackerGO is not null && !attackerGO.IsProxy )
 		{
