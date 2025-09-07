@@ -9,7 +9,7 @@ namespace SWB.Player;
 
 [Group( "SWB" )]
 [Title( "PlayerBase" )]
-public partial class PlayerBase : Component, Component.INetworkSpawn, IHudPlayerBase
+public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBase
 {
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Body { get; set; }

@@ -8,12 +8,12 @@ namespace SWB.HUD;
 
 public class Chatbox : Panel
 {
-	IPlayerBase player;
+	PlayerBase player;
 
 	Panel history;
 	TextEntry textEntry;
 
-	public Chatbox( IPlayerBase player )
+	public Chatbox( PlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/Chatbox.cs.scss" );

@@ -10,20 +10,20 @@ namespace SWB.HUD;
 public class RootDisplay : PanelComponent
 {
 	[Property]
-	public Component Player
+	public PlayerBase Player
 	{
-		get { return _player as Component; }
+		get { return _player as PlayerBase; }
 		set
 		{
-			_player = value as IHudPlayerBase;
+			_player = value as PlayerBase;
 			if ( _player is null )
 			{
-				Log.Warning( "RootDisplay: Assigned Player is not of type IHudPlayerBase. Searching ancestors." );
-				_player = value.Components.GetInAncestors<IHudPlayerBase>( true );
+				Log.Warning( "RootDisplay: Assigned Player is not of type PlayerBase. Searching ancestors." );
+				_player = value.Components.GetInAncestors<PlayerBase>( true );
 			}
 		}
 	}
-	private IHudPlayerBase _player;
+	private PlayerBase _player;
 
 	Chatbox chatbox;
 	Killfeed killfeed;
@@ -40,12 +40,12 @@ public class RootDisplay : PanelComponent
 		if ( _player is null || !_player.IsValid )
 		{
 			// Try to find a valid player
-			_player = Components.GetInAncestors<IHudPlayerBase>( true );
+			_player = Components.GetInAncestors<PlayerBase>( true );
 		}
 
 		if ( _player is null || !_player.IsValid )
 		{
-			Log.Error( "RootDisplay: No valid IHudPlayerBase found in ancestors." );
+			Log.Error( "RootDisplay: No valid PlayerBase found in ancestors." );
 			return;
 		}
 

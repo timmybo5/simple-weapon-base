@@ -1,15 +1,16 @@
 ﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB.Base;
+using SWB.Player;
 using SWB.Shared;
 
 namespace SWB.HUD;
 
 public class KeyDisplay : Panel
 {
-	IHudPlayerBase player;
+	PlayerBase player;
 
-	public KeyDisplay( IHudPlayerBase player )
+	public KeyDisplay( PlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/KeyDisplay.cs.scss" );

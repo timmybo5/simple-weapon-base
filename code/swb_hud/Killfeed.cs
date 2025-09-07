@@ -10,9 +10,9 @@ namespace SWB.HUD;
 
 public class Killfeed : Panel
 {
-	IPlayerBase player;
+	PlayerBase player;
 
-	public Killfeed( IPlayerBase player )
+	public Killfeed( PlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/Killfeed.cs.scss" );
