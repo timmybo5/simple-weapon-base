@@ -14,7 +14,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Body { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
-	[Property] public CameraComponent FirstPersonCamera { get; set; }
+	[Property] public CameraComponent Camera { get; set; }
+	public CameraComponent FirstPersonCamera => Camera;
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 	[Property] public PanelComponent RootDisplay { get; set; }
 	[Property] public Voice Voice { get; set; }
@@ -38,7 +39,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		set
 		{
-			FirstPersonCamera.FieldOfView = value;
+			Camera.FieldOfView = value;
 		}
 	}
 
@@ -71,8 +72,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		if ( IsProxy || IsBot )
 		{
-			if ( FirstPersonCamera is not null )
-				FirstPersonCamera.Enabled = false;
+			if ( Camera is not null )
+				Camera.Enabled = false;
 
 			if ( ViewModelCamera is not null )
 				ViewModelCamera.Enabled = false;

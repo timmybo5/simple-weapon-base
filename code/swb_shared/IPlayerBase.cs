@@ -32,7 +32,7 @@ public interface IPlayerBase : IValid
 	/// Used to calculate view model sway
 	/// The Render exclude tag "viewmodel" will be automatically applied to prevent render issues
 	/// </summary>
-	public CameraComponent? FirstPersonCamera { get; }
+	public CameraComponent? Camera { get; }
 
 	/// <summary>
 	/// Whether the player is in first person view

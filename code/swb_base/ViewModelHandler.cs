@@ -208,10 +208,10 @@ public class ViewModelHandler : Component
 			swayspeed = 20;
 
 		// Lerp the eye position
-		lastEyeRot = Rotation.Lerp( lastEyeRot, player.FirstPersonCamera.WorldRotation, swayspeed * RealTime.Delta );
+		lastEyeRot = Rotation.Lerp( lastEyeRot, player.Camera.WorldRotation, swayspeed * RealTime.Delta );
 
 		// Calculate the difference between our current eye angles and old (lerped) eye angles
-		var angDif = player.FirstPersonCamera.WorldRotation.Angles() - lastEyeRot.Angles();
+		var angDif = player.Camera.WorldRotation.Angles() - lastEyeRot.Angles();
 		angDif = new Angles( angDif.pitch, MathX.RadianToDegree( MathF.Atan2( MathF.Sin( MathX.DegreeToRadian( angDif.yaw ) ), MathF.Cos( MathX.DegreeToRadian( angDif.yaw ) ) ) ), 0 );
 
 		// Perform sway
