@@ -347,7 +347,7 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
 
-			Owner.ParentWeaponToBone( GameObject, "hold_R" );
+			Owner.ParentToBone( GameObject, "hold_R" );
 		}
 	}
 

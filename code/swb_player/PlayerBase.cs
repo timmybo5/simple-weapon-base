@@ -220,10 +220,9 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		CameraMovement.EyeAnglesOffset += recoilOffset;
 	}
 
-	public void ParentWeaponToBone( GameObject weaponObject, string boneName )
+	public void ParentToBone( GameObject weaponObject, string boneName )
 	{
-		var bodyRenderer = Body.GetComponent<SkinnedModelRenderer>();
-		ModelUtil.ParentToBone( weaponObject, bodyRenderer, boneName );
+		ModelUtil.ParentToBone( weaponObject, BodyRenderer, boneName );
 	}
 
 	public static PlayerBase GetLocal()

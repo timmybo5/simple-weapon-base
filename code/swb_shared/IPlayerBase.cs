@@ -114,9 +114,9 @@ public interface IPlayerBase : IValid
 	/// <summary>
 	/// Called when the weapon object should be attached/parented to the player's body
 	/// </summary>
-	/// <param name="weaponObject">The game object representing the weapon</param>
+	/// <param name="object">The game object to parent</param>
 	/// <param name="boneName">The suggested bone to parent to</param>
-	public void ParentWeaponToBone( GameObject weaponObject, string boneName );
+	public void ParentToBone( GameObject @object, string boneName );
 
 	/// <summary>
 	/// Called when the weapon is trying to take ammo.
