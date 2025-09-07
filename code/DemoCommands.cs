@@ -20,6 +20,16 @@ internal class DemoCommands
 		player?.Respawn();
 	}
 
+	[ConCmd( "thirdperson", Help = "Toggles thirdperson (host only)" )]
+	public static void Thirdperson()
+	{
+		var player = PlayerBase.GetLocal();
+		if ( !player.Network.Owner.IsHost ) return;
+
+		var cam = player.CameraMovement as CameraMovement;
+		cam.Distance = cam.Distance == 80f ? 0 : 80;
+	}
+
 	[ConCmd( "god", Help = "Toggles godmode (host only)" )]
 	public static void GodMode()
 	{
