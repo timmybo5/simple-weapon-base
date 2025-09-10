@@ -307,7 +307,7 @@ public partial class Weapon : Component, IInventoryItem
 			var viewModelCamera = Owner.ViewModelCamera;
 			if ( Owner.ViewModelCamera is null )
 			{
-				var viewModelCameraGameObject = Owner.GameObject.Scene.CreateObject( true );
+				var viewModelCameraGameObject = new GameObject();
 				viewModelCameraGameObject.Name = "ViewModelCamera";
 				viewModelCameraGameObject.SetParent( Owner.GameObject, false );
 
