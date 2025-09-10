@@ -6,7 +6,14 @@ config/
 .sbox/
 demo.sln
 
-*.*_c
+*.vmdl_c
+*.vmat_c
+*.vtex_c
+*.prefab_c
+*.scene_c
+*.vsnd_c
+*.sound_c
+*.vanmgrph_c
 
 # Blender
 *.blend1

@@ -48,13 +48,13 @@
             "__type": "Sandbox.ParticleEffect",
             "__guid": "c257797c-09b4-4d66-90bf-8110a980e5af",
             "__enabled": true,
-            "__version": 2,
+            "__version": 3,
             "Alpha": {
               "Type": "Curve",
               "Evaluation": "Life",
               "CurveA": {
-                "rangex": "0,0.2",
-                "rangey": "0,0.3",
+                "rangex": "0,0.1",
+                "rangey": "0,0.2",
                 "frames": [
                   {
                     "x": 0,
@@ -72,10 +72,15 @@
                   }
                 ]
               },
-              "CurveB": {
-                "rangex": "0,0",
-                "rangey": "0,0"
-              }
+              "CurveB": [
+                {
+                  "x": 0.5,
+                  "y": 0.5,
+                  "in": 0,
+                  "out": 0,
+                  "mode": "Mirrored"
+                }
+              ]
             },
             "ApplyAlpha": true,
             "ApplyColor": true,
@@ -221,7 +226,7 @@
               "Evaluation": "Frame",
               "Constants": "0,0,0,0"
             },
-            "Stretch": 0,
+            "Stretch": 1,
             "TimeScale": 1,
             "Timing": "GameTime",
             "Tint": "1,1,1,1",

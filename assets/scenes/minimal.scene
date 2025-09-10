@@ -204,6 +204,7 @@
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
+              "LodOverride": null,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
               "Materials": null,
@@ -271,6 +272,7 @@
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
+              "LodOverride": null,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
               "Materials": null,
@@ -366,6 +368,7 @@
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
+              "LodOverride": null,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
               "Materials": null,
@@ -461,6 +464,7 @@
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
+              "LodOverride": null,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
               "Materials": null,
@@ -556,6 +560,7 @@
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
+              "LodOverride": null,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
               "Materials": null,
@@ -651,6 +656,7 @@
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
+              "LodOverride": null,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
               "Materials": null,
@@ -746,6 +752,7 @@
               "__enabled": true,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
+              "LodOverride": null,
               "MaterialGroup": null,
               "MaterialOverride": "materials/default.vmat",
               "Materials": null,
@@ -1046,7 +1053,8 @@
         "84ae349c-4ee9-458f-b68c-cce831247b4c": "d4b10ceb-6e04-4fc1-959e-3fb8743d8216",
         "ef4f1054-23fd-408d-b0fb-fede1d825da6": "a4050133-ec0a-4827-b2f3-69453e654cac",
         "f3dc770f-ffbb-4c92-8c3d-f4c665332e20": "ab3269b6-3d09-4b12-8610-64baca41fb8d",
-        "ad29c146-7dfc-4d71-a638-275f7b1e7938": "8b2042e6-1c1e-4ae2-afe3-660dd2966007"
+        "ad29c146-7dfc-4d71-a638-275f7b1e7938": "8b2042e6-1c1e-4ae2-afe3-660dd2966007",
+        "0bc02a58-687d-4beb-b096-530fb7588f61": "30c4ff56-891f-465b-ab05-f8c0c8f95822"
       }
     },
     {
@@ -1145,6 +1153,14 @@
                 },
                 "Property": "MuzzleFlashParticle",
                 "Value": null
+              },
+              {
+                "Target": {
+                  "Type": "Component",
+                  "IdValue": "90aafa5d-7f73-4334-ac7f-78143bc61a57"
+                },
+                "Property": "WMParticleScale",
+                "Value": 0.5
               }
             ],
             "MovedObjects": []
@@ -1155,8 +1171,7 @@
             "90aafa5d-7f73-4334-ac7f-78143bc61a57": "ec5812f4-b363-49fb-8d5b-e1797827019f",
             "b47568cc-132b-4d8b-ab59-139c0021e7d0": "cab35533-6c9e-496a-939e-040663966cff",
             "028b2269-e020-401d-8a7f-6f0c1bfabba2": "8a5df194-8526-46a8-afa5-8b66fc12d574",
-            "e71954fa-6616-4c09-a171-34ce88d1860c": "45b90b7a-0853-4603-99a3-ac7b2b59d24e",
-            "a904baf8-5e8b-482d-b146-b3b27bdee98a": "84458b08-17b9-4d77-8e13-6a229cf7dd15"
+            "e71954fa-6616-4c09-a171-34ce88d1860c": "45b90b7a-0853-4603-99a3-ac7b2b59d24e"
           }
         },
         {
@@ -1392,7 +1407,7 @@
             "ff1c8c67-10c8-4767-925a-0d606a3845ff": "6fafcecf-870f-4d7c-ab73-c3e774e74d2a",
             "0db16e29-30e1-463f-8812-7df647458e7c": "0ec0c183-b073-4173-955e-3a1dc12aae0f",
             "6a2ee00f-5ba2-4b35-a74e-ceb5f3cda188": "79272134-3c4e-4c7d-9e04-e5ac33b45e61",
-            "ad0ab7bd-b101-466e-8654-4f4e263d8ce8": "dda60129-bd3c-4b9f-9a7e-d66069bf18ff"
+            "4bfd7500-4b75-47ff-9b9e-23980850714a": "041dc844-865d-492b-8d77-5827ea74d85d"
           }
         },
         {

@@ -48,7 +48,7 @@
             "__type": "Sandbox.ParticleEffect",
             "__guid": "f7ae0c5c-aa7f-4604-b1f8-e7fa259f5c30",
             "__enabled": true,
-            "__version": 2,
+            "__version": 3,
             "Alpha": {
               "Type": "Range",
               "Evaluation": "Frame",
