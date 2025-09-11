@@ -49,7 +49,8 @@ public class ViewModelHandler : Component
 
 	protected override void OnDestroy()
 	{
-		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Preferences.FieldOfView );
+		if ( !player.IsFirstPerson ) return;
+		player.FieldOfView = Screen.CreateVerticalFieldOfView( Preferences.FieldOfView );
 	}
 
 	protected override void OnDisabled()
@@ -99,7 +100,7 @@ public class ViewModelHandler : Component
 		// Position has to be set after rotation!
 		WorldPosition += finalVectorPos.z * WorldRotation.Up + finalVectorPos.y * WorldRotation.Forward + finalVectorPos.x * WorldRotation.Right;
 		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
-		player.Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
+		player.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
 
 		// Initialize the target vectors for this frame
 		targetVectorPos = Vector3.Zero;

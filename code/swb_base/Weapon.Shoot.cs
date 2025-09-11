@@ -101,7 +101,7 @@ public partial class Weapon
 		barrelHeat += 1;
 
 		// Recoil
-		Owner.EyeAnglesOffset += GetRecoilAngles( shootInfo );
+		Owner.ApplyRecoilOffset( GetRecoilAngles( shootInfo ) );
 
 		// Screenshake
 		if ( shootInfo.ScreenShake is not null )
@@ -160,7 +160,7 @@ public partial class Weapon
 		if ( !IsValid || Owner is null ) return;
 
 		// Player
-		Owner.BodyRenderer.Set( "b_attack", true );
+		Owner.TriggerAnimation( Shared.Animations.Attack );
 
 		// Weapon
 		var shootInfo = GetShootInfo( isPrimary );

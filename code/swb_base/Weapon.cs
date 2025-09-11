@@ -86,6 +86,9 @@ public partial class Weapon : Component, IInventoryItem
 		IsAiming = false;
 		IsCustomizing = false;
 
+		if ( Owner is not null )
+			Owner.HoldType = HoldTypes.None;
+
 		DestroyUI();
 	}
 
@@ -183,7 +186,7 @@ public partial class Weapon : Component, IInventoryItem
 		if ( Owner is null ) return;
 
 		UpdateModels();
-		Owner.AnimationHelper.HoldType = HoldType;
+		Owner.HoldType = HoldType;
 
 		if ( !IsProxy )
 		{
@@ -301,7 +304,26 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelHandler = viewModelGO.Components.Create<ViewModelHandler>();
 			ViewModelHandler.Weapon = this;
 			ViewModelHandler.ViewModelRenderer = ViewModelRenderer;
-			ViewModelHandler.Camera = Owner.ViewModelCamera;
+			var viewModelCamera = Owner.ViewModelCamera;
+			if ( Owner.ViewModelCamera is null )
+			{
+				var viewModelCameraGameObject = new GameObject();
+				viewModelCameraGameObject.Name = "ViewModelCamera";
+				viewModelCameraGameObject.SetParent( Owner.GameObject, false );
+
+				// Setup the view model camera
+				viewModelCamera = viewModelCameraGameObject.Components.Create<CameraComponent>();
+				viewModelCamera.ClearFlags = ClearFlags.Depth | ClearFlags.Stencil;
+				viewModelCamera.ZNear = 1;
+				viewModelCamera.Priority = 2;
+				viewModelCamera.TargetEye = StereoTargetEye.RightEye;
+				viewModelCamera.RenderTags.Add( new TagSet() { TagsHelper.ViewModel, TagsHelper.Light } );
+
+				Owner.ViewModelCamera = viewModelCamera;
+			}
+			ViewModelHandler.Camera = viewModelCamera;
+
+			Owner.Camera.RenderExcludeTags.Add( TagsHelper.ViewModel );
 
 			if ( ViewModelHands is not null )
 			{
@@ -325,8 +347,7 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
 
-			var bodyRenderer = Owner.Body.Components.Get<SkinnedModelRenderer>();
-			ModelUtil.ParentToBone( GameObject, bodyRenderer, "hold_R" );
+			Owner.ParentToBone( GameObject, "hold_R" );
 		}
 	}
 

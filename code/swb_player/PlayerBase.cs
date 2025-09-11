@@ -1,3 +1,5 @@
+using SWB.Base;
+using SWB.HUD;
 using SWB.Shared;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Property] public GameObject Body { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
 	[Property] public CameraComponent Camera { get; set; }
+	public CameraComponent FirstPersonCamera => Camera;
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 	[Property] public PanelComponent RootDisplay { get; set; }
 	[Property] public Voice Voice { get; set; }
@@ -31,10 +34,13 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		get { return CameraMovement.InputSensitivity; }
 		set { CameraMovement.InputSensitivity = value; }
 	}
-	public Angles EyeAnglesOffset
+
+	public float FieldOfView
 	{
-		get { return CameraMovement.EyeAnglesOffset; }
-		set { CameraMovement.EyeAnglesOffset = value; }
+		set
+		{
+			Camera.FieldOfView = value;
+		}
 	}
 
 	Guid IPlayerBase.Id { get => GameObject.Id; }
@@ -194,6 +200,29 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		OnMovementFixedUpdate();
 	}
 
+	public void TriggerAnimation( Animations animation )
+	{
+		string animationName = animation switch
+		{
+			Animations.Attack => "b_attack",
+			Animations.Reload => "b_reload",
+			_ => ""
+		};
+
+		if ( animationName == "" ) return;
+		BodyRenderer.Set( animationName, true );
+	}
+
+	public void ApplyRecoilOffset( Angles recoilOffset )
+	{
+		CameraMovement.EyeAnglesOffset += recoilOffset;
+	}
+
+	public void ParentToBone( GameObject weaponObject, string boneName )
+	{
+		ModelUtil.ParentToBone( weaponObject, BodyRenderer, boneName );
+	}
+
 	public static PlayerBase GetLocal()
 	{
 		var players = GetAll();
@@ -204,4 +233,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		return Game.ActiveScene.GetAllComponents<PlayerBase>();
 	}
+
+
 }

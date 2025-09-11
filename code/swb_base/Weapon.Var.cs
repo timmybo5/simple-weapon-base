@@ -1,4 +1,5 @@
 ﻿using Sandbox.Citizen;
+using SWB.Shared;
 
 namespace SWB.Base;
 
@@ -24,7 +25,7 @@ public partial class Weapon
 	[Property, Group( "General" )] public CrosshairSettings CrosshairSettings { get; set; } = new();
 
 	/// <summary>How the player holds the weapon in thirdperson</summary>
-	[Property, Group( "General" )] public CitizenAnimationHelper.HoldTypes HoldType { get; set; } = CitizenAnimationHelper.HoldTypes.Pistol;
+	[Property, Group( "General" )] public HoldTypes HoldType { get; set; } = HoldTypes.Pistol;
 
 	/// <summary>Mouse sensitivity while aiming (lower is slower, 0 to disable)</summary>
 	[Property, Group( "General" )] public float AimSensitivity { get; set; } = 0.85f;
