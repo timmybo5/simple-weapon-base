@@ -48,7 +48,7 @@ public class PlayerCameraHandler : Component
 		var isAiming = !Weapon.ShouldTuckVar && Weapon.IsAiming;
 		if ( isAiming && !Weapon.IsReloading )
 		{
-			var aimFOV = Weapon.AimPlayerFOV;
+			var aimFOV = Weapon.AimInfo.PlayerFOV;
 
 			if ( !player.IsFirstPerson && aimFOV <= 0 )
 				aimFOV = 70f;
@@ -59,13 +59,13 @@ public class PlayerCameraHandler : Component
 			if ( Weapon.IsScoping && Weapon.ScopeInfo.FOV > 0 )
 				targetPlayerFOV = Weapon.ScopeInfo.FOV;
 
-			playerFOVSpeed = Weapon.AimInFOVSpeed;
+			playerFOVSpeed = Weapon.AimInfo.AimInFOVSpeed;
 		}
 		else
 		{
-			if ( finalPlayerFOV != Weapon.AimPlayerFOV )
+			if ( finalPlayerFOV != Weapon.AimInfo.PlayerFOV )
 			{
-				playerFOVSpeed = Weapon.AimOutFOVSpeed;
+				playerFOVSpeed = Weapon.AimInfo.AimOutFOVSpeed;
 			}
 		}
 	}

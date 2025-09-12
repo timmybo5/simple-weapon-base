@@ -20,56 +20,40 @@ public abstract class SightAttachment : Attachment
 		Spread = -0.05f,
 	};
 
+	[Property]
+	public virtual AimInfo AimInfo { get; set; } = new()
+	{
+		// By default don't modify anything
+		Sensitivity = -1f,
+		SpreadModifier = -1f,
+		AimInFOVSpeed = -1f,
+		AimOutFOVSpeed = -1f,
+	};
+	// Used to restore the weapon's AimInfo on unequip
+	AimInfo oldAimInfo;
+
 
 	/// <summary>The new aim position offset</summary>
 	[Property, Group( "Sight" )] public AngPos AimAnimData { get; set; }
 	AngPos oldAimAnimData;
 
-	/// <summary>Weapon FOV while aiming (-1 to use default)</summary>
-	[Property, Group( "Sight" )] public virtual float AimFOV { get; set; } = -1f;
-	float oldAimFOV;
-
-	/// <summary>Player FOV while aiming (-1 to use default)</summary>
-	[Property, Group( "Sight" )] public virtual float AimPlayerFOV { get; set; } = -1f;
-	float oldAimPlayerFOV;
-
-	/// <summary>FOV aim in speed (-1 to use default)</summary>
-	[Property, Group( "Sight" ), Title( "Aim in FOV speed" )] public virtual float AimInFOVSpeed { get; set; } = -1f;
-	float oldAimInFOVSpeed;
-
-	/// <summary>FOV aim out speed (-1 to use default)</summary>
-	[Property, Group( "Sight" ), Title( "Aim out FOV speed" )] public virtual float AimOutFOVSpeed { get; set; } = -1f;
-	private float oldAimOutFOVSpeed;
-
-	/// <summary>Mouse sensitivity while aiming (-1 to use default)</summary>
-	[Property, Group( "Sight" )] public virtual float AimSensitivity { get; set; } = -1;
-	float oldAimSensitivity;
-
 	public override void OnEquip()
 	{
 		oldAimAnimData = Weapon.AimAnimData;
-		oldAimFOV = Weapon.AimFOV;
-		oldAimPlayerFOV = Weapon.AimPlayerFOV;
-		oldAimInFOVSpeed = Weapon.AimInFOVSpeed;
-		oldAimOutFOVSpeed = Weapon.AimOutFOVSpeed;
-		oldAimSensitivity = Weapon.AimSensitivity;
+		oldAimInfo = Weapon.AimInfo;
 
 		Weapon.AimAnimData = AimAnimData;
 
-		if ( AimFOV > -1 ) Weapon.AimFOV = AimFOV;
-		if ( AimPlayerFOV > -1 ) Weapon.AimPlayerFOV = AimPlayerFOV;
-		if ( AimInFOVSpeed > -1 ) Weapon.AimInFOVSpeed = AimInFOVSpeed;
-		if ( AimOutFOVSpeed > -1 ) Weapon.AimOutFOVSpeed = AimOutFOVSpeed;
-		if ( AimSensitivity > -1 ) Weapon.AimSensitivity = AimSensitivity;
+		// Don't modify unset values
+		var aimInfo = AimInfo.Clone();
+		aimInfo.FillDefaults( oldAimInfo );
+
+		Weapon.AimInfo = aimInfo;
 	}
 
 	public override void OnUnequip()
 	{
 		Weapon.AimAnimData = oldAimAnimData;
-		Weapon.AimFOV = oldAimFOV;
-		Weapon.AimPlayerFOV = oldAimPlayerFOV;
-		Weapon.AimInFOVSpeed = oldAimInFOVSpeed;
-		Weapon.AimOutFOVSpeed = oldAimOutFOVSpeed;
-		Weapon.AimSensitivity = oldAimSensitivity;
+		Weapon.AimInfo = oldAimInfo;
 	}
 }

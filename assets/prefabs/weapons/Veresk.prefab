@@ -22,11 +22,14 @@
           "Angle": "-1.3,-0.02,0",
           "Pos": "-2.767,0,0.728"
         },
-        "AimFOV": 35,
-        "AimInFOVSpeed": 1,
-        "AimOutFOVSpeed": 1,
-        "AimPlayerFOV": -1,
-        "AimSensitivity": 0.85,
+        "AimInfo": {
+          "SpreadModifier": 0.25,
+          "Sensitivity": 0.85,
+          "ViewModelFOV": 35,
+          "PlayerFOV": -1,
+          "AimInFOVSpeed": 1,
+          "AimOutFOVSpeed": 1
+        },
         "AnimSpeed": 1,
         "BoltBack": false,
         "BoltBackAnim": "boltback",
@@ -52,7 +55,6 @@
         "DrawEmptyAnim": "",
         "DrawEmptyTime": -1,
         "DrawTime": 0.6,
-        "FOV": 65,
         "HoldType": "Rifle",
         "Icon": "weapons/swb/veresk/veresk.png",
         "OnComponentDestroy": null,
@@ -94,6 +96,7 @@
         "Slot": 4,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/veresk/v_veresk.vmdl",
+        "ViewModelFOV": 65,
         "ViewModelHands": null,
         "WorldModel": "weapons/swb/veresk/w_veresk.vmdl"
       },
@@ -165,9 +168,14 @@
           "Angle": "0,-0.08,0",
           "Pos": "-2.788,0,0.377"
         },
-        "AimFOV": -1,
-        "AimInFOVSpeed": -1,
-        "AimOutFOVSpeed": -1,
+        "AimInfo": {
+          "SpreadModifier": -1,
+          "Sensitivity": 0.5,
+          "ViewModelFOV": -1,
+          "PlayerFOV": 50,
+          "AimInFOVSpeed": -1,
+          "AimOutFOVSpeed": -1
+        },
         "Bone": null,
         "Enable": false,
         "OnComponentDestroy": null,

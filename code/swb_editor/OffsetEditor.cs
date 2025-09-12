@@ -46,7 +46,7 @@ public partial class OffsetEditor
 		if ( !firstTime ) return;
 
 		DragModeLabel = "x/z";
-		FOV = weapon.FOV;
+		FOV = weapon.ViewModelFOV;
 	}
 
 	public virtual void OnReset()
@@ -57,7 +57,7 @@ public partial class OffsetEditor
 		Pitch = 0;
 		Yaw = 0;
 		Roll = 0;
-		FOV = weapon.FOV;
+		FOV = weapon.ViewModelFOV;
 	}
 
 	public virtual void OnPrint()
@@ -77,17 +77,17 @@ public partial class OffsetEditor
 
 	public void SetAimAnimData()
 	{
-		SetFromAngPos( weapon.AimAnimData, weapon.AimFOV );
+		SetFromAngPos( weapon.AimAnimData, weapon.AimInfo.ViewModelFOV );
 	}
 
 	public void SetRunAnimData()
 	{
-		SetFromAngPos( weapon.RunAnimData, weapon.FOV );
+		SetFromAngPos( weapon.RunAnimData, weapon.ViewModelFOV );
 	}
 
 	public void SetCustomizeAnimData()
 	{
-		SetFromAngPos( weapon.CustomizeAnimData, weapon.FOV );
+		SetFromAngPos( weapon.CustomizeAnimData, weapon.ViewModelFOV );
 	}
 
 	private void SetFromAngPos( AngPos angPos, float fov )
