@@ -33,7 +33,7 @@ public class PhysicalBulletInfo : BulletInfo
 		GameObject bulletObject;
 
 		var muzzleTransform = weapon.GetMuzzleTransform();
-		var originPosition = muzzleTransform.HasValue ? muzzleTransform.Value.Position : player.EyePos;
+		var originPosition = muzzleTransform.HasValue && player.IsFirstPerson ? muzzleTransform.Value.Position : player.EyePos;
 		var bulletTransform = new Transform( originPosition, player.EyeAngles );
 
 		if ( ShouldSpawnTracer( shootInfo ) )

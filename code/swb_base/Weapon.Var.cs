@@ -1,5 +1,4 @@
-﻿using Sandbox.Citizen;
-using SWB.Shared;
+﻿using SWB.Shared;
 
 namespace SWB.Base;
 
@@ -175,6 +174,8 @@ public partial class Weapon
 	public StatsModifier InitialSecondaryStats { get; private set; }
 
 	public bool IsDeploying => TimeSinceDeployed < 0;
+	public bool ShouldTuckVar;
+	public float TuckDist;
 
 	// Private
 	int burstCount = 0;

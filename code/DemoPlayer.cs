@@ -1,6 +1,7 @@
 ﻿using SWB.Base;
 using SWB.HUD;
 using SWB.Player;
+using SWB.Shared;
 using System.Linq;
 
 namespace SWB.Demo;
@@ -9,6 +10,9 @@ namespace SWB.Demo;
 [Title( "Demo Player" )]
 public class DemoPlayer : PlayerBase
 {
+	TimeSince timeSincePerspectiveSwitch;
+
+
 	void GiveWeapon( string className, bool setActive = false )
 	{
 		var weapon = WeaponRegistry.Instance.Get( className );
@@ -76,5 +80,25 @@ public class DemoPlayer : PlayerBase
 		var display = localPly.RootDisplay as RootDisplay;
 		display.CreateHitmarker( Health <= 0 );
 		Sound.Play( "hitmarker" );
+	}
+
+	protected override void OnUpdate()
+	{
+		base.OnUpdate();
+
+		if ( IsProxy ) return;
+
+		// Customization
+		if ( Input.Pressed( InputButtonHelper.View ) && timeSincePerspectiveSwitch > 0.5 )
+		{
+			var localPly = PlayerBase.GetLocal();
+			var activeWep = localPly.Inventory.Active.GetComponent<Weapon>();
+
+			if ( !activeWep.IsScoping && !activeWep.IsAiming )
+			{
+				ConsoleSystem.Run( "thirdperson" );
+				timeSincePerspectiveSwitch = 0;
+			}
+		}
 	}
 }

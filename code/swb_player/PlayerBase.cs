@@ -1,5 +1,4 @@
 using SWB.Base;
-using SWB.HUD;
 using SWB.Shared;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Property] public GameObject Body { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
 	[Property] public CameraComponent Camera { get; set; }
-	public CameraComponent FirstPersonCamera => Camera;
 	[Property] public CameraComponent ViewModelCamera { get; set; }
 	[Property] public PanelComponent RootDisplay { get; set; }
 	[Property] public Voice Voice { get; set; }
@@ -233,6 +231,4 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		return Game.ActiveScene.GetAllComponents<PlayerBase>();
 	}
-
-
 }

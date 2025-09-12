@@ -51,6 +51,7 @@ public partial class PlayerBase
 
 		clothingRenderers.ForEach( c =>
 		{
+			if ( c is null ) return;
 			c.RenderType = BodyRenderer.RenderType;
 			c.Tint = BodyRenderer.Tint;
 		} );

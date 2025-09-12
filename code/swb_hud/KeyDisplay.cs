@@ -3,23 +3,46 @@ using Sandbox.UI.Construct;
 using SWB.Base;
 using SWB.Player;
 using SWB.Shared;
+using System.Collections.Generic;
 
 namespace SWB.HUD;
+
+struct KeyBind
+{
+	public string Key { get; set; }
+	public string Label { get; set; }
+
+	public KeyBind( string key, string label )
+	{
+		Key = key;
+		Label = label;
+	}
+}
 
 public class KeyDisplay : Panel
 {
 	PlayerBase player;
+
+	List<KeyBind> keys = new()
+	{
+		new(InputButtonHelper.Menu, "Customization"),
+		new(InputButtonHelper.View, "Thirdperson"),
+	};
 
 	public KeyDisplay( PlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/KeyDisplay.cs.scss" );
 
-		var keyIcon = this.Add.Image( "", "keyIcon" );
-		var buttonTexture = Input.GetGlyph( InputButtonHelper.Menu, style: GlyphStyle.Dark );
-		keyIcon.Texture = buttonTexture;
+		keys.ForEach( keyBind =>
+		{
+			var wrapper = Add.Panel( "wrapper" );
+			var keyIcon = wrapper.Add.Image( "", "keyIcon" );
+			var buttonTexture = Input.GetGlyph( keyBind.Key, style: GlyphStyle.Dark );
+			keyIcon.Texture = buttonTexture;
 
-		this.Add.Label( "Customization", "label" );
+			wrapper.Add.Label( keyBind.Label, "label" );
+		} );
 	}
 
 	public override void Tick()

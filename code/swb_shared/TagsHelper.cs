@@ -16,4 +16,5 @@ public partial class TagsHelper
 	public static string Attachment => "attachment";
 	public static string PhysicalBullet => "physicalbullet";
 	public static string Light => "light";
+	public static string Clothing => "clothing";
 }

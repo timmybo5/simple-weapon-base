@@ -902,8 +902,56 @@
       "__version": 1,
       "__Prefab": "prefabs/player.prefab",
       "__PrefabInstancePatch": {
-        "AddedObjects": [],
-        "RemovedObjects": [],
+        "AddedObjects": [
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "66c8490b-e7a0-4442-9f46-48361ff96c53"
+            },
+            "Parent": {
+              "Type": "GameObject",
+              "IdValue": "55559241-6791-4c24-9635-07aceee3d8a4"
+            },
+            "PreviousElement": {
+              "Type": "Component",
+              "IdValue": "f485caf1-2fbd-46ed-a206-e62c28b048c3"
+            },
+            "ContainerProperty": "Components",
+            "IsContainerArray": true,
+            "Data": {
+              "__type": "Sandbox.Dresser",
+              "__guid": "66c8490b-e7a0-4442-9f46-48361ff96c53",
+              "__enabled": true,
+              "ApplyHeightScale": true,
+              "BodyTarget": {
+                "_type": "component",
+                "component_id": "fc51159a-2082-4de0-8c3e-5f44d049ed23",
+                "go": "55559241-6791-4c24-9635-07aceee3d8a4",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "Clothing": [],
+              "ManualAge": 0.5,
+              "ManualHeight": 0.5,
+              "ManualTint": 0.5,
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Source": "OwnerConnection",
+              "WorkshopItems": []
+            }
+          }
+        ],
+        "RemovedObjects": [
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "0bc02a58-687d-4beb-b096-530fb7588f61"
+            }
+          }
+        ],
         "PropertyOverrides": [
           {
             "Target": {
@@ -936,6 +984,27 @@
             },
             "Property": "NetworkInterpolation",
             "Value": false
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "3e1e96c5-b788-4483-9ffd-7b59b02df678"
+            },
+            "Property": "Dresser",
+            "Value": {
+              "_type": "component",
+              "component_id": "66c8490b-e7a0-4442-9f46-48361ff96c53",
+              "go": "55559241-6791-4c24-9635-07aceee3d8a4",
+              "component_type": "Dresser"
+            }
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "84ae349c-4ee9-458f-b68c-cce831247b4c"
+            },
+            "Property": "ShoulderOffset",
+            "Value": 30
           }
         ],
         "MovedObjects": []
@@ -1054,7 +1123,7 @@
         "ef4f1054-23fd-408d-b0fb-fede1d825da6": "a4050133-ec0a-4827-b2f3-69453e654cac",
         "f3dc770f-ffbb-4c92-8c3d-f4c665332e20": "ab3269b6-3d09-4b12-8610-64baca41fb8d",
         "ad29c146-7dfc-4d71-a638-275f7b1e7938": "8b2042e6-1c1e-4ae2-afe3-660dd2966007",
-        "0bc02a58-687d-4beb-b096-530fb7588f61": "30c4ff56-891f-465b-ab05-f8c0c8f95822"
+        "0bc02a58-687d-4beb-b096-530fb7588f61": "faa39c8e-7c3e-45fa-be6d-80ba9ec44b91"
       }
     },
     {
