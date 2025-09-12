@@ -1,27 +1,32 @@
 ﻿KeyDisplay {
-    position: absolute;
-    top: 160px;
-    left: 58px;
-    font-family: Poppins;
-    align-items: center;
+	position: absolute;
+	top: 160px;
+	left: 58px;
+	font-family: Poppins;
+	flex-direction: column;
+	gap: 4px;
 
-    &.hide {
-        display: none;
-    }
+	&.hide {
+		display: none;
+	}
 
-    .keyIcon {
-        height: 32px;
-        width: 32px;
-        margin-right: 2px;
-    }
+	.wrapper {
+		align-items: center;
 
-    .label {
-        color: white;
-        text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-        font-weight: 500;
-        font-size: 14px;
-        font-family: FONTSPRING DEMO - Integral CF;
-        margin-right: 2px;
-        margin-bottom: 2px;
-    }
+		.keyIcon {
+			height: 32px;
+			width: 32px;
+			margin-right: 2px;
+		}
+
+		.label {
+			color: white;
+			text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+			font-weight: 500;
+			font-size: 14px;
+			font-family: FONTSPRING DEMO - Integral CF;
+			margin-right: 2px;
+			margin-bottom: 2px;
+		}
+	}
 }

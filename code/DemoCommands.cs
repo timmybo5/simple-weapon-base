@@ -18,11 +18,27 @@ internal class DemoCommands
 		player?.TakeDamage( suicideDamageInfo );
 	}
 
+	[ConCmd( "thirdperson", Help = "Toggles thirdperson" )]
+	public static void Thirdperson()
+	{
+		var player = PlayerBase.GetLocal();
+		var cam = player.CameraMovement as CameraMovement;
+		cam.Distance = cam.Distance > 0 ? 0 : 60;
+	}
+
+	[ConCmd( "thirdperson_shoulder", Help = "Switches thirdperson shoulder" )]
+	public static void ThirdpersonShoulder()
+	{
+		var player = PlayerBase.GetLocal();
+		var cam = player.CameraMovement as CameraMovement;
+		cam.ShoulderOffset = -cam.ShoulderOffset;
+	}
+
 	[ConCmd( "respawn", Help = "Respawns the player (host only)" )]
 	public static void Respawn()
 	{
 		var player = PlayerBase.GetLocal();
-		if ( !player.Network.Owner.IsHost ) return;
+		if ( !player.IsHost ) return;
 		player?.Respawn();
 	}
 
@@ -30,7 +46,7 @@ internal class DemoCommands
 	public static void GodMode()
 	{
 		var player = PlayerBase.GetLocal();
-		if ( !player.Network.Owner.IsHost ) return;
+		if ( !player.IsHost ) return;
 		player.GodMode = !player.GodMode;
 		Log.Info( (player.GodMode ? "Enabled" : "Disabled") + " Godmode" );
 	}
@@ -46,7 +62,7 @@ internal class DemoCommands
 	public static void Bot()
 	{
 		var player = PlayerBase.GetLocal();
-		if ( !player.Network.Owner.IsHost ) return;
+		if ( !player.IsHost ) return;
 
 		var networkManager = Game.ActiveScene.Components.Get<DemoNetworkManager>( FindMode.EnabledInSelfAndChildren );
 		var botGO = networkManager.PlayerPrefab.Clone();

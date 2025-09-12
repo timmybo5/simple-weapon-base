@@ -1,6 +1,7 @@
 ﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB.Base;
+using SWB.Player;
 using SWB.Shared;
 using System;
 
@@ -8,7 +9,7 @@ namespace SWB.HUD;
 
 public class AmmoDisplay : Panel
 {
-	IHudPlayerBase player;
+	PlayerBase player;
 
 	Label clipLabel;
 	Label reserveLabel;
@@ -16,7 +17,7 @@ public class AmmoDisplay : Panel
 	Color reserveColor = new Color32( 200, 200, 200 ).ToColor();
 	Color emptyColor = new Color32( 175, 175, 175, 200 ).ToColor();
 
-	public AmmoDisplay( IHudPlayerBase player )
+	public AmmoDisplay( PlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/AmmoDisplay.cs.scss" );

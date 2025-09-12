@@ -32,7 +32,7 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	/// Used to calculate view model sway
 	/// The Render exclude tag "viewmodel" will be automatically applied to prevent render issues
 	/// </summary>
-	public CameraComponent? FirstPersonCamera { get; }
+	public CameraComponent? Camera { get; }
 
 	/// <summary>
 	/// Whether the player is in first person view
@@ -114,9 +114,9 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	/// <summary>
 	/// Called when the weapon object should be attached/parented to the player's body
 	/// </summary>
-	/// <param name="weaponObject">The game object representing the weapon</param>
+	/// <param name="object">The game object to parent</param>
 	/// <param name="boneName">The suggested bone to parent to</param>
-	public void ParentWeaponToBone( GameObject weaponObject, string boneName );
+	public void ParentToBone( GameObject @object, string boneName );
 
 	/// <summary>
 	/// Called when the weapon is trying to take ammo.

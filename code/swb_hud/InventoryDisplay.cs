@@ -1,6 +1,7 @@
 ﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
 using SWB.Base;
+using SWB.Player;
 using SWB.Shared;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace SWB.HUD;
 
 public class InventoryDisplay : Panel
 {
-	IHudPlayerBase player;
+	PlayerBase player;
 	List<IInventoryItem> items = new();
 	Dictionary<int, Panel> itemPanels = new();
 	IInventoryItem activeItem;
 
-	public InventoryDisplay( IHudPlayerBase player )
+	public InventoryDisplay( PlayerBase player )
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/InventoryDisplay.cs.scss" );

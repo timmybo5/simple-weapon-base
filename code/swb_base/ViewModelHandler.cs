@@ -19,18 +19,16 @@ public class ViewModelHandler : Component
 	IPlayerBase player => Weapon.Owner;
 
 	float animSpeed = 1;
-	float playerFOVSpeed = 1;
+	float weaponFOVSpeed = 1;
 
 	// Target animation values
 	Vector3 targetVectorPos;
 	Vector3 targetVectorRot;
-	float targetPlayerFOV = -1;
 	float targetWeaponFOV = -1;
 
 	// Finalized animation values
 	Vector3 finalVectorPos;
 	Vector3 finalVectorRot;
-	float finalPlayerFOV;
 	float finalWeaponFOV;
 
 	// Sway
@@ -79,8 +77,6 @@ public class ViewModelHandler : Component
 
 		if ( targetWeaponFOV == -1 )
 		{
-			targetPlayerFOV = Preferences.FieldOfView;
-			finalPlayerFOV = Preferences.FieldOfView;
 			targetWeaponFOV = Weapon.FOV;
 			finalWeaponFOV = Weapon.FOV;
 		}
@@ -91,8 +87,7 @@ public class ViewModelHandler : Component
 		// Smoothly transition the vectors with the target values
 		finalVectorPos = finalVectorPos.LerpTo( targetVectorPos, animSpeed * RealTime.Delta );
 		finalVectorRot = finalVectorRot.LerpTo( targetVectorRot, animSpeed * RealTime.Delta );
-		finalPlayerFOV = MathX.LerpTo( finalPlayerFOV, targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
-		finalWeaponFOV = MathX.LerpTo( finalWeaponFOV, targetWeaponFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
+		finalWeaponFOV = MathX.LerpTo( finalWeaponFOV, targetWeaponFOV, weaponFOVSpeed * animSpeed * RealTime.Delta );
 		animSpeed = 10 * Weapon.AnimSpeed;
 
 		// Change the angles and positions of the viewmodel with the new vectors
@@ -100,12 +95,10 @@ public class ViewModelHandler : Component
 		// Position has to be set after rotation!
 		WorldPosition += finalVectorPos.z * WorldRotation.Up + finalVectorPos.y * WorldRotation.Forward + finalVectorPos.x * WorldRotation.Right;
 		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
-		player.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
 
 		// Initialize the target vectors for this frame
 		targetVectorPos = Vector3.Zero;
 		targetVectorRot = Vector3.Zero;
-		targetPlayerFOV = Preferences.FieldOfView;
 		targetWeaponFOV = Weapon.FOV;
 
 		// Editor mode
@@ -128,11 +121,10 @@ public class ViewModelHandler : Component
 		HandleJumpAnimation();
 
 		// Tucking
-		var shouldTuck = Weapon.ShouldTuck( out var tuckDist );
-		isAiming = !shouldTuck && Weapon.IsAiming;
-		if ( Weapon.RunAnimData != AngPos.Zero && shouldTuck )
+		isAiming = !Weapon.ShouldTuckVar && Weapon.IsAiming;
+		if ( Weapon.RunAnimData != AngPos.Zero && Weapon.ShouldTuckVar )
 		{
-			var animationCompletion = Math.Min( 1, ((Weapon.TuckRange - tuckDist) / Weapon.TuckRange) + 0.5f );
+			var animationCompletion = Math.Min( 1, ((Weapon.TuckRange - Weapon.TuckDist) / Weapon.TuckRange) + 0.5f );
 			targetVectorPos += Weapon.RunAnimData.Pos * animationCompletion;
 			targetVectorRot += MathUtil.ToVector3( Weapon.RunAnimData.Angle * animationCompletion );
 			return;
@@ -208,10 +200,10 @@ public class ViewModelHandler : Component
 			swayspeed = 20;
 
 		// Lerp the eye position
-		lastEyeRot = Rotation.Lerp( lastEyeRot, player.FirstPersonCamera.WorldRotation, swayspeed * RealTime.Delta );
+		lastEyeRot = Rotation.Lerp( lastEyeRot, player.Camera.WorldRotation, swayspeed * RealTime.Delta );
 
 		// Calculate the difference between our current eye angles and old (lerped) eye angles
-		var angDif = player.FirstPersonCamera.WorldRotation.Angles() - lastEyeRot.Angles();
+		var angDif = player.Camera.WorldRotation.Angles() - lastEyeRot.Angles();
 		angDif = new Angles( angDif.pitch, MathX.RadianToDegree( MathF.Atan2( MathF.Sin( MathX.DegreeToRadian( angDif.yaw ) ), MathF.Cos( MathX.DegreeToRadian( angDif.yaw ) ) ) ), 0 );
 
 		// Perform sway
@@ -242,26 +234,15 @@ public class ViewModelHandler : Component
 			targetVectorPos += Weapon.AimAnimData.Pos;
 			targetVectorRot += MathUtil.ToVector3( Weapon.AimAnimData.Angle );
 
-			if ( Weapon.AimPlayerFOV > 0 )
-				targetPlayerFOV = Weapon.AimPlayerFOV;
-
-			if ( Weapon.IsScoping && Weapon.ScopeInfo.FOV > 0 )
-				targetPlayerFOV = Weapon.ScopeInfo.FOV;
-
 			if ( Weapon.AimFOV > 0 )
 				targetWeaponFOV = Weapon.AimFOV;
 
-			playerFOVSpeed = Weapon.AimInFOVSpeed;
+			weaponFOVSpeed = Weapon.AimInFOVSpeed;
 		}
 		else
 		{
 			aimTime = 0;
 			targetWeaponFOV = Weapon.FOV;
-
-			if ( finalPlayerFOV != Weapon.AimPlayerFOV )
-			{
-				playerFOVSpeed = Weapon.AimOutFOVSpeed;
-			}
 		}
 	}
 

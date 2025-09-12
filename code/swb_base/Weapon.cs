@@ -11,6 +11,7 @@ public partial class Weapon : Component, IInventoryItem
 {
 	public IPlayerBase Owner { get; private set; }
 	public ViewModelHandler ViewModelHandler { get; private set; }
+	public PlayerCameraHandler CameraHandler { get; private set; }
 	public SkinnedModelRenderer ViewModelRenderer { get; private set; }
 	public SkinnedModelRenderer ViewModelHandsRenderer { get; private set; }
 	public SkinnedModelRenderer WorldModelRenderer { get; private set; }
@@ -44,6 +45,8 @@ public partial class Weapon : Component, IInventoryItem
 			Network.ClearInterpolation();
 		}
 	}
+
+
 
 	protected override void OnDestroy()
 	{
@@ -156,6 +159,12 @@ public partial class Weapon : Component, IInventoryItem
 			return;
 		}
 
+		if ( !IsProxy )
+		{
+			CameraHandler = Components.GetOrCreate<PlayerCameraHandler>();
+			CameraHandler.Weapon = this;
+		}
+
 		CreateModels();
 
 		// Attachments (enabled via property)
@@ -191,6 +200,8 @@ public partial class Weapon : Component, IInventoryItem
 		if ( !IsProxy )
 		{
 			if ( IsDeploying ) return;
+
+			ShouldTuckVar = ShouldTuck( out TuckDist );
 
 			// Customization
 			if ( WeaponSettings.Instance.Customization && !IsScoping && !IsAiming && Input.Pressed( InputButtonHelper.Menu ) && Attachments.Count > 0 )
@@ -307,7 +318,7 @@ public partial class Weapon : Component, IInventoryItem
 			var viewModelCamera = Owner.ViewModelCamera;
 			if ( Owner.ViewModelCamera is null )
 			{
-				var viewModelCameraGameObject = Owner.GameObject.Scene.CreateObject( true );
+				var viewModelCameraGameObject = new GameObject();
 				viewModelCameraGameObject.Name = "ViewModelCamera";
 				viewModelCameraGameObject.SetParent( Owner.GameObject, false );
 
@@ -323,7 +334,7 @@ public partial class Weapon : Component, IInventoryItem
 			}
 			ViewModelHandler.Camera = viewModelCamera;
 
-			Owner.FirstPersonCamera.RenderExcludeTags.Add( TagsHelper.ViewModel );
+			Owner.Camera.RenderExcludeTags.Add( TagsHelper.ViewModel );
 
 			if ( ViewModelHands is not null )
 			{
@@ -347,7 +358,7 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
 
-			Owner.ParentWeaponToBone( GameObject, "hold_R" );
+			Owner.ParentToBone( GameObject, "hold_R" );
 		}
 	}
 

@@ -4,16 +4,12 @@ namespace SWB.Player;
 
 public partial class PlayerBase
 {
-	[Sync] public string clothingJSON { get; set; }
-	ClothingContainer clothingContainer;
+	[Property] public Dresser Dresser { get; set; }
 	List<SkinnedModelRenderer> clothingRenderers = new();
 
-	void ApplyClothes( Connection connection )
+	void ApplyClothes()
 	{
-		clothingJSON = connection.GetUserData( "avatar" );
-		clothingContainer = ClothingContainer.CreateFromJson( clothingJSON );
-		clothingContainer.Apply( BodyRenderer );
-		UpdateClothingRenderers();
+		Dresser.Apply();
 	}
 
 	void UpdateClothingRenderers()
@@ -55,6 +51,7 @@ public partial class PlayerBase
 
 		clothingRenderers.ForEach( c =>
 		{
+			if ( c is null ) return;
 			c.RenderType = BodyRenderer.RenderType;
 			c.Tint = BodyRenderer.Tint;
 		} );
