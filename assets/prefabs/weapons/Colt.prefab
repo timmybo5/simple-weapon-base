@@ -22,11 +22,14 @@
           "Angle": "-1.15,-0.09,18",
           "Pos": "-0.82,0,1.855"
         },
-        "AimFOV": 35,
-        "AimInFOVSpeed": 1,
-        "AimOutFOVSpeed": 1,
-        "AimPlayerFOV": -1,
-        "AimSensitivity": 0.85,
+        "AimInfo": {
+          "SpreadModifier": 0.25,
+          "Sensitivity": 0.85,
+          "ViewModelFOV": 35,
+          "PlayerFOV": -1,
+          "AimInFOVSpeed": 1,
+          "AimOutFOVSpeed": 1
+        },
         "AnimSpeed": 1,
         "BoltBack": false,
         "BoltBackAnim": "boltback",
@@ -52,7 +55,6 @@
         "DrawEmptyAnim": "",
         "DrawEmptyTime": -1,
         "DrawTime": 0.4,
-        "FOV": 65,
         "HoldType": "Pistol",
         "Icon": "weapons/swb/colt/colt.png",
         "OnComponentDestroy": null,
@@ -94,6 +96,7 @@
         "Slot": 1,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/colt/v_colt.vmdl",
+        "ViewModelFOV": 65,
         "ViewModelHands": null,
         "WorldModel": "weapons/swb/colt/w_colt.vmdl"
       },
@@ -178,9 +181,14 @@
           "Angle": "-1.33,-0.06,18",
           "Pos": "-0.516,0,1.053"
         },
-        "AimFOV": -1,
-        "AimInFOVSpeed": -1,
-        "AimOutFOVSpeed": -1,
+        "AimInfo": {
+          "SpreadModifier": 0.25,
+          "Sensitivity": 0.5,
+          "ViewModelFOV": -1,
+          "PlayerFOV": 50,
+          "AimInFOVSpeed": 1,
+          "AimOutFOVSpeed": 1
+        },
         "Bone": null,
         "Enable": false,
         "OnComponentDestroy": null,

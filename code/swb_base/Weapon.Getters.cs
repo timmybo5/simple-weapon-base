@@ -110,7 +110,7 @@ public partial class Weapon
 
 		// Aiming
 		if ( IsAiming && Primary.Bullets == 1 )
-			floatMod /= 4;
+			floatMod *= AimInfo.SpreadModifier;
 
 		if ( !Owner.IsOnGround )
 		{
