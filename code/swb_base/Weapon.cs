@@ -223,6 +223,8 @@ public partial class Weapon : Component, IInventoryItem
 				Owner.InputSensitivity = ScopeInfo.AimSensitivity;
 			else if ( IsAiming )
 				Owner.InputSensitivity = AimInfo.Sensitivity;
+			else
+				Owner.InputSensitivity = 1f;
 
 			if ( Scoping )
 			{
