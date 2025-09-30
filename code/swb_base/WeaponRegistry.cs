@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SWB.Shared;
+using System.Collections.Generic;
 
 namespace SWB.Base;
 
@@ -41,6 +42,9 @@ public class WeaponRegistry : Component
 
 			weaponGO.Name = weapon.ClassName;
 		} );
+
+		// Lights
+		MapUtil.TagLights();
 	}
 
 	public Weapon Get( string className )

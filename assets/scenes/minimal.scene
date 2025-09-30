@@ -997,14 +997,6 @@
               "go": "55559241-6791-4c24-9635-07aceee3d8a4",
               "component_type": "Dresser"
             }
-          },
-          {
-            "Target": {
-              "Type": "Component",
-              "IdValue": "84ae349c-4ee9-458f-b68c-cce831247b4c"
-            },
-            "Property": "ShoulderOffset",
-            "Value": 30
           }
         ],
         "MovedObjects": []
