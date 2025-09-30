@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace SWB.Base;
+namespace SWB.Shared;
+
 public static class RandomExtensions
 {
 	public static float NextFloat(

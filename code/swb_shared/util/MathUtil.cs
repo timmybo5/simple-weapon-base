@@ -4,7 +4,7 @@
  * Utility class to handle framerate independent + useful calculations
 */
 
-namespace SWB.Base;
+namespace SWB.Shared;
 
 class MathUtil
 {

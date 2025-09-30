@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SWB.Base;
+/* 
+ * Utility class for tables
+*/
+
+namespace SWB.Shared;
 
 class TableUtil
 {

@@ -1,11 +1,10 @@
-﻿using SWB.Shared;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 /* 
- * Util class for checking surface properties
+ * Utility class for checking surface properties
 */
 
-namespace SWB.Base;
+namespace SWB.Shared;
 
 public static class SurfaceUtil
 {

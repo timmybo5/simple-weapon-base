@@ -1,6 +1,10 @@
 ﻿using System.Linq;
 
-namespace SWB.Base;
+/* 
+ * Utility class for handling models
+*/
+
+namespace SWB.Shared;
 
 public class ModelUtil
 {

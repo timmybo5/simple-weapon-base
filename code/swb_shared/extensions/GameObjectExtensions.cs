@@ -1,4 +1,4 @@
-﻿namespace SWB.Base;
+﻿namespace SWB.Shared;
 
 public sealed class TimedDestroyComponent : Component
 {

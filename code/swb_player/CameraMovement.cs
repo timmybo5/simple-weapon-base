@@ -24,6 +24,9 @@ public class CameraMovement : Component, ICameraMovement
 	public Angles AnglesOffset { get; set; }
 	public Vector3 PosOffset { get; set; }
 
+	float distanceLerp;
+	float shoulderOffsetLerp;
+
 	public bool IsFirstPerson
 	{
 		get
@@ -65,6 +68,10 @@ public class CameraMovement : Component, ICameraMovement
 		InputSensitivity = 1;
 		Player.EyeAngles = eyeAngles;
 
+		// Reset thirdperson offsets
+		distanceLerp = 0;
+		shoulderOffsetLerp = 0;
+
 		// Set the current camera offset
 		var targetOffset = Vector3.Zero;
 		if ( Player.IsCrouching ) targetOffset += Vector3.Down * 32f;
@@ -95,7 +102,7 @@ public class CameraMovement : Component, ICameraMovement
 
 		// Direction from the player's eyes to the trace hit
 		var dir = (traceHitPos - Player.EyePos).Normal;
-		var eyeAngles = dir.EulerAngles;
+		var eyeAngles = dir.EulerAngles.Normal;
 
 		Input.AnalogLook *= InputSensitivity;
 		var camPitch = (camRot.Pitch() + Input.AnalogLook.pitch).Clamp( -89.9f, 89.9f );
@@ -110,8 +117,12 @@ public class CameraMovement : Component, ICameraMovement
 		// Firstperson only camera offset
 		Player.EyeOffset = Vector3.Zero;
 
+		// Thirdperson offsets
+		distanceLerp = MathUtil.FILerp( distanceLerp, Distance, 8 );
+		shoulderOffsetLerp = MathUtil.FILerp( shoulderOffsetLerp, ShoulderOffset, 8 );
+
 		// Perform a trace backwards to see where we can safely place the camera
-		var camSafeTrace = Scene.Trace.Ray( eyePos, eyePos - (camRot.Forward * Distance) + (camRot.Right * ShoulderOffset) )
+		var camSafeTrace = Scene.Trace.Ray( eyePos, eyePos - (camRot.Forward * distanceLerp) + (camRot.Right * shoulderOffsetLerp) )
 			.WithoutTags( TagsHelper.Player, TagsHelper.Trigger, TagsHelper.ViewModel, TagsHelper.Weapon )
 			.Run();
 

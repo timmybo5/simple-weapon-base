@@ -1,4 +1,5 @@
 ﻿using SWB.Base.Attachments;
+using SWB.Shared;
 
 namespace SWB.Base;
 

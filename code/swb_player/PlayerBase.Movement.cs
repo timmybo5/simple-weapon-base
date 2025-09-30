@@ -22,7 +22,6 @@ public partial class PlayerBase
 
 	public bool IsOnGround => CharacterController?.IsOnGround ?? true;
 	public Vector3 Velocity => CharacterController?.Velocity ?? Vector3.Zero;
-	// public Vector3 EyePos => IsFirstPerson ? Head.WorldPosition + EyeOffset : Camera.WorldPosition + EyeOffset; // You can shoot trough walls since trace comes from cam pos
 	public Vector3 EyePos => Head.WorldPosition + EyeOffset;
 	public Angles EyeAnglesNormal => EyeAngles.Normal;
 
