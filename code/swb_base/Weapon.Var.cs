@@ -1,4 +1,5 @@
-﻿using SWB.Shared;
+﻿using Sandbox.Citizen;
+using SWB.Shared;
 
 namespace SWB.Base;
 
@@ -26,9 +27,6 @@ public partial class Weapon
 	/// <summary>How the player holds the weapon in thirdperson</summary>
 	[Property, Group( "General" )] public HoldTypes HoldType { get; set; } = HoldTypes.Pistol;
 
-	/// <summary>Mouse sensitivity while aiming (lower is slower, 0 to disable)</summary>
-	[Property, Group( "General" )] public float AimSensitivity { get; set; } = 0.85f;
-
 	/// <summary>Can bullets be cocked in the barrel? (clip ammo + 1)</summary>
 	[Property, Group( "General" )] public bool BulletCocking { get; set; } = true;
 
@@ -40,22 +38,8 @@ public partial class Weapon
 	/// <summary>Firing sound when clip is empty</summary>
 	[Property, Group( "Sounds" )] public SoundEvent DeploySound { get; set; }
 
-
-	/// <summary>Default weapon field of view</summary>
-	[Property, Group( "FOV" )] public float FOV { get; set; } = 70f;
-
-	/// <summary>Weapon FOV while aiming (-1 to use default weapon fov)</summary>
-	[Property, Group( "FOV" )] public float AimFOV { get; set; } = -1f;
-
-	/// <summary>Player FOV while aiming (-1 to use default player fov)</summary>
-	[Property, Group( "FOV" )] public float AimPlayerFOV { get; set; } = -1f;
-
-	/// <summary>FOV aim in speed</summary>
-	[Property, Group( "FOV" ), Title( "Aim in FOV speed" )] public float AimInFOVSpeed { get; set; } = 1f;
-
-	/// <summary>FOV aim out speed</summary>
-	[Property, Group( "FOV" ), Title( "Aim out FOV speed" )] public float AimOutFOVSpeed { get; set; } = 1f;
-
+	/// <summary>View Model field of view</summary>
+	[Property, Group( "FOV" )] public float ViewModelFOV { get; set; } = 70f;
 
 	/// <summary>Procedural animation speed (lower is slower)</summary>
 	[Property, Group( "Animations" )] public float AnimSpeed { get; set; } = 1;
@@ -127,6 +111,14 @@ public partial class Weapon
 
 	/// <summary>Scope Information</summary>
 	[Property, Group( "Scoping" )] public ScopeInfo ScopeInfo { get; set; } = new();
+
+	/// <summary>Aim Information</summary>
+	[Property, Group( "Aiming" )]
+	public AimInfo AimInfo { get; set; } = new AimInfo()
+	{
+		Sensitivity = 0.85f,
+	};
+	
 
 	/// <summary>Primary attack data</summary>
 	[Property, Group( "Firing" ), Title( "Primary ShootInfo (component)" ), RequireComponent] public ShootInfo Primary { get; set; }
