@@ -31,10 +31,9 @@ public class HitScanBulletInfo : BulletInfo
 			TracerEffects( weapon, shootInfo, bulletTr );
 
 		// Damage
-		if ( !weapon.IsProxy && hitObj is not null && hitObj.Tags.Has( TagsHelper.Player ) )
+		if ( !weapon.IsProxy && hitObj is not null )
 		{
-			var target = hitObj.Components.GetInAncestorsOrSelf<IPlayerBase>();
-			if ( !target.IsAlive ) return;
+			var target = hitObj.Components.GetInAncestorsOrSelf<IDamageable>();
 
 			var hitTags = Array.Empty<string>();
 
@@ -42,8 +41,18 @@ public class HitScanBulletInfo : BulletInfo
 				hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
 
 			var force = forward * 100 * shootInfo.Force;
-			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.Id, weapon.ClassName, shootInfo.Damage, bulletTr.HitPosition, force, hitTags );
-			target?.TakeDamage( dmgInfo );
+			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.GameObject,
+				weapon.GameObject,
+				bulletTr.Hitbox,
+				bulletTr.EndPosition,
+				bulletTr.Shape,
+				weapon.ClassName,
+				shootInfo.Damage,
+				bulletTr.HitPosition,
+				force,
+				hitTags
+			);
+			target?.OnDamage( dmgInfo );
 		}
 	}
 
