@@ -12,7 +12,6 @@ public class DemoPlayer : PlayerBase
 {
 	TimeSince timeSincePerspectiveSwitch;
 
-
 	void GiveWeapon( string className, bool setActive = false )
 	{
 		var weapon = WeaponRegistry.Instance.Get( className );

@@ -18,6 +18,7 @@
         "__type": "TemporaryEffect",
         "__guid": "cb042a47-f116-4b7b-b6d4-c0f8c7f8cce4",
         "__enabled": true,
+        "BecomeOrphan": false,
         "DestroyAfterSeconds": 0,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -226,7 +227,7 @@
               "Evaluation": "Frame",
               "Constants": "0,0,0,0"
             },
-            "Stretch": 1,
+            "Stretch": 0,
             "TimeScale": 1,
             "Timing": "GameTime",
             "Tint": "1,1,1,1",
@@ -264,6 +265,7 @@
             "__type": "Sandbox.ParticleSpriteRenderer",
             "__guid": "27111454-a63a-49fe-a7cc-2fd7ce3df0ba",
             "__enabled": true,
+            "__version": 2,
             "Additive": false,
             "Alignment": "LookAtCamera",
             "BlurAmount": 0.5,
@@ -282,7 +284,6 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "Opaque": false,
-            "Pivot": "0.5,0.5",
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -293,7 +294,28 @@
             "Scale": 1,
             "Shadows": false,
             "SortMode": "Unsorted",
-            "Texture": "particles/swb/muzzle/flash.vtex",
+            "Sprite": {
+              "$compiler": "embed",
+              "$source": null,
+              "data": {
+                "Animations": [
+                  {
+                    "Name": "Default",
+                    "FrameRate": 15,
+                    "Origin": "0.5,0.5",
+                    "LoopMode": "Loop",
+                    "Frames": [
+                      {
+                        "Texture": "particles/swb/muzzle/flash.vtex"
+                      }
+                    ]
+                  }
+                ],
+                "__references": null
+              },
+              "compiled": null
+            },
+            "StartingAnimationName": "Default",
             "TextureFilter": "Bilinear"
           }
         ],
