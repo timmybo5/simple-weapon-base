@@ -39,7 +39,7 @@ public partial class Weapon
 	[Property, Group( "Sounds" )] public SoundEvent DeploySound { get; set; }
 
 	/// <summary>View Model field of view</summary>
-	[Property, Group( "FOV" )] public float ViewModelFOV { get; set; } = 70f;
+	[Property, Group( "General" )] public float ViewModelFOV { get; set; } = 70f;
 
 	/// <summary>Procedural animation speed (lower is slower)</summary>
 	[Property, Group( "Animations" )] public float AnimSpeed { get; set; } = 1;
@@ -113,7 +113,7 @@ public partial class Weapon
 	[Property, Group( "Scoping" )] public ScopeInfo ScopeInfo { get; set; } = new();
 
 	/// <summary>Aim Information</summary>
-	[Property, Group( "Aiming" )]
+	[Property, Group( "General" )]
 	public AimInfo AimInfo { get; set; } = new AimInfo()
 	{
 		Sensitivity = 0.85f,
