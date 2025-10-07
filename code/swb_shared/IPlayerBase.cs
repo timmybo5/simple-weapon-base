@@ -7,7 +7,7 @@ namespace SWB.Shared;
 /// <summary>
 /// Implement this interface on a `Component` to integrate with SWB
 /// </summary>
-public interface IPlayerBase : IValid
+public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 {
 	/// <summary>
 	/// Unique identifier for the player
@@ -125,12 +125,6 @@ public interface IPlayerBase : IValid
 	/// <param name="amount">The amount of ammo requested</param>
 	/// <returns>How much ammo was actually taken</returns>
 	public int TakeAmmo( string type, int amount );
-
-	/// <summary>
-	/// Called when the player takes damage
-	/// </summary>
-	/// <param name="info">Information about the damage</param>
-	public void TakeDamage( DamageInfo info );
 
 	/// <summary>
 	/// Shakes the camera
