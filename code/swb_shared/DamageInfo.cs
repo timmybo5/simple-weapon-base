@@ -9,7 +9,6 @@ namespace SWB.Shared;
 public class DamageInfo : Sandbox.DamageInfo
 {
 	public string Inflictor { get; set; }
-	public Vector3 Origin { get; set; }
 	public Vector3 Force { get; set; }
 	private static readonly string[] bulletTag = ["bullet"];
 
