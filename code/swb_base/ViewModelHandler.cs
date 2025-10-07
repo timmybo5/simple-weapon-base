@@ -77,8 +77,8 @@ public class ViewModelHandler : Component
 
 		if ( targetWeaponFOV == -1 )
 		{
-			targetWeaponFOV = Weapon.FOV;
-			finalWeaponFOV = Weapon.FOV;
+			targetWeaponFOV = Weapon.ViewModelFOV;
+			finalWeaponFOV = Weapon.ViewModelFOV;
 		}
 
 		WorldPosition = Camera.WorldPosition;
@@ -99,7 +99,7 @@ public class ViewModelHandler : Component
 		// Initialize the target vectors for this frame
 		targetVectorPos = Vector3.Zero;
 		targetVectorRot = Vector3.Zero;
-		targetWeaponFOV = Weapon.FOV;
+		targetWeaponFOV = Weapon.ViewModelFOV;
 
 		// Editor mode
 		if ( EditorMode )
@@ -234,15 +234,18 @@ public class ViewModelHandler : Component
 			targetVectorPos += Weapon.AimAnimData.Pos;
 			targetVectorRot += MathUtil.ToVector3( Weapon.AimAnimData.Angle );
 
-			if ( Weapon.AimFOV > 0 )
-				targetWeaponFOV = Weapon.AimFOV;
+			if ( Weapon.AimInfo.ViewModelFOV > 0 )
+				targetWeaponFOV = Weapon.AimInfo.ViewModelFOV;
 
-			weaponFOVSpeed = Weapon.AimInFOVSpeed;
+			weaponFOVSpeed = Weapon.AimInfo.AimInFOVSpeed;
+
+			Log.Info( Weapon.AimInfo.ViewModelFOV );
+			Log.Info( Weapon.ClassName );
 		}
 		else
 		{
 			aimTime = 0;
-			targetWeaponFOV = Weapon.FOV;
+			targetWeaponFOV = Weapon.ViewModelFOV;
 		}
 	}
 

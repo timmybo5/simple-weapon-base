@@ -22,11 +22,14 @@
           "Angle": "-1,0.41,0",
           "Pos": "-2.8,0,0.85"
         },
-        "AimFOV": 35,
-        "AimInFOVSpeed": 1,
-        "AimOutFOVSpeed": 1,
-        "AimPlayerFOV": -1,
-        "AimSensitivity": 0.85,
+        "AimInfo": {
+          "SpreadModifier": 0.25,
+          "Sensitivity": 0.85,
+          "ViewModelFOV": 35,
+          "PlayerFOV": -1,
+          "AimInFOVSpeed": 1,
+          "AimOutFOVSpeed": 1
+        },
         "AnimSpeed": 1,
         "BoltBack": false,
         "BoltBackAnim": "boltback",
@@ -52,7 +55,6 @@
         "DrawEmptyAnim": "",
         "DrawEmptyTime": -1,
         "DrawTime": 0.7,
-        "FOV": 65,
         "HoldType": "Shotgun",
         "Icon": "weapons/swb/remington/remington.png",
         "OnComponentDestroy": null,
@@ -94,6 +96,7 @@
         "Slot": 3,
         "TuckRange": 30,
         "ViewModel": "weapons/swb/remington/v_remington.vmdl",
+        "ViewModelFOV": 65,
         "ViewModelHands": null,
         "WorldModel": "weapons/swb/remington/w_remington.vmdl"
       },
@@ -165,9 +168,14 @@
           "Angle": "-0.07,0.48,-0.5",
           "Pos": "-2.816,0,0.36"
         },
-        "AimFOV": -1,
-        "AimInFOVSpeed": -1,
-        "AimOutFOVSpeed": -1,
+        "AimInfo": {
+          "SpreadModifier": -1,
+          "Sensitivity": 0.5,
+          "ViewModelFOV": -1,
+          "PlayerFOV": 50,
+          "AimInFOVSpeed": -1,
+          "AimOutFOVSpeed": -1
+        },
         "Bone": null,
         "Enable": false,
         "OnComponentDestroy": null,
