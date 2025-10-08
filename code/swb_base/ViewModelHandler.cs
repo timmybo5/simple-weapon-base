@@ -238,9 +238,6 @@ public class ViewModelHandler : Component
 				targetWeaponFOV = Weapon.AimInfo.ViewModelFOV;
 
 			weaponFOVSpeed = Weapon.AimInfo.AimInFOVSpeed;
-
-			Log.Info( Weapon.AimInfo.ViewModelFOV );
-			Log.Info( Weapon.ClassName );
 		}
 		else
 		{

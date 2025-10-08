@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-/* 
+﻿/* 
  * Utility class for handling models
 */
 
@@ -10,14 +8,8 @@ public class ModelUtil
 {
 	public static void ParentToBone( GameObject gameObject, SkinnedModelRenderer target, string bone, int tries = 0 )
 	{
-		var targetBone = target.Model.Bones.AllBones.FirstOrDefault( b => b.Name == bone );
-		if ( targetBone is null )
-		{
-			Log.Error( $"Could not find bone '{bone}' on {target}" );
-			return;
-		}
+		var holdBoneGO = target.GetBoneObject( bone );
 
-		var holdBoneGO = target.GetBoneObject( targetBone );
 		if ( holdBoneGO is null )
 		{
 			// Try again 1 frame later, viewmodel edge case
