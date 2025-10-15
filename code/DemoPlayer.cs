@@ -85,7 +85,7 @@ public class DemoPlayer : PlayerBase
 	{
 		base.OnUpdate();
 
-		if ( IsProxy ) return;
+		if ( IsProxy || IsBot ) return;
 
 		// Customization
 		if ( Input.Pressed( InputButtonHelper.View ) && timeSincePerspectiveSwitch > 0.5 )
