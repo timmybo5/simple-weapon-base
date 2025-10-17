@@ -1,5 +1,6 @@
 ﻿using Sandbox.UI;
 using SWB.Shared;
+using System;
 using System.Threading.Tasks;
 
 namespace SWB.Base.UI;
@@ -89,7 +90,7 @@ public class Crosshair : Panel
 		if ( shouldHide ) return;
 
 		// Crosshair spread offset
-		var screenOffset = spreadOffset * weapon.GetRealSpread();
+		var screenOffset = Math.Max( spreadOffset * weapon.GetRealSpread(), 2f );
 		leftBar.Style.MarginLeft = -screenOffset;
 		rightBar.Style.MarginLeft = screenOffset;
 		topBar.Style.MarginTop = -screenOffset;
