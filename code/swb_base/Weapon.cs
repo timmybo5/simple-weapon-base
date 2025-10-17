@@ -114,26 +114,45 @@ public partial class Weapon : Component, IInventoryItem
 		return TimeSinceDeployed > 0;
 	}
 
-	public virtual void OnDeploy()
+	public virtual (float delay, string anim) GetDrawInfo()
 	{
 		var delay = 0f;
+		var anim = "";
 
 		if ( Primary.Ammo == 0 && !string.IsNullOrEmpty( DrawEmptyAnim ) )
 		{
-			ViewModelRenderer?.Set( DrawEmptyAnim, true );
+			anim = DrawEmptyAnim;
 			delay = DrawEmptyTime;
 		}
 		else if ( !string.IsNullOrEmpty( DrawAnim ) )
 		{
-			ViewModelRenderer?.Set( DrawAnim, true );
+			anim = DrawAnim;
 			delay = DrawTime;
 		}
 
-		TimeSinceDeployed = -delay;
+		return (delay, anim);
+	}
+
+	public virtual void OnDeploy()
+	{
+		var drawInfo = GetDrawInfo();
+		TimeSinceDeployed = -drawInfo.delay;
 
 		// Sound
-		if ( DeploySound is not null )
+		if ( !IsProxy && DeploySound is not null )
 			PlaySound( DeploySound.ResourceId );
+
+		// Boltback
+		if ( InBoltBack )
+			AsyncBoltBack( drawInfo.delay );
+	}
+
+	public virtual void OnViewModelDeploy()
+	{
+		var drawInfo = GetDrawInfo();
+
+		if ( !string.IsNullOrEmpty( drawInfo.anim ) )
+			ViewModelRenderer?.Set( drawInfo.anim, true );
 
 		// Start drawing (We delay by 1 frame to allow the animation to start first)
 		async void ShouldDrawDelayed()
@@ -143,10 +162,6 @@ public partial class Weapon : Component, IInventoryItem
 				ViewModelHandler.ShouldDraw = true;
 		}
 		ShouldDrawDelayed();
-
-		// Boltback
-		if ( InBoltBack )
-			AsyncBoltBack( delay );
 	}
 
 	protected override void OnStart()
@@ -273,10 +288,18 @@ public partial class Weapon : Component, IInventoryItem
 
 	void UpdateModels()
 	{
+		// Should draw after deploy
+		if ( IsProxy )
+			WorldModelRenderer.RenderOptions.Game = true;
+
 		if ( !IsProxy && WorldModelRenderer is not null )
 		{
 			var worldModelRenderType = Owner.IsFirstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 			WorldModelRenderer.RenderType = worldModelRenderType;
+
+			// Should draw after deploy
+			if ( !Owner.IsFirstPerson )
+				WorldModelRenderer.RenderOptions.Game = true;
 
 			// Attachments
 			Attachments.ForEach( ( att ) =>
@@ -306,12 +329,19 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelRenderer.AnimationGraph = ViewModel.AnimGraph;
 			ViewModelRenderer.CreateBoneObjects = true;
 			ViewModelRenderer.Enabled = false;
-			ViewModelRenderer.OnComponentEnabled += () =>
+			ViewModelRenderer.OnComponentEnabled += async () =>
 			{
 				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
 				ViewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
 				ViewModelRenderer.ClearParameters();
-				OnDeploy();
+				OnViewModelDeploy();
+
+				// Deploy
+				if ( WorldModel is null )
+				{
+					await GameTask.Delay( 1 );
+					OnDeploy();
+				}
 			};
 
 			ViewModelHandler = viewModelGO.Components.Create<ViewModelHandler>();
@@ -359,6 +389,16 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.Model = WorldModel;
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
+			WorldModelRenderer.OnComponentEnabled += async () =>
+			{
+				// Prevent flickering when enabling the component
+				WorldModelRenderer.RenderType = ModelRenderer.ShadowRenderType.Off;
+				WorldModelRenderer.RenderOptions.Game = false;
+
+				// Deploy
+				await GameTask.Delay( 1 );
+				OnDeploy();
+			};
 
 			Owner.ParentToBone( GameObject, "hold_R" );
 		}
