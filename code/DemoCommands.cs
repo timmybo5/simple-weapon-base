@@ -51,6 +51,15 @@ internal class DemoCommands
 		Log.Info( (player.GodMode ? "Enabled" : "Disabled") + " Godmode" );
 	}
 
+	[ConCmd( "noclip", Help = "Toggles noclip (host only)" )]
+	public static void Noclip()
+	{
+		var player = PlayerBase.GetLocal();
+		if ( !player.IsHost ) return;
+		player.ToggleNoclip();
+		Log.Info( (player.Noclip ? "Enabled" : "Disabled") + " Noclip" );
+	}
+
 	[ConCmd( "setactive", Help = "Changes the active inventory item" )]
 	public static void ChangeWeapon( string className )
 	{

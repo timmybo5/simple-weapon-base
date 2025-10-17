@@ -12,6 +12,7 @@ public partial class PlayerBase
 	[Property] public float WalkSpeed { get; set; } = 160f;
 	[Property] public float CrouchSpeed { get; set; } = 90f;
 	[Property] public float JumpForce { get; set; } = 350f;
+	[Property] public float NoclipSpeed { get; set; } = 5f;
 
 	[Sync] public Vector3 WishVelocity { get; set; } = Vector3.Zero;
 	[Sync] public Angles EyeAngles { get; set; }
@@ -19,6 +20,7 @@ public partial class PlayerBase
 	[Sync] public bool IsCrouching { get; set; } = false;
 	[Sync] public bool IsRunning { get; set; } = false;
 	[Sync] public bool CanMove { get; set; } = true;
+	[Sync] public bool Noclip { get; private set; } = false;
 
 	public bool IsOnGround => CharacterController?.IsOnGround ?? true;
 	public Vector3 Velocity => CharacterController?.Velocity ?? Vector3.Zero;
@@ -35,6 +37,14 @@ public partial class PlayerBase
 	public CapsuleCollider BodyCollider { get; set; }
 
 	TimeSince timeSinceLastFootstep = 0;
+
+	public void ToggleNoclip()
+	{
+		Noclip = !Noclip;
+
+		if ( Noclip ) Tags.Add( TagsHelper.Trigger );
+		else Tags.Remove( TagsHelper.Trigger );
+	}
 
 	void OnMovementAwake()
 	{
@@ -66,7 +76,9 @@ public partial class PlayerBase
 	{
 		if ( IsProxy ) return;
 		BuildWishVelocity();
-		Move();
+
+		if ( !Noclip ) Move();
+		else NoclipMove();
 	}
 
 	void BuildWishVelocity()
@@ -80,12 +92,35 @@ public partial class PlayerBase
 		if ( Input.Down( InputButtonHelper.Left ) ) WishVelocity += rot.Left;
 		if ( Input.Down( InputButtonHelper.Right ) ) WishVelocity += rot.Right;
 
-		WishVelocity = WishVelocity.WithZ( 0 );
+		if ( !Noclip )
+			WishVelocity = WishVelocity.WithZ( 0 );
+
 		if ( !WishVelocity.IsNearZeroLength ) WishVelocity = WishVelocity.Normal;
 
 		if ( IsCrouching ) WishVelocity *= CrouchSpeed;
 		else if ( IsRunning ) WishVelocity *= RunSpeed;
 		else WishVelocity *= WalkSpeed;
+	}
+
+	void NoclipMove()
+	{
+		var speedMod = 1f;
+
+		if ( Input.Down( InputButtonHelper.Run ) )
+			speedMod = 2f;
+		if ( Input.Down( InputButtonHelper.Duck ) )
+			speedMod = 0.5f;
+
+		WishVelocity *= NoclipSpeed * speedMod;
+
+		if ( Input.Down( InputButtonHelper.Jump ) )
+			WishVelocity += Vector3.Up * NoclipSpeed * speedMod * 100;
+
+		CharacterController.Velocity = WishVelocity;
+		CharacterController.Accelerate( WishVelocity );
+
+		if ( !(CharacterController.Velocity.IsNearZeroLength && WishVelocity.IsNearZeroLength) )
+			CharacterController.Move();
 	}
 
 	void Move()
