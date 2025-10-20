@@ -114,6 +114,10 @@ public partial class Weapon
 		for ( int i = 0; i < shootInfo.Bullets; i++ )
 		{
 			var realSpread = GetRealSpread( shootInfo.Spread );
+
+			if ( IsScoping )
+				realSpread *= ScopeInfo.Spread;
+
 			var spreadOffset = shootInfo.BulletType.GetRandomSpread( realSpread );
 			ShootBullet( isPrimary, spreadOffset );
 		}

@@ -20,6 +20,9 @@ public class ScopeInfo
 	/// <summary>Player FOV while scoping</summary>
 	[Property] public float FOV { get; set; } = 8f;
 
-	/// <summary>Mouse sensitivity while scoping (lower is slower, 0 to use AimSensitivity while scoped)</summary>
-	[Property] public float AimSensitivity { get; set; } = 0.25f;
+	/// <summary>Mouse sensitivity while scoping (lower is slower, 0 to use AimInfo.Sensitivity while scoped)</summary>
+	[Property] public float Sensitivity { get; set; } = 0.25f;
+
+	/// <summary>Spread while scoping (lower is more accurate, 0 = perfect, 1 = normal )</summary>
+	[Property] public float Spread { get; set; } = 0f;
 }

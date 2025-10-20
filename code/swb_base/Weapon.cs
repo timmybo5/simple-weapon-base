@@ -235,7 +235,7 @@ public partial class Weapon : Component, IInventoryItem
 			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack );
 
 			if ( IsScoping )
-				Owner.InputSensitivity = ScopeInfo.AimSensitivity;
+				Owner.InputSensitivity = ScopeInfo.Sensitivity;
 			else if ( IsAiming )
 				Owner.InputSensitivity = AimInfo.Sensitivity;
 			else

@@ -37,7 +37,7 @@ public class HunterScope2DBG : Scope2DAttachment
 	public override int BodyGroupChoice { get; set; } = 2;
 	public override int BodyGroupDefault { get; set; } = 0;
 
-	// Scope
+	[Property]
 	public override ScopeInfo ScopeInfo { get; set; } = new()
 	{
 		LensTexture = "materials/swb/scopes/swb_lens_hunter.png",
@@ -45,7 +45,8 @@ public class HunterScope2DBG : Scope2DAttachment
 		ScopeInDelay = 0.2f,
 		ScopeInSound = ResourceLibrary.Get<SoundEvent>( "sounds/swb/scope/swb_sniper.zoom_in.sound" ),
 		FOV = 8f,
-		AimSensitivity = 0.25f
+		Sensitivity = 0.25f,
+		Spread = 0f,
 	};
 }
 
