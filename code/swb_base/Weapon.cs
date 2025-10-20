@@ -100,6 +100,7 @@ public partial class Weapon : Component, IInventoryItem
 	{
 		if ( !IsValid ) return;
 		GameObject.Enabled = true;
+		TimeSinceDeployed = -999f;
 	}
 
 	[Rpc.Broadcast]
@@ -159,10 +160,16 @@ public partial class Weapon : Component, IInventoryItem
 		{
 			await GameTask.Delay( 1 );
 			if ( ViewModelHandler.IsValid() )
+			{
 				ViewModelHandler.ShouldDraw = true;
+				OnViewModelDrawn();
+			}
 		}
 		ShouldDrawDelayed();
 	}
+
+	/// <summary>Called when the view model starts being drawn</summary>
+	public virtual void OnViewModelDrawn() { }
 
 	protected override void OnStart()
 	{
@@ -389,7 +396,8 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.Model = WorldModel;
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
-			WorldModelRenderer.OnComponentEnabled += async () =>
+
+			async void OnComponentEnabled()
 			{
 				// Prevent flickering when enabling the component
 				WorldModelRenderer.RenderType = ModelRenderer.ShadowRenderType.Off;
@@ -398,8 +406,16 @@ public partial class Weapon : Component, IInventoryItem
 				// Deploy
 				await GameTask.Delay( 1 );
 				OnDeploy();
+			}
+
+			WorldModelRenderer.OnComponentEnabled += () =>
+			{
+				// Called after weapon has been switched already
+				OnComponentEnabled();
 			};
 
+			// Called when weapon models are created
+			OnComponentEnabled();
 			Owner.ParentToBone( GameObject, "hold_R" );
 		}
 	}

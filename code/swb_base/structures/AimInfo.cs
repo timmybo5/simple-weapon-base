@@ -59,5 +59,6 @@ public class AimInfo
 		if ( PlayerFOV == -1 ) PlayerFOV = defaults.PlayerFOV;
 		if ( AimInFOVSpeed == -1 ) AimInFOVSpeed = defaults.AimInFOVSpeed;
 		if ( AimOutFOVSpeed == -1 ) AimOutFOVSpeed = defaults.AimOutFOVSpeed;
+		if ( SpreadModifier == -1 ) SpreadModifier = defaults.SpreadModifier;
 	}
 }
