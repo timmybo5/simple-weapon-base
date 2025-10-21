@@ -46,8 +46,6 @@ public partial class Weapon : Component, IInventoryItem
 		}
 	}
 
-
-
 	protected override void OnDestroy()
 	{
 		ViewModelRenderer?.GameObject?.Destroy();
@@ -296,7 +294,7 @@ public partial class Weapon : Component, IInventoryItem
 	void UpdateModels()
 	{
 		// Should draw after deploy
-		if ( IsProxy )
+		if ( IsProxy && WorldModelRenderer is not null )
 			WorldModelRenderer.RenderOptions.Game = true;
 
 		if ( !IsProxy && WorldModelRenderer is not null )

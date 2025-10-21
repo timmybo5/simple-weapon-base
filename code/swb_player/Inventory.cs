@@ -17,9 +17,7 @@ public class Inventory : Component, IInventory
 	public void Add( GameObject gameObject, bool makeActive = false )
 	{
 		if ( !Has( gameObject ) )
-		{
 			Items.Add( gameObject );
-		}
 
 		if ( makeActive )
 			SetActive( gameObject );
@@ -36,7 +34,7 @@ public class Inventory : Component, IInventory
 	{
 		CloneConfig config = new( player.WorldTransform, player.GameObject, false, gamePrefab.Name );
 		var gameObject = gamePrefab.Clone( config );
-		gameObject.NetworkSpawn( player.Network.Owner );
+		gameObject.NetworkSpawn( false, player.Network.Owner );
 
 		Add( gameObject, makeActive );
 		return gameObject;

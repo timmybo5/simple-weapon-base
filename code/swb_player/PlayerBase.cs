@@ -124,32 +124,41 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		RespawnWithDelay( 2 );
 	}
 
-	public async virtual void RespawnWithDelay( float delay )
+	public async virtual void RespawnWithDelay( float delay, Transform? respawnAt = null )
 	{
 		await GameTask.DelaySeconds( delay );
-		Respawn();
+		Respawn( respawnAt );
 	}
 
 	[Rpc.Broadcast]
-	public void RespawnWithDelayBroadCast( float delay )
+	public void RespawnWithDelayBroadCast( float delay, Transform? respawnAt = null )
 	{
-		RespawnWithDelay( delay );
+		RespawnWithDelay( delay, respawnAt );
 	}
 
 	[Rpc.Broadcast]
-	public void RespawnBroadCast()
+	public void RespawnBroadCast( Transform? respawnAt = null )
 	{
-		Respawn();
+		Respawn( respawnAt );
 	}
 
-	public virtual void Respawn()
+	public virtual void Respawn( Transform? respawnAt = null )
 	{
 		Inventory.Clear();
 		Health = MaxHealth;
 
-		var spawnLocation = GetSpawnLocation();
-		WorldPosition = spawnLocation.Position;
-		EyeAngles = spawnLocation.Rotation.Angles();
+		if ( respawnAt.HasValue )
+		{
+			WorldPosition = respawnAt.Value.Position;
+			EyeAngles = respawnAt.Value.Rotation.Angles();
+		}
+		else
+		{
+			var spawnLocation = GetSpawnLocation();
+			WorldPosition = spawnLocation.Position;
+			EyeAngles = spawnLocation.Rotation.Angles();
+		}
+
 		Network.ClearInterpolation();
 		Unragdoll();
 

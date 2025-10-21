@@ -1,5 +1,7 @@
 namespace SWB.Shared;
 
+// Taken from: CitizenAnimationHelper.HoldTypes
+
 public enum HoldTypes
 {
 	None,
@@ -9,5 +11,6 @@ public enum HoldTypes
 	HoldItem,
 	Punch,
 	Swing,
-	RPG
+	RPG,
+	Physgun
 }

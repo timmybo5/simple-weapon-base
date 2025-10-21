@@ -35,9 +35,9 @@ public class DemoPlayer : PlayerBase
 		return null;
 	}
 
-	public override void Respawn()
+	public override void Respawn( Transform? respawnAt = null )
 	{
-		base.Respawn();
+		base.Respawn( respawnAt );
 
 		if ( IsBot ) return;
 
