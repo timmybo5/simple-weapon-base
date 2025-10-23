@@ -25,6 +25,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public SteamId SteamId => !IsBot ? Network.Owner.SteamId : new( 0 );
 	public bool IsHost => !IsBot && Network.Owner.IsHost;
 	public bool IsSpeaking => Voice.Amplitude > 0;
+	bool taggedLights;
 
 	public float InputSensitivity
 	{
@@ -144,6 +145,13 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public virtual void Respawn( Transform? respawnAt = null )
 	{
+		// Only works when player has spawned
+		if ( !taggedLights )
+		{
+			taggedLights = true;
+			MapUtil.TagLights();
+		}
+
 		Inventory.Clear();
 		Health = MaxHealth;
 

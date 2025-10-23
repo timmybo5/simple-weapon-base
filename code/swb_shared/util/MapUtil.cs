@@ -20,10 +20,8 @@ public static class MapUtil
 
 	static async void TagLights( IEnumerable<Component> components )
 	{
-		// Log.Info( "[SWB] Tagging lights..." );
+		//Log.Info( "[SWB] Tagging lights..." );
 
-		// Cannot add tags directly, needs a delay to work
-		await GameTask.DelaySeconds( 1 );
 		foreach ( var comp in components )
 		{
 			if ( comp is null ) continue;
