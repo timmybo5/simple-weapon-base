@@ -51,7 +51,7 @@
         "__enabled": true,
         "Acceleration": 10,
         "Bounciness": 0.3,
-        "GroundAngle": 45,
+        "GroundAngle": 50,
         "Height": 64,
         "IgnoreLayers": "",
         "OnComponentDestroy": null,

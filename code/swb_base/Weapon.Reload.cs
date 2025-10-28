@@ -83,7 +83,7 @@ public partial class Weapon
 
 		Primary.Ammo += 1;
 
-		if ( ammo != 0 && Primary.Ammo < Primary.ClipSize )
+		if ( ammo != 0 && Primary.Ammo < Primary.ClipSize && Owner.AmmoCount( Primary.AmmoType ) > 0 )
 		{
 			ReloadTime = ShellReloadInsertTime;
 			Reload();
