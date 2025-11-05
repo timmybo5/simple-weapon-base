@@ -39,7 +39,7 @@ public partial class Weapon
 
 	void BroadcastUIEvent( string name, object value )
 	{
-		if ( RootPanel is null ) return;
+		if ( RootPanel?.Panel?.Children is null ) return;
 
 		foreach ( var panel in RootPanel.Panel.Children )
 		{
