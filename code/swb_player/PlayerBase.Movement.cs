@@ -44,6 +44,8 @@ public partial class PlayerBase
 
 		if ( Noclip ) Tags.Add( TagsHelper.Trigger );
 		else Tags.Remove( TagsHelper.Trigger );
+
+		BodyRenderer.Set( "b_noclip", Noclip );
 	}
 
 	void OnMovementAwake()

@@ -26,6 +26,8 @@ public partial class PlayerBase
 
 	void UpdateClothes()
 	{
+		if ( Dresser.IsDressing ) return;
+
 		// Can take a while to spawn on clients so we check here until they are spawned in
 		if ( clothingRenderers.Count == 0 )
 			UpdateClothingRenderers();
