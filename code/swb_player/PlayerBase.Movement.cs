@@ -22,6 +22,7 @@ public partial class PlayerBase
 	[Sync] public bool CanMove { get; set; } = true;
 	[Sync] public bool Noclip { get; private set; } = false;
 
+	public TimeSince TimeSinceAirborne { get; set; }
 	public bool IsOnGround => CharacterController?.IsOnGround ?? true;
 	public Vector3 Velocity => CharacterController?.Velocity ?? Vector3.Zero;
 	public Vector3 EyePos => Head.WorldPosition + EyeOffset;
@@ -69,6 +70,9 @@ public partial class PlayerBase
 
 			UpdateCrouch();
 		}
+
+		if ( !IsOnGround )
+			TimeSinceAirborne = 0;
 
 		RotateBody();
 		UpdateAnimations();
@@ -220,6 +224,10 @@ public partial class PlayerBase
 
 		// Walk
 		var stepDelay = 0.25f;
+		var speed = Velocity.WithZ( 0 );
+
+		// Standing still
+		if ( speed.IsNearZeroLength && TimeSinceAirborne > 0.1f ) return;
 
 		// Running
 		if ( Velocity.WithZ( 0 ).Length >= 200 )

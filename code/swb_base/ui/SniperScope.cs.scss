@@ -1,49 +1,65 @@
 ﻿SniperScope {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	transition: margin 0.01s ease-out;
 
-    &.hide {
-        display: none;
-    }
-    
-    .lensWrapper {
-        position: relative;
-        width: 100%;
-    }
+	&.hide {
+		display: none;
+	}
 
-    .lens {
-        height: 100%;
-        width: 100%;
-    }
+	.lensWrapper {
+		position: relative;
+		width: 100%;
+	}
 
-    .scope {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-    }
+	.lens {
+		height: 100%;
+		width: 100%;
+	}
 
-    .leftBar,
-    .rightBar {
-        background-color: black;
-        height: 100%;
-        flex-grow: 1;
-    }
+	.scope {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		transition: filter 0.01s ease-out;
+	}
 
-    .topBar {
-        position: absolute;
-        background-color: black;
-        top: -100%;
-        width: 100%;
-        height: 100%;
-    }
+	.leftBar,
+	.rightBar {
+		background-color: black;
+		height: 100%;
+		flex-grow: 1;
+	}
 
-    .bottomBar {
-        position: absolute;
-        background-color: black;
-        bottom: -100%;
-        width: 100%;
-        height: 100%;
-    }
+	.leftBarOffscreen,
+	.rightBarOffscreen,
+	.topBar,
+	.bottomBar {
+		position: absolute;
+		background-color: black;
+		width: 100%;
+		height: 100%;
+	}
+
+	.leftBarOffscreen {
+		top: -50%;
+		left: -100%;
+		height: 200%;
+	}
+
+	.rightBarOffscreen {
+		top: -50%;
+		right: -100%;
+		height: 200%;
+	}
+
+	.topBar {
+		top: -100%;
+	}
+
+	.bottomBar {
+		bottom: -100%;
+	}
 }

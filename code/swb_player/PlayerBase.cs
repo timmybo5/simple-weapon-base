@@ -35,6 +35,10 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public float FieldOfView
 	{
+		get
+		{
+			return Camera.FieldOfView;
+		}
 		set
 		{
 			Camera.FieldOfView = value;

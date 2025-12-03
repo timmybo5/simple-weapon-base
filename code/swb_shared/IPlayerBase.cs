@@ -84,7 +84,7 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	/// The suggested FOV to be used by the player camera, affected by a weapon zoom
 	/// This assumes a first-person perspective and will default to `Preferences.FieldOfView`
 	/// </summary>
-	public float FieldOfView { set; }
+	public float FieldOfView { get; set; }
 
 	/// <summary>
 	/// The Hold Type for the currently equipped weapon
