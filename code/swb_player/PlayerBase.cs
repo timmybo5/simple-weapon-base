@@ -198,7 +198,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	async void OverlayUIWorkaround()
 	{
 		Camera.IsMainCamera = false;
-		await GameTask.Delay( 1 );
+		await GameTask.Delay( 1000 );
 		if ( Camera.IsValid() )
 			Camera.IsMainCamera = true;
 	}
