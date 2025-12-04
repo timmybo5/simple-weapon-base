@@ -154,6 +154,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		{
 			taggedLights = true;
 			MapUtil.TagLights();
+			OverlayUIWorkaround();
 		}
 
 		Inventory.Clear();
@@ -192,6 +193,14 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		var randomSpawnPoint = spawnPoints.ElementAt( rand.Next( 0, spawnPoints.Count() - 1 ) );
 
 		return randomSpawnPoint.Transform.World;
+	}
+
+	async void OverlayUIWorkaround()
+	{
+		Camera.IsMainCamera = false;
+		await GameTask.Delay( 1 );
+		if ( Camera.IsValid() )
+			Camera.IsMainCamera = true;
 	}
 
 	protected override void OnUpdate()

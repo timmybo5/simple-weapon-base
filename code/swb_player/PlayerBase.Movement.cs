@@ -227,7 +227,7 @@ public partial class PlayerBase
 		var speed = Velocity.WithZ( 0 );
 
 		// Standing still
-		if ( speed.IsNearZeroLength && TimeSinceAirborne > 0.1f ) return;
+		if ( speed.IsNearlyZero( 0.01f ) && TimeSinceAirborne > 0.1f ) return;
 
 		// Running
 		if ( Velocity.WithZ( 0 ).Length >= 200 )
