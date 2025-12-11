@@ -6,10 +6,12 @@ public partial class PlayerBase
 {
 	[Property] public Dresser Dresser { get; set; }
 	List<SkinnedModelRenderer> clothingRenderers = new();
+	bool isDressed;
 
-	void ApplyClothes()
+	async void ApplyClothes()
 	{
-		Dresser.Apply();
+		await Dresser.Apply();
+		isDressed = true;
 	}
 
 	void UpdateClothingRenderers()
@@ -26,7 +28,7 @@ public partial class PlayerBase
 
 	void UpdateClothes()
 	{
-		if ( Dresser.IsDressing ) return;
+		if ( !isDressed || Dresser.IsDressing ) return;
 
 		// Can take a while to spawn on clients so we check here until they are spawned in
 		if ( clothingRenderers.Count == 0 )

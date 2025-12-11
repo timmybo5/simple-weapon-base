@@ -212,7 +212,7 @@ public partial class Weapon
 
 	void ParticleToMuzzleTrans( GameObject particle )
 	{
-		if ( !particle.IsValid ) return;
+		if ( !particle.IsValid() || !this.IsValid() || !this.Owner.IsValid() ) return;
 		var muzzleTransform = GetMuzzleTransform();
 		if ( !muzzleTransform.HasValue )
 		{

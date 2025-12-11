@@ -90,8 +90,8 @@ public class SniperScope : Panel
 		rotateTransform.AddRotation( 0, 0, lensRotation );
 		scope.Style.Transform = rotateTransform;
 
-		// Movement blur
-		scope.Style.FilterBlur = Math.Abs( lensRotation * 2 + velocityJump + lensBob + (horizontalMov + verticalMov) * 3 );
+		// Movement blur (deactivated due to lag)
+		// scope.Style.FilterBlur = Math.Abs( lensRotation * 2 + velocityJump + lensBob + (horizontalMov + verticalMov) * 3 );
 	}
 
 	[PanelEvent( "shoot" )]

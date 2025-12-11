@@ -6,7 +6,7 @@
 	transition: margin 0.01s ease-out;
 
 	&.hide {
-		display: none;
+		opacity: 0;
 	}
 
 	.lensWrapper {
@@ -23,7 +23,7 @@
 		position: absolute;
 		height: 100%;
 		width: 100%;
-		transition: filter 0.01s ease-out;
+		// transition: filter 0.01s ease-out;
 	}
 
 	.leftBar,
