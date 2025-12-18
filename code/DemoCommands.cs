@@ -81,8 +81,11 @@ internal class DemoCommands
 		var bots = players.Count( ( player ) => player.IsBot );
 		var botName = "Bot " + (bots + 1);
 
-		botPlayer.IsBot = true;
 		botGO.Name = botName;
+		botPlayer.IsBot = true;
+		botPlayer.Dresser.Source = Dresser.ClothingSource.Manual;
+		botPlayer.Dresser.Randomize();
+
 		botGO.NetworkSpawn();
 
 		Log.Info( botName + " joined the game!" );
