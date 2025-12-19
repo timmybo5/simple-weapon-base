@@ -27,6 +27,9 @@ public partial class PlayerBase
 			CameraMovement.AnglesOffset += randomRot;
 			CameraMovement.PosOffset += randomPos;
 			nextShake = timeSinceShake + lastScreenShake.Delay;
+
+			if ( IsUsingController )
+				Input.TriggerHaptics( HapticEffect.HardImpact, lastScreenShake.Duration * 2, lastScreenShake.Size, lastScreenShake.Size );
 		}
 	}
 }

@@ -22,6 +22,7 @@ struct KeyBind
 public class KeyDisplay : Panel
 {
 	PlayerBase player;
+	bool usingController;
 
 	List<KeyBind> keys = new()
 	{
@@ -33,6 +34,14 @@ public class KeyDisplay : Panel
 	{
 		this.player = player;
 		StyleSheet.Load( "/swb_hud/KeyDisplay.cs.scss" );
+
+		CreateKeys();
+	}
+
+	void CreateKeys()
+	{
+		usingController = Input.UsingController;
+		DeleteChildren();
 
 		keys.ForEach( keyBind =>
 		{
@@ -54,6 +63,10 @@ public class KeyDisplay : Panel
 			SetClass( "hide", true );
 			return;
 		}
+
+		// Update glyphs when switching input device
+		if ( usingController != Input.UsingController )
+			CreateKeys();
 
 		var activeWeapon = activeGO.Components.Get<Weapon>();
 		var isValidWeapon = activeWeapon is not null;

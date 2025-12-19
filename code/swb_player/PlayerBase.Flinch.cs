@@ -37,6 +37,9 @@ public partial class PlayerBase
 		{
 			var flinchAngles = new Angles( isLoweringFlinch ? currFlinch : -currFlinch, 0, 0 );
 			ApplyRecoilOffset( flinchAngles );
+
+			if ( IsUsingController )
+				Input.TriggerHaptics( HapticEffect.HardImpact, 0.1f, currFlinch, currFlinch );
 		}
 	}
 }

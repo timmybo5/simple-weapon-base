@@ -57,6 +57,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		// Hack: Hide client until fully loaded in OnStart
 		if ( !IsProxy )
 		{
+			OnInputDeviceSwitch();
+
 			WorldPosition = new( 0, 0, -999999 );
 			Network.ClearInterpolation();
 		}
@@ -211,13 +213,16 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			return;
 		}
 
-		if ( !IsProxy ) ViewModelCamera.Enabled = IsFirstPerson && IsAlive;
+		if ( !IsProxy )
+		{
+			ViewModelCamera.Enabled = IsFirstPerson && IsAlive;
+			HandleFlinch();
+			HandleScreenShake();
+		}
 
 		if ( IsAlive )
 			OnMovementUpdate();
 
-		HandleFlinch();
-		HandleScreenShake();
 		UpdateClothes();
 	}
 
@@ -225,6 +230,11 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		if ( !IsAlive || IsBot ) return;
 		OnMovementFixedUpdate();
+
+		if ( !IsProxy && IsUsingController != Input.UsingController )
+		{
+			OnInputDeviceSwitch();
+		}
 	}
 
 	public void TriggerAnimation( Animations animation )

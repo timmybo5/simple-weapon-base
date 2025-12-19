@@ -99,8 +99,8 @@ public class InventoryDisplay : Panel
 		else if ( Input.Pressed( InputButtonHelper.Slot7 ) ) SwitchItem( 7 );
 		else if ( Input.Pressed( InputButtonHelper.Slot8 ) ) SwitchItem( 8 );
 		else if ( Input.Pressed( InputButtonHelper.Slot9 ) ) SwitchItem( 9 );
-		else if ( Input.MouseWheel.y > 0 ) SwitchToNext();
-		else if ( Input.MouseWheel.y < 0 ) SwitchToPrev();
+		else if ( Input.MouseWheel.y > 0 || Input.Pressed( InputButtonHelper.SlotNext ) ) SwitchToNext();
+		else if ( Input.MouseWheel.y < 0 || Input.Pressed( InputButtonHelper.SlotPrev ) ) SwitchToPrev();
 	}
 
 	void SwitchToNext()

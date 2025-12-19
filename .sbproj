@@ -27,6 +27,11 @@
     "ProjectTemplate": null,
     "LaunchMode": "QuickPlay",
     "MapStartupScene": "scenes/minimal.scene",
-    "DedicatedServerStartupScene": "scenes/minimal.scene"
+    "DedicatedServerStartupScene": "scenes/minimal.scene",
+    "ControlModes": {
+      "Keyboard": true,
+      "VR": false,
+      "Gamepad": true
+    }
   }
 }

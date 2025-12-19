@@ -1,5 +1,4 @@
 ﻿using SWB.Base;
-using System;
 
 namespace SWB.Player;
 
@@ -31,7 +30,7 @@ public partial class PlayerBase
 		if ( !IsValid || IsProxy || !IsAlive || GodMode )
 			return;
 
-		if ( info.Tags.Has("head" ) )
+		if ( info.Tags.Has( "head" ) )
 			info.Damage *= 2;
 
 		Health -= (int)info.Damage;

@@ -42,7 +42,7 @@ public class CustomizationMenu : Panel
 			if ( attachmentsPerCategory.TryGetValue( attachment.Category, out var attachments ) )
 				attachments.Add( attachment );
 			else
-				attachmentsPerCategory.Add( attachment.Category, new List<Attachment>() { attachment } );
+				attachmentsPerCategory.Add( attachment.Category, new() { attachment } );
 		} );
 	}
 

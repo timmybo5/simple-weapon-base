@@ -1,5 +1,7 @@
 using Sandbox.Citizen;
 using SWB.Shared;
+using System;
+using System.Collections.Generic;
 
 namespace SWB.Player;
 
@@ -21,6 +23,7 @@ public partial class PlayerBase
 	[Sync] public bool IsRunning { get; set; } = false;
 	[Sync] public bool CanMove { get; set; } = true;
 	[Sync] public bool Noclip { get; private set; } = false;
+	[Sync] public bool IsUsingController { get; set; }
 
 	public TimeSince TimeSinceAirborne { get; set; }
 	public bool IsOnGround => CharacterController?.IsOnGround ?? true;
@@ -37,7 +40,12 @@ public partial class PlayerBase
 
 	public CapsuleCollider BodyCollider { get; set; }
 
+	HashSet<string> stickyButtons = new( StringComparer.Ordinal );
+	HashSet<string> stickyActiveButtons = new( StringComparer.Ordinal );
+	TimeSince timeSinceStickyRunStart = 0;
+
 	TimeSince timeSinceLastFootstep = 0;
+	bool groundedCheck = true;
 
 	public void ToggleNoclip()
 	{
@@ -47,6 +55,24 @@ public partial class PlayerBase
 		else Tags.Remove( TagsHelper.Trigger );
 
 		BodyRenderer.Set( "b_noclip", Noclip );
+	}
+
+	public virtual void OnInputDeviceSwitch()
+	{
+		IsUsingController = Input.UsingController;
+		stickyButtons.Clear();
+		stickyActiveButtons.Clear();
+
+		if ( IsUsingController )
+		{
+			stickyButtons.Add( InputButtonHelper.Duck );
+			stickyButtons.Add( InputButtonHelper.Run );
+		}
+	}
+
+	bool InputIsDownOrPressed( string button )
+	{
+		return !IsUsingController ? Input.Down( button ) : Input.Pressed( button );
 	}
 
 	void OnMovementAwake()
@@ -63,7 +89,7 @@ public partial class PlayerBase
 	{
 		if ( !IsProxy )
 		{
-			IsRunning = Input.Down( InputButtonHelper.Run );
+			UpdateRun();
 
 			if ( Input.Pressed( InputButtonHelper.Jump ) )
 				Jump();
@@ -73,6 +99,16 @@ public partial class PlayerBase
 
 		if ( !IsOnGround )
 			TimeSinceAirborne = 0;
+
+		if ( IsOnGround && groundedCheck != IsOnGround )
+		{
+			groundedCheck = IsOnGround;
+			OnGrounded();
+		}
+		else if ( !IsOnGround )
+		{
+			groundedCheck = false;
+		}
 
 		RotateBody();
 		UpdateAnimations();
@@ -93,10 +129,7 @@ public partial class PlayerBase
 		if ( !CanMove ) return;
 
 		var rot = Camera.WorldRotation; // = EyeAngles in firstperson | = Camera.WorldRotation in thirdperson
-		if ( Input.Down( InputButtonHelper.Forward ) ) WishVelocity += rot.Forward;
-		if ( Input.Down( InputButtonHelper.Backward ) ) WishVelocity += rot.Backward;
-		if ( Input.Down( InputButtonHelper.Left ) ) WishVelocity += rot.Left;
-		if ( Input.Down( InputButtonHelper.Right ) ) WishVelocity += rot.Right;
+		WishVelocity += rot * Input.AnalogMove;
 
 		if ( !Noclip )
 			WishVelocity = WishVelocity.WithZ( 0 );
@@ -179,6 +212,28 @@ public partial class PlayerBase
 
 		CharacterController.Punch( Vector3.Up * JumpForce );
 		AnimationHelper?.TriggerJump();
+
+		// Unstick crouch
+		if ( IsCrouching )
+			stickyActiveButtons.Remove( InputButtonHelper.Duck );
+
+		// Unstick run
+		if ( IsRunning )
+			stickyActiveButtons.Remove( InputButtonHelper.Run );
+	}
+
+	/// <summary>Called once when the player lands</summary>
+	public virtual void OnGrounded()
+	{
+		if ( !IsProxy )
+		{
+			ShakeScreen( new()
+			{
+				Size = 0.2f,
+				Rotation = 0.2f,
+				Duration = 0.1f,
+			} );
+		}
 	}
 
 	void UpdateAnimations()
@@ -194,16 +249,69 @@ public partial class PlayerBase
 		AnimationHelper.DuckLevel = IsCrouching ? 1 : 0;
 	}
 
+	void UpdateRun()
+	{
+		var runIsDownOrPressed = InputIsDownOrPressed( InputButtonHelper.Run );
+		var runIsStickyActive = stickyActiveButtons.Contains( InputButtonHelper.Run );
+
+		// Velocity unstick
+		var speed = Velocity.WithZ( 0 );
+		if ( !IsCrouching && timeSinceStickyRunStart > 0.2 && speed.LengthSquared < 20000 )
+		{
+			runIsStickyActive = false;
+			stickyActiveButtons.Remove( InputButtonHelper.Run );
+		}
+
+		// Stick
+		if ( runIsDownOrPressed )
+		{
+			runIsStickyActive = !runIsStickyActive;
+
+			if ( runIsStickyActive )
+			{
+				timeSinceStickyRunStart = 0;
+				stickyActiveButtons.Add( InputButtonHelper.Run );
+			}
+			else
+				stickyActiveButtons.Remove( InputButtonHelper.Run );
+		}
+
+		// Unstick crouch
+		if ( runIsStickyActive && IsCrouching )
+		{
+			stickyActiveButtons.Remove( InputButtonHelper.Duck );
+		}
+
+		IsRunning = runIsDownOrPressed || runIsStickyActive;
+	}
+
 	void UpdateCrouch()
 	{
-		if ( Input.Down( InputButtonHelper.Duck ) && !IsCrouching && IsOnGround )
+		var duckIsDownOrPressed = InputIsDownOrPressed( InputButtonHelper.Duck );
+		var duckIsStickyActive = stickyActiveButtons.Contains( InputButtonHelper.Duck );
+
+		// Unstick
+		if ( duckIsDownOrPressed && duckIsStickyActive )
+		{
+			duckIsStickyActive = false;
+			stickyActiveButtons.Remove( InputButtonHelper.Duck );
+		}
+
+		if ( duckIsDownOrPressed && !IsCrouching && !IsRunning && IsOnGround )
 		{
 			IsCrouching = true;
 			CharacterController.Height /= 2f;
 			BodyCollider.End = BodyCollider.End.WithZ( BodyCollider.End.z / 2f );
+
+			if ( stickyButtons.Contains( InputButtonHelper.Duck ) )
+			{
+				stickyActiveButtons.Add( InputButtonHelper.Duck );
+			}
 		}
 
-		if ( IsCrouching && (!Input.Down( InputButtonHelper.Duck ) || !IsOnGround) )
+		if ( duckIsStickyActive ) return;
+
+		if ( IsCrouching && (!duckIsDownOrPressed || !IsOnGround) )
 		{
 			// Check we have space to uncrouch
 			var targetHeight = CharacterController.Height * 2f;
