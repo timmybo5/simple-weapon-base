@@ -263,7 +263,7 @@ public partial class PlayerBase
 		}
 
 		// Stick
-		if ( runIsDownOrPressed )
+		if ( IsUsingController && runIsDownOrPressed )
 		{
 			runIsStickyActive = !runIsStickyActive;
 

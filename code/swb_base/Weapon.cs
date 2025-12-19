@@ -96,7 +96,7 @@ public partial class Weapon : Component, IInventoryItem
 	[Rpc.Broadcast]
 	public virtual void OnCarryStart()
 	{
-		if ( !IsValid ) return;
+		if ( !this.IsValid() ) return;
 		GameObject.Enabled = true;
 		TimeSinceDeployed = -999f;
 	}
@@ -104,7 +104,7 @@ public partial class Weapon : Component, IInventoryItem
 	[Rpc.Broadcast]
 	public virtual void OnCarryStop()
 	{
-		if ( !IsValid ) return;
+		if ( !this.IsValid() ) return;
 		GameObject.Enabled = false;
 	}
 
