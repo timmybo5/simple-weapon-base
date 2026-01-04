@@ -15,6 +15,7 @@ During the lifetime of garrysmod many weapon bases consisting of poor quality we
 ## Features
 
 ### Various
+* Controller support (with aim assist)
 * No programming skills needed to use
 * Highly configurable
 * Support for custom animations and actions
