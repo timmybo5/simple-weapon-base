@@ -78,7 +78,7 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	/// <summary>
 	/// Input sensitivity modifier based on player ADS (aim down sights) state
 	/// </summary>
-	public float InputSensitivity { set; }
+	public float InputSensitivity { get; set; }
 
 	/// <summary>
 	/// The suggested FOV to be used by the player camera, affected by a weapon zoom
@@ -108,8 +108,8 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	/// Triggered when the weapon wants to apply an angular offset to the player's view to simulate recoil.
 	/// Called when a weapon is fired.
 	/// </summary>
-	/// <param name="recoilOffset">The suggested angular offset to apply</param>
-	public void ApplyRecoilOffset( Angles recoilOffset );
+	/// <param name="offset">The suggested angular offset to apply</param>
+	public void ApplyEyeAnglesOffset( Angles offset );
 
 	/// <summary>
 	/// Called when the weapon object should be attached/parented to the player's body

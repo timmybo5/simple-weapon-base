@@ -250,9 +250,9 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		BodyRenderer.Set( animationName, true );
 	}
 
-	public void ApplyRecoilOffset( Angles recoilOffset )
+	public void ApplyEyeAnglesOffset( Angles offset )
 	{
-		CameraMovement.EyeAnglesOffset += recoilOffset;
+		CameraMovement.EyeAnglesOffset += offset;
 	}
 
 	public void ParentToBone( GameObject weaponObject, string boneName )

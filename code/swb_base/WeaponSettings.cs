@@ -15,6 +15,9 @@ public class WeaponSettings : Component
 	/// <summary>Reload weapons automatically when trying to shoot if clip is empty</summary>
 	[Sync( SyncFlags.FromHost ), Property] public bool AutoReload { get; set; } = true;
 
+	/// <summary>Enable controller aim assist</summary>
+	[Sync( SyncFlags.FromHost ), Property] public bool AimAssist { get; set; } = true;
+
 	protected override void OnAwake()
 	{
 		GameObject.NetworkMode = NetworkMode.Object;

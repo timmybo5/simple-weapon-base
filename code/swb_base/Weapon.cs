@@ -96,7 +96,7 @@ public partial class Weapon : Component, IInventoryItem
 	[Rpc.Broadcast]
 	public virtual void OnCarryStart()
 	{
-		if ( !this.IsValid() ) return;
+		if ( !GameObject.IsValid() || !this.IsValid() ) return;
 		GameObject.Enabled = true;
 		TimeSinceDeployed = -999f;
 	}
@@ -104,7 +104,7 @@ public partial class Weapon : Component, IInventoryItem
 	[Rpc.Broadcast]
 	public virtual void OnCarryStop()
 	{
-		if ( !this.IsValid() ) return;
+		if ( !GameObject.IsValid() || !this.IsValid() ) return;
 		GameObject.Enabled = false;
 	}
 
@@ -237,7 +237,16 @@ public partial class Weapon : Component, IInventoryItem
 			// Don't cancel reload when customizing
 			if ( IsCustomizing && !IsReloading ) return;
 
+			var wasAiming = IsAiming;
 			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack );
+
+			if ( wasAiming != IsAiming )
+			{
+				if ( IsAiming )
+					OnAimStart();
+				else
+					OnAimStop();
+			}
 
 			if ( IsScoping )
 				Owner.InputSensitivity = ScopeInfo.Sensitivity;
@@ -245,6 +254,11 @@ public partial class Weapon : Component, IInventoryItem
 				Owner.InputSensitivity = AimInfo.Sensitivity;
 			else
 				Owner.InputSensitivity = 1f;
+
+			OnAimAssistUpdate();
+
+			if ( IsAiming )
+				OnAimUpdate();
 
 			if ( Scoping )
 			{
@@ -344,8 +358,9 @@ public partial class Weapon : Component, IInventoryItem
 				// Deploy
 				if ( WorldModel is null )
 				{
-					await GameTask.Delay( 1 );
-					OnDeploy();
+					await GameTask.DelayRealtime( 1 );
+					if ( this.IsValid() )
+						OnDeploy();
 				}
 			};
 
@@ -402,8 +417,9 @@ public partial class Weapon : Component, IInventoryItem
 				WorldModelRenderer.RenderOptions.Game = false;
 
 				// Deploy
-				await GameTask.Delay( 1 );
-				OnDeploy();
+				await GameTask.DelayRealtime( 1 );
+				if ( this.IsValid() )
+					OnDeploy();
 			}
 
 			WorldModelRenderer.OnComponentEnabled += () =>

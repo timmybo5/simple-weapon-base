@@ -2,7 +2,7 @@
 
 public partial class Weapon
 {
-	public async void OnScopeStart()
+	public async virtual void OnScopeStart()
 	{
 		await GameTask.DelaySeconds( ScopeInfo.ScopeInDelay );
 		if ( !IsAiming || IsScoping || IsReloading ) return;
@@ -14,7 +14,7 @@ public partial class Weapon
 			PlaySound( ScopeInfo.ScopeInSound.ResourceId );
 	}
 
-	public void OnScopeEnd()
+	public virtual void OnScopeEnd()
 	{
 		if ( !IsScoping ) return;
 

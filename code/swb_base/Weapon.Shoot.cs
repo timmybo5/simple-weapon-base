@@ -83,7 +83,8 @@ public partial class Weapon
 	public virtual void Shoot( ShootInfo shootInfo, bool isPrimary )
 	{
 		// Ammo
-		shootInfo.Ammo -= 1;
+		if ( shootInfo.InfiniteAmmo != InfiniteAmmoType.clip )
+			shootInfo.Ammo -= 1;
 
 		// Animations
 		var shootAnim = GetShootAnimation( shootInfo );
@@ -101,7 +102,7 @@ public partial class Weapon
 		barrelHeat += 1;
 
 		// Recoil
-		Owner.ApplyRecoilOffset( GetRecoilAngles( shootInfo ) );
+		Owner.ApplyEyeAnglesOffset( GetRecoilAngles( shootInfo ) );
 
 		// Screenshake
 		if ( shootInfo.ScreenShake is not null )
@@ -212,7 +213,7 @@ public partial class Weapon
 
 	void ParticleToMuzzleTrans( GameObject particle )
 	{
-		if ( !particle.IsValid() || !this.IsValid() || !this.Owner.IsValid() ) return;
+		if ( !particle.IsValid() || !this.IsValid() || !Owner.IsValid() ) return;
 		var muzzleTransform = GetMuzzleTransform();
 		if ( !muzzleTransform.HasValue )
 		{
