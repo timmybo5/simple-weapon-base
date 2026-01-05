@@ -131,6 +131,10 @@ public class CameraMovement : Component, ICameraMovement
 		else
 			camPos = camSafeTrace.EndPosition;
 
+		// Offsets
+		camPos += PosOffset;
+		PosOffset = Vector3.Zero;
+
 		// Set the position of the camera to our calculated position
 		Player.Camera.WorldPosition = camPos;
 		Player.Camera.WorldRotation = camRot;
