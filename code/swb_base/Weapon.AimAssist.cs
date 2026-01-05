@@ -141,7 +141,7 @@ public partial class Weapon
 	public IPlayerBase GetAimAssistTarget()
 	{
 		var players = Game.ActiveScene.GetAllComponents<IPlayerBase>();
-		var targetScore = 999f;
+		var targetScore = 999999f;
 		var center = new Vector2( Screen.Width / 2, Screen.Height / 2 );
 		IPlayerBase target = null;
 
