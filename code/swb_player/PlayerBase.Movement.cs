@@ -16,6 +16,9 @@ public partial class PlayerBase
 	[Property] public float JumpForce { get; set; } = 350f;
 	[Property] public float NoclipSpeed { get; set; } = 5f;
 
+	/// <summary>Blocks jump when jumping quickly in succession</summary>
+	[Property] public bool JumpSpamPrevention { get; set; } = true;
+
 	[Sync] public Vector3 WishVelocity { get; set; } = Vector3.Zero;
 	[Sync] public Angles EyeAngles { get; set; }
 	[Sync] public Vector3 EyeOffset { get; set; } = Vector3.Zero;
@@ -209,6 +212,9 @@ public partial class PlayerBase
 	void Jump()
 	{
 		if ( !IsOnGround ) return;
+
+		if ( JumpSpamPrevention && TimeSinceAirborne < 0.2f )
+			return;
 
 		CharacterController.Punch( Vector3.Up * JumpForce );
 		AnimationHelper?.TriggerJump();
