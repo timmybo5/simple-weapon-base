@@ -237,6 +237,9 @@ public partial class Weapon : Component, IInventoryItem
 			// Don't cancel reload when customizing
 			if ( IsCustomizing && !IsReloading ) return;
 
+			if ( IsRunning )
+				TimeSinceRunning = 0;
+
 			var wasAiming = IsAiming;
 			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack );
 

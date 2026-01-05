@@ -1,5 +1,4 @@
-﻿using Sandbox.Citizen;
-using SWB.Shared;
+﻿using SWB.Shared;
 
 namespace SWB.Base;
 
@@ -118,7 +117,6 @@ public partial class Weapon
 	{
 		Sensitivity = 0.85f,
 	};
-	
 
 	/// <summary>Primary attack data</summary>
 	[Property, Group( "Firing" ), Title( "Primary ShootInfo (component)" ), RequireComponent] public ShootInfo Primary { get; set; }
@@ -138,6 +136,9 @@ public partial class Weapon
 
 	/// <summary>Time since the last reload</summary>
 	public TimeSince TimeSinceReload { get; set; }
+
+	/// <summary>Time since the weapon was in run animation</summary>
+	public TimeSince TimeSinceRunning { get; set; }
 
 	public bool IsCustomizing { get; set; }
 
