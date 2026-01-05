@@ -87,12 +87,12 @@ public partial class Weapon
 		if ( dist < 10f ) return;
 
 		// Update angles
-		var from = Owner.EyePos;
+		var from = Owner.Camera.WorldPosition;
 		var to = aimAssistTarget.EyePos + Vector3.Down * 20;
 
 		var dir = (to - from).Normal;
 		var desiredAngles = dir.EulerAngles;
-		var delta = (desiredAngles - Owner.EyeAngles).Normal;
+		var delta = (desiredAngles - Owner.Camera.WorldRotation.Angles()).Normal;
 
 		// Scale by time and strength (frame-rate independent)
 		var strength = 6f;
@@ -108,7 +108,7 @@ public partial class Weapon
 
 	public bool HasLOS( IPlayerBase target )
 	{
-		var from = Owner.EyePos;
+		var from = Owner.Camera.WorldPosition;
 		var toPoints = new List<Vector3>()
 		{
 			target.EyePos,
@@ -189,7 +189,7 @@ public partial class Weapon
 			if ( aimAssistDebug )
 			{
 				var color = inZone ? Color.Green : Color.Red;
-				var painter = Owner.ViewModelCamera.Hud;
+				var painter = Owner.IsFirstPerson ? Owner.ViewModelCamera.Hud : Owner.Camera.Hud;
 				var debugRect = new Rect()
 				{
 					Position = new( posToScreen.x - width, posToScreen.y - height ),
