@@ -20,7 +20,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	[Sync] public bool IsBot { get; set; }
 	public IInventory Inventory { get; set; }
 	public ICameraMovement CameraMovement { get; set; }
-	public bool IsFirstPerson => CameraMovement.IsFirstPerson;
+	public bool IsFirstPerson => !IsBot ? CameraMovement.IsFirstPerson : false;
 	public string DisplayName => !IsBot ? (Network.Owner?.DisplayName ?? "Disconnected") : GameObject.Name;
 	public SteamId SteamId => !IsBot ? Network.Owner.SteamId : new( 0 );
 	public bool IsHost => !IsBot && Network.Owner.IsHost;
@@ -51,6 +51,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		Inventory = Components.Create<Inventory>();
 		CameraMovement = Components.GetInChildren<CameraMovement>();
+		OnMovementAwake();
 
 		if ( IsBot ) return;
 
@@ -62,8 +63,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			WorldPosition = new( 0, 0, -999999 );
 			Network.ClearInterpolation();
 		}
-
-		OnMovementAwake();
 	}
 
 	public virtual void OnNetworkSpawn( Connection connection ) { }
@@ -152,7 +151,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public virtual void Respawn( Transform? respawnAt = null )
 	{
 		// Only works when player has spawned
-		if ( !taggedLights )
+		if ( !taggedLights && !IsBot )
 		{
 			taggedLights = true;
 			MapUtil.TagLights();
@@ -252,7 +251,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public void ApplyEyeAnglesOffset( Angles offset )
 	{
-		CameraMovement.EyeAnglesOffset += offset;
+		CameraMovement?.EyeAnglesOffset += offset;
 	}
 
 	public void ParentToBone( GameObject weaponObject, string boneName )

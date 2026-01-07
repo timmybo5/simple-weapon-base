@@ -14,6 +14,7 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
       "OwnerTransfer": 1,
       "Components": [
         {
@@ -50,6 +51,7 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
       "OwnerTransfer": 1,
       "Components": [
         {
@@ -86,6 +88,7 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
       "OwnerTransfer": 1,
       "Components": [],
       "Children": [
@@ -102,6 +105,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -136,6 +140,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -196,6 +201,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -229,6 +235,7 @@
               "__guid": "36adf6f9-d345-49f1-8587-093d992aa18c",
               "__enabled": true,
               "Center": "0,0,-5",
+              "ColliderFlags": 0,
               "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
@@ -264,6 +271,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -297,6 +305,7 @@
               "__guid": "7ed98b9b-ea7b-4572-8ccb-0d54a3b49dad",
               "__enabled": true,
               "Center": "0,0,0",
+              "ColliderFlags": 0,
               "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
@@ -321,7 +330,10 @@
               "__guid": "8f90638b-6eb5-4cae-b54f-54600252303d",
               "__enabled": true,
               "AngularDamping": 0,
+              "EnableImpactDamage": true,
               "Gravity": true,
+              "GravityScale": 1,
+              "ImpactDamage": 0,
               "LinearDamping": 0,
               "Locking": {
                 "X": false,
@@ -333,6 +345,7 @@
               },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
+              "MinImpactDamageSpeed": 500,
               "MotionEnabled": true,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -360,6 +373,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -393,6 +407,7 @@
               "__guid": "aac8d6ab-a64d-4d9d-9007-ceb2354232c9",
               "__enabled": true,
               "Center": "0,0,0",
+              "ColliderFlags": 0,
               "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
@@ -417,7 +432,10 @@
               "__guid": "c55017a2-e4ae-4fe7-96ca-d956e1af96d8",
               "__enabled": true,
               "AngularDamping": 0,
+              "EnableImpactDamage": true,
               "Gravity": false,
+              "GravityScale": 1,
+              "ImpactDamage": 0,
               "LinearDamping": 0,
               "Locking": {
                 "X": false,
@@ -429,6 +447,7 @@
               },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
+              "MinImpactDamageSpeed": 500,
               "MotionEnabled": true,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -456,6 +475,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -489,6 +509,7 @@
               "__guid": "497aa671-314d-49e4-adf5-79962c195f28",
               "__enabled": true,
               "Center": "0,0,0",
+              "ColliderFlags": 0,
               "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
@@ -513,7 +534,10 @@
               "__guid": "6deec7a6-9bfb-415d-9895-861188cb24f9",
               "__enabled": true,
               "AngularDamping": 0,
+              "EnableImpactDamage": true,
               "Gravity": false,
+              "GravityScale": 1,
+              "ImpactDamage": 0,
               "LinearDamping": 0,
               "Locking": {
                 "X": false,
@@ -525,6 +549,7 @@
               },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
+              "MinImpactDamageSpeed": 500,
               "MotionEnabled": true,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -552,6 +577,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -585,6 +611,7 @@
               "__guid": "c7c42dc7-e7d2-4b0f-be21-f4dd05a2d233",
               "__enabled": true,
               "Center": "0,0,0",
+              "ColliderFlags": 0,
               "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
@@ -609,7 +636,10 @@
               "__guid": "761d67fc-c75c-4794-8e81-9f4171f06f0f",
               "__enabled": true,
               "AngularDamping": 0,
+              "EnableImpactDamage": true,
               "Gravity": false,
+              "GravityScale": 1,
+              "ImpactDamage": 0,
               "LinearDamping": 0,
               "Locking": {
                 "X": false,
@@ -621,6 +651,7 @@
               },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
+              "MinImpactDamageSpeed": 500,
               "MotionEnabled": true,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -648,6 +679,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -681,6 +713,7 @@
               "__guid": "e4a516da-614d-4c3c-abfc-b0b9b4739455",
               "__enabled": true,
               "Center": "0,0,0",
+              "ColliderFlags": 0,
               "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
@@ -705,7 +738,10 @@
               "__guid": "68f5bdf3-7618-40ea-9531-99ba0752502b",
               "__enabled": true,
               "AngularDamping": 0,
+              "EnableImpactDamage": true,
               "Gravity": true,
+              "GravityScale": 1,
+              "ImpactDamage": 0,
               "LinearDamping": 0,
               "Locking": {
                 "X": false,
@@ -717,6 +753,7 @@
               },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
+              "MinImpactDamageSpeed": 500,
               "MotionEnabled": true,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -744,6 +781,7 @@
           "NetworkMode": 2,
           "NetworkInterpolation": true,
           "NetworkOrphaned": 0,
+          "NetworkTransmit": true,
           "OwnerTransfer": 1,
           "Components": [
             {
@@ -777,6 +815,7 @@
               "__guid": "116e4e83-c8fa-4d05-85e7-920f138a693d",
               "__enabled": true,
               "Center": "0,0,0",
+              "ColliderFlags": 0,
               "Elasticity": null,
               "Friction": null,
               "IsTrigger": false,
@@ -801,7 +840,10 @@
               "__guid": "cd258e97-7059-4769-a7f2-b9974fb33a63",
               "__enabled": true,
               "AngularDamping": 0,
+              "EnableImpactDamage": true,
               "Gravity": true,
+              "GravityScale": 1,
+              "ImpactDamage": 0,
               "LinearDamping": 0,
               "Locking": {
                 "X": false,
@@ -813,6 +855,7 @@
               },
               "MassCenterOverride": "0,0,0",
               "MassOverride": 0,
+              "MinImpactDamageSpeed": 500,
               "MotionEnabled": true,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -842,6 +885,7 @@
       "NetworkMode": 1,
       "NetworkInterpolation": false,
       "NetworkOrphaned": 1,
+      "NetworkTransmit": true,
       "OwnerTransfer": 1,
       "Components": [
         {
@@ -885,6 +929,7 @@
           "__type": "SWB.Base.WeaponSettings",
           "__guid": "d464e175-fec1-4a51-bf7f-63307177df53",
           "__enabled": true,
+          "AimAssist": true,
           "AutoReload": true,
           "Customization": true,
           "OnComponentDestroy": null,
@@ -1119,6 +1164,141 @@
       }
     },
     {
+      "__guid": "fdcdb398-e0e8-47b5-929f-a56d023ac38f",
+      "__version": 1,
+      "__Prefab": "prefabs/bot.prefab",
+      "__PrefabInstancePatch": {
+        "AddedObjects": [],
+        "RemovedObjects": [],
+        "PropertyOverrides": [
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "360ac2d1-517e-4e1f-8e64-0b177806e207"
+            },
+            "Property": "Name",
+            "Value": "Bot (just for editing)"
+          },
+          {
+            "Target": {
+              "Type": "GameObject",
+              "IdValue": "360ac2d1-517e-4e1f-8e64-0b177806e207"
+            },
+            "Property": "Enabled",
+            "Value": false
+          }
+        ],
+        "MovedObjects": []
+      },
+      "__PrefabIdToInstanceId": {
+        "360ac2d1-517e-4e1f-8e64-0b177806e207": "fdcdb398-e0e8-47b5-929f-a56d023ac38f",
+        "49a2ed8b-4c3c-4600-a635-fcbafeb7f392": "b3d2d996-0caa-4383-b6a8-a8f1d823e018",
+        "8d1dd87a-da0f-4141-a89d-a51a2eea124e": "8c494a9b-d8fc-4d3b-bc9f-1539dd0898ba",
+        "55ff29c9-e4ed-445d-ae87-becfc2fc1881": "c871f84e-ee33-4403-92b1-873ec1ebca61",
+        "4ad15926-c834-47ff-bd4c-12792cc79c5a": "2a608b03-fca6-4706-9883-afa0906522b0",
+        "4ed5e076-0997-4984-8854-f7c7c562b401": "50eea3bd-a645-4377-ba6e-d7f8565d103e",
+        "357da3dd-1f89-4e12-9562-fd0b54cb4f4a": "7428330c-6c16-4bd4-bd43-84dadc8f3ad0",
+        "e4c37ad4-cd1e-46bd-8117-c4c2ca3f3046": "699c771e-217c-40ae-b724-48757183e0e0",
+        "070b9788-59c2-4a66-8d07-6f6a7eabb142": "f0cb5a66-3220-46e0-8088-3480c77430e4",
+        "76e141a1-4b70-44d0-9c0a-fa539ac51c03": "49c324fc-4ad8-4a31-8c57-8f234417b366",
+        "480fb187-7400-4abc-aa93-d871051d8413": "4cd717ad-cbf3-4c2e-81df-cf7d128f518e",
+        "a9a651dd-f9c4-4d4d-8579-2d5f1d20b5ef": "7329d59a-624b-45d0-ab5d-4ccd013fc6df",
+        "123ff689-aa1b-4026-968d-894fa1e75bff": "0ad51017-a8fd-4db4-90fe-144796524d9c",
+        "22fb6bcf-bd26-4f25-a321-2f4b36f762fa": "f163bf9b-9ef5-4575-b517-549373ad76ac",
+        "a7834a08-b7c6-4479-8b7f-66095f11abb6": "950af740-e94d-4d3d-8cd8-f3dfea543756",
+        "971fb5b3-f6a5-4c78-a0ac-974b1a68b286": "8165a956-b722-4a8e-b2ac-c7af73c7e3bb",
+        "435792c1-2c60-4969-9d49-08c223a5a56e": "662bf7d1-cd06-42b2-9a6d-1fb57ff0b449",
+        "b0e6dfb1-ced7-4163-9945-7f963194896a": "65da3388-ff20-4ee3-9877-2509c17df1cf",
+        "a4d816f5-5ef6-4801-ab98-2134a6c923f3": "65be94db-b4ec-429d-a511-e9b691561d84",
+        "fb1ef9de-2e86-4fa1-ae1d-fe52abe257e8": "ea70e3e9-be2b-4ac9-b4ff-683242ff3237",
+        "370c0e47-0949-4410-aeef-05f00e60011e": "2ccf8e0b-fed5-4bc7-aeb4-6293d9b89658",
+        "8c8b6d1d-feeb-430b-ab17-7befbca0309b": "05104d8e-4464-44ef-a7de-ba2fb873acee",
+        "7e5749b1-502e-495b-9a2d-e4b740a77e3f": "7b78a4cc-8cfd-4cbf-b69c-55625ef3049d",
+        "d959bb78-1a12-4995-9e70-54592de83072": "c6b8f064-543d-4bf6-b950-c86362ae8797",
+        "649d1bd9-66de-4e8f-94d4-70aaf80ce187": "6857ef42-bf4b-4812-85c5-b5cd09f54040",
+        "472c4dab-d72c-4318-b722-2bc35b95cb66": "f78a8f70-50c0-416a-a602-fdf4e2361187",
+        "31dd01f3-e736-439b-8659-bedaa6500b78": "5194d77b-1fdb-4d6b-a3cb-501be1f41e7d",
+        "31c27584-5904-40f8-a92d-49fd59cbcf1a": "1f3eacc9-d2b4-4099-bc27-9a13978762c0",
+        "2c53e969-c6be-4fab-9eee-0c1bac5365f9": "52b9aa78-5777-4159-9918-0234d893764e",
+        "8f5c4575-2e91-4314-99f5-8aa764703511": "88e4944b-0a23-4e0c-a0ce-79e71733c02f",
+        "6fdc3562-5099-47fc-81ec-b205d250315b": "25a7a637-e529-4ff4-88ca-59a2469c6b8c",
+        "7faf6a62-0768-44d1-ab1f-bc45d740b570": "9f76316d-9974-4d13-b1fa-7d6f724d0ff8",
+        "43359634-c25f-430b-a238-82b138214ab1": "a72cdf33-6111-482a-880a-1b82c7fc24f8",
+        "4d89bdd8-4b85-42d1-a692-48bbc5ff95f2": "10a9e3ce-da5f-4009-8411-d204548cf77c",
+        "46f7fb42-fe5c-4ffb-a3cb-014be5999eb1": "86dc04db-91ff-4d2b-a6cc-9cb27ad5acd7",
+        "4f4f2737-44ed-4121-a83e-811731e75f71": "10b4068f-6898-4ecf-b7af-350a63ba6689",
+        "14cec682-bfff-400a-9ec8-96dea040e3fa": "8c6b4b84-30de-4f2d-90a9-2f19f6132302",
+        "06f45519-09a1-4dee-bd94-82a4a6597413": "a0c73740-23b1-40be-949c-dfcc5173417b",
+        "21a7ffde-9632-423a-b436-099fee8c01c3": "7c026925-2dcf-4635-aa73-6c1c0ec2d843",
+        "d977d976-fcca-49fe-8e46-281d37de1a8a": "14edf55f-1c8f-4d0e-84ef-a54e56be364b",
+        "caa2ae07-4650-4148-9c54-60ab7d57f6ea": "d9aaae0e-81b1-4b7e-a782-694a59d9eff7",
+        "01cdf7fe-47c7-49bd-8ff5-8938ba2c4ed3": "42f889ba-76a0-4932-9990-99b9e68937ca",
+        "fa813407-6f09-4137-9ff2-d107a37111d8": "2079e84d-ecaa-4171-8b2a-4ffb060de58d",
+        "4882a73d-45c0-43df-89eb-148142edc1c7": "044f7864-98e3-44af-b677-7d4a2aed7920",
+        "b6c35162-a242-4d2a-9bfa-41fad302b912": "309321d6-b112-4512-9e72-7748b6014cf1",
+        "8df42a2b-e57d-4dff-8649-356b8e121b80": "ad736b03-455b-4432-97cb-f9c004e980bc",
+        "49d781cd-9447-4e3e-98c9-c09f8d4670e5": "f28c7184-7de6-469a-8412-69e7e8cc9fd3",
+        "d279b15e-7201-4c98-83e8-dd5e1c5fa202": "4ea4a0ac-0a0a-4fb9-b555-dde2ba45c3f5",
+        "59a700c2-8549-4af5-b215-b450a1f765cb": "987efd88-1f4c-4d70-b236-ebb8568a49a0",
+        "1c64c52c-b717-402d-9632-31e9e1e6ae34": "4c4a85df-a087-42eb-a78e-77b12946961b",
+        "7bbb5314-fc13-4f8d-8d2b-a573e2d0d028": "7195f50e-4e8d-45f4-9cd1-1ba1af496334",
+        "62515be2-b345-42c5-b5df-cadf2f6d2411": "7bce7318-e925-4c04-b241-90f02f5bd264",
+        "cb3ef789-610c-4f9e-a092-5e74cf05ed1e": "6b30f1ae-1f89-4732-8f52-5ebca878754c",
+        "a9663d6a-9eea-4b3d-906d-5e578145c934": "7e979d21-f2c0-4031-90e1-c0faef35ebcf",
+        "398bea41-c961-4a13-a1a2-2353f0927f93": "4e92013a-2839-4ba6-9acb-e403e9314463",
+        "f579d910-1e01-4a82-97ad-071721914f28": "f79aefc0-ca5d-4c64-b92d-7c1f851d3087",
+        "d00d6471-c596-4ea0-82df-53664cdde557": "931ee9a7-ad29-4c68-b08f-f130f4807cdc",
+        "fb28bf87-8137-40e8-a959-40f092047639": "521d3644-c0f9-432c-9f7d-3a74d0027165",
+        "7fa9c9a3-0b29-4b08-9a4d-80e83c1838ed": "b7c6a76b-d643-48c7-b70a-3bb545ba6aea",
+        "c434b6cd-9d87-4d94-bb08-49095e7a595f": "54f77aae-4347-400e-94b3-df4fe77449e2",
+        "0d361a7e-2829-49cb-85ea-43dc0601197a": "53a8f8df-c799-4a2c-a2e2-139a9d6cba02",
+        "32ac7bcd-6869-4de4-8625-80e66e5d87ac": "24d97a5d-8166-42b4-9e39-cafff45f8284",
+        "14bf483c-7fee-41e0-8b87-e701114ec1e4": "816a922d-675d-4431-9fd4-88f7eea976bf",
+        "b5f1eb70-29ff-4225-954a-b5fd08331b98": "ddee809e-351c-4dd8-aef7-04a76501cc1f",
+        "20a39ce0-7e06-4b24-babf-8fec45904a7e": "88eec52f-d76a-4805-b7ce-1dff32231348",
+        "3e5fcc36-ce6b-4240-92d3-40eca5f20ad3": "0370e4b6-68a6-471a-b2c6-8a6b0f4c1dd7",
+        "54816ca7-56f4-4fef-9276-a4a384cfead1": "48547013-882c-44da-a28b-2164d85f8a74",
+        "da3015bf-3b0a-4ab4-9b19-34c7d1d6afef": "26b44787-73cd-4312-b24d-5fa776289a03",
+        "ed820c62-7492-4d1f-93af-d38e53c3f136": "0fa1c1ca-9519-4281-a567-ec54fde6644b",
+        "cafafaf9-799b-434d-8649-d80889b73d56": "9dd410b2-2344-456d-98de-3dca775a105e",
+        "5e4d42b2-d88e-4e22-ad23-ed4b975180b7": "9b24156d-33ba-48e0-9407-b28ae859ee09",
+        "ac864b81-0324-4e5d-b6ca-866ae9433f4e": "73f8efb5-b70d-43cd-939f-3706fcafd407",
+        "f7b3bfd5-10e9-400a-b49c-758382ad3559": "2e2e7b62-560c-41cd-a6bb-d617490b9c16",
+        "e656b4e4-2c62-49bd-9c59-a9e7f0cbf368": "7bdbd46a-1a8d-4377-be68-9162b057601a",
+        "f0d42f9e-cf52-4484-99f7-e00e81cf6d24": "34dc009d-c3c1-43d9-9c1e-170c92cefc95",
+        "91358270-bd71-4007-a432-cefbe643bf25": "926cde7e-e531-4ebd-be32-354cd5270eef",
+        "b5307103-e799-44b6-bd9c-d7df77ccf368": "23f49253-44d7-40fe-a7e0-45ae6b28f4db",
+        "053d914a-8b53-4e1f-a6ff-5d961856cc32": "b2f344d8-e305-4f0d-882c-1be4b2b62bec",
+        "b684687c-8ee0-440d-9a77-63b14b03482a": "3196fd2d-bbe0-45b8-864b-5fac745cab12",
+        "c657a2be-e190-4a23-bc0c-32144eaaf146": "c21531bf-b5bf-4a98-b89e-c7b43638f5bc",
+        "169323fe-775a-4562-97dd-bd4eaaaa5c96": "159e1a87-fb62-482c-8283-ea3fa200baf3",
+        "922c7d97-96b7-4c1d-b1e0-b6a58d2ddf61": "045bbc00-baca-4118-95ac-3ec8b93705df",
+        "6e82bf46-46db-407e-be37-f1c6f86112ff": "0f6656c3-9a84-4dab-a031-1ecff69a96bb",
+        "2dce5661-4689-4dd5-b0c1-33b609387c96": "fde921a2-b854-4297-85aa-242331419cc1",
+        "d81cdca5-33e5-4f04-bc7e-50cbc95c8c80": "a39ba567-305b-4cd6-9cc7-d9059ce98049",
+        "47ef0e9d-c7c3-4f72-abdd-5a15cd9855fd": "c9eb9c4e-3c4a-4521-a725-37041e4c51e7",
+        "2d9922b7-2a75-404c-b23e-201b602d17ef": "c78b10fd-ad02-4924-8771-859b1bda3531",
+        "4d503fbb-fd77-48de-bcc2-c69456da3b97": "fe598d5d-39d6-4fe2-a12b-9e9c92f77821",
+        "03443924-4cdc-4f02-9778-916b3a7d8caa": "c7d48405-d481-4502-a698-9ef8edc455ce",
+        "6cf49250-3680-40cf-9594-6dcdc0a4089b": "2c46752c-0bb9-42b4-be00-2273861d0e65",
+        "b2bf0fb9-5b00-48f7-b05a-40342f696ec3": "d6cd82d1-d6dc-4c7f-9b7e-a3ad25383d31",
+        "b15fff8d-f5f1-445b-8e5a-8035838163c1": "dc01b44a-b4dc-4693-90e9-01dbf7587547",
+        "c0180ced-dd8a-4aea-aee9-0363fb1fda38": "00e16779-9771-4fcd-b171-94fe2ae6c384",
+        "28f0cde5-a9b6-4863-b844-d7d88f996631": "2e907ef4-82be-465a-b37a-c4216547708d",
+        "d28a682f-4c8d-4bf8-b57e-3504cf25cefc": "396f36f2-3955-4a32-9686-52db5a180b3b",
+        "829cc71d-fbf1-4611-a33c-b3605ee209e6": "72a7e0af-1f0f-4f9f-9c16-dc7661bae61d",
+        "ec0cfb4d-8a00-4b85-a866-0447296bb021": "211efee9-e1c2-401c-b46e-56d547929679",
+        "58d6aed7-8c9a-4f1f-b593-b4b9b82dd851": "c1d7eadc-b76c-4017-ab9b-d367c66e546c",
+        "273588e2-5863-46d3-9b63-11d7c992d913": "5333df32-b821-417e-a9c4-f6dc4da02321",
+        "dd2bbb9d-c8e8-49f7-abdf-410a10ca2dcd": "220d4637-fbef-41e9-a48a-f4eb9a97e051",
+        "8a98af44-5d1d-4f9f-8a1f-d21aee55a0a0": "d5f54865-9374-4db8-905a-8d492a834f6f",
+        "36019b0d-193d-4bcd-9292-c5a3c3afd246": "ca24e647-37b9-48c3-8b61-5f564cdf7d7f",
+        "8bf8aa4a-b73b-412d-a7a5-086c06e98477": "bdf99842-1ae8-4a61-8cf3-fc591292a5d3",
+        "d242e6d8-410c-48b8-a345-3c19301a30a4": "13f89b47-9baa-40a4-bc34-a5f67d482d8e",
+        "a8e7b0cf-c292-4d0c-b3b7-94867b885260": "4af3a347-38b6-4fe6-91af-47cb2732ee1a"
+      }
+    },
+    {
       "__guid": "c988658d-a998-405a-b169-e1711fe59578",
       "__version": 1,
       "Flags": 0,
@@ -1131,12 +1311,17 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
       "OwnerTransfer": 1,
       "Components": [
         {
           "__type": "SWB.Demo.DemoNetworkManager",
           "__guid": "2ed65343-f834-4b63-bf18-777ff7d180aa",
           "__enabled": true,
+          "BotPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/bot.prefab"
+          },
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -1164,6 +1349,7 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
       "OwnerTransfer": 1,
       "Components": [],
       "Children": [
@@ -1554,6 +1740,7 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "NetworkOrphaned": 0,
+      "NetworkTransmit": true,
       "OwnerTransfer": 1,
       "Components": [],
       "Children": [

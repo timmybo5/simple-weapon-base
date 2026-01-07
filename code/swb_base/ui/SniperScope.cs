@@ -99,7 +99,7 @@ public class SniperScope : Panel
 	{
 		var rndHorizontal = Game.Random.Float( -1.25f, 1.25f );
 		var rndVertical = Game.Random.Float( -2.5f, -5 );
-		horizontalMov += rndHorizontal * weapon.Primary.Recoil;
-		verticalMov += rndVertical * weapon.Primary.Recoil;
+		horizontalMov += rndHorizontal * weapon.Primary.Recoil * 2f;
+		verticalMov += rndVertical * weapon.Primary.Recoil * 2f;
 	}
 }

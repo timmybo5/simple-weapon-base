@@ -44,6 +44,13 @@ public partial class Weapon : Component, IInventoryItem
 			WorldPosition = new( 0, 0, -999999 );
 			Network.ClearInterpolation();
 		}
+
+		Owner = Components.GetInAncestors<IPlayerBase>( true );
+		if ( !Owner.IsValid() )
+		{
+			Log.Error( $"{ClassName} cannot find owner, destroying!" );
+			Destroy();
+		}
 	}
 
 	protected override void OnDestroy()
@@ -57,7 +64,8 @@ public partial class Weapon : Component, IInventoryItem
 		if ( ViewModelRenderer?.GameObject is not null )
 			ViewModelRenderer.GameObject.Enabled = true;
 
-		CreateUI();
+		if ( !Owner.IsBot )
+			CreateUI();
 	}
 
 	protected override void OnDisabled()
@@ -110,7 +118,7 @@ public partial class Weapon : Component, IInventoryItem
 
 	public virtual bool CanCarryStop()
 	{
-		return TimeSinceDeployed > 0;
+		return Owner.IsBot || TimeSinceDeployed > 0;
 	}
 
 	public virtual (float delay, string anim) GetDrawInfo()
@@ -171,15 +179,7 @@ public partial class Weapon : Component, IInventoryItem
 
 	protected override void OnStart()
 	{
-		Owner = Components.GetInAncestors<IPlayerBase>( true );
-		if ( !Owner.IsValid() )
-		{
-			Log.Error( $"{ClassName} cannot find owner, destroying!" );
-			Destroy();
-			return;
-		}
-
-		if ( !IsProxy )
+		if ( !IsProxy && Owner.Camera is not null )
 		{
 			CameraHandler = Components.GetOrCreate<PlayerCameraHandler>();
 			CameraHandler.Weapon = this;
@@ -217,7 +217,7 @@ public partial class Weapon : Component, IInventoryItem
 		UpdateModels();
 		Owner.HoldType = HoldType;
 
-		if ( !IsProxy )
+		if ( !IsProxy && !Owner.IsBot )
 		{
 			if ( IsDeploying ) return;
 
@@ -339,7 +339,7 @@ public partial class Weapon : Component, IInventoryItem
 
 	void CreateModels()
 	{
-		if ( !IsProxy && ViewModel is not null && ViewModelRenderer is null )
+		if ( !IsProxy && !Owner.IsBot && ViewModel is not null && ViewModelRenderer is null )
 		{
 			var viewModelGO = new GameObject( true, "Viewmodel" );
 			viewModelGO.SetParent( Owner.GameObject, false );
@@ -356,6 +356,7 @@ public partial class Weapon : Component, IInventoryItem
 				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
 				ViewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
 				ViewModelRenderer.ClearParameters();
+
 				OnViewModelDeploy();
 
 				// Deploy

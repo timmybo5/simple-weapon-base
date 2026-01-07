@@ -7,6 +7,7 @@ namespace SWB.Demo;
 public class DemoNetworkManager : Component, Component.INetworkListener
 {
 	[Property] public PrefabScene PlayerPrefab { get; set; }
+	[Property] public PrefabScene BotPrefab { get; set; }
 
 	protected override Task OnLoad()
 	{

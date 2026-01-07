@@ -39,8 +39,6 @@ public class DemoPlayer : PlayerBase
 	{
 		base.Respawn( respawnAt );
 
-		if ( IsBot ) return;
-
 		// Give weapons
 		GiveWeapon( "swb_colt" );
 		GiveWeapon( "swb_revolver" );

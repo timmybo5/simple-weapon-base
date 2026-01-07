@@ -9,7 +9,7 @@ namespace SWB.Shared;
 
 class TableUtil
 {
-	public static T GetRandom<T>( List<T> list )
+	public static T GetRandom<T>( IList<T> list )
 	{
 		if ( list.Count == 0 ) return default;
 

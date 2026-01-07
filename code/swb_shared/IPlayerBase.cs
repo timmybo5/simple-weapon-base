@@ -66,6 +66,12 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	public bool IsAlive { get; }
 
 	/// <summary>
+	/// Is this player considered a bot
+	/// Bots have input movement and other functionalities disabled
+	/// </summary>
+	public bool IsBot { get; set; }
+
+	/// <summary>
 	/// View angle of the player, used to determine the direction to shoot a bullet
 	/// </summary>
 	public Angles EyeAngles { get; }

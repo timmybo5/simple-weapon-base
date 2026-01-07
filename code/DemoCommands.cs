@@ -1,5 +1,4 @@
 ﻿using SWB.Player;
-using System.Linq;
 
 namespace SWB.Demo;
 
@@ -73,21 +72,7 @@ internal class DemoCommands
 		var player = PlayerBase.GetLocal();
 		if ( !player.IsHost ) return;
 
-		var networkManager = Game.ActiveScene.Components.Get<DemoNetworkManager>( FindMode.EnabledInSelfAndChildren );
-		var botGO = networkManager.PlayerPrefab.Clone();
-		var botPlayer = botGO.Components.Get<PlayerBase>();
-
-		var players = Game.ActiveScene.GetAllComponents<PlayerBase>();
-		var bots = players.Count( ( player ) => player.IsBot );
-		var botName = "Bot " + (bots + 1);
-
-		botGO.Name = botName;
-		botPlayer.IsBot = true;
-		botPlayer.Dresser.Source = Dresser.ClothingSource.Manual;
-		botPlayer.Dresser.Randomize();
-
-		botGO.NetworkSpawn();
-
-		Log.Info( botName + " joined the game!" );
+		var bot = DemoBot.AddBot();
+		Log.Info( bot.DisplayName + " joined the game!" );
 	}
 }

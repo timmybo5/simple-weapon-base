@@ -88,7 +88,7 @@ public partial class Weapon
 
 		// Animations
 		var shootAnim = GetShootAnimation( shootInfo );
-		if ( !string.IsNullOrEmpty( shootAnim ) )
+		if ( ViewModelRenderer is not null && !string.IsNullOrEmpty( shootAnim ) )
 			ViewModelRenderer.Set( shootAnim, true );
 
 		// Sound
