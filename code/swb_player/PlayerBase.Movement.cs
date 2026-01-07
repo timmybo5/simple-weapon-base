@@ -90,7 +90,7 @@ public partial class PlayerBase
 
 	void OnMovementUpdate()
 	{
-		if ( !IsProxy )
+		if ( !IsProxy && !IsBot )
 		{
 			UpdateRun();
 
@@ -120,7 +120,8 @@ public partial class PlayerBase
 	void OnMovementFixedUpdate()
 	{
 		if ( IsProxy ) return;
-		BuildWishVelocity();
+		if ( !IsBot )
+			BuildWishVelocity();
 
 		if ( !Noclip ) Move();
 		else NoclipMove();

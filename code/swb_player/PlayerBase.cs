@@ -24,7 +24,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public string DisplayName => !IsBot ? (Network.Owner?.DisplayName ?? "Disconnected") : GameObject.Name;
 	public SteamId SteamId => !IsBot ? Network.Owner.SteamId : new( 0 );
 	public bool IsHost => !IsBot && Network.Owner.IsHost;
-	public bool IsSpeaking => Voice.Amplitude > 0;
+	public bool IsSpeaking => !IsBot ? Voice.Amplitude > 0 : false;
 	bool taggedLights;
 
 	public float InputSensitivity
@@ -175,12 +175,6 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 		Network.ClearInterpolation();
 		Unragdoll();
-
-		if ( IsBot )
-		{
-			Body.WorldRotation = new Angles( 0, EyeAngles.ToRotation().Yaw(), 0 ).ToRotation();
-			AnimationHelper.WithLook( EyeAngles.ToRotation().Forward, 1f, 0.75f, 0.5f );
-		}
 	}
 
 	public virtual Transform GetSpawnLocation()
@@ -206,13 +200,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	protected override void OnUpdate()
 	{
-		if ( IsBot )
-		{
-			UpdateClothes();
-			return;
-		}
-
-		if ( !IsProxy )
+		if ( !IsProxy && !IsBot )
 		{
 			ViewModelCamera.Enabled = IsFirstPerson && IsAlive;
 			HandleFlinch();
@@ -227,10 +215,10 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	protected override void OnFixedUpdate()
 	{
-		if ( !IsAlive || IsBot ) return;
+		if ( !IsAlive ) return;
 		OnMovementFixedUpdate();
 
-		if ( !IsProxy && IsUsingController != Input.UsingController )
+		if ( !IsProxy && !IsBot && IsUsingController != Input.UsingController )
 		{
 			OnInputDeviceSwitch();
 		}

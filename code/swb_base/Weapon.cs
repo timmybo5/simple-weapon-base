@@ -311,10 +311,13 @@ public partial class Weapon : Component, IInventoryItem
 	void UpdateModels()
 	{
 		// Should draw after deploy
-		if ( IsProxy && WorldModelRenderer is not null )
+		if ( (IsProxy || Owner.IsBot) && WorldModelRenderer is not null )
+		{
+			WorldModelRenderer.RenderType = ModelRenderer.ShadowRenderType.On;
 			WorldModelRenderer.RenderOptions.Game = true;
+		}
 
-		if ( !IsProxy && WorldModelRenderer is not null )
+		if ( !IsProxy && !Owner.IsBot && WorldModelRenderer is not null )
 		{
 			var worldModelRenderType = Owner.IsFirstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 			WorldModelRenderer.RenderType = worldModelRenderType;
@@ -356,7 +359,6 @@ public partial class Weapon : Component, IInventoryItem
 				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
 				ViewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
 				ViewModelRenderer.ClearParameters();
-
 				OnViewModelDeploy();
 
 				// Deploy

@@ -103,7 +103,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	{
 		if ( string.IsNullOrEmpty( BodyGroup ) ) return;
 
-		if ( !IsProxy )
+		if ( !IsProxy && Weapon.ViewModelRenderer is not null )
 			Weapon.ViewModelRenderer.SetBodyGroup( BodyGroup, choice );
 
 		Weapon.WorldModelRenderer.SetBodyGroup( BodyGroup, choice );
@@ -138,7 +138,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 
 	private void CreateModels()
 	{
-		if ( !IsProxy )
+		if ( !IsProxy && Weapon.ViewModelRenderer is not null )
 			CreateModel( true );
 
 		CreateModel();
@@ -157,7 +157,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 	{
 		// Log.Info( "Trying to equip -> " + Name + ", info -> equippedOnClient: " + equippedOnClient + " equipTries: " + equipTries );
 		if ( equippedOnClient || !IsValid || Weapon is null ) return;
-		if ( (!IsProxy && Weapon.ViewModelRenderer is null) || Weapon.WorldModelRenderer is null )
+		if ( (!IsProxy && !Weapon.Owner.IsBot && Weapon.ViewModel is not null && Weapon.ViewModelRenderer is null) || Weapon.WorldModelRenderer is null )
 		{
 			if ( equipTries > 10 ) return;
 			equipTries += 1;
@@ -199,7 +199,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		// Stats
 		StatsModifier?.Apply( Weapon );
 
-		if ( !IsProxy )
+		if ( !IsProxy && !Weapon.Owner.IsBot )
 			CreateHudElements();
 
 		OnEquip();
