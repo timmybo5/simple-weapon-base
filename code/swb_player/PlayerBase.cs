@@ -158,6 +158,9 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			OverlayUIWorkaround();
 		}
 
+		if ( IsUsingController )
+			stickyActiveButtons.Clear();
+
 		Inventory.Clear();
 		Health = MaxHealth;
 
@@ -170,7 +173,11 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		{
 			var spawnLocation = GetSpawnLocation();
 			WorldPosition = spawnLocation.Position;
-			EyeAngles = spawnLocation.Rotation.Angles();
+
+			if ( IsFirstPerson || IsBot )
+				EyeAngles = spawnLocation.Rotation.Angles();
+			else
+				Camera.WorldRotation = spawnLocation.Rotation;
 		}
 
 		Network.ClearInterpolation();

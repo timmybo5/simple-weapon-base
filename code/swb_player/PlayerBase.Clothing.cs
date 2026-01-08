@@ -6,6 +6,7 @@ public partial class PlayerBase
 {
 	[Property] public Dresser Dresser { get; set; }
 	List<SkinnedModelRenderer> clothingRenderers = new();
+	bool calledOnDressed;
 	bool isDressed;
 
 	async void ApplyClothes()
@@ -14,8 +15,12 @@ public partial class PlayerBase
 		isDressed = true;
 	}
 
+	public virtual void OnDressed( List<SkinnedModelRenderer> clothingRenderers ) { }
+
 	void UpdateClothingRenderers()
 	{
+		clothingRenderers.Clear();
+
 		BodyRenderer.GameObject.Children.ForEach( c =>
 		{
 			if ( c.Name.StartsWith( "Clothing" ) )
@@ -24,6 +29,12 @@ public partial class PlayerBase
 				clothingRenderers.Add( renderer );
 			}
 		} );
+
+		if ( !calledOnDressed )
+		{
+			calledOnDressed = true;
+			OnDressed( clothingRenderers );
+		}
 	}
 
 	void UpdateClothes()
