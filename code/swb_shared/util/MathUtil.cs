@@ -23,6 +23,11 @@ class MathUtil
 		return Angles.Lerp( fromAng, toAng, amount * RealTime.Delta );
 	}
 
+	public static Rotation FILerp( Rotation fromRot, Rotation toRot, float amount )
+	{
+		return Rotation.Lerp( fromRot, toRot, amount * RealTime.Delta );
+	}
+
 	public static Vector3 RelativeAdd( Vector3 vec1, Vector3 vec2, Rotation rot )
 	{
 		vec1 += vec2.x * rot.Right;

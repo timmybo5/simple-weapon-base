@@ -161,6 +161,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		if ( IsUsingController )
 			stickyActiveButtons.Clear();
 
+		Ammo.Clear();
 		Inventory.Clear();
 		Health = MaxHealth;
 

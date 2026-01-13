@@ -88,7 +88,7 @@ public partial class PlayerBase
 			BodyRenderer.OnFootstepEvent += OnAnimEventFootstep;
 	}
 
-	void OnMovementUpdate()
+	public virtual void OnMovementUpdate()
 	{
 		if ( !IsProxy && !IsBot )
 		{
@@ -117,7 +117,7 @@ public partial class PlayerBase
 		UpdateAnimations();
 	}
 
-	void OnMovementFixedUpdate()
+	public virtual void OnMovementFixedUpdate()
 	{
 		if ( IsProxy ) return;
 		if ( !IsBot )

@@ -443,7 +443,7 @@ public partial class Weapon : Component, IInventoryItem
 	[Rpc.Broadcast]
 	public void PlaySound( int resourceID )
 	{
-		if ( !IsValid ) return;
+		if ( !this.IsValid() ) return;
 
 		var sound = ResourceLibrary.Get<SoundEvent>( resourceID );
 		if ( sound is null ) return;

@@ -65,7 +65,7 @@ public partial class Weapon
 	public virtual void CancelShellReload()
 	{
 		IsReloading = false;
-		ViewModelRenderer.Set( ReloadAnim, false );
+		ViewModelRenderer?.Set( ReloadAnim, false );
 	}
 
 	public virtual void OnShellReload()
