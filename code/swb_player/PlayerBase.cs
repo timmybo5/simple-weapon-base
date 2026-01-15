@@ -67,6 +67,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public virtual void OnNetworkSpawn( Connection connection ) { }
 
+	protected override void OnDestroy()
+	{
+		if ( RagdollGO.IsValid() )
+			RagdollGO.Destroy();
+	}
+
 	protected override void OnStart()
 	{
 		ApplyClothes();
@@ -165,21 +171,26 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		Inventory.Clear();
 		Health = MaxHealth;
 
+		var spawnPos = Vector3.Zero;
+		var spawnRot = Rotation.Identity;
+
 		if ( respawnAt.HasValue )
 		{
-			WorldPosition = respawnAt.Value.Position;
-			EyeAngles = respawnAt.Value.Rotation.Angles();
+			spawnPos = respawnAt.Value.Position;
+			spawnRot = respawnAt.Value.Rotation.Angles();
 		}
 		else
 		{
 			var spawnLocation = GetSpawnLocation();
-			WorldPosition = spawnLocation.Position;
-
-			if ( IsFirstPerson || IsBot )
-				EyeAngles = spawnLocation.Rotation.Angles();
-			else
-				Camera.WorldRotation = spawnLocation.Rotation;
+			spawnPos = spawnLocation.Position;
+			spawnRot = spawnLocation.Rotation;
 		}
+
+		WorldPosition = spawnPos;
+		if ( IsFirstPerson || IsBot )
+			EyeAngles = spawnRot.Angles();
+		else
+			Camera.WorldRotation = spawnRot;
 
 		Network.ClearInterpolation();
 		Unragdoll();
