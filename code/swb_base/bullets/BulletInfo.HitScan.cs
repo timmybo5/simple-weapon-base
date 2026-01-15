@@ -10,7 +10,7 @@ public class HitScanBulletInfo : BulletInfo
 {
 	public override void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
 	{
-		if ( !weapon.IsValid ) return;
+		if ( !weapon.IsValid() ) return;
 
 		var player = weapon.Owner;
 		if ( player is null ) return;

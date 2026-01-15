@@ -124,7 +124,7 @@ public partial class Weapon
 		}
 	}
 
-	[Rpc.Broadcast]
+	[Rpc.Broadcast( NetFlags.Unreliable )]
 	public virtual void ShootBullet( bool isPrimary, Vector3 spreadOffset )
 	{
 		if ( !IsValid ) return;
@@ -159,7 +159,7 @@ public partial class Weapon
 		return TraceBullet( Owner.GameObject, start, end, radius );
 	}
 
-	[Rpc.Broadcast]
+	[Rpc.Broadcast( NetFlags.Unreliable )]
 	public virtual void HandleShootEffects( bool isPrimary )
 	{
 		if ( !IsValid || Owner is null ) return;
