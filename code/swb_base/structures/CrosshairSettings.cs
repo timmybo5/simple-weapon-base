@@ -1,4 +1,5 @@
 ﻿namespace SWB.Base;
+
 public class CrosshairSettings
 {
 	[Property] public bool Enabled { get; set; } = true;

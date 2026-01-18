@@ -1,24 +1,24 @@
 ﻿SliderEntry {
-    font-family: Poppins;
+	font-family: Poppins;
 
-    Slider {
-        width: 80%;
-    }
+	Slider {
+		width: 80%;
+	}
 
-    .TextEntry {
-        justify-content: center;
-        align-items: center;
-        height: 30px;
-        width: 60px;
-        border-radius: 4px;
-        margin-right: 10px;
-        background-color: rgba( black, 0.5 );
-        color: white;
-        padding: 4px;
-        font-size: 14px;
+	.TextEntry {
+		justify-content: center;
+		align-items: center;
+		height: 30px;
+		width: 60px;
+		border-radius: 4px;
+		margin-right: 10px;
+		background-color: rgba( black, 0.5 );
+		color: white;
+		padding: 4px;
+		font-size: 14px;
 
-        & > label {
-            flex-grow: 0;
-        }
-    }
+		& > label {
+			flex-grow: 0;
+		}
+	}
 }

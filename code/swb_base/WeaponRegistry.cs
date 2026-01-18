@@ -45,7 +45,7 @@ public class WeaponRegistry : Component
 
 	public Weapon Get( string className )
 	{
-		if ( string.IsNullOrWhiteSpace(className)) return null;
+		if ( string.IsNullOrWhiteSpace( className ) ) return null;
 
 		Weapons.TryGetValue( className, out var weapon );
 		return weapon;
