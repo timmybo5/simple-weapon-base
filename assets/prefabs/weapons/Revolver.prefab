@@ -1,7 +1,7 @@
 {
   "RootObject": {
     "__guid": "12d1b3e8-b22c-4081-9f32-19f389397407",
-    "__version": 1,
+    "__version": 2,
     "Flags": 0,
     "Name": "revolver",
     "Position": "0,0,0",
@@ -10,14 +10,16 @@
     "Tags": "weapon",
     "Enabled": false,
     "NetworkMode": 2,
-    "NetworkInterpolation": true,
+    "NetworkFlags": 0,
     "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
     "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
         "__guid": "6151f2bf-b1a5-47dc-a3d1-5b6116a30ae9",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "0.94,-0.03,0",
           "Pos": "-2.797,0,0.848"
@@ -57,6 +59,7 @@
         "DrawTime": 0.7,
         "HoldType": "Pistol",
         "Icon": "weapons/swb/revolver/revolver.png",
+        "Mobility": 1.1,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -84,7 +87,8 @@
           "ScopeInSound": null,
           "ScopeOutSound": null,
           "FOV": 8,
-          "AimSensitivity": 0.25
+          "Sensitivity": 0.25,
+          "Spread": 0
         },
         "Scoping": false,
         "Secondary": null,
@@ -104,6 +108,7 @@
         "__type": "SWB.Base.ShootInfo",
         "__guid": "326ca902-04bc-4672-bb51-47b0eb358bae",
         "__enabled": true,
+        "Flags": 0,
         "Ammo": 6,
         "AmmoType": "revolver",
         "BarrelSmokeParticle": {
@@ -161,6 +166,7 @@
         "__type": "SWB.Demo.HunterScope2DBG",
         "__guid": "e5c9fac6-4117-4efc-8242-35e489be5465",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "0,0,0",
           "Pos": "-2.85,-4.46,-0.584"
@@ -174,6 +180,16 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "RequiresAttachment": null,
+        "ScopeInfo": {
+          "LensTexture": "materials/swb/scopes/swb_lens_hunter.png",
+          "ScopeTexture": "materials/swb/scopes/swb_scope_hunter.png",
+          "ScopeInDelay": 0.2,
+          "ScopeInSound": "sounds/swb/scope/swb_sniper.zoom_in.sound",
+          "ScopeOutSound": null,
+          "FOV": 8,
+          "Sensitivity": 0.25,
+          "Spread": 0
+        },
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -181,6 +197,7 @@
         "__type": "SWB.Demo.ReflexSightBG",
         "__guid": "10ebda01-d668-40f8-8d5c-4f3f3b47ccdb",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "-2.35,-0.04,0",
           "Pos": "-2.798,0,-0.838"
@@ -209,6 +226,7 @@
         "__type": "SWB.Demo.PistolSilencerBG",
         "__guid": "428f8cbb-3538-42a2-b2c2-c48ecdf4483e",
         "__enabled": true,
+        "Flags": 0,
         "Bone": null,
         "EffectAttachmentOrBone": "muzzle_silenced",
         "Enable": false,
@@ -227,6 +245,7 @@
         "__type": "SWB.Base.PhysicalBulletInfo",
         "__guid": "f5b62b4d-1e08-4181-9205-1564a6eb91c0",
         "__enabled": true,
+        "Flags": 0,
         "Drag": 0.010000001,
         "Gravity": 85,
         "OnComponentDestroy": null,
@@ -255,7 +274,8 @@
         "AgentMaxSlope": 40,
         "ExcludedBodies": "",
         "IncludedBodies": ""
-      }
+      },
+      "GameObjectSystems": []
     },
     "__variables": []
   },

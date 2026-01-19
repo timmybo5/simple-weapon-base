@@ -6,6 +6,7 @@ public class Inventory : Component, IInventory
 {
 	[Sync] public NetList<GameObject> Items { get; set; } = new();
 	[Sync] public new GameObject Active { get; set; }
+	[Sync] public IInventoryItem ActiveItem { get; set; }
 
 	PlayerBase player;
 
@@ -61,6 +62,7 @@ public class Inventory : Component, IInventory
 		}
 
 		Active = gameObject;
+		ActiveItem = newActive;
 	}
 
 	public void SetActive( string name )

@@ -3,7 +3,7 @@
   "GameObjects": [
     {
       "__guid": "1ea228de-bafc-4ae4-b2ad-e01a1cb839eb",
-      "__version": 1,
+      "__version": 2,
       "Flags": 0,
       "Name": "Scene Information",
       "Position": "0,0,0",
@@ -12,7 +12,7 @@
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 2,
-      "NetworkInterpolation": true,
+      "NetworkFlags": 0,
       "NetworkOrphaned": 0,
       "NetworkTransmit": true,
       "OwnerTransfer": 1,
@@ -21,6 +21,7 @@
           "__type": "Sandbox.SceneInformation",
           "__guid": "118e898c-d3b9-4aa7-953c-b4444bae2187",
           "__enabled": true,
+          "Flags": 0,
           "Author": null,
           "Changes": "",
           "Description": "",
@@ -40,7 +41,7 @@
     },
     {
       "__guid": "c5c1918c-9604-4d49-a40f-a28dc70a7ac0",
-      "__version": 1,
+      "__version": 2,
       "Flags": 0,
       "Name": "Map",
       "Position": "125.0372,120.9534,-133.1576",
@@ -49,7 +50,7 @@
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 2,
-      "NetworkInterpolation": true,
+      "NetworkFlags": 0,
       "NetworkOrphaned": 0,
       "NetworkTransmit": true,
       "OwnerTransfer": 1,
@@ -58,6 +59,7 @@
           "__type": "Sandbox.MapInstance",
           "__guid": "7abfb3b5-b870-4774-8b28-f2b3b3fc24d1",
           "__enabled": true,
+          "Flags": 0,
           "__version": 1,
           "EnableCollision": true,
           "MapName": "facepunch.flatgrass",
@@ -77,7 +79,7 @@
     },
     {
       "__guid": "9318758b-1419-4d49-9e5d-991d863b4964",
-      "__version": 1,
+      "__version": 2,
       "Flags": 0,
       "Name": "Environment",
       "Position": "0,0,0",
@@ -86,7 +88,7 @@
       "Tags": "",
       "Enabled": false,
       "NetworkMode": 2,
-      "NetworkInterpolation": true,
+      "NetworkFlags": 0,
       "NetworkOrphaned": 0,
       "NetworkTransmit": true,
       "OwnerTransfer": 1,
@@ -94,7 +96,7 @@
       "Children": [
         {
           "__guid": "bfc59c12-1ed2-4f91-8956-a95a315eac3c",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "Sun",
           "Position": "0,0,0",
@@ -103,7 +105,7 @@
           "Tags": "light_directional,light",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -112,6 +114,7 @@
               "__type": "Sandbox.DirectionalLight",
               "__guid": "4c6cab0f-a914-4b35-bf8f-af7abd4247ca",
               "__enabled": true,
+              "Flags": 0,
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.94419,0.97767,1,1",
@@ -129,7 +132,7 @@
         },
         {
           "__guid": "00344a8c-fa5e-45ae-b12a-10bb781a1dc3",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "2D Skybox",
           "Position": "0,0,0",
@@ -138,7 +141,7 @@
           "Tags": "skybox",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -147,6 +150,7 @@
               "__type": "Sandbox.SkyBox2D",
               "__guid": "7f898c15-4d83-46b4-ad22-362d1936f026",
               "__enabled": true,
+              "Flags": 0,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
               "OnComponentEnabled": null,
@@ -161,6 +165,9 @@
               "__type": "Sandbox.EnvmapProbe",
               "__guid": "5107d571-975e-475e-94bb-86fcce406bd2",
               "__enabled": true,
+              "Flags": 0,
+              "__version": 1,
+              "BakedTexture": null,
               "Bounds": {
                 "Mins": "-512,-512,-512",
                 "Maxs": "512,512,512"
@@ -169,6 +176,7 @@
               "Feathering": 0.02,
               "FrameInterval": 5,
               "MaxDistance": 512,
+              "Mode": "CustomTexture",
               "MultiBounce": false,
               "OnComponentDestroy": null,
               "OnComponentDisabled": null,
@@ -176,8 +184,8 @@
               "OnComponentFixedUpdate": null,
               "OnComponentStart": null,
               "OnComponentUpdate": null,
+              "Priority": 0,
               "Projection": "Sphere",
-              "RenderDynamically": false,
               "Resolution": "Small",
               "Texture": "textures/cubemaps/default2.vtex",
               "TintColor": "1,1,1,1",
@@ -190,7 +198,7 @@
         },
         {
           "__guid": "6ad70641-3c6c-4402-9c85-9a4969af4764",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "Plane",
           "Position": "0,0,0",
@@ -199,7 +207,7 @@
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -208,6 +216,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "6dd1575c-7bea-47a4-9132-80fde582c978",
               "__enabled": true,
+              "Flags": 0,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "LodOverride": null,
@@ -234,6 +243,7 @@
               "__type": "Sandbox.BoxCollider",
               "__guid": "36adf6f9-d345-49f1-8587-093d992aa18c",
               "__enabled": true,
+              "Flags": 0,
               "Center": "0,0,-5",
               "ColliderFlags": 0,
               "Elasticity": null,
@@ -260,7 +270,7 @@
         },
         {
           "__guid": "3c2490ef-54a0-49bb-8f13-490e40aa51d1",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "Cube",
           "Position": "106.3166,135.0241,14.17619",
@@ -269,7 +279,7 @@
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -278,6 +288,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "a223f448-a475-42c5-960e-e991b8441229",
               "__enabled": true,
+              "Flags": 0,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "LodOverride": null,
@@ -304,6 +315,7 @@
               "__type": "Sandbox.BoxCollider",
               "__guid": "7ed98b9b-ea7b-4572-8ccb-0d54a3b49dad",
               "__enabled": true,
+              "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
               "Elasticity": null,
@@ -329,8 +341,10 @@
               "__type": "Sandbox.Rigidbody",
               "__guid": "8f90638b-6eb5-4cae-b54f-54600252303d",
               "__enabled": true,
+              "Flags": 0,
               "AngularDamping": 0,
               "EnableImpactDamage": true,
+              "EnhancedCcd": false,
               "Gravity": true,
               "GravityScale": 1,
               "ImpactDamage": 0,
@@ -362,7 +376,7 @@
         },
         {
           "__guid": "70be23ad-9cda-4dd6-8142-99c7a9f69a92",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "Long Cube",
           "Position": "-223.7912,249.1929,49.96741",
@@ -371,7 +385,7 @@
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -380,6 +394,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "138bae94-f70e-4e32-8839-22f396b33944",
               "__enabled": true,
+              "Flags": 0,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "LodOverride": null,
@@ -406,6 +421,7 @@
               "__type": "Sandbox.BoxCollider",
               "__guid": "aac8d6ab-a64d-4d9d-9007-ceb2354232c9",
               "__enabled": true,
+              "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
               "Elasticity": null,
@@ -431,8 +447,10 @@
               "__type": "Sandbox.Rigidbody",
               "__guid": "c55017a2-e4ae-4fe7-96ca-d956e1af96d8",
               "__enabled": true,
+              "Flags": 0,
               "AngularDamping": 0,
               "EnableImpactDamage": true,
+              "EnhancedCcd": false,
               "Gravity": false,
               "GravityScale": 1,
               "ImpactDamage": 0,
@@ -464,7 +482,7 @@
         },
         {
           "__guid": "8463f994-fc03-4478-8cc5-8663c0dd38d8",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "Long Cube (1)",
           "Position": "-179.8882,174.0877,50.27879",
@@ -473,7 +491,7 @@
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -482,6 +500,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "58f78879-2d53-4370-af9a-4bfd79d1e7df",
               "__enabled": true,
+              "Flags": 0,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "LodOverride": null,
@@ -508,6 +527,7 @@
               "__type": "Sandbox.BoxCollider",
               "__guid": "497aa671-314d-49e4-adf5-79962c195f28",
               "__enabled": true,
+              "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
               "Elasticity": null,
@@ -533,8 +553,10 @@
               "__type": "Sandbox.Rigidbody",
               "__guid": "6deec7a6-9bfb-415d-9895-861188cb24f9",
               "__enabled": true,
+              "Flags": 0,
               "AngularDamping": 0,
               "EnableImpactDamage": true,
+              "EnhancedCcd": false,
               "Gravity": false,
               "GravityScale": 1,
               "ImpactDamage": 0,
@@ -566,7 +588,7 @@
         },
         {
           "__guid": "f373bc8b-8230-43b3-b1d0-7d9d318b1520",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "Long Cube (2)",
           "Position": "-180.215,206.8841,58.73539",
@@ -575,7 +597,7 @@
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -584,6 +606,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "c5d74743-e4fa-4813-8f08-d19bd66341fb",
               "__enabled": true,
+              "Flags": 0,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "LodOverride": null,
@@ -610,6 +633,7 @@
               "__type": "Sandbox.BoxCollider",
               "__guid": "c7c42dc7-e7d2-4b0f-be21-f4dd05a2d233",
               "__enabled": true,
+              "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
               "Elasticity": null,
@@ -635,8 +659,10 @@
               "__type": "Sandbox.Rigidbody",
               "__guid": "761d67fc-c75c-4794-8e81-9f4171f06f0f",
               "__enabled": true,
+              "Flags": 0,
               "AngularDamping": 0,
               "EnableImpactDamage": true,
+              "EnhancedCcd": false,
               "Gravity": false,
               "GravityScale": 1,
               "ImpactDamage": 0,
@@ -668,7 +694,7 @@
         },
         {
           "__guid": "523e3e8f-a4ec-4ec1-af9a-d86ffc9c17e1",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "Cube (1)",
           "Position": "118.522,113.5585,37.78748",
@@ -677,7 +703,7 @@
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -686,6 +712,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "a9ef2bf2-01d1-40b9-bd96-5f01783281c2",
               "__enabled": true,
+              "Flags": 0,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "LodOverride": null,
@@ -712,6 +739,7 @@
               "__type": "Sandbox.BoxCollider",
               "__guid": "e4a516da-614d-4c3c-abfc-b0b9b4739455",
               "__enabled": true,
+              "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
               "Elasticity": null,
@@ -737,8 +765,10 @@
               "__type": "Sandbox.Rigidbody",
               "__guid": "68f5bdf3-7618-40ea-9531-99ba0752502b",
               "__enabled": true,
+              "Flags": 0,
               "AngularDamping": 0,
               "EnableImpactDamage": true,
+              "EnhancedCcd": false,
               "Gravity": true,
               "GravityScale": 1,
               "ImpactDamage": 0,
@@ -770,7 +800,7 @@
         },
         {
           "__guid": "5b483a09-bbf2-4949-98c7-a73b789d0ee7",
-          "__version": 1,
+          "__version": 2,
           "Flags": 0,
           "Name": "Cube (2)",
           "Position": "129.9087,91.38236,14.18267",
@@ -779,7 +809,7 @@
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
-          "NetworkInterpolation": true,
+          "NetworkFlags": 0,
           "NetworkOrphaned": 0,
           "NetworkTransmit": true,
           "OwnerTransfer": 1,
@@ -788,6 +818,7 @@
               "__type": "Sandbox.ModelRenderer",
               "__guid": "18bbef80-4357-4f24-a2df-108ee23a6000",
               "__enabled": true,
+              "Flags": 0,
               "BodyGroups": 18446744073709551615,
               "CreateAttachments": false,
               "LodOverride": null,
@@ -814,6 +845,7 @@
               "__type": "Sandbox.BoxCollider",
               "__guid": "116e4e83-c8fa-4d05-85e7-920f138a693d",
               "__enabled": true,
+              "Flags": 0,
               "Center": "0,0,0",
               "ColliderFlags": 0,
               "Elasticity": null,
@@ -839,8 +871,10 @@
               "__type": "Sandbox.Rigidbody",
               "__guid": "cd258e97-7059-4769-a7f2-b9974fb33a63",
               "__enabled": true,
+              "Flags": 0,
               "AngularDamping": 0,
               "EnableImpactDamage": true,
+              "EnhancedCcd": false,
               "Gravity": true,
               "GravityScale": 1,
               "ImpactDamage": 0,
@@ -874,7 +908,7 @@
     },
     {
       "__guid": "8b3cd142-6acb-47f1-b4e0-6b00f75f7355",
-      "__version": 1,
+      "__version": 2,
       "Flags": 0,
       "Name": "WeaponRegistry",
       "Position": "94.58017,127.1334,73.5171",
@@ -883,7 +917,7 @@
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": false,
+      "NetworkFlags": 1,
       "NetworkOrphaned": 1,
       "NetworkTransmit": true,
       "OwnerTransfer": 1,
@@ -892,6 +926,7 @@
           "__type": "SWB.Base.WeaponRegistry",
           "__guid": "060f0d84-1b68-42fa-93a9-fe9b9ff585a9",
           "__enabled": true,
+          "Flags": 0,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -929,6 +964,7 @@
           "__type": "SWB.Base.WeaponSettings",
           "__guid": "d464e175-fec1-4a51-bf7f-63307177df53",
           "__enabled": true,
+          "Flags": 0,
           "AimAssist": true,
           "AutoReload": true,
           "Customization": true,
@@ -944,7 +980,7 @@
     },
     {
       "__guid": "4944da2a-c921-497f-a68a-898f20007476",
-      "__version": 1,
+      "__version": 2,
       "__Prefab": "prefabs/player.prefab",
       "__PrefabInstancePatch": {
         "AddedObjects": [
@@ -967,6 +1003,7 @@
               "__type": "Sandbox.Dresser",
               "__guid": "66c8490b-e7a0-4442-9f46-48361ff96c53",
               "__enabled": true,
+              "Flags": 0,
               "ApplyHeightScale": true,
               "BodyTarget": {
                 "_type": "component",
@@ -1021,14 +1058,6 @@
             },
             "Property": "NetworkMode",
             "Value": 0
-          },
-          {
-            "Target": {
-              "Type": "GameObject",
-              "IdValue": "bf0f959a-8e13-4133-8fc5-edc7aa3d1b0c"
-            },
-            "Property": "NetworkInterpolation",
-            "Value": false
           },
           {
             "Target": {
@@ -1165,7 +1194,7 @@
     },
     {
       "__guid": "fdcdb398-e0e8-47b5-929f-a56d023ac38f",
-      "__version": 1,
+      "__version": 2,
       "__Prefab": "prefabs/bot.prefab",
       "__PrefabInstancePatch": {
         "AddedObjects": [],
@@ -1300,7 +1329,7 @@
     },
     {
       "__guid": "c988658d-a998-405a-b169-e1711fe59578",
-      "__version": 1,
+      "__version": 2,
       "Flags": 0,
       "Name": "ExampleNetworkManager",
       "Position": "73.25323,515.2476,-156.4206",
@@ -1309,7 +1338,7 @@
       "Tags": "",
       "Enabled": true,
       "NetworkMode": 2,
-      "NetworkInterpolation": true,
+      "NetworkFlags": 0,
       "NetworkOrphaned": 0,
       "NetworkTransmit": true,
       "OwnerTransfer": 1,
@@ -1318,6 +1347,7 @@
           "__type": "SWB.Demo.DemoNetworkManager",
           "__guid": "2ed65343-f834-4b63-bf18-777ff7d180aa",
           "__enabled": true,
+          "Flags": 0,
           "BotPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/bot.prefab"
@@ -1338,7 +1368,7 @@
     },
     {
       "__guid": "d8c87df0-4ec6-4f9c-b6b7-621c43d3ad37",
-      "__version": 1,
+      "__version": 2,
       "Flags": 0,
       "Name": "Weapons (just for editing)",
       "Position": "0,0,0",
@@ -1347,7 +1377,7 @@
       "Tags": "",
       "Enabled": false,
       "NetworkMode": 2,
-      "NetworkInterpolation": true,
+      "NetworkFlags": 0,
       "NetworkOrphaned": 0,
       "NetworkTransmit": true,
       "OwnerTransfer": 1,
@@ -1355,7 +1385,7 @@
       "Children": [
         {
           "__guid": "6cb541bc-26e0-4bf8-9c45-9a62a51f8cb8",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/weapons/colt.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1379,11 +1409,11 @@
               },
               {
                 "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "75e8dbf9-98c5-4504-a879-6f6da3f32a1c"
+                  "Type": "Component",
+                  "IdValue": "3fd73b46-c377-4098-9b22-0e8ea33064c3"
                 },
-                "Property": "NetworkInterpolation",
-                "Value": false
+                "Property": "SpeedModifier",
+                "Value": 1
               },
               {
                 "Target": {
@@ -1423,61 +1453,12 @@
         },
         {
           "__guid": "afe0261e-c31a-45ed-b212-376c2d2487a3",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/weapons/l96a1.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
             "RemovedObjects": [],
-            "PropertyOverrides": [
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "8c2999b8-8919-4895-9952-dcdce1c38403"
-                },
-                "Property": "Name",
-                "Value": "swb_l96a1"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "8c2999b8-8919-4895-9952-dcdce1c38403"
-                },
-                "Property": "Enabled",
-                "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "8c2999b8-8919-4895-9952-dcdce1c38403"
-                },
-                "Property": "NetworkInterpolation",
-                "Value": false
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "a9a2accf-b60c-4ad6-a271-3d65cc06a6ee"
-                },
-                "Property": "Ammo",
-                "Value": 0
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "a9a2accf-b60c-4ad6-a271-3d65cc06a6ee"
-                },
-                "Property": "MuzzleFlashParticle",
-                "Value": null
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "e43a4d21-2f1e-463f-b74b-0b294ed231fe"
-                },
-                "Property": "Gravity",
-                "Value": 200
-              }
-            ],
+            "PropertyOverrides": [],
             "MovedObjects": []
           },
           "__PrefabIdToInstanceId": {
@@ -1494,7 +1475,7 @@
         },
         {
           "__guid": "afc74f6d-c320-4154-9310-9223ac21c752",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/weapons/remington870.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1518,11 +1499,11 @@
               },
               {
                 "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "90e1f323-4483-4cab-a02f-56d0ccf3fead"
+                  "Type": "Component",
+                  "IdValue": "61ada1b9-4036-4907-be9e-e774c0e4154a"
                 },
-                "Property": "NetworkInterpolation",
-                "Value": false
+                "Property": "SpeedModifier",
+                "Value": 1
               },
               {
                 "Target": {
@@ -1554,7 +1535,7 @@
         },
         {
           "__guid": "969eab4e-a34b-423f-86b3-3342ca4f7ce5",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/weapons/revolver.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1578,11 +1559,11 @@
               },
               {
                 "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "12d1b3e8-b22c-4081-9f32-19f389397407"
+                  "Type": "Component",
+                  "IdValue": "6151f2bf-b1a5-47dc-a3d1-5b6116a30ae9"
                 },
-                "Property": "NetworkInterpolation",
-                "Value": false
+                "Property": "SpeedModifier",
+                "Value": 1
               },
               {
                 "Target": {
@@ -1615,7 +1596,7 @@
         },
         {
           "__guid": "907a381c-07ce-418b-8bab-70346f931b91",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/weapons/scarh.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1639,11 +1620,11 @@
               },
               {
                 "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "a3b668c3-acfb-4043-8f7c-93b7df84b5c8"
+                  "Type": "Component",
+                  "IdValue": "4d44110c-f7a1-4168-a9f3-dbeaa77a630a"
                 },
-                "Property": "NetworkInterpolation",
-                "Value": false
+                "Property": "SpeedModifier",
+                "Value": 1
               }
             ],
             "MovedObjects": []
@@ -1659,7 +1640,7 @@
         },
         {
           "__guid": "8bf6f334-dca8-4129-9821-c513a9997166",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/weapons/veresk.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1691,11 +1672,11 @@
               },
               {
                 "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312"
+                  "Type": "Component",
+                  "IdValue": "fa5836e6-aaab-47fa-94ed-f9babf843cac"
                 },
-                "Property": "NetworkInterpolation",
-                "Value": false
+                "Property": "SpeedModifier",
+                "Value": 1
               },
               {
                 "Target": {
@@ -1729,7 +1710,7 @@
     },
     {
       "__guid": "5516639b-0c2c-4614-a7cc-73703fc86f0e",
-      "__version": 1,
+      "__version": 2,
       "Flags": 0,
       "Name": "Particles (just for editing)",
       "Position": "0,0,0",
@@ -1738,7 +1719,7 @@
       "Tags": "",
       "Enabled": false,
       "NetworkMode": 2,
-      "NetworkInterpolation": true,
+      "NetworkFlags": 0,
       "NetworkOrphaned": 0,
       "NetworkTransmit": true,
       "OwnerTransfer": 1,
@@ -1746,7 +1727,7 @@
       "Children": [
         {
           "__guid": "e7c1c0c1-9e27-4b2f-a393-d93c42a72175",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/particles/muzzle/muzzleflash.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1785,7 +1766,7 @@
         },
         {
           "__guid": "a06a84dc-7db1-45dc-b01d-0e365d4f79b3",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/particles/shell/shelleject_9mm.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1814,7 +1795,7 @@
         },
         {
           "__guid": "8679542f-7eb4-493a-944d-82c0dbcaefb7",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/particles/shell/shelleject_308.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1834,7 +1815,7 @@
         },
         {
           "__guid": "be6424a8-a042-4e35-81a9-97c6c7d5a988",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/particles/shell/shelleject_20mm.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1854,7 +1835,7 @@
         },
         {
           "__guid": "19bff5aa-5cca-4550-856f-7635e6e7a003",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/particles/shell/shelleject_12gauge.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1874,7 +1855,7 @@
         },
         {
           "__guid": "bd860d1f-7f01-4935-a68d-6e98e31c795b",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/particles/muzzle/barrelsmoke.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1902,7 +1883,7 @@
         },
         {
           "__guid": "240fdbf3-ffa4-459c-aa0e-13b70169e31f",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/particles/tracer/tracer.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1922,7 +1903,7 @@
         },
         {
           "__guid": "7a318ed7-5174-46da-9eb3-cf1d5fa9095a",
-          "__version": 1,
+          "__version": 2,
           "__Prefab": "prefabs/particles/tracer/tracer_phys.prefab",
           "__PrefabInstancePatch": {
             "AddedObjects": [],
@@ -1961,7 +1942,8 @@
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
       "IncludedBodies": ""
-    }
+    },
+    "GameObjectSystems": []
   },
   "ResourceVersion": 3,
   "Title": "minimal",

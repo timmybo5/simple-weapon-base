@@ -143,6 +143,9 @@ public partial class PlayerBase
 		if ( IsCrouching ) WishVelocity *= CrouchSpeed;
 		else if ( IsRunning ) WishVelocity *= RunSpeed;
 		else WishVelocity *= WalkSpeed;
+
+		if ( Inventory.ActiveItem is not null )
+			WishVelocity *= Inventory.ActiveItem.Mobility;
 	}
 
 	void NoclipMove()

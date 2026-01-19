@@ -4,6 +4,7 @@ public interface IInventory
 {
 	public NetList<GameObject> Items { get; set; }
 	public GameObject Active { get; set; }
+	public IInventoryItem ActiveItem { get; set; }
 
 	public void Add( GameObject gameObject, bool makeActive = false );
 	public GameObject AddClone( GameObject gamePrefab, bool makeActive = true );
@@ -23,6 +24,9 @@ public interface IInventoryItem : IValid
 
 	/// <summary>Name that represent the item on the HUD</summary>
 	public string DisplayName { get; set; }
+
+	/// <summary>The movement speed modifier while this item is active</summary>
+	public float Mobility { get; set; }
 
 	/// <summary>Called on the GameObject that will be the new active one (Broadcast for networked gameObjects!)</summary>
 	public void OnCarryStart();

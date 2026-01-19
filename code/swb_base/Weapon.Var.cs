@@ -32,6 +32,9 @@ public partial class Weapon
 	/// <summary>Range that tucking should be enabled (-1 to disable tucking)</summary>
 	[Property, Group( "General" )] public float TuckRange { get; set; } = 30f;
 
+	/// <summary>How much movement speed is affected by holding this weapon (Speed *= Mobility)</summary>
+	[Property, Group( "General" )] public float Mobility { get; set; } = 1f;
+
 	[Property, Group( "General" )] public int Slot { get; set; } = 0;
 
 	/// <summary>Firing sound when clip is empty</summary>

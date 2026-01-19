@@ -1,7 +1,7 @@
 {
   "RootObject": {
     "__guid": "8c2999b8-8919-4895-9952-dcdce1c38403",
-    "__version": 1,
+    "__version": 2,
     "Flags": 0,
     "Name": "l96a1",
     "Position": "0,0,0",
@@ -10,14 +10,16 @@
     "Tags": "weapon",
     "Enabled": false,
     "NetworkMode": 2,
-    "NetworkInterpolation": true,
+    "NetworkFlags": 0,
     "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
     "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
         "__guid": "610b968e-fb5c-4971-8ff3-52db626fe9e0",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "-0.81,-0.05,0",
           "Pos": "-5.012,-4.46,1.572"
@@ -57,6 +59,7 @@
         "DrawTime": 0.5,
         "HoldType": "Rifle",
         "Icon": "weapons/swb/l96a1/l96a1.png",
+        "Mobility": 0.9,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -84,7 +87,8 @@
           "ScopeInSound": "sounds/swb/scope/swb_sniper.zoom_in.sound",
           "ScopeOutSound": null,
           "FOV": 8,
-          "AimSensitivity": 0.25
+          "Sensitivity": 0.25,
+          "Spread": 0
         },
         "Scoping": false,
         "Secondary": null,
@@ -104,6 +108,7 @@
         "__type": "SWB.Base.ShootInfo",
         "__guid": "a9a2accf-b60c-4ad6-a271-3d65cc06a6ee",
         "__enabled": true,
+        "Flags": 0,
         "Ammo": 5,
         "AmmoType": "sniper",
         "BarrelSmokeParticle": {
@@ -164,6 +169,7 @@
         "__type": "SWB.Demo.ReflexSightBG",
         "__guid": "b234a4f2-cf2e-431e-83ab-9dfe1520e884",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "0.05,-0.06,0",
           "Pos": "-5.009,-4.46,0.68"
@@ -192,6 +198,7 @@
         "__type": "SWB.Demo.HunterScope2DBG",
         "__guid": "b06b304a-c267-41d9-b348-45d151f1f03f",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "0,0,0",
           "Pos": "-4.996,-4.46,0.223"
@@ -205,6 +212,16 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "RequiresAttachment": null,
+        "ScopeInfo": {
+          "LensTexture": "materials/swb/scopes/swb_lens_hunter.png",
+          "ScopeTexture": "materials/swb/scopes/swb_scope_hunter.png",
+          "ScopeInDelay": 0.2,
+          "ScopeInSound": "sounds/swb/scope/swb_sniper.zoom_in.sound",
+          "ScopeOutSound": null,
+          "FOV": 8,
+          "Sensitivity": 0.25,
+          "Spread": 0
+        },
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -212,6 +229,7 @@
         "__type": "SWB.Demo.SniperSilencerBG",
         "__guid": "c19a5302-22b5-4cf5-8386-0ba71065070a",
         "__enabled": true,
+        "Flags": 0,
         "Bone": null,
         "EffectAttachmentOrBone": "muzzle_silenced",
         "Enable": false,
@@ -230,6 +248,7 @@
         "__type": "SWB.Demo.RifleLaserBG",
         "__guid": "e82e0d87-bca8-4616-ba03-f063e45cf54f",
         "__enabled": true,
+        "Flags": 0,
         "Bone": null,
         "Enable": false,
         "OnComponentDestroy": null,
@@ -251,6 +270,7 @@
         "__type": "SWB.Demo.SniperRailBG",
         "__guid": "33367dd0-559c-4454-a171-28d402ac7a3c",
         "__enabled": true,
+        "Flags": 0,
         "Bone": null,
         "Enable": false,
         "OnComponentDestroy": null,
@@ -267,6 +287,7 @@
         "__type": "SWB.Base.PhysicalBulletInfo",
         "__guid": "e43a4d21-2f1e-463f-b74b-0b294ed231fe",
         "__enabled": true,
+        "Flags": 0,
         "Drag": 0.012000001,
         "Gravity": 100,
         "OnComponentDestroy": null,
@@ -295,7 +316,8 @@
         "AgentMaxSlope": 40,
         "ExcludedBodies": "",
         "IncludedBodies": ""
-      }
+      },
+      "GameObjectSystems": []
     },
     "__variables": []
   },
