@@ -235,6 +235,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	protected override void OnFixedUpdate()
 	{
 		if ( !IsAlive ) return;
+		HandleMovementImpacts();
 		OnMovementFixedUpdate();
 
 		if ( !IsProxy && !IsBot && IsUsingController != Input.UsingController )

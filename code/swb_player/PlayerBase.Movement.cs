@@ -144,8 +144,12 @@ public partial class PlayerBase
 		else if ( IsRunning ) WishVelocity *= RunSpeed;
 		else WishVelocity *= WalkSpeed;
 
+		// Mobility from item
 		if ( Inventory.ActiveItem is not null )
 			WishVelocity *= Inventory.ActiveItem.Mobility;
+
+		// Impact from bullets, etc.
+		WishVelocity *= movementImpact;
 	}
 
 	void NoclipMove()

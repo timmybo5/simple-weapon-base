@@ -1,5 +1,6 @@
 ﻿using SWB.Base.Attachments;
 using SWB.Shared;
+using System;
 
 namespace SWB.Base;
 
@@ -133,5 +134,19 @@ public partial class Weapon
 		var recoilY = Game.Random.NextFloat( -0.2f, 0.2f ) * recoilX;
 		var recoilAngles = new Angles( recoilX, recoilY, 0 );
 		return recoilAngles;
+	}
+
+	public static MovementImpact GetMovementImpactFromForce( float force )
+	{
+		// 1.0 → 0.6 (40% max slow)
+		var maxSlow = 0.4f;
+		var t = Math.Clamp( force / 10f, 0f, 1f );
+		var amount = 1f - t * maxSlow;
+
+		return new()
+		{
+			Amount = amount,
+			Duration = 0.4f,
+		};
 	}
 }

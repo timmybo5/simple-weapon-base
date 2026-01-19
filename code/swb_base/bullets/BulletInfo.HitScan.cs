@@ -41,7 +41,8 @@ public class HitScanBulletInfo : BulletInfo
 				hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
 
 			var force = forward * 100 * shootInfo.Force;
-			var dmgInfo = Shared.DamageInfo.FromBullet( weapon.Owner.GameObject,
+			var dmgInfo = Shared.DamageInfo.FromBullet(
+				weapon.Owner.GameObject,
 				weapon.GameObject,
 				bulletTr.Hitbox,
 				bulletTr.EndPosition,
@@ -50,6 +51,8 @@ public class HitScanBulletInfo : BulletInfo
 				shootInfo.Damage,
 				bulletTr.HitPosition,
 				force,
+				shootInfo.HitFlinch,
+				Weapon.GetMovementImpactFromForce( shootInfo.Force ),
 				hitTags
 			);
 			target?.OnDamage( dmgInfo );

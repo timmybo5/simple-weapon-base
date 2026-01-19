@@ -86,7 +86,19 @@ public class PhysicalBulletMover : Component
 			// Assume force from shoot info is the force at firing
 			var force = BulletVelocity.Length.Remap( 0, BulletInfo.Velocity, 0, ShootInfo.Force );
 
-			var dmgInfo = Shared.DamageInfo.FromBullet( Owner.GameObject, Weapon.GameObject, traceResult.Hitbox, traceResult.EndPosition, traceResult.Shape, ClassName, ShootInfo.Damage, traceResult.HitPosition, forward * 100 * force, hitTags );
+			var dmgInfo = Shared.DamageInfo.FromBullet(
+				Owner.GameObject,
+				Weapon.GameObject,
+				traceResult.Hitbox,
+				traceResult.EndPosition,
+				traceResult.Shape,
+				ClassName,
+				ShootInfo.Damage,
+				traceResult.HitPosition,
+				forward * 100 * force,
+				ShootInfo.HitFlinch,
+				Weapon.GetMovementImpactFromForce( ShootInfo.Force ),
+				hitTags );
 			target?.OnDamage( dmgInfo );
 		}
 	}

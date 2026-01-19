@@ -1,6 +1,4 @@
-﻿using SWB.Base;
-
-namespace SWB.Player;
+﻿namespace SWB.Player;
 
 public partial class PlayerBase
 {
@@ -27,7 +25,7 @@ public partial class PlayerBase
 	[Rpc.Broadcast]
 	public virtual void TakeDamage( Shared.DamageInfo info )
 	{
-		if ( !IsValid || IsProxy || !IsAlive || GodMode )
+		if ( !this.IsValid() || IsProxy || !IsAlive || GodMode )
 			return;
 
 		if ( info.Tags.Has( "head" ) )
@@ -35,10 +33,11 @@ public partial class PlayerBase
 
 		Health -= (int)info.Damage;
 
-		// Flinch
-		var weapon = WeaponRegistry.Instance.Get( info.Inflictor );
-		if ( weapon is not null )
-			DoHitFlinch( weapon.Primary.HitFlinch );
+		if ( info.HitFlinch > 0 )
+			DoHitFlinch( info.HitFlinch );
+
+		if ( info.MovementImpact.Duration > 0 )
+			ApplyMovementImpact( info.MovementImpact );
 
 		if ( Health <= 0 )
 			OnDeath( info );

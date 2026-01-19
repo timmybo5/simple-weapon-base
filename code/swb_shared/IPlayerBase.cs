@@ -2,8 +2,6 @@
 
 namespace SWB.Shared;
 
-
-
 /// <summary>
 /// Implement this interface on a `Component` to integrate with SWB
 /// </summary>

@@ -7,8 +7,22 @@ public class DamageInfo : Sandbox.DamageInfo
 {
 	public string Inflictor { get; set; }
 	public Vector3 Force { get; set; }
+	public float HitFlinch { get; set; }
+	public MovementImpact MovementImpact { get; set; }
 
-	public static DamageInfo FromBullet( GameObject attacker, GameObject? weapon, Hitbox? hitbox, Vector3 Position, PhysicsShape? shape, string inflictor, float damage, Vector3 origin, Vector3 force, string[] tags )
+	public static DamageInfo FromBullet(
+		GameObject attacker,
+		GameObject? weapon,
+		Hitbox? hitbox,
+		Vector3 Position,
+		PhysicsShape? shape,
+		string inflictor,
+		float damage,
+		Vector3 origin,
+		Vector3 force,
+		float hitFlinch,
+		MovementImpact movementImpact,
+		string[] tags )
 	{
 		return new()
 		{
@@ -21,6 +35,8 @@ public class DamageInfo : Sandbox.DamageInfo
 			Damage = damage,
 			Origin = origin,
 			Force = force,
+			HitFlinch = hitFlinch,
+			MovementImpact = movementImpact,
 			Tags = [.. tags, TagsHelper.Bullet],
 		};
 	}
