@@ -1410,14 +1410,6 @@
               {
                 "Target": {
                   "Type": "Component",
-                  "IdValue": "3fd73b46-c377-4098-9b22-0e8ea33064c3"
-                },
-                "Property": "SpeedModifier",
-                "Value": 1
-              },
-              {
-                "Target": {
-                  "Type": "Component",
                   "IdValue": "90aafa5d-7f73-4334-ac7f-78143bc61a57"
                 },
                 "Property": "Ammo",
@@ -1502,7 +1494,7 @@
                   "Type": "Component",
                   "IdValue": "61ada1b9-4036-4907-be9e-e774c0e4154a"
                 },
-                "Property": "SpeedModifier",
+                "Property": "Mobility",
                 "Value": 1
               },
               {
@@ -1556,14 +1548,6 @@
                 },
                 "Property": "Enabled",
                 "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "6151f2bf-b1a5-47dc-a3d1-5b6116a30ae9"
-                },
-                "Property": "SpeedModifier",
-                "Value": 1
               },
               {
                 "Target": {
@@ -1623,7 +1607,7 @@
                   "Type": "Component",
                   "IdValue": "4d44110c-f7a1-4168-a9f3-dbeaa77a630a"
                 },
-                "Property": "SpeedModifier",
+                "Property": "Mobility",
                 "Value": 1
               }
             ],
@@ -1669,14 +1653,6 @@
                 },
                 "Property": "Enabled",
                 "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "fa5836e6-aaab-47fa-94ed-f9babf843cac"
-                },
-                "Property": "SpeedModifier",
-                "Value": 1
               },
               {
                 "Target": {
