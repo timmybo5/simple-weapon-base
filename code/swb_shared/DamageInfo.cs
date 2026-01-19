@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace SWB.Shared;
+﻿namespace SWB.Shared;
 
 /// <summary>
 /// An extended version of Sandbox.DamageInfo with additional properties for SWB
@@ -9,7 +7,6 @@ public class DamageInfo : Sandbox.DamageInfo
 {
 	public string Inflictor { get; set; }
 	public Vector3 Force { get; set; }
-	private static readonly string[] bulletTag = ["bullet"];
 
 	public static DamageInfo FromBullet( GameObject attacker, GameObject? weapon, Hitbox? hitbox, Vector3 Position, PhysicsShape? shape, string inflictor, float damage, Vector3 origin, Vector3 force, string[] tags )
 	{
@@ -24,7 +21,7 @@ public class DamageInfo : Sandbox.DamageInfo
 			Damage = damage,
 			Origin = origin,
 			Force = force,
-			Tags = [.. bulletTag.Concat( tags )],
+			Tags = [.. tags, TagsHelper.Bullet],
 		};
 	}
 }

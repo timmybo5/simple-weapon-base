@@ -2,19 +2,20 @@
 
 public partial class TagsHelper
 {
-	public static string Player => "player";
-	public static string DeadPlayer => "deadPlayer";
-	public static string Trigger => "trigger";
-	public static string Weapon => "weapon";
-	public static string DroppedWeapon => "droppedWeapon";
-	public static string ViewModel => "viewmodel";
-	public static string PlayerClip => "playerclip";
-	public static string PassBullets => "passbullets";
-	public static string Water => "water";
-	public static string World => "world";
-	public static string Solid => "solid";
-	public static string Attachment => "attachment";
-	public static string PhysicalBullet => "physicalbullet";
-	public static string Light => "light";
-	public static string Clothing => "clothing";
+	public const string Player = "player";
+	public const string DeadPlayer = "deadPlayer";
+	public const string Trigger = "trigger";
+	public const string Weapon = "weapon";
+	public const string DroppedWeapon = "droppedWeapon";
+	public const string ViewModel = "viewmodel";
+	public const string PlayerClip = "playerclip";
+	public const string Bullet = "bullet";
+	public const string PassBullets = "passbullets";
+	public const string PhysicalBullet = "physicalbullet";
+	public const string Water = "water";
+	public const string World = "world";
+	public const string Solid = "solid";
+	public const string Attachment = "attachment";
+	public const string Light = "light";
+	public const string Clothing = "clothing";
 }

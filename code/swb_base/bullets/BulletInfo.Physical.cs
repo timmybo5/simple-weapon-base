@@ -52,7 +52,7 @@ public class PhysicalBulletInfo : BulletInfo
 		bulletObject.Name = TagsHelper.PhysicalBullet;
 		bulletObject.Tags.Add( TagsHelper.PhysicalBullet );
 		bulletObject.GetOrAddComponent<PhysicalBulletMover>().Initialize( this, weapon, shootInfo, bulletVelocity );
-		bulletObject.NetworkInterpolation = false;
+		bulletObject.Network.Interpolation = false;
 		bulletObject.NetworkSpawn();
 	}
 }
