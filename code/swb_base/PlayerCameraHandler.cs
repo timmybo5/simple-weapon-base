@@ -32,7 +32,7 @@ public class PlayerCameraHandler : Component
 			finalPlayerFOV = Preferences.FieldOfView;
 		}
 
-		var animSpeed = 10 * Weapon.AnimSpeed;
+		var animSpeed = 10;
 		finalPlayerFOV = MathX.LerpTo( finalPlayerFOV, targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
 
 		player.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
