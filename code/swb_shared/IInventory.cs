@@ -36,4 +36,7 @@ public interface IInventoryItem : IValid
 
 	/// <summary>Can the GameObject be switched out</summary>
 	public bool CanCarryStop();
+
+	/// <summary>Is the item currently being used (e.g. weapon is firing)</summary>
+	public bool IsShooting();
 }
