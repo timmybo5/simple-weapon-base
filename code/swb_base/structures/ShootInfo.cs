@@ -100,8 +100,11 @@ public class ShootInfo : Component
 	/// <summary> View Model particle scale</summary>
 	[Property, Title( "View Model Scale" ), Group( "Particles" )] public float VMParticleScale { get; set; } = 1f;
 
-	/// <summary> World Model particle scale</summary>
+	/// <summary> World Model particle scale (BulletEject + BulletTracer)</summary>
 	[Property, Title( "World Model Scale" ), Group( "Particles" )] public float WMParticleScale { get; set; } = 1f;
+
+	/// <summary>World Model particle scale for the muzzle effects (MuzzleFlash + BarrelSmoke)</summary>
+	[Property, Title( "World Model Muzzle Scale" ), Group( "Particles" )] public float WMMuzzleParticleScale { get; set; } = 1f;
 
 	/// <summary>Particle used for bullet ejection</summary>
 	[Property, Group( "Particles" )] public PrefabScene BulletEjectParticle { get; set; } = SceneUtility.GetPrefabScene( ResourceLibrary.Get<PrefabFile>( "prefabs/particles/shell/shelleject_9mm.prefab" ) );

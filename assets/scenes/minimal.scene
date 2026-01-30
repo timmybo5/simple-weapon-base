@@ -1398,38 +1398,6 @@
                 },
                 "Property": "Name",
                 "Value": "swb_colt"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "75e8dbf9-98c5-4504-a879-6f6da3f32a1c"
-                },
-                "Property": "Enabled",
-                "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "90aafa5d-7f73-4334-ac7f-78143bc61a57"
-                },
-                "Property": "Ammo",
-                "Value": 0
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "90aafa5d-7f73-4334-ac7f-78143bc61a57"
-                },
-                "Property": "MuzzleFlashParticle",
-                "Value": null
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "90aafa5d-7f73-4334-ac7f-78143bc61a57"
-                },
-                "Property": "WMParticleScale",
-                "Value": 0.5
               }
             ],
             "MovedObjects": []
@@ -1450,7 +1418,16 @@
           "__PrefabInstancePatch": {
             "AddedObjects": [],
             "RemovedObjects": [],
-            "PropertyOverrides": [],
+            "PropertyOverrides": [
+              {
+                "Target": {
+                  "Type": "GameObject",
+                  "IdValue": "8c2999b8-8919-4895-9952-dcdce1c38403"
+                },
+                "Property": "Name",
+                "Value": "swb_l96a1"
+              }
+            ],
             "MovedObjects": []
           },
           "__PrefabIdToInstanceId": {
@@ -1480,38 +1457,6 @@
                 },
                 "Property": "Name",
                 "Value": "swb_remington870"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "90e1f323-4483-4cab-a02f-56d0ccf3fead"
-                },
-                "Property": "Enabled",
-                "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "61ada1b9-4036-4907-be9e-e774c0e4154a"
-                },
-                "Property": "Mobility",
-                "Value": 1
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "6c143f17-9226-4a53-bbb9-3473b4d013cc"
-                },
-                "Property": "Ammo",
-                "Value": 0
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "6c143f17-9226-4a53-bbb9-3473b4d013cc"
-                },
-                "Property": "MuzzleFlashParticle",
-                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1540,30 +1485,6 @@
                 },
                 "Property": "Name",
                 "Value": "swb_revolver"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "12d1b3e8-b22c-4081-9f32-19f389397407"
-                },
-                "Property": "Enabled",
-                "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "326ca902-04bc-4672-bb51-47b0eb358bae"
-                },
-                "Property": "Ammo",
-                "Value": 0
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "326ca902-04bc-4672-bb51-47b0eb358bae"
-                },
-                "Property": "MuzzleFlashParticle",
-                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1593,22 +1514,6 @@
                 },
                 "Property": "Name",
                 "Value": "swb_scarh"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "a3b668c3-acfb-4043-8f7c-93b7df84b5c8"
-                },
-                "Property": "Enabled",
-                "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "4d44110c-f7a1-4168-a9f3-dbeaa77a630a"
-                },
-                "Property": "Mobility",
-                "Value": 1
               }
             ],
             "MovedObjects": []
@@ -1637,38 +1542,6 @@
                 },
                 "Property": "Name",
                 "Value": "swb_veresk"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312"
-                },
-                "Property": "Rotation",
-                "Value": "0,0.7071068,0,0.7071068"
-              },
-              {
-                "Target": {
-                  "Type": "GameObject",
-                  "IdValue": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312"
-                },
-                "Property": "Enabled",
-                "Value": true
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "e3f4237c-acdf-49fb-9246-507109d41bdc"
-                },
-                "Property": "Ammo",
-                "Value": 0
-              },
-              {
-                "Target": {
-                  "Type": "Component",
-                  "IdValue": "e3f4237c-acdf-49fb-9246-507109d41bdc"
-                },
-                "Property": "MuzzleFlashParticle",
-                "Value": null
               }
             ],
             "MovedObjects": []
@@ -1918,8 +1791,7 @@
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
       "IncludedBodies": ""
-    },
-    "GameObjectSystems": []
+    }
   },
   "ResourceVersion": 3,
   "Title": "minimal",

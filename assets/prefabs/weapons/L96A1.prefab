@@ -163,6 +163,7 @@
         "ShootSound": "weapons/swb/l96a1/sounds/l96a1.fire.sound",
         "Spread": 0.3,
         "VMParticleScale": 4,
+        "WMMuzzleParticleScale": 3,
         "WMParticleScale": 2
       },
       {
@@ -316,8 +317,7 @@
         "AgentMaxSlope": 40,
         "ExcludedBodies": "",
         "IncludedBodies": ""
-      },
-      "GameObjectSystems": []
+      }
     },
     "__variables": []
   },

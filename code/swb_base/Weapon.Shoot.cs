@@ -202,13 +202,15 @@ public partial class Weapon
 
 		if ( !muzzleTransform.HasValue ) return;
 
+		var muzzleScale = CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMMuzzleParticleScale;
+
 		// Muzzle flash
 		if ( shootInfo.MuzzleFlashParticle is not null )
-			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, scale, ( particle ) => ParticleToMuzzleTrans( particle ) );
+			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, muzzleScale, ( particle ) => ParticleToMuzzleTrans( particle ) );
 
 		// Barrel smoke
 		if ( !IsProxy && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
-			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, shootInfo.VMParticleScale, ( particles ) => ParticleToMuzzleTrans( particles ) );
+			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, muzzleScale, ( particles ) => ParticleToMuzzleTrans( particles ) );
 	}
 
 	void ParticleToMuzzleTrans( GameObject particle )

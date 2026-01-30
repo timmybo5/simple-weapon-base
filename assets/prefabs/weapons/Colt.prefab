@@ -158,6 +158,7 @@
         "ShootSound": "weapons/swb/colt/sounds/colt.fire.sound",
         "Spread": 0.08,
         "VMParticleScale": 1,
+        "WMMuzzleParticleScale": 1.4,
         "WMParticleScale": 1
       },
       {
@@ -248,8 +249,7 @@
         "AgentMaxSlope": 40,
         "ExcludedBodies": "",
         "IncludedBodies": ""
-      },
-      "GameObjectSystems": []
+      }
     },
     "__variables": []
   },

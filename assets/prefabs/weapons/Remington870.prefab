@@ -1,7 +1,7 @@
 {
   "RootObject": {
     "__guid": "90e1f323-4483-4cab-a02f-56d0ccf3fead",
-    "__version": 1,
+    "__version": 2,
     "Flags": 0,
     "Name": "remington870",
     "Position": "0,0,0",
@@ -10,14 +10,16 @@
     "Tags": "weapon",
     "Enabled": false,
     "NetworkMode": 2,
-    "NetworkInterpolation": true,
+    "NetworkFlags": 0,
     "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
     "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
         "__guid": "61ada1b9-4036-4907-be9e-e774c0e4154a",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "-1,0.41,0",
           "Pos": "-2.8,0,0.85"
@@ -57,6 +59,7 @@
         "DrawTime": 0.7,
         "HoldType": "Shotgun",
         "Icon": "weapons/swb/remington/remington.png",
+        "Mobility": 1,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -84,7 +87,8 @@
           "ScopeInSound": null,
           "ScopeOutSound": null,
           "FOV": 8,
-          "AimSensitivity": 0.25
+          "Sensitivity": 0.25,
+          "Spread": 0
         },
         "Scoping": false,
         "Secondary": null,
@@ -104,6 +108,7 @@
         "__type": "SWB.Base.ShootInfo",
         "__guid": "6c143f17-9226-4a53-bbb9-3473b4d013cc",
         "__enabled": true,
+        "Flags": 0,
         "Ammo": 6,
         "AmmoType": "shotgun",
         "BarrelSmokeParticle": {
@@ -158,12 +163,14 @@
         "ShootSound": "weapons/swb/remington/sounds/remington.fire.sound",
         "Spread": 0.14,
         "VMParticleScale": 2,
+        "WMMuzzleParticleScale": 3,
         "WMParticleScale": 2.5
       },
       {
         "__type": "SWB.Demo.ReflexSightBG",
         "__guid": "28ba3396-e484-4425-9a37-cf6b2d976c27",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "-0.07,0.48,-0.5",
           "Pos": "-2.816,0,0.36"
@@ -192,6 +199,7 @@
         "__type": "SWB.Demo.ShotgunSilencerBG",
         "__guid": "9e2fc3a7-822a-416b-b095-3f404511517b",
         "__enabled": true,
+        "Flags": 0,
         "Bone": null,
         "EffectAttachmentOrBone": "muzzle_silenced",
         "Enable": false,
@@ -210,6 +218,7 @@
         "__type": "SWB.Base.HitScanBulletInfo",
         "__guid": "b24cbcdc-c529-473f-b84b-11e89fd5ea60",
         "__enabled": true,
+        "Flags": 0,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,

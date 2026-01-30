@@ -1,7 +1,7 @@
 {
   "RootObject": {
     "__guid": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312",
-    "__version": 1,
+    "__version": 2,
     "Flags": 0,
     "Name": "veresk",
     "Position": "0,0,0",
@@ -10,14 +10,16 @@
     "Tags": "weapon",
     "Enabled": false,
     "NetworkMode": 2,
-    "NetworkInterpolation": true,
+    "NetworkFlags": 0,
     "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
     "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "SWB.Base.Weapon",
         "__guid": "fa5836e6-aaab-47fa-94ed-f9babf843cac",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "-1.3,-0.02,0",
           "Pos": "-2.767,0,0.728"
@@ -57,6 +59,7 @@
         "DrawTime": 0.6,
         "HoldType": "Rifle",
         "Icon": "weapons/swb/veresk/veresk.png",
+        "Mobility": 1,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -84,7 +87,8 @@
           "ScopeInSound": null,
           "ScopeOutSound": null,
           "FOV": 8,
-          "AimSensitivity": 0.25
+          "Sensitivity": 0.25,
+          "Spread": 0
         },
         "Scoping": false,
         "Secondary": null,
@@ -104,6 +108,7 @@
         "__type": "SWB.Base.ShootInfo",
         "__guid": "e3f4237c-acdf-49fb-9246-507109d41bdc",
         "__enabled": true,
+        "Flags": 0,
         "Ammo": 30,
         "AmmoType": "smg",
         "BarrelSmokeParticle": {
@@ -158,12 +163,14 @@
         "ShootSound": "weapons/swb/veresk/sounds/veresk.fire.sound",
         "Spread": 0.08,
         "VMParticleScale": 0.8,
+        "WMMuzzleParticleScale": 1.4,
         "WMParticleScale": 1
       },
       {
         "__type": "SWB.Demo.ReflexSightBG",
         "__guid": "5d7983e9-072a-42bb-94af-68a7d806213c",
         "__enabled": true,
+        "Flags": 0,
         "AimAnimData": {
           "Angle": "0,-0.08,0",
           "Pos": "-2.788,0,0.377"
@@ -192,6 +199,7 @@
         "__type": "SWB.Demo.RifleSilencerBG",
         "__guid": "61e29911-7fb0-48d5-b660-fbc3e37f344e",
         "__enabled": true,
+        "Flags": 0,
         "Bone": null,
         "EffectAttachmentOrBone": "muzzle_silenced",
         "Enable": false,
@@ -210,6 +218,7 @@
         "__type": "SWB.Base.HitScanBulletInfo",
         "__guid": "532cd6e4-4da6-4c44-bd7b-427579015cd3",
         "__enabled": true,
+        "Flags": 0,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
