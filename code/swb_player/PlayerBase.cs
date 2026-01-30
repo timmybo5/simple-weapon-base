@@ -53,6 +53,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		CameraMovement = Components.GetInChildren<CameraMovement>();
 		OnMovementAwake();
 
+		// Reset body animations, only works here
+		BodyRenderer.OnComponentDisabled += () =>
+		{
+			BodyRenderer.ClearParameters();
+		};
+
 		if ( IsBot ) return;
 
 		// Hack: Hide client until fully loaded in OnStart
