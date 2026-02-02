@@ -19,7 +19,13 @@ public partial class PlayerBase
 	/// <summary>Blocks jump when jumping quickly in succession</summary>
 	[Property] public bool JumpSpamPrevention { get; set; } = true;
 
+	[Property, Category( "Falling" )] public float SafeFallSpeed { get; set; } = 500f;
+	[Property, Category( "Falling" )] public float LethalFallSpeed { get; set; } = 700f;
+	[Property, Category( "Falling" )] public float MaxFallDamage { get; set; } = 100f;
+	[Property, Category( "Falling" )] public float FallDamageExponent { get; set; } = 2f;
+
 	[Sync] public Vector3 WishVelocity { get; set; } = Vector3.Zero;
+	[Sync] public Vector3 FallingVelocity { get; set; } = Vector3.Zero;
 	[Sync] public Angles EyeAngles { get; set; }
 	[Sync] public Vector3 EyeOffset { get; set; } = Vector3.Zero;
 	[Sync] public bool IsCrouching { get; set; } = false;
@@ -101,12 +107,15 @@ public partial class PlayerBase
 		}
 
 		if ( !IsOnGround )
+		{
 			TimeSinceAirborne = 0;
+			FallingVelocity = Velocity;
+		}
 
 		if ( IsOnGround && groundedCheck != IsOnGround )
 		{
 			groundedCheck = IsOnGround;
-			OnGrounded();
+			OnGrounded( FallingVelocity );
 		}
 		else if ( !IsOnGround )
 		{
@@ -237,7 +246,7 @@ public partial class PlayerBase
 	}
 
 	/// <summary>Called once when the player lands</summary>
-	public virtual void OnGrounded()
+	public virtual void OnGrounded( Vector3 velocity )
 	{
 		if ( !IsProxy )
 		{
@@ -247,6 +256,8 @@ public partial class PlayerBase
 				Rotation = 0.2f,
 				Duration = 0.1f,
 			} );
+
+			DoFallDamage( velocity );
 		}
 	}
 
@@ -377,5 +388,25 @@ public partial class PlayerBase
 			sound.Volume = footstepEvent.Volume;
 
 		timeSinceLastFootstep = 0;
+	}
+
+	public virtual void DoFallDamage( Vector3 impactVelocity )
+	{
+		var downSpeed = -impactVelocity.z;
+		if ( downSpeed <= SafeFallSpeed ) return;
+
+		// Normalize to 0..1 between safe and lethal
+		var t = (downSpeed - SafeFallSpeed) / Math.Max( 1f, (LethalFallSpeed - SafeFallSpeed) );
+		t = Math.Clamp( t, 0f, 1f );
+
+		var curved = MathF.Pow( t, FallDamageExponent );
+		var damage = curved * MaxFallDamage;
+		var damageInfo = new Shared.DamageInfo
+		{
+			Damage = damage,
+			Force = impactVelocity,
+		};
+
+		TakeDamage( damageInfo );
 	}
 }

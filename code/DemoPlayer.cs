@@ -56,10 +56,11 @@ public class DemoPlayer : PlayerBase
 		if ( localPly is null ) return;
 
 		var display = localPly.RootDisplay as RootDisplay;
-		display.AddToKillFeed( info.Attacker.Id, GameObject.Id, info.Inflictor );
+		if ( info.Attacker is not null )
+			display.AddToKillFeed( info.Attacker.Id, GameObject.Id, info.Inflictor );
 
 		// Leaderboards
-		if ( IsProxy && !IsBot && localPly.GameObject.Id == info.Attacker.Id )
+		if ( IsProxy && !IsBot && info.Attacker is not null && localPly.GameObject.Id == info.Attacker.Id )
 			Sandbox.Services.Stats.Increment( "kills", 1 );
 
 		if ( !IsProxy && !IsBot )
@@ -72,11 +73,16 @@ public class DemoPlayer : PlayerBase
 
 		// Attacker only
 		var localPly = PlayerBase.GetLocal();
-		if ( localPly is null || !localPly.IsAlive || localPly.GameObject.Id != info.Attacker.Id ) return;
+		if ( info.Attacker is null || localPly is null || !localPly.IsAlive || localPly.GameObject.Id != info.Attacker.Id ) return;
 
 		var display = localPly.RootDisplay as RootDisplay;
 		display.CreateHitmarker( Health <= 0 );
 		Sound.Play( "hitmarker" );
+	}
+
+	public override void DoFallDamage( Vector3 impactVelocity )
+	{
+		// Disable fall damage
 	}
 
 	protected override void OnUpdate()
