@@ -230,7 +230,17 @@ public partial class Weapon
 	public static GameObject CreateBulletImpact( SceneTraceResult tr )
 	{
 		// Sound
-		tr.Surface.PlayCollisionSound( tr.HitPosition );
+		SoundHandle soundHandle = null;
+
+		if ( tr.Surface.SoundCollection.Bullet is not null )
+		{
+			var sound = tr.Surface.SoundCollection.Bullet;
+			sound.Distance = 10000;
+			soundHandle = Sound.Play( sound );
+		}
+
+		soundHandle ??= Sound.Play( "impact-bullet-generic" );
+		soundHandle.Position = tr.HitPosition;
 
 		// Decal & Particles
 		var impactPrefab = tr.Surface.PrefabCollection.BulletImpact;

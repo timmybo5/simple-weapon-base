@@ -5,7 +5,7 @@
 code/*.csproj
 config/
 .sbox/
-demo.sln
+*.slnx
 
 *.vmdl_c
 *.vmat_c

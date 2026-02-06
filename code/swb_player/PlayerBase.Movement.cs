@@ -2,6 +2,7 @@ using Sandbox.Citizen;
 using SWB.Shared;
 using System;
 using System.Collections.Generic;
+using static Sandbox.SceneModel;
 
 namespace SWB.Player;
 
@@ -18,6 +19,8 @@ public partial class PlayerBase
 
 	/// <summary>Blocks jump when jumping quickly in succession</summary>
 	[Property] public bool JumpSpamPrevention { get; set; } = true;
+	/// <summary>Enable the ability to climb ladders</summary>
+	[Property] public bool LadderClimbing { get; set; } = true;
 
 	[Property, Category( "Falling" )] public float SafeFallSpeed { get; set; } = 500f;
 	[Property, Category( "Falling" )] public float LethalFallSpeed { get; set; } = 700f;
@@ -233,7 +236,14 @@ public partial class PlayerBase
 		if ( JumpSpamPrevention && TimeSinceAirborne < 0.2f )
 			return;
 
-		CharacterController.Punch( Vector3.Up * JumpForce );
+		var jumpVelocity = Vector3.Up * JumpForce;
+
+		// Sound
+		var tr = GetSurfaceTrace();
+		if ( tr.Hit )
+			PlayFootLaunchSound( tr.Surface, jumpVelocity );
+
+		CharacterController.Punch( jumpVelocity );
 		AnimationHelper?.TriggerJump();
 
 		// Unstick crouch
@@ -248,6 +258,10 @@ public partial class PlayerBase
 	/// <summary>Called once when the player lands</summary>
 	public virtual void OnGrounded( Vector3 velocity )
 	{
+		var tr = GetSurfaceTrace();
+		if ( tr.Hit )
+			PlayFootLandSound( tr.Surface, velocity );
+
 		if ( !IsProxy )
 		{
 			ShakeScreen( new()
@@ -378,16 +392,68 @@ public partial class PlayerBase
 
 		var tr = Scene.Trace.Ray( footstepEvent.Transform.Position, footstepEvent.Transform.Position + Vector3.Down * 20 )
 			.Radius( 1 )
-			.IgnoreGameObject( this.GameObject )
+			.IgnoreGameObjectHierarchy( this.GameObject )
 			.Run();
 
 		if ( !tr.Hit ) return;
 
-		var sound = tr.Surface.PlayCollisionSound( footstepEvent.Transform.Position );
-		if ( sound is not null )
-			sound.Volume = footstepEvent.Volume;
-
+		PlayFootstepSound( tr.Surface, footstepEvent );
 		timeSinceLastFootstep = 0;
+	}
+
+	public SceneTraceResult GetSurfaceTrace()
+	{
+		return Scene.Trace.Ray( WorldPosition, WorldPosition + Vector3.Down * 1000 )
+			.Radius( 1 )
+			.IgnoreGameObjectHierarchy( this.GameObject )
+			.Run();
+	}
+
+	public virtual void PlayFootstepSound( Surface surface, FootstepEvent footstepEvent )
+	{
+		SoundHandle soundHandle = null;
+
+		if ( surface.SoundCollection.FootRight is not null )
+		{
+			var sound = surface.SoundCollection.FootRight;
+			sound.Distance = 7500;
+			sound.Volume = footstepEvent.Volume;
+			soundHandle = Sound.Play( sound );
+		}
+
+		soundHandle ??= Sound.Play( "footstep-concrete" );
+		soundHandle.Position = WorldPosition;
+	}
+
+	[Rpc.Broadcast( NetFlags.Unreliable )]
+	public virtual void PlayFootLaunchSound( Surface surface, Vector3 velocity )
+	{
+		SoundHandle soundHandle = null;
+
+		if ( surface.SoundCollection.FootLaunch is not null )
+		{
+			var sound = surface.SoundCollection.FootLaunch;
+			sound.Distance = 7500;
+			soundHandle = Sound.Play( sound );
+		}
+
+		soundHandle ??= Sound.Play( "footstep-concrete-jump" );
+		soundHandle.Position = WorldPosition;
+	}
+
+	public virtual void PlayFootLandSound( Surface surface, Vector3 velocity )
+	{
+		SoundHandle soundHandle = null;
+
+		if ( surface.SoundCollection.FootLand is not null )
+		{
+			var sound = surface.SoundCollection.FootLand;
+			sound.Distance = 10000;
+			soundHandle = Sound.Play( sound );
+		}
+
+		soundHandle ??= Sound.Play( "footstep-concrete-land" );
+		soundHandle.Position = WorldPosition;
 	}
 
 	public virtual void DoFallDamage( Vector3 impactVelocity )
