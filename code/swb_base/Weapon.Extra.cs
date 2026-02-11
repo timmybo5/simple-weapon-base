@@ -30,9 +30,11 @@ public partial class Weapon
 
 		if ( !Owner.IsValid ) return -1;
 
+		// Increase tuck range around ladders
+		var tuckRange = Owner.IsClimbingLadder ? TuckRange * 1.25f : TuckRange;
 		var pos = Owner.EyePos;
 		var forward = Owner.EyeAngles.ToRotation().Forward;
-		var trace = TraceBullet( Owner.EyePos, pos + forward * TuckRange );
+		var trace = TraceBullet( Owner.EyePos, pos + forward * tuckRange );
 
 		if ( !trace.Hit )
 			return -1;

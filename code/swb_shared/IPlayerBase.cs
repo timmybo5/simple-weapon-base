@@ -58,6 +58,11 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	public bool IsOnGround { get; }
 
 	/// <summary>
+	/// Whether the player is actively climbing a ladder
+	/// </summary>
+	public bool IsClimbingLadder { get; }
+
+	/// <summary>
 	/// Whether the player is alive.
 	/// Damage will not be dealt to dead players.
 	/// </summary>

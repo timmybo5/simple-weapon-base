@@ -124,7 +124,11 @@ public class ViewModelHandler : Component
 		isAiming = !Weapon.ShouldTuckVar && Weapon.IsAiming;
 		if ( Weapon.RunAnimData != AngPos.Zero && Weapon.ShouldTuckVar )
 		{
-			var animationCompletion = Math.Min( 1, ((Weapon.TuckRange - Weapon.TuckDist) / Weapon.TuckRange) + 0.5f );
+			var animationCompletion = 1f;
+
+			if ( !player.IsClimbingLadder )
+				animationCompletion = Math.Min( 1, ((Weapon.TuckRange - Weapon.TuckDist) / Weapon.TuckRange) + 0.5f );
+
 			targetVectorPos += Weapon.RunAnimData.Pos * animationCompletion;
 			targetVectorRot += MathUtil.ToVector3( Weapon.RunAnimData.Angle * animationCompletion );
 			return;

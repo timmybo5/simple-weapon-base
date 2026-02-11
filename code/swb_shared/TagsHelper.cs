@@ -18,4 +18,5 @@ public partial class TagsHelper
 	public const string Attachment = "attachment";
 	public const string Light = "light";
 	public const string Clothing = "clothing";
+	public const string Ladder = "ladder";
 }

@@ -19,8 +19,6 @@ public partial class PlayerBase
 
 	/// <summary>Blocks jump when jumping quickly in succession</summary>
 	[Property] public bool JumpSpamPrevention { get; set; } = true;
-	/// <summary>Enable the ability to climb ladders</summary>
-	[Property] public bool LadderClimbing { get; set; } = true;
 
 	[Property, Category( "Falling" )] public float SafeFallSpeed { get; set; } = 500f;
 	[Property, Category( "Falling" )] public float LethalFallSpeed { get; set; } = 700f;
@@ -104,7 +102,12 @@ public partial class PlayerBase
 			UpdateRun();
 
 			if ( Input.Pressed( InputButtonHelper.Jump ) )
-				Jump();
+			{
+				if ( IsClimbingLadder )
+					LadderJump();
+				else
+					Jump();
+			}
 
 			UpdateCrouch();
 		}
@@ -135,8 +138,12 @@ public partial class PlayerBase
 		if ( !IsBot )
 			BuildWishVelocity();
 
-		if ( !Noclip ) Move();
-		else NoclipMove();
+		if ( Noclip )
+			NoclipMove();
+		else if ( IsClimbingLadder )
+			LadderMove();
+		else
+			Move();
 	}
 
 	void BuildWishVelocity()
@@ -179,9 +186,8 @@ public partial class PlayerBase
 			WishVelocity += Vector3.Up * NoclipSpeed * speedMod * 100;
 
 		CharacterController.Velocity = WishVelocity;
-		CharacterController.Accelerate( WishVelocity );
 
-		if ( !(CharacterController.Velocity.IsNearZeroLength && WishVelocity.IsNearZeroLength) )
+		if ( !CharacterController.Velocity.IsNearZeroLength )
 			CharacterController.Move();
 	}
 
@@ -282,7 +288,7 @@ public partial class PlayerBase
 		AnimationHelper.WithWishVelocity( WishVelocity );
 		AnimationHelper.WithVelocity( CharacterController.Velocity );
 		AnimationHelper.AimAngle = EyeAngles.ToRotation();
-		AnimationHelper.IsGrounded = IsOnGround;
+		AnimationHelper.IsGrounded = IsOnGround || IsClimbingLadder;
 		AnimationHelper.WithLook( EyeAngles.ToRotation().Forward, 1f, 0.75f, 0.5f );
 		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 		AnimationHelper.DuckLevel = IsCrouching ? 1 : 0;
@@ -336,7 +342,7 @@ public partial class PlayerBase
 			stickyActiveButtons.Remove( InputButtonHelper.Duck );
 		}
 
-		if ( duckIsDownOrPressed && !IsCrouching && !IsRunning && IsOnGround )
+		if ( duckIsDownOrPressed && !IsCrouching && !IsRunning && IsOnGround && !IsClimbingLadder )
 		{
 			IsCrouching = true;
 			CharacterController.Height /= 2f;
@@ -409,51 +415,32 @@ public partial class PlayerBase
 			.Run();
 	}
 
-	public virtual void PlayFootstepSound( Surface surface, FootstepEvent footstepEvent )
+	public void PlaySoundEvent( Sandbox.SoundEvent soundEvent, string fallback, float dist )
 	{
 		SoundHandle soundHandle = null;
 
-		if ( surface.SoundCollection.FootRight is not null )
-		{
-			var sound = surface.SoundCollection.FootRight;
-			sound.Distance = 7500;
-			sound.Volume = footstepEvent.Volume;
-			soundHandle = Sound.Play( sound );
-		}
+		if ( soundEvent is not null )
+			soundHandle = Sound.Play( soundEvent );
 
-		soundHandle ??= Sound.Play( "footstep-concrete" );
+		soundHandle ??= Sound.Play( fallback );
+		soundHandle.Distance = dist;
 		soundHandle.Position = WorldPosition;
+	}
+
+	public virtual void PlayFootstepSound( Surface surface, FootstepEvent footstepEvent )
+	{
+		PlaySoundEvent( surface?.SoundCollection.FootRight, "footstep-concrete", 7500 );
 	}
 
 	[Rpc.Broadcast( NetFlags.Unreliable )]
 	public virtual void PlayFootLaunchSound( Surface surface, Vector3 velocity )
 	{
-		SoundHandle soundHandle = null;
-
-		if ( surface.SoundCollection.FootLaunch is not null )
-		{
-			var sound = surface.SoundCollection.FootLaunch;
-			sound.Distance = 7500;
-			soundHandle = Sound.Play( sound );
-		}
-
-		soundHandle ??= Sound.Play( "footstep-concrete-jump" );
-		soundHandle.Position = WorldPosition;
+		PlaySoundEvent( surface?.SoundCollection.FootLaunch, "footstep-concrete-jump", 7500 );
 	}
 
 	public virtual void PlayFootLandSound( Surface surface, Vector3 velocity )
 	{
-		SoundHandle soundHandle = null;
-
-		if ( surface.SoundCollection.FootLand is not null )
-		{
-			var sound = surface.SoundCollection.FootLand;
-			sound.Distance = 10000;
-			soundHandle = Sound.Play( sound );
-		}
-
-		soundHandle ??= Sound.Play( "footstep-concrete-land" );
-		soundHandle.Position = WorldPosition;
+		PlaySoundEvent( surface?.SoundCollection.FootLand, "footstep-concrete-land", 10000 );
 	}
 
 	public virtual void DoFallDamage( Vector3 impactVelocity )
