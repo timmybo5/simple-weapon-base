@@ -120,6 +120,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		var attachmentRenderer = attachmentGO.Components.Create<SkinnedModelRenderer>( false );
 		attachmentRenderer.Model = Model.Load( ModelPath );
 		attachmentRenderer.Enabled = true;
+		attachmentRenderer.CreateAttachments = true;
 
 		if ( isViewModel )
 		{

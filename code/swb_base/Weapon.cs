@@ -353,6 +353,7 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelRenderer.Model = ViewModel;
 			ViewModelRenderer.AnimationGraph = ViewModel.AnimGraph;
 			ViewModelRenderer.CreateBoneObjects = true;
+			ViewModelRenderer.CreateAttachments = true;
 			ViewModelRenderer.Enabled = false;
 			ViewModelRenderer.OnComponentEnabled += async () =>
 			{
@@ -415,6 +416,7 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer.Model = WorldModel;
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
 			WorldModelRenderer.CreateBoneObjects = true;
+			WorldModelRenderer.CreateAttachments = true;
 
 			async void OnComponentEnabled()
 			{

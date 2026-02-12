@@ -171,8 +171,8 @@ public partial class Weapon
 		var shootInfo = GetShootInfo( isPrimary );
 		if ( shootInfo is null ) return;
 
+		var muzzleObj = GetMuzzleObject();
 		var scale = CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
-		var muzzleTransform = GetMuzzleTransform();
 
 		// Bullet eject
 		if ( shootInfo.BulletEjectParticle is not null )
@@ -200,30 +200,16 @@ public partial class Weapon
 			}
 		}
 
-		if ( !muzzleTransform.HasValue ) return;
-
+		if ( muzzleObj is null ) return;
 		var muzzleScale = CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMMuzzleParticleScale;
 
 		// Muzzle flash
 		if ( shootInfo.MuzzleFlashParticle is not null )
-			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleTransform.Value, muzzleScale, ( particle ) => ParticleToMuzzleTrans( particle ) );
+			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleObj, muzzleScale );
 
 		// Barrel smoke
 		if ( !IsProxy && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
-			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleTransform.Value, muzzleScale, ( particles ) => ParticleToMuzzleTrans( particles ) );
-	}
-
-	void ParticleToMuzzleTrans( GameObject particle )
-	{
-		if ( !particle.IsValid() || !this.IsValid() || !Owner.IsValid() ) return;
-		var muzzleTransform = GetMuzzleTransform();
-		if ( !muzzleTransform.HasValue )
-		{
-			particle.Destroy();
-			return;
-		}
-		particle.WorldPosition = muzzleTransform.Value.Position; // + Owner.Velocity * 0.03f;particles?.Delete();
-		particle.WorldRotation = muzzleTransform.Value.Rotation;
+			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleObj, muzzleScale );
 	}
 
 	/// <summary>Create a bullet impact effect</summary>
@@ -281,27 +267,36 @@ public partial class Weapon
 			transform = transform.Value.WithRotation( newRot );
 		}
 
-		CreateParticle( particle, transform.Value, scale, OnParticleCreated );
+		CreateParticle( particle, null, transform.Value, scale, OnParticleCreated );
 	}
 
 	/// <summary>Create a weapon particle</summary>
-	public virtual void CreateParticle( GameObject particle, float scale, Action<GameObject> OnParticleCreated = null )
+	public virtual void CreateParticle( GameObject particle, GameObject parent, float scale, Action<GameObject> OnParticleCreated = null )
 	{
-		CreateParticle( particle, new Transform(), scale, OnParticleCreated );
+		CreateParticle( particle, parent, new Transform(), scale, OnParticleCreated );
 	}
 
 	/// <summary>Create a weapon particle</summary>
 	public virtual void CreateParticle( GameObject particle, Transform transform, float scale, Action<GameObject> OnParticleCreated = null )
 	{
-		var go = particle.Clone( transform.WithScale( scale ) );
+		CreateParticle( particle, null, transform, scale, OnParticleCreated );
+	}
+
+	/// <summary>Create a weapon particle</summary>
+	public virtual void CreateParticle( GameObject particle, GameObject parent, Transform transform, float scale, Action<GameObject> OnParticleCreated = null )
+	{
+		var go = particle.Clone( transform.WithScale( scale ), parent );
 
 		if ( CanSeeViewModel )
 			go.Tags.Add( TagsHelper.ViewModel );
 
-		var p = go.GetComponentInChildren<ParticleEffect>();
-		p.OnParticleCreated += ( p ) =>
+		if ( OnParticleCreated is not null )
 		{
-			OnParticleCreated?.Invoke( go );
-		};
+			var p = go.GetComponentInChildren<ParticleEffect>();
+			p.OnParticleCreated += ( p ) =>
+			{
+				OnParticleCreated.Invoke( go );
+			};
+		}
 	}
 }

@@ -17,9 +17,9 @@ public partial class Weapon
 	}
 
 	/// <summary>
-	/// Gets the info on where to show the muzzle effect
+	/// Gets the visible muzzle renderer and attachment name
 	/// </summary>
-	public virtual Transform? GetMuzzleTransform()
+	public virtual (SkinnedModelRenderer, string) GetMuzzleEffectDetails()
 	{
 		var activeAttachment = GetActiveAttachmentForCategory( AttachmentCategory.Muzzle );
 		var effectRenderer = GetEffectRenderer();
@@ -40,7 +40,25 @@ public partial class Weapon
 			}
 		}
 
-		return effectRenderer?.GetAttachment( effectAttachment );
+		return (effectRenderer, effectAttachment);
+	}
+
+	/// <summary>
+	/// Gets the muzzle attachment transform
+	/// </summary>
+	public virtual Transform? GetMuzzleTransform()
+	{
+		var muzzleDetails = GetMuzzleEffectDetails();
+		return muzzleDetails.Item1?.GetAttachment( muzzleDetails.Item2 );
+	}
+
+	/// <summary>
+	/// Gets the muzzle attachment gameobject
+	/// </summary>
+	public virtual GameObject GetMuzzleObject()
+	{
+		var muzzleDetails = GetMuzzleEffectDetails();
+		return muzzleDetails.Item1?.GetAttachmentObject( muzzleDetails.Item2 );
 	}
 
 	/// <summary>

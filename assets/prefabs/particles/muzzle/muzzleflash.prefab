@@ -1,7 +1,7 @@
 {
   "RootObject": {
     "__guid": "e4aa3cd0-27bf-45d0-8efe-ead35e78b763",
-    "__version": 1,
+    "__version": 2,
     "Flags": 0,
     "Name": "muzzleflash",
     "Position": "0,0,0",
@@ -10,14 +10,16 @@
     "Tags": "particles",
     "Enabled": true,
     "NetworkMode": 0,
-    "NetworkInterpolation": true,
+    "NetworkFlags": 0,
     "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
     "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "TemporaryEffect",
         "__guid": "cb042a47-f116-4b7b-b6d4-c0f8c7f8cce4",
         "__enabled": true,
+        "Flags": 0,
         "BecomeOrphan": false,
         "DestroyAfterSeconds": 0,
         "OnComponentDestroy": null,
@@ -32,7 +34,7 @@
     "Children": [
       {
         "__guid": "1a8076d4-8bf2-4025-ad8e-7e6e56b7f366",
-        "__version": 1,
+        "__version": 2,
         "Flags": 0,
         "Name": "FlashParticle",
         "Position": "0,0,0",
@@ -41,14 +43,16 @@
         "Tags": "",
         "Enabled": true,
         "NetworkMode": 0,
-        "NetworkInterpolation": true,
+        "NetworkFlags": 0,
         "NetworkOrphaned": 0,
+        "NetworkTransmit": true,
         "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Sandbox.ParticleEffect",
             "__guid": "d5800a35-ab16-4ce9-825f-7a83a91143a9",
             "__enabled": true,
+            "Flags": 0,
             "__version": 3,
             "Alpha": 0.75,
             "ApplyAlpha": true,
@@ -122,7 +126,7 @@
               "Z": 0
             },
             "Lifetime": 0.1,
-            "LocalSpace": 0,
+            "LocalSpace": 1,
             "MaxParticles": 6,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -156,6 +160,7 @@
             "SequenceSpeed": 0.1,
             "SequenceTime": 0.1,
             "SheetSequence": true,
+            "SnapToFrame": false,
             "StartDelay": 0,
             "StartVelocity": {
               "Type": "Range",
@@ -173,6 +178,7 @@
             "__type": "Sandbox.ParticleConeEmitter",
             "__guid": "2de591f5-9d89-4670-b6a4-46f0addb69b6",
             "__enabled": true,
+            "Flags": 0,
             "Burst": 10,
             "CenterBias": 0,
             "CenterBiasVelocity": 0,
@@ -204,6 +210,7 @@
             "__type": "Sandbox.ParticleSpriteRenderer",
             "__guid": "30ddaa41-9349-405a-a436-2ce7d02a8fbd",
             "__enabled": true,
+            "Flags": 0,
             "__version": 2,
             "Additive": true,
             "Alignment": "LookAtCamera",
@@ -223,6 +230,7 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "Opaque": false,
+            "PlaybackSpeed": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -245,7 +253,8 @@
                     "LoopMode": "Loop",
                     "Frames": [
                       {
-                        "Texture": "particles/swb/muzzle/flash.vtex"
+                        "Texture": "particles/swb/muzzle/flash.vtex",
+                        "BroadcastMessages": []
                       }
                     ]
                   }
@@ -261,6 +270,7 @@
             "__type": "Sandbox.ParticleLightRenderer",
             "__guid": "90670023-6207-4f12-af51-2c7cb54d1893",
             "__enabled": true,
+            "Flags": 0,
             "Attenuation": 1,
             "Brightness": 1,
             "CastShadows": true,
@@ -306,7 +316,7 @@
       },
       {
         "__guid": "e9f196e5-3ae8-4d01-999c-69856440714c",
-        "__version": 1,
+        "__version": 2,
         "Flags": 0,
         "Name": "SmokeParticle",
         "Position": "0,0,0",
@@ -315,14 +325,16 @@
         "Tags": "",
         "Enabled": true,
         "NetworkMode": 0,
-        "NetworkInterpolation": true,
+        "NetworkFlags": 0,
         "NetworkOrphaned": 0,
+        "NetworkTransmit": true,
         "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Sandbox.ParticleEffect",
             "__guid": "c257797c-09b4-4d66-90bf-8110a980e5af",
             "__enabled": true,
+            "Flags": 0,
             "__version": 3,
             "Alpha": 1,
             "ApplyAlpha": false,
@@ -473,6 +485,7 @@
             "SequenceSpeed": 0.1,
             "SequenceTime": 0.1,
             "SheetSequence": true,
+            "SnapToFrame": false,
             "StartDelay": 0,
             "StartVelocity": {
               "Type": "Range",
@@ -490,6 +503,7 @@
             "__type": "Sandbox.ParticleConeEmitter",
             "__guid": "184cf206-7fad-4f3a-879c-025e7d25a885",
             "__enabled": true,
+            "Flags": 0,
             "Burst": 10,
             "CenterBias": 0,
             "CenterBiasVelocity": 0,
@@ -517,6 +531,7 @@
             "__type": "Sandbox.ParticleSpriteRenderer",
             "__guid": "27111454-a63a-49fe-a7cc-2fd7ce3df0ba",
             "__enabled": true,
+            "Flags": 0,
             "__version": 2,
             "Additive": false,
             "Alignment": "LookAtCamera",
@@ -536,6 +551,7 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "Opaque": false,
+            "PlaybackSpeed": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -558,7 +574,8 @@
                     "LoopMode": "Loop",
                     "Frames": [
                       {
-                        "Texture": "particles/swb/muzzle/flash.vtex"
+                        "Texture": "particles/swb/muzzle/flash.vtex",
+                        "BroadcastMessages": []
                       }
                     ]
                   }
@@ -575,7 +592,7 @@
       },
       {
         "__guid": "0684c4ca-aac7-4668-b1a1-4813f2f59198",
-        "__version": 1,
+        "__version": 2,
         "Flags": 0,
         "Name": "SparksParticle",
         "Position": "0,0,0",
@@ -584,14 +601,16 @@
         "Tags": "",
         "Enabled": true,
         "NetworkMode": 2,
-        "NetworkInterpolation": true,
+        "NetworkFlags": 0,
         "NetworkOrphaned": 0,
+        "NetworkTransmit": true,
         "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Sandbox.ParticleEffect",
             "__guid": "f7ae0c5c-aa7f-4604-b1f8-e7fa259f5c30",
             "__enabled": true,
+            "Flags": 0,
             "__version": 3,
             "Alpha": {
               "Type": "Range",
@@ -760,7 +779,7 @@
               "Z": 0
             },
             "Lifetime": 1,
-            "LocalSpace": 1,
+            "LocalSpace": 0,
             "MaxParticles": 3,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -773,18 +792,18 @@
             "OrbitalForce": {
               "X": {
                 "Type": "Range",
-                "Evaluation": "Seed",
-                "Constants": "-60,60,0,0"
+                "Evaluation": "Frame",
+                "Constants": "-90,90,0,0"
               },
               "Y": {
                 "Type": "Range",
                 "Evaluation": "Seed",
-                "Constants": "-60,60,0,0"
+                "Constants": "-90,90,0,0"
               },
               "Z": {
                 "Type": "Range",
                 "Evaluation": "Seed",
-                "Constants": "-60,60,0,0"
+                "Constants": "-90,90,0,0"
               }
             },
             "OrbitalPull": 0,
@@ -836,6 +855,7 @@
             "SequenceSpeed": 1,
             "SequenceTime": 1,
             "SheetSequence": false,
+            "SnapToFrame": false,
             "StartDelay": 0,
             "StartVelocity": 0,
             "Stretch": 0,
@@ -849,6 +869,7 @@
             "__type": "Sandbox.ParticleSpriteRenderer",
             "__guid": "4112d269-60f7-498f-974d-a142b8959e35",
             "__enabled": true,
+            "Flags": 0,
             "__version": 2,
             "Additive": false,
             "Alignment": "LookAtCamera",
@@ -868,6 +889,7 @@
             "OnComponentStart": null,
             "OnComponentUpdate": null,
             "Opaque": false,
+            "PlaybackSpeed": 1,
             "RenderOptions": {
               "GameLayer": true,
               "OverlayLayer": false,
@@ -890,7 +912,8 @@
                     "LoopMode": "Loop",
                     "Frames": [
                       {
-                        "Texture": "particles/swb/muzzle/flare.vtex"
+                        "Texture": "particles/swb/muzzle/flare.vtex",
+                        "BroadcastMessages": []
                       }
                     ]
                   }
@@ -906,6 +929,7 @@
             "__type": "Sandbox.ParticleConeEmitter",
             "__guid": "f981bdc1-ddc4-492d-8363-b78550bd8803",
             "__enabled": true,
+            "Flags": 0,
             "Burst": 3,
             "CenterBias": 0,
             "CenterBiasVelocity": 0,
@@ -937,6 +961,7 @@
             "__type": "Sandbox.ParticleTrailRenderer",
             "__guid": "c458e852-33cc-4564-a59e-df7b0ca822e2",
             "__enabled": true,
+            "Flags": 0,
             "BlendMode": "Lighten",
             "CastShadows": false,
             "Color": {
@@ -982,6 +1007,8 @@
               "Scale": 1,
               "Offset": 0,
               "Scroll": 0,
+              "FilterMode": "Anisotropic",
+              "TextureAddressMode": "Wrap",
               "Clamp": false
             },
             "TintFromParticle": false,
@@ -1010,6 +1037,7 @@
             "__type": "SWB.Base.Particles.ParticleCount",
             "__guid": "609d1225-a72a-43f3-87a0-029b73b5f875",
             "__enabled": true,
+            "Flags": 0,
             "Max": 3,
             "Min": -3,
             "OnComponentDestroy": null,
@@ -1032,7 +1060,7 @@
         "Enabled": false,
         "IncludeStaticBodies": true,
         "IncludeKeyframedBodies": true,
-        "EditorAutoUpdate": true,
+        "EditorAutoUpdate": false,
         "AgentHeight": 64,
         "AgentRadius": 16,
         "AgentStepSize": 18,
