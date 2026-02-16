@@ -190,44 +190,32 @@ public partial class PlayerBase
 		if ( activeLadder is null ) return;
 
 		var lb = activeLadder.GetWorldBounds();
-		var pb = CharacterController.BoundingBox;
-		var pc = pb.Center;
-		var pe = (pb.Size * 0.5f);
+		var pe = CharacterController.BoundingBox.Size * 0.5f;
+		var pos = WorldPosition;
 
-		// Use view yaw to decide whether front/back is X or Y (prevents side snapping)
-		var viewFwd = Camera.WorldRotation.Forward.WithZ( 0 );
-		if ( viewFwd.IsNearZeroLength ) viewFwd = Vector3.Forward;
-		else viewFwd = viewFwd.Normal;
+		// Climable side
+		var snapX = lb.Size.x < lb.Size.y;
 
-		var useX = MathF.Abs( viewFwd.x ) >= MathF.Abs( viewFwd.y );
-		var targetCenter = pc;
-
-		if ( useX )
+		if ( snapX )
 		{
-			// Choose the X face that is FARTHER from the player center
-			var dMin = MathF.Abs( pc.x - lb.Mins.x );
-			float dMax = MathF.Abs( pc.x - lb.Maxs.x );
-
-			if ( dMin >= dMax )
-				targetCenter.x = (lb.Mins.x - gap) - pe.x; // snap to mins.x face
+			// Rel pos to ladder
+			var midX = (lb.Mins.x + lb.Maxs.x) * 0.5f;
+			if ( pos.x < midX )
+				pos.x = lb.Mins.x + gap + pe.x;   // left
 			else
-				targetCenter.x = (lb.Maxs.x + gap) + pe.x; // snap to maxs.x face
+				pos.x = lb.Maxs.x - gap - pe.x;   // right
 		}
 		else
 		{
-			// Choose the Y face that is FARTHER from the player center
-			var dMin = MathF.Abs( pc.y - lb.Mins.y );
-			var dMax = MathF.Abs( pc.y - lb.Maxs.y );
-
-			if ( dMin >= dMax )
-				targetCenter.y = (lb.Mins.y - gap) - pe.y; // snap to mins.y face
+			// Rel pos to ladder
+			var midY = (lb.Mins.y + lb.Maxs.y) * 0.5f;
+			if ( pos.y < midY )
+				pos.y = lb.Mins.y + gap + pe.y;   // bottom
 			else
-				targetCenter.y = (lb.Maxs.y + gap) + pe.y; // snap to maxs.y face
+				pos.y = lb.Maxs.y - gap - pe.y;   // top
 		}
 
-		// Delta between current and desired bounds center
-		var delta = targetCenter - pc;
-		CharacterController.MoveTo( WorldPosition + delta, useStep: false );
+		CharacterController.MoveTo( pos, useStep: false );
 		CharacterController.Velocity = Vector3.Zero;
 	}
 
