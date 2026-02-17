@@ -95,14 +95,14 @@ public class Chatbox : Panel
 	[ConCmd( "say", Help = "Send a chat message" )]
 	public static void Say( string msg )
 	{
-		var player = PlayerBase.GetLocal();
+		var player = PlayerBase.Local;
 		SendMsg( player.GameObject.Id, msg );
 	}
 
 	[Rpc.Broadcast]
 	public static void SendMsg( Guid senderId, string msg )
 	{
-		var player = PlayerBase.GetLocal();
+		var player = PlayerBase.Local;
 		if ( player is null ) return;
 
 		var rootDisplay = player.RootDisplay as RootDisplay;

@@ -52,7 +52,7 @@ public class DemoPlayer : PlayerBase
 	{
 		base.OnDeath( info );
 
-		var localPly = PlayerBase.GetLocal();
+		var localPly = PlayerBase.Local;
 		if ( localPly is null ) return;
 
 		var display = localPly.RootDisplay as RootDisplay;
@@ -72,7 +72,7 @@ public class DemoPlayer : PlayerBase
 		base.TakeDamage( info );
 
 		// Attacker only
-		var localPly = PlayerBase.GetLocal();
+		var localPly = PlayerBase.Local;
 		if ( info.Attacker is null || localPly is null || !localPly.IsAlive || localPly.GameObject.Id != info.Attacker.Id ) return;
 
 		var display = localPly.RootDisplay as RootDisplay;
@@ -94,7 +94,7 @@ public class DemoPlayer : PlayerBase
 		// Customization
 		if ( Input.Pressed( InputButtonHelper.View ) && timeSincePerspectiveSwitch > 0.5 )
 		{
-			var localPly = PlayerBase.GetLocal();
+			var localPly = PlayerBase.Local;
 			if ( localPly is null || !localPly.IsAlive ) return;
 
 			var activeWep = localPly.Inventory.Active.GetComponent<Weapon>();

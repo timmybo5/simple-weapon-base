@@ -10,7 +10,7 @@ internal class Commands
 	[ConCmd( "swb_editor_offsets", Help = "Opens the offsets editor" )]
 	public static void OpenOffsetsEditor()
 	{
-		var player = PlayerBase.GetLocal();
+		var player = PlayerBase.Local;
 		var weaponGO = player.Inventory.Active;
 		var weapon = weaponGO.Components.Get<Weapon>();
 

@@ -10,19 +10,21 @@ namespace SWB.Base;
 [Title( "Weapon Registry" )]
 public class WeaponRegistry : Component
 {
+	public static WeaponRegistry Instance { get; private set; }
+
 	[Property] public List<PrefabScene> WeaponPrefabs { get; set; } = new();
 	public Dictionary<string, Weapon> Weapons { get; set; } = new();
 
-	static public WeaponRegistry Instance
+	protected override void OnDestroy()
 	{
-		get
-		{
-			return Game.ActiveScene.Components.GetInChildren<WeaponRegistry>();
-		}
+		if ( Instance == this )
+			Instance = null;
 	}
 
 	protected override void OnAwake()
 	{
+		Instance = this;
+
 		WeaponPrefabs.ForEach( weaponPrefab =>
 		{
 			CloneConfig config = new()

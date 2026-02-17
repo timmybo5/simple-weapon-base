@@ -9,6 +9,9 @@ namespace SWB.Player;
 [Title( "PlayerBase" )]
 public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBase
 {
+	public static PlayerBase Local { get; private set; }
+	public static List<PlayerBase> All { get; private set; } = new();
+
 	[Property] public GameObject Head { get; set; }
 	[Property] public GameObject Body { get; set; }
 	[Property] public SkinnedModelRenderer BodyRenderer { get; set; }
@@ -49,6 +52,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	protected override void OnAwake()
 	{
+		All.Add( this );
 		Inventory = Components.Create<Inventory>();
 		CameraMovement = Components.GetInChildren<CameraMovement>();
 		OnMovementAwake();
@@ -59,16 +63,9 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			BodyRenderer.ClearParameters();
 		};
 
-		if ( IsBot ) return;
-
 		// Hack: Hide client until fully loaded in OnStart
-		if ( !IsProxy )
-		{
-			OnInputDeviceSwitch();
-
-			WorldPosition = new( 0, 0, -999999 );
-			Network.ClearInterpolation();
-		}
+		WorldPosition = new( 0, 0, -999999 );
+		Network.ClearInterpolation();
 	}
 
 	public virtual void OnNetworkSpawn( Connection connection ) { }
@@ -77,10 +74,21 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	{
 		if ( RagdollGO.IsValid() )
 			RagdollGO.Destroy();
+
+		if ( Local == this )
+			Local = null;
+
+		All.Remove( this );
 	}
 
 	protected override void OnStart()
 	{
+		if ( !IsProxy && !IsBot )
+		{
+			Local = this;
+			OnInputDeviceSwitch();
+		}
+
 		ApplyClothes();
 
 		if ( IsProxy || IsBot )
@@ -271,16 +279,5 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 	public void ParentToBone( GameObject weaponObject, string boneName )
 	{
 		ModelUtil.ParentToBone( weaponObject, BodyRenderer, boneName );
-	}
-
-	public static PlayerBase GetLocal()
-	{
-		var players = GetAll();
-		return players.FirstOrDefault( ( player ) => !player.IsProxy && !player.IsBot, null );
-	}
-
-	public static IEnumerable<PlayerBase> GetAll()
-	{
-		return Game.ActiveScene.GetAllComponents<PlayerBase>();
 	}
 }

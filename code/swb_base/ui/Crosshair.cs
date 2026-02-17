@@ -1,7 +1,6 @@
 ﻿using Sandbox.UI;
 using SWB.Shared;
 using System;
-using System.Threading.Tasks;
 
 namespace SWB.Base.UI;
 
@@ -22,10 +21,13 @@ public class Crosshair : Panel
 	int fireOffset = 50;
 
 	bool wasAiming = false;
+	TimeUntil timeUntilRestore;
 
 	public Crosshair( Weapon weapon )
 	{
 		this.weapon = weapon;
+		timeUntilRestore = 9999;
+
 		StyleSheet.Load( "/swb_base/ui/Crosshair.cs.scss" );
 
 		centerDot = Add.Panel( "centerDot" );
@@ -38,15 +40,6 @@ public class Crosshair : Panel
 		rightBar.AddClass( "sharedBarStyling" );
 		topBar.AddClass( "sharedBarStyling" );
 		bottomBar.AddClass( "sharedBarStyling" );
-	}
-
-	private void UpdateCrosshair()
-	{
-		centerDot.Style.Dirty();
-		leftBar.Style.Dirty();
-		rightBar.Style.Dirty();
-		topBar.Style.Dirty();
-		bottomBar.Style.Dirty();
 	}
 
 	private void RestoreBarPositions()
@@ -80,14 +73,21 @@ public class Crosshair : Panel
 		var shouldHide = !isValidWeapon || weapon.IsScoping || weapon.IsCustomizing;
 
 		SetClass( "hideCrosshair", shouldHide );
+		if ( shouldHide ) return;
+
+		// Fireoffset restore
+		if ( timeUntilRestore )
+		{
+			RestoreBarPositions();
+			RestoreCrosshairOpacity();
+			timeUntilRestore = 9999;
+		}
 
 		centerDot.SetClass( "hideCrosshair", !crosshairSettings.ShowDot );
 		leftBar.SetClass( "hideCrosshair", !crosshairSettings.ShowLeft );
 		rightBar.SetClass( "hideCrosshair", !crosshairSettings.ShowRight );
 		topBar.SetClass( "hideCrosshair", !crosshairSettings.ShowTop );
 		bottomBar.SetClass( "hideCrosshair", !crosshairSettings.ShowBottom );
-
-		if ( shouldHide ) return;
 
 		// Crosshair spread offset
 		var screenOffset = Math.Max( spreadOffset * weapon.GetRealSpread(), 2f );
@@ -122,8 +122,6 @@ public class Crosshair : Panel
 			RestoreBarPositions();
 			RestoreCrosshairOpacity();
 		}
-
-		UpdateCrosshair();
 	}
 
 	[PanelEvent( "shoot" )]
@@ -135,13 +133,6 @@ public class Crosshair : Panel
 		topBar.Style.Top = -fireOffset;
 		bottomBar.Style.Top = fireOffset - 5;
 
-		_ = FireDelay( fireDelay / 2 );
-	}
-
-	private async Task FireDelay( float delay )
-	{
-		await GameTask.DelaySeconds( delay );
-		RestoreBarPositions();
-		RestoreCrosshairOpacity();
+		timeUntilRestore = fireDelay / 2;
 	}
 }
