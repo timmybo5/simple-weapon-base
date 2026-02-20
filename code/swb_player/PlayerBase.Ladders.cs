@@ -62,7 +62,7 @@ public partial class PlayerBase
 	[Rpc.Broadcast( NetFlags.Unreliable )]
 	public virtual void PlayLadderClimbSound( Surface surface, Vector3 velocity )
 	{
-		PlaySoundEvent( surface?.SoundCollection.FootLaunch, "footstep-metal", 7500 );
+		PlaySoundEvent( surface?.SoundCollection.FootRight, "footstep-metal", 7500 );
 	}
 
 	void LadderMove()

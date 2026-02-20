@@ -359,13 +359,13 @@ public partial class PlayerBase
 		if ( IsCrouching && (!duckIsDownOrPressed || !IsOnGround) )
 		{
 			// Check we have space to uncrouch
-			var targetHeight = CharacterController.Height * 2f;
+			var targetHeight = CharacterController.Height + 4;
 			var upTrace = CharacterController.TraceDirection( Vector3.Up * targetHeight );
 
 			if ( !upTrace.Hit )
 			{
 				IsCrouching = false;
-				CharacterController.Height = targetHeight;
+				CharacterController.Height *= 2;
 				BodyCollider.End = BodyCollider.End.WithZ( BodyCollider.End.z * 2f );
 			}
 		}

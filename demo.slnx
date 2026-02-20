@@ -2,15 +2,15 @@
   <Configurations>
     <Platform Name="Any CPU" />
   </Configurations>
-  <Project Path="Code/demo.csproj" />
+  <Project Path="code/demo.csproj" />
   <Folder Name="/Addons/">
-    <Project Path="D:/SteamLibrary/steamapps/common/sbox/addons/base/Code/Base Library.csproj" />
+    <Project Path="../base/code/Base Library.csproj" />
   </Folder>
   <Folder Name="/Tools/">
-    <Project Path="D:/SteamLibrary/steamapps/common/sbox/addons/tools/Code/Base Editor Library.csproj" />
-    <Project Path="D:/SteamLibrary/steamapps/common/sbox/editor/ActionGraph/Code/actiongraph.csproj" />
-    <Project Path="D:/SteamLibrary/steamapps/common/sbox/editor/Hammer/Code/hammer.csproj" />
-    <Project Path="D:/SteamLibrary/steamapps/common/sbox/editor/MovieMaker/Code/moviemaker.csproj" />
-    <Project Path="D:/SteamLibrary/steamapps/common/sbox/editor/ShaderGraph/Code/shadergraph.csproj" />
+    <Project Path="../../editor/ActionGraph/Code/actiongraph.csproj" />
+    <Project Path="../../editor/Hammer/Code/hammer.csproj" />
+    <Project Path="../../editor/MovieMaker/Code/moviemaker.csproj" />
+    <Project Path="../../editor/ShaderGraph/Code/shadergraph.csproj" />
+    <Project Path="../tools/Code/Base Editor Library.csproj" />
   </Folder>
 </Solution>

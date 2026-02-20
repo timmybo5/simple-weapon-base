@@ -15,6 +15,15 @@ public class WeaponRegistry : Component
 	[Property] public List<PrefabScene> WeaponPrefabs { get; set; } = new();
 	public Dictionary<string, Weapon> Weapons { get; set; } = new();
 
+	/// <summary>Instance is not guaranteed to be available if called too early, this it but it is costly</summary>
+	public static WeaponRegistry ExpensiveInstance
+	{
+		get
+		{
+			return Game.ActiveScene.Components.GetInChildren<WeaponRegistry>();
+		}
+	}
+
 	protected override void OnDestroy()
 	{
 		if ( Instance == this )
