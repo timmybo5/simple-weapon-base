@@ -101,8 +101,18 @@ public partial class Weapon
 		// Barrel smoke
 		barrelHeat += 1;
 
-		// Recoil
-		Owner.ApplyEyeAnglesOffset( GetRecoilAngles( shootInfo ) );
+		// Recoil / AimPunch
+		var recoilAngles = GetRecoilAngles( shootInfo );
+		if ( shootInfo.UseAimPunch )
+		{
+			// Apply aimpunch (camera recoil with recovery)
+			Owner.ApplyAimPunch( recoilAngles, shootInfo.AimPunchRecoverySpeed );
+		}
+		else
+		{
+			// Apply instant recoil (legacy behavior)
+			Owner.ApplyEyeAnglesOffset( recoilAngles );
+		}
 
 		// Screenshake
 		if ( shootInfo.ScreenShake is not null )

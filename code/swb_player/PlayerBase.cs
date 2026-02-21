@@ -238,6 +238,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 			ViewModelCamera.Enabled = IsFirstPerson && IsAlive;
 			HandleFlinch();
 			HandleScreenShake();
+			HandleAimPunch();
 		}
 
 		if ( IsAlive )
@@ -273,7 +274,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public void ApplyEyeAnglesOffset( Angles offset )
 	{
-		CameraMovement?.EyeAnglesOffset += offset;
+		if ( CameraMovement is null ) return;
+		CameraMovement.EyeAnglesOffset += offset;
 	}
 
 	public void ParentToBone( GameObject weaponObject, string boneName )

@@ -56,6 +56,9 @@ public class Inventory : Component, IInventory
 			oldActive.OnCarryStop();
 		}
 
+		// Reset aimpunch when switching weapons
+		player?.ResetAimPunch();
+
 		if ( gameObject.Components.TryGet<IInventoryItem>( out var newActive, FindMode.EverythingInSelf ) )
 		{
 			newActive.OnCarryStart();

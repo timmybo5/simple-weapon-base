@@ -67,6 +67,12 @@ public class ShootInfo : Component
 	/// <summary>Weapon recoil</summary>
 	[Property, Group( "Bullets" )] public float Recoil { get; set; } = 0.1f;
 
+	/// <summary>Enable aimpunch (camera recoil with recovery)</summary>
+	[Property, Group( "Bullets" )] public bool UseAimPunch { get; set; } = false;
+
+	/// <summary>Aimpunch recovery speed (higher = faster recovery)</summary>
+	[Property, Group( "Bullets" )] public float AimPunchRecoverySpeed { get; set; } = 5f;
+
 	/// <summary>Rate Per Minute, firing speed (higher is faster)</summary>
 	[Property, Group( "Bullets" )] public int RPM { get; set; } = 200;
 

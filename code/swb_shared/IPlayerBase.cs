@@ -121,6 +121,14 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	public void ApplyEyeAnglesOffset( Angles offset );
 
 	/// <summary>
+	/// Apply aimpunch (camera recoil with recovery) to the player's view.
+	/// Unlike ApplyEyeAnglesOffset, this will smoothly recover over time.
+	/// </summary>
+	/// <param name="punchAmount">The angular offset to apply</param>
+	/// <param name="recoverySpeed">How fast the camera recovers (higher = faster)</param>
+	public void ApplyAimPunch( Angles punchAmount, float recoverySpeed = 5f );
+
+	/// <summary>
 	/// Called when the weapon object should be attached/parented to the player's body
 	/// </summary>
 	/// <param name="object">The game object to parent</param>
