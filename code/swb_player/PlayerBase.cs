@@ -94,10 +94,16 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		if ( IsProxy || IsBot )
 		{
 			if ( Camera is not null )
+			{
 				Camera.Enabled = false;
+				Camera.GameObject.Enabled = false;
+			}
 
 			if ( ViewModelCamera is not null )
+			{
 				ViewModelCamera.Enabled = false;
+				ViewModelCamera.GameObject.Enabled = false;
+			}
 		}
 
 		if ( IsBot )
@@ -184,6 +190,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		Ammo.Clear();
 		Inventory.Clear();
 		Health = MaxHealth;
+		CharacterController.Velocity = Vector3.Zero;
+		WishVelocity = Vector3.Zero;
 
 		var spawnPos = Vector3.Zero;
 		var spawnRot = Rotation.Identity;

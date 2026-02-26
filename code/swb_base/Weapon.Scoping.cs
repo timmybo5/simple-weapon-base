@@ -11,7 +11,7 @@ public partial class Weapon
 		ViewModelHandler.ShouldDraw = false;
 
 		if ( ScopeInfo.ScopeInSound is not null )
-			PlaySound( ScopeInfo.ScopeInSound.ResourceId );
+			PlaySound( ScopeInfo.ScopeInSound );
 	}
 
 	public virtual void OnScopeEnd()
@@ -22,6 +22,6 @@ public partial class Weapon
 		ViewModelHandler.ShouldDraw = true;
 
 		if ( ScopeInfo.ScopeOutSound is not null )
-			PlaySound( ScopeInfo.ScopeOutSound.ResourceId );
+			PlaySound( ScopeInfo.ScopeOutSound );
 	}
 }

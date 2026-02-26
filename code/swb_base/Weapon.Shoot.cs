@@ -23,7 +23,7 @@ public partial class Weapon
 			if ( Input.Pressed( inputButton ) )
 			{
 				// Check for auto reloading
-				if ( Settings.AutoReload && lastAttackTime > GetRealRPM( shootInfo.RPM ) )
+				if ( Settings.AutoReload && Owner.AmmoCount( shootInfo.AmmoType ) > 0 && lastAttackTime > GetRealRPM( shootInfo.RPM ) )
 				{
 					TimeSincePrimaryShoot = 999;
 					TimeSinceSecondaryShoot = 999;
@@ -38,7 +38,7 @@ public partial class Weapon
 
 				// Dry fire
 				if ( shootInfo.DryShootSound is not null )
-					PlaySound( shootInfo.DryShootSound.ResourceId );
+					PlaySound( shootInfo.DryShootSound );
 			}
 
 			return false;
@@ -93,7 +93,7 @@ public partial class Weapon
 
 		// Sound
 		if ( shootInfo.ShootSound is not null )
-			PlaySound( shootInfo.ShootSound.ResourceId );
+			PlaySound( shootInfo.ShootSound );
 
 		// Particles
 		HandleShootEffects( isPrimary );

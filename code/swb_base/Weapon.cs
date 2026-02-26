@@ -147,7 +147,7 @@ public partial class Weapon : Component, IInventoryItem
 
 		// Sound
 		if ( !IsProxy && DeploySound is not null )
-			PlaySound( DeploySound.ResourceId );
+			PlaySound( DeploySound );
 
 		// Boltback
 		if ( InBoltBack )
@@ -443,12 +443,9 @@ public partial class Weapon : Component, IInventoryItem
 	}
 
 	[Rpc.Broadcast]
-	public void PlaySound( int resourceID )
+	public void PlaySound( SoundEvent sound )
 	{
-		if ( !this.IsValid() ) return;
-
-		var sound = ResourceLibrary.Get<SoundEvent>( resourceID );
-		if ( sound is null ) return;
+		if ( sound is null || !this.IsValid() ) return;
 
 		var isScreenSound = CanSeeViewModel;
 		sound.UI = isScreenSound;
