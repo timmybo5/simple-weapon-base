@@ -1,7 +1,7 @@
 {
   "RootObject": {
     "__guid": "6f96bfcb-f67b-443e-9d81-2bf6dda7c359",
-    "__version": 1,
+    "__version": 2,
     "Flags": 0,
     "Name": "shelleject_20mm",
     "Position": "0,0,0",
@@ -10,14 +10,17 @@
     "Tags": "",
     "Enabled": true,
     "NetworkMode": 2,
-    "NetworkInterpolation": true,
+    "NetworkFlags": 0,
     "NetworkOrphaned": 0,
+    "NetworkTransmit": true,
     "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "TemporaryEffect",
         "__guid": "749fa4a0-74f5-441f-8f9e-40522dab2ca7",
         "__enabled": true,
+        "Flags": 0,
+        "BecomeOrphan": false,
         "DestroyAfterSeconds": 0,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -31,7 +34,7 @@
     "Children": [
       {
         "__guid": "5f3224c6-b83e-458a-95b9-26e4516eb767",
-        "__version": 1,
+        "__version": 2,
         "Flags": 0,
         "Name": "ShellParticle",
         "Position": "0,0,0",
@@ -40,14 +43,16 @@
         "Tags": "particles",
         "Enabled": true,
         "NetworkMode": 2,
-        "NetworkInterpolation": true,
+        "NetworkFlags": 0,
         "NetworkOrphaned": 0,
+        "NetworkTransmit": true,
         "OwnerTransfer": 1,
         "Components": [
           {
             "__type": "Sandbox.ParticleEffect",
             "__guid": "8f465da2-2054-424f-98ec-b73c061e27b5",
             "__enabled": true,
+            "Flags": 0,
             "__version": 3,
             "Alpha": {
               "Type": "Curve",
@@ -139,7 +144,7 @@
             "FollowerPrefabChance": 1,
             "FollowerPrefabKill": true,
             "Force": true,
-            "ForceDirection": "10,0,0",
+            "ForceDirection": "20,0,0",
             "ForceScale": {
               "Type": "Range",
               "Evaluation": "Seed",
@@ -209,6 +214,7 @@
             "SequenceSpeed": 1,
             "SequenceTime": 1,
             "SheetSequence": false,
+            "SnapToFrame": false,
             "StartDelay": 0,
             "StartVelocity": 1,
             "Stretch": 0,
@@ -226,6 +232,7 @@
             "__type": "Sandbox.ParticleModelRenderer",
             "__guid": "bb8efc76-5759-40e9-aa92-0adc67325387",
             "__enabled": true,
+            "Flags": 0,
             "__version": 1,
             "CastShadows": true,
             "Choices": [
@@ -255,6 +262,7 @@
             "__type": "Sandbox.ParticleConeEmitter",
             "__guid": "9b0beb8d-54c2-4e73-bd99-510bc9381381",
             "__enabled": true,
+            "Flags": 0,
             "Burst": 1,
             "CenterBias": 0,
             "CenterBiasVelocity": 0,
@@ -282,8 +290,21 @@
             "__type": "SWB.Base.Particles.ParticleGravity",
             "__guid": "50a16eb4-0004-44f7-baa7-f9f34199c576",
             "__enabled": true,
+            "Flags": 0,
             "Direction": "Down",
             "Multiplier": 10,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
+          },
+          {
+            "__type": "SWB.Base.Particles.BulletEjectParticle",
+            "__guid": "c5145bff-1a2c-44a2-8532-0c4522300ffc",
+            "__enabled": true,
+            "Flags": 0,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
             "OnComponentEnabled": null,
@@ -304,7 +325,7 @@
         "Enabled": false,
         "IncludeStaticBodies": true,
         "IncludeKeyframedBodies": true,
-        "EditorAutoUpdate": true,
+        "EditorAutoUpdate": false,
         "AgentHeight": 64,
         "AgentRadius": 16,
         "AgentStepSize": 18,

@@ -1,4 +1,5 @@
-﻿using SWB.Shared;
+﻿using SWB.Base.Particles;
+using SWB.Shared;
 using System;
 using System.Collections.Generic;
 
@@ -171,9 +172,6 @@ public partial class Weapon
 		var shootInfo = GetShootInfo( isPrimary );
 		if ( shootInfo is null ) return;
 
-		var muzzleObj = GetMuzzleObject();
-		var scale = CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
-
 		// Bullet eject
 		if ( shootInfo.BulletEjectParticle is not null )
 		{
@@ -181,7 +179,7 @@ public partial class Weapon
 			{
 				if ( !ShellReloading || (ShellReloading && ShellEjectDelay == 0) )
 				{
-					CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale, attachmentYawOnly: true );
+					CreateBulletEjectParticle( shootInfo.BulletEjectParticle, "ejection_point" );
 				}
 				else
 				{
@@ -189,7 +187,7 @@ public partial class Weapon
 					{
 						await GameTask.DelaySeconds( ShellEjectDelay );
 						if ( !IsValid ) return;
-						CreateParticle( shootInfo.BulletEjectParticle, "ejection_point", scale, attachmentYawOnly: true );
+						CreateBulletEjectParticle( shootInfo.BulletEjectParticle, "ejection_point" );
 					};
 					delayedEject();
 				}
@@ -200,7 +198,9 @@ public partial class Weapon
 			}
 		}
 
+		var muzzleObj = GetMuzzleObject();
 		if ( muzzleObj is null ) return;
+
 		var muzzleScale = CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMMuzzleParticleScale;
 
 		// Muzzle flash
@@ -249,45 +249,58 @@ public partial class Weapon
 		return decalGO;
 	}
 
-	/// <summary>Create a weapon particle</summary>
-	public virtual void CreateParticle( GameObject particle, string attachment, float scale, Action<GameObject> OnParticleCreated = null, bool attachmentYawOnly = false )
+	/// <summary>Create a bullet eject particle (always world)</summary>
+	public virtual GameObject CreateBulletEjectParticle( GameObject particle, string attachment, Action<GameObject> OnParticleCreated = null )
 	{
 		var effectRenderer = GetEffectRenderer();
-		if ( effectRenderer is null || effectRenderer.SceneModel is null ) return;
+		if ( effectRenderer is null || effectRenderer.SceneModel is null ) return null;
 
-		var transform = effectRenderer.SceneModel.GetAttachment( attachment );
-		if ( !transform.HasValue ) return;
+		var transform = effectRenderer.GetAttachment( attachment );
+		if ( !transform.HasValue ) return null;
 
-		// Useful when creating model particles
-		if ( attachmentYawOnly )
+		// Rotate bullet with attachment yaw
+		var pitch = CanSeeViewModel ? ViewModelHandler.WorldRotation.Pitch() : WorldRotation.Pitch();
+		var yaw = transform.Value.Rotation.Yaw();
+		var newRot = Rotation.From( new Angles( 0, yaw, -pitch ) );
+		transform = transform.Value.WithRotation( newRot );
+
+		if ( CanSeeViewModel )
 		{
-			var pitch = CanSeeViewModel ? ViewModelHandler.WorldRotation.Pitch() : WorldRotation.Pitch();
-			var yaw = transform.Value.Rotation.Yaw();
-			var newRot = Rotation.From( new Angles( 0, yaw, -pitch ) );
-			transform = transform.Value.WithRotation( newRot );
+			var viewSpacePos = CameraUtil.ProjectToViewSpace( transform.Value.Position, Owner.ViewModelCamera, Owner.Camera );
+			transform = transform.Value.WithPosition( viewSpacePos );
 		}
 
-		CreateParticle( particle, null, transform.Value, scale, OnParticleCreated );
+		// Attach owner
+		var go = CreateParticle( particle, null, transform.Value, 1, false, OnParticleCreated );
+		var ejectParticle = go.GetComponentInChildren<BulletEjectParticle>();
+		ejectParticle?.Owner = Owner;
+
+		return go;
 	}
 
 	/// <summary>Create a weapon particle</summary>
-	public virtual void CreateParticle( GameObject particle, GameObject parent, float scale, Action<GameObject> OnParticleCreated = null )
+	public virtual GameObject CreateParticle( GameObject particle, GameObject parent, float scale, Action<GameObject> OnParticleCreated = null )
 	{
-		CreateParticle( particle, parent, new Transform(), scale, OnParticleCreated );
+		return CreateParticle( particle, parent, new Transform(), scale, OnParticleCreated );
 	}
 
 	/// <summary>Create a weapon particle</summary>
-	public virtual void CreateParticle( GameObject particle, Transform transform, float scale, Action<GameObject> OnParticleCreated = null )
+	public virtual GameObject CreateParticle( GameObject particle, Transform transform, float scale, Action<GameObject> OnParticleCreated = null )
 	{
-		CreateParticle( particle, null, transform, scale, OnParticleCreated );
+		return CreateParticle( particle, null, transform, scale, OnParticleCreated );
 	}
 
 	/// <summary>Create a weapon particle</summary>
-	public virtual void CreateParticle( GameObject particle, GameObject parent, Transform transform, float scale, Action<GameObject> OnParticleCreated = null )
+	public virtual GameObject CreateParticle( GameObject particle, GameObject parent, Transform transform, float scale, Action<GameObject> OnParticleCreated = null )
+	{
+		return CreateParticle( particle, parent, transform, scale, CanSeeViewModel, OnParticleCreated );
+	}
+
+	public virtual GameObject CreateParticle( GameObject particle, GameObject parent, Transform transform, float scale, bool forViewModel, Action<GameObject> OnParticleCreated = null )
 	{
 		var go = particle.Clone( transform.WithScale( scale ), parent );
 
-		if ( CanSeeViewModel )
+		if ( forViewModel )
 			go.Tags.Add( TagsHelper.ViewModel );
 
 		if ( OnParticleCreated is not null )
@@ -298,5 +311,7 @@ public partial class Weapon
 				OnParticleCreated.Invoke( go );
 			};
 		}
+
+		return go;
 	}
 }

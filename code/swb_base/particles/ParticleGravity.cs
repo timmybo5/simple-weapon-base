@@ -30,9 +30,9 @@ public class ParticleGravity : Component
 		};
 	}
 
-	protected override void OnUpdate()
+	protected override void OnFixedUpdate()
 	{
-		base.OnUpdate();
+		base.OnFixedUpdate();
 		var gravity = dir * 9.81f * Time.Delta * Multiplier;
 		var forceDirectionMod = gravity;
 
