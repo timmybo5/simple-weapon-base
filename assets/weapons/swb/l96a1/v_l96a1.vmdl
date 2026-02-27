@@ -1,4 +1,4 @@
-<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc30:version{8c2d7a91-9c42-4bf0-883a-5a3b1762d4f1} -->
 {
 	rootNode = 
 	{
@@ -245,7 +245,7 @@
 								event_frame = 8
 								event_keys = 
 								{
-									name = "l96a1.boltup"
+									name = "weapons/swb/l96a1/sounds/l96a1.boltup.sound"
 									stop_on_seq_change = false
 									use_layer_sequence = false
 									tags = ""
@@ -257,7 +257,7 @@
 								event_frame = 25
 								event_keys = 
 								{
-									name = "l96a1.boltforward"
+									name = "weapons/swb/l96a1/sounds/l96a1.boltforward.sound"
 									stop_on_seq_change = false
 									use_layer_sequence = false
 									tags = ""
@@ -295,7 +295,7 @@
 								event_frame = 15
 								event_keys = 
 								{
-									name = "l96a1.clipout"
+									name = "weapons/swb/l96a1/sounds/l96a1.clipout.sound"
 									stop_on_seq_change = false
 									use_layer_sequence = false
 									tags = ""
@@ -307,7 +307,7 @@
 								event_frame = 35
 								event_keys = 
 								{
-									name = "l96a1.cliptap"
+									name = "weapons/swb/l96a1/sounds/l96a1.cliptap.sound"
 									stop_on_seq_change = false
 									use_layer_sequence = false
 									tags = ""
@@ -319,7 +319,7 @@
 								event_frame = 38
 								event_keys = 
 								{
-									name = "l96a1.clipin"
+									name = "weapons/swb/l96a1/sounds/l96a1.clipin.sound"
 									stop_on_seq_change = false
 									use_layer_sequence = false
 									tags = ""
@@ -331,7 +331,7 @@
 								event_frame = 12
 								event_keys = 
 								{
-									name = "l96a1.cliptap"
+									name = "weapons/swb/l96a1/sounds/l96a1.cliptap.sound"
 									stop_on_seq_change = false
 									use_layer_sequence = false
 									tags = ""

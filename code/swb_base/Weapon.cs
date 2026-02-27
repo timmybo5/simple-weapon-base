@@ -355,6 +355,19 @@ public partial class Weapon : Component, IInventoryItem
 			ViewModelRenderer.CreateBoneObjects = true;
 			ViewModelRenderer.CreateAttachments = true;
 			ViewModelRenderer.Enabled = false;
+			ViewModelRenderer.OnSoundEvent += ( sceneSound ) =>
+			{
+				var soundEvent = ResourceLibrary.Get<SoundEvent>( sceneSound.Name );
+				if ( soundEvent is null ) return;
+
+				// Make sure local always has UI sound
+				soundEvent.UI = true;
+
+				using ( Rpc.FilterExclude( Owner.GameObject.Network.Owner ) )
+				{
+					PlaySound( soundEvent, 0.5f, 7500f, true );
+				}
+			};
 			ViewModelRenderer.OnComponentEnabled += async () =>
 			{
 				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
@@ -443,20 +456,41 @@ public partial class Weapon : Component, IInventoryItem
 	}
 
 	[Rpc.Broadcast]
-	public void PlaySound( SoundEvent sound )
+	public void PlaySound( SoundEvent sound, float volume = float.NaN, float distance = float.NaN, bool shouldFollow = false )
 	{
 		if ( sound is null || !this.IsValid() ) return;
 
 		var isScreenSound = CanSeeViewModel;
 		sound.UI = isScreenSound;
 
+		if ( !float.IsNaN( volume ) )
+			sound.Volume = volume;
+
+		if ( !float.IsNaN( distance ) )
+			sound.Distance = distance;
+
 		if ( isScreenSound )
-		{
 			Sound.Play( sound );
-		}
 		else
 		{
-			Sound.Play( sound, WorldPosition );
+			var handle = Sound.Play( sound, WorldPosition );
+			if ( shouldFollow )
+			{
+				handle?.Parent = this.GameObject;
+				handle?.FollowParent = true;
+			}
+			else
+			{
+				handle?.Position = WorldPosition;
+			}
 		}
+	}
+
+	[Rpc.Broadcast]
+	public void PlayWorldSound( string eventName, float volume = 1, float distance = 7500 )
+	{
+		var handle = Sound.Play( eventName, WorldPosition );
+		handle.Volume = volume;
+		handle.Distance = distance;
 	}
 }

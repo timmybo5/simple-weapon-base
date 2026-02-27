@@ -11,7 +11,7 @@ public class BulletEjectParticle : Component
 	{
 		if ( Owner is null ) return;
 		var vel = Owner.Velocity;
-		var right = Owner.Camera.WorldRotation.Right;
+		var right = Owner.EyeAngles.ToRotation().Right;
 		var lateralSpeed = vel.Dot( right );
 
 		// Only push shells further right when the player is actually moving right.
