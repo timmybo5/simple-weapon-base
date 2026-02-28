@@ -362,6 +362,7 @@ public partial class Weapon : Component, IInventoryItem
 
 				// Make sure local always has UI sound
 				soundEvent.UI = true;
+				soundEvent.Volume = 1;
 
 				using ( Rpc.FilterExclude( Owner.GameObject.Network.Owner ) )
 				{
