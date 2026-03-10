@@ -6,6 +6,7 @@ namespace SWB.Demo;
 [Title( "Demo NetworkManager" )]
 public class DemoNetworkManager : Component, Component.INetworkListener
 {
+	[Property] public SceneFile MainScene { get; set; }
 	[Property] public PrefabScene PlayerPrefab { get; set; }
 	[Property] public PrefabScene BotPrefab { get; set; }
 

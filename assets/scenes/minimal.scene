@@ -1355,6 +1355,7 @@
             "_type": "gameobject",
             "prefab": "prefabs/bot.prefab"
           },
+          "MainScene": "scenes/minimal.scene",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -1798,6 +1799,13 @@
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
       "IncludedBodies": ""
+    },
+    "GameObjectSystems": {
+      "Sandbox.Clutter.ClutterGridSystem": {
+        "Storage": {
+          "$blob": "5bb7f880-6cef-4d67-9966-ef74c9f47c3d"
+        }
+      }
     }
   },
   "ResourceVersion": 3,

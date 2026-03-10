@@ -59,6 +59,25 @@ internal class DemoCommands
 		Log.Info( (player.Noclip ? "Enabled" : "Disabled") + " Noclip" );
 	}
 
+
+	[ConCmd( "changemap", Help = "Change the map (host only)" )]
+	public static void ChangeMap( string mapIdent )
+	{
+		var player = PlayerBase.Local;
+		if ( player is not null && !player.IsHost ) return;
+
+		SceneLoadOptions options = new()
+		{
+			ShowLoadingScreen = true,
+			DeleteEverything = true,
+		};
+
+		var networkManager = Game.ActiveScene.GetComponentInChildren<DemoNetworkManager>();
+		options.SetScene( networkManager.MainScene );
+		LaunchArguments.Map = mapIdent;
+		Game.ChangeScene( options );
+	}
+
 	[ConCmd( "setactive", Help = "Changes the active inventory item" )]
 	public static void ChangeWeapon( string className )
 	{
