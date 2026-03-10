@@ -208,7 +208,7 @@ public partial class Weapon
 			CreateParticle( shootInfo.MuzzleFlashParticle, muzzleObj, muzzleScale );
 
 		// Barrel smoke
-		if ( !IsProxy && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
+		if ( !IsProxy && !Owner.IsBot && shootInfo.BarrelSmokeParticle is not null && barrelHeat >= shootInfo.ClipSize * 0.75 )
 			CreateParticle( shootInfo.BarrelSmokeParticle, muzzleObj, muzzleScale );
 	}
 

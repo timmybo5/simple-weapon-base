@@ -6,6 +6,8 @@ public partial class PlayerBase
 {
 	[Property] public Dresser Dresser { get; set; }
 	List<SkinnedModelRenderer> clothingRenderers = new();
+	ModelRenderer.ShadowRenderType lastBodyRenderType;
+	Color lastBodyTint;
 	bool calledOnDressed;
 	bool isDressed;
 
@@ -20,6 +22,8 @@ public partial class PlayerBase
 	void UpdateClothingRenderers()
 	{
 		clothingRenderers.Clear();
+		lastBodyRenderType = ModelRenderer.ShadowRenderType.Off;
+		lastBodyTint = Color.Black;
 
 		BodyRenderer.GameObject.Children.ForEach( c =>
 		{
@@ -43,32 +47,48 @@ public partial class PlayerBase
 
 		// Can take a while to spawn on clients so we check here until they are spawned in
 		if ( clothingRenderers.Count == 0 )
+		{
 			UpdateClothingRenderers();
+			return;
+		}
+
+		var desiredRenderType = ModelRenderer.ShadowRenderType.On;
+		var desiredTint = Color.White;
 
 		if ( !IsProxy && !IsBot && IsAlive && IsFirstPerson )
-		{
-			BodyRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
-		}
-		else
-		{
-			BodyRenderer.RenderType = ModelRenderer.ShadowRenderType.On;
-		}
+			desiredRenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
 
 		// Fix for body teleporting from death pos and being visible onEnabled
 		if ( !IsAlive )
+			desiredTint = Color.Transparent;
+
+		var updatedRenderType = false;
+		var updatedTint = false;
+
+		if ( lastBodyRenderType != desiredRenderType )
 		{
-			BodyRenderer.Tint = Color.Transparent;
-		}
-		else
-		{
-			BodyRenderer.Tint = Color.White;
+			lastBodyRenderType = desiredRenderType;
+			BodyRenderer.RenderType = desiredRenderType; // Performance drain
+			updatedRenderType = true;
 		}
 
-		clothingRenderers.ForEach( c =>
+		if ( lastBodyTint != desiredTint )
 		{
-			if ( c is null ) return;
-			c.RenderType = BodyRenderer.RenderType;
-			c.Tint = BodyRenderer.Tint;
-		} );
+			lastBodyTint = desiredTint;
+			BodyRenderer.Tint = desiredTint; // Performance drain
+			updatedTint = true;
+		}
+
+		if ( updatedRenderType || updatedTint )
+		{
+			clothingRenderers.ForEach( c =>
+			{
+				if ( c is null ) return;
+				if ( updatedRenderType )
+					c.RenderType = BodyRenderer.RenderType; // Performance drain
+				if ( updatedTint )
+					c.Tint = BodyRenderer.Tint; // Performance drain
+			} );
+		}
 	}
 }

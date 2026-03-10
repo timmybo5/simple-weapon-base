@@ -313,17 +313,22 @@ public partial class Weapon : Component, IInventoryItem
 		// Should draw after deploy
 		if ( (IsProxy || Owner.IsBot) && WorldModelRenderer is not null )
 		{
-			WorldModelRenderer.RenderType = ModelRenderer.ShadowRenderType.On;
-			WorldModelRenderer.RenderOptions.Game = true;
+			if ( WorldModelRenderer.RenderType != ModelRenderer.ShadowRenderType.On )
+				WorldModelRenderer.RenderType = ModelRenderer.ShadowRenderType.On;
+
+			if ( !WorldModelRenderer.RenderOptions.Game )
+				WorldModelRenderer.RenderOptions.Game = true;
 		}
 
 		if ( !IsProxy && !Owner.IsBot && WorldModelRenderer is not null )
 		{
 			var worldModelRenderType = Owner.IsFirstPerson ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
-			WorldModelRenderer.RenderType = worldModelRenderType;
+
+			if ( WorldModelRenderer.RenderType != worldModelRenderType )
+				WorldModelRenderer.RenderType = worldModelRenderType;
 
 			// Should draw after deploy
-			if ( !Owner.IsFirstPerson )
+			if ( !Owner.IsFirstPerson && !WorldModelRenderer.RenderOptions.Game )
 				WorldModelRenderer.RenderOptions.Game = true;
 
 			// Attachments
@@ -334,7 +339,7 @@ public partial class Weapon : Component, IInventoryItem
 				if ( att.ViewModelRenderer is not null )
 					att.ViewModelRenderer.Enabled = Owner.IsFirstPerson && ViewModelHandler.ShouldDraw;
 
-				if ( att.WorldModelRenderer is not null )
+				if ( att.WorldModelRenderer is not null && att.WorldModelRenderer.RenderType != worldModelRenderType )
 					att.WorldModelRenderer.RenderType = worldModelRenderType;
 			} );
 		}
