@@ -911,7 +911,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "WeaponRegistry",
-      "Position": "94.58017,127.1334,73.5171",
+      "Position": "0,0,0",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -968,6 +968,39 @@
           "AimAssist": true,
           "AutoReload": true,
           "Customization": true,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "03e71ec1-d76d-47c9-9ef3-5cfea5d89c3b",
+      "__version": 2,
+      "Flags": 0,
+      "Name": "ParticleManager",
+      "Position": "0,0,0",
+      "Rotation": "0,0,0,1",
+      "Scale": "1,1,1",
+      "Tags": "",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "NetworkFlags": 0,
+      "NetworkOrphaned": 1,
+      "NetworkTransmit": true,
+      "OwnerTransfer": 1,
+      "Components": [
+        {
+          "__type": "SWB.Base.WeaponParticleManager",
+          "__guid": "5e6b29c9-eaa4-482e-ac18-2b9bf5b03b3f",
+          "__enabled": true,
+          "Flags": 0,
+          "MaxDecals": 30,
+          "MaxEject": 180,
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -1803,7 +1836,7 @@
     "GameObjectSystems": {
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
-          "$blob": "5bb7f880-6cef-4d67-9966-ef74c9f47c3d"
+          "$blob": "9a21a74d-d24f-405b-a386-a732d3cc6e85"
         }
       }
     }

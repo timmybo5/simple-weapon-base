@@ -42,11 +42,6 @@ public partial class Weapon
 		return trace.Distance;
 	}
 
-	public bool ShouldTuck()
-	{
-		return GetTuckDist() != -1;
-	}
-
 	public bool ShouldTuck( out float dist )
 	{
 		dist = GetTuckDist();

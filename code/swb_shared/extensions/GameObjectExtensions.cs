@@ -17,12 +17,10 @@ public sealed class TimedDestroyComponent : Component
 		TimeUntilDestroy = Time;
 	}
 
-	protected override void OnUpdate()
+	protected override void OnFixedUpdate()
 	{
 		if ( TimeUntilDestroy )
-		{
 			GameObject.Destroy();
-		}
 	}
 }
 

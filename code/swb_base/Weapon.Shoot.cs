@@ -1,7 +1,6 @@
 ﻿using SWB.Base.Particles;
 using SWB.Shared;
 using System;
-using System.Collections.Generic;
 
 namespace SWB.Base;
 
@@ -99,15 +98,18 @@ public partial class Weapon
 		// Particles
 		HandleShootEffects( isPrimary );
 
-		// Barrel smoke
-		barrelHeat += 1;
+		if ( !Owner.IsBot )
+		{
+			// Barrel smoke
+			barrelHeat += 1;
 
-		// Recoil
-		Owner.ApplyEyeAnglesOffset( GetRecoilAngles( shootInfo ) );
+			// Recoil
+			Owner.ApplyEyeAnglesOffset( GetRecoilAngles( shootInfo ) );
 
-		// Screenshake
-		if ( shootInfo.ScreenShake is not null )
-			Owner.ShakeScreen( shootInfo.ScreenShake );
+			// Screenshake
+			if ( shootInfo.ScreenShake is not null )
+				Owner.ShakeScreen( shootInfo.ScreenShake );
+		}
 
 		// UI
 		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
@@ -125,7 +127,7 @@ public partial class Weapon
 		}
 	}
 
-	[Rpc.Broadcast( NetFlags.Unreliable )]
+	[Rpc.Broadcast( NetFlags.Reliable )]
 	public virtual void ShootBullet( bool isPrimary, Vector3 spreadOffset )
 	{
 		if ( !IsValid ) return;
@@ -136,15 +138,21 @@ public partial class Weapon
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
 	public static SceneTraceResult TraceBullet( GameObject toIgnoreGO, Vector3 start, Vector3 end, float radius = 2.0f )
 	{
-		var startsInWater = SurfaceUtil.IsPointWater( start );
-		var withoutTags = new List<string>() { TagsHelper.Trigger, TagsHelper.PlayerClip, TagsHelper.PassBullets, TagsHelper.ViewModel };
+		// TODO: find another solution when water becomes more available
+		// var startsInWater = SurfaceUtil.IsPointWater( start );
+		// if ( startsInWater )
+		//	 withoutTags.Add( TagsHelper.Water );
 
-		if ( startsInWater )
-			withoutTags.Add( TagsHelper.Water );
+		var withoutTags = new[] {
+			TagsHelper.Trigger,
+			TagsHelper.PlayerClip,
+			TagsHelper.PassBullets,
+			TagsHelper.ViewModel,
+		};
 
 		var tr = Game.ActiveScene.Trace.Ray( start, end )
 				.UseHitboxes()
-				.WithoutTags( withoutTags.ToArray() )
+				.WithoutTags( withoutTags )
 				.Size( radius )
 				.IgnoreGameObjectHierarchy( toIgnoreGO )
 				.Run();
@@ -246,6 +254,9 @@ public partial class Weapon
 		var decalGO = impactPrefab.Clone( cloneConfig );
 		decalGO.NetworkMode = NetworkMode.Never;
 		decalGO.DestroyAsync( 30f );
+
+		WeaponParticleManager.Instance?.AddDecal( decalGO );
+
 		return decalGO;
 	}
 
@@ -270,8 +281,10 @@ public partial class Weapon
 			transform = transform.Value.WithPosition( viewSpacePos );
 		}
 
-		// Attach owner
 		var go = CreateParticle( particle, null, transform.Value, 1, false, OnParticleCreated );
+		WeaponParticleManager.Instance?.AddEject( go );
+
+		// Attach owner
 		var ejectParticle = go.GetComponentInChildren<BulletEjectParticle>();
 		ejectParticle?.Owner = Owner;
 

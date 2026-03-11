@@ -2,10 +2,11 @@
 
 namespace SWB.Base;
 
-/*
- * Attach this component somewhere in the root of your scene.
- * Register all weapons that you want to use in here
- */
+/// <summary>
+/// Attach this component somewhere in the root of your scene.
+/// Register all weapons that you want to use in here.
+/// A custom WeaponRegistry can be used by basing it off this one. 
+/// </summary>
 [Group( "SWB" )]
 [Title( "Weapon Registry" )]
 public class WeaponRegistry : Component

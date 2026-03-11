@@ -170,8 +170,8 @@ public partial class Weapon
 	public StatsModifier InitialSecondaryStats { get; private set; }
 
 	public bool IsDeploying => TimeSinceDeployed < 0;
-	public bool ShouldTuckVar;
-	public float TuckDist;
+	public bool ShouldTuckVar = false;
+	public float TuckDist = -1;
 
 	// Private
 	int burstCount = 0;

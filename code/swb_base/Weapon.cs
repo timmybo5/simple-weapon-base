@@ -210,19 +210,23 @@ public partial class Weapon : Component, IInventoryItem
 		}
 	}
 
+	protected override void OnFixedUpdate()
+	{
+		if ( !IsProxy && !IsDeploying && Owner.IsValid() && !Owner.IsBot && TuckRange != -1 )
+		{
+			ShouldTuckVar = ShouldTuck( out TuckDist );
+		}
+	}
+
 	protected override void OnUpdate()
 	{
-		if ( Owner is null ) return;
+		if ( !Owner.IsValid() ) return;
 
 		UpdateModels();
 		Owner.HoldType = HoldType;
 
-		if ( !IsProxy && !Owner.IsBot )
+		if ( !IsProxy && !Owner.IsBot && !IsDeploying )
 		{
-			if ( IsDeploying ) return;
-
-			ShouldTuckVar = ShouldTuck( out TuckDist );
-
 			// Customization
 			if ( WeaponSettings.Instance.Customization && !IsScoping && !IsAiming && Input.Pressed( InputButtonHelper.Menu ) && Attachments.Count > 0 )
 			{
@@ -275,9 +279,7 @@ public partial class Weapon : Component, IInventoryItem
 			ResetBurstFireCount( Secondary, InputButtonHelper.SecondaryAttack );
 			BarrelHeatCheck();
 
-			var shouldTuck = ShouldTuck();
-
-			if ( CanPrimaryShoot() && !shouldTuck )
+			if ( CanPrimaryShoot() && !ShouldTuckVar )
 			{
 				if ( IsReloading && ShellReloading && ShellReloadingShootCancel )
 					CancelShellReload();
@@ -285,7 +287,7 @@ public partial class Weapon : Component, IInventoryItem
 				TimeSincePrimaryShoot = 0;
 				Shoot( Primary, true );
 			}
-			else if ( CanSecondaryShoot() && !shouldTuck )
+			else if ( CanSecondaryShoot() && !ShouldTuckVar )
 			{
 				TimeSinceSecondaryShoot = 0;
 				Shoot( Secondary, false );

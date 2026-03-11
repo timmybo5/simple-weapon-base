@@ -1,14 +1,15 @@
 ﻿namespace SWB.Base;
 
-/*
- * Attach this component somewhere in the root of your scene.
- * Gives control over weapon settings (host only)
- */
-
+/// <summary>
+/// Attach this component somewhere in the root of your scene.
+/// Gives control over weapon settings (host only)
+/// </summary>
 [Group( "SWB" )]
 [Title( "Weapon Settings" )]
 public class WeaponSettings : Component
 {
+	public static WeaponSettings Instance { get; private set; }
+
 	/// <summary>Enable the weapon customization menu (Q)</summary>
 	[Sync( SyncFlags.FromHost ), Property] public bool Customization { get; set; } = true;
 
@@ -18,16 +19,15 @@ public class WeaponSettings : Component
 	/// <summary>Enable controller aim assist</summary>
 	[Sync( SyncFlags.FromHost ), Property] public bool AimAssist { get; set; } = true;
 
-	protected override void OnAwake()
+	protected override void OnDestroy()
 	{
-		GameObject.NetworkMode = NetworkMode.Object;
+		if ( Instance == this )
+			Instance = null;
 	}
 
-	static public WeaponSettings Instance
+	protected override void OnAwake()
 	{
-		get
-		{
-			return Game.ActiveScene.Components.GetInChildren<WeaponSettings>();
-		}
+		Instance = this;
+		GameObject.NetworkMode = NetworkMode.Object;
 	}
 }
