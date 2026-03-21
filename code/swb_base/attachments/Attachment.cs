@@ -17,6 +17,8 @@ public enum AttachmentCategory
 	Tactical,
 	Laser,
 	None,
+	Trigger,
+	Perk,
 }
 
 /*

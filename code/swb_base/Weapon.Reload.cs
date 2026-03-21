@@ -4,6 +4,11 @@ public partial class Weapon
 {
 	public virtual void Reload()
 	{
+		StartReload();
+	}
+
+	void StartReload( float? reloadTimeOverride = null )
+	{
 		if ( IsReloading || InBoltBack || IsShooting() )
 			return;
 
@@ -12,9 +17,6 @@ public partial class Weapon
 		if ( Primary.Ammo >= maxClipSize || Primary.ClipSize == -1 )
 			return;
 
-		var isEmptyReload = ReloadEmptyTime > 0 && Primary.Ammo == 0;
-		TimeSinceReload = -(isEmptyReload ? ReloadEmptyTime : ReloadTime);
-
 		if ( Owner.AmmoCount( Primary.AmmoType ) <= 0 && Primary.InfiniteAmmo != InfiniteAmmoType.reserve )
 			return;
 
@@ -22,6 +24,13 @@ public partial class Weapon
 			OnScopeEnd();
 
 		IsReloading = true;
+
+		// Time & Speed
+		var isEmptyReload = ReloadEmptyTime > 0 && Primary.Ammo == 0;
+		var reloadTime = reloadTimeOverride ?? (isEmptyReload ? ReloadEmptyTime : ReloadTime);
+		var reloadSpeed = ReloadSpeed > 0 ? ReloadSpeed : 1f;
+		ViewModelRenderer?.PlaybackRate = reloadSpeed;
+		TimeSinceReload = -(reloadTime / reloadSpeed);
 
 		// Anim
 		var reloadAnim = ReloadAnim;
@@ -46,6 +55,7 @@ public partial class Weapon
 	public virtual void OnReloadFinish()
 	{
 		IsReloading = false;
+		ViewModelRenderer?.PlaybackRate = 1;
 		var maxClipSize = BulletCocking && Primary.Ammo > 0 ? Primary.ClipSize + 1 : Primary.ClipSize;
 
 		if ( Primary.InfiniteAmmo == InfiniteAmmoType.reserve )
@@ -65,13 +75,13 @@ public partial class Weapon
 	public virtual void CancelShellReload()
 	{
 		IsReloading = false;
+		ViewModelRenderer?.PlaybackRate = 1;
 		ViewModelRenderer?.Set( ReloadAnim, false );
 	}
 
 	public virtual void OnShellReload()
 	{
-		ReloadTime = ShellReloadStartTime + ShellReloadInsertTime;
-		Reload();
+		StartReload( ShellReloadStartTime + ShellReloadInsertTime );
 	}
 
 	public virtual void OnShellReloadFinish()
@@ -85,8 +95,7 @@ public partial class Weapon
 
 		if ( ammo != 0 && Primary.Ammo < Primary.ClipSize && Owner.AmmoCount( Primary.AmmoType ) > 0 )
 		{
-			ReloadTime = ShellReloadInsertTime;
-			Reload();
+			StartReload( ShellReloadInsertTime );
 		}
 		else
 		{

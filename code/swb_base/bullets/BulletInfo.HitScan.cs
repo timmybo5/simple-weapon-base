@@ -21,20 +21,19 @@ public class HitScanBulletInfo : BulletInfo
 		var bulletTr = weapon.TraceBullet( player.EyePos, endPos );
 		var hitObj = bulletTr.GameObject;
 
+		// Tracer
+		if ( ShouldSpawnTracer( shootInfo ) )
+			TracerEffects( weapon, shootInfo, bulletTr );
+
 		if ( SurfaceUtil.IsSkybox( bulletTr.Surface ) || bulletTr.HitPosition == Vector3.Zero ) return;
 
 		// Impact
 		Weapon.CreateBulletImpact( bulletTr );
 
-		// Tracer
-		if ( ShouldSpawnTracer( shootInfo ) )
-			TracerEffects( weapon, shootInfo, bulletTr );
-
 		// Damage
 		if ( !weapon.IsProxy && hitObj is not null )
 		{
 			var target = hitObj.Components.GetInAncestorsOrSelf<IDamageable>();
-
 			var hitTags = Array.Empty<string>();
 
 			if ( bulletTr.Hitbox is not null )
@@ -65,7 +64,7 @@ public class HitScanBulletInfo : BulletInfo
 		if ( !muzzleTransform.HasValue ) return;
 
 		var scale = weapon.CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
-		var direction = (tr.HitPosition - muzzleTransform.Value.Position).Normal;
+		var direction = (tr.EndPosition - muzzleTransform.Value.Position).Normal;
 		var rotation = Rotation.LookAt( direction );
 		var particleTransform = muzzleTransform.Value.WithRotation( rotation );
 		weapon.CreateParticle( shootInfo.BulletTracerParticle, particleTransform, scale );

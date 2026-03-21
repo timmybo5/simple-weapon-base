@@ -35,6 +35,9 @@ public partial class Weapon
 	/// <summary>How much movement speed is affected by holding this weapon (Speed *= Mobility)</summary>
 	[Property, Group( "General" )] public float Mobility { get; set; } = 1f;
 
+	/// <summary>A speed multiplier for all reloading animations</summary>
+	[Property, Group( "General" ), Sync] public float ReloadSpeed { get; set; } = 1f;
+
 	[Property, Group( "General" )] public int Slot { get; set; } = 0;
 
 	/// <summary>Firing sound when clip is empty</summary>

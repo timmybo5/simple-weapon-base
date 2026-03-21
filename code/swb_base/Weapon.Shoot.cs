@@ -6,6 +6,14 @@ namespace SWB.Base;
 
 public partial class Weapon
 {
+	public static readonly string[] BulletTraceIgnoreTags =
+	{
+		TagsHelper.Trigger,
+		TagsHelper.PlayerClip,
+		TagsHelper.PassBullets,
+		TagsHelper.ViewModel,
+	};
+
 	/// <summary>
 	/// Checks if the weapon can do the provided attack
 	/// </summary>
@@ -143,16 +151,9 @@ public partial class Weapon
 		// if ( startsInWater )
 		//	 withoutTags.Add( TagsHelper.Water );
 
-		var withoutTags = new[] {
-			TagsHelper.Trigger,
-			TagsHelper.PlayerClip,
-			TagsHelper.PassBullets,
-			TagsHelper.ViewModel,
-		};
-
 		var tr = Game.ActiveScene.Trace.Ray( start, end )
 				.UseHitboxes()
-				.WithoutTags( withoutTags )
+				.WithoutTags( BulletTraceIgnoreTags )
 				.Size( radius )
 				.IgnoreGameObjectHierarchy( toIgnoreGO )
 				.Run();

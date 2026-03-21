@@ -24,7 +24,7 @@ public partial class Weapon : Component, IInventoryItem
 
 		Attachments = Components.GetAll<Attachment>( FindMode.EverythingInSelf ).OrderBy( att => att.Name ).ToList();
 		Settings = WeaponSettings.Instance;
-		InitialPrimaryStats = StatsModifier.FromShootInfo( Primary );
+		InitialPrimaryStats = StatsModifier.FromShootInfo( this, Primary );
 
 		// Default BulletType
 		if ( Primary is not null && Primary.BulletType is null )
@@ -34,7 +34,7 @@ public partial class Weapon : Component, IInventoryItem
 
 		// Stats
 		if ( Secondary is not null )
-			InitialSecondaryStats = StatsModifier.FromShootInfo( Secondary );
+			InitialSecondaryStats = StatsModifier.FromShootInfo( this, Secondary );
 		else
 			InitialSecondaryStats = StatsModifier.Zero;
 
@@ -157,6 +157,9 @@ public partial class Weapon : Component, IInventoryItem
 	public virtual void OnViewModelDeploy()
 	{
 		var drawInfo = GetDrawInfo();
+
+		// Reset playback rate
+		ViewModelRenderer?.PlaybackRate = 1;
 
 		if ( !string.IsNullOrEmpty( drawInfo.anim ) )
 			ViewModelRenderer?.Set( drawInfo.anim, true );
