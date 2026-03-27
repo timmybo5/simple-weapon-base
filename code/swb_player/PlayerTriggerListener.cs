@@ -12,14 +12,14 @@ public class PlayerTriggerListener : Component, Component.ITriggerListener
 	public void OnTriggerEnter( Collider other )
 	{
 		if ( other is null || Player.Noclip ) return;
-		if ( other.Tags.Has( TagsHelper.Ladder ) )
+		if ( other.Tags.Has( TagsHelper.Ladder ) && !Player.IsBot )
 			Player.OnLadderEnter( other );
 	}
 
 	public void OnTriggerExit( Collider other )
 	{
 		if ( other is null || Player.Noclip ) return;
-		if ( other.Tags.Has( TagsHelper.Ladder ) )
+		if ( other.Tags.Has( TagsHelper.Ladder ) && !Player.IsBot )
 			Player.OnLadderExit( other );
 	}
 }

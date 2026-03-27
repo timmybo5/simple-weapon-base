@@ -12,6 +12,7 @@ public partial class Weapon
 		TagsHelper.PlayerClip,
 		TagsHelper.PassBullets,
 		TagsHelper.ViewModel,
+		TagsHelper.Sky
 	};
 
 	/// <summary>
@@ -24,8 +25,7 @@ public partial class Weapon
 	public virtual bool CanShoot( ShootInfo shootInfo, TimeSince lastAttackTime, string inputButton )
 	{
 		if ( (IsReloading && !ShellReloading) || (IsReloading && ShellReloading && !ShellReloadingShootCancel) || InBoltBack ) return false;
-		if ( shootInfo is null || !Owner.IsValid() || !Input.Down( inputButton ) || ((IsRunning || TimeSinceRunning < 0.1f) && Secondary is null) ) return false;
-
+		if ( shootInfo is null || !Owner.IsValid() || (!Owner.IsBot && !Input.Down( inputButton )) || ((IsRunning || TimeSinceRunning < 0.1f) && Secondary is null) ) return false;
 		if ( !HasAmmo() )
 		{
 			if ( Input.Pressed( inputButton ) )
@@ -52,12 +52,12 @@ public partial class Weapon
 			return false;
 		}
 
-		if ( shootInfo.FiringType == FiringType.semi && !Input.Pressed( inputButton ) ) return false;
+		if ( shootInfo.FiringType == FiringType.semi && !Owner.IsBot && !Input.Pressed( inputButton ) ) return false;
 		if ( shootInfo.FiringType == FiringType.burst )
 		{
 			if ( burstCount > 2 ) return false;
 
-			if ( Input.Down( inputButton ) && lastAttackTime > GetRealRPM( shootInfo.RPM ) )
+			if ( (Owner.IsBot || Input.Down( inputButton )) && lastAttackTime > GetRealRPM( shootInfo.RPM ) )
 			{
 				burstCount++;
 				return true;

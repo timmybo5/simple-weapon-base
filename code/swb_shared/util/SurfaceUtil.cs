@@ -41,6 +41,6 @@ public static class SurfaceUtil
 
 	public static bool IsSkybox( Surface surface )
 	{
-		return surface.HasTag( TagsHelper.World ) && !surface.HasTag( TagsHelper.Solid );
+		return surface.HasTag( TagsHelper.Sky ) || (surface.HasTag( TagsHelper.World ) && !surface.HasTag( TagsHelper.Solid ));
 	}
 }

@@ -14,6 +14,7 @@ public partial class TagsHelper
 	public const string PhysicalBullet = "physicalbullet";
 	public const string Water = "water";
 	public const string World = "world";
+	public const string Sky = "sky";
 	public const string Solid = "solid";
 	public const string Attachment = "attachment";
 	public const string Light = "light";
