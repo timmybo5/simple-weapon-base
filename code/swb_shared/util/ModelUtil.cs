@@ -10,7 +10,7 @@ public class ModelUtil
 	{
 		var holdBoneGO = target.GetBoneObject( bone );
 
-		if ( holdBoneGO is null )
+		if ( holdBoneGO is null || holdBoneGO.Scene is null )
 		{
 			// Try again 1 frame later, viewmodel edge case
 			async void retry()
@@ -27,7 +27,17 @@ public class ModelUtil
 			return;
 		}
 
-		gameObject.SetParent( holdBoneGO );
+		try
+		{
+			gameObject.SetParent( holdBoneGO );
+		}
+		catch
+		{
+			// Do nothing
+			//Log.Info( target.Model.ResourcePath );
+			//Log.Info( holdBoneGO.Scene );
+			//Log.Info( holdBoneGO.Scene == null );
+		}
 		gameObject.WorldPosition = holdBoneGO.WorldPosition;
 		gameObject.WorldRotation = holdBoneGO.WorldRotation;
 		gameObject.Transform.ClearInterpolation();
