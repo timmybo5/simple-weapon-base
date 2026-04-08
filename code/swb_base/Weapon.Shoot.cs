@@ -117,30 +117,18 @@ public partial class Weapon
 			// Screenshake
 			if ( shootInfo.ScreenShake is not null )
 				Owner.ShakeScreen( shootInfo.ScreenShake );
-		}
 
-		// UI
-		BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
+			// UI
+			BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
+		}
 
 		// Bullet
 		for ( int i = 0; i < shootInfo.Bullets; i++ )
 		{
 			var realSpread = GetRealSpread( shootInfo.Spread );
-
-			if ( IsScoping )
-				realSpread *= ScopeInfo.Spread;
-
 			var spreadOffset = shootInfo.BulletType.GetRandomSpread( realSpread );
-			ShootBullet( isPrimary, spreadOffset );
+			shootInfo?.BulletType?.Shoot( this, isPrimary, spreadOffset );
 		}
-	}
-
-	[Rpc.Broadcast( NetFlags.Reliable )]
-	public virtual void ShootBullet( bool isPrimary, Vector3 spreadOffset )
-	{
-		if ( !IsValid ) return;
-		var shootInfo = GetShootInfo( isPrimary );
-		shootInfo?.BulletType?.Shoot( this, shootInfo, spreadOffset );
 	}
 
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
@@ -224,22 +212,26 @@ public partial class Weapon
 	/// <summary>Create a bullet impact effect</summary>
 	public static GameObject CreateBulletImpact( SceneTraceResult tr )
 	{
+		return CreateBulletImpact( tr.HitPosition, tr.Normal, tr.Surface?.SoundCollection.Bullet, tr.Surface?.PrefabCollection.BulletImpact );
+	}
+
+	/// <summary>Create a bullet impact effect</summary>
+	public static GameObject CreateBulletImpact( Vector3 pos, Vector3 normal, SoundEvent sound, GameObject particles )
+	{
 		// Sound
 		SoundHandle soundHandle = null;
 
-		if ( tr.Surface.SoundCollection.Bullet is not null )
+		if ( sound is not null )
 		{
-			var sound = tr.Surface.SoundCollection.Bullet;
 			sound.Distance = 10000;
 			soundHandle = Sound.Play( sound );
 		}
 
 		soundHandle ??= Sound.Play( "impact-bullet-generic" );
-		soundHandle.Position = tr.HitPosition;
+		soundHandle.Position = pos;
 
 		// Decal & Particles
-		var impactPrefab = tr.Surface.PrefabCollection.BulletImpact;
-		if ( impactPrefab is null || !impactPrefab.IsValid ) return null;
+		if ( !particles.IsValid() ) return null;
 
 		var cloneConfig = new CloneConfig()
 		{
@@ -247,12 +239,12 @@ public partial class Weapon
 			StartEnabled = true,
 			Transform = new()
 			{
-				Position = tr.HitPosition,
-				Rotation = Rotation.LookAt( -tr.Normal ),
+				Position = pos,
+				Rotation = Rotation.LookAt( -normal ),
 			},
 			//Parent = tr.GameObject,
 		};
-		var decalGO = impactPrefab.Clone( cloneConfig );
+		var decalGO = particles.Clone( cloneConfig );
 		decalGO.NetworkMode = NetworkMode.Never;
 		decalGO.DestroyAsync( 30f );
 

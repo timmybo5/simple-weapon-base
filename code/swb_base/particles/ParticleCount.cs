@@ -11,9 +11,7 @@ public class ParticleCount : Component
 	protected override void OnAwake()
 	{
 		var effect = GetComponent<ParticleEffect>();
-
-		var rnd = new Random();
-		var max = rnd.Next( Min, Max + 1 );
+		var max = Random.Shared.Next( Min, Max + 1 );
 		effect.MaxParticles = max;
 	}
 }

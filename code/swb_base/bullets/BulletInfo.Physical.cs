@@ -19,7 +19,7 @@ public class PhysicalBulletInfo : BulletInfo
 	[Property, Range( 0, 0.04f, false, true ), Step( 0.001f )]
 	public float Drag { get; set; } = 0.01f;
 
-	public override void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
+	public override void Shoot( Weapon weapon, bool isPrimary, Vector3 spreadOffset )
 	{
 		if ( IsProxy || !weapon.IsValid ) return;
 
@@ -32,6 +32,7 @@ public class PhysicalBulletInfo : BulletInfo
 
 		GameObject bulletObject;
 
+		var shootInfo = weapon.GetShootInfo( isPrimary );
 		var muzzleTransform = weapon.GetMuzzleTransform();
 		var originPosition = muzzleTransform.HasValue && player.IsFirstPerson ? muzzleTransform.Value.Position : player.EyePos;
 		var bulletTransform = new Transform( originPosition, player.EyeAngles );

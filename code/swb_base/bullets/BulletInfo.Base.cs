@@ -4,7 +4,7 @@ namespace SWB.Base;
 
 public abstract class BulletInfo : Component
 {
-	public abstract void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset );
+	public abstract void Shoot( Weapon weapon, bool isPrimary, Vector3 spreadOffset );
 
 	public Vector3 GetRandomSpread( float spread )
 	{
@@ -16,8 +16,7 @@ public abstract class BulletInfo : Component
 		if ( shootInfo.BulletTracerParticle is null )
 			return false;
 
-		var random = new Random();
-		var randVal = random.NextDouble();
+		var randVal = Random.Shared.NextDouble();
 		return randVal < shootInfo.BulletTracerChance;
 	}
 }

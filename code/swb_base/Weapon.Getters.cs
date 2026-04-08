@@ -143,7 +143,8 @@ public partial class Weapon
 			floatMod += 0.25f;
 		}
 
-		return spread * floatMod;
+		var scopeMultiplier = IsScoping ? ScopeInfo.Spread : 1f;
+		return spread * floatMod * scopeMultiplier;
 	}
 
 	public virtual Angles GetRecoilAngles( ShootInfo shootInfo )

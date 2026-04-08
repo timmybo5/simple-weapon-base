@@ -8,30 +8,24 @@ namespace SWB.Base;
 [Title( "HitScan Bullet Info" )]
 public class HitScanBulletInfo : BulletInfo
 {
-	public override void Shoot( Weapon weapon, ShootInfo shootInfo, Vector3 spreadOffset )
+	public override void Shoot( Weapon weapon, bool isPrimary, Vector3 spreadOffset )
 	{
 		if ( !weapon.IsValid() ) return;
 
 		var player = weapon.Owner;
-		if ( player is null ) return;
+		if ( !player.IsValid() ) return;
 
 		var forward = player.EyeAngles.Forward + spreadOffset;
 		forward = forward.Normal;
 		var endPos = player.EyePos + forward * 999999;
 		var bulletTr = weapon.TraceBullet( player.EyePos, endPos );
 		var hitObj = bulletTr.GameObject;
-
-		// Tracer
-		if ( ShouldSpawnTracer( shootInfo ) )
-			TracerEffects( weapon, shootInfo, bulletTr );
-
-		if ( SurfaceUtil.IsSkybox( bulletTr.Surface ) || bulletTr.HitPosition == Vector3.Zero ) return;
-
-		// Impact
-		Weapon.CreateBulletImpact( bulletTr );
+		var shootInfo = weapon.GetShootInfo( isPrimary );
+		var hasTracer = ShouldSpawnTracer( shootInfo );
+		var hasImpact = !SurfaceUtil.IsSkybox( bulletTr.Surface ) && bulletTr.HitPosition != Vector3.Zero;
 
 		// Damage
-		if ( !weapon.IsProxy && hitObj is not null )
+		if ( hitObj is not null )
 		{
 			var target = hitObj.Components.GetInAncestorsOrSelf<IDamageable>();
 			var hitTags = Array.Empty<string>();
@@ -56,15 +50,34 @@ public class HitScanBulletInfo : BulletInfo
 			);
 			target?.OnDamage( dmgInfo );
 		}
+
+		// Effects
+		if ( hasTracer || hasImpact )
+			SpawnEffects( weapon, isPrimary, hasImpact, hasTracer, bulletTr.EndPosition, bulletTr.Normal, bulletTr.Surface?.SoundCollection.Bullet, bulletTr.Surface?.PrefabCollection.BulletImpact );
 	}
 
-	public virtual void TracerEffects( Weapon weapon, ShootInfo shootInfo, SceneTraceResult tr )
+	[Rpc.Broadcast( NetFlags.Unreliable )]
+	public void SpawnEffects( Weapon weapon, bool isPrimary, bool hasImpact, bool hasTracer, Vector3 hitPos, Vector3 hitNormal, SoundEvent hitSound, GameObject hitParticles )
+	{
+		if ( !weapon.IsValid() ) return;
+
+		// Impact
+		if ( hasImpact )
+			Weapon.CreateBulletImpact( hitPos, hitNormal, hitSound, hitParticles );
+
+		// Tracer
+		if ( hasTracer )
+			TracerEffects( weapon, isPrimary, hitPos );
+	}
+
+	public virtual void TracerEffects( Weapon weapon, bool isPrimary, Vector3 hitPos )
 	{
 		var muzzleTransform = weapon.GetMuzzleTransform();
 		if ( !muzzleTransform.HasValue ) return;
 
+		var shootInfo = weapon.GetShootInfo( isPrimary );
 		var scale = weapon.CanSeeViewModel ? shootInfo.VMParticleScale : shootInfo.WMParticleScale;
-		var direction = (tr.EndPosition - muzzleTransform.Value.Position).Normal;
+		var direction = (hitPos - muzzleTransform.Value.Position).Normal;
 		var rotation = Rotation.LookAt( direction );
 		var particleTransform = muzzleTransform.Value.WithRotation( rotation );
 		weapon.CreateParticle( shootInfo.BulletTracerParticle, particleTransform, scale );

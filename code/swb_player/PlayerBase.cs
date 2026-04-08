@@ -225,9 +225,7 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		if ( !spawnPoints.Any() )
 			return new Transform();
 
-		var rand = new Random();
-		var randomSpawnPoint = spawnPoints.ElementAt( rand.Next( 0, spawnPoints.Count() - 1 ) );
-
+		var randomSpawnPoint = spawnPoints.ElementAt( Random.Shared.Next( 0, spawnPoints.Count() - 1 ) );
 		return randomSpawnPoint.Transform.World;
 	}
 

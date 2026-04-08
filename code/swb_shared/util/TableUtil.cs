@@ -13,8 +13,7 @@ class TableUtil
 	{
 		if ( list.Count == 0 ) return default;
 
-		var random = new Random();
-		var randI = random.Next( list.Count );
+		var randI = Random.Shared.Next( list.Count );
 		return list[randI];
 	}
 }

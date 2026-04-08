@@ -20,7 +20,7 @@ public partial class PlayerBase
 	{
 		if ( timeSinceShake < lastScreenShake?.Duration && timeSinceShake > nextShake )
 		{
-			var random = new Random();
+			var random = Random.Shared;
 			var randomPos = new Vector3( random.Float( 0, lastScreenShake.Size ), random.Float( 0, lastScreenShake.Size ), random.Float( 0, lastScreenShake.Size ) );
 			var randomRot = new Angles( random.Float( 0, lastScreenShake.Rotation ), random.Float( 0, lastScreenShake.Rotation ), 0 );
 
