@@ -8,6 +8,7 @@
   </Folder>
   <Folder Name="/Tools/">
     <Project Path="../../editor/ActionGraph/Code/actiongraph.csproj" />
+    <Project Path="../../editor/DooEditor/Code/dooeditor.csproj" />
     <Project Path="../../editor/Hammer/Code/hammer.csproj" />
     <Project Path="../../editor/MovieMaker/Code/moviemaker.csproj" />
     <Project Path="../../editor/ShaderGraph/Code/shadergraph.csproj" />

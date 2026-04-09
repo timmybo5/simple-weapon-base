@@ -116,9 +116,7 @@
                   }
                 ],
                 "alpha": []
-              },
-              "ConstantA": "1,0.98431,0.1098,1",
-              "ConstantB": "1,0.46667,0,1"
+              }
             },
             "InitialVelocity": {
               "X": 0,
@@ -274,32 +272,7 @@
             "Attenuation": 1,
             "Brightness": 1,
             "CastShadows": true,
-            "LightColor": {
-              "Type": "Constant",
-              "Evaluation": "Life",
-              "GradientA": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0.5,
-                    "c": "1,1,1,1"
-                  }
-                ],
-                "alpha": []
-              },
-              "GradientB": {
-                "blend": "Linear",
-                "color": [
-                  {
-                    "t": 0.5,
-                    "c": "1,1,1,1"
-                  }
-                ],
-                "alpha": []
-              },
-              "ConstantA": "1,1,1,1",
-              "ConstantB": "1,1,1,1"
-            },
+            "LightColor": "1,1,1,1",
             "MaximumLights": 1,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -407,9 +380,7 @@
                   }
                 ],
                 "alpha": []
-              },
-              "ConstantA": "1,0.98431,0.1098,1",
-              "ConstantB": "1,0.46667,0,1"
+              }
             },
             "InitialVelocity": {
               "X": 0,
@@ -542,7 +513,7 @@
             "FaceVelocity": false,
             "FogStrength": 0,
             "LeadingTrail": true,
-            "Lighting": true,
+            "Lighting": false,
             "MotionBlur": false,
             "OnComponentDestroy": null,
             "OnComponentDisabled": null,
@@ -769,9 +740,7 @@
                   }
                 ],
                 "alpha": []
-              },
-              "ConstantA": "1,0.98431,0.1098,1",
-              "ConstantB": "1,0.46667,0,1"
+              }
             },
             "InitialVelocity": {
               "X": 0,
@@ -1066,7 +1035,8 @@
         "AgentStepSize": 18,
         "AgentMaxSlope": 40,
         "ExcludedBodies": "",
-        "IncludedBodies": ""
+        "IncludedBodies": "",
+        "CustomBounds": false
       }
     },
     "__variables": []
