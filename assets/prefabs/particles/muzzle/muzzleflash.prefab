@@ -271,7 +271,7 @@
             "Flags": 0,
             "Attenuation": 1,
             "Brightness": 1,
-            "CastShadows": true,
+            "CastShadows": false,
             "LightColor": "1,1,1,1",
             "MaximumLights": 1,
             "OnComponentDestroy": null,
