@@ -10,14 +10,68 @@ public partial class PlayerBase
 	Color lastBodyTint;
 	bool calledOnDressed;
 	bool isDressed;
+	int clothingCount;
 
 	async void ApplyClothes()
 	{
+		List<ClothingContainer.ClothingEntry> wearable = new();
+
+		if ( Dresser.Source == Dresser.ClothingSource.Manual )
+		{
+			// Manual (bots)
+			wearable = GetWearableEntries( Dresser.Clothing );
+			Dresser.Clothing = wearable;
+		}
+		else if ( Dresser.Source == Dresser.ClothingSource.OwnerConnection )
+		{
+			// Owner clothing
+			var container = ClothingContainer.CreateFromJson( Network.Owner.GetUserData( "avatar" ) );
+			wearable = GetWearableEntries( container?.Clothing );
+		}
+		else if ( Dresser.Source == Dresser.ClothingSource.LocalUser )
+		{
+			// Local clothing
+			var container = ClothingContainer.CreateFromLocalUser();
+			wearable = GetWearableEntries( container?.Clothing );
+		}
+
+		clothingCount = wearable.Count;
+
 		await Dresser.Apply();
 		isDressed = true;
 	}
 
 	public virtual void OnDressed( List<SkinnedModelRenderer> clothingRenderers ) { }
+
+	List<ClothingContainer.ClothingEntry> GetWearableEntries( List<ClothingContainer.ClothingEntry> source )
+	{
+		var result = new List<ClothingContainer.ClothingEntry>();
+		if ( source is null ) return result;
+
+		foreach ( var entry in source )
+		{
+			var clothing = entry?.Clothing;
+			if ( clothing is null ) continue;
+
+			var compatible = true;
+			foreach ( var kept in result )
+			{
+				var keptClothing = kept?.Clothing;
+				if ( keptClothing is null ) continue;
+
+				if ( !clothing.CanBeWornWith( keptClothing ) || !keptClothing.CanBeWornWith( clothing ) )
+				{
+					compatible = false;
+					break;
+				}
+			}
+
+			if ( compatible )
+				result.Add( entry );
+		}
+
+		return result;
+	}
 
 	void UpdateClothingRenderers()
 	{
@@ -34,7 +88,8 @@ public partial class PlayerBase
 			}
 		} );
 
-		if ( !calledOnDressed )
+		// Can take a while to spawn on clients
+		if ( !calledOnDressed && clothingRenderers.Count == clothingCount )
 		{
 			calledOnDressed = true;
 			OnDressed( clothingRenderers );
@@ -45,8 +100,7 @@ public partial class PlayerBase
 	{
 		if ( !isDressed || Dresser.IsDressing ) return;
 
-		// Can take a while to spawn on clients so we check here until they are spawned in
-		if ( clothingRenderers.Count == 0 )
+		if ( !calledOnDressed )
 		{
 			UpdateClothingRenderers();
 			return;
