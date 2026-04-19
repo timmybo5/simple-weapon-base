@@ -28,7 +28,7 @@ public class ViewModelHandler : Component
 
 	// Finalized animation values
 	Vector3 finalVectorPos;
-	Vector3 finalVectorRot;
+	Rotation finalRot;
 	float finalWeaponFOV;
 
 	// Sway
@@ -81,17 +81,23 @@ public class ViewModelHandler : Component
 			finalWeaponFOV = Weapon.ViewModelFOV;
 		}
 
+		// Skinned modelrenderer has issues with following parent
 		WorldPosition = Camera.WorldPosition;
 		WorldRotation = Camera.WorldRotation;
 
-		// Smoothly transition the vectors with the target values
-		finalVectorPos = finalVectorPos.LerpTo( targetVectorPos, animSpeed * RealTime.Delta );
-		finalVectorRot = finalVectorRot.LerpTo( targetVectorRot, animSpeed * RealTime.Delta );
-		finalWeaponFOV = MathX.LerpTo( finalWeaponFOV, targetWeaponFOV, weaponFOVSpeed * animSpeed * RealTime.Delta );
+		// Pos + FOV
+		finalVectorPos = finalVectorPos.LerpTo( targetVectorPos, animSpeed * RealTime.SmoothDelta );
+		finalWeaponFOV = MathX.LerpTo( finalWeaponFOV, targetWeaponFOV, weaponFOVSpeed * animSpeed * RealTime.SmoothDelta );
+
+		// Angles
+		var targetRot = MathUtil.ToRotation( targetVectorRot );
+		finalRot = finalRot.SlerpTo( targetRot, animSpeed * RealTime.SmoothDelta );
+
+		// Reset Speed
 		animSpeed = 10 * Weapon.AnimSpeed;
 
 		// Change the angles and positions of the viewmodel with the new vectors
-		WorldRotation *= Rotation.From( finalVectorRot.x, finalVectorRot.y, finalVectorRot.z );
+		WorldRotation *= finalRot;
 		// Position has to be set after rotation!
 		WorldPosition += finalVectorPos.z * WorldRotation.Up + finalVectorPos.y * WorldRotation.Forward + finalVectorPos.x * WorldRotation.Right;
 		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
@@ -140,7 +146,7 @@ public class ViewModelHandler : Component
 		HandleCustomizeAnimation();
 	}
 
-	void HandleIdleAnimation()
+	protected virtual void HandleIdleAnimation()
 	{
 		// No swaying if aiming
 		if ( isAiming )
@@ -156,7 +162,7 @@ public class ViewModelHandler : Component
 			targetVectorPos += new Vector3( -1.0f, -1.0f, 0.5f );
 	}
 
-	void HandleWalkAnimation()
+	protected virtual void HandleWalkAnimation()
 	{
 		var breatheTime = RealTime.Now * 16.0f;
 		var walkSpeed = new Vector3( player.Velocity.x, player.Velocity.y, 0.0f ).Length;
@@ -194,7 +200,7 @@ public class ViewModelHandler : Component
 	}
 
 
-	void HandleSwayAnimation()
+	protected virtual void HandleSwayAnimation()
 	{
 		var swayspeed = 5;
 
@@ -203,7 +209,7 @@ public class ViewModelHandler : Component
 			swayspeed = 20;
 
 		// Lerp the eye position
-		lastEyeRot = Rotation.Lerp( lastEyeRot, player.Camera.WorldRotation, swayspeed * RealTime.Delta );
+		lastEyeRot = Rotation.Lerp( lastEyeRot, player.Camera.WorldRotation, swayspeed * RealTime.SmoothDelta );
 
 		// Calculate the difference between our current eye angles and old (lerped) eye angles
 		var angDif = player.Camera.WorldRotation.Angles() - lastEyeRot.Angles();
@@ -215,7 +221,7 @@ public class ViewModelHandler : Component
 	}
 
 
-	void HandleIronAnimation()
+	protected virtual void HandleIronAnimation()
 	{
 		if ( isAiming && !Weapon.IsReloading && Weapon.AimAnimData != AngPos.Zero )
 		{
@@ -249,7 +255,7 @@ public class ViewModelHandler : Component
 		}
 	}
 
-	void HandleSprintAnimation()
+	protected virtual void HandleSprintAnimation()
 	{
 		if ( Weapon.IsRunning && Weapon.RunAnimData != AngPos.Zero && !Weapon.IsCustomizing )
 		{
@@ -259,7 +265,7 @@ public class ViewModelHandler : Component
 	}
 
 
-	void HandleCustomizeAnimation()
+	protected virtual void HandleCustomizeAnimation()
 	{
 		if ( Weapon.IsCustomizing && Weapon.CustomizeAnimData != AngPos.Zero )
 		{
@@ -268,7 +274,7 @@ public class ViewModelHandler : Component
 		}
 	}
 
-	void HandleJumpAnimation()
+	protected virtual void HandleJumpAnimation()
 	{
 		// If we're not on the ground, reset the landing animation time
 		if ( !player.IsOnGround )
@@ -331,5 +337,4 @@ public class ViewModelHandler : Component
 		else
 			targetVectorPos += new Vector3( 0.0f, 0.0f, Math.Clamp( localVel.z / 1000.0f, -1.0f, 1.0f ) );
 	}
-
 }

@@ -167,7 +167,7 @@ public partial class Weapon : Component, IInventoryItem
 		// Start drawing (We delay by 1 frame to allow the animation to start first)
 		async void ShouldDrawDelayed()
 		{
-			await GameTask.Delay( 1 );
+			await GameTask.Delay( 100 );
 			if ( ViewModelHandler.IsValid() )
 			{
 				ViewModelHandler.ShouldDraw = true;
@@ -350,11 +350,17 @@ public partial class Weapon : Component, IInventoryItem
 		}
 	}
 
+	/// <summary>Override to use a custom ViewModelHandler</summary>
+	protected virtual ViewModelHandler CreateViewModelHandler( GameObject go )
+	{
+		return go.Components.Create<ViewModelHandler>();
+	}
+
 	void CreateModels()
 	{
-		if ( !IsProxy && !Owner.IsBot && ViewModel is not null && ViewModelRenderer is null )
+		if ( !IsProxy && !Owner.IsBot && ViewModel.IsValid() && !ViewModelRenderer.IsValid() )
 		{
-			var viewModelGO = new GameObject( true, "Viewmodel" );
+			var viewModelGO = new GameObject( true, "Viewmodel - " + ClassName );
 			viewModelGO.SetParent( Owner.GameObject, false );
 			viewModelGO.Tags.Add( TagsHelper.ViewModel );
 			viewModelGO.NetworkMode = NetworkMode.Never;
@@ -395,7 +401,7 @@ public partial class Weapon : Component, IInventoryItem
 				}
 			};
 
-			ViewModelHandler = viewModelGO.Components.Create<ViewModelHandler>();
+			ViewModelHandler = CreateViewModelHandler( viewModelGO );
 			ViewModelHandler.Weapon = this;
 			ViewModelHandler.ViewModelRenderer = ViewModelRenderer;
 			var viewModelCamera = Owner.ViewModelCamera;

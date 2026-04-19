@@ -17,6 +17,8 @@ public partial class PlayerBase
 
 	public virtual void CreateRagdoll( Vector3 force, Vector3 forceOrigin, Vector3 velocity )
 	{
+		if ( Application.IsDedicatedServer ) return;
+
 		RagdollGO = new GameObject( true, "Ragdoll" );
 		RagdollGO.Tags.Add( TagsHelper.DeadPlayer );
 		RagdollGO.NetworkMode = NetworkMode.Never;
@@ -53,7 +55,7 @@ public partial class PlayerBase
 	[Rpc.Broadcast]
 	public virtual void Unragdoll()
 	{
-		if ( !IsValid ) return;
+		if ( !this.IsValid() ) return;
 		RagdollGO?.Destroy();
 		Body.Enabled = true;
 		Body.LocalPosition = Vector3.Zero;

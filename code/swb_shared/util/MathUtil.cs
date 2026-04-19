@@ -54,4 +54,9 @@ class MathUtil
 	{
 		return new Angles( vector.x, vector.y, vector.z );
 	}
+
+	public static Rotation ToRotation( Vector3 vector )
+	{
+		return ToAngles( vector ).ToRotation();
+	}
 }
