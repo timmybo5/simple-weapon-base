@@ -20,6 +20,9 @@ public partial class PlayerBase
 	/// <summary>Blocks jump when jumping quickly in succession</summary>
 	[Property] public bool JumpSpamPrevention { get; set; } = true;
 
+		/// <summary>Blocks jump when jumping quickly in succession</summary>
+	[Property] public bool CrouchSpamPrevention { get; set; } = true;
+
 	[Property, Category( "Falling" )] public float SafeFallSpeed { get; set; } = 500f;
 	[Property, Category( "Falling" )] public float LethalFallSpeed { get; set; } = 700f;
 	[Property, Category( "Falling" )] public float MaxFallDamage { get; set; } = 100f;
@@ -30,12 +33,13 @@ public partial class PlayerBase
 	[Sync] public Angles EyeAngles { get; set; }
 	[Sync] public Vector3 EyeOffset { get; set; } = Vector3.Zero;
 	[Sync] public bool IsCrouching { get; set; } = false;
-	[Sync] public bool IsRunning { get; set; } = false;
+	[Sync] public new bool IsRunning { get; set; } = false;
 	[Sync] public bool CanMove { get; set; } = true;
 	[Sync] public bool Noclip { get; private set; } = false;
 	[Sync] public bool IsUsingController { get; set; }
 
 	public TimeSince TimeSinceAirborne { get; set; }
+	public TimeSince TimeSinceCrouch { get; set; }
 	public bool IsOnGround => CharacterController?.IsOnGround ?? true;
 	public Vector3 Velocity => CharacterController?.Velocity ?? Vector3.Zero;
 	public Vector3 EyePos => Head.WorldPosition + EyeOffset;
@@ -272,8 +276,8 @@ public partial class PlayerBase
 		{
 			ShakeScreen( new()
 			{
-				Size = 0.2f,
-				Rotation = 0.2f,
+				Size = 0.3f,
+				Rotation = 0.3f,
 				Duration = 0.1f,
 			} );
 
@@ -332,6 +336,9 @@ public partial class PlayerBase
 
 	void UpdateCrouch()
 	{
+		if ( !IsCrouching && CrouchSpamPrevention && TimeSinceCrouch < 0.5f )
+			return;
+		
 		var duckIsDownOrPressed = InputIsDownOrPressed( InputButtonHelper.Duck );
 		var duckIsStickyActive = stickyActiveButtons.Contains( InputButtonHelper.Duck );
 
@@ -345,6 +352,7 @@ public partial class PlayerBase
 		if ( duckIsDownOrPressed && !IsCrouching && !IsRunning && IsOnGround && !IsClimbingLadder )
 		{
 			IsCrouching = true;
+			TimeSinceCrouch = 0;
 			CharacterController.Height /= 2f;
 			BodyCollider.End = BodyCollider.End.WithZ( BodyCollider.End.z / 2f );
 
