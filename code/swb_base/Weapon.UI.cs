@@ -1,4 +1,5 @@
-﻿using SWB.Base.UI;
+﻿using Sandbox.UI;
+using SWB.Base.UI;
 
 namespace SWB.Base;
 
@@ -56,5 +57,11 @@ public partial class Weapon
 	void CloseCustomizationMenu()
 	{
 		customizationMenu?.Delete( true );
+	}
+
+	/// <summary>Override to use a custom crosshair</summary>
+	public virtual Panel CreateCrosshair( Panel parent )
+	{
+		return parent.AddChild( new Crosshair( this ) );
 	}
 }

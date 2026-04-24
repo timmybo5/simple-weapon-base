@@ -10,22 +10,22 @@ class MathUtil
 {
 	public static float FILerp( float fromF, float toF, float amount )
 	{
-		return fromF.LerpTo( toF, amount * RealTime.Delta );
+		return fromF.LerpTo( toF, amount * RealTime.SmoothDelta );
 	}
 
 	public static Vector3 FILerp( Vector3 fromVec, Vector3 toVec, float amount )
 	{
-		return fromVec.LerpTo( toVec, amount * RealTime.Delta );
+		return fromVec.LerpTo( toVec, amount * RealTime.SmoothDelta );
 	}
 
 	public static Angles FILerp( Angles fromAng, Angles toAng, float amount )
 	{
-		return Angles.Lerp( fromAng, toAng, amount * RealTime.Delta );
+		return Angles.Lerp( fromAng, toAng, amount * RealTime.SmoothDelta );
 	}
 
 	public static Rotation FILerp( Rotation fromRot, Rotation toRot, float amount )
 	{
-		return Rotation.Lerp( fromRot, toRot, amount * RealTime.Delta );
+		return Rotation.Lerp( fromRot, toRot, amount * RealTime.SmoothDelta );
 	}
 
 	public static Vector3 RelativeAdd( Vector3 vec1, Vector3 vec2, Rotation rot )

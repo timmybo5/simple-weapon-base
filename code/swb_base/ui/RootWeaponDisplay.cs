@@ -17,7 +17,7 @@ public class RootWeaponDisplay : PanelComponent
 		Panel.StyleSheet.Load( "/swb_base/ui/RootWeaponDisplay.cs.scss" );
 
 		if ( Weapon.CrosshairSettings.Enabled )
-			Panel.AddChild( new Crosshair( Weapon ) );
+			Weapon.CreateCrosshair( Panel );
 
 		if ( Weapon.Scoping )
 		{

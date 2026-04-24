@@ -14,9 +14,10 @@ public partial class PlayerBase
 	{
 		if ( info is not Shared.DamageInfo )
 		{
-			Log.Warning( "PlayerBase: OnDamage called with non-Shared.DamageInfo. Ignoring." );
+			TakeDamage( Shared.DamageInfo.FromDamageInfo( info ) );
 			return;
 		}
+
 		info.Shape = null; // Remove physics shape to avoid issues with networking
 		info.Hitbox = null; // Remove hitbox to avoid issues with networking
 		TakeDamage( info as Shared.DamageInfo );

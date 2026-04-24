@@ -40,4 +40,17 @@ public class DamageInfo : Sandbox.DamageInfo
 			Tags = [.. tags, TagsHelper.Bullet],
 		};
 	}
+
+	public static DamageInfo FromDamageInfo( Sandbox.DamageInfo info )
+	{
+		return new()
+		{
+			Attacker = info.Attacker,
+			Weapon = info.Weapon,
+			Damage = info.Damage,
+			Origin = info.Origin,
+			Position = info.Position,
+			Tags = info.Tags,
+		};
+	}
 }

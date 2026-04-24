@@ -73,8 +73,10 @@ public class SniperScope : Panel
 
 		lensBob = MathUtil.FILerp( lensBob, targetBob, 10 );
 		var fovModifier = (Preferences.FieldOfView - weapon.ScopeInfo.FOV) / 10;
-		horizontalMov = MathUtil.FILerp( horizontalMov, Input.AnalogLook.yaw * fovModifier, 10 );
-		verticalMov = MathUtil.FILerp( verticalMov, -Input.AnalogLook.pitch * fovModifier, 10 );
+		var deltaYaw = (Input.AnalogLook.yaw / Time.Delta) / 100;
+		var deltaPitch = (-Input.AnalogLook.pitch / Time.Delta) / 50;
+		horizontalMov = MathUtil.FILerp( horizontalMov, deltaYaw * fovModifier, 10 );
+		verticalMov = MathUtil.FILerp( verticalMov, deltaPitch * fovModifier, 10 );
 
 		Style.MarginTop = Length.Percent( lensBob + verticalMov );
 		Style.MarginLeft = Length.Percent( horizontalMov );
