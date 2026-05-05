@@ -59,7 +59,7 @@ public class HitScanBulletInfo : BulletInfo
 	[Rpc.Broadcast( NetFlags.Unreliable )]
 	public void SpawnEffects( Weapon weapon, bool isPrimary, bool hasImpact, bool hasTracer, Vector3 hitPos, Vector3 hitNormal, SoundEvent hitSound, GameObject hitParticles )
 	{
-		if ( !weapon.IsValid() ) return;
+		if ( !weapon.IsValid() || Application.IsDedicatedServer ) return;
 
 		// Impact
 		if ( hasImpact )

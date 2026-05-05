@@ -129,13 +129,21 @@ public abstract class Attachment : Component, IComparable<Attachment>
 			attachmentRenderer.WorldScale = ViewModelScale;
 			ViewModelRenderer = attachmentRenderer;
 			attachmentGO.NetworkMode = NetworkMode.Never;
-			ModelUtil.ParentToBone( attachmentGO, Weapon.ViewModelRenderer, Bone );
+			ModelUtil.ParentToBone( attachmentGO, Weapon.ViewModelRenderer, Bone, onFail: _ =>
+			{
+				if ( ViewModelRenderer == attachmentRenderer )
+					ViewModelRenderer = null;
+			} );
 		}
 		else
 		{
 			attachmentRenderer.WorldScale = WorldModelScale;
 			WorldModelRenderer = attachmentRenderer;
-			ModelUtil.ParentToBone( attachmentGO, Weapon.WorldModelRenderer, Bone );
+			ModelUtil.ParentToBone( attachmentGO, Weapon.WorldModelRenderer, Bone, onFail: _ =>
+			{
+				if ( WorldModelRenderer == attachmentRenderer )
+					WorldModelRenderer = null;
+			} );
 		}
 	}
 

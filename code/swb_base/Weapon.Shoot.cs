@@ -160,7 +160,7 @@ public partial class Weapon
 	[Rpc.Broadcast( NetFlags.Unreliable )]
 	public virtual void HandleShootEffects( bool isPrimary )
 	{
-		if ( !IsValid || Owner is null ) return;
+		if ( !IsValid || Owner is null || Application.IsDedicatedServer ) return;
 
 		// Player
 		Owner.TriggerAnimation( Shared.Animations.Attack );

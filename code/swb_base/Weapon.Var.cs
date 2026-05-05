@@ -176,7 +176,7 @@ public partial class Weapon
 	public bool ShouldTuckVar = false;
 	public float TuckDist = -1;
 
-	// Private
-	int burstCount = 0;
+	// Internal state
+	protected int burstCount = 0;
 	int barrelHeat = 0;
 }

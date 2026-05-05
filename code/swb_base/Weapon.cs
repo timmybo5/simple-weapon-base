@@ -64,6 +64,8 @@ public partial class Weapon : Component, IInventoryItem
 		if ( ViewModelRenderer?.GameObject is not null )
 			ViewModelRenderer.GameObject.Enabled = true;
 
+		ClearState();
+
 		if ( !Owner.IsBot )
 			CreateUI();
 	}
@@ -90,15 +92,20 @@ public partial class Weapon : Component, IInventoryItem
 			}
 		} );
 
-		IsReloading = false;
-		IsScoping = false;
-		IsAiming = false;
-		IsCustomizing = false;
+		ClearState();
 
 		if ( Owner is not null )
 			Owner.HoldType = HoldTypes.None;
 
 		DestroyUI();
+	}
+
+	protected virtual void ClearState()
+	{
+		IsReloading = false;
+		IsScoping = false;
+		IsAiming = false;
+		IsCustomizing = false;
 	}
 
 	[Rpc.Broadcast]
@@ -341,10 +348,10 @@ public partial class Weapon : Component, IInventoryItem
 			{
 				if ( !att.Equipped ) return;
 
-				if ( att.ViewModelRenderer is not null )
+				if ( att.ViewModelRenderer.IsValid() )
 					att.ViewModelRenderer.Enabled = Owner.IsFirstPerson && ViewModelHandler.ShouldDraw;
 
-				if ( att.WorldModelRenderer is not null && att.WorldModelRenderer.RenderType != worldModelRenderType )
+				if ( att.WorldModelRenderer.IsValid() && att.WorldModelRenderer.RenderType != worldModelRenderType )
 					att.WorldModelRenderer.RenderType = worldModelRenderType;
 			} );
 		}
@@ -468,9 +475,9 @@ public partial class Weapon : Component, IInventoryItem
 
 			// Called when weapon models are created
 			OnComponentEnabled();
-			Owner.ParentToBone( GameObject, "hold_R" );
+				Owner.ParentToBone( GameObject, "hold_R", deleteOnFail: false );
+			}
 		}
-	}
 
 	[Rpc.Broadcast]
 	public void PlaySound( SoundEvent sound, float volume = float.NaN, float distance = float.NaN, bool shouldFollow = false )

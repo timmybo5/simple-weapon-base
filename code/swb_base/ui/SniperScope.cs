@@ -45,14 +45,16 @@ public class SniperScope : Panel
 
 	public override void Tick()
 	{
-		if ( weapon is null ) return;
+		var show = weapon.IsValid() && weapon.IsScoping;
+		
+		// Show when zooming
+		SetClass( "hide", !show );
+
+		if ( !show ) return;
 
 		// Scope size
 		var scopeSize = Screen.Height * ScaleFromScreen;
 		lensWrapper.Style.Width = Length.Pixels( scopeSize );
-
-		// Show when zooming
-		SetClass( "hide", !weapon.IsScoping );
 
 		// Check if ADS & firing
 		if ( weapon.IsAiming && weapon.TimeSincePrimaryShoot < 0.1f )

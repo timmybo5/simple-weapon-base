@@ -125,7 +125,9 @@ public interface IPlayerBase : IValid, Sandbox.Component.IDamageable
 	/// </summary>
 	/// <param name="object">The game object to parent</param>
 	/// <param name="boneName">The suggested bone to parent to</param>
-	public void ParentToBone( GameObject @object, string boneName );
+	/// <param name="deleteOnFail">Whether to destroy the object if parenting fails</param>
+	/// <param name="onFail">Optional callback when parenting fails</param>
+	public void ParentToBone( GameObject @object, string boneName, bool deleteOnFail = true, Action<GameObject> onFail = null );
 
 	/// <summary>
 	/// Called when the weapon is trying to take ammo.

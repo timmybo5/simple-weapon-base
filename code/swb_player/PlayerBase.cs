@@ -220,12 +220,12 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 
 	public virtual Transform GetSpawnLocation()
 	{
-		var spawnPoints = Scene.Components.GetAll<SpawnPoint>();
+		var spawnPoints = Scene.Components.GetAll<SpawnPoint>().ToList();
 
-		if ( !spawnPoints.Any() )
+		if ( spawnPoints.Count == 0 )
 			return new Transform();
 
-		var randomSpawnPoint = spawnPoints.ElementAt( Random.Shared.Next( 0, spawnPoints.Count() - 1 ) );
+		var randomSpawnPoint = spawnPoints[Random.Shared.Next( spawnPoints.Count )];
 		return randomSpawnPoint.Transform.World;
 	}
 
@@ -282,8 +282,8 @@ public partial class PlayerBase : Component, Component.INetworkSpawn, IPlayerBas
 		CameraMovement?.EyeAnglesOffset += offset;
 	}
 
-	public void ParentToBone( GameObject weaponObject, string boneName )
+	public void ParentToBone( GameObject weaponObject, string boneName, bool deleteOnFail = true, Action<GameObject> onFail = null )
 	{
-		ModelUtil.ParentToBone( weaponObject, BodyRenderer, boneName );
+		ModelUtil.ParentToBone( weaponObject, BodyRenderer, boneName, deleteOnFail: deleteOnFail, onFail: onFail );
 	}
 }

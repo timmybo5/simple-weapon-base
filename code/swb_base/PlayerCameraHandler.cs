@@ -18,6 +18,12 @@ public class PlayerCameraHandler : Component
 			Enabled = false;
 	}
 
+	protected override void OnEnabled()
+	{
+		targetPlayerFOV = -1;
+		playerFOVSpeed = 1;
+	}
+
 	protected override void OnDestroy()
 	{
 		if ( IsProxy || player is null ) return;
