@@ -6,64 +6,87 @@ public partial class PlayerBase
 {
 	[Property] public Dresser Dresser { get; set; }
 	List<SkinnedModelRenderer> clothingRenderers = new();
-	int cachedClothingChildrenCount = -1;
+	ModelRenderer.ShadowRenderType lastBodyRenderType;
+	Color lastBodyTint;
+	int lastChildrenCount = -1;
+	bool isDressed;
 
-	void ApplyClothes()
+	async void ApplyClothes()
 	{
-		Dresser.Apply();
+		if ( Application.IsDedicatedServer ) return;
+		await Dresser.Apply();
+		isDressed = true;
 	}
+
+	/// <summary>Can be called multiple times</summary>
+	public virtual void OnDressed( List<SkinnedModelRenderer> clothingRenderers ) { }
 
 	void UpdateClothingRenderers()
 	{
 		clothingRenderers.Clear();
+		lastBodyRenderType = ModelRenderer.ShadowRenderType.Off;
+		lastBodyTint = Color.Black;
+
 		BodyRenderer.GameObject.Children.ForEach( c =>
 		{
-			if ( c.Name.StartsWith( "Clothing" ) )
+			if ( c.Name.StartsWith( "Clothing", System.StringComparison.OrdinalIgnoreCase ) )
 			{
 				var renderer = c.Components.Get<SkinnedModelRenderer>();
 				clothingRenderers.Add( renderer );
 			}
 		} );
+
+		// Can take a while to spawn on clients
+		OnDressed( clothingRenderers );
 	}
 
 	void UpdateClothes()
 	{
-		// Can take a while to spawn on clients so we check here until they are spawned in
-		int clothingChildrenCount = 0;
-		BodyRenderer.GameObject.Children.ForEach( c => {
-			if ( c.Name.StartsWith( "Clothing" ) ) clothingChildrenCount++;
-		} );
-
-		if ( cachedClothingChildrenCount != clothingChildrenCount )
-		{
-			cachedClothingChildrenCount = clothingChildrenCount;
-			UpdateClothingRenderers();
-		}
+		var desiredRenderType = ModelRenderer.ShadowRenderType.On;
+		var desiredTint = Color.White;
 
 		if ( !IsProxy && !IsBot && IsAlive && IsFirstPerson )
-		{
-			BodyRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
-		}
-		else
-		{
-			BodyRenderer.RenderType = ModelRenderer.ShadowRenderType.On;
-		}
+			desiredRenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
 
 		// Fix for body teleporting from death pos and being visible onEnabled
 		if ( !IsAlive )
+			desiredTint = Color.Transparent;
+
+		var updatedRenderType = false;
+		var updatedTint = false;
+
+		if ( lastBodyRenderType != desiredRenderType )
 		{
-			BodyRenderer.Tint = Color.Transparent;
-		}
-		else
-		{
-			BodyRenderer.Tint = Color.White;
+			lastBodyRenderType = desiredRenderType;
+			BodyRenderer.RenderType = desiredRenderType; // Performance drain
+			updatedRenderType = true;
 		}
 
-		clothingRenderers.ForEach( c =>
+		if ( lastBodyTint != desiredTint )
 		{
-			if ( c is null ) return;
-			c.RenderType = BodyRenderer.RenderType;
-			c.Tint = BodyRenderer.Tint;
-		} );
+			lastBodyTint = desiredTint;
+			BodyRenderer.Tint = desiredTint; // Performance drain
+			updatedTint = true;
+		}
+
+		if ( !isDressed || Dresser.IsDressing ) return;
+
+		if ( BodyRenderer.GameObject.Children.Count != lastChildrenCount )
+		{
+			lastChildrenCount = BodyRenderer.GameObject.Children.Count;
+			UpdateClothingRenderers();
+		}
+
+		if ( updatedRenderType || updatedTint )
+		{
+			clothingRenderers.ForEach( c =>
+			{
+				if ( c is null ) return;
+				if ( updatedRenderType )
+					c.RenderType = BodyRenderer.RenderType; // Performance drain
+				if ( updatedTint )
+					c.Tint = BodyRenderer.Tint; // Performance drain
+			} );
+		}
 	}
 }
