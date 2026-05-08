@@ -34,7 +34,7 @@ public partial class Weapon
 		var tuckRange = Owner.IsClimbingLadder ? TuckRange * 1.25f : TuckRange;
 		var pos = Owner.EyePos;
 		var forward = Owner.EyeAngles.ToRotation().Forward;
-		var trace = TraceBullet( Owner.EyePos, pos + forward * tuckRange );
+		var trace = TraceBullet( Owner.EyePos, pos + forward * tuckRange, 2, TuckingTraceIgnoreTags );
 
 		if ( !trace.Hit )
 			return -1;

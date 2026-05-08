@@ -149,7 +149,7 @@ public partial class Weapon
 	public bool IsCustomizing { get; set; }
 
 	/// <summary>If the player is running</summary>
-	public bool IsRunning => Owner.IsRunning && Owner.IsOnGround && Owner.Velocity.Length >= 200;
+	new public bool IsRunning => Owner.IsRunning && Owner.IsOnGround && Owner.Velocity.Length >= 200;
 
 	/// <summary>If the player is crouching</summary>
 	public bool IsCrouching => Owner.IsCrouching;
@@ -168,6 +168,11 @@ public partial class Weapon
 
 	/// <summary>If the weapon is being bolt back reloaded</summary>
 	[Sync] public bool InBoltBack { get; set; }
+
+	// Scoping
+	public static readonly Vector2 DefaultScopeLensCenter = new( 0.5f, 0.5f );
+	public Vector2 ScopeLensCenter { get; private set; } = DefaultScopeLensCenter;
+	public virtual void SetScopeLensCenter( Vector2 center ) => ScopeLensCenter = center;
 
 	public StatsModifier InitialPrimaryStats { get; private set; }
 	public StatsModifier InitialSecondaryStats { get; private set; }

@@ -106,6 +106,7 @@ public partial class Weapon : Component, IInventoryItem
 		IsScoping = false;
 		IsAiming = false;
 		IsCustomizing = false;
+		SetScopeLensCenter( DefaultScopeLensCenter );
 	}
 
 	[Rpc.Broadcast]

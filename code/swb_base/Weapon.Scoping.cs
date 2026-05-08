@@ -4,6 +4,8 @@ public partial class Weapon
 {
 	public async virtual void OnScopeStart()
 	{
+		SetScopeLensCenter( DefaultScopeLensCenter );
+
 		await GameTask.DelaySeconds( ScopeInfo.ScopeInDelay );
 		if ( !this.IsValid() || !IsAiming || IsScoping || IsReloading ) return;
 
@@ -16,6 +18,8 @@ public partial class Weapon
 
 	public virtual void OnScopeEnd()
 	{
+		SetScopeLensCenter( DefaultScopeLensCenter );
+
 		if ( !IsScoping ) return;
 
 		IsScoping = false;

@@ -15,6 +15,13 @@ public partial class Weapon
 		TagsHelper.Sky
 	};
 
+	public static readonly string[] TuckingTraceIgnoreTags =
+	[
+		..BulletTraceIgnoreTags,
+		TagsHelper.Player,
+		TagsHelper.DeadPlayer
+	];
+
 	/// <summary>
 	/// Checks if the weapon can do the provided attack
 	/// </summary>
@@ -132,7 +139,7 @@ public partial class Weapon
 	}
 
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
-	public static SceneTraceResult TraceBullet( GameObject toIgnoreGO, Vector3 start, Vector3 end, float radius = 2.0f )
+	public static SceneTraceResult TraceBullet( GameObject toIgnoreGO, Vector3 start, Vector3 end, float radius = 2.0f, string[] ignoreTags = null )
 	{
 		// TODO: find another solution when water becomes more available
 		// var startsInWater = SurfaceUtil.IsPointWater( start );
@@ -141,7 +148,7 @@ public partial class Weapon
 
 		var tr = Game.ActiveScene.Trace.Ray( start, end )
 				.UseHitboxes()
-				.WithoutTags( BulletTraceIgnoreTags )
+				.WithoutTags( ignoreTags ?? BulletTraceIgnoreTags )
 				.Size( radius )
 				.IgnoreGameObjectHierarchy( toIgnoreGO )
 				.Run();
@@ -152,9 +159,9 @@ public partial class Weapon
 	}
 
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
-	public virtual SceneTraceResult TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
+	public virtual SceneTraceResult TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f, string[] ignoreTags = null )
 	{
-		return TraceBullet( Owner.GameObject, start, end, radius );
+		return TraceBullet( Owner.GameObject, start, end, radius, ignoreTags );
 	}
 
 	[Rpc.Broadcast( NetFlags.Unreliable )]

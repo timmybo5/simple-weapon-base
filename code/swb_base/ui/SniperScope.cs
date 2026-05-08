@@ -80,8 +80,11 @@ public class SniperScope : Panel
 		horizontalMov = MathUtil.FILerp( horizontalMov, deltaYaw * fovModifier, 10 );
 		verticalMov = MathUtil.FILerp( verticalMov, deltaPitch * fovModifier, 10 );
 
-		Style.MarginTop = Length.Percent( lensBob + verticalMov );
-		Style.MarginLeft = Length.Percent( horizontalMov );
+		var marginTopPercent = lensBob + verticalMov;
+		var marginLeftPercent = horizontalMov;
+		Style.MarginTop = Length.Percent( marginTopPercent );
+		Style.MarginLeft = Length.Percent( marginLeftPercent );
+		weapon.SetScopeLensCenter( new( 0.5f + marginLeftPercent / 100f, 0.5f + marginTopPercent / 100f ) );
 		wasInAir = !player.IsOnGround;
 
 		if ( scope is null ) return;
