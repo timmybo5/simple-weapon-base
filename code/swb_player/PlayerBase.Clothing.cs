@@ -6,16 +6,12 @@ public partial class PlayerBase
 {
 	[Property] public Dresser Dresser { get; set; }
 	List<SkinnedModelRenderer> clothingRenderers = new();
-	ModelRenderer.ShadowRenderType lastBodyRenderType;
-	Color lastBodyTint;
 	int lastChildrenCount = -1;
-	bool isDressed;
 
 	async void ApplyClothes()
 	{
 		if ( Application.IsDedicatedServer ) return;
 		await Dresser.Apply();
-		isDressed = true;
 	}
 
 	/// <summary>Can be called multiple times</summary>
@@ -24,8 +20,6 @@ public partial class PlayerBase
 	void UpdateClothingRenderers()
 	{
 		clothingRenderers.Clear();
-		lastBodyRenderType = ModelRenderer.ShadowRenderType.Off;
-		lastBodyTint = Color.Black;
 
 		BodyRenderer.GameObject.Children.ForEach( c =>
 		{
@@ -40,10 +34,14 @@ public partial class PlayerBase
 		OnDressed( clothingRenderers );
 	}
 
+	protected virtual bool CanUpdateClothes()
+	{
+		return true;
+	}
+
 	void UpdateClothes()
 	{
-		if ( !isDressed || Dresser.IsDressing ) return;
-
+		if ( Application.IsDedicatedServer || !CanUpdateClothes() || !BodyRenderer.IsValid() ) return;
 		if ( BodyRenderer.GameObject.Children.Count != lastChildrenCount )
 		{
 			lastChildrenCount = BodyRenderer.GameObject.Children.Count;
@@ -60,33 +58,21 @@ public partial class PlayerBase
 		if ( !IsAlive )
 			desiredTint = Color.Transparent;
 
-		var updatedRenderType = false;
-		var updatedTint = false;
-
-		if ( lastBodyRenderType != desiredRenderType )
-		{
-			lastBodyRenderType = desiredRenderType;
+		if ( BodyRenderer.RenderType != desiredRenderType )
 			BodyRenderer.RenderType = desiredRenderType; // Performance drain
-			updatedRenderType = true;
-		}
 
-		if ( lastBodyTint != desiredTint )
-		{
-			lastBodyTint = desiredTint;
+		if ( BodyRenderer.Tint != desiredTint )
 			BodyRenderer.Tint = desiredTint; // Performance drain
-			updatedTint = true;
-		}
 
-		if ( updatedRenderType || updatedTint )
+		foreach ( var c in clothingRenderers )
 		{
-			clothingRenderers.ForEach( c =>
-			{
-				if ( c is null ) return;
-				if ( updatedRenderType )
-					c.RenderType = BodyRenderer.RenderType; // Performance drain
-				if ( updatedTint )
-					c.Tint = BodyRenderer.Tint; // Performance drain
-			} );
+			if ( !c.IsValid() ) continue;
+
+			if ( c.RenderType != desiredRenderType )
+				c.RenderType = desiredRenderType; // Performance drain
+
+			if ( c.Tint != desiredTint )
+				c.Tint = BodyRenderer.Tint; // Performance drain
 		}
 	}
 }
