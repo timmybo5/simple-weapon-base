@@ -1,6 +1,7 @@
 ﻿using SWB.Base.Attachments;
 using SWB.Shared;
 using System;
+using System.Collections.Generic;
 
 namespace SWB.Base;
 
@@ -153,6 +154,12 @@ public partial class Weapon
 		var recoilY = Game.Random.NextFloat( -0.2f, 0.2f ) * recoilX;
 		var recoilAngles = new Angles( recoilX, recoilY, 0 );
 		return recoilAngles;
+	}
+
+	/// <summary>Pass extra details when killing a player</summary>
+	public virtual Dictionary<string, string> GetKillDetails()
+	{
+		return null;
 	}
 
 	public static MovementImpact GetMovementImpactFromForce( float force )

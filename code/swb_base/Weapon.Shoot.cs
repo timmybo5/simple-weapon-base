@@ -103,8 +103,8 @@ public partial class Weapon
 
 		// Animations
 		var shootAnim = GetShootAnimation( shootInfo );
-		if ( ViewModelRenderer is not null && !string.IsNullOrEmpty( shootAnim ) )
-			ViewModelRenderer.Set( shootAnim, true );
+		if ( !string.IsNullOrEmpty( shootAnim ) )
+			ApplyShootAnimation( shootAnim );
 
 		// Sound
 		if ( shootInfo.ShootSound is not null )
@@ -136,6 +136,11 @@ public partial class Weapon
 			var spreadOffset = shootInfo.BulletType.GetRandomSpread( realSpread );
 			shootInfo?.BulletType?.Shoot( this, isPrimary, spreadOffset );
 		}
+	}
+
+	protected virtual void ApplyShootAnimation( string anim )
+	{
+		ViewModelRenderer?.Set( anim, true );
 	}
 
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
@@ -270,12 +275,13 @@ public partial class Weapon
 		if ( !transform.HasValue ) return null;
 
 		// Rotate bullet with attachment yaw
-		var pitch = CanSeeViewModel ? ViewModelHandler.WorldRotation.Pitch() : WorldRotation.Pitch();
+		var spawnInViewSpace = CanSeeViewModel && !IsScoping;
+		var pitch = spawnInViewSpace ? ViewModelHandler.WorldRotation.Pitch() : WorldRotation.Pitch();
 		var yaw = transform.Value.Rotation.Yaw();
 		var newRot = Rotation.From( new Angles( 0, yaw, -pitch ) );
 		transform = transform.Value.WithRotation( newRot );
 
-		if ( CanSeeViewModel )
+		if ( spawnInViewSpace )
 		{
 			var viewSpacePos = CameraUtil.ProjectToViewSpace( transform.Value.Position, Owner.ViewModelCamera, Owner.Camera );
 			transform = transform.Value.WithPosition( viewSpacePos );

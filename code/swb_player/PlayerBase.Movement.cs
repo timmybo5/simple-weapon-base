@@ -20,7 +20,7 @@ public partial class PlayerBase
 	/// <summary>Blocks jump when jumping quickly in succession</summary>
 	[Property] public bool JumpSpamPrevention { get; set; } = true;
 
-		/// <summary>Blocks jump when jumping quickly in succession</summary>
+	/// <summary>Blocks jump when jumping quickly in succession</summary>
 	[Property] public bool CrouchSpamPrevention { get; set; } = true;
 
 	[Property, Category( "Falling" )] public float SafeFallSpeed { get; set; } = 500f;
@@ -49,7 +49,7 @@ public partial class PlayerBase
 	public CitizenAnimationHelper AnimationHelper { get; set; }
 	public HoldTypes HoldType
 	{
-		set { AnimationHelper.HoldType = (CitizenAnimationHelper.HoldTypes)value; }
+		set { AnimationHelper?.HoldType = (CitizenAnimationHelper.HoldTypes)value; }
 	}
 
 	public CapsuleCollider BodyCollider { get; set; }
@@ -338,7 +338,7 @@ public partial class PlayerBase
 	{
 		if ( !IsCrouching && CrouchSpamPrevention && TimeSinceCrouch < 0.5f )
 			return;
-		
+
 		var duckIsDownOrPressed = InputIsDownOrPressed( InputButtonHelper.Duck );
 		var duckIsStickyActive = stickyActiveButtons.Contains( InputButtonHelper.Duck );
 
@@ -423,7 +423,7 @@ public partial class PlayerBase
 			.Run();
 	}
 
-	public void PlaySoundEvent( Sandbox.SoundEvent soundEvent, string fallback, float dist )
+	public void PlaySoundEvent( Sandbox.SoundEvent soundEvent, string fallback, float dist, float volume = 1f )
 	{
 		SoundHandle soundHandle = null;
 
@@ -433,22 +433,29 @@ public partial class PlayerBase
 		soundHandle ??= Sound.Play( fallback );
 		soundHandle.Distance = dist;
 		soundHandle.Position = WorldPosition;
+		soundHandle.Volume = volume;
+
+		if ( !IsProxy && IsFirstPerson )
+		{
+			soundHandle?.Parent = this.GameObject;
+			soundHandle?.FollowParent = true;
+		}
 	}
 
 	public virtual void PlayFootstepSound( Surface surface, FootstepEvent footstepEvent )
 	{
-		PlaySoundEvent( surface?.SoundCollection.FootRight, "footstep-concrete", 7500 );
+		PlaySoundEvent( surface?.SoundCollection.FootRight, "footstep-concrete", 7500, 1.5f );
 	}
 
 	[Rpc.Broadcast( NetFlags.Unreliable )]
 	public virtual void PlayFootLaunchSound( Surface surface, Vector3 velocity )
 	{
-		PlaySoundEvent( surface?.SoundCollection.FootLaunch, "footstep-concrete-jump", 7500 );
+		PlaySoundEvent( surface?.SoundCollection.FootLaunch, "footstep-concrete-jump", 7500, 1.5f );
 	}
 
 	public virtual void PlayFootLandSound( Surface surface, Vector3 velocity )
 	{
-		PlaySoundEvent( surface?.SoundCollection.FootLand, "footstep-concrete-land", 10000 );
+		PlaySoundEvent( surface?.SoundCollection.FootLand, "footstep-concrete-land", 10000, 1.5f );
 	}
 
 	public virtual void DoFallDamage( Vector3 impactVelocity )

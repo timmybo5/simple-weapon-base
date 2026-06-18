@@ -5,7 +5,7 @@ namespace SWB.Base;
 
 public class ViewModelHandler : Component
 {
-	public ModelRenderer ViewModelRenderer { get; set; }
+	public SkinnedModelRenderer ViewModelRenderer { get; set; }
 	public SkinnedModelRenderer ViewModelHandsRenderer { get; set; }
 	public Weapon Weapon { get; set; }
 	public CameraComponent Camera { get; set; }
@@ -34,6 +34,10 @@ public class ViewModelHandler : Component
 	// Sway
 	Rotation lastEyeRot;
 
+	// FOV
+	float cachedFOV = -1f;
+	float cachedVerticalFOV;
+
 	// Jumping Animation
 	float jumpTime;
 	float landTime;
@@ -43,7 +47,6 @@ public class ViewModelHandler : Component
 
 	// Helpful values
 	Vector3 localVel;
-	bool isAiming;
 
 	protected override void OnDestroy()
 	{
@@ -100,7 +103,12 @@ public class ViewModelHandler : Component
 		WorldRotation *= finalRot;
 		// Position has to be set after rotation!
 		WorldPosition += finalVectorPos.z * WorldRotation.Up + finalVectorPos.y * WorldRotation.Forward + finalVectorPos.x * WorldRotation.Right;
-		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
+		if ( finalWeaponFOV != cachedFOV )
+		{
+			cachedFOV = finalWeaponFOV;
+			cachedVerticalFOV = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
+		}
+		Camera.FieldOfView = cachedVerticalFOV;
 
 		// Initialize the target vectors for this frame
 		targetVectorPos = Vector3.Zero;
@@ -127,7 +135,6 @@ public class ViewModelHandler : Component
 		HandleJumpAnimation();
 
 		// Tucking
-		isAiming = !Weapon.ShouldTuckVar && Weapon.IsAiming;
 		if ( Weapon.RunAnimData != AngPos.Zero && Weapon.ShouldTuckVar )
 		{
 			var animationCompletion = 1f;
@@ -149,7 +156,7 @@ public class ViewModelHandler : Component
 	protected virtual void HandleIdleAnimation()
 	{
 		// No swaying if aiming
-		if ( isAiming )
+		if ( Weapon.IsAiming )
 			return;
 
 		// Perform a "breathing" animation
@@ -182,13 +189,13 @@ public class ViewModelHandler : Component
 		}
 
 		// Check for sideways velocity to sway the gun slightly
-		if ( isAiming || localVel.x > 0.0f )
+		if ( Weapon.IsAiming || localVel.x > 0.0f )
 			roll = -7.0f * (localVel.x / maxWalkSpeed);
 		else if ( localVel.x < 0.0f )
 			yaw = 3.0f * (localVel.x / maxWalkSpeed);
 
 		// Check if ADS & firing
-		if ( isAiming && Weapon.TimeSincePrimaryShoot < 0.1f )
+		if ( Weapon.IsAiming && Weapon.TimeSincePrimaryShoot < 0.1f )
 		{
 			targetVectorRot -= new Vector3( 0, 0, roll );
 			return;
@@ -205,7 +212,7 @@ public class ViewModelHandler : Component
 		var swayspeed = 5;
 
 		// Fix the sway faster if we're ironsighting
-		if ( isAiming )
+		if ( Weapon.IsAiming )
 			swayspeed = 20;
 
 		// Lerp the eye position
@@ -223,7 +230,7 @@ public class ViewModelHandler : Component
 
 	protected virtual void HandleIronAnimation()
 	{
-		if ( isAiming && !Weapon.IsReloading && Weapon.AimAnimData != AngPos.Zero )
+		if ( Weapon.IsAiming && !Weapon.IsReloading && Weapon.AimAnimData != AngPos.Zero )
 		{
 			var speedMod = 1f;
 			if ( aimTime == 0 )
@@ -295,7 +302,7 @@ public class ViewModelHandler : Component
 		}
 
 		// If we're not ironsighting, do a fancy jump animation
-		if ( !isAiming )
+		if ( !Weapon.IsAiming )
 		{
 			if ( jumpTime > RealTime.Now )
 			{

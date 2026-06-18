@@ -11,7 +11,15 @@ public partial class PlayerBase
 	async void ApplyClothes()
 	{
 		if ( Application.IsDedicatedServer ) return;
-		await Dresser.Apply();
+
+		try
+		{
+			await Dresser.Apply();
+		}
+		catch
+		{
+			// Can throw System.OperationCanceledException
+		}
 	}
 
 	/// <summary>Can be called multiple times</summary>

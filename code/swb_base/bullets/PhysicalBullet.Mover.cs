@@ -98,7 +98,9 @@ public class PhysicalBulletMover : Component
 				forward * 100 * force,
 				ShootInfo.HitFlinch,
 				Weapon.GetMovementImpactFromForce( ShootInfo.Force ),
-				hitTags );
+				hitTags,
+				Weapon.GetKillDetails()
+			);
 			target?.OnDamage( dmgInfo );
 		}
 	}

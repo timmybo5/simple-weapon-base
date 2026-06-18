@@ -46,7 +46,8 @@ public class HitScanBulletInfo : BulletInfo
 				force,
 				shootInfo.HitFlinch,
 				Weapon.GetMovementImpactFromForce( shootInfo.Force ),
-				hitTags
+				hitTags,
+				weapon.GetKillDetails()
 			);
 			target?.OnDamage( dmgInfo );
 		}

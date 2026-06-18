@@ -9,6 +9,8 @@ public class PlayerCameraHandler : Component
 	float targetPlayerFOV = -1;
 	float finalPlayerFOV;
 	float playerFOVSpeed = 1;
+	float cachedFOV = -1f;
+	float cachedVerticalFOV;
 
 	IPlayerBase player => Weapon.Owner;
 
@@ -41,7 +43,12 @@ public class PlayerCameraHandler : Component
 		var animSpeed = 10;
 		finalPlayerFOV = MathX.LerpTo( finalPlayerFOV, targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
 
-		player.FieldOfView = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
+		if ( finalPlayerFOV != cachedFOV )
+		{
+			cachedFOV = finalPlayerFOV;
+			cachedVerticalFOV = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
+		}
+		player.FieldOfView = cachedVerticalFOV;
 
 		// Initialize the target vectors for this frame
 		targetPlayerFOV = Preferences.FieldOfView;

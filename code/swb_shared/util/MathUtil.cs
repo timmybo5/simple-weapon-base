@@ -18,6 +18,11 @@ class MathUtil
 		return fromVec.LerpTo( toVec, amount * RealTime.SmoothDelta );
 	}
 
+	public static Vector2 FILerp( Vector2 fromVec, Vector2 toVec, float amount )
+	{
+		return fromVec.LerpTo( toVec, amount * RealTime.SmoothDelta );
+	}
+
 	public static Angles FILerp( Angles fromAng, Angles toAng, float amount )
 	{
 		return Angles.Lerp( fromAng, toAng, amount * RealTime.SmoothDelta );

@@ -82,9 +82,9 @@ public partial class Weapon : Component, IInventoryItem
 		// Attachments (VM + HUD)
 		Attachments.ForEach( ( att ) =>
 		{
-			if ( att.Equipped )
+			if ( att.IsValid() && att.Equipped )
 			{
-				if ( att.ViewModelRenderer is not null )
+				if ( att.ViewModelRenderer.IsValid() )
 					att.ViewModelRenderer.Enabled = false;
 
 				if ( att.CreatedUI )
@@ -94,7 +94,7 @@ public partial class Weapon : Component, IInventoryItem
 
 		ClearState();
 
-		if ( Owner is not null )
+		if ( Owner.IsValid() )
 			Owner.HoldType = HoldTypes.None;
 
 		DestroyUI();
@@ -256,7 +256,7 @@ public partial class Weapon : Component, IInventoryItem
 				TimeSinceRunning = 0;
 
 			var wasAiming = IsAiming;
-			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack );
+			IsAiming = !Owner.IsRunning && AimAnimData != AngPos.Zero && Input.Down( InputButtonHelper.SecondaryAttack ) && !ShouldTuckVar;
 
 			if ( wasAiming != IsAiming )
 			{
@@ -321,7 +321,7 @@ public partial class Weapon : Component, IInventoryItem
 		}
 	}
 
-	void UpdateModels()
+	protected virtual void UpdateModels()
 	{
 		// Should draw after deploy
 		if ( (IsProxy || Owner.IsBot) && WorldModelRenderer is not null )
@@ -345,17 +345,22 @@ public partial class Weapon : Component, IInventoryItem
 				WorldModelRenderer.RenderOptions.Game = true;
 
 			// Attachments
-			Attachments.ForEach( ( att ) =>
-			{
-				if ( !att.Equipped ) return;
-
-				if ( att.ViewModelRenderer.IsValid() )
-					att.ViewModelRenderer.Enabled = Owner.IsFirstPerson && ViewModelHandler.ShouldDraw;
-
-				if ( att.WorldModelRenderer.IsValid() && att.WorldModelRenderer.RenderType != worldModelRenderType )
-					att.WorldModelRenderer.RenderType = worldModelRenderType;
-			} );
+			UpdateAttachments(worldModelRenderType);
 		}
+	}
+
+	protected virtual void UpdateAttachments(ModelRenderer.ShadowRenderType worldModelRenderType)
+	{
+		Attachments.ForEach( ( att ) =>
+		{
+			if ( !att.Equipped ) return;
+
+			if ( att.ViewModelRenderer.IsValid() )
+				att.ViewModelRenderer.Enabled = Owner.IsFirstPerson && ViewModelHandler.ShouldDraw;
+
+			if ( att.WorldModelRenderer.IsValid() && att.WorldModelRenderer.RenderType != worldModelRenderType )
+				att.WorldModelRenderer.RenderType = worldModelRenderType;
+		} );
 	}
 
 	/// <summary>Override to use a custom ViewModelHandler</summary>
@@ -364,88 +369,105 @@ public partial class Weapon : Component, IInventoryItem
 		return go.Components.Create<ViewModelHandler>();
 	}
 
-	void CreateModels()
+	protected virtual ViewModel CreateViewModel( Model model, bool createHandler = true )
+	{
+		var viewModelGO = new GameObject( true, "Viewmodel - " + ClassName );
+		viewModelGO.SetParent( Owner.GameObject, false );
+		viewModelGO.Tags.Add( TagsHelper.ViewModel );
+		viewModelGO.NetworkMode = NetworkMode.Never;
+
+		var viewModelRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
+		viewModelRenderer.Model = model;
+		viewModelRenderer.AnimationGraph = model.AnimGraph;
+		viewModelRenderer.CreateBoneObjects = true;
+		viewModelRenderer.CreateAttachments = true;
+		viewModelRenderer.Enabled = false;
+		viewModelRenderer.OnSoundEvent += ( sceneSound ) =>
+		{
+			var soundEvent = ResourceLibrary.Get<SoundEvent>( sceneSound.Name );
+			if ( soundEvent is null ) return;
+
+			using ( Rpc.FilterExclude( Owner.GameObject.Network.Owner ) )
+			{
+				PlaySound( soundEvent, 0.5f, 7500f, true );
+			}
+		};
+		viewModelRenderer.OnComponentEnabled += async () =>
+		{
+			// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
+			viewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
+			viewModelRenderer.ClearParameters();
+			OnViewModelDeploy();
+
+			// Deploy
+			if ( WorldModel is null )
+			{
+				await GameTask.DelayRealtime( 1 );
+				if ( this.IsValid() )
+					OnDeploy();
+			}
+		};
+
+		var viewModelCamera = Owner.ViewModelCamera;
+		if ( Owner.ViewModelCamera is null )
+		{
+			var viewModelCameraGameObject = new GameObject();
+			viewModelCameraGameObject.Name = "ViewModelCamera";
+			viewModelCameraGameObject.SetParent( Owner.GameObject, false );
+
+			// Setup the view model camera
+			viewModelCamera = viewModelCameraGameObject.Components.Create<CameraComponent>();
+			viewModelCamera.ClearFlags = ClearFlags.Depth | ClearFlags.Stencil;
+			viewModelCamera.ZNear = 1;
+			viewModelCamera.Priority = 2;
+			viewModelCamera.TargetEye = StereoTargetEye.RightEye;
+			viewModelCamera.RenderTags.Add( new TagSet() { TagsHelper.ViewModel, TagsHelper.Light } );
+
+			Owner.ViewModelCamera = viewModelCamera;
+		}
+
+		Owner.Camera.RenderExcludeTags.Add( TagsHelper.ViewModel );
+
+		SkinnedModelRenderer viewModelHandsRenderer = null;
+
+		if ( ViewModelHands is not null )
+		{
+			viewModelHandsRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
+			viewModelHandsRenderer.Model = ViewModelHands;
+			viewModelHandsRenderer.BoneMergeTarget = viewModelRenderer;
+			viewModelHandsRenderer.OnComponentEnabled += () =>
+			{
+				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
+				viewModelHandsRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
+			};
+		}
+
+		ViewModelHandler handler = null;
+
+		if ( createHandler )
+		{
+			handler = CreateViewModelHandler( viewModelGO );
+			handler.Weapon = this;
+			handler.ViewModelRenderer = viewModelRenderer;
+			handler.Camera = viewModelCamera;
+			handler.ViewModelHandsRenderer = viewModelHandsRenderer;
+		}
+
+		return new()
+		{
+			Renderer = viewModelRenderer,
+			HandsRenderer = viewModelHandsRenderer,
+			ModelHandler = handler
+		};
+	}
+
+	protected virtual void CreateModels()
 	{
 		if ( !IsProxy && !Owner.IsBot && ViewModel.IsValid() && !ViewModelRenderer.IsValid() )
 		{
-			var viewModelGO = new GameObject( true, "Viewmodel - " + ClassName );
-			viewModelGO.SetParent( Owner.GameObject, false );
-			viewModelGO.Tags.Add( TagsHelper.ViewModel );
-			viewModelGO.NetworkMode = NetworkMode.Never;
-
-			ViewModelRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
-			ViewModelRenderer.Model = ViewModel;
-			ViewModelRenderer.AnimationGraph = ViewModel.AnimGraph;
-			ViewModelRenderer.CreateBoneObjects = true;
-			ViewModelRenderer.CreateAttachments = true;
-			ViewModelRenderer.Enabled = false;
-			ViewModelRenderer.OnSoundEvent += ( sceneSound ) =>
-			{
-				var soundEvent = ResourceLibrary.Get<SoundEvent>( sceneSound.Name );
-				if ( soundEvent is null ) return;
-
-				// Make sure local always has UI sound
-				soundEvent.UI = true;
-				soundEvent.Volume = 1;
-
-				using ( Rpc.FilterExclude( Owner.GameObject.Network.Owner ) )
-				{
-					PlaySound( soundEvent, 0.5f, 7500f, true );
-				}
-			};
-			ViewModelRenderer.OnComponentEnabled += async () =>
-			{
-				// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
-				ViewModelRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
-				ViewModelRenderer.ClearParameters();
-				OnViewModelDeploy();
-
-				// Deploy
-				if ( WorldModel is null )
-				{
-					await GameTask.DelayRealtime( 1 );
-					if ( this.IsValid() )
-						OnDeploy();
-				}
-			};
-
-			ViewModelHandler = CreateViewModelHandler( viewModelGO );
-			ViewModelHandler.Weapon = this;
-			ViewModelHandler.ViewModelRenderer = ViewModelRenderer;
-			var viewModelCamera = Owner.ViewModelCamera;
-			if ( Owner.ViewModelCamera is null )
-			{
-				var viewModelCameraGameObject = new GameObject();
-				viewModelCameraGameObject.Name = "ViewModelCamera";
-				viewModelCameraGameObject.SetParent( Owner.GameObject, false );
-
-				// Setup the view model camera
-				viewModelCamera = viewModelCameraGameObject.Components.Create<CameraComponent>();
-				viewModelCamera.ClearFlags = ClearFlags.Depth | ClearFlags.Stencil;
-				viewModelCamera.ZNear = 1;
-				viewModelCamera.Priority = 2;
-				viewModelCamera.TargetEye = StereoTargetEye.RightEye;
-				viewModelCamera.RenderTags.Add( new TagSet() { TagsHelper.ViewModel, TagsHelper.Light } );
-
-				Owner.ViewModelCamera = viewModelCamera;
-			}
-			ViewModelHandler.Camera = viewModelCamera;
-
-			Owner.Camera.RenderExcludeTags.Add( TagsHelper.ViewModel );
-
-			if ( ViewModelHands is not null )
-			{
-				ViewModelHandsRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
-				ViewModelHandsRenderer.Model = ViewModelHands;
-				ViewModelHandsRenderer.BoneMergeTarget = ViewModelRenderer;
-				ViewModelHandsRenderer.OnComponentEnabled += () =>
-				{
-					// Prevent flickering when enabling the component, this is controlled by the ViewModelHandler
-					ViewModelHandsRenderer.RenderType = ModelRenderer.ShadowRenderType.ShadowsOnly;
-				};
-			}
-
-			ViewModelHandler.ViewModelHandsRenderer = ViewModelHandsRenderer;
+			var viewmodel = CreateViewModel( ViewModel );
+			ViewModelRenderer = viewmodel.Renderer;
+			ViewModelHandler = viewmodel.ModelHandler;
 		}
 
 		if ( WorldModel is not null && WorldModelRenderer is null )
@@ -476,17 +498,17 @@ public partial class Weapon : Component, IInventoryItem
 
 			// Called when weapon models are created
 			OnComponentEnabled();
-				Owner.ParentToBone( GameObject, "hold_R", deleteOnFail: false );
-			}
+			Owner.ParentToBone( GameObject, "hold_R", deleteOnFail: false );
 		}
+	}
 
 	[Rpc.Broadcast]
 	public void PlaySound( SoundEvent sound, float volume = float.NaN, float distance = float.NaN, bool shouldFollow = false )
 	{
 		if ( sound is null || !this.IsValid() ) return;
 
-		var isScreenSound = CanSeeViewModel;
-		sound.UI = isScreenSound;
+		if ( !shouldFollow )
+			shouldFollow = CanSeeViewModel;
 
 		if ( !float.IsNaN( volume ) )
 			sound.Volume = volume;
@@ -494,20 +516,15 @@ public partial class Weapon : Component, IInventoryItem
 		if ( !float.IsNaN( distance ) )
 			sound.Distance = distance;
 
-		if ( isScreenSound )
-			Sound.Play( sound );
+		var handle = Sound.Play( sound, WorldPosition );
+		if ( shouldFollow )
+		{
+			handle?.Parent = this.GameObject;
+			handle?.FollowParent = true;
+		}
 		else
 		{
-			var handle = Sound.Play( sound, WorldPosition );
-			if ( shouldFollow )
-			{
-				handle?.Parent = this.GameObject;
-				handle?.FollowParent = true;
-			}
-			else
-			{
-				handle?.Position = WorldPosition;
-			}
+			handle?.Position = WorldPosition;
 		}
 	}
 

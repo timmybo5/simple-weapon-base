@@ -1,4 +1,6 @@
-﻿namespace SWB.Shared;
+﻿using System.Collections.Generic;
+
+namespace SWB.Shared;
 
 /// <summary>
 /// An extended version of Sandbox.DamageInfo with additional properties for SWB
@@ -9,6 +11,7 @@ public class DamageInfo : Sandbox.DamageInfo
 	public Vector3 Force { get; set; }
 	public float HitFlinch { get; set; }
 	public MovementImpact MovementImpact { get; set; }
+	public Dictionary<string, string> Extra { get; set; }
 
 	public static DamageInfo FromBullet(
 		GameObject attacker,
@@ -22,7 +25,8 @@ public class DamageInfo : Sandbox.DamageInfo
 		Vector3 force,
 		float hitFlinch,
 		MovementImpact movementImpact,
-		string[] tags )
+		string[] tags,
+		Dictionary<string, string> extra = null )
 	{
 		return new()
 		{
@@ -38,6 +42,7 @@ public class DamageInfo : Sandbox.DamageInfo
 			HitFlinch = hitFlinch,
 			MovementImpact = movementImpact,
 			Tags = [.. tags, TagsHelper.Bullet],
+			Extra = extra
 		};
 	}
 

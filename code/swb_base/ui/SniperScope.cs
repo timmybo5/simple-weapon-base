@@ -13,6 +13,12 @@ public class SniperScope : Panel
 	Panel lensWrapper;
 	Panel scope;
 
+	const float IdleSwayHorizontalPercent = 0.5f;
+	const float IdleSwayVerticalPercent = 0.5f;
+	const float IdleSwayDelay = 1f;
+
+	TimeSince timeSinceActive;
+	Vector2 idleSway;
 	float verticalMov;
 	float horizontalMov;
 	float lensBob;
@@ -46,11 +52,16 @@ public class SniperScope : Panel
 	public override void Tick()
 	{
 		var show = weapon.IsValid() && weapon.IsScoping;
-		
+
 		// Show when zooming
 		SetClass( "hide", !show );
-
-		if ( !show ) return;
+		if ( !show )
+		{
+			horizontalMov = MathUtil.FILerp( horizontalMov, 0, 3 );
+			verticalMov = MathUtil.FILerp( verticalMov, 0, 3 );
+			timeSinceActive = 0;
+			return;
+		}
 
 		// Scope size
 		var scopeSize = Screen.Height * ScaleFromScreen;
@@ -80,11 +91,23 @@ public class SniperScope : Panel
 		horizontalMov = MathUtil.FILerp( horizontalMov, deltaYaw * fovModifier, 10 );
 		verticalMov = MathUtil.FILerp( verticalMov, deltaPitch * fovModifier, 10 );
 
-		var marginTopPercent = lensBob + verticalMov;
-		var marginLeftPercent = horizontalMov;
-		Style.MarginTop = Length.Percent( marginTopPercent );
-		Style.MarginLeft = Length.Percent( marginLeftPercent );
-		weapon.SetScopeLensCenter( new( 0.5f + marginLeftPercent / 100f, 0.5f + marginTopPercent / 100f ) );
+		var swayTime = Math.Max( 0f, (float)timeSinceActive - IdleSwayDelay );
+		if ( swayTime > 0 )
+			idleSway = MathUtil.FILerp( idleSway, GetIdleSway( swayTime ), 10 );
+		else
+			idleSway = Vector2.Zero;
+
+		var marginTopPercent = lensBob + verticalMov + idleSway.y;
+		var marginLeftPercent = horizontalMov + idleSway.x;
+
+		var screenOffset = new Vector2(
+			Screen.Width * (marginLeftPercent / 100f),
+			Screen.Height * (marginTopPercent / 100f)
+		);
+
+		Style.MarginLeft = Length.Pixels( screenOffset.x * ScaleFromScreen );
+		Style.MarginTop = Length.Pixels( screenOffset.y * ScaleFromScreen );
+		weapon.SetScopeLensCenter( new( 0.5f + screenOffset.x / Screen.Width, 0.5f + screenOffset.y / Screen.Height ) );
 		wasInAir = !player.IsOnGround;
 
 		if ( scope is null ) return;
@@ -108,5 +131,23 @@ public class SniperScope : Panel
 		var rndVertical = Game.Random.Float( -2.5f, -5 );
 		horizontalMov += rndHorizontal * weapon.Primary.Recoil * 2f;
 		verticalMov += rndVertical * weapon.Primary.Recoil * 2f;
+	}
+
+	Vector2 GetIdleSway( float swayTime )
+	{
+		var x = GetIdleSwayX( swayTime ) - GetIdleSwayX( 0f );
+		var y = GetIdleSwayY( swayTime ) - GetIdleSwayY( 0f );
+
+		return new Vector2( x * IdleSwayHorizontalPercent, y * IdleSwayVerticalPercent );
+	}
+
+	float GetIdleSwayX( float time )
+	{
+		return MathF.Sin( time * 1.15f ) * 0.7f + MathF.Sin( time * 0.63f + 1.8f ) * 0.3f;
+	}
+
+	float GetIdleSwayY( float time )
+	{
+		return MathF.Sin( time * 0.95f + 0.85f ) * 0.65f + MathF.Sin( time * 0.47f + 2.4f ) * 0.35f;
 	}
 }

@@ -13,12 +13,12 @@ public enum AttachmentCategory
 	Muzzle,
 	Stock,
 	Other,
-	Special,
-	Tactical,
 	Laser,
-	None,
 	Trigger,
+	Tactical,
+	Special,
 	Perk,
+	None,
 }
 
 /*
@@ -101,7 +101,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		Weapon = Components.Get<Weapon>();
 	}
 
-	private void SetBodyGroup( int choice )
+	protected virtual void SetBodyGroup( int choice )
 	{
 		if ( string.IsNullOrEmpty( BodyGroup ) ) return;
 
@@ -111,9 +111,9 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		Weapon.WorldModelRenderer.SetBodyGroup( BodyGroup, choice );
 	}
 
-	private void CreateModel( bool isViewModel = false )
+	public SkinnedModelRenderer CreateModel( SkinnedModelRenderer target, bool isViewModel = false )
 	{
-		if ( string.IsNullOrEmpty( ModelPath ) || string.IsNullOrEmpty( Bone ) ) return;
+		if ( string.IsNullOrEmpty( ModelPath ) || string.IsNullOrEmpty( Bone ) ) return null;
 
 		var attachmentGO = new GameObject( true, "Attachment" );
 		attachmentGO.Tags.Add( TagsHelper.Attachment );
@@ -121,15 +121,16 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		// Hack: Setting to false fixes shaders not working correctly
 		var attachmentRenderer = attachmentGO.Components.Create<SkinnedModelRenderer>( false );
 		attachmentRenderer.Model = Model.Load( ModelPath );
-		attachmentRenderer.Enabled = true;
 		attachmentRenderer.CreateAttachments = true;
+		attachmentRenderer.CreateBoneObjects = true;
 
 		if ( isViewModel )
 		{
+			attachmentRenderer.Enabled = false;
 			attachmentRenderer.WorldScale = ViewModelScale;
-			ViewModelRenderer = attachmentRenderer;
+			attachmentRenderer.RenderType = ModelRenderer.ShadowRenderType.Off;
 			attachmentGO.NetworkMode = NetworkMode.Never;
-			ModelUtil.ParentToBone( attachmentGO, Weapon.ViewModelRenderer, Bone, onFail: _ =>
+			ModelUtil.ParentToBone( attachmentGO, target, Bone, onFail: _ =>
 			{
 				if ( ViewModelRenderer == attachmentRenderer )
 					ViewModelRenderer = null;
@@ -137,22 +138,31 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		}
 		else
 		{
+			attachmentRenderer.Enabled = true;
 			attachmentRenderer.WorldScale = WorldModelScale;
-			WorldModelRenderer = attachmentRenderer;
-			ModelUtil.ParentToBone( attachmentGO, Weapon.WorldModelRenderer, Bone, onFail: _ =>
+			ModelUtil.ParentToBone( attachmentGO, target, Bone, onFail: _ =>
 			{
 				if ( WorldModelRenderer == attachmentRenderer )
 					WorldModelRenderer = null;
 			} );
 		}
+
+		return attachmentRenderer;
 	}
 
-	private void CreateModels()
+	protected virtual void CreateModels()
 	{
-		if ( !IsProxy && Weapon.ViewModelRenderer is not null )
-			CreateModel( true );
+		if ( !IsProxy && Weapon.ViewModelRenderer.IsValid() )
+			ViewModelRenderer = CreateModel( Weapon.ViewModelRenderer, true );
 
-		CreateModel();
+		if ( Weapon.WorldModelRenderer.IsValid() )
+			WorldModelRenderer = CreateModel( Weapon.WorldModelRenderer );
+	}
+
+	protected virtual void DestroyModels()
+	{
+		ViewModelRenderer?.GameObject.Destroy();
+		WorldModelRenderer?.GameObject.Destroy();
 	}
 
 	/// <summary>Equips the attachment for everyone</summary>
@@ -240,8 +250,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		SetBodyGroup( BodyGroupDefault );
 
 		// Model
-		ViewModelRenderer?.GameObject.Destroy();
-		WorldModelRenderer?.GameObject.Destroy();
+		DestroyModels();
 
 		// Stats
 		StatsModifier?.Remove( Weapon );
