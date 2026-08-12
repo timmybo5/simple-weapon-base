@@ -151,7 +151,7 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
-        "Penetration": false,
+        "Penetration": true,
         "Recoil": 3,
         "Ricochet": true,
         "RicochetAngle": 30,
