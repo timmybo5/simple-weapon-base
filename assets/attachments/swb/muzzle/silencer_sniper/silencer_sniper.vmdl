@@ -48,7 +48,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "attachments/swb/muzzle/silencer_sniper/silencer_sniper.smd"
+						filename = "attachments/swb/muzzle/silencer_sniper/models/silencer_sniper.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 3.0

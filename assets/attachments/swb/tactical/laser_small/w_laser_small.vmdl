@@ -44,7 +44,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "attachments/swb/tactical/laser_small/w_laser_small.smd"
+						filename = "attachments/swb/tactical/laser_small/models/w_laser_small.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0

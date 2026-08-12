@@ -34,7 +34,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						filename = "attachments/swb/sight/reflex/models/w_reflex_sight.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0

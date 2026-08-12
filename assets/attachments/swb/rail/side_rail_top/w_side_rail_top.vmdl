@@ -29,7 +29,7 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "attachments/swb/rail/side_rail_top/w_side_rail_top.smd"
+						filename = "attachments/swb/rail/side_rail_top/models/w_side_rail_top.fbx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
 						import_scale = 1.0

@@ -169,7 +169,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "silencer"
-						filename = "attachments/swb/muzzle/silencer_rifle/silencer_rifle.smd"
+						filename = "attachments/swb/muzzle/silencer_rifle/models/silencer_rifle.fbx"
 						import_translation = [ 0.46, -0.096, 0.39 ]
 						import_rotation = [ 98.0, 139.600006, -40.0 ]
 						import_scale = 28.0
@@ -186,7 +186,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "reflex"
-						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						filename = "attachments/swb/sight/reflex/models/w_reflex_sight.fbx"
 						import_translation = [ 2.25, -0.24, 7.4 ]
 						import_rotation = [ 98.0, 139.600006, -40.0 ]
 						import_scale = 4.0

@@ -117,7 +117,7 @@
 					{
 						_class = "RenderMeshFile"
 						disabled = true
-						filename = "weapons\\swb\\l96a1\\models\\w_l96a1.smd"
+						filename = "weapons/swb/l96a1/models/w_l96a1.fbx"
 						import_translation = [ 6.0, 0.0, -0.5 ]
 						import_rotation = [ -15.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -134,7 +134,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "l96a1"
-						filename = "weapons\\swb\\l96a1\\models\\w_l96a1_no_scope.smd"
+						filename = "weapons/swb/l96a1/models/w_l96a1_no_scope.fbx"
 						import_translation = [ 0.0, 0.0, -0.5 ]
 						import_rotation = [ -15.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -151,7 +151,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "scope"
-						filename = "weapons\\swb\\l96a1\\models\\w_l96a1_scope.smd"
+						filename = "weapons/swb/l96a1/models/w_l96a1_scope.fbx"
 						import_translation = [ 0.0, 0.0, -0.5 ]
 						import_rotation = [ -15.0, 0.0, 0.0 ]
 						import_scale = 1.0
@@ -168,7 +168,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "reflex"
-						filename = "attachments/swb/sight/reflex/w_reflex_sight.smd"
+						filename = "attachments/swb/sight/reflex/models/w_reflex_sight.fbx"
 						import_translation = [ 0.0, 0.38, 1.4 ]
 						import_rotation = [ -90.0, -90.0, 0.0 ]
 						import_scale = 5.5
@@ -185,7 +185,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "silencer"
-						filename = "attachments/swb/muzzle/silencer_sniper/silencer_sniper.smd"
+						filename = "attachments/swb/muzzle/silencer_sniper/models/silencer_sniper.fbx"
 						import_translation = [ 0.0, 0.032, 1.1 ]
 						import_rotation = [ -90.0, 0.0, 0.0 ]
 						import_scale = 40.0
@@ -202,7 +202,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "rail"
-						filename = "attachments/swb/rail/rail_quad/w_rail_quad.smd"
+						filename = "attachments/swb/rail/rail_quad/models/w_rail_quad.fbx"
 						import_translation = [ 0.0, 0.36, 9.0 ]
 						import_rotation = [ -90.0, 0.0, 0.0 ]
 						import_scale = 3.5
@@ -219,7 +219,7 @@
 					{
 						_class = "RenderMeshFile"
 						name = "laser"
-						filename = "attachments/swb/tactical/laser_rifle/w_laser_rifle.smd"
+						filename = "attachments/swb/tactical/laser_rifle/models/w_laser_rifle.fbx"
 						import_translation = [ -0.72, 0.36, 7.4 ]
 						import_rotation = [ 90.0, 0.0, 0.0 ]
 						import_scale = 3.5
