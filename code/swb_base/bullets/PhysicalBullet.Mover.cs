@@ -1,5 +1,6 @@
 using SWB.Shared;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SWB.Base;
@@ -8,6 +9,10 @@ namespace SWB.Base;
 [Title( "Physical Bullet Mover" )]
 public class PhysicalBulletMover : Component
 {
+	private const int MaxPenetrations = 10; // safety valve, also acts as a practical per-bullet pierce cap
+	private readonly List<GameObject> ignoreGameObjects = new();
+	private readonly Guid shotId = Guid.NewGuid(); // correlates every hit from this single physical bullet (penetration)
+
 	public IPlayerBase Owner { get; set; }
 	public string ClassName { get; set; }
 	public Vector3 BulletVelocity { get; set; }
@@ -44,10 +49,19 @@ public class PhysicalBulletMover : Component
 		var bulletMovement = BulletVelocity * Time.Delta;
 
 		// Trace along path to see if we hit anything
-		var bulletTrace = Weapon.TraceBullet( Owner.GameObject, WorldPosition, WorldPosition + bulletMovement );
+		var traceIgnoreTags = ShootInfo.Penetration ? Weapon.PenetrationBulletTraceIgnoreTags : null;
+		var bulletTrace = Weapon.TraceBullet( Owner.GameObject, WorldPosition, WorldPosition + bulletMovement, ignoreTags: traceIgnoreTags, extraIgnoreGOs: ignoreGameObjects );
 		if ( bulletTrace.Hit )
 		{
-			HandleImpact( bulletTrace );
+			var penetratedPlayer = HandleImpact( bulletTrace );
+
+			if ( penetratedPlayer is not null && ignoreGameObjects.Count < MaxPenetrations )
+			{
+				ignoreGameObjects.Add( penetratedPlayer.GameObject );
+				WorldPosition = bulletTrace.HitPosition + BulletVelocity.Normal * 1.0f;
+				return;
+			}
+
 			WorldPosition = bulletTrace.HitPosition;
 
 			// Allows for graceful ending of effects
@@ -61,17 +75,19 @@ public class PhysicalBulletMover : Component
 		WorldPosition += bulletMovement;
 	}
 
-	protected void HandleImpact( SceneTraceResult traceResult )
+	protected IPlayerBase HandleImpact( SceneTraceResult traceResult )
 	{
 		var hitObject = traceResult.GameObject;
 
-		if ( SurfaceUtil.IsSkybox( traceResult.Surface ) || traceResult.HitPosition == Vector3.Zero ) return;
+		if ( SurfaceUtil.IsSkybox( traceResult.Surface ) || traceResult.HitPosition == Vector3.Zero ) return null;
 
 		// Impact
 		var decal = Weapon.CreateBulletImpact( traceResult );
 		decal?.NetworkSpawn();
 
 		// Damage
+		IPlayerBase penetratedPlayer = null;
+
 		if ( hitObject is not null )
 		{
 			var target = hitObject.Components.GetInAncestorsOrSelf<IDamageable>();
@@ -99,9 +115,15 @@ public class PhysicalBulletMover : Component
 				ShootInfo.HitFlinch,
 				Weapon.GetMovementImpactFromForce( ShootInfo.Force ),
 				hitTags,
-				Weapon.GetKillDetails()
+				Weapon.GetKillDetails(),
+				shotId
 			);
 			target?.OnDamage( dmgInfo );
+
+			if ( ShootInfo.Penetration && target is IPlayerBase playerTarget )
+				penetratedPlayer = playerTarget;
 		}
+
+		return penetratedPlayer;
 	}
 }

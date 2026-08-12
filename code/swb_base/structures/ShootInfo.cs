@@ -61,6 +61,21 @@ public class ShootInfo : Component
 	/// <summary>Bullet hit flinch</summary>
 	[Property, Group( "Bullets" )] public float HitFlinch { get; set; } = 1.25f;
 
+	/// <summary>Bullet penetration</summary>
+	[Property, Group( "Bullets" )] public bool Penetration { get; set; } = false;
+
+	/// <summary>Whether hitscan bullets can ricochet off qualifying surfaces (e.g. metal) when hit at a shallow angle</summary>
+	[Property, Group( "Bullets" )] public bool Ricochet { get; set; } = true;
+
+	/// <summary>Max angle (degrees, measured from the surface plane) at which a ricochet can occur. Lower = only very shallow grazing hits bounce.</summary>
+	[Property, Group( "Bullets" )] public float RicochetAngle { get; set; } = 30f;
+
+	/// <summary>Chance (0-1) that an eligible grazing hit actually ricochets</summary>
+	[Property, Group( "Bullets" )] public float RicochetChance { get; set; } = 0.33f;
+
+	/// <summary>Max number of times a single bullet can ricochet</summary>
+	[Property, Group( "Bullets" )] public int MaxRicochets { get; set; } = 3;
+
 	/// <summary>Weapon spread</summary>
 	[Property, Group( "Bullets" )] public float Spread { get; set; } = 0.1f;
 

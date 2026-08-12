@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SWB.Shared;
 
@@ -13,6 +14,11 @@ public class DamageInfo : Sandbox.DamageInfo
 	public MovementImpact MovementImpact { get; set; }
 	public Dictionary<string, string> Extra { get; set; }
 
+	/// <summary>
+	/// Correlates every hit produced by the same fired bullet (e.g. penetration/ricochet chains). Guid.Empty means "not shot-correlated".
+	/// </summary>
+	public Guid ShotId { get; set; }
+
 	public static DamageInfo FromBullet(
 		GameObject attacker,
 		GameObject? weapon,
@@ -26,7 +32,8 @@ public class DamageInfo : Sandbox.DamageInfo
 		float hitFlinch,
 		MovementImpact movementImpact,
 		string[] tags,
-		Dictionary<string, string> extra = null )
+		Dictionary<string, string> extra = null,
+		Guid shotId = default )
 	{
 		return new()
 		{
@@ -42,7 +49,8 @@ public class DamageInfo : Sandbox.DamageInfo
 			HitFlinch = hitFlinch,
 			MovementImpact = movementImpact,
 			Tags = [.. tags, TagsHelper.Bullet],
-			Extra = extra
+			Extra = extra,
+			ShotId = shotId
 		};
 	}
 

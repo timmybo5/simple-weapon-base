@@ -155,7 +155,8 @@ public partial class PlayerBase
 		WishVelocity = 0;
 		if ( !CanMove ) return;
 
-		var rot = Camera.WorldRotation; // = EyeAngles in firstperson | = Camera.WorldRotation in thirdperson
+		// Noclip needs full pitch to fly up/down, but grounded movement must stay yaw-only
+		var rot = Noclip ? Camera.WorldRotation : Rotation.FromYaw( EyeAngles.yaw );
 		WishVelocity += rot * Input.AnalogMove;
 
 		if ( !Noclip )
@@ -303,9 +304,15 @@ public partial class PlayerBase
 		var runIsDownOrPressed = InputIsDownOrPressed( InputButtonHelper.Run );
 		var runIsStickyActive = stickyActiveButtons.Contains( InputButtonHelper.Run );
 
-		// Velocity unstick
+		// Unstick as soon as the stick is released, moved off-axis from where we're facing, or once speed has decayed
 		var speed = Velocity.WithZ( 0 );
-		if ( !IsCrouching && timeSinceStickyRunStart > 0.2 && speed.LengthSquared < 20000 )
+		var releasedMoveInput = IsUsingController && Input.AnalogMove.IsNearZeroLength;
+		var yawRot = Rotation.FromYaw( EyeAngles.yaw );
+		var moveDir = (yawRot * Input.AnalogMove).WithZ( 0 );
+		var offAxis = IsUsingController && !moveDir.IsNearZeroLength
+			&& Vector3.Dot( moveDir.Normal, yawRot.Forward.WithZ( 0 ).Normal ) < 0.5f; // outside ~60° forward cone
+
+		if ( !IsCrouching && timeSinceStickyRunStart > 0.2 && (releasedMoveInput || offAxis || speed.LengthSquared < 20000) )
 		{
 			runIsStickyActive = false;
 			stickyActiveButtons.Remove( InputButtonHelper.Run );

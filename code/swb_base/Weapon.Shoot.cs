@@ -1,6 +1,7 @@
 ﻿using SWB.Base.Particles;
 using SWB.Shared;
 using System;
+using System.Collections.Generic;
 
 namespace SWB.Base;
 
@@ -19,6 +20,12 @@ public partial class Weapon
 	[
 		..BulletTraceIgnoreTags,
 		TagsHelper.Player,
+		TagsHelper.DeadPlayer
+	];
+
+	public static readonly string[] PenetrationBulletTraceIgnoreTags =
+	[
+		..BulletTraceIgnoreTags,
 		TagsHelper.DeadPlayer
 	];
 
@@ -144,19 +151,26 @@ public partial class Weapon
 	}
 
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
-	public static SceneTraceResult TraceBullet( GameObject toIgnoreGO, Vector3 start, Vector3 end, float radius = 2.0f, string[] ignoreTags = null )
+	public static SceneTraceResult TraceBullet( GameObject toIgnoreGO, Vector3 start, Vector3 end, float radius = 2.0f, string[] ignoreTags = null, IEnumerable<GameObject> extraIgnoreGOs = null )
 	{
 		// TODO: find another solution when water becomes more available
 		// var startsInWater = SurfaceUtil.IsPointWater( start );
 		// if ( startsInWater )
 		//	 withoutTags.Add( TagsHelper.Water );
 
-		var tr = Game.ActiveScene.Trace.Ray( start, end )
+		var trace = Game.ActiveScene.Trace.Ray( start, end )
 				.UseHitboxes()
 				.WithoutTags( ignoreTags ?? BulletTraceIgnoreTags )
 				.Size( radius )
-				.IgnoreGameObjectHierarchy( toIgnoreGO )
-				.Run();
+				.IgnoreGameObjectHierarchy( toIgnoreGO );
+
+		if ( extraIgnoreGOs is not null )
+		{
+			foreach ( var go in extraIgnoreGOs )
+				trace = trace.IgnoreGameObjectHierarchy( go );
+		}
+
+		var tr = trace.Run();
 
 		// Log.Info( tr.GameObject );
 
@@ -164,9 +178,9 @@ public partial class Weapon
 	}
 
 	/// <summary> A single bullet trace from start to end with a certain radius.</summary>
-	public virtual SceneTraceResult TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f, string[] ignoreTags = null )
+	public virtual SceneTraceResult TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f, string[] ignoreTags = null, IEnumerable<GameObject> extraIgnoreGOs = null )
 	{
-		return TraceBullet( Owner.GameObject, start, end, radius, ignoreTags );
+		return TraceBullet( Owner.GameObject, start, end, radius, ignoreTags, extraIgnoreGOs );
 	}
 
 	[Rpc.Broadcast( NetFlags.Unreliable )]

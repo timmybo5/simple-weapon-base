@@ -24,7 +24,7 @@ public class ReflexSightBG : SightAttachment
 		AimInFOVSpeed = -1f,
 		AimOutFOVSpeed = -1f,
 		Sensitivity = 0.5f,
-		PlayerFOV = 50f,
+		PlayerFOVZoom = 1.1f,
 	};
 }
 

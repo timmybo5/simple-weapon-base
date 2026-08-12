@@ -1,4 +1,5 @@
 ﻿using SWB.Shared;
+using System;
 
 namespace SWB.Base;
 
@@ -149,7 +150,7 @@ public partial class Weapon
 	public bool IsCustomizing { get; set; }
 
 	/// <summary>If the player is running</summary>
-	new public bool IsRunning => Owner.IsRunning && Owner.IsOnGround && Owner.Velocity.Length >= 200;
+	new public bool IsRunning => Owner.IsRunning && Owner.IsOnGround && Owner.Velocity.Length >= 200 * Math.Min( Mobility, 1f );
 
 	/// <summary>If the player is crouching</summary>
 	public bool IsCrouching => Owner.IsCrouching;

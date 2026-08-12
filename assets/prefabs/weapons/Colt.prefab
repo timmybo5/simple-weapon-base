@@ -3,7 +3,7 @@
     "__guid": "75e8dbf9-98c5-4504-a879-6f6da3f32a1c",
     "__version": 2,
     "Flags": 0,
-    "Name": "colt",
+    "Name": "swb_colt",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
@@ -21,14 +21,14 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "-1.15,-0.09,18",
-          "Pos": "-0.82,0,1.855"
+          "Angle": "-1.14999998,-0.0900000036,18",
+          "Pos": "-0.819999993,0,1.85500002"
         },
         "AimInfo": {
           "SpreadModifier": 0.25,
           "Sensitivity": 0.85,
           "ViewModelFOV": 35,
-          "PlayerFOV": -1,
+          "PlayerFOVZoom": -1,
           "AimInFOVSpeed": 1,
           "AimOutFOVSpeed": 1
         },
@@ -48,8 +48,8 @@
           "ShowRight": true
         },
         "CustomizeAnimData": {
-          "Angle": "-22.88,42.22,14.4",
-          "Pos": "9.19,-4.46,2.16"
+          "Angle": "-22.8799992,42.2200012,14.3999996",
+          "Pos": "9.18999958,-4.46000004,2.16000009"
         },
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
         "DisplayName": "Colt M1911",
@@ -75,10 +75,11 @@
         "ReloadAnim": "reload",
         "ReloadEmptyAnim": "reload_empty",
         "ReloadEmptyTime": -1,
+        "ReloadSpeed": 1,
         "ReloadTime": 3.6,
         "RunAnimData": {
-          "Angle": "13,41.51,0",
-          "Pos": "3.6,1.03,1.128"
+          "Angle": "13,41.5099983,0",
+          "Pos": "3.5999999,1.02999997,1.12800002"
         },
         "ScopeInfo": {
           "LensTexture": "/materials/swb/scopes/swb_lens_hunter.png",
@@ -134,6 +135,7 @@
         "Force": 3,
         "HitFlinch": 1.25,
         "InfiniteAmmo": "reserve",
+        "MaxRicochets": 3,
         "MuzzleFlashParticle": {
           "_type": "gameobject",
           "prefab": "prefabs/particles/muzzle/muzzleflash.prefab"
@@ -144,7 +146,11 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
+        "Penetration": false,
         "Recoil": 0.35,
+        "Ricochet": true,
+        "RicochetAngle": 30,
+        "RicochetChance": 0.33,
         "RPM": 700,
         "ScreenShake": {
           "Duration": 0.08,
@@ -186,14 +192,14 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "-1.33,-0.06,18",
-          "Pos": "-0.516,0,1.053"
+          "Angle": "-1.33000004,-0.0599999987,18",
+          "Pos": "-0.515999973,0,1.05299997"
         },
         "AimInfo": {
           "SpreadModifier": 0.25,
           "Sensitivity": 0.5,
           "ViewModelFOV": -1,
-          "PlayerFOV": 50,
+          "PlayerFOVZoom": 1.1,
           "AimInFOVSpeed": 1,
           "AimOutFOVSpeed": 1
         },
@@ -242,13 +248,15 @@
         "Enabled": false,
         "IncludeStaticBodies": true,
         "IncludeKeyframedBodies": true,
-        "EditorAutoUpdate": true,
+        "EditorAutoUpdate": false,
         "AgentHeight": 64,
         "AgentRadius": 16,
         "AgentStepSize": 18,
         "AgentMaxSlope": 40,
         "ExcludedBodies": "",
-        "IncludedBodies": ""
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
       }
     },
     "__variables": []

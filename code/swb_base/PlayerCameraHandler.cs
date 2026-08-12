@@ -4,6 +4,8 @@ namespace SWB.Base;
 
 public class PlayerCameraHandler : Component
 {
+	[Property] public float ThirdPersonAimZoom { get; set; } = 1.4f;
+
 	public Weapon Weapon { get; set; }
 
 	float targetPlayerFOV = -1;
@@ -40,8 +42,12 @@ public class PlayerCameraHandler : Component
 			finalPlayerFOV = Preferences.FieldOfView;
 		}
 
-		var animSpeed = 10;
-		finalPlayerFOV = MathX.LerpTo( finalPlayerFOV, targetPlayerFOV, playerFOVSpeed * animSpeed * RealTime.Delta );
+		var decayRate = playerFOVSpeed * 10f;
+		if ( decayRate > 0f )
+		{
+			var halfLife = System.MathF.Log( 2f ) / decayRate;
+			finalPlayerFOV = MathX.ExponentialDecay( finalPlayerFOV, targetPlayerFOV, halfLife, RealTime.Delta );
+		}
 
 		if ( finalPlayerFOV != cachedFOV )
 		{
@@ -61,13 +67,13 @@ public class PlayerCameraHandler : Component
 		var isAiming = !Weapon.ShouldTuckVar && Weapon.IsAiming;
 		if ( isAiming && !Weapon.IsReloading )
 		{
-			var aimFOV = Weapon.AimInfo.PlayerFOV;
+			var aimZoom = Weapon.AimInfo.PlayerFOVZoom;
 
-			if ( !player.IsFirstPerson && aimFOV <= 0 )
-				aimFOV = 70f;
+			if ( !player.IsFirstPerson && aimZoom <= 0 )
+				aimZoom = ThirdPersonAimZoom;
 
-			if ( aimFOV > 0 )
-				targetPlayerFOV = aimFOV;
+			if ( aimZoom > 0 )
+				targetPlayerFOV = CalculateZoomedFOV( Preferences.FieldOfView, aimZoom );
 
 			if ( Weapon.IsScoping && Weapon.ScopeInfo.FOV > 0 )
 				targetPlayerFOV = Weapon.ScopeInfo.FOV;
@@ -76,10 +82,16 @@ public class PlayerCameraHandler : Component
 		}
 		else
 		{
-			if ( finalPlayerFOV != Weapon.AimInfo.PlayerFOV )
-			{
-				playerFOVSpeed = Weapon.AimInfo.AimOutFOVSpeed;
-			}
+			playerFOVSpeed = Weapon.AimInfo.AimOutFOVSpeed;
 		}
+	}
+
+	/// <summary>
+	/// Take the camera’s current FOV, convert it into a projected view size, divide that size by the zoom factor, then convert it back into a new FOV.
+	/// </summary>
+	static float CalculateZoomedFOV( float baseFOV, float zoom )
+	{
+		var halfFOV = MathX.DegreeToRadian( baseFOV ) * 0.5f;
+		return MathX.RadianToDegree( 2f * System.MathF.Atan( System.MathF.Tan( halfFOV ) / zoom ) );
 	}
 }

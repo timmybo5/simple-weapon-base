@@ -115,6 +115,10 @@ CustomizationMenu {
 
 				.activeAttachment {
 					opacity: 1;
+
+					.iconWrapper {
+						filter: drop-shadow(0px 0px 6px #eccc68);
+					}
 				}
 			}
 
@@ -152,7 +156,6 @@ CustomizationMenu {
 					border-radius: 2px;
 					margin: 0 6px 0 auto;
 					//margin-right: -1px;
-					filter: drop-shadow(0px 0px 6px #eccc68);
 					justify-content: center;
 					align-items: center;
 					transition: all 0.1s ease-out 0s;

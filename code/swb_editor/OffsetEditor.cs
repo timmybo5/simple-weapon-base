@@ -1,5 +1,6 @@
 ﻿using Sandbox.UI;
 using SWB.Base;
+using SWB.Base.Attachments;
 using System;
 
 namespace SWB.Editor;
@@ -60,9 +61,18 @@ public partial class OffsetEditor
 		FOV = weapon.ViewModelFOV;
 	}
 
+	public virtual void OnCopy()
+	{
+		Clipboard.SetText( String.Format( "new AngPos {{ Angle = new Angles({0:0.###}f, {1:0.###}f, {2:0.###}f), Pos = new Vector3({3:0.###}f, {4:0.###}f, {5:0.###}f) }}",
+			Pitch, Yaw, Roll, X, Y, Z ) );
+	}
+
 	public virtual void OnPrint()
 	{
-		Log.Info( "-- " + weapon.DisplayName );
+		var sightAttach = weapon.GetActiveAttachmentForCategory( AttachmentCategory.Sight );
+		var sightName = sightAttach is not null ? $"({sightAttach.Name})" : "";
+
+		Log.Info( $"-- {weapon.DisplayName} {sightName}" );
 		Log.Info( String.Format( "Angle = {0:0.###}f, {1:0.###}f, {2:0.###}f", Pitch, Yaw, Roll ) );
 		Log.Info( String.Format( "Pos = {0:0.###}f, {1:0.###}f, {2:0.###}f", X, Y, Z ) );
 		Log.Info( String.Format( "FOV = {0:0.###}f", FOV ) );

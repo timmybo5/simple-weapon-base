@@ -197,10 +197,7 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		foreach ( var att in Weapon.Attachments )
 		{
 			if ( att.Category == Category && att.Equipped )
-			{
 				att.Unequip();
-				break;
-			}
 		}
 
 		equippedOnClient = true;

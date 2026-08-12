@@ -100,7 +100,7 @@
           "Flags": 0,
           "Name": "Sun",
           "Position": "0,0,0",
-          "Rotation": "-0.0729315,0.4822396,0.1305433,0.8631827",
+          "Rotation": "-0.0729314983,0.482239604,0.130543306,0.863182724",
           "Scale": "1,1,1",
           "Tags": "light_directional,light",
           "Enabled": true,
@@ -115,6 +115,8 @@
               "__guid": "4c6cab0f-a914-4b35-bf8f-af7abd4247ca",
               "__enabled": true,
               "Flags": 0,
+              "ContactShadows": true,
+              "Contribution": "Diffuse, Specular, Transmissive",
               "FogMode": "Enabled",
               "FogStrength": 1,
               "LightColor": "0.94419,0.97767,1,1",
@@ -191,6 +193,7 @@
               "OnComponentUpdate": null,
               "Priority": 0,
               "Projection": "Sphere",
+              "RenderExcludeTags": "",
               "Resolution": "Small",
               "Texture": "textures/cubemaps/default2.vtex",
               "TintColor": "1,1,1,1",
@@ -208,7 +211,7 @@
           "Name": "Plane",
           "Position": "0,0,0",
           "Rotation": "0,0,0,1",
-          "Scale": "13.09961,14.53646,5",
+          "Scale": "13.0996103,14.5364599,5",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -278,9 +281,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Cube",
-          "Position": "106.3166,135.0241,14.17619",
-          "Rotation": "0.000002976795,-0.000007906739,0.2982059,0.9545016",
-          "Scale": "0.5632889,0.5632889,0.5632889",
+          "Position": "106.316597,135.024094,14.1761904",
+          "Rotation": "2.97679503E-06,-7.90673857E-06,0.298205912,0.954501629",
+          "Scale": "0.563288927,0.563288927,0.563288927",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -374,6 +377,7 @@
               "OnComponentUpdate": null,
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
+              "SleepThreshold": 2,
               "StartAsleep": false
             }
           ],
@@ -384,9 +388,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Long Cube",
-          "Position": "-223.7912,249.1929,49.96741",
-          "Rotation": "-0.01588935,-0.004894807,0.3824361,0.9238324",
-          "Scale": "0.5632889,0.5632889,1.97564",
+          "Position": "-223.791199,249.192902,49.967411",
+          "Rotation": "-0.0158893503,-0.004894807,0.382436097,0.923832417",
+          "Scale": "0.563288927,0.563288927,1.97564006",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -480,6 +484,7 @@
               "OnComponentUpdate": null,
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
+              "SleepThreshold": 2,
               "StartAsleep": false
             }
           ],
@@ -490,9 +495,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Long Cube (1)",
-          "Position": "-179.8882,174.0877,50.27879",
-          "Rotation": "0.01091752,-0.02698293,0.442313,0.8963884",
-          "Scale": "0.5632889,0.5632889,1.97564",
+          "Position": "-179.888199,174.087708,50.2787895",
+          "Rotation": "0.0109175202,-0.0269829296,0.442312986,0.896388412",
+          "Scale": "0.563288927,0.563288927,1.97564006",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -586,6 +591,7 @@
               "OnComponentUpdate": null,
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
+              "SleepThreshold": 2,
               "StartAsleep": false
             }
           ],
@@ -596,9 +602,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Long Cube (2)",
-          "Position": "-180.215,206.8841,58.73539",
-          "Rotation": "0.6312017,0.2930965,0.3396897,0.6326846",
-          "Scale": "0.4871052,0.5632889,1.816077",
+          "Position": "-180.214996,206.884094,58.7353897",
+          "Rotation": "0.631201684,0.293096513,0.339689702,0.632684588",
+          "Scale": "0.487105191,0.563288927,1.81607699",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -692,6 +698,7 @@
               "OnComponentUpdate": null,
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
+              "SleepThreshold": 2,
               "StartAsleep": false
             }
           ],
@@ -702,9 +709,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Cube (1)",
-          "Position": "118.522,113.5585,37.78748",
-          "Rotation": "-0.3422784,-0.1094723,0.2794239,0.890384",
-          "Scale": "0.5632889,0.5632889,0.5632889",
+          "Position": "118.522003,113.558502,37.7874794",
+          "Rotation": "-0.342278391,-0.109472297,0.279423892,0.890384018",
+          "Scale": "0.563288927,0.563288927,0.563288927",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -798,6 +805,7 @@
               "OnComponentUpdate": null,
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
+              "SleepThreshold": 2,
               "StartAsleep": false
             }
           ],
@@ -808,9 +816,9 @@
           "__version": 2,
           "Flags": 0,
           "Name": "Cube (2)",
-          "Position": "129.9087,91.38236,14.18267",
-          "Rotation": "-0.00007207559,0.0002271165,0.3022816,0.9532187",
-          "Scale": "0.5632889,0.5632889,0.5632889",
+          "Position": "129.908707,91.3823624,14.1826696",
+          "Rotation": "-7.20755925E-05,0.000227116499,0.302281588,0.953218699",
+          "Scale": "0.563288927,0.563288927,0.563288927",
           "Tags": "",
           "Enabled": true,
           "NetworkMode": 2,
@@ -904,6 +912,7 @@
               "OnComponentUpdate": null,
               "OverrideMassCenter": false,
               "RigidbodyFlags": 0,
+              "SleepThreshold": 2,
               "StartAsleep": false
             }
           ],
@@ -1374,7 +1383,7 @@
       "__version": 2,
       "Flags": 0,
       "Name": "ExampleNetworkManager",
-      "Position": "73.25323,515.2476,-156.4206",
+      "Position": "73.2532272,515.24762,-156.420593",
       "Rotation": "0,0,0,1",
       "Scale": "1,1,1",
       "Tags": "",
@@ -1763,7 +1772,7 @@
                   "IdValue": "e4aa3cd0-27bf-45d0-8efe-ead35e78b763"
                 },
                 "Property": "Position",
-                "Value": "-115.9116,-695.7281,-435.9353"
+                "Value": "-115.911598,-695.728088,-435.935303"
               }
             ],
             "MovedObjects": []
@@ -1838,16 +1847,20 @@
       "AgentMaxSlope": 40,
       "ExcludedBodies": "",
       "IncludedBodies": "",
+      "DeferGeneration": false,
       "CustomBounds": false
     },
     "GameObjectSystems": {
       "Sandbox.Clutter.ClutterGridSystem": {
         "Storage": {
-          "$blob": "c93f2ba0-642b-4eaf-9764-ce7aa6831442"
+          "$blob": "64db792e-5935-8fbc-8cfa-050cd49fa7fd",
+          "$refs": []
         }
       },
-      "Sandbox.MovieMaker.MovieRecorderSystem": {
-        "DisableClientRecording": false
+      "Sandbox.SelectionSetsSystem": {
+        "Data": {
+          "SelectionSets": []
+        }
       }
     }
   },

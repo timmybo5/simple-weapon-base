@@ -17,7 +17,14 @@ public static class SurfaceUtil
 
 	public static List<string> RicochetSurfaces = new()
 	{
-		"wip",
+		"default",
+		"metal",
+		"metal.sheet",
+		"ceramic",
+		"plastic",
+		"plastic.sheet",
+		"wood",
+		"wood.sheet",
 	};
 
 	public static bool CanPenetrate( Surface surface )
@@ -28,6 +35,12 @@ public static class SurfaceUtil
 	public static bool CanRicochet( Surface surface )
 	{
 		return RicochetSurfaces.Contains( surface.ResourceName );
+	}
+
+	/// <summary>Angle in degrees between the travel direction and the surface plane. 0 = perfectly parallel/grazing, 90 = perpendicular/direct hit.</summary>
+	public static float GetGrazingAngle( Vector3 direction, Vector3 normal )
+	{
+		return 90f - Vector3.GetAngle( -direction, normal );
 	}
 
 	public static bool IsPointWater( Vector3 pos )

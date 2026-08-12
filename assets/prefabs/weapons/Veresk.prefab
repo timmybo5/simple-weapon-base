@@ -3,7 +3,7 @@
     "__guid": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312",
     "__version": 2,
     "Flags": 0,
-    "Name": "veresk",
+    "Name": "swb_veresk",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
@@ -21,14 +21,14 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "-1.3,-0.02,0",
-          "Pos": "-2.767,0,0.728"
+          "Angle": "-1.29999995,-0.0199999996,0",
+          "Pos": "-2.76699996,0,0.727999985"
         },
         "AimInfo": {
           "SpreadModifier": 0.25,
           "Sensitivity": 0.85,
           "ViewModelFOV": 35,
-          "PlayerFOV": -1,
+          "PlayerFOVZoom": -1,
           "AimInFOVSpeed": 1,
           "AimOutFOVSpeed": 1
         },
@@ -48,8 +48,8 @@
           "ShowRight": true
         },
         "CustomizeAnimData": {
-          "Angle": "-6.06,42.56,10",
-          "Pos": "4.901,0,1.112"
+          "Angle": "-6.05999994,42.5600014,10",
+          "Pos": "4.90100002,0,1.11199999"
         },
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
         "DisplayName": "SR2 Veresk",
@@ -75,10 +75,11 @@
         "ReloadAnim": "reload",
         "ReloadEmptyAnim": "reload_empty",
         "ReloadEmptyTime": -1,
+        "ReloadSpeed": 1,
         "ReloadTime": 3.67,
         "RunAnimData": {
-          "Angle": "8.41,59.66,0",
-          "Pos": "4.29,-0.86,-1.1"
+          "Angle": "8.40999985,59.6599998,0",
+          "Pos": "4.28999996,-0.860000014,-1.10000002"
         },
         "ScopeInfo": {
           "LensTexture": "/materials/swb/scopes/swb_lens_hunter.png",
@@ -139,6 +140,7 @@
         "Force": 3,
         "HitFlinch": 1.25,
         "InfiniteAmmo": "reserve",
+        "MaxRicochets": 3,
         "MuzzleFlashParticle": {
           "_type": "gameobject",
           "prefab": "prefabs/particles/muzzle/muzzleflash.prefab"
@@ -149,7 +151,11 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
+        "Penetration": false,
         "Recoil": 0.3,
+        "Ricochet": true,
+        "RicochetAngle": 30,
+        "RicochetChance": 0.33,
         "RPM": 950,
         "ScreenShake": {
           "Duration": 0.08,
@@ -172,14 +178,14 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "0,-0.08,0",
-          "Pos": "-2.788,0,0.377"
+          "Angle": "0,-0.0799999982,0",
+          "Pos": "-2.78800011,0,0.377000004"
         },
         "AimInfo": {
           "SpreadModifier": -1,
           "Sensitivity": 0.5,
           "ViewModelFOV": -1,
-          "PlayerFOV": 50,
+          "PlayerFOVZoom": 1.1,
           "AimInFOVSpeed": -1,
           "AimOutFOVSpeed": -1
         },
@@ -237,13 +243,15 @@
         "Enabled": false,
         "IncludeStaticBodies": true,
         "IncludeKeyframedBodies": true,
-        "EditorAutoUpdate": true,
+        "EditorAutoUpdate": false,
         "AgentHeight": 64,
         "AgentRadius": 16,
         "AgentStepSize": 18,
         "AgentMaxSlope": 40,
         "ExcludedBodies": "",
-        "IncludedBodies": ""
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
       }
     },
     "__variables": []

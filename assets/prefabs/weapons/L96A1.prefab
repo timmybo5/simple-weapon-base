@@ -3,7 +3,7 @@
     "__guid": "8c2999b8-8919-4895-9952-dcdce1c38403",
     "__version": 2,
     "Flags": 0,
-    "Name": "l96a1",
+    "Name": "swb_l96a1",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
@@ -21,14 +21,14 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "-0.81,-0.05,0",
-          "Pos": "-5.012,-4.46,1.572"
+          "Angle": "-0.810000002,-0.0500000007,0",
+          "Pos": "-5.01200008,-4.46000004,1.57200003"
         },
         "AimInfo": {
           "SpreadModifier": 0.25,
           "Sensitivity": 0.7,
           "ViewModelFOV": 35,
-          "PlayerFOV": -1,
+          "PlayerFOVZoom": -1,
           "AimInFOVSpeed": 1,
           "AimOutFOVSpeed": 1
         },
@@ -48,8 +48,8 @@
           "ShowRight": true
         },
         "CustomizeAnimData": {
-          "Angle": "-1.38,45.26,12.34",
-          "Pos": "7.78,-4.46,2.36"
+          "Angle": "-1.38,45.2599983,12.3400002",
+          "Pos": "7.78000021,-4.46000004,2.3599999"
         },
         "DeploySound": "sounds/swb/animations/swb_deploy.sound",
         "DisplayName": "L96a1",
@@ -75,6 +75,7 @@
         "ReloadAnim": "reload",
         "ReloadEmptyAnim": "reload_empty",
         "ReloadEmptyTime": -1,
+        "ReloadSpeed": 1,
         "ReloadTime": 1.8,
         "RunAnimData": {
           "Angle": "10,40,0",
@@ -139,6 +140,7 @@
         "Force": 7,
         "HitFlinch": 5,
         "InfiniteAmmo": "reserve",
+        "MaxRicochets": 3,
         "MuzzleFlashParticle": {
           "_type": "gameobject",
           "prefab": "prefabs/particles/muzzle/muzzleflash.prefab"
@@ -149,7 +151,11 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
+        "Penetration": false,
         "Recoil": 3,
+        "Ricochet": true,
+        "RicochetAngle": 30,
+        "RicochetChance": 0.33,
         "RPM": 125,
         "ScreenShake": {
           "Duration": 0.08,
@@ -172,14 +178,14 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "0.05,-0.06,0",
-          "Pos": "-5.009,-4.46,0.68"
+          "Angle": "0.0500000007,-0.0599999987,0",
+          "Pos": "-5.00899982,-4.46000004,0.680000007"
         },
         "AimInfo": {
           "SpreadModifier": -1,
           "Sensitivity": 0.5,
           "ViewModelFOV": -1,
-          "PlayerFOV": 50,
+          "PlayerFOVZoom": 1.1,
           "AimInFOVSpeed": -1,
           "AimOutFOVSpeed": -1
         },
@@ -202,7 +208,7 @@
         "Flags": 0,
         "AimAnimData": {
           "Angle": "0,0,0",
-          "Pos": "-4.996,-4.46,0.223"
+          "Pos": "-4.99599981,-4.46000004,0.223000005"
         },
         "Bone": null,
         "Enable": true,
@@ -310,13 +316,15 @@
         "Enabled": false,
         "IncludeStaticBodies": true,
         "IncludeKeyframedBodies": true,
-        "EditorAutoUpdate": true,
+        "EditorAutoUpdate": false,
         "AgentHeight": 64,
         "AgentRadius": 16,
         "AgentStepSize": 18,
         "AgentMaxSlope": 40,
         "ExcludedBodies": "",
-        "IncludedBodies": ""
+        "IncludedBodies": "",
+        "DeferGeneration": false,
+        "CustomBounds": false
       }
     },
     "__variables": []

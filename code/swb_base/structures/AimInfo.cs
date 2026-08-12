@@ -23,9 +23,10 @@ public class AimInfo
 	[Property, Group( "FOV" )] public float ViewModelFOV { get; set; } = -1f;
 
 	/// <summary>
-	/// FOV for the player camera when aiming down sights.
+	/// Optical zoom applied to the player camera when aiming down sights.
+	/// A value of 1.3 provides 1.3x magnification.
 	/// </summary>
-	[Property, Group( "FOV" )] public float PlayerFOV { get; set; } = -1f;
+	[Property, Group( "FOV" )] public float PlayerFOVZoom { get; set; } = -1f;
 
 	/// <summary>
 	/// FOV aim in speed
@@ -45,7 +46,7 @@ public class AimInfo
 			SpreadModifier = SpreadModifier,
 			Sensitivity = Sensitivity,
 			ViewModelFOV = ViewModelFOV,
-			PlayerFOV = PlayerFOV,
+			PlayerFOVZoom = PlayerFOVZoom,
 			AimInFOVSpeed = AimInFOVSpeed,
 			AimOutFOVSpeed = AimOutFOVSpeed
 		};
@@ -56,7 +57,7 @@ public class AimInfo
 	{
 		if ( Sensitivity == -1 ) Sensitivity = defaults.Sensitivity;
 		if ( ViewModelFOV == -1 ) ViewModelFOV = defaults.ViewModelFOV;
-		if ( PlayerFOV == -1 ) PlayerFOV = defaults.PlayerFOV;
+		if ( PlayerFOVZoom == -1 ) PlayerFOVZoom = defaults.PlayerFOVZoom;
 		if ( AimInFOVSpeed == -1 ) AimInFOVSpeed = defaults.AimInFOVSpeed;
 		if ( AimOutFOVSpeed == -1 ) AimOutFOVSpeed = defaults.AimOutFOVSpeed;
 		if ( SpreadModifier == -1 ) SpreadModifier = defaults.SpreadModifier;

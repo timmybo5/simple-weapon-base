@@ -59,7 +59,6 @@ OffsetEditor {
 		position: absolute;
 		flex-direction: column;
 		width: 400px;
-		height: 800px;
 		background-color: rgb(31, 31, 31);
 		top: 10px;
 		left: 10px;
@@ -93,6 +92,7 @@ OffsetEditor {
 			border-width: 1px;
 			border-radius: 4px;
 			align-items: center;
+			text-shadow: 2px 2px rgba(black, 0.5);
 
 			& > label {
 				width: 100%;
@@ -117,11 +117,10 @@ OffsetEditor {
 			justify-content: center;
 			align-items: center;
 			margin-top: 0px;
-			height: 20px;
 			flex-wrap: wrap;
 
 			button {
-				margin: 8px;
+				margin: 4px;
 				width: 180px;
 
 				&.large {
@@ -141,8 +140,14 @@ OffsetEditor {
 		.buttonContainer {
 			justify-content: center;
 			align-items: center;
-			margin-top: 80px;
+			margin: 20px 8px 0 8px;
 			height: 60px;
+			gap: 8px;
+
+			button {
+				flex-grow: 1;
+				margin: 0;
+			}
 		}
 	}
 }
