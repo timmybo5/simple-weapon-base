@@ -11,6 +11,13 @@ internal class Commands
 	public static void OpenOffsetsEditor()
 	{
 		var player = PlayerBase.Local;
+
+		if (player.Inventory.Active == null )
+		{
+			Log.Warning("No weapon equipped. Equip one to use the editor.");
+			return;
+		}
+		
 		var weaponGO = player.Inventory.Active;
 		var weapon = weaponGO.Components.Get<Weapon>();
 
