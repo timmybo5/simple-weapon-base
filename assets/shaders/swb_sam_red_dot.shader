@@ -81,6 +81,7 @@ PS
 
     // Attributes ------------------------------------------------------------------------------------------
 
+    #include "common/utils/Material.CommonInputs.hlsl"
     #include "common/pixel.hlsl"
 
     BoolAttribute(bWantsFBCopyTexture, !F_RENDER_SIGHTS_ONLY );
