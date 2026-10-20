@@ -25,6 +25,12 @@ public class ModelUtil
 			return;
 		}
 
+		// Bone objects are created lazily: models only pay for a bone hierarchy (updated every
+		// frame on every client) once something actually needs to hang off a bone. The retry
+		// below waits for them to appear.
+		if ( !target.CreateBoneObjects )
+			target.CreateBoneObjects = true;
+
 		var holdBoneGO = target.GetBoneObject( bone );
 
 		if ( !holdBoneGO.IsValid() || holdBoneGO.Scene is null )

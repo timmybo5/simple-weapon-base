@@ -124,6 +124,12 @@ public partial class Weapon : Component, IInventoryItem
 		GameObject.Enabled = false;
 	}
 
+	/// <summary>Sets the owner's holdtype, every frame while this weapon is out. Override to change how the body holds this weapon</summary>
+	protected virtual void ApplyOwnerHoldType()
+	{
+		Owner.HoldType = HoldType;
+	}
+
 	public virtual bool CanCarryStop()
 	{
 		return Owner.IsBot || TimeSinceDeployed > 0;
@@ -234,7 +240,7 @@ public partial class Weapon : Component, IInventoryItem
 		if ( !Owner.IsValid() ) return;
 
 		UpdateModels();
-		Owner.HoldType = HoldType;
+		ApplyOwnerHoldType();
 
 		if ( !IsProxy && !Owner.IsBot && !IsDeploying )
 		{
@@ -351,16 +357,16 @@ public partial class Weapon : Component, IInventoryItem
 
 	protected virtual void UpdateAttachments(ModelRenderer.ShadowRenderType worldModelRenderType)
 	{
-		Attachments.ForEach( ( att ) =>
+		foreach ( var att in Attachments )
 		{
-			if ( !att.Equipped ) return;
+			if ( !att.Equipped ) continue;
 
 			if ( att.ViewModelRenderer.IsValid() )
 				att.ViewModelRenderer.Enabled = Owner.IsFirstPerson && ViewModelHandler.ShouldDraw;
 
 			if ( att.WorldModelRenderer.IsValid() && att.WorldModelRenderer.RenderType != worldModelRenderType )
 				att.WorldModelRenderer.RenderType = worldModelRenderType;
-		} );
+		}
 	}
 
 	/// <summary>Override to use a custom ViewModelHandler</summary>
@@ -369,7 +375,7 @@ public partial class Weapon : Component, IInventoryItem
 		return go.Components.Create<ViewModelHandler>();
 	}
 
-	protected virtual ViewModel CreateViewModel( Model model, bool createHandler = true )
+	protected virtual ViewModel CreateViewModel( Model model, bool createHandler = true, Model handsModel = null, bool useDefaultHands = true )
 	{
 		var viewModelGO = new GameObject( true, "Viewmodel - " + ClassName );
 		viewModelGO.SetParent( Owner.GameObject, false );
@@ -389,7 +395,7 @@ public partial class Weapon : Component, IInventoryItem
 
 			using ( Rpc.FilterExclude( Owner.GameObject.Network.Owner ) )
 			{
-				PlaySound( soundEvent, 0.5f, 7500f, true );
+				PlayAnimSound( soundEvent );
 			}
 		};
 		viewModelRenderer.OnComponentEnabled += async () =>
@@ -429,11 +435,12 @@ public partial class Weapon : Component, IInventoryItem
 		Owner.Camera.RenderExcludeTags.Add( TagsHelper.ViewModel );
 
 		SkinnedModelRenderer viewModelHandsRenderer = null;
+		var hands = handsModel ?? (useDefaultHands ? ViewModelHands : null);
 
-		if ( ViewModelHands is not null )
+		if ( hands is not null )
 		{
 			viewModelHandsRenderer = viewModelGO.Components.Create<SkinnedModelRenderer>();
-			viewModelHandsRenderer.Model = ViewModelHands;
+			viewModelHandsRenderer.Model = hands;
 			viewModelHandsRenderer.BoneMergeTarget = viewModelRenderer;
 			viewModelHandsRenderer.OnComponentEnabled += () =>
 			{
@@ -461,12 +468,16 @@ public partial class Weapon : Component, IInventoryItem
 		};
 	}
 
+	/// <summary>If the view model gets its default hands model, false when something else shows the hands</summary>
+	protected virtual bool ShowDefaultViewModelHands => true;
+
 	protected virtual void CreateModels()
 	{
 		if ( !IsProxy && !Owner.IsBot && ViewModel.IsValid() && !ViewModelRenderer.IsValid() )
 		{
-			var viewmodel = CreateViewModel( ViewModel );
+			var viewmodel = CreateViewModel( ViewModel, true, null, ShowDefaultViewModelHands );
 			ViewModelRenderer = viewmodel.Renderer;
+			ViewModelHandsRenderer = viewmodel.HandsRenderer;
 			ViewModelHandler = viewmodel.ModelHandler;
 		}
 
@@ -475,7 +486,7 @@ public partial class Weapon : Component, IInventoryItem
 			WorldModelRenderer = Components.Create<SkinnedModelRenderer>();
 			WorldModelRenderer.Model = WorldModel;
 			WorldModelRenderer.AnimationGraph = WorldModel.AnimGraph;
-			WorldModelRenderer.CreateBoneObjects = true;
+			WorldModelRenderer.CreateBoneObjects = false; // Created on demand by ModelUtil.ParentToBone (attachments)
 			WorldModelRenderer.CreateAttachments = true;
 
 			async void OnComponentEnabled()
@@ -505,18 +516,35 @@ public partial class Weapon : Component, IInventoryItem
 	[Rpc.Broadcast]
 	public void PlaySound( SoundEvent sound, float volume = float.NaN, float distance = float.NaN, bool shouldFollow = false )
 	{
+		PlaySoundLocal( sound, volume, distance, shouldFollow );
+	}
+
+	/// <summary> Viewmodel animation sounds for everyone but the owner.</summary>
+	[Rpc.Broadcast( NetFlags.Unreliable )]
+	public void PlayAnimSound( SoundEvent sound )
+	{
+		PlaySoundLocal( sound, 0.5f, 7500f, true );
+	}
+
+	/// <summary> Plays a weapon sound locally </summary>
+	public void PlaySoundLocal( SoundEvent sound, float volume = float.NaN, float distance = float.NaN, bool shouldFollow = false )
+	{
 		if ( sound is null || !this.IsValid() ) return;
 
 		if ( !shouldFollow )
 			shouldFollow = CanSeeViewModel;
 
-		if ( !float.IsNaN( volume ) )
-			sound.Volume = volume;
-
-		if ( !float.IsNaN( distance ) )
-			sound.Distance = distance;
-
 		var handle = Sound.Play( sound, WorldPosition );
+
+		if ( handle is not null )
+		{
+			if ( !float.IsNaN( volume ) )
+				handle.Volume = volume;
+
+			if ( !float.IsNaN( distance ) )
+				handle.Distance = distance;
+		}
+
 		if ( shouldFollow )
 		{
 			handle?.Parent = this.GameObject;

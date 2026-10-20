@@ -122,7 +122,9 @@ public abstract class Attachment : Component, IComparable<Attachment>
 		var attachmentRenderer = attachmentGO.Components.Create<SkinnedModelRenderer>( false );
 		attachmentRenderer.Model = Model.Load( ModelPath );
 		attachmentRenderer.CreateAttachments = true;
-		attachmentRenderer.CreateBoneObjects = true;
+		// Nothing parents to an attachment model's bones (only GetAttachmentObject is used),
+		// and bone objects get their transforms updated every frame on every client
+		attachmentRenderer.CreateBoneObjects = false;
 
 		if ( isViewModel )
 		{

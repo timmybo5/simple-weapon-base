@@ -49,7 +49,13 @@ public partial class PlayerBase
 	public CitizenAnimationHelper AnimationHelper { get; set; }
 	public HoldTypes HoldType
 	{
-		set { AnimationHelper?.HoldType = (CitizenAnimationHelper.HoldTypes)value; }
+		set { ApplyHoldType( value ); }
+	}
+
+	/// <summary>Plays the holdtype on the body, override to drive the body differently</summary>
+	protected virtual void ApplyHoldType( HoldTypes holdType )
+	{
+		AnimationHelper?.HoldType = (CitizenAnimationHelper.HoldTypes)holdType;
 	}
 
 	public CapsuleCollider BodyCollider { get; set; }

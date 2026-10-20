@@ -144,6 +144,12 @@ public partial class Weapon
 	/// <summary>Time since the last reload</summary>
 	public TimeSince TimeSinceReload { get; set; }
 
+	/// <summary>Total duration of the current reload (TimeSinceReload counts up from -ReloadDuration to 0)</summary>
+	public float ReloadDuration { get; set; }
+
+	/// <summary>Progress of the current reload, 0 to 1</summary>
+	public float ReloadProgress => IsReloading && ReloadDuration > 0f ? Math.Clamp( 1f + TimeSinceReload / ReloadDuration, 0f, 1f ) : 0f;
+
 	/// <summary>Time since the weapon was in run animation</summary>
 	public TimeSince TimeSinceRunning { get; set; }
 

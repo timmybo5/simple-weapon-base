@@ -3,9 +3,6 @@
     <Platform Name="Any CPU" />
   </Configurations>
   <Project Path="code/demo.csproj" />
-  <Folder Name="/Addons/">
-    <Project Path="../base/code/Base Library.csproj" />
-  </Folder>
   <Folder Name="/Tools/">
     <Project Path="../../editor/ActionGraph/Code/actiongraph.csproj" />
     <Project Path="../../editor/DooEditor/Code/dooeditor.csproj" />

@@ -25,7 +25,7 @@ public class HitScanBulletInfo : BulletInfo
 		var hasTracer = ShouldSpawnTracer( shootInfo );
 
 		var traceStart = player.EyePos;
-		var ignoreGameObjects = new List<GameObject>();
+		List<GameObject> ignoreGameObjects = null; // only needed once we penetrate a player
 		var traceIgnoreTags = shootInfo.Penetration ? Weapon.PenetrationBulletTraceIgnoreTags : null;
 		var ricochetCount = 0;
 		var shotId = Guid.NewGuid(); // correlates every hit from this single bullet (penetration + ricochet)
@@ -34,6 +34,7 @@ public class HitScanBulletInfo : BulletInfo
 		for ( int i = 0; i < MaxPenetrations; i++ )
 		{
 			var bulletTr = weapon.TraceBullet( traceStart, endPos, ignoreTags: traceIgnoreTags, extraIgnoreGOs: ignoreGameObjects );
+			weapon.OnBulletTrace( traceStart, bulletTr );
 			var hitObj = bulletTr.GameObject;
 			var hasImpact = !SurfaceUtil.IsSkybox( bulletTr.Surface ) && bulletTr.HitPosition != Vector3.Zero;
 			IPlayerBase penetratedPlayer = null;
@@ -48,6 +49,9 @@ public class HitScanBulletInfo : BulletInfo
 					hitTags = bulletTr.Hitbox.Tags.TryGetAll().ToArray();
 
 				var force = forward * 100 * shootInfo.Force;
+
+				// Kill details (dictionary + strings) only matter to players - skip them for walls/props
+				var killDetails = target is IPlayerBase ? weapon.GetKillDetails() : null;
 				var dmgInfo = Shared.DamageInfo.FromBullet(
 					weapon.Owner.GameObject,
 					weapon.GameObject,
@@ -61,7 +65,7 @@ public class HitScanBulletInfo : BulletInfo
 					shootInfo.HitFlinch,
 					Weapon.GetMovementImpactFromForce( shootInfo.Force ),
 					hitTags,
-					weapon.GetKillDetails(),
+					killDetails,
 					shotId
 				);
 				target?.OnDamage( dmgInfo );
@@ -85,7 +89,13 @@ public class HitScanBulletInfo : BulletInfo
 			var tracerThisIteration = hasTracer && tracerSegmentEnds;
 
 			if ( hasImpact || tracerThisIteration )
-				SpawnEffects( weapon, isPrimary, hasImpact, tracerThisIteration, tracerSegmentStart, bulletTr.EndPosition, bulletTr.Normal, bulletTr.Surface?.SoundCollection.Bullet, bulletTr.Surface?.PrefabCollection.BulletImpact );
+			{
+				// Weapon.Shoot batches all pellets of a shot into one message
+				if ( weapon.IsBatchingHitEffects )
+					weapon.QueueHitEffect( this, hasImpact, tracerThisIteration, tracerSegmentStart, bulletTr.EndPosition, bulletTr.Normal, bulletTr.Surface );
+				else
+					SpawnEffects( weapon, isPrimary, hasImpact, tracerThisIteration, tracerSegmentStart, bulletTr.EndPosition, bulletTr.Normal, bulletTr.Surface?.SoundCollection.Bullet, bulletTr.Surface?.PrefabCollection.BulletImpact );
+			}
 
 			if ( isFinalHit )
 				break;
@@ -100,6 +110,7 @@ public class HitScanBulletInfo : BulletInfo
 			}
 			else
 			{
+				ignoreGameObjects ??= new();
 				ignoreGameObjects.Add( penetratedPlayer.GameObject );
 				traceStart = bulletTr.EndPosition + forward * 1.0f;
 			}

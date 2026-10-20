@@ -28,7 +28,7 @@ public class ViewModelHandler : Component
 
 	// Finalized animation values
 	Vector3 finalVectorPos;
-	Rotation finalRot;
+	Rotation finalRot = Rotation.Identity; // Field default is a zero quaternion, which skews bone-parented attachments until the slerp normalizes it
 	float finalWeaponFOV;
 
 	// Sway
@@ -60,33 +60,37 @@ public class ViewModelHandler : Component
 		targetWeaponFOV = -1;
 	}
 
+	// Only touch the renderer when something changed - these setters aren't free and run every frame
+	protected static void SetRendererState( ModelRenderer renderer, bool enabled, ModelRenderer.ShadowRenderType renderType )
+	{
+		if ( renderer.Enabled != enabled )
+			renderer.Enabled = enabled;
+
+		if ( renderer.RenderType != renderType )
+			renderer.RenderType = renderType;
+	}
+
 	protected override void OnUpdate()
 	{
 		var renderType = ShouldDraw ? ModelRenderer.ShadowRenderType.Off : ModelRenderer.ShadowRenderType.ShadowsOnly;
-		ViewModelRenderer.Enabled = player.IsFirstPerson;
-		ViewModelRenderer.RenderType = renderType;
+		SetRendererState( ViewModelRenderer, player.IsFirstPerson, renderType );
 
 		if ( ViewModelHandsRenderer is not null )
-		{
-			ViewModelHandsRenderer.Enabled = player.IsFirstPerson;
-			ViewModelHandsRenderer.RenderType = renderType;
-		}
+			SetRendererState( ViewModelHandsRenderer, player.IsFirstPerson, renderType );
 
 		if ( !player.IsFirstPerson ) return;
 
 		// For particles & lighting
-		Camera.WorldPosition = Scene.Camera.WorldPosition;
-		Camera.WorldRotation = Scene.Camera.WorldRotation;
+		var sceneCamera = Scene.Camera;
+		var cameraPos = sceneCamera.WorldPosition;
+		var cameraRot = sceneCamera.WorldRotation;
+		Camera.WorldTransform = Camera.WorldTransform.WithPosition( cameraPos ).WithRotation( cameraRot );
 
 		if ( targetWeaponFOV == -1 )
 		{
 			targetWeaponFOV = Weapon.ViewModelFOV;
 			finalWeaponFOV = Weapon.ViewModelFOV;
 		}
-
-		// Skinned modelrenderer has issues with following parent
-		WorldPosition = Camera.WorldPosition;
-		WorldRotation = Camera.WorldRotation;
 
 		// Pos + FOV
 		finalVectorPos = finalVectorPos.LerpTo( targetVectorPos, animSpeed * RealTime.SmoothDelta );
@@ -99,10 +103,14 @@ public class ViewModelHandler : Component
 		// Reset Speed
 		animSpeed = 10 * Weapon.AnimSpeed;
 
-		// Change the angles and positions of the viewmodel with the new vectors
-		WorldRotation *= finalRot;
+		// Change the angles and positions of the viewmodel with the new vectors.
+		// Skinned modelrenderer has issues with following parent, so we place it at the camera ourselves.
+		// Computed locally and written once - each world transform write propagates through the
+		// whole viewmodel hierarchy (bone objects, attachments, arms rig).
+		var rot = cameraRot * finalRot;
 		// Position has to be set after rotation!
-		WorldPosition += finalVectorPos.z * WorldRotation.Up + finalVectorPos.y * WorldRotation.Forward + finalVectorPos.x * WorldRotation.Right;
+		var pos = cameraPos + finalVectorPos.z * rot.Up + finalVectorPos.y * rot.Forward + finalVectorPos.x * rot.Right;
+		WorldTransform = WorldTransform.WithPosition( pos ).WithRotation( rot );
 		if ( finalWeaponFOV != cachedFOV )
 		{
 			cachedFOV = finalWeaponFOV;

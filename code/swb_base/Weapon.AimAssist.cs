@@ -106,29 +106,14 @@ public partial class Weapon
 		return true;
 	}
 
+	// Single trace, no allocations. For now we only care if the eyepos is visible.
 	public bool HasLOS( IPlayerBase target )
 	{
 		var from = Owner.Camera.WorldPosition;
-		var toPoints = new List<Vector3>()
-		{
-			target.EyePos,
-			// For now we only care if the eyepos is visible
-			// target.EyePos + Vector3.Down * 20 + Vector3.Left * 7, 
-			// target.EyePos + Vector3.Down * 20 + Vector3.Right * 7,
-			// target.GameObject.WorldPosition + Vector3.Up * 10,
-		};
+		var tr = TraceBullet( Owner.GameObject, from, target.EyePos, 1f );
 
-		foreach ( var to in toPoints )
-		{
-			var tr = TraceBullet( Owner.GameObject, from, to, 1f );
-
-			if ( tr.GameObject == target.GameObject || tr.GameObject?.Parent == target.GameObject )
-				return true;
-
-			// DebugOverlay.Line( from, to, Color.Red, 1 );
-		}
-
-		return false;
+		// DebugOverlay.Line( from, target.EyePos, Color.Red, 1 );
+		return tr.GameObject == target.GameObject || tr.GameObject?.Parent == target.GameObject;
 	}
 
 	public float ScaleRadiusByFov( float baseRadius, float baseFov, float currentFov )
@@ -140,7 +125,8 @@ public partial class Weapon
 
 	public IPlayerBase GetAimAssistTarget()
 	{
-		var players = Game.ActiveScene.GetAllComponents<IPlayerBase>();
+		// Player registry instead of walking the whole scene
+		var players = SWB.Player.PlayerBase.All;
 		var targetScore = 999999f;
 		var center = new Vector2( Screen.Width / 2, Screen.Height / 2 );
 		IPlayerBase target = null;
@@ -189,7 +175,7 @@ public partial class Weapon
 			if ( aimAssistDebug )
 			{
 				var color = inZone ? Color.Green : Color.Red;
-				var painter = Owner.IsFirstPerson ? Owner.ViewModelCamera.Hud : Owner.Camera.Hud;
+				using var painter = (Owner.IsFirstPerson ? Owner.ViewModelCamera : Owner.Camera).BeginHud();
 				var debugRect = new Rect()
 				{
 					Position = new( posToScreen.x - width, posToScreen.y - height ),
@@ -202,8 +188,10 @@ public partial class Weapon
 				$"Dist: {Math.Round( dist )}\n" +
 				$"Score: {Math.Round( score )}";
 
-				painter.DrawRect( debugRect, color.WithAlpha( 0.35f ) );
-				painter.DrawText( debugText, 12f, Color.Blue, debugTextPos );
+				painter.Fill = color.WithAlpha( 0.35f );
+				painter.Rect( debugRect, 0 );
+				painter.TextStyle = TextStyle.Default.WithSize( 12 ).WithColor( Color.Blue );
+				painter.Text( debugText, new Rect( debugTextPos, new Vector2( 300, 100 ) ) );
 			}
 		}
 

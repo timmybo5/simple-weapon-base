@@ -41,15 +41,17 @@ public partial class Weapon
 
 		ViewModelRenderer?.Set( reloadAnim, true );
 
-		// Player anim
-		HandleReloadEffects();
-
 		//Boltback
 		if ( !isEmptyReload && Primary.Ammo == 0 && BoltBack )
 		{
 			TimeSinceReload -= BoltBackTime;
 			AsyncBoltBack( ReloadTime );
 		}
+
+		ReloadDuration = -TimeSinceReload;
+
+		// Player anim
+		HandleReloadEffects( ReloadDuration );
 	}
 
 	public virtual void OnReloadFinish()
@@ -124,10 +126,21 @@ public partial class Weapon
 		InBoltBack = false;
 	}
 
+	/// <summary>Called on every client when a reload starts, duration: how long it takes in seconds (<see cref="ReloadDuration"/>)</summary>
 	[Rpc.Broadcast]
-	public virtual void HandleReloadEffects()
+	public virtual void HandleReloadEffects( float duration )
 	{
 		// Player
+		TriggerOwnerReloadAnimation( duration );
+		OnReloadEffects( duration );
+	}
+
+	/// <summary>Plays the owner's reload animation on every client (from <see cref="HandleReloadEffects"/>), duration: how long the reload takes in seconds</summary>
+	protected virtual void TriggerOwnerReloadAnimation( float duration )
+	{
 		Owner?.TriggerAnimation( Shared.Animations.Reload );
 	}
+
+	/// <summary>Called on every client when a reload starts (from <see cref="HandleReloadEffects"/>)</summary>
+	protected virtual void OnReloadEffects( float duration ) { }
 }

@@ -113,12 +113,8 @@ public partial class Weapon
 		if ( !string.IsNullOrEmpty( shootAnim ) )
 			ApplyShootAnimation( shootAnim );
 
-		// Sound
-		if ( shootInfo.ShootSound is not null )
-			PlaySound( shootInfo.ShootSound );
-
-		// Particles
-		HandleShootEffects( isPrimary );
+		// Sound + particles (Shooter's sound is sent along so silencers stay owner-authoritative)
+		HandleShootEffects( isPrimary, shootInfo.ShootSound );
 
 		if ( !Owner.IsBot )
 		{
@@ -136,12 +132,21 @@ public partial class Weapon
 			BroadcastUIEvent( "shoot", GetRealRPM( shootInfo.RPM ) );
 		}
 
-		// Bullet
-		for ( int i = 0; i < shootInfo.Bullets; i++ )
+		// Bullet - impact/tracer effects of every pellet are collected and sent together (see FlushHitEffects)
+		BeginHitEffectBatch();
+
+		try
 		{
-			var realSpread = GetRealSpread( shootInfo.Spread );
-			var spreadOffset = shootInfo.BulletType.GetRandomSpread( realSpread );
-			shootInfo?.BulletType?.Shoot( this, isPrimary, spreadOffset );
+			for ( int i = 0; i < shootInfo.Bullets; i++ )
+			{
+				var realSpread = GetRealSpread( shootInfo.Spread );
+				var spreadOffset = shootInfo.BulletType.GetRandomSpread( realSpread );
+				shootInfo?.BulletType?.Shoot( this, isPrimary, spreadOffset );
+			}
+		}
+		finally
+		{
+			FlushHitEffects( isPrimary );
 		}
 	}
 
@@ -183,17 +188,31 @@ public partial class Weapon
 		return TraceBullet( Owner.GameObject, start, end, radius, ignoreTags, extraIgnoreGOs );
 	}
 
+	// Called once per traced segment of an actually-fired hitscan bullet (see HitScanBulletInfo.Shoot).
+	// Do not call this from other traces (aim assist, tuck check, bots, etc.).
+	public virtual void OnBulletTrace( Vector3 start, SceneTraceResult result ) { }
+
+	/// <summary>Plays the owner's attack animation, once per shot on every client (from <see cref="HandleShootEffects"/>, before the muzzle effects)</summary>
+	protected virtual void TriggerOwnerAttackAnimation()
+	{
+		Owner.TriggerAnimation( Shared.Animations.Attack );
+	}
+
 	[Rpc.Broadcast( NetFlags.Unreliable )]
-	public virtual void HandleShootEffects( bool isPrimary )
+	public virtual void HandleShootEffects( bool isPrimary, SoundEvent shootSound )
 	{
 		if ( !IsValid || Owner is null || Application.IsDedicatedServer ) return;
 
 		// Player
-		Owner.TriggerAnimation( Shared.Animations.Attack );
+		TriggerOwnerAttackAnimation();
 
 		// Weapon
 		var shootInfo = GetShootInfo( isPrimary );
 		if ( shootInfo is null ) return;
+
+		// Sound
+		if ( shootSound is not null )
+			PlaySoundLocal( shootSound );
 
 		// Bullet eject
 		if ( shootInfo.BulletEjectParticle is not null )
@@ -249,8 +268,10 @@ public partial class Weapon
 
 		if ( sound is not null )
 		{
-			sound.Distance = 10000;
 			soundHandle = Sound.Play( sound );
+
+			if ( soundHandle is not null )
+				soundHandle.Distance = 10000;
 		}
 
 		soundHandle ??= Sound.Play( "impact-bullet-generic" );
@@ -279,9 +300,24 @@ public partial class Weapon
 		return decalGO;
 	}
 
+	/// <summary>Shell casings from other shooters further than this from the camera aren't spawned</summary>
+	public const float MaxProxyEjectDistance = 1500f;
+
+	/// <summary>Whether a shell casing at this position is worth spawning for another shooter</summary>
+	public static bool ShouldSpawnProxyEject( Scene scene, Vector3 position )
+	{
+		var camera = scene?.Camera;
+		if ( camera is null ) return true;
+
+		return camera.WorldPosition.DistanceSquared( position ) <= MaxProxyEjectDistance * MaxProxyEjectDistance;
+	}
+
 	/// <summary>Create a bullet eject particle (always world)</summary>
 	public virtual GameObject CreateBulletEjectParticle( GameObject particle, string attachment, Action<GameObject> OnParticleCreated = null )
 	{
+		if ( (IsProxy || Owner.IsBot) && !ShouldSpawnProxyEject( Scene, WorldPosition ) )
+			return null;
+
 		var effectRenderer = GetEffectRenderer();
 		if ( effectRenderer is null || effectRenderer.SceneModel is null ) return null;
 
