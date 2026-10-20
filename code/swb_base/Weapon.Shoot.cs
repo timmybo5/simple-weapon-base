@@ -347,8 +347,23 @@ public partial class Weapon
 		return go;
 	}
 
+	/// <summary>Particles parented to the weapon/viewmodel (muzzle flash, barrel smoke)</summary>
+	readonly List<GameObject> attachedParticles = new();
+
+	/// <summary>Destroys particles still parented to the weapon/viewmodel so they don't replay on re-deploy</summary>
+	protected virtual void DestroyAttachedParticles()
+	{
+		foreach ( var p in attachedParticles )
+		{
+			if ( p.IsValid() )
+				p.Destroy();
+		}
+
+		attachedParticles.Clear();
+	}
+
 	/// <summary>Create a weapon particle</summary>
-	public virtual GameObject CreateParticle( GameObject particle, GameObject parent, float scale, Action<GameObject> OnParticleCreated = null )
+	public virtual GameObject CreateParticle( GameObject particle, GameObject parent, float scale,Action<GameObject> OnParticleCreated = null )
 	{
 		return CreateParticle( particle, parent, new Transform(), scale, OnParticleCreated );
 	}
@@ -368,6 +383,13 @@ public partial class Weapon
 	public virtual GameObject CreateParticle( GameObject particle, GameObject parent, Transform transform, float scale, bool forViewModel, Action<GameObject> OnParticleCreated = null )
 	{
 		var go = particle.Clone( transform.WithScale( scale ), parent );
+
+		// Track parented particles, they get disabled (not finished) together with the weapon on holster
+		if ( parent is not null )
+		{
+			attachedParticles.RemoveAll( p => !p.IsValid() );
+			attachedParticles.Add( go );
+		}
 
 		if ( forViewModel )
 			go.Tags.Add( TagsHelper.ViewModel );

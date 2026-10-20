@@ -37,6 +37,7 @@ public class ViewModelHandler : Component
 	// FOV
 	float cachedFOV = -1f;
 	float cachedVerticalFOV;
+	float cachedAspect = -1f;
 
 	// Jumping Animation
 	float jumpTime;
@@ -111,9 +112,12 @@ public class ViewModelHandler : Component
 		// Position has to be set after rotation!
 		var pos = cameraPos + finalVectorPos.z * rot.Up + finalVectorPos.y * rot.Forward + finalVectorPos.x * rot.Right;
 		WorldTransform = WorldTransform.WithPosition( pos ).WithRotation( rot );
-		if ( finalWeaponFOV != cachedFOV )
+		// The vertical FOV depends on the aspect ratio, so the cache must be invalidated when the screen resizes
+		var aspect = Screen.Aspect;
+		if ( finalWeaponFOV != cachedFOV || aspect != cachedAspect )
 		{
 			cachedFOV = finalWeaponFOV;
+			cachedAspect = aspect;
 			cachedVerticalFOV = Screen.CreateVerticalFieldOfView( finalWeaponFOV );
 		}
 		Camera.FieldOfView = cachedVerticalFOV;

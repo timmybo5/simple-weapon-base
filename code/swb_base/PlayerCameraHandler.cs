@@ -13,6 +13,7 @@ public class PlayerCameraHandler : Component
 	float playerFOVSpeed = 1;
 	float cachedFOV = -1f;
 	float cachedVerticalFOV;
+	float cachedAspect = -1f;
 
 	IPlayerBase player => Weapon.Owner;
 
@@ -49,9 +50,12 @@ public class PlayerCameraHandler : Component
 			finalPlayerFOV = MathX.ExponentialDecay( finalPlayerFOV, targetPlayerFOV, halfLife, RealTime.Delta );
 		}
 
-		if ( finalPlayerFOV != cachedFOV )
+		// The vertical FOV depends on the aspect ratio, so the cache must be invalidated when the screen resizes
+		var aspect = Screen.Aspect;
+		if ( finalPlayerFOV != cachedFOV || aspect != cachedAspect )
 		{
 			cachedFOV = finalPlayerFOV;
+			cachedAspect = aspect;
 			cachedVerticalFOV = Screen.CreateVerticalFieldOfView( finalPlayerFOV );
 		}
 		player.FieldOfView = cachedVerticalFOV;

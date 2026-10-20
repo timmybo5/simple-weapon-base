@@ -72,6 +72,9 @@ public partial class Weapon : Component, IInventoryItem
 
 	protected override void OnDisabled()
 	{
+		// Also for proxies, they see the thirdperson muzzle flash
+		DestroyAttachedParticles();
+
 		if ( IsProxy ) return;
 		if ( ViewModelRenderer?.GameObject is not null )
 			ViewModelRenderer.GameObject.Enabled = false;
