@@ -35,6 +35,10 @@
       "Keyboard": true,
       "VR": false,
       "Gamepad": true
-    }
+    },
+    "RecommendedMinPlayers": 2,
+    "RecommendedMaxPlayers": 0,
+    "Coop": false,
+    "Versus": true
   }
 }
