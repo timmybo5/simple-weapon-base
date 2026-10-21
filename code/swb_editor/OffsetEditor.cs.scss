@@ -148,6 +148,12 @@ OffsetEditor {
 				flex-grow: 1;
 				margin: 0;
 			}
+
+			&.copyButtons {
+				height: 30px;
+				margin-top: -7px;
+				margin-bottom: 10px;
+			}
 		}
 	}
 }

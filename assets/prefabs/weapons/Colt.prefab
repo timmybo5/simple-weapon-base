@@ -3,12 +3,12 @@
     "__guid": "75e8dbf9-98c5-4504-a879-6f6da3f32a1c",
     "__version": 2,
     "Flags": 0,
-    "Name": "swb_colt",
+    "Name": "colt",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
     "Tags": "weapon",
-    "Enabled": false,
+    "Enabled": true,
     "NetworkMode": 2,
     "NetworkFlags": 0,
     "NetworkOrphaned": 0,
@@ -51,7 +51,10 @@
           "Angle": "-22.8799992,42.2200012,14.3999996",
           "Pos": "9.18999958,-4.46000004,2.16000009"
         },
-        "DeploySound": "sounds/swb/animations/swb_deploy.sound",
+        "DeploySound": {
+          "Id": "f5aecf42-2d11-4225-8ee5-fadf0b4fbb64",
+          "Path": "sounds/swb/animations/swb_deploy.sound"
+        },
         "DisplayName": "Colt M1911",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
@@ -100,10 +103,16 @@
         "ShellReloadStartTime": 0,
         "Slot": 1,
         "TuckRange": 30,
-        "ViewModel": "weapons/swb/colt/v_colt.vmdl",
+        "ViewModel": {
+          "Id": "6f067fe8-c12e-46a4-b2bd-7d5d006aa276",
+          "Path": "weapons/swb/colt/v_colt.vmdl"
+        },
         "ViewModelFOV": 65,
         "ViewModelHands": null,
-        "WorldModel": "weapons/swb/colt/w_colt.vmdl"
+        "WorldModel": {
+          "Id": "38653302-b825-4a81-b46e-46824f61dfee",
+          "Path": "weapons/swb/colt/w_colt.vmdl"
+        }
       },
       {
         "__type": "SWB.Base.ShootInfo",
@@ -130,7 +139,10 @@
         "BulletType": null,
         "ClipSize": 7,
         "Damage": 25,
-        "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",
+        "DryShootSound": {
+          "Id": "6dd71780-6a73-404d-97ae-4bc836fbf4d3",
+          "Path": "sounds/swb/clip/swb_pistol.empty.sound"
+        },
         "FiringType": "semi",
         "Force": 3,
         "HitFlinch": 1.25,
@@ -161,7 +173,10 @@
         "ShootAimedAnim": "",
         "ShootAnim": "fire",
         "ShootEmptyAnim": "",
-        "ShootSound": "weapons/swb/colt/sounds/colt.fire.sound",
+        "ShootSound": {
+          "Id": "223d290d-4ea0-4076-8712-39ab47a7012e",
+          "Path": "weapons/swb/colt/sounds/colt.fire.sound"
+        },
         "Spread": 0.08,
         "VMParticleScale": 1,
         "WMMuzzleParticleScale": 1.4,
@@ -182,7 +197,10 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "RequiresAttachment": null,
-        "ShootSound": "sounds/swb/attachments/silencer/swb_pistol.silenced.fire.sound",
+        "ShootSound": {
+          "Id": "a049c11a-7b30-4457-8738-e136a33ba380",
+          "Path": "sounds/swb/attachments/silencer/swb_pistol.silenced.fire.sound"
+        },
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -192,8 +210,8 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "-1.33000004,-0.0599999987,18",
-          "Pos": "-0.515999973,0,1.05299997"
+          "Angle": "-2.05999994,-0.189999998,18",
+          "Pos": "-0.500999987,0,0.920000017"
         },
         "AimInfo": {
           "SpreadModifier": 0.25,
@@ -241,6 +259,7 @@
     "Children": [],
     "__properties": {
       "NetworkInterpolation": true,
+      "PhysicsMode": "Physics3D",
       "TimeScale": 1,
       "WantsSystemScene": true,
       "Metadata": {},

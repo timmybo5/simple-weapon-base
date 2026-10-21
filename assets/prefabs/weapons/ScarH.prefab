@@ -3,12 +3,12 @@
     "__guid": "a3b668c3-acfb-4043-8f7c-93b7df84b5c8",
     "__version": 2,
     "Flags": 0,
-    "Name": "swb_scarh",
+    "Name": "scarh",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
     "Tags": "weapon",
-    "Enabled": false,
+    "Enabled": true,
     "NetworkMode": 2,
     "NetworkFlags": 0,
     "NetworkOrphaned": 0,
@@ -51,7 +51,10 @@
           "Angle": "-0.709999979,44.5200005,10",
           "Pos": "5.75500011,-1.20000005,1.59200001"
         },
-        "DeploySound": "sounds/swb/animations/swb_deploy.sound",
+        "DeploySound": {
+          "Id": "f5aecf42-2d11-4225-8ee5-fadf0b4fbb64",
+          "Path": "sounds/swb/animations/swb_deploy.sound"
+        },
         "DisplayName": "FN Scar H",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
@@ -100,10 +103,16 @@
         "ShellReloadStartTime": 0,
         "Slot": 5,
         "TuckRange": 30,
-        "ViewModel": "weapons/swb/scarh/v_scarh.vmdl",
+        "ViewModel": {
+          "Id": "4b890987-9421-4973-baed-b6a5dda021d5",
+          "Path": "weapons/swb/scarh/v_scarh.vmdl"
+        },
         "ViewModelFOV": 65,
         "ViewModelHands": null,
-        "WorldModel": "weapons/swb/scarh/w_scarh.vmdl"
+        "WorldModel": {
+          "Id": "57aac493-847b-409a-974c-069c12072ab4",
+          "Path": "weapons/swb/scarh/w_scarh.vmdl"
+        }
       },
       {
         "__type": "SWB.Base.ShootInfo",
@@ -135,7 +144,10 @@
         },
         "ClipSize": 30,
         "Damage": 25,
-        "DryShootSound": "sounds/swb/clip/swb_rifle.empty.sound",
+        "DryShootSound": {
+          "Id": "52dc1413-4b3e-4f01-97f8-5cc4ad20471c",
+          "Path": "sounds/swb/clip/swb_rifle.empty.sound"
+        },
         "FiringType": "auto",
         "Force": 3,
         "HitFlinch": 2,
@@ -166,7 +178,10 @@
         "ShootAimedAnim": "fireAimed",
         "ShootAnim": "fire",
         "ShootEmptyAnim": "",
-        "ShootSound": "weapons/swb/scarh/sounds/scar.fire.sound",
+        "ShootSound": {
+          "Id": "8e633503-53da-4cef-bd2c-57a52b3bc295",
+          "Path": "weapons/swb/scarh/sounds/scar.fire.sound"
+        },
         "Spread": 0.08,
         "VMParticleScale": 1.3,
         "WMMuzzleParticleScale": 1.6,
@@ -178,8 +193,8 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "-1.47000003,0.439999998,3.9000001",
-          "Pos": "-2.18099999,0.360000014,0.596000016"
+          "Angle": "-0.939999998,0.319999993,3.9000001",
+          "Pos": "-2.19400001,0.360000014,0.660000026"
         },
         "AimInfo": {
           "SpreadModifier": -1,
@@ -216,7 +231,10 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "RequiresAttachment": null,
-        "ShootSound": "sounds/swb/attachments/silencer/swb_rifle.silenced.fire.sound",
+        "ShootSound": {
+          "Id": "0ec5b97d-d835-46cd-ab34-66e59f40e63c",
+          "Path": "sounds/swb/attachments/silencer/swb_rifle.silenced.fire.sound"
+        },
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -236,6 +254,7 @@
     "Children": [],
     "__properties": {
       "NetworkInterpolation": true,
+      "PhysicsMode": "Physics3D",
       "TimeScale": 1,
       "WantsSystemScene": true,
       "Metadata": {},

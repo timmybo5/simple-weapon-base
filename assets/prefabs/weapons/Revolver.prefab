@@ -3,12 +3,12 @@
     "__guid": "12d1b3e8-b22c-4081-9f32-19f389397407",
     "__version": 2,
     "Flags": 0,
-    "Name": "swb_revolver",
+    "Name": "revolver",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
     "Tags": "weapon",
-    "Enabled": false,
+    "Enabled": true,
     "NetworkMode": 2,
     "NetworkFlags": 0,
     "NetworkOrphaned": 0,
@@ -51,7 +51,10 @@
           "Angle": "1.40999997,28.9200001,10",
           "Pos": "6.03999996,0,2.19799995"
         },
-        "DeploySound": "sounds/swb/animations/swb_deploy.sound",
+        "DeploySound": {
+          "Id": "f5aecf42-2d11-4225-8ee5-fadf0b4fbb64",
+          "Path": "sounds/swb/animations/swb_deploy.sound"
+        },
         "DisplayName": "Raging Bull",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
@@ -100,10 +103,16 @@
         "ShellReloadStartTime": 0,
         "Slot": 2,
         "TuckRange": 30,
-        "ViewModel": "weapons/swb/revolver/v_revolver.vmdl",
+        "ViewModel": {
+          "Id": "56a42338-2b7b-4b2c-ac33-a995f8f13e4a",
+          "Path": "weapons/swb/revolver/v_revolver.vmdl"
+        },
         "ViewModelFOV": 65,
         "ViewModelHands": null,
-        "WorldModel": "weapons/swb/revolver/w_revolver.vmdl"
+        "WorldModel": {
+          "Id": "f6a3fab4-35f5-4ed3-8027-a4ab79657b08",
+          "Path": "weapons/swb/revolver/w_revolver.vmdl"
+        }
       },
       {
         "__type": "SWB.Base.ShootInfo",
@@ -132,7 +141,10 @@
         },
         "ClipSize": 6,
         "Damage": 50,
-        "DryShootSound": "sounds/swb/clip/swb_pistol.empty.sound",
+        "DryShootSound": {
+          "Id": "6dd71780-6a73-404d-97ae-4bc836fbf4d3",
+          "Path": "sounds/swb/clip/swb_pistol.empty.sound"
+        },
         "FiringType": "semi",
         "Force": 3,
         "HitFlinch": 3,
@@ -163,7 +175,10 @@
         "ShootAimedAnim": "",
         "ShootAnim": "fire",
         "ShootEmptyAnim": "",
-        "ShootSound": "weapons/swb/revolver/sounds/revolver.fire.sound",
+        "ShootSound": {
+          "Id": "0f190116-e0bf-46af-a78e-17f47f466a13",
+          "Path": "weapons/swb/revolver/sounds/revolver.fire.sound"
+        },
         "Spread": 0.08,
         "VMParticleScale": 1.3,
         "WMMuzzleParticleScale": 2.5,
@@ -191,7 +206,10 @@
           "LensTexture": "materials/swb/scopes/swb_lens_hunter.png",
           "ScopeTexture": "materials/swb/scopes/swb_scope_hunter.png",
           "ScopeInDelay": 0.2,
-          "ScopeInSound": "sounds/swb/scope/swb_sniper.zoom_in.sound",
+          "ScopeInSound": {
+            "Id": "adbb7e5b-bbed-4c94-ae75-f48f2d435f18",
+            "Path": "sounds/swb/scope/swb_sniper.zoom_in.sound"
+          },
           "ScopeOutSound": null,
           "FOV": 8,
           "Sensitivity": 0.25,
@@ -206,8 +224,8 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "-2.3499999,-0.0399999991,0",
-          "Pos": "-2.7980001,0,-0.838"
+          "Angle": "-1.70000005,0.689999998,0",
+          "Pos": "-2.62199998,0,-0.708999991"
         },
         "AimInfo": {
           "SpreadModifier": -1,
@@ -244,7 +262,10 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "RequiresAttachment": null,
-        "ShootSound": "sounds/swb/attachments/silencer/swb_heavy.silenced.fire.sound",
+        "ShootSound": {
+          "Id": "ed48a9d3-b3db-4b79-b197-67b7941c5aea",
+          "Path": "sounds/swb/attachments/silencer/swb_heavy.silenced.fire.sound"
+        },
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -267,6 +288,7 @@
     "Children": [],
     "__properties": {
       "NetworkInterpolation": true,
+      "PhysicsMode": "Physics3D",
       "TimeScale": 1,
       "WantsSystemScene": true,
       "Metadata": {},

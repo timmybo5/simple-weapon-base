@@ -2,6 +2,7 @@
 using SWB.Base;
 using SWB.Base.Attachments;
 using System;
+using System.Globalization;
 
 namespace SWB.Editor;
 
@@ -65,6 +66,17 @@ public partial class OffsetEditor
 	{
 		Clipboard.SetText( String.Format( "new AngPos {{ Angle = new Angles({0:0.###}f, {1:0.###}f, {2:0.###}f), Pos = new Vector3({3:0.###}f, {4:0.###}f, {5:0.###}f) }}",
 			Pitch, Yaw, Roll, X, Y, Z ) );
+	}
+
+	public virtual void OnCopyJson()
+	{
+		static string F( float v ) => MathF.Round( v, 3 ).ToString( "G9", CultureInfo.InvariantCulture );
+
+		Clipboard.SetText(
+			"{\n" +
+			$"  \"Angle\": \"{F( Pitch )},{F( Yaw )},{F( Roll )}\",\n" +
+			$"  \"Pos\": \"{F( X )},{F( Y )},{F( Z )}\"\n" +
+			"}" );
 	}
 
 	public virtual void OnPrint()

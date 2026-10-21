@@ -3,12 +3,12 @@
     "__guid": "90e1f323-4483-4cab-a02f-56d0ccf3fead",
     "__version": 2,
     "Flags": 0,
-    "Name": "swb_remington870",
+    "Name": "remington870",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
     "Tags": "weapon",
-    "Enabled": false,
+    "Enabled": true,
     "NetworkMode": 2,
     "NetworkFlags": 0,
     "NetworkOrphaned": 0,
@@ -51,7 +51,10 @@
           "Angle": "-2.30999994,27.25,10",
           "Pos": "4.44999981,0,0.610000014"
         },
-        "DeploySound": "sounds/swb/animations/swb_deploy.sound",
+        "DeploySound": {
+          "Id": "f5aecf42-2d11-4225-8ee5-fadf0b4fbb64",
+          "Path": "sounds/swb/animations/swb_deploy.sound"
+        },
         "DisplayName": "Remington 870",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
@@ -100,10 +103,16 @@
         "ShellReloadStartTime": 0.62,
         "Slot": 3,
         "TuckRange": 30,
-        "ViewModel": "weapons/swb/remington/v_remington.vmdl",
+        "ViewModel": {
+          "Id": "2811687a-f494-4afa-89b1-faf3b64ae6f4",
+          "Path": "weapons/swb/remington/v_remington.vmdl"
+        },
         "ViewModelFOV": 65,
         "ViewModelHands": null,
-        "WorldModel": "weapons/swb/remington/w_remington.vmdl"
+        "WorldModel": {
+          "Id": "8484248a-20cf-48aa-bb7e-3966003b7ad9",
+          "Path": "weapons/swb/remington/w_remington.vmdl"
+        }
       },
       {
         "__type": "SWB.Base.ShootInfo",
@@ -135,7 +144,10 @@
         },
         "ClipSize": 6,
         "Damage": 12,
-        "DryShootSound": "sounds/swb/clip/swb_shotty.empty.sound",
+        "DryShootSound": {
+          "Id": "f06c34a1-b9e4-42f7-b047-e9d0d9cccae5",
+          "Path": "sounds/swb/clip/swb_shotty.empty.sound"
+        },
         "FiringType": "semi",
         "Force": 3,
         "HitFlinch": 2.5,
@@ -166,7 +178,10 @@
         "ShootAimedAnim": "",
         "ShootAnim": "fire",
         "ShootEmptyAnim": "",
-        "ShootSound": "weapons/swb/remington/sounds/remington.fire.sound",
+        "ShootSound": {
+          "Id": "f46d3273-47e5-4dfd-8207-4fc4d66622c7",
+          "Path": "weapons/swb/remington/sounds/remington.fire.sound"
+        },
         "Spread": 0.14,
         "VMParticleScale": 2,
         "WMMuzzleParticleScale": 3,
@@ -178,7 +193,7 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "-0.0700000003,0.479999989,-0.5",
+          "Angle": "-0.0900000036,0.409999996,-0.5",
           "Pos": "-2.81599998,0,0.360000014"
         },
         "AimInfo": {
@@ -216,7 +231,10 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "RequiresAttachment": null,
-        "ShootSound": "sounds/swb/attachments/silencer/swb_shotgun.silenced.fire.sound",
+        "ShootSound": {
+          "Id": "7d1727d9-eec6-40ec-ad95-33a3229dc23a",
+          "Path": "sounds/swb/attachments/silencer/swb_shotgun.silenced.fire.sound"
+        },
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -236,6 +254,7 @@
     "Children": [],
     "__properties": {
       "NetworkInterpolation": true,
+      "PhysicsMode": "Physics3D",
       "TimeScale": 1,
       "WantsSystemScene": true,
       "Metadata": {},

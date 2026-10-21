@@ -1134,6 +1134,101 @@
               "WaistSize": 0.5,
               "WorkshopItems": []
             }
+          },
+          {
+            "Id": {
+              "Type": "GameObject",
+              "IdValue": "9a65681c-a1e8-4005-b093-2fb5fec38b74"
+            },
+            "Parent": {
+              "Type": "GameObject",
+              "IdValue": "55559241-6791-4c24-9635-07aceee3d8a4"
+            },
+            "PreviousElement": {
+              "Type": "GameObject",
+              "IdValue": "853fe95c-29ef-45ed-ad31-b74053ad9582"
+            },
+            "ContainerProperty": "Children",
+            "IsContainerArray": true,
+            "Data": {
+              "__guid": "9a65681c-a1e8-4005-b093-2fb5fec38b74",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "Clothing - y_front_pants_white",
+              "Position": "0,0,0",
+              "Rotation": "0,0,0,1",
+              "Scale": "1,1,1",
+              "Tags": "clothing",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [],
+              "Children": []
+            }
+          },
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "4cb8a7ce-b5cc-46c1-a8cb-2702d955f42f"
+            },
+            "Parent": {
+              "Type": "GameObject",
+              "IdValue": "9a65681c-a1e8-4005-b093-2fb5fec38b74"
+            },
+            "PreviousElement": null,
+            "ContainerProperty": "Components",
+            "IsContainerArray": true,
+            "Data": {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "4cb8a7ce-b5cc-46c1-a8cb-2702d955f42f",
+              "__enabled": true,
+              "Flags": 0,
+              "AnimationGraph": null,
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": {
+                "_type": "component",
+                "component_id": "fc51159a-2082-4de0-8c3e-5f44d049ed23",
+                "go": "55559241-6791-4c24-9635-07aceee3d8a4",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "DeformationMode": "Normal",
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": {
+                "Id": "a66a2113-828a-4612-958b-ac0e726233f6",
+                "Path": "models/citizen_clothes/underwear/y_front_pants/models/y_front_pants_m_human.vmdl"
+              },
+              "Morphs": {},
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Parameters": {},
+              "PlaybackRate": 1,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null,
+                "Looping": true,
+                "Blending": false
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            }
           }
         ],
         "RemovedObjects": [
@@ -1141,6 +1236,18 @@
             "Id": {
               "Type": "Component",
               "IdValue": "0bc02a58-687d-4beb-b096-530fb7588f61"
+            }
+          },
+          {
+            "Id": {
+              "Type": "GameObject",
+              "IdValue": "1b39166b-899d-4f77-baaf-305a0d1ce5e6"
+            }
+          },
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "c184b277-5063-468c-9a6d-a7b9ee125752"
             }
           }
         ],
@@ -1332,6 +1439,7 @@
       "__PrefabIdToInstanceId": {
         "bf0f959a-8e13-4133-8fc5-edc7aa3d1b0c": "4944da2a-c921-497f-a68a-898f20007476",
         "55559241-6791-4c24-9635-07aceee3d8a4": "d61880a9-7436-4bcb-b1ac-51e49353f455",
+        "25652db2-99dd-44a0-9c7a-a6b4a41a36c3": "bc553208-7f7a-88ab-be17-c5878a7d4138",
         "ee5bdad6-10d0-481c-98e2-9e8861c969e7": "7d20207b-2589-43a4-9f3e-a617b0b20460",
         "35caa712-ad73-4dc5-bd93-c1db9b6f6403": "b299da59-5670-400e-91e0-5929da1f5a12",
         "8baca1ce-edb3-486a-904d-c85ff2f31034": "2d959869-0609-430c-b43d-3c17cecd0805",
@@ -1457,7 +1565,13 @@
         "90f0756c-ed12-4063-b119-fb330a66a30f": "b8acf5e2-d18a-4e32-8fb2-f694a4e364ff",
         "ef4f1054-23fd-408d-b0fb-fede1d825da6": "a4050133-ec0a-4827-b2f3-69453e654cac",
         "afef8632-dc95-42a3-a628-c02e9f2c8d0e": "f14400dd-02f7-446c-92dd-c6e7fcec68a2",
+        "01531001-09de-46cc-8073-a07e669f50fd": "11f74325-f00d-4d23-adf1-911460137684",
+        "f6a77d38-8825-4e12-8f26-8a6adc7cd4e6": "2bb8b226-4328-4802-88c6-d55020f53832",
+        "3e1e96c5-b788-4483-9ffd-7b59b02df678": "d3abc975-65f6-4a3c-89df-bbe69bce4e0a",
+        "fc51159a-2082-4de0-8c3e-5f44d049ed23": "35056568-c9cf-4345-a1e4-afd484ae7dda",
+        "ca33f55a-55a2-461c-95d5-f476e03db53e": "ebe28253-1fa6-4078-ba5b-2a682521c472",
         "0bc02a58-687d-4beb-b096-530fb7588f61": "faa39c8e-7c3e-45fa-be6d-80ba9ec44b91",
+        "f485caf1-2fbd-46ed-a206-e62c28b048c3": "a5561a5d-bb99-4de4-9fec-7b9d19d2b02c",
         "4088b4a7-1dff-4e54-a45b-ea5958f6dda4": "21e99526-201a-4920-82f7-9916aec30add",
         "ea5e3826-bd2e-4f0c-a7c5-e1f93e741ca5": "ea82ab7d-ccb6-48ca-b9b5-6574b341f4c5",
         "e5569ffa-08a7-4b0d-a32a-b20850fa773f": "9dc94e4b-1e78-44a7-9af9-d15fff2f5630",
@@ -1465,13 +1579,7 @@
         "f3dc770f-ffbb-4c92-8c3d-f4c665332e20": "ab3269b6-3d09-4b12-8610-64baca41fb8d",
         "ad29c146-7dfc-4d71-a638-275f7b1e7938": "8b2042e6-1c1e-4ae2-afe3-660dd2966007",
         "b6d89910-4116-4b6d-9f2f-fb0ff6adc331": "59d84c15-d960-4059-a38b-3d7b0c86a27c",
-        "866ad674-9008-4cf0-b1af-a28ad243b87f": "0d3a437c-0dcd-48c3-8beb-50a9507e3331",
-        "01531001-09de-46cc-8073-a07e669f50fd": "11f74325-f00d-4d23-adf1-911460137684",
-        "f6a77d38-8825-4e12-8f26-8a6adc7cd4e6": "2bb8b226-4328-4802-88c6-d55020f53832",
-        "3e1e96c5-b788-4483-9ffd-7b59b02df678": "d3abc975-65f6-4a3c-89df-bbe69bce4e0a",
-        "fc51159a-2082-4de0-8c3e-5f44d049ed23": "35056568-c9cf-4345-a1e4-afd484ae7dda",
-        "ca33f55a-55a2-461c-95d5-f476e03db53e": "ebe28253-1fa6-4078-ba5b-2a682521c472",
-        "f485caf1-2fbd-46ed-a206-e62c28b048c3": "a5561a5d-bb99-4de4-9fec-7b9d19d2b02c"
+        "866ad674-9008-4cf0-b1af-a28ad243b87f": "0d3a437c-0dcd-48c3-8beb-50a9507e3331"
       }
     },
     {
@@ -1482,7 +1590,103 @@
         "Path": "prefabs/bot.prefab"
       },
       "__PrefabInstancePatch": {
-        "AddedObjects": [],
+        "AddedObjects": [
+          {
+            "Id": {
+              "Type": "GameObject",
+              "IdValue": "d04ae163-3fc2-4adc-b6f2-929a4eac9716"
+            },
+            "Parent": {
+              "Type": "GameObject",
+              "IdValue": "55ff29c9-e4ed-445d-ae87-becfc2fc1881"
+            },
+            "PreviousElement": {
+              "Type": "GameObject",
+              "IdValue": "829cc71d-fbf1-4611-a33c-b3605ee209e6"
+            },
+            "ContainerProperty": "Children",
+            "IsContainerArray": true,
+            "Data": {
+              "__guid": "d04ae163-3fc2-4adc-b6f2-929a4eac9716",
+              "__version": 2,
+              "Flags": 0,
+              "Name": "Clothing - y_front_pants_white",
+              "Position": "0,0,0",
+              "Rotation": "0,0,0,1",
+              "Scale": "1,1,1",
+              "Tags": "clothing",
+              "Enabled": true,
+              "NetworkMode": 2,
+              "NetworkFlags": 0,
+              "NetworkOrphaned": 0,
+              "NetworkTransmit": true,
+              "OwnerTransfer": 1,
+              "Components": [],
+              "Children": []
+            }
+          },
+          {
+            "Id": {
+              "Type": "Component",
+              "IdValue": "7b2ee05d-f22f-41e4-9c84-f78eb7787c06"
+            },
+            "Parent": {
+              "Type": "GameObject",
+              "IdValue": "d04ae163-3fc2-4adc-b6f2-929a4eac9716"
+            },
+            "PreviousElement": null,
+            "ContainerProperty": "Components",
+            "IsContainerArray": true,
+            "Data": {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "7b2ee05d-f22f-41e4-9c84-f78eb7787c06",
+              "__enabled": true,
+              "Flags": 0,
+              "AnimationGraph": null,
+              "BodyGroups": 18446744073709551615,
+              "BoneMergeTarget": {
+                "_type": "component",
+                "component_id": "4ad15926-c834-47ff-bd4c-12792cc79c5a",
+                "go": "55ff29c9-e4ed-445d-ae87-becfc2fc1881",
+                "component_type": "SkinnedModelRenderer"
+              },
+              "CreateAttachments": false,
+              "CreateBoneObjects": false,
+              "DeformationMode": "Normal",
+              "LodOverride": null,
+              "MaterialGroup": null,
+              "MaterialOverride": null,
+              "Materials": null,
+              "Model": {
+                "Id": "a66a2113-828a-4612-958b-ac0e726233f6",
+                "Path": "models/citizen_clothes/underwear/y_front_pants/models/y_front_pants_m_human.vmdl"
+              },
+              "Morphs": {},
+              "OnComponentDestroy": null,
+              "OnComponentDisabled": null,
+              "OnComponentEnabled": null,
+              "OnComponentFixedUpdate": null,
+              "OnComponentStart": null,
+              "OnComponentUpdate": null,
+              "Parameters": {},
+              "PlaybackRate": 1,
+              "RenderOptions": {
+                "GameLayer": true,
+                "OverlayLayer": false,
+                "BloomLayer": false,
+                "AfterUILayer": false
+              },
+              "RenderType": "On",
+              "Sequence": {
+                "Name": null,
+                "Looping": true,
+                "Blending": false
+              },
+              "Tint": "1,1,1,1",
+              "UseAnimGraph": true
+            }
+          }
+        ],
         "RemovedObjects": [],
         "PropertyOverrides": [
           {
@@ -1500,6 +1704,14 @@
             },
             "Property": "Enabled",
             "Value": false
+          },
+          {
+            "Target": {
+              "Type": "Component",
+              "IdValue": "4ad15926-c834-47ff-bd4c-12792cc79c5a"
+            },
+            "Property": "BodyGroups",
+            "Value": 147713
           },
           {
             "Target": {
@@ -1632,6 +1844,7 @@
       "__PrefabIdToInstanceId": {
         "360ac2d1-517e-4e1f-8e64-0b177806e207": "fdcdb398-e0e8-47b5-929f-a56d023ac38f",
         "55ff29c9-e4ed-445d-ae87-becfc2fc1881": "c871f84e-ee33-4403-92b1-873ec1ebca61",
+        "3a2b58c6-5498-47de-8f16-846728061c7b": "19ae11db-6c31-8875-9421-af6ad99726d2",
         "070b9788-59c2-4a66-8d07-6f6a7eabb142": "f0cb5a66-3220-46e0-8088-3480c77430e4",
         "76e141a1-4b70-44d0-9c0a-fa539ac51c03": "49c324fc-4ad8-4a31-8c57-8f234417b366",
         "480fb187-7400-4abc-aa93-d871051d8413": "4cd717ad-cbf3-4c2e-81df-cf7d128f518e",
@@ -1741,13 +1954,13 @@
         "9fe80b0e-e3d4-4d20-a443-b3ffbe7aa5d0": "aac4e285-b576-8351-8bad-a1e231defb5d",
         "5f0a5365-77e9-441d-9aa9-e2e9e4fce801": "b12d1482-ed11-80e6-8cb8-7edef4679c44",
         "d242e6d8-410c-48b8-a345-3c19301a30a4": "13f89b47-9baa-40a4-bc34-a5f67d482d8e",
-        "4ed5e076-0997-4984-8854-f7c7c562b401": "50eea3bd-a645-4377-ba6e-d7f8565d103e",
-        "357da3dd-1f89-4e12-9562-fd0b54cb4f4a": "7428330c-6c16-4bd4-bd43-84dadc8f3ad0",
-        "e4c37ad4-cd1e-46bd-8117-c4c2ca3f3046": "699c771e-217c-40ae-b724-48757183e0e0",
         "49a2ed8b-4c3c-4600-a635-fcbafeb7f392": "b3d2d996-0caa-4383-b6a8-a8f1d823e018",
         "8d1dd87a-da0f-4141-a89d-a51a2eea124e": "8c494a9b-d8fc-4d3b-bc9f-1539dd0898ba",
         "a8e7b0cf-c292-4d0c-b3b7-94867b885260": "4af3a347-38b6-4fe6-91af-47cb2732ee1a",
-        "4ad15926-c834-47ff-bd4c-12792cc79c5a": "2a608b03-fca6-4706-9883-afa0906522b0"
+        "4ad15926-c834-47ff-bd4c-12792cc79c5a": "2a608b03-fca6-4706-9883-afa0906522b0",
+        "4ed5e076-0997-4984-8854-f7c7c562b401": "50eea3bd-a645-4377-ba6e-d7f8565d103e",
+        "e4c37ad4-cd1e-46bd-8117-c4c2ca3f3046": "699c771e-217c-40ae-b724-48757183e0e0",
+        "357da3dd-1f89-4e12-9562-fd0b54cb4f4a": "7428330c-6c16-4bd4-bd43-84dadc8f3ad0"
       }
     },
     {

@@ -3,12 +3,12 @@
     "__guid": "4a0369fb-bbdc-473c-a7af-d4dffb7e9312",
     "__version": 2,
     "Flags": 0,
-    "Name": "swb_veresk",
+    "Name": "veresk",
     "Position": "0,0,0",
     "Rotation": "0,0,0,1",
     "Scale": "1,1,1",
     "Tags": "weapon",
-    "Enabled": false,
+    "Enabled": true,
     "NetworkMode": 2,
     "NetworkFlags": 0,
     "NetworkOrphaned": 0,
@@ -51,7 +51,10 @@
           "Angle": "-6.05999994,42.5600014,10",
           "Pos": "4.90100002,0,1.11199999"
         },
-        "DeploySound": "sounds/swb/animations/swb_deploy.sound",
+        "DeploySound": {
+          "Id": "f5aecf42-2d11-4225-8ee5-fadf0b4fbb64",
+          "Path": "sounds/swb/animations/swb_deploy.sound"
+        },
         "DisplayName": "SR2 Veresk",
         "DrawAnim": "deploy",
         "DrawEmptyAnim": "",
@@ -100,10 +103,16 @@
         "ShellReloadStartTime": 0,
         "Slot": 4,
         "TuckRange": 30,
-        "ViewModel": "weapons/swb/veresk/v_veresk.vmdl",
+        "ViewModel": {
+          "Id": "3880f972-03c5-4144-a16c-d570aa205d16",
+          "Path": "weapons/swb/veresk/v_veresk.vmdl"
+        },
         "ViewModelFOV": 65,
         "ViewModelHands": null,
-        "WorldModel": "weapons/swb/veresk/w_veresk.vmdl"
+        "WorldModel": {
+          "Id": "7d03443b-a801-4db6-b661-a3d685f6515c",
+          "Path": "weapons/swb/veresk/w_veresk.vmdl"
+        }
       },
       {
         "__type": "SWB.Base.ShootInfo",
@@ -135,7 +144,10 @@
         },
         "ClipSize": 30,
         "Damage": 12.5,
-        "DryShootSound": "sounds/swb/clip/swb_smg.empty.sound",
+        "DryShootSound": {
+          "Id": "700031e3-8638-404e-816a-a99f00055f29",
+          "Path": "sounds/swb/clip/swb_smg.empty.sound"
+        },
         "FiringType": "auto",
         "Force": 3,
         "HitFlinch": 1.25,
@@ -166,7 +178,10 @@
         "ShootAimedAnim": "",
         "ShootAnim": "fire",
         "ShootEmptyAnim": "",
-        "ShootSound": "weapons/swb/veresk/sounds/veresk.fire.sound",
+        "ShootSound": {
+          "Id": "98ea39ce-430d-487b-b5dc-6bfad8ffc18e",
+          "Path": "weapons/swb/veresk/sounds/veresk.fire.sound"
+        },
         "Spread": 0.08,
         "VMParticleScale": 0.8,
         "WMMuzzleParticleScale": 1.4,
@@ -178,8 +193,8 @@
         "__enabled": true,
         "Flags": 0,
         "AimAnimData": {
-          "Angle": "0,-0.0799999982,0",
-          "Pos": "-2.78800011,0,0.377000004"
+          "Angle": "-0.959999979,-0.100000001,0",
+          "Pos": "-2.796,0,0.287999988"
         },
         "AimInfo": {
           "SpreadModifier": -1,
@@ -216,7 +231,10 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "RequiresAttachment": null,
-        "ShootSound": "sounds/swb/attachments/silencer/swb_smg.silenced.fire.sound",
+        "ShootSound": {
+          "Id": "0efc36a5-238f-46c7-9ca0-8cc0d759f269",
+          "Path": "sounds/swb/attachments/silencer/swb_smg.silenced.fire.sound"
+        },
         "ViewModelScale": "1,1,1",
         "WorldModelScale": "1,1,1"
       },
@@ -236,6 +254,7 @@
     "Children": [],
     "__properties": {
       "NetworkInterpolation": true,
+      "PhysicsMode": "Physics3D",
       "TimeScale": 1,
       "WantsSystemScene": true,
       "Metadata": {},
