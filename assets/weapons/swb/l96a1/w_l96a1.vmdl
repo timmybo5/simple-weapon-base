@@ -1,4 +1,4 @@
-<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc30:version{8c2d7a91-9c42-4bf0-883a-5a3b1762d4f1} -->
 {
 	rootNode = 
 	{
@@ -76,7 +76,7 @@
 						_class = "Attachment"
 						name = "muzzle"
 						parent_bone = "sniper"
-						relative_origin = [ 0.118821, 1.253322, 47.263687 ]
+						relative_origin = [ 0.101847, 1.074276, 40.51173 ]
 						relative_angles = [ -89.999992, 0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
@@ -85,7 +85,7 @@
 						_class = "Attachment"
 						name = "ejection_point"
 						parent_bone = "base"
-						relative_origin = [ -0.913659, 1.283506, 8.411445 ]
+						relative_origin = [ -0.783136, 1.100148, 7.20981 ]
 						relative_angles = [ -0.000026, -179.999985, 179.999924 ]
 						weight = 1.0
 						ignore_rotation = false
@@ -94,7 +94,7 @@
 						_class = "Attachment"
 						name = "muzzle_silenced"
 						parent_bone = "sniper"
-						relative_origin = [ 0.019011, 1.194042, 49.89077 ]
+						relative_origin = [ 0.016295, 1.023465, 42.763515 ]
 						relative_angles = [ -89.999947, -0.000285, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
@@ -103,7 +103,7 @@
 						_class = "Attachment"
 						name = "laser_start"
 						parent_bone = "sniper"
-						relative_origin = [ 1.263849, 0.396567, 33.936508 ]
+						relative_origin = [ 1.083299, 0.339915, 29.088434 ]
 						relative_angles = [ -89.999947, -0.000285, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
@@ -120,7 +120,7 @@
 						filename = "weapons/swb/l96a1/models/w_l96a1.fbx"
 						import_translation = [ 6.0, 0.0, -0.5 ]
 						import_rotation = [ -15.0, 0.0, 0.0 ]
-						import_scale = 1.0
+						import_scale = 0.857143
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -135,9 +135,9 @@
 						_class = "RenderMeshFile"
 						name = "l96a1"
 						filename = "weapons/swb/l96a1/models/w_l96a1_no_scope.fbx"
-						import_translation = [ 0.0, 0.0, -0.5 ]
+						import_translation = [ 6.0, 0.7, -1.0 ]
 						import_rotation = [ -15.0, 0.0, 0.0 ]
-						import_scale = 1.0
+						import_scale = 0.857143
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -152,9 +152,9 @@
 						_class = "RenderMeshFile"
 						name = "scope"
 						filename = "weapons/swb/l96a1/models/w_l96a1_scope.fbx"
-						import_translation = [ 0.0, 0.0, -0.5 ]
+						import_translation = [ 6.0, 0.7, -1.0 ]
 						import_rotation = [ -15.0, 0.0, 0.0 ]
-						import_scale = 1.0
+						import_scale = 0.857143
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -171,7 +171,7 @@
 						filename = "attachments/swb/sight/reflex/models/w_reflex_sight.fbx"
 						import_translation = [ 0.0, 0.38, 1.4 ]
 						import_rotation = [ -90.0, -90.0, 0.0 ]
-						import_scale = 5.5
+						import_scale = 4.714286
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -188,7 +188,7 @@
 						filename = "attachments/swb/muzzle/silencer_sniper/models/silencer_sniper.fbx"
 						import_translation = [ 0.0, 0.032, 1.1 ]
 						import_rotation = [ -90.0, 0.0, 0.0 ]
-						import_scale = 40.0
+						import_scale = 34.285713
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -205,7 +205,7 @@
 						filename = "attachments/swb/rail/rail_quad/models/w_rail_quad.fbx"
 						import_translation = [ 0.0, 0.36, 9.0 ]
 						import_rotation = [ -90.0, 0.0, 0.0 ]
-						import_scale = 3.5
+						import_scale = 3.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -222,7 +222,7 @@
 						filename = "attachments/swb/tactical/laser_rifle/models/w_laser_rifle.fbx"
 						import_translation = [ -0.72, 0.36, 7.4 ]
 						import_rotation = [ 90.0, 0.0, 0.0 ]
-						import_scale = 3.5
+						import_scale = 3.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -244,54 +244,54 @@
 						parent_bone = "sniper"
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 1.229651
-						point0 = [ 0.06123, -0.087483, -12.601381 ]
-						point1 = [ -0.005772, 0.617319, 23.224901 ]
+						radius = 1.053987
+						point0 = [ 0.052483, -0.074985, -10.801184 ]
+						point1 = [ -0.004947, 0.529131, 19.907059 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "sniper"
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 1.229651
-						point0 = [ -0.095268, -4.02666, -12.894661 ]
-						point1 = [ -0.111317, -3.66727, -3.638705 ]
+						radius = 1.053987
+						point0 = [ -0.081658, -3.451423, -11.052567 ]
+						point1 = [ -0.095415, -3.143374, -3.11889 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "sniper"
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 0.928643
-						point0 = [ -0.303991, 0.932278, 23.432459 ]
-						point1 = [ -0.043682, 1.073686, 46.745232 ]
+						radius = 0.79598
+						point0 = [ -0.260564, 0.799095, 20.084965 ]
+						point1 = [ -0.037442, 0.920302, 40.067341 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "sniper"
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 1.229651
-						point0 = [ -0.128824, -3.275231, 6.458097 ]
-						point1 = [ -0.135203, -3.13238, 10.137171 ]
+						radius = 1.053987
+						point0 = [ -0.110421, -2.807341, 5.535512 ]
+						point1 = [ -0.115888, -2.684897, 8.689004 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "sniper"
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 0.835482
-						point0 = [ 0.061343, -4.845405, 0.849338 ]
-						point1 = [ -0.017419, -2.15458, 1.569511 ]
+						radius = 0.716127
+						point0 = [ 0.05258, -4.153204, 0.728004 ]
+						point1 = [ -0.014931, -1.846783, 1.345295 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "sniper"
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 0.852513
-						point0 = [ 0.020279, -4.554238, -12.708488 ]
-						point1 = [ 0.023903, 0.249424, -12.503326 ]
+						radius = 0.730725
+						point0 = [ 0.017382, -3.903633, -10.89299 ]
+						point1 = [ 0.020488, 0.213792, -10.717137 ]
 					},
 				]
 			},

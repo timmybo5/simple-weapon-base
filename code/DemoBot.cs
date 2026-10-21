@@ -27,10 +27,27 @@ public class DemoBot : DemoPlayer
 		var botGO = networkManager.BotPrefab.Clone();
 		var botPlayer = botGO.Components.Get<DemoBot>();
 		botPlayer.Dresser.Randomize();
+		RandomizeAppearance( botPlayer.Dresser );
 		botGO.Name = botName;
 		botGO.NetworkSpawn();
 
 		return botPlayer;
+	}
+
+	static void RandomizeAppearance( Dresser dresser )
+	{
+		// Randomize() never picks a skin; on the human model the skin decides the body (male/female) and skin tone
+		var skins = ResourceLibrary.GetAll<Clothing>().Where( c => c.Category == Clothing.ClothingCategory.Skin ).ToList();
+		var skin = TableUtil.GetRandom( skins );
+		if ( skin is null ) return;
+
+		var isFemale = skin.HumanSkinTags?.Contains( "female" ) ?? false;
+
+		dresser.Clothing.RemoveAll( e => e.Clothing?.Category == Clothing.ClothingCategory.Skin
+			|| (isFemale && e.Clothing?.Category.ToString().StartsWith( "FacialHair" ) == true) );
+		dresser.Clothing.Add( new ClothingContainer.ClothingEntry( skin ) );
+
+		dresser.EyeColor = Game.Random.Float( 0f, 1f );
 	}
 
 	protected override void OnAwake()

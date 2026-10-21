@@ -1,4 +1,4 @@
-<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc30:version{8c2d7a91-9c42-4bf0-883a-5a3b1762d4f1} -->
 {
 	rootNode = 
 	{
@@ -59,13 +59,13 @@
 						surface_prop = "metal"
 						collision_tags = "solid"
 						recenter_on_parent_bone = false
-						offset_origin = [ -5.0, 2.5, -32.5 ]
-						offset_angles = [ 0.0, 0.0, 0.0 ]
+						offset_origin = [ -2.0, 2.5, -33.799999 ]
+						offset_angles = [ -8.0, 9.0, 0.0 ]
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
 						filename = "weapons/swb/remington/models/remington.fbx"
-						import_scale = 1.4
+						import_scale = 1.1
 						maxMeshVertices = 0
 						qemError = 0.0
 						import_filter = 
@@ -89,8 +89,8 @@
 						_class = "Attachment"
 						name = "muzzle"
 						parent_bone = "Base"
-						relative_origin = [ 3.230089, -0.838205, -37.566574 ]
-						relative_angles = [ 83.999901, -20.0, 0.0 ]
+						relative_origin = [ -2.513586, -5.020494, -24.524443 ]
+						relative_angles = [ 78.668854, -101.385223, -79.654785 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
@@ -98,8 +98,8 @@
 						_class = "Attachment"
 						name = "ejection_point"
 						parent_bone = "Base"
-						relative_origin = [ 0.093204, 2.756838, -7.725312 ]
-						relative_angles = [ 19.999992, 90.000008, 0.0 ]
+						relative_origin = [ -1.911086, 1.416978, -1.556237 ]
+						relative_angles = [ 28.933825, 91.222427, 8.505073 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
@@ -107,8 +107,8 @@
 						_class = "Attachment"
 						name = "muzzle_silenced"
 						parent_bone = "Base"
-						relative_origin = [ 4.467459, -1.793539, -48.840435 ]
-						relative_angles = [ 83.999878, -20.000481, -0.000531 ]
+						relative_origin = [ -2.648845, -7.105885, -33.040634 ]
+						relative_angles = [ 78.668785, -101.385063, -79.654655 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
@@ -121,9 +121,9 @@
 					{
 						_class = "RenderMeshFile"
 						filename = "weapons/swb/remington/models/remington.fbx"
-						import_translation = [ -5.0, 2.5, -32.5 ]
-						import_rotation = [ 0.0, 0.0, 0.0 ]
-						import_scale = 1.4
+						import_translation = [ -2.0, 2.5, -33.799999 ]
+						import_rotation = [ -8.0, 9.0, 0.0 ]
+						import_scale = 1.1
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -143,9 +143,9 @@
 						_class = "RenderMeshFile"
 						name = "reflex"
 						filename = "attachments/swb/sight/reflex/models/w_reflex_sight.fbx"
-						import_translation = [ -0.23, 0.28, -1.25 ]
-						import_rotation = [ 98.0, 146.0, -35.0 ]
-						import_scale = 5.6
+						import_translation = [ -0.6, 0.2, 0.0 ]
+						import_rotation = [ 76.383453, -95.475464, 85.015594 ]
+						import_scale = 4.4
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -160,9 +160,9 @@
 						_class = "RenderMeshFile"
 						name = "silencer"
 						filename = "attachments/swb/muzzle/silencer_shotgun/models/silencer_shotgun.fbx"
-						import_translation = [ 0.032, -0.009, -0.308 ]
-						import_rotation = [ 98.0, 146.0, -35.0 ]
-						import_scale = 140.0
+						import_translation = [ -0.019, -0.055, -0.26 ]
+						import_rotation = [ 76.383453, -95.475464, 85.015594 ]
+						import_scale = 110.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"

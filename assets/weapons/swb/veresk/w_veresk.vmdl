@@ -1,4 +1,4 @@
-<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc30:version{8c2d7a91-9c42-4bf0-883a-5a3b1762d4f1} -->
 {
 	rootNode = 
 	{
@@ -67,45 +67,45 @@
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 1.816555
-						point0 = [ -19.128941, -0.729053, -1.214483 ]
-						point1 = [ -8.207916, 0.078815, -0.432615 ]
+						radius = 1.427293
+						point0 = [ -14.681199, 0.307096, -4.188838 ]
+						point1 = [ -6.062979, 0.634648, -4.017001 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 1.816555
-						point0 = [ -7.000618, -0.270468, 0.699913 ]
-						point1 = [ 12.296032, 1.165225, 1.922076 ]
+						radius = 1.427293
+						point0 = [ -5.071224, 0.141945, -3.281728 ]
+						point1 = [ 10.14912, 0.756568, -3.098 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 1.172535
-						point0 = [ -0.897558, -0.010402, 0.12183 ]
-						point1 = [ -0.504176, -1.902409, -6.96446 ]
+						radius = 0.921278
+						point0 = [ -0.308458, 0.36722, -3.994409 ]
+						point1 = [ -0.386942, 0.232585, -9.763425 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 1.251605
-						point0 = [ 0.568915, 0.063276, 0.263861 ]
-						point1 = [ 0.632122, -1.194067, -5.254091 ]
+						radius = 0.983404
+						point0 = [ 0.849691, 0.377763, -3.949523 ]
+						point1 = [ 0.603452, 0.440965, -8.389192 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_tags = "solid"
-						radius = 0.854464
-						point0 = [ 9.350156, 0.365089, 0.64961 ]
-						point1 = [ 9.688799, -0.6463, -3.353787 ]
+						radius = 0.671365
+						point0 = [ 7.758937, 0.420735, -4.060557 ]
+						point1 = [ 7.807287, 0.387031, -7.315269 ]
 					},
 				]
 			},
@@ -117,8 +117,8 @@
 						_class = "Attachment"
 						name = "muzzle"
 						parent_bone = "Base"
-						relative_origin = [ 1.437773, 0.676477, -16.441252 ]
-						relative_angles = [ 84.999954, -29.99987, 0.000157 ]
+						relative_origin = [ 1.221952, 0.435243, -13.923334 ]
+						relative_angles = [ 81.080139, -7.478524, 35.760441 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
@@ -126,8 +126,8 @@
 						_class = "Attachment"
 						name = "ejection_point"
 						parent_bone = "Base"
-						relative_origin = [ -0.401, 2.625974, -4.71586 ]
-						relative_angles = [ 20.000036, 89.999931, 0.0 ]
+						relative_origin = [ 0.639996, 1.783118, -5.151474 ]
+						relative_angles = [ 16.561575, 75.498749, -4.74489 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
@@ -135,8 +135,8 @@
 						_class = "Attachment"
 						name = "muzzle_silenced"
 						parent_bone = "Base"
-						relative_origin = [ 2.292696, -0.086187, -24.643312 ]
-						relative_angles = [ 84.999954, -29.99987, 0.000157 ]
+						relative_origin = [ 1.911327, -0.128724, -19.56012 ]
+						relative_angles = [ 81.080139, -7.478524, 35.760441 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
@@ -149,9 +149,9 @@
 					{
 						_class = "RenderMeshFile"
 						filename = "weapons/swb/veresk/models/veresk.fbx"
-						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_translation = [ -1.0, 0.0, -3.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
-						import_scale = 1.4
+						import_scale = 1.1
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -163,6 +163,29 @@
 							[
 								"sleeve",
 								"hardknuckle",
+								"Sr_002",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "clip"
+						filename = "weapons/swb/veresk/models/veresk.fbx"
+						import_translation = [ -1.0, 0.0, 5.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.1
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"sleeve",
+								"hardknuckle",
+								"Sr",
 							]
 						}
 					},
@@ -170,9 +193,9 @@
 						_class = "RenderMeshFile"
 						name = "silencer"
 						filename = "attachments/swb/muzzle/silencer_rifle/models/silencer_rifle.fbx"
-						import_translation = [ 0.46, -0.096, 0.39 ]
-						import_rotation = [ 98.0, 139.600006, -40.0 ]
-						import_scale = 28.0
+						import_translation = [ 0.575, -0.127, 0.7 ]
+						import_rotation = [ 82.5, -51.0, 170.0 ]
+						import_scale = 22.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -187,9 +210,9 @@
 						_class = "RenderMeshFile"
 						name = "reflex"
 						filename = "attachments/swb/sight/reflex/models/w_reflex_sight.fbx"
-						import_translation = [ 2.25, -0.24, 7.4 ]
-						import_rotation = [ 98.0, 139.600006, -40.0 ]
-						import_scale = 4.0
+						import_translation = [ 3.06, -0.5, 9.0 ]
+						import_rotation = [ 83.0, -21.0, 160.0 ]
+						import_scale = 3.142857
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -201,36 +224,6 @@
 						}
 					},
 				]
-			},
-			{
-				_class = "AnimationList"
-				children = 
-				[
-					{
-						_class = "AnimFile"
-						name = "idle"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						disable_interpolation = false
-						enable_scale = false
-						source_filename = "weapons/swb/veresk/models/veresk.fbx"
-						start_frame = 15
-						end_frame = 15
-						framerate = -1.0
-						take = 0
-						reverse = false
-					},
-				]
-				default_root_bone_name = ""
 			},
 			{
 				_class = "BodyGroupList"
@@ -268,7 +261,7 @@
 								_class = "BodyGroupChoice"
 								meshes = 
 								[
-									"",
+									"silencer",
 								]
 							},
 							{

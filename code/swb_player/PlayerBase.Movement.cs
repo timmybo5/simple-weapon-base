@@ -99,7 +99,7 @@ public partial class PlayerBase
 	{
 		CharacterController = Components.Get<CharacterController>();
 		AnimationHelper = Components.Get<CitizenAnimationHelper>();
-		BodyCollider = Body.Components.Get<CapsuleCollider>();
+		BodyCollider = Body.Components.GetInDescendantsOrSelf<CapsuleCollider>();
 
 		if ( BodyRenderer is not null )
 			BodyRenderer.OnFootstepEvent += OnAnimEventFootstep;

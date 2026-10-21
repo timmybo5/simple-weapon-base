@@ -1,4 +1,4 @@
-<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc30:version{8c2d7a91-9c42-4bf0-883a-5a3b1762d4f1} -->
 {
 	rootNode = 
 	{
@@ -112,13 +112,13 @@
 						surface_prop = "metal"
 						collision_tags = "solid"
 						recenter_on_parent_bone = false
-						offset_origin = [ -8.5, 3.0, -29.0 ]
+						offset_origin = [ -8.2, 3.0, -29.4 ]
 						offset_angles = [ 0.0, 0.0, 0.0 ]
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
 						filename = "weapons/swb/scarh/models/scar.fbx"
-						import_scale = 1.4
+						import_scale = 1.2
 						maxMeshVertices = 0
 						qemError = 0.0
 						import_filter = 
@@ -141,7 +141,7 @@
 						_class = "Attachment"
 						name = "muzzle"
 						parent_bone = "Base"
-						relative_origin = [ 3.553769, -0.469474, -27.708422 ]
+						relative_origin = [ 3.046088, -0.402406, -23.750076 ]
 						relative_angles = [ 82.0, 0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
@@ -150,7 +150,7 @@
 						_class = "Attachment"
 						name = "ejection_point"
 						parent_bone = "Base"
-						relative_origin = [ 1.479983, 2.513014, -5.907219 ]
+						relative_origin = [ 1.268557, 2.154012, -5.063331 ]
 						relative_angles = [ 20.000015, 90.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
@@ -159,7 +159,7 @@
 						_class = "Attachment"
 						name = "muzzle_silenced"
 						parent_bone = "Base"
-						relative_origin = [ 4.546231, -1.281789, -36.36372 ]
+						relative_origin = [ 3.896769, -1.098676, -31.168903 ]
 						relative_angles = [ 81.999977, 0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
@@ -174,9 +174,9 @@
 						_class = "RenderMeshFile"
 						name = "scar"
 						filename = "weapons/swb/scarh/models/scar.fbx"
-						import_translation = [ -8.5, 3.0, -29.0 ]
+						import_translation = [ -8.2, 3.0, -29.4 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
-						import_scale = 1.4
+						import_scale = 1.2
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -197,9 +197,9 @@
 						_class = "RenderMeshFile"
 						name = "ironsights"
 						filename = "weapons/swb/scarh/models/scar.fbx"
-						import_translation = [ -8.5, 3.0, -29.0 ]
+						import_translation = [ -8.2, 3.0, -29.4 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
-						import_scale = 1.4
+						import_scale = 1.2
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -223,7 +223,7 @@
 						filename = "attachments/swb/sight/reflex/models/w_reflex_sight.fbx"
 						import_translation = [ -0.16, 0.32, -0.5 ]
 						import_rotation = [ 98.0, 139.600006, -40.0 ]
-						import_scale = 5.6
+						import_scale = 4.8
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -240,7 +240,7 @@
 						filename = "attachments/swb/muzzle/silencer_rifle/models/silencer_rifle.fbx"
 						import_translation = [ 0.1125, -0.022, -0.89 ]
 						import_rotation = [ 98.0, 139.600006, -40.0 ]
-						import_scale = 35.0
+						import_scale = 30.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
