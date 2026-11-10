@@ -5,7 +5,8 @@
   "Ident": "demo",
   "Schema": 1,
   "IncludeSourceFiles": false,
-  "Resources": "*.png\n*.ttf\n*.mp3\n*.wav\n*.config\n*.scss\n*.prefab\n*.fbx\n*.smd\n*credits*\nfonts/*",
+  "Resources": "*.prefab\n*.sound\n*.vmdl\n*.vmat\n*.vanmgrph\n*.scene\n*.shader\n*.ttf\n*.otf\n*.config\n*.scss\n*credits*\nfonts/*\nmaterials/swb/scopes/*.png\nattachments/*/ui/*.png\nweapons/swb/*.png\n!*/textures/*.png\n!weapons/swb/l96a1/hands/*.png\n!*.blend\n!*.blend1\n!*.dmx",
+  "PublishUsedAssetsOnly": true,
   "PackageReferences": [],
   "EditorReferences": null,
   "Mounts": null,
@@ -39,6 +40,10 @@
     "RecommendedMinPlayers": 2,
     "RecommendedMaxPlayers": 0,
     "Coop": false,
-    "Versus": true
+    "Versus": true,
+    "WorkshopTags": [
+      "Action",
+      "Shooter"
+    ]
   }
 }

@@ -1,20 +1,20 @@
 ## Ignore S&Box specific files
 
-.vscode/
 .vs/
+.vscode/
+.dotnet/
 code/*.csproj
 config/
 .sbox/
-*.slnx
 
-*.vmdl_c
-*.vmat_c
-*.vtex_c
-*.prefab_c
-*.scene_c
-*.vsnd_c
-*.sound_c
-*.vanmgrph_c
+# Compiled assets: rebuilt by each editor and rewritten by s&box updates
+*.*_c
+*.scene_d
+
+# No working source: the compiled file is the only copy
+!assets/particles/swb/muzzle/flare.vtex_c
+!assets/particles/swb/muzzle/flash.vtex_c
+!assets/shaders/swb_sam_red_dot.shader_c
 
 # Blender
 *.blend1
