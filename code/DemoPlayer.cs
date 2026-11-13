@@ -98,7 +98,7 @@ public class DemoPlayer : PlayerBase
 			if ( localPly is null || !localPly.IsAlive ) return;
 
 			var activeWep = localPly.Inventory.Active.GetComponent<Weapon>();
-			if ( !activeWep.IsScoping && !activeWep.IsAiming )
+			if ( activeWep == null || (!activeWep.IsScoping && !activeWep.IsAiming) )
 			{
 				ConsoleSystem.Run( "thirdperson" );
 				timeSincePerspectiveSwitch = 0;

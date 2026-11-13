@@ -43,12 +43,9 @@ public class InventoryDisplay : Panel
 
 		activeItem = player.Inventory.Active?.Components.Get<IInventoryItem>();
 
-		if ( activeItem is not null )
+		foreach ( var entry in itemPanels )
 		{
-			foreach ( var entry in itemPanels )
-			{
-				entry.Value.SetClass( "active", entry.Key == activeItem.Slot );
-			}
+			entry.Value.SetClass( "active", entry.Key == activeItem?.Slot );
 		}
 
 		CheckInput();
@@ -88,7 +85,7 @@ public class InventoryDisplay : Panel
 
 	void CheckInput()
 	{
-		if ( activeItem is null || !activeItem.CanCarryStop() ) return;
+		if ( activeItem != null && !activeItem.CanCarryStop() ) return;
 		if ( Input.Pressed( InputButtonHelper.Slot0 ) ) SwitchItem( 0 );
 		else if ( Input.Pressed( InputButtonHelper.Slot1 ) ) SwitchItem( 1 );
 		else if ( Input.Pressed( InputButtonHelper.Slot2 ) ) SwitchItem( 2 );
